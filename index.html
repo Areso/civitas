@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title>City Builder</title>
+		<link rel="stylesheet" href="dist/app.min.css" />
+		<script src="dist/lib.min.js"></script>
+		<script src="dist/app.min.js"></script>
+	</head>
+	<body>
+		<section class="start">
+			<div class="logo"></div>
+			<fieldset>
+				<legend>Setup Your City</legend>
+				<p>Choose your city details well, climate changes affect your building options and resources.</p>
+				<dl>
+					<dt>Name:</dt>
+					<dd><input type="text" class="name text-input" /></dd>
+					<dt>City Name:</dt>
+					<dd><input type="text" class="cityname text-input" /></dd>
+					<dt>Nationality:</dt>
+					<dd>
+						<select class="nation text-input"></select>
+					</dd>
+					<dt>Climate</dt>
+					<dd>
+						<select class="climate text-input"></select>
+					</dd>
+					<dt>Avatar:</dt>
+					<dd class="avatar-select-container">
+						<div class="avatar-select"></div>
+						<div class="scrollbar">
+							<div class="up"></div>
+							<div class="down"></div>
+						</div>
+					</dd>
+				</dl>
+				<div class="hr"></div>
+				<a href="#" class="do-start button">Start Playing</a>
+			</fieldset>
+		</section>
+		<section class="ui">
+			<header>
+				<div class="cityavatar"></div>
+				<span title="Your city level" class="tips citylevel">1</span>
+				<span title="Your city prestige" class="tips cityprestige">1</span>
+				<div title="Your city name" class="tips cityname"></div>
+				<div title="Your city fame." class="tips cityfame">
+					<span></span>
+				</div>
+				<div class="top-panel"></div>
+			</header>
+			<aside class="console">
+				<div class="scrollbar">
+					<div class="up"></div>
+					<div class="down"></div>
+				</div>
+				<div class="contents"></div>
+			</aside>
+			<section class="game"></section>
+			<footer>
+				<div class="toolbar">
+					<div class="tips do-build" title="Buildings"></div>
+					<div class="tips do-storage" title="Storage Space"></div>
+					<div class="tips do-trades" title="Trades"></div>
+					<div class="tips do-advisor" title="City Advisor"></div>
+					<div class="tips do-rankings" title="Rankings"></div>
+					<div class="tips do-worldmap" title="World Map"></div>
+					<div class="tips do-options" title="Game Options"></div>
+				</div>
+			</footer>
+		</section>
+		<audio id="music" loop>
+			<source src="assets/music/track1.mp3" type="audio/mpeg">
+		</audio>
+	</body>
+</html>

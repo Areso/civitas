@@ -1,0 +1,30 @@
+{
+	"name": "city-builder",
+	"version": "0.1.0",
+	"description": "City Builder is a city-building game written in Javascript with the help of the jQuery library.",
+	"main": "index.html",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"keywords": [
+		"game",
+		"strategy",
+		"city-builder",
+		"city-building",
+		"simulator"
+	],
+	"author": "sizeofcat@riseup.net",
+	"license": "UNLICENSED",
+	"devDependencies": {
+		"browser-sync": "^2.14.0",
+		"gulp": "^3.9.1",
+		"gulp-clean-css": "^2.0.12",
+		"gulp-concat": "^2.6.0",
+		"gulp-header": "^1.8.8",
+		"gulp-uglify": "^2.0.0"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git@github.com:sizeofcat/city-builder.git"
+	}
+}
