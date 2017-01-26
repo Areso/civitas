@@ -1,4 +1,4 @@
-/** @preserve jQuery.scrollTo Copyright (c) 2007-2014 Ariel Flesler - aflesler<a>gmail<d>com | http://flesler.blogspot.com Licensed under MIT http://flesler.blogspot.com/2007/10/jqueryscrollto.html version 1.4.14 */
+/*! @preserve jQuery.scrollTo Copyright (c) 2007-2014 Ariel Flesler - aflesler<a>gmail<d>com | http://flesler.blogspot.com Licensed under MIT http://flesler.blogspot.com/2007/10/jqueryscrollto.html version 1.4.14 */
 (function(define) {
     'use strict';
 

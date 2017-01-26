@@ -63,7 +63,9 @@ gulp.task('lib', function() {
 		'vendor/js/jquery.classynotty.js'
   	])
     .pipe(concat('lib.min.js'))
-    .pipe(uglify())
+    .pipe(uglify({
+    	preserveComments: 'license'
+  	}))
     .pipe(gulp.dest('dist/'))
 });
 
