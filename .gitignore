@@ -2,5 +2,7 @@
 *.tmp
 Thumbs.db
 node_modules
-assets/*.*
-assets/**/*
+fonts/**/*
+images/**/*
+music/**/*
+temp/**/*

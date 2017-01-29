@@ -1,100 +1,100 @@
 .top-panel span.coins {
-	background: transparent url(../assets/images/resources/coins_medium.png) no-repeat left center;
+	background: transparent url(../images/resources/coins_medium.png) no-repeat left center;
 }
 
 .top-panel span.stones {
-	background: transparent url(../assets/images/resources/stones_medium.png) no-repeat left center;
+	background: transparent url(../images/resources/stones_medium.png) no-repeat left center;
 }
 
 .top-panel span.flour {
-	background: transparent url(../assets/images/resources/flour_medium.png) no-repeat left center;
+	background: transparent url(../images/resources/flour_medium.png) no-repeat left center;
 }
 
 .top-panel span.meat {
-	background: transparent url(../assets/images/resources/meat_medium.png) no-repeat left center;
+	background: transparent url(../images/resources/meat_medium.png) no-repeat left center;
 }
 
 .top-panel span.ironores {
-	background: transparent url(../assets/images/resources/ironores_medium.png) no-repeat left center;
+	background: transparent url(../images/resources/ironores_medium.png) no-repeat left center;
 }
 
 .top-panel span.weapons {
-	background: transparent url(../assets/images/resources/weapons_medium.png) no-repeat left center;
+	background: transparent url(../images/resources/weapons_medium.png) no-repeat left center;
 }
 
 .top-panel span.bread {
-	background: transparent url(../assets/images/resources/bread_medium.png) no-repeat left center;
+	background: transparent url(../images/resources/bread_medium.png) no-repeat left center;
 }
 
 .top-panel span.salt {
-	background: transparent url(../assets/images/resources/salt_medium.png) no-repeat left center;
+	background: transparent url(../images/resources/salt_medium.png) no-repeat left center;
 }
 
 .top-panel span.wheat {
-	background: transparent url(../assets/images/resources/wheat_medium.png) no-repeat left center;
+	background: transparent url(../images/resources/wheat_medium.png) no-repeat left center;
 }
 
 .top-panel span.wood {
-	background: transparent url(../assets/images/resources/wood_medium.png) no-repeat left center;
+	background: transparent url(../images/resources/wood_medium.png) no-repeat left center;
 }
 
 .top-panel span.iron {
-	background: transparent url(../assets/images/resources/iron_medium.png) no-repeat left center;
+	background: transparent url(../images/resources/iron_medium.png) no-repeat left center;
 }
 
 .top-panel span.cattle {
-	background: transparent url(../assets/images/resources/cattle_medium.png) no-repeat left center;
+	background: transparent url(../images/resources/cattle_medium.png) no-repeat left center;
 }
 
 
 footer .do-trades {
-	background: transparent url(../assets/images/ui/diplomacy.png) no-repeat;
+	background: transparent url(../images/ui/diplomacy.png) no-repeat;
 }
 
 footer .do-storage {
-	background: transparent url(../assets/images/ui/storage.png) no-repeat;
+	background: transparent url(../images/ui/storage.png) no-repeat;
 }
 
 footer .do-build {
-	background: transparent url(../assets/images/ui/building.png) no-repeat;
+	background: transparent url(../images/ui/building.png) no-repeat;
 }
 
 footer .do-advisor {
-	background: transparent url(../assets/images/ui/advisor.png) no-repeat;
+	background: transparent url(../images/ui/advisor.png) no-repeat;
 }
 
 footer .do-worldmap {
-	background: transparent url(../assets/images/ui/worldmap.png) no-repeat;
+	background: transparent url(../images/ui/worldmap.png) no-repeat;
 }
 
 footer .do-rankings {
-	background: transparent url(../assets/images/ui/rankings.png) no-repeat;
+	background: transparent url(../images/ui/rankings.png) no-repeat;
 }
 
 footer .do-options {
-	background: transparent url(../assets/images/ui/options.png) no-repeat;
+	background: transparent url(../images/ui/options.png) no-repeat;
 }
 
 .panel header .btn.start {
-	background: transparent url(../assets/images/ui/start.png) no-repeat;
+	background: transparent url(../images/ui/start.png) no-repeat;
 }
 
 .panel header .btn.pause {
-	background: transparent url(../assets/images/ui/pause.png) no-repeat;
+	background: transparent url(../images/ui/pause.png) no-repeat;
 }
 
 .panel header .btn.close {
-	background: transparent url(../assets/images/ui/close.png) no-repeat;
+	background: transparent url(../images/ui/close.png) no-repeat;
 }
 
 .panel header .btn.demolish {
-	background: transparent url(../assets/images/ui/delete.png) no-repeat;
+	background: transparent url(../images/ui/delete.png) no-repeat;
 }
 
 .panel .worldmap {
 	width: 972px;
 	height: 657px;
-	background: transparent url(../assets/images/ui/worldmap.jpg) no-repeat;
+	background: transparent url(../images/ui/worldmap.jpg) no-repeat;
 	position: relative;
 }
 
@@ -102,7 +102,7 @@ footer .do-options {
 	position: absolute;
 	width: 40px;
 	height: 40px;
-	background: transparent url(../assets/images/ui/city.png) no-repeat;
+	background: transparent url(../images/ui/city.png) no-repeat;
 	cursor: pointer;
 }
 
@@ -110,10 +110,10 @@ footer .do-options {
 	position: absolute;
 	width: 40px;
 	height: 40px;
-	background: transparent url(../assets/images/ui/yourcity.png) no-repeat;
+	background: transparent url(../images/ui/yourcity.png) no-repeat;
 	cursor: pointer;
 }
 
 .game {
-	background: #000 url(../assets/images/screens/mainmap.jpg) no-repeat;
+	background: #000 url(../images/screens/mainmap.jpg) no-repeat;
 }

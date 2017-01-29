@@ -4,8 +4,8 @@
 	font-weight: 400;
 	src: local('Hammersmith One'),
 		local('HammersmithOne'),
-		url('../assets/fonts/HammersmithOne.woff2') format('woff2'),
-		url('../assets/fonts/HammersmithOne.woff') format('woff');
+		url('../fonts/HammersmithOne.woff2') format('woff2'),
+		url('../fonts/HammersmithOne.woff') format('woff');
 }
 
 @font-face {
@@ -14,8 +14,8 @@
 	font-weight: 400;
 	src: local('Mouse Memoirs'),
 		local('MouseMemoirs-Regular'),
-		url('../assets/fonts/MouseMemoirs.woff2') format('woff2'),
-		url('../assets/fonts/MouseMemoirs.woff') format('woff');
+		url('../fonts/MouseMemoirs.woff2') format('woff2'),
+		url('../fonts/MouseMemoirs.woff') format('woff');
 }
 
 * {
@@ -37,6 +37,10 @@ body {
 	padding: 0;
 	font-family: 'Hammersmith One';
 	overflow: hidden;
+}
+
+body > p {
+	display:none;
 }
 
 ul, li {
@@ -78,7 +82,7 @@ ul, li {
 .ui > header {
 	width: 220px;
 	height: 112px;
-	background: transparent url(../assets/images/ui/header.png) no-repeat;
+	background: transparent url(../images/ui/header.png) no-repeat;
 	left: 0;
 	z-index: 9999;
 	top: 0;
@@ -152,7 +156,7 @@ ul, li {
 }
 
 header .top-panel {
-	background: transparent url(../assets/images/ui/top-panel.jpg) no-repeat;
+	background: transparent url(../images/ui/top-panel.jpg) no-repeat;
 	width: 406px;
 	height: 30px;
 	position: absolute;
@@ -177,7 +181,7 @@ header .top-panel span {
 .ui > footer {
 	width: 529px;
 	height: 100px;
-	background: transparent url(../assets/images/ui/bottom.png) no-repeat;
+	background: transparent url(../images/ui/bottom.png) no-repeat;
 	position: fixed;
 	bottom: 0;
 	left: 5%;
@@ -494,7 +498,7 @@ table.mercenaries td:nth-child(3) {
 .panel ul.advices li {
 	line-height: 30px;
 	padding-left: 50px;
-	background: transparent url(../assets/images/ui/check.png) no-repeat left center;
+	background: transparent url(../images/ui/check.png) no-repeat left center;
 }
 
 .panel .hired-mercenaries-list {
@@ -683,13 +687,6 @@ section.start fieldset legend {
 	width: 250px;
 }
 
-.start .logo {
-	width: 400px;
-	height: 200px;
-	background: transparent url(../assets/images/ui/logo-big.png) no-repeat;
-	margin: 3% auto 0 auto;
-}
-
 /* Notifications */
 
 .notifications {
@@ -731,7 +728,7 @@ section.start fieldset legend {
 	padding: 0;
 	cursor: pointer;
 	display: none;
-	background: url(../assets/images/ui/close.png) no-repeat;
+	background: url(../images/ui/close.png) no-repeat;
 	margin: 6px;
 }
 
@@ -968,7 +965,7 @@ a.disabled {
 }
 
 .ui .console {
-	background: transparent url(../assets/images/ui/console.jpg) no-repeat;
+	background: transparent url(../images/ui/console.jpg) no-repeat;
 	height: 137px;
 	width: 494px;
 	position: fixed;
@@ -1004,12 +1001,12 @@ a.disabled {
 }
 
 .scrollbar .up {
-	background: transparent url(../assets/images/ui/up.png) no-repeat;
+	background: transparent url(../images/ui/up.png) no-repeat;
 	margin-bottom: 5px;
 }
 
 .scrollbar .down {
-	background: transparent url(../assets/images/ui/down.png) no-repeat;
+	background: transparent url(../images/ui/down.png) no-repeat;
 }
 
 .console .separator {
@@ -1037,11 +1034,11 @@ a.disabled {
 }
 
 .panel .music-control.playing {
-	background: transparent url(../assets/images/ui/music-stop.png) no-repeat;
+	background: transparent url(../images/ui/music-stop.png) no-repeat;
 }
 
 .panel .music-control.paused {
-	background: transparent url(../assets/images/ui/music-play.png) no-repeat;
+	background: transparent url(../images/ui/music-play.png) no-repeat;
 }
 
 /* Tipsy */
