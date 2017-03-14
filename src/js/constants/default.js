@@ -38,7 +38,7 @@ city_builder.MAX_CITY_LEVEL = 30;
  * @constant
  * @type {String}
  */
-city_builder.ASSETS_URL = 'assets/';
+city_builder.ASSETS_URL = './';
 
 /**
  * Amount of influence your city loses each year.
