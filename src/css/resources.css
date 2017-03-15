@@ -75,6 +75,10 @@ footer .do-options {
 	background: transparent url(../images/ui/options.png) no-repeat;
 }
 
+footer .do-restart {
+	background: transparent url(../images/ui/restart.png) no-repeat;
+}
+
 .panel header .btn.start {
 	background: transparent url(../images/ui/start.png) no-repeat;
 }

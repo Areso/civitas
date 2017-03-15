@@ -139,6 +139,12 @@ city_builder.game = function () {
 				core: self
 			});
 			return false;
+		}).on('click', '.do-restart', function () {
+			if (confirm('Are you sure you want to restart the game? You wll lose all progress!') === true) {
+				localStorage.removeItem(city_builder.STORAGE_KEY + '.data');
+				document.location.reload();
+			}
+			return false;
 		}).on('click', '.do-trades', function () {
 			new city_builder.panel_trades({
 				core: self
