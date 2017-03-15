@@ -46,3 +46,8 @@ Dependencies
 - jQuery UI 1.11.2
 - jQuery Tipsy 1.0.0a
 - jQuery scrollTo 1.4.14
+
+Thanks
+======
+
+The `music/track1.mp3` song is named 'Glandula Pinealis' by Shatifax.
