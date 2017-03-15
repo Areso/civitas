@@ -81,8 +81,7 @@ gulp.task('lib', ['cleanup_js'], function() {
 	  	'vendor/js/jquery.js',
 		'vendor/js/jquery.ui.js',
 		'vendor/js/jquery.scrollto.js',
-		'vendor/js/jquery.tipsy.js',
-		'vendor/js/jquery.classynotty.js'
+		'vendor/js/jquery.tipsy.js'
   	])
     .pipe(concat('lib.js'))
     .pipe(gulp.dest('dist/'))
