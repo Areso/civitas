@@ -2,7 +2,6 @@
 *.tmp
 Thumbs.db
 node_modules
-fonts/**/*
 images/**/*
 music/**/*
 temp/**/*

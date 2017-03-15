@@ -2,14 +2,14 @@ var gulp = require('gulp');
 var uglify = require('gulp-uglify');
 var concat = require('gulp-concat');
 var cleanCSS = require('gulp-clean-css');
-var browserSync = require('browser-sync').create();
-var reload = browserSync.reload;
 var header = require('gulp-header');
+var del = require('del');
 var pkg = require('./package.json');
 var fs = require('fs');
+var replace = require('gulp-replace');
 
-gulp.task('app', function() {
-	gulp.src([
+gulp.task('app', ['cleanup_js'], function() {
+	return gulp.src([
 	  	'src/js/others/functions.js',
 		'src/js/constants/default.js',
 		'src/js/languages/en.js',
@@ -48,19 +48,26 @@ gulp.task('app', function() {
 		'src/js/objects/army.js',
 		'src/js/objects/game.js'
   	])
-    .pipe(concat('app.min.js'))
-    .pipe(uglify())
+    .pipe(concat('app.js'))
     .pipe(header(fs.readFileSync('HEADER', 'utf8'), { pkg: pkg } ))
+    .pipe(replace('__VERSION_NUMBER__', pkg.version + '.' + ((new Date()).getMonth() + 1) + '' + (new Date()).getDate() + '' + (new Date()).getFullYear()))
     .pipe(gulp.dest('dist/'))
 });
 
-gulp.task('lib', function() {
-	gulp.src([
-	  	'vendor/js/jquery.js',
-		'vendor/js/jquery.ui.js',
-		'vendor/js/jquery.scrollto.js',
-		'vendor/js/jquery.tipsy.js',
-		'vendor/js/jquery.classynotty.js'
+gulp.task('app_minify', ['app'], function() {
+	return gulp.src([
+		'dist/app.js'
+  	])
+    .pipe(concat('app.min.js'))
+    .pipe(uglify())
+    .pipe(header(fs.readFileSync('HEADER', 'utf8'), { pkg: pkg } ))
+    .pipe(replace('__VERSION_NUMBER__', pkg.version + '.' + ((new Date()).getMonth() + 1) + '' + (new Date()).getDate() + '' + (new Date()).getFullYear()))
+    .pipe(gulp.dest('dist/'))
+});
+
+gulp.task('lib_minify', ['lib'], function() {
+	return gulp.src([
+		'dist/lib.js'
   	])
     .pipe(concat('lib.min.js'))
     .pipe(uglify({
@@ -69,30 +76,70 @@ gulp.task('lib', function() {
     .pipe(gulp.dest('dist/'))
 });
 
-gulp.task('css', function() {
-	gulp.src([
+gulp.task('lib', ['cleanup_js'], function() {
+	return gulp.src([
+	  	'vendor/js/jquery.js',
+		'vendor/js/jquery.ui.js',
+		'vendor/js/jquery.scrollto.js',
+		'vendor/js/jquery.tipsy.js',
+		'vendor/js/jquery.classynotty.js'
+  	])
+    .pipe(concat('lib.js'))
+    .pipe(gulp.dest('dist/'))
+});
+
+gulp.task('css', ['cleanup_css'], function() {
+	return gulp.src([
 	  	'src/css/main.css',
 		'src/css/resources.css'
+  	])
+    .pipe(concat('app.css'))
+    .pipe(header(fs.readFileSync('HEADER', 'utf8'), { pkg: pkg } ))
+    .pipe(replace('__VERSION_NUMBER__', pkg.version + '.' + ((new Date()).getMonth() + 1) + '' + (new Date()).getDate() + '' + (new Date()).getFullYear()))
+    .pipe(gulp.dest('dist/'))
+});
+
+gulp.task('css_minify', ['css'], function() {
+	return gulp.src([
+		'dist/app.css'
   	])
     .pipe(concat('app.min.css'))
     .pipe(cleanCSS())
     .pipe(header(fs.readFileSync('HEADER', 'utf8'), { pkg: pkg } ))
+    .pipe(replace('__VERSION_NUMBER__', pkg.version + '.' + ((new Date()).getMonth() + 1) + '' + (new Date()).getDate() + '' + (new Date()).getFullYear()))
     .pipe(gulp.dest('dist/'))
 });
 
-gulp.task('watch', ['build'], function (done) {
-    browserSync.reload();
-    done();
+gulp.task('cleanup_css', function() {
+	return del([
+		'dist/*.css'
+    ]);
 });
 
-gulp.task('serve', ['build'], function () {
-    browserSync.init({
-        proxy: "localhost/city-builder/",
-		files: ["dist/app.min.css", "dist/app.min.js", "dist/lib.min.js"]
-    });
-    gulp.watch(["src/**/*.js", "src/**/*.css"], ['watch']);
+gulp.task('cleanup_js', function() {
+	return del([
+		'dist/*.js'
+    ]);
 });
 
-gulp.task('build', ['css', 'app', 'lib']);
+gulp.task('deploy', ['cleanup_deploy'], function() {
+	return true;
+});
 
-gulp.task('default',['serve']);
+gulp.task('cleanup_deploy', function() {
+	return true;
+});
+
+gulp.task('watch', function () {
+	gulp.watch("src/**/*.js", ['build_js']);
+	gulp.watch("src/**/*.css", ['build_css']);
+	gulp.watch("images/**/*.*", ['deploy']);
+});
+
+gulp.task('build_js', ['app_minify', 'lib_minify']);
+
+gulp.task('build_css', ['css_minify']);
+
+gulp.task('build', ['build_css', 'build_js', 'deploy']);
+
+gulp.task('default', ['watch', 'build']);

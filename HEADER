@@ -2,6 +2,6 @@
  * City-builder HTML5 engine/game
  *
  * @author sizeof(cat) <sizeofcat AT riseup.net>
- * @version 0.1.0
+ * @version __VERSION_NUMBER__
  * @license MIT
  */ 
