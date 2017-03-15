@@ -48,7 +48,7 @@ gulp.task('app', ['cleanup_js'], function() {
 		'src/js/objects/army.js',
 		'src/js/objects/game.js'
   	])
-    .pipe(concat('app.js'))
+    .pipe(concat('application.debug.js'))
     .pipe(header(fs.readFileSync('HEADER', 'utf8'), { pkg: pkg } ))
     .pipe(replace('__VERSION_NUMBER__', pkg.version + '.' + ((new Date()).getMonth() + 1) + '' + (new Date()).getDate() + '' + (new Date()).getFullYear()))
     .pipe(gulp.dest('dist/'))
@@ -56,9 +56,9 @@ gulp.task('app', ['cleanup_js'], function() {
 
 gulp.task('app_minify', ['app'], function() {
 	return gulp.src([
-		'dist/app.js'
+		'dist/application.debug.js'
   	])
-    .pipe(concat('app.min.js'))
+    .pipe(concat('application.min.js'))
     .pipe(uglify())
     .pipe(header(fs.readFileSync('HEADER', 'utf8'), { pkg: pkg } ))
     .pipe(replace('__VERSION_NUMBER__', pkg.version + '.' + ((new Date()).getMonth() + 1) + '' + (new Date()).getDate() + '' + (new Date()).getFullYear()))
@@ -67,9 +67,9 @@ gulp.task('app_minify', ['app'], function() {
 
 gulp.task('lib_minify', ['lib'], function() {
 	return gulp.src([
-		'dist/lib.js'
+		'dist/libraries.debug.js'
   	])
-    .pipe(concat('lib.min.js'))
+    .pipe(concat('libraries.min.js'))
     .pipe(uglify({
     	preserveComments: 'license'
   	}))
@@ -83,7 +83,7 @@ gulp.task('lib', ['cleanup_js'], function() {
 		'vendor/js/jquery.scrollto.js',
 		'vendor/js/jquery.tipsy.js'
   	])
-    .pipe(concat('lib.js'))
+    .pipe(concat('libraries.debug.js'))
     .pipe(gulp.dest('dist/'))
 });
 
@@ -92,7 +92,7 @@ gulp.task('css', ['cleanup_css'], function() {
 	  	'src/css/main.css',
 		'src/css/resources.css'
   	])
-    .pipe(concat('app.css'))
+    .pipe(concat('styles.debug.css'))
     .pipe(header(fs.readFileSync('HEADER', 'utf8'), { pkg: pkg } ))
     .pipe(replace('__VERSION_NUMBER__', pkg.version + '.' + ((new Date()).getMonth() + 1) + '' + (new Date()).getDate() + '' + (new Date()).getFullYear()))
     .pipe(gulp.dest('dist/'))
@@ -100,9 +100,9 @@ gulp.task('css', ['cleanup_css'], function() {
 
 gulp.task('css_minify', ['css'], function() {
 	return gulp.src([
-		'dist/app.css'
+		'dist/styles.debug.css'
   	])
-    .pipe(concat('app.min.css'))
+    .pipe(concat('styles.min.css'))
     .pipe(cleanCSS())
     .pipe(header(fs.readFileSync('HEADER', 'utf8'), { pkg: pkg } ))
     .pipe(replace('__VERSION_NUMBER__', pkg.version + '.' + ((new Date()).getMonth() + 1) + '' + (new Date()).getDate() + '' + (new Date()).getFullYear()))
