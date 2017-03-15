@@ -38,3 +38,11 @@ Source code
 The application can be downloaded from GitHub.com by issueing:
 
 `git clone git@github.com/sizeofcat/city-builder.git`
+
+Dependencies
+============
+
+- jQuery 3.1.1
+- jQuery UI 1.11.2
+- jQuery Tipsy 1.0.0a
+- jQuery scrollTo 1.4.14
