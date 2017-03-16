@@ -55,7 +55,7 @@ ul, li {
 
 
 .hr {
-	border-top: 1px solid #b38669;
+	border-top: 1px solid #777;
 	padding-top: 5px;
 	margin-top: 5px;
 	clear: both;
@@ -239,7 +239,7 @@ header .top-panel span {
 	vertical-align: middle;
 	line-height: 20px;
 	display: inline-block;
-	border-bottom: 1px solid #b38669;
+	border-bottom: 1px solid #777;
 	padding-bottom: 5px;
 	margin-bottom: 5px;
 }
@@ -277,7 +277,7 @@ header .top-panel span {
 	top: 30%;
 	left: 30%;
 	z-index: 99999;
-	background-color: #DBDAA4;
+	background-color: #fff;
 	min-width: 220px;
 	max-width: 300px;
 	min-height: 100px;
@@ -306,7 +306,7 @@ header .top-panel span {
 }
 
 .ui .panel footer {
-	border-top: 1px solid #b38669;
+	border-top: 1px solid #777;
 	padding-top: 10px;
 	margin-top: 10px;
 }
@@ -324,8 +324,13 @@ header .top-panel span {
 	color: #fff;
 }
 
+.panel .toolbar .btn.iblock {
+	display: inline-block;
+	width: auto;
+}
+
 .panel .contents .left {
-	width: 620px;
+	width: 590px;
 	float: left;
 	position: relative;
 }
@@ -343,7 +348,7 @@ header .top-panel span {
 }
 .panel fieldset legend {
 	border: 1px solid #555;
-	padding: 6px 10px;
+	padding: 0 10px;
 }
 
 .panel .b-name {
@@ -512,14 +517,14 @@ table.mercenaries td:nth-child(3) {
 /* City Storage panel */
 
 #panel-storage {
-	max-width: 754px;
+	max-width: 672px;
 	max-height: 640px;
 	left: 25%;
 	top: 10%;
 }
 
 .panel .storage-item {
-	width: 90px;
+	width: 80px;
 	height: 70px;
 	float: left;
 	text-align: center;
@@ -559,21 +564,21 @@ table.mercenaries td:nth-child(3) {
 #panel-buildings {
 	left: 5%;
 	max-width: 940px;
-	max-height: 630px;
-	height: 630px;
-	width: 650px;
+	max-height: 582px;
+	height: 582px;
+	width: 590px;
 	top: 10%;
 }
 
 #panel-buildings.expanded {
-	width: 940px !important;
+	width: 910px !important;
 }
 
 .panel .building-item .building-info .btn {
 	float: none;
 	display: block;
 	border: 0;
-	background-color: #b38669;
+	background-color: #777;
 	border-radius: 0;
 	margin-top: 5px;
 }
@@ -590,6 +595,15 @@ table.mercenaries td:nth-child(3) {
 	cursor: pointer;
 }
 
+.panel .building-item:nth-child(4),
+.panel .building-item:nth-child(8),
+.panel .building-item:nth-child(12),
+.panel .building-item:nth-child(16),
+.panel .building-item:nth-child(20),
+.panel .building-item:nth-child(24) {
+	margin-right: 0;
+}
+
 .panel .building-item.active {
 	-webkit-box-shadow: inset 0 0 18px 0 rgba(200,200,200,0.75) !important;
 	-moz-box-shadow: inset 0 0 18px 0 rgba(200,200,200,0.75) !important;
@@ -597,7 +611,7 @@ table.mercenaries td:nth-child(3) {
 }
 .panel .building-item .building-info {
 	display: none;
-	border-top: 1px solid #b38669;
+	border-top: 1px solid #777;
 }
 
 .panel .building-item.disabled {
@@ -641,19 +655,19 @@ section.start {
 section.start fieldset {
 	margin: 10px auto 0 auto;
 	width: 300px;
-	border: 1px solid #b38669;
+	border: 1px solid #777;
 }
 
 section.start fieldset legend {
 	color: #fff;
 	text-transform: uppercase;
 	padding: 10px 20px;
-	border: 1px solid #b38669;
+	border: 1px solid #777;
 }
 
 .start input[type=text],
 .start select {
-	border: 1px solid #b38669;
+	border: 1px solid #777;
 	background-color: #000;
 	color: #fff;
 	padding: 5px 10px;
@@ -666,7 +680,7 @@ section.start fieldset legend {
 }
 .start .button {
 	padding: 5px 10px;
-	border: 1px solid #b38669;
+	border: 1px solid #777;
 	display: block;
 	text-align: center;
 	text-transform: uppercase;
@@ -864,7 +878,7 @@ td.icon {
 .bldg-tabs {
 	padding: 10px 0 0 0;
 	overflow: auto;
-	height: 550px;
+	height: 520px;
 }
 
 .tabs > ul > li {
@@ -877,7 +891,7 @@ td.icon {
 .tabs > ul > li > a {
 	color: #8A8955;
 	text-decoration: none;
-	padding: 6px 20px;
+	padding: 6px 10px;
 	display: block;
 }
 
@@ -931,7 +945,7 @@ table tr td:last-child a {
 
 table tr:hover td:last-child a.disabled {
 	color: #502d13 !important;
-	background-color: #b38669 !important;
+	background-color: #777 !important;
 }
 
 table.normal tr td:nth-child(4) {
@@ -959,7 +973,7 @@ table tr td.large {
 }
 
 a.disabled {
-	background-color: #b38669;
+	background-color: #777;
 	color: #502d13;
 	cursor: default;
 }
@@ -973,7 +987,7 @@ a.disabled {
 	right: 0;
 	z-index: 999;
 	font-size: 11px;
-	color: #b38669;
+	color: #777;
 	font-size: 12px;
 }
 
@@ -1168,4 +1182,8 @@ a.disabled {
 	border-left: none;
 	border-top-color: transparent;
 	border-bottom-color: transparent;
+}
+
+.hidden {
+	display: none;
 }

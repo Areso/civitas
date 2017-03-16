@@ -2,7 +2,7 @@
  * City-builder HTML5 engine/game
  *
  * @author sizeof(cat) <sizeofcat AT riseup.net>
- * @version 0.1.3152017
+ * @version 0.1.3162017
  * @license MIT
  */ 'use strict';
 
@@ -176,7 +176,7 @@ city_builder.lang = {
 	'City of': '',
 	'City Storage': '',
 	'Total storage space': '',
-	'Total used space': '',
+	'used': '',
 	'Info': '',
 	'Army': '',
 	'Navy': '',
@@ -256,7 +256,9 @@ city_builder.lang = {
 	'baskets': '',
 	'Black Market': '',
 	'received': '',
-	'coins from the Black Market for selling goods.': ''
+	'coins from the Black Market for selling goods.': '',
+	'Show More Goods': '',
+	'Show Less Goods': ''
 };
 
 /**
@@ -4067,6 +4069,12 @@ city_builder.RESOURCES = {
 	}
 };
 
+city_builder.MAIN_RESOURCES = [
+	'coins', 'bread', 'brass', 'cannons', 'cattle', 'cider', 'clay', 'clothes', 'coal', 'copper',
+	'fish', 'flour', 'furs', 'herbs', 'hides', 'iron', 'ironores', 'meat', 'milk', 'salt',
+	'stones', 'weapons', 'wheat', 'wood'
+];
+
 /**
  * Utils object.
  */
@@ -4350,7 +4358,7 @@ city_builder.jailer = function (params) {
  */
 city_builder.ui = {
 	
-	building_panel_template: '<div id="panel-{id}" class="panel pb black">' +
+	building_panel_template: '<div id="panel-{id}" class="panel pb">' +
 			'<header>' +
 			'<span class="title"></span>' +
 			'<a class="tips close btn" title="' + city_builder.l('Close this panel') + '"></a>' +
@@ -7429,6 +7437,10 @@ city_builder.panel_buildings = function (params) {
 		$(el + ' .tips').tipsy({
 			gravity: 's'
 		});
+		$(el).css({
+			'left': ($(window).width() / 2) - ($(el).width() / 2),
+			'top': ($(window).height() / 2) - ($(el).height() / 2)
+		});
 		return this;
 	};
 
@@ -7510,27 +7522,62 @@ city_builder.panel_storage = function (params) {
 		var resources = city.get_resources();
 		var storage_space = city.get_storage_space();
 		$('.ui').append(city_builder.ui.generic_panel_template.replace(/{id}/g, this.id).replace(/{title}/g, this.title));
-		var out = '';
+		var out = '<div class="main-storage">';
+		var main_storage = '';
+		var extra_storage = '';
 		for (var resource in city_builder.RESOURCES) {
 			if (resource !== 'fame') {
-				out += city_builder.ui.resource_storage_el(resource, resources[resource].storage);
+				if ($.inArray(resource, city_builder.MAIN_RESOURCES) !== -1) {
+					main_storage += city_builder.ui.resource_storage_el(resource, resources[resource].storage);
+				} else {
+					extra_storage += city_builder.ui.resource_storage_el(resource, resources[resource].storage);
+				}
 			}
 		}
+		out += main_storage;
+		out += '</div>';
+		out += '<div class="extra-storage hidden">';
+		out += extra_storage;
+		out += '</div>';
 		out += '<div class="clearfix"></div>' +
-				'<p>' + city_builder.l('Total storage space') + ': ' + storage_space.all + '</p>' +
-				'<p>' + city_builder.l('Total used space') + ': <span class="citystorage">' + storage_space.occupied + '</span></p>';
+				'<p>' + city_builder.l('Total storage space') + ': ' + storage_space.all + ', ' + city_builder.l('used') + ': <span class="citystorage">' + storage_space.occupied + '</span></p>' +
+		'<div class="toolbar">' +
+			'<a class="btn iblock toggle-storage" href="#">' + city_builder.l('Show More Goods') + '</a>' +
+		'</div>';
 		$(el + ' .contents').empty().append(out);
 		$(el).on('click', '.close', function () {
 			self.destroy();
 			return false;
+		}).on('click', '.toggle-storage', function () {
+			if ($('.toggle-storage').html() === city_builder.l('Show Less Goods')) {
+				$('.toggle-storage').html(city_builder.l('Show More Goods'));
+			} else {
+				$('.toggle-storage').html(city_builder.l('Show Less Goods'));
+			}
+			$('.extra-storage').toggle();
+			return false;
 		}).draggable({
 			handle: 'header',
 			containment: 'window',
-			snap: '.panel'
+			snap: '.panel',
+			start: function() {
+		        $(this).css({
+		        	height: 'auto'
+		        });
+		    },
+		    stop: function() {
+		        $(this).css({
+		        	height: 'auto'
+		        });
+		    }
 		});
 		$(el + ' .tabs').tabs();
 		$(el + ' .tips').tipsy({
 			gravity: 's'
+		});
+		$(el).css({
+			'left': ($(window).width() / 2) - ($(el).width() / 2),
+			'top': ($(window).height() / 2) - ($(el).height() / 2)
 		});
 		return this;
 	};
@@ -7636,6 +7683,10 @@ city_builder.panel_city = function (params) {
 		$(el + ' .tabs').tabs();
 		$(el + ' .tips').tipsy({
 			gravity: 's'
+		});
+		$(el).css({
+			'left': ($(window).width() / 2) - ($(el).width() / 2),
+			'top': ($(window).height() / 2) - ($(el).height() / 2)
 		});
 		return this;
 	};
@@ -7753,6 +7804,10 @@ city_builder.panel_rankings = function (params) {
 		$(el + ' .tips').tipsy({
 			gravity: 's'
 		});
+		$(el).css({
+			'left': ($(window).width() / 2) - ($(el).width() / 2),
+			'top': ($(window).height() / 2) - ($(el).height() / 2)
+		});
 		return this;
 	};
 
@@ -7849,6 +7904,10 @@ city_builder.panel_send_goods = function (params) {
 		$(el + ' .tips').tipsy({
 			gravity: 's'
 		});
+		$(el).css({
+			'left': ($(window).width() / 2) - ($(el).width() / 2),
+			'top': ($(window).height() / 2) - ($(el).height() / 2)
+		});
 		return this;
 	};
 
@@ -7944,6 +8003,10 @@ city_builder.panel_declare_war = function (params) {
 		$(el + ' .tabs').tabs();
 		$(el + ' .tips').tipsy({
 			gravity: 's'
+		});
+		$(el).css({
+			'left': ($(window).width() / 2) - ($(el).width() / 2),
+			'top': ($(window).height() / 2) - ($(el).height() / 2)
 		});
 		return this;
 	};
@@ -8049,6 +8112,10 @@ city_builder.panel_world = function (params) {
 		$(el + ' .tabs').tabs();
 		$(el + ' .tips').tipsy({
 			gravity: 's'
+		});
+		$(el).css({
+			'left': ($(window).width() / 2) - ($(el).width() / 2),
+			'top': ($(window).height() / 2) - ($(el).height() / 2)
 		});
 		return this;
 	};
@@ -8381,6 +8448,10 @@ city_builder.panel_advisor = function (params) {
 		$(el + ' .tips').tipsy({
 			gravity: 's'
 		});
+		$(el).css({
+			'left': ($(window).width() / 2) - ($(el).width() / 2),
+			'top': ($(window).height() / 2) - ($(el).height() / 2)
+		});
 		return this;
 	};
 
@@ -8502,6 +8573,10 @@ city_builder.panel_army = function (params) {
 		$(el + ' .tabs').tabs();
 		$(el + ' .tips').tipsy({
 			gravity: 's'
+		});
+		$(el).css({
+			'left': ($(window).width() / 2) - ($(el).width() / 2),
+			'top': ($(window).height() / 2) - ($(el).height() / 2)
 		});
 		return this;
 	};
@@ -8646,6 +8721,10 @@ city_builder.panel_trades = function (params) {
 		$(el + ' .tabs').tabs();
 		$(el + ' .tips').tipsy({
 			gravity: 's'
+		});
+		$(el).css({
+			'left': ($(window).width() / 2) - ($(el).width() / 2),
+			'top': ($(window).height() / 2) - ($(el).height() / 2)
 		});
 		return this;
 	};
@@ -8891,6 +8970,10 @@ city_builder.panel_window = function (params) {
 		$(el + ' .tabs').tabs();
 		$(el + ' .tips').tipsy({
 			gravity: 's'
+		});
+		$(el).css({
+			'left': ($(window).width() / 2) - ($(el).width() / 2),
+			'top': ($(window).height() / 2) - ($(el).height() / 2)
 		});
 		return this;
 	};

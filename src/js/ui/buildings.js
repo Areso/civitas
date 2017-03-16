@@ -258,6 +258,10 @@ city_builder.panel_buildings = function (params) {
 		$(el + ' .tips').tipsy({
 			gravity: 's'
 		});
+		$(el).css({
+			'left': ($(window).width() / 2) - ($(el).width() / 2),
+			'top': ($(window).height() / 2) - ($(el).height() / 2)
+		});
 		return this;
 	};
 

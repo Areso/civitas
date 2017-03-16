@@ -3,7 +3,7 @@
  */
 city_builder.ui = {
 	
-	building_panel_template: '<div id="panel-{id}" class="panel pb black">' +
+	building_panel_template: '<div id="panel-{id}" class="panel pb">' +
 			'<header>' +
 			'<span class="title"></span>' +
 			'<a class="tips close btn" title="' + city_builder.l('Close this panel') + '"></a>' +

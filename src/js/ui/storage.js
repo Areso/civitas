@@ -72,27 +72,62 @@ city_builder.panel_storage = function (params) {
 		var resources = city.get_resources();
 		var storage_space = city.get_storage_space();
 		$('.ui').append(city_builder.ui.generic_panel_template.replace(/{id}/g, this.id).replace(/{title}/g, this.title));
-		var out = '';
+		var out = '<div class="main-storage">';
+		var main_storage = '';
+		var extra_storage = '';
 		for (var resource in city_builder.RESOURCES) {
 			if (resource !== 'fame') {
-				out += city_builder.ui.resource_storage_el(resource, resources[resource].storage);
+				if ($.inArray(resource, city_builder.MAIN_RESOURCES) !== -1) {
+					main_storage += city_builder.ui.resource_storage_el(resource, resources[resource].storage);
+				} else {
+					extra_storage += city_builder.ui.resource_storage_el(resource, resources[resource].storage);
+				}
 			}
 		}
+		out += main_storage;
+		out += '</div>';
+		out += '<div class="extra-storage hidden">';
+		out += extra_storage;
+		out += '</div>';
 		out += '<div class="clearfix"></div>' +
-				'<p>' + city_builder.l('Total storage space') + ': ' + storage_space.all + '</p>' +
-				'<p>' + city_builder.l('Total used space') + ': <span class="citystorage">' + storage_space.occupied + '</span></p>';
+				'<p>' + city_builder.l('Total storage space') + ': ' + storage_space.all + ', ' + city_builder.l('used') + ': <span class="citystorage">' + storage_space.occupied + '</span></p>' +
+		'<div class="toolbar">' +
+			'<a class="btn iblock toggle-storage" href="#">' + city_builder.l('Show More Goods') + '</a>' +
+		'</div>';
 		$(el + ' .contents').empty().append(out);
 		$(el).on('click', '.close', function () {
 			self.destroy();
 			return false;
+		}).on('click', '.toggle-storage', function () {
+			if ($('.toggle-storage').html() === city_builder.l('Show Less Goods')) {
+				$('.toggle-storage').html(city_builder.l('Show More Goods'));
+			} else {
+				$('.toggle-storage').html(city_builder.l('Show Less Goods'));
+			}
+			$('.extra-storage').toggle();
+			return false;
 		}).draggable({
 			handle: 'header',
 			containment: 'window',
-			snap: '.panel'
+			snap: '.panel',
+			start: function() {
+		        $(this).css({
+		        	height: 'auto'
+		        });
+		    },
+		    stop: function() {
+		        $(this).css({
+		        	height: 'auto'
+		        });
+		    }
 		});
 		$(el + ' .tabs').tabs();
 		$(el + ' .tips').tipsy({
 			gravity: 's'
+		});
+		$(el).css({
+			'left': ($(window).width() / 2) - ($(el).width() / 2),
+			'top': ($(window).height() / 2) - ($(el).height() / 2)
 		});
 		return this;
 	};

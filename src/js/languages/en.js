@@ -24,7 +24,7 @@ city_builder.lang = {
 	'City of': '',
 	'City Storage': '',
 	'Total storage space': '',
-	'Total used space': '',
+	'used': '',
 	'Info': '',
 	'Army': '',
 	'Navy': '',
@@ -104,5 +104,7 @@ city_builder.lang = {
 	'baskets': '',
 	'Black Market': '',
 	'received': '',
-	'coins from the Black Market for selling goods.': ''
+	'coins from the Black Market for selling goods.': '',
+	'Show More Goods': '',
+	'Show Less Goods': ''
 };

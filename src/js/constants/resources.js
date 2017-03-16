@@ -292,3 +292,9 @@ city_builder.RESOURCES = {
 		storage: 100
 	}
 };
+
+city_builder.MAIN_RESOURCES = [
+	'coins', 'bread', 'brass', 'cannons', 'cattle', 'cider', 'clay', 'clothes', 'coal', 'copper',
+	'fish', 'flour', 'furs', 'herbs', 'hides', 'iron', 'ironores', 'meat', 'milk', 'salt',
+	'stones', 'weapons', 'wheat', 'wood'
+];
