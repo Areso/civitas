@@ -12,7 +12,7 @@ city_builder.API_VERSION = '0.2.0';
  * @constant
  * @type {String}
  */
-city_builder.API_ENTRY_POINT = 'http://localhost/api/';
+city_builder.API_ENTRY_POINT = 'http://city-builder.dev/api/';
 
 /**
  * Main Game API entry point + the API version

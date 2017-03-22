@@ -8,7 +8,8 @@ if (typeof city_builder === 'undefined')
  * @returns {String}
  */
 city_builder.l = function (value) {
-	if (typeof city_builder.lang[value] !== 'undefined' && city_builder.lang[value] !== '') {
+	if (typeof city_builder.lang[value] !== 'undefined' &&
+		city_builder.lang[value] !== '') {
 		return city_builder.lang[value];
 	}
 	else {
@@ -123,12 +124,46 @@ city_builder.VERSION = '0.1.0';
  */
 city_builder.DEBUG = true;
 
+/**
+ * Browser localStorage key to store game data into.
+ *
+ * @constant
+ * @type {String}
+ */
 city_builder.STORAGE_KEY = 'city_builder';
 
+/**
+ * Goods importance, vital means at most 500 stacks of goods will be up for importing
+ * or exporting.
+ *
+ * @constant
+ * @type {Number}
+ */
 city_builder.GOODS_IMPORTANCE_VITAL = 50;
 
+/**
+ * Goods importance, high means at most 300 stacks of goods will be up for importing
+ * or exporting.
+ *
+ * @constant
+ * @type {Number}
+ */
 city_builder.GOODS_IMPORTANCE_HIGH = 30;
 
+/**
+ * Goods importance, medium means at most 200 stacks of goods will be up for importing
+ * or exporting.
+ *
+ * @constant
+ * @type {Number}
+ */
 city_builder.GOODS_IMPORTANCE_MEDIUM = 20;
 
+/**
+ * Goods importance, low means at most 100 stacks of goods will be up for importing
+ * or exporting.
+ *
+ * @constant
+ * @type {Number}
+ */
 city_builder.GOODS_IMPORTANCE_LOW = 10;

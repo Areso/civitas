@@ -223,7 +223,8 @@ city_builder.MERCENARIES = [{
 	cost: 12000
 }, {
 	name: 'Magna Societas Catalanorum',
-	description: 'The Catalan Company of the East, officially the Magna Societas Catalanorum is a company of mercenaries founded by Roger de Flor.',
+	description: 'The Catalan Company of the East, officially the Magna Societas ' +
+		'Catalanorum is a company of mercenaries founded by Roger de Flor.',
 	handle: 'catalan',
 	icon: 23,
 	army: {

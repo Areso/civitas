@@ -24,6 +24,7 @@ gulp.task('app', ['cleanup_js'], function() {
 		'src/js/constants/cities.js',
 		'src/js/constants/events.js',
 		'src/js/constants/resources.js',
+		'src/js/constants/debug.js',
 		'src/js/objects/utils.js',
 		'src/js/objects/modules/api.js',
 		'src/js/objects/modules/jailer.js',

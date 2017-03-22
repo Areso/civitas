@@ -37,7 +37,8 @@ if (typeof city_builder === 'undefined')
  * @returns {String}
  */
 city_builder.l = function (value) {
-	if (typeof city_builder.lang[value] !== 'undefined' && city_builder.lang[value] !== '') {
+	if (typeof city_builder.lang[value] !== 'undefined' &&
+		city_builder.lang[value] !== '') {
 		return city_builder.lang[value];
 	}
 	else {
@@ -152,14 +153,48 @@ city_builder.VERSION = '0.1.0';
  */
 city_builder.DEBUG = true;
 
+/**
+ * Browser localStorage key to store game data into.
+ *
+ * @constant
+ * @type {String}
+ */
 city_builder.STORAGE_KEY = 'city_builder';
 
+/**
+ * Goods importance, vital means at most 500 stacks of goods will be up for importing
+ * or exporting.
+ *
+ * @constant
+ * @type {Number}
+ */
 city_builder.GOODS_IMPORTANCE_VITAL = 50;
 
+/**
+ * Goods importance, high means at most 300 stacks of goods will be up for importing
+ * or exporting.
+ *
+ * @constant
+ * @type {Number}
+ */
 city_builder.GOODS_IMPORTANCE_HIGH = 30;
 
+/**
+ * Goods importance, medium means at most 200 stacks of goods will be up for importing
+ * or exporting.
+ *
+ * @constant
+ * @type {Number}
+ */
 city_builder.GOODS_IMPORTANCE_MEDIUM = 20;
 
+/**
+ * Goods importance, low means at most 100 stacks of goods will be up for importing
+ * or exporting.
+ *
+ * @constant
+ * @type {Number}
+ */
 city_builder.GOODS_IMPORTANCE_LOW = 10;
 
 city_builder.lang = {
@@ -287,7 +322,7 @@ city_builder.API_VERSION = '0.2.0';
  * @constant
  * @type {String}
  */
-city_builder.API_ENTRY_POINT = 'http://localhost/api/';
+city_builder.API_ENTRY_POINT = 'http://city-builder.dev/api/';
 
 /**
  * Main Game API entry point + the API version
@@ -846,7 +881,8 @@ city_builder.MERCENARIES = [{
 	cost: 12000
 }, {
 	name: 'Magna Societas Catalanorum',
-	description: 'The Catalan Company of the East, officially the Magna Societas Catalanorum is a company of mercenaries founded by Roger de Flor.',
+	description: 'The Catalan Company of the East, officially the Magna Societas ' +
+		'Catalanorum is a company of mercenaries founded by Roger de Flor.',
 	handle: 'catalan',
 	icon: 23,
 	army: {
@@ -4086,6 +4122,63 @@ city_builder.MAIN_RESOURCES = [
 	'fish', 'flour', 'furs', 'herbs', 'hides', 'iron', 'ironores', 'meat', 'milk', 'salt',
 	'stones', 'weapons', 'wheat', 'wood'
 ];
+
+/**
+ * Special check if the debug mode is activated. If yes, add a special sandbox city with
+ * goodies, nice trades and a cool alliance.
+ */
+if (city_builder.DEBUG === true) {
+	city_builder.CITIES['Sandbox'] = {
+		nationality: city_builder.NATION_TYPE_ASSYRIAN,
+		ruler: 'Sandking',
+		avatar: 1,
+		climate: city_builder.CLIMATE_TYPE_TEMPERATE,
+		personality: city_builder.PERSONALITY_TYPE_DIPLOMAT,
+		level: 30,
+		prestige: 999,
+		trades: {
+			'imports': {
+				gold: city_builder.GOODS_IMPORTANCE_VITAL,
+				goldores: city_builder.GOODS_IMPORTANCE_VITAL,
+				weapons: city_builder.GOODS_IMPORTANCE_VITAL,
+				weapons: city_builder.GOODS_IMPORTANCE_VITAL,
+				milk: city_builder.GOODS_IMPORTANCE_VITAL,
+				gems: city_builder.GOODS_IMPORTANCE_VITAL,
+				pearls: city_builder.GOODS_IMPORTANCE_VITAL
+			},
+			'exports': {
+				stones: city_builder.GOODS_IMPORTANCE_VITAL,
+				wood: city_builder.GOODS_IMPORTANCE_VITAL,
+				ironores: city_builder.GOODS_IMPORTANCE_VITAL,
+				goldores: city_builder.GOODS_IMPORTANCE_VITAL,
+				copper: city_builder.GOODS_IMPORTANCE_VITAL,
+				clay: city_builder.GOODS_IMPORTANCE_VITAL,
+				iron: city_builder.GOODS_IMPORTANCE_VITAL,
+				gold: city_builder.GOODS_IMPORTANCE_VITAL,
+				meat: city_builder.GOODS_IMPORTANCE_VITAL,
+				bread: city_builder.GOODS_IMPORTANCE_VITAL,
+				coal: city_builder.GOODS_IMPORTANCE_VITAL
+			}
+		},
+		army: {
+			'Militia': 99,
+			'Axeman': 99,
+			'Knight': 99,
+			'Bowman': 99,
+			'Crossbowman': 99,
+			'Pikeman': 99
+		},
+		navy: {
+			'Corsair': 99,
+			'Caravel': 99,
+			'Warship': 99
+		},
+		location: {
+			x: 460,
+			y: 410
+		}
+	};
+}
 
 /**
  * Utils object.
