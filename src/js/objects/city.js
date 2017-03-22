@@ -166,13 +166,14 @@ city_builder.city = function(params) {
 		if (typeof params.data.coins !== 'undefined') {
 			this.resources.coins.storage = params.data.coins;
 		}
-		this.trades = (typeof params.data.trades !== 'undefined') ? params.data.trades : null;
+		//this.trades = (typeof params.data.trades !== 'undefined') ? params.data.trades : null;
 		this.prestige = (typeof params.data.prestige !== 'undefined') ? params.data.prestige : 1;
 		this.personality = (typeof params.data.personality !== 'undefined') ? params.data.personality : city_builder.PERSONALITY_TYPE_BALANCED;
 		this.nationality = (typeof params.data.nationality !== 'undefined') ? params.data.nationality : city_builder.NATION_TYPE_ROMAN;
 		this.climate = (typeof params.data.climate !== 'undefined') ? params.data.climate : city_builder.CLIMATE_TYPE_TEMPERATE;
 		this.ruler = (typeof params.data.ruler !== 'undefined') ? params.data.ruler : 0;
 		this.avatar = (typeof params.data.avatar !== 'undefined') ? params.data.avatar : 1;
+		this.reset_trades();
 		return this;
 	};
 	
@@ -313,14 +314,23 @@ city_builder.city = function(params) {
 	
 	/**
 	 * Perform a trades reset (resets all amounts of resources available
-	 * for trade to full.
+	 * for trade and randomize the amount.
 	 * 
 	 * @public
 	 * @returns {Boolean}
 	 */
 	this.reset_trades = function() {
-		this.trades = city_builder.CITIES[this.get_name()].trades;
-		return true;
+		if (typeof city_builder.CITIES[this.get_name()] !== 'undefined') {
+			this.trades = city_builder.CITIES[this.get_name()].trades;
+			for (var goods_type in this.trades) {
+				for (var item in this.trades[goods_type]) {
+					this.trades[goods_type][item] = get_random_goods_by_importance(this.trades[goods_type][item]);
+				}
+			}
+			return true;
+		} else {
+			return false;
+		}
 	};
 	
 	/**

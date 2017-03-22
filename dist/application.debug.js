@@ -2,7 +2,7 @@
  * City-builder HTML5 engine/game
  *
  * @author sizeof(cat) <sizeofcat AT riseup.net>
- * @version 0.1.3162017
+ * @version 0.1.3222017
  * @license MIT
  */ 'use strict';
 
@@ -23,6 +23,9 @@ function get_random(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+function get_random_goods_by_importance(importance) {
+	return Math.floor(Math.random() * importance) * 10 + 10;
+}
 if (typeof city_builder === 'undefined')
 	var city_builder = {};
 
@@ -149,6 +152,14 @@ city_builder.VERSION = '0.1.0';
 city_builder.DEBUG = true;
 
 city_builder.STORAGE_KEY = 'city_builder';
+
+city_builder.GOODS_IMPORTANCE_VITAL = 50;
+
+city_builder.GOODS_IMPORTANCE_HIGH = 30;
+
+city_builder.GOODS_IMPORTANCE_MEDIUM = 20;
+
+city_builder.GOODS_IMPORTANCE_LOW = 10;
 
 city_builder.lang = {
 	'World Market Trades': '',
@@ -3007,21 +3018,21 @@ city_builder.CITIES = {
 		// coins: 230000,
 		trades: {
 			'imports': {
-				gold: 250,
-				milk: 500,
-				goldores: 100,
-				weapons: 80,
-				quartz: 90,
-				roses: 200,
-				wine: 310,
-				clay: 280,
-				fish: 200
+				gold: city_builder.GOODS_IMPORTANCE_MEDIUM,
+				milk: city_builder.GOODS_IMPORTANCE_HIGH,
+				goldores: city_builder.GOODS_IMPORTANCE_LOW,
+				weapons: city_builder.GOODS_IMPORTANCE_LOW,
+				quartz: city_builder.GOODS_IMPORTANCE_LOW,
+				roses: city_builder.GOODS_IMPORTANCE_MEDIUM,
+				wine: city_builder.GOODS_IMPORTANCE_VITAL,
+				clay: city_builder.GOODS_IMPORTANCE_VITAL,
+				fish: city_builder.GOODS_IMPORTANCE_MEDIUM
 			},
 			'exports': {
-				hemp: 200,
-				indigo: 100,
-				paper: 220,
-				stones: 100
+				hemp: city_builder.GOODS_IMPORTANCE_VITAL,
+				indigo: city_builder.GOODS_IMPORTANCE_LOW,
+				paper: city_builder.GOODS_IMPORTANCE_HIGH,
+				stones: city_builder.GOODS_IMPORTANCE_LOW
 			}
 		},
 		army: {
@@ -3053,24 +3064,24 @@ city_builder.CITIES = {
 		prestige: 700,
 		trades: {
 			'imports': {
-				wax: 100,
-				sugar: 200,
-				sugarcane: 100,
-				glasses: 80,
-				fish: 200,
-				candles: 90,
-				bread: 200,
-				pearls: 100,
-				salt: 50
+				wax: city_builder.GOODS_IMPORTANCE_LOW,
+				sugar: city_builder.GOODS_IMPORTANCE_VITAL,
+				sugarcane: city_builder.GOODS_IMPORTANCE_MEDIUM,
+				glasses: city_builder.GOODS_IMPORTANCE_LOW,
+				fish: city_builder.GOODS_IMPORTANCE_HIGH,
+				candles: city_builder.GOODS_IMPORTANCE_LOW,
+				bread: city_builder.GOODS_IMPORTANCE_VITAL,
+				pearls: city_builder.GOODS_IMPORTANCE_LOW,
+				salt: city_builder.GOODS_IMPORTANCE_LOW
 			},
 			'exports': {
-				leather: 200,
-				indigo: 100,
-				flour: 220,
-				glass: 200,
-				coal: 100,
-				fish: 300,
-				wood: 220
+				leather: city_builder.GOODS_IMPORTANCE_MEDIUM,
+				indigo: city_builder.GOODS_IMPORTANCE_LOW,
+				flour: city_builder.GOODS_IMPORTANCE_VITAL,
+				glass: city_builder.GOODS_IMPORTANCE_MEDIUM,
+				coal: city_builder.GOODS_IMPORTANCE_LOW,
+				fish: city_builder.GOODS_IMPORTANCE_HIGH,
+				wood: city_builder.GOODS_IMPORTANCE_VITAL
 			}
 		},
 		navy: {
@@ -3102,21 +3113,21 @@ city_builder.CITIES = {
 		prestige: 500,
 		trades: {
 			'imports': {
-				flour: 100,
-				milk: 200,
-				brass: 100,
-				furs: 100,
-				fish: 270,
-				cider: 80,
-				silk: 200,
-				cattle: 210,
-				wheat: 300
+				flour: city_builder.GOODS_IMPORTANCE_LOW,
+				milk: city_builder.GOODS_IMPORTANCE_VITAL,
+				brass: city_builder.GOODS_IMPORTANCE_LOW,
+				furs: city_builder.GOODS_IMPORTANCE_LOW,
+				fish: city_builder.GOODS_IMPORTANCE_VITAL,
+				cider: city_builder.GOODS_IMPORTANCE_LOW,
+				silk: city_builder.GOODS_IMPORTANCE_HIGH,
+				cattle: city_builder.GOODS_IMPORTANCE_MEDIUM,
+				wheat: city_builder.GOODS_IMPORTANCE_VITAL
 			},
 			'exports': {
-				clothes: 200,
-				fish: 100,
-				coffeebeans: 220,
-				silk: 100
+				clothes: city_builder.GOODS_IMPORTANCE_VITAL,
+				fish: city_builder.GOODS_IMPORTANCE_LOW,
+				coffeebeans: city_builder.GOODS_IMPORTANCE_HIGH,
+				silk: city_builder.GOODS_IMPORTANCE_LOW
 			}
 		},
 		army: {
@@ -3148,21 +3159,21 @@ city_builder.CITIES = {
 		prestige: 800,
 		trades: {
 			'imports': {
-				barrels: 110,
-				books: 90,
-				paper: 100,
-				coal: 200,
-				copper: 160,
-				indigo: 200
+				barrels: city_builder.GOODS_IMPORTANCE_LOW,
+				books: city_builder.GOODS_IMPORTANCE_LOW,
+				paper: city_builder.GOODS_IMPORTANCE_LOW,
+				coal: city_builder.GOODS_IMPORTANCE_VITAL,
+				copper: city_builder.GOODS_IMPORTANCE_MEDIUM,
+				indigo: city_builder.GOODS_IMPORTANCE_HIGH
 			},
 			'exports': {
-				coal: 220,
-				ironores: 120,
-				copper: 140,
-				goldores: 120,
-				iron: 100,
-				gold: 200,
-				brass:100
+				coal: city_builder.GOODS_IMPORTANCE_VITAL,
+				ironores: city_builder.GOODS_IMPORTANCE_LOW,
+				copper: city_builder.GOODS_IMPORTANCE_MEDIUM,
+				goldores: city_builder.GOODS_IMPORTANCE_LOW,
+				iron: city_builder.GOODS_IMPORTANCE_LOW,
+				gold: city_builder.GOODS_IMPORTANCE_VITAL,
+				brass: city_builder.GOODS_IMPORTANCE_LOW
 			}
 		},
 		army: {
@@ -3194,17 +3205,17 @@ city_builder.CITIES = {
 		prestige: 780,
 		trades: {
 			'imports': {
-				silk: 110,
-				clothes: 190,
-				leather: 110,
-				meat: 130
+				silk: city_builder.GOODS_IMPORTANCE_LOW,
+				clothes: city_builder.GOODS_IMPORTANCE_HIGH,
+				leather: city_builder.GOODS_IMPORTANCE_LOW,
+				meat: city_builder.GOODS_IMPORTANCE_MEDIUM
 			},
 			'exports': {
-				gold: 120,
-				iron: 220,
-				ironores: 170,
-				copper: 190,
-				coal: 120
+				gold: city_builder.GOODS_IMPORTANCE_LOW,
+				iron: city_builder.GOODS_IMPORTANCE_VITAL,
+				ironores: city_builder.GOODS_IMPORTANCE_MEDIUM,
+				copper: city_builder.GOODS_IMPORTANCE_HIGH,
+				coal: city_builder.GOODS_IMPORTANCE_LOW
 			}
 		},
 		army: {
@@ -3236,17 +3247,17 @@ city_builder.CITIES = {
 		prestige: 200,
 		trades: {
 			'imports': {
-				furs: 100,
-				hides: 120,
-				milk: 110,
-				leather: 80,
-				fish: 400,
-				furcoats: 300
+				furs: city_builder.GOODS_IMPORTANCE_LOW,
+				hides: city_builder.GOODS_IMPORTANCE_LOW,
+				milk: city_builder.GOODS_IMPORTANCE_MEDIUM,
+				leather: city_builder.GOODS_IMPORTANCE_LOW,
+				fish: city_builder.GOODS_IMPORTANCE_VITAL,
+				furcoats: city_builder.GOODS_IMPORTANCE_VITAL
 			},
 			'exports': {
-				wax: 110,
-				candles: 100,
-				salt: 170
+				wax: city_builder.GOODS_IMPORTANCE_LOW,
+				candles: city_builder.GOODS_IMPORTANCE_LOW,
+				salt: city_builder.GOODS_IMPORTANCE_MEDIUM
 			}
 		},
 		army: {
@@ -3278,27 +3289,27 @@ city_builder.CITIES = {
 		prestige: 900,
 		trades: {
 			'imports': {
-				perfume: 120,
-				coffee: 110,
-				cider: 100,
-				wine: 80,
-				beer: 90,
-				silk: 180
+				perfume: city_builder.GOODS_IMPORTANCE_MEDIUM,
+				coffee: city_builder.GOODS_IMPORTANCE_LOW,
+				cider: city_builder.GOODS_IMPORTANCE_LOW,
+				wine: city_builder.GOODS_IMPORTANCE_LOW,
+				beer: city_builder.GOODS_IMPORTANCE_LOW,
+				silk: city_builder.GOODS_IMPORTANCE_MEDIUM
 			},
 			'exports': {
-				barrels: 200,
-				brine: 120,
-				brass: 160,
-				candlesticks: 100,
-				cattle: 210,
-				glass: 170,
-				gold: 180,
-				wheat: 220,
-				iron: 100,
-				grapes: 300,
-				hemp: 380,
-				herbs: 600,
-				quartz: 220,
+				barrels: city_builder.GOODS_IMPORTANCE_MEDIUM,
+				brine: city_builder.GOODS_IMPORTANCE_LOW,
+				brass: city_builder.GOODS_IMPORTANCE_VITAL,
+				candlesticks: city_builder.GOODS_IMPORTANCE_LOW,
+				cattle: city_builder.GOODS_IMPORTANCE_VITAL,
+				glass: city_builder.GOODS_IMPORTANCE_MEDIUM,
+				gold: city_builder.GOODS_IMPORTANCE_MEDIUM,
+				wheat: city_builder.GOODS_IMPORTANCE_MEDIUM,
+				iron: city_builder.GOODS_IMPORTANCE_LOW,
+				grapes: city_builder.GOODS_IMPORTANCE_HIGH,
+				hemp: city_builder.GOODS_IMPORTANCE_HIGH,
+				herbs: city_builder.GOODS_IMPORTANCE_HIGH,
+				quartz: city_builder.GOODS_IMPORTANCE_MEDIUM,
 				stones: 130
 			}
 		},
@@ -3331,15 +3342,15 @@ city_builder.CITIES = {
 		prestige: 160,
 		trades: {
 			'imports': {
-				flour: 100,
-				bread: 110,
-				brass: 140,
-				coal: 200
+				flour: city_builder.GOODS_IMPORTANCE_LOW,
+				bread: city_builder.GOODS_IMPORTANCE_LOW,
+				brass: city_builder.GOODS_IMPORTANCE_MEDIUM,
+				coal: city_builder.GOODS_IMPORTANCE_VITAL
 			},
 			'exports': {
-				wood: 100,
-				stones: 200,
-				wine: 140
+				wood: city_builder.GOODS_IMPORTANCE_LOW,
+				stones: city_builder.GOODS_IMPORTANCE_VITAL,
+				wine: city_builder.GOODS_IMPORTANCE_MEDIUM
 			}
 		},
 		army: {
@@ -3371,16 +3382,16 @@ city_builder.CITIES = {
 		prestige: 200,
 		trades: {
 			'imports': {
-				furs: 100,
-				hides: 180,
-				milk: 110,
-				leather: 80
+				furs: city_builder.GOODS_IMPORTANCE_LOW,
+				hides: city_builder.GOODS_IMPORTANCE_MEDIUM,
+				milk: city_builder.GOODS_IMPORTANCE_LOW,
+				leather: city_builder.GOODS_IMPORTANCE_LOW
 			},
 			'exports': {
-				wax: 110,
-				candles: 100,
-				salt: 170,
-				sugarcane: 200
+				wax: city_builder.GOODS_IMPORTANCE_LOW,
+				candles: city_builder.GOODS_IMPORTANCE_LOW,
+				salt: city_builder.GOODS_IMPORTANCE_MEDIUM,
+				sugarcane: city_builder.GOODS_IMPORTANCE_HIGH
 			}
 		},
 		army: {
@@ -3412,21 +3423,21 @@ city_builder.CITIES = {
 		prestige: 300,
 		trades: {
 			'imports': {
-				cider: 100,
-				ropes: 80,
-				wax: 120,
-				sugar: 90,
-				wood: 500,
-				stones: 300
+				cider: city_builder.GOODS_IMPORTANCE_LOW,
+				ropes: city_builder.GOODS_IMPORTANCE_LOW,
+				wax: city_builder.GOODS_IMPORTANCE_MEDIUM,
+				sugar: city_builder.GOODS_IMPORTANCE_LOW,
+				wood: city_builder.GOODS_IMPORTANCE_VITAL,
+				stones: city_builder.GOODS_IMPORTANCE_VITAL
 			},
 			'exports': {
-				almonds: 100,
-				roses: 220,
-				grapes: 100,
-				hemp: 100,
-				coffeebeans: 120,
-				coffee: 90,
-				spices: 130
+				almonds: city_builder.GOODS_IMPORTANCE_LOW,
+				roses: city_builder.GOODS_IMPORTANCE_HIGH,
+				grapes: city_builder.GOODS_IMPORTANCE_LOW,
+				hemp: city_builder.GOODS_IMPORTANCE_LOW,
+				coffeebeans: city_builder.GOODS_IMPORTANCE_LOW,
+				coffee: city_builder.GOODS_IMPORTANCE_LOW,
+				spices: city_builder.GOODS_IMPORTANCE_MEDIUM
 			}
 		},
 		army: {
@@ -3458,21 +3469,21 @@ city_builder.CITIES = {
 		prestige: 600,
 		trades: {
 			'imports': {
-				meat: 100,
-				milk: 90,
-				weapons: 100,
-				roses: 130,
-				perfume: 90,
-				iron: 200,
-				ironores: 110
+				meat: city_builder.GOODS_IMPORTANCE_LOW,
+				milk: city_builder.GOODS_IMPORTANCE_LOW,
+				weapons: city_builder.GOODS_IMPORTANCE_LOW,
+				roses: city_builder.GOODS_IMPORTANCE_MEDIUM,
+				perfume: city_builder.GOODS_IMPORTANCE_LOW,
+				iron: city_builder.GOODS_IMPORTANCE_VITAL,
+				ironores: city_builder.GOODS_IMPORTANCE_LOW
 			},
 			'exports': {
-				brine: 170,
-				clothes: 100,
-				glass: 220,
-				wheat: 300,
-				hides: 70,
-				paper: 90
+				brine: city_builder.GOODS_IMPORTANCE_MEDIUM,
+				clothes: city_builder.GOODS_IMPORTANCE_LOW,
+				glass: city_builder.GOODS_IMPORTANCE_HIGH,
+				wheat: city_builder.GOODS_IMPORTANCE_VITAL,
+				hides: city_builder.GOODS_IMPORTANCE_LOW,
+				paper: city_builder.GOODS_IMPORTANCE_LOW
 			}
 		},
 		army: {
@@ -3504,19 +3515,19 @@ city_builder.CITIES = {
 		prestige: 180,
 		trades: {
 			'imports': {
-				meat: 100,
-				iron: 200,
-				brass: 100,
-				cider: 80,
-				grapes: 90,
-				coal: 150,
-				ironores: 160
+				meat: city_builder.GOODS_IMPORTANCE_LOW,
+				iron: city_builder.GOODS_IMPORTANCE_HIGH,
+				brass: city_builder.GOODS_IMPORTANCE_LOW,
+				cider: city_builder.GOODS_IMPORTANCE_LOW,
+				grapes: city_builder.GOODS_IMPORTANCE_LOW,
+				coal: city_builder.GOODS_IMPORTANCE_MEDIUM,
+				ironores: city_builder.GOODS_IMPORTANCE_LOW
 			},
 			'exports': {
-				wine: 200,
-				silk: 100,
-				wood: 140,
-				cattle: 120
+				wine: city_builder.GOODS_IMPORTANCE_HIGH,
+				silk: city_builder.GOODS_IMPORTANCE_LOW,
+				wood: city_builder.GOODS_IMPORTANCE_MEDIUM,
+				cattle: city_builder.GOODS_IMPORTANCE_LOW
 			}
 		},
 		army: {
@@ -3548,19 +3559,19 @@ city_builder.CITIES = {
 		prestige: 360,
 		trades: {
 			'imports': {
-				furs: 100,
-				hides: 180,
-				milk: 110,
-				gems: 70,
-				brass: 210,
-				wheat: 280,
-				clay: 300
+				furs: city_builder.GOODS_IMPORTANCE_LOW,
+				hides: city_builder.GOODS_IMPORTANCE_VITAL,
+				milk: city_builder.GOODS_IMPORTANCE_MEDIUM,
+				gems: city_builder.GOODS_IMPORTANCE_LOW,
+				brass: city_builder.GOODS_IMPORTANCE_VITAL,
+				wheat: city_builder.GOODS_IMPORTANCE_HIGH,
+				clay: city_builder.GOODS_IMPORTANCE_LOW
 			},
 			'exports': {
-				wax: 110,
-				candles: 100,
-				salt: 170,
-				pearls: 120
+				wax: city_builder.GOODS_IMPORTANCE_MEDIUM,
+				candles: city_builder.GOODS_IMPORTANCE_LOW,
+				salt: city_builder.GOODS_IMPORTANCE_VITAL,
+				pearls: city_builder.GOODS_IMPORTANCE_MEDIUM
 			}
 		},
 		army: {
@@ -3592,17 +3603,17 @@ city_builder.CITIES = {
 		prestige: 400,
 		trades: {
 			'imports': {
-				wheat: 200,
-				wood: 200,
-				sugar: 100,
-				sugarcane: 80,
-				clay: 200
+				wheat: city_builder.GOODS_IMPORTANCE_VITAL,
+				wood: city_builder.GOODS_IMPORTANCE_HIGH,
+				sugar: city_builder.GOODS_IMPORTANCE_LOW,
+				sugarcane: city_builder.GOODS_IMPORTANCE_LOW,
+				clay: city_builder.GOODS_IMPORTANCE_VITAL
 			},
 			'exports': {
-				glasses: 80,
-				furcoats: 130,
-				indigo: 120,
-				wheat: 100
+				glasses: city_builder.GOODS_IMPORTANCE_LOW,
+				furcoats: city_builder.GOODS_IMPORTANCE_MEDIUM,
+				indigo: city_builder.GOODS_IMPORTANCE_LOW,
+				wheat: city_builder.GOODS_IMPORTANCE_LOW
 			}
 		},
 		army: {
@@ -3634,23 +3645,23 @@ city_builder.CITIES = {
 		prestige: 420,
 		trades: {
 			'imports': {
-				gold: 110,
-				goldores: 90,
-				weapons: 100,
-				salt: 130,
-				stones: 200,
-				gems: 50,
-				pearls: 50
+				gold: city_builder.GOODS_IMPORTANCE_LOW,
+				goldores: city_builder.GOODS_IMPORTANCE_LOW,
+				weapons: city_builder.GOODS_IMPORTANCE_LOW,
+				salt: city_builder.GOODS_IMPORTANCE_MEDIUM,
+				stones: city_builder.GOODS_IMPORTANCE_VITAL,
+				gems: city_builder.GOODS_IMPORTANCE_LOW,
+				pearls: city_builder.GOODS_IMPORTANCE_LOW
 			},
 			'exports': {
-				silk: 170,
-				glass: 220,
-				roses: 70,
-				cattle: 90,
-				bread: 100,
-				meat: 130,
-				carpets: 80,
-				cannons: 100
+				silk: city_builder.GOODS_IMPORTANCE_MEDIUM,
+				glass: city_builder.GOODS_IMPORTANCE_HIGH,
+				roses: city_builder.GOODS_IMPORTANCE_LOW,
+				cattle: city_builder.GOODS_IMPORTANCE_LOW,
+				bread: city_builder.GOODS_IMPORTANCE_LOW,
+				meat: city_builder.GOODS_IMPORTANCE_MEDIUM,
+				carpets: city_builder.GOODS_IMPORTANCE_LOW,
+				cannons: city_builder.GOODS_IMPORTANCE_LOW
 			}
 		},
 		army: {
@@ -4725,13 +4736,14 @@ city_builder.city = function(params) {
 		if (typeof params.data.coins !== 'undefined') {
 			this.resources.coins.storage = params.data.coins;
 		}
-		this.trades = (typeof params.data.trades !== 'undefined') ? params.data.trades : null;
+		//this.trades = (typeof params.data.trades !== 'undefined') ? params.data.trades : null;
 		this.prestige = (typeof params.data.prestige !== 'undefined') ? params.data.prestige : 1;
 		this.personality = (typeof params.data.personality !== 'undefined') ? params.data.personality : city_builder.PERSONALITY_TYPE_BALANCED;
 		this.nationality = (typeof params.data.nationality !== 'undefined') ? params.data.nationality : city_builder.NATION_TYPE_ROMAN;
 		this.climate = (typeof params.data.climate !== 'undefined') ? params.data.climate : city_builder.CLIMATE_TYPE_TEMPERATE;
 		this.ruler = (typeof params.data.ruler !== 'undefined') ? params.data.ruler : 0;
 		this.avatar = (typeof params.data.avatar !== 'undefined') ? params.data.avatar : 1;
+		this.reset_trades();
 		return this;
 	};
 	
@@ -4872,14 +4884,23 @@ city_builder.city = function(params) {
 	
 	/**
 	 * Perform a trades reset (resets all amounts of resources available
-	 * for trade to full.
+	 * for trade and randomize the amount.
 	 * 
 	 * @public
 	 * @returns {Boolean}
 	 */
 	this.reset_trades = function() {
-		this.trades = city_builder.CITIES[this.get_name()].trades;
-		return true;
+		if (typeof city_builder.CITIES[this.get_name()] !== 'undefined') {
+			this.trades = city_builder.CITIES[this.get_name()].trades;
+			for (var goods_type in this.trades) {
+				for (var item in this.trades[goods_type]) {
+					this.trades[goods_type][item] = get_random_goods_by_importance(this.trades[goods_type][item]);
+				}
+			}
+			return true;
+		} else {
+			return false;
+		}
 	};
 	
 	/**

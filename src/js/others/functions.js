@@ -16,3 +16,7 @@ String.prototype.capitalize = function () {
 function get_random(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
+
+function get_random_goods_by_importance(importance) {
+	return Math.floor(Math.random() * importance) * 10 + 10;
+}

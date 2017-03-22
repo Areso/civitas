@@ -124,3 +124,11 @@ city_builder.VERSION = '0.1.0';
 city_builder.DEBUG = true;
 
 city_builder.STORAGE_KEY = 'city_builder';
+
+city_builder.GOODS_IMPORTANCE_VITAL = 50;
+
+city_builder.GOODS_IMPORTANCE_HIGH = 30;
+
+city_builder.GOODS_IMPORTANCE_MEDIUM = 20;
+
+city_builder.GOODS_IMPORTANCE_LOW = 10;
