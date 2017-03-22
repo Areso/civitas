@@ -26,6 +26,7 @@ function get_random(min, max) {
 function get_random_goods_by_importance(importance) {
 	return Math.floor(Math.random() * importance) * 10 + 10;
 }
+
 if (typeof city_builder === 'undefined')
 	var city_builder = {};
 
@@ -4736,7 +4737,6 @@ city_builder.city = function(params) {
 		if (typeof params.data.coins !== 'undefined') {
 			this.resources.coins.storage = params.data.coins;
 		}
-		//this.trades = (typeof params.data.trades !== 'undefined') ? params.data.trades : null;
 		this.prestige = (typeof params.data.prestige !== 'undefined') ? params.data.prestige : 1;
 		this.personality = (typeof params.data.personality !== 'undefined') ? params.data.personality : city_builder.PERSONALITY_TYPE_BALANCED;
 		this.nationality = (typeof params.data.nationality !== 'undefined') ? params.data.nationality : city_builder.NATION_TYPE_ROMAN;
