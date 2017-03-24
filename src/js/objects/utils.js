@@ -15,7 +15,19 @@ city_builder.utils = {
 	calc_price_minus_discount: function (amount, resource, discount) {
 		return Math.round(amount * (city_builder.RESOURCES[resource].price - discount));
 	},
-	
+		
+	/**
+	 * Calculate the resource price for the specified amount.
+	 * 
+	 * @param {Number} amount
+	 * @param {String} resource
+	 * @returns {Number}
+	 * @public
+	 */
+	calc_price: function (amount, resource) {
+		return Math.round(amount * (city_builder.RESOURCES[resource].price));
+	},
+
 	/**
 	 * Calculate the resource price for the specified amount plus the discount.
 	 * 
@@ -41,5 +53,18 @@ city_builder.utils = {
 		var mm = today.getMinutes();
 		var ss = today.getSeconds();
 		return hh + ':' + mm + ':' + ss;
+	},
+
+	nice_numbers: function(num) {
+		if (num >= 1000000000) {
+			return (num / 1000000000).toFixed(1).replace(/\.0$/, '') + 'G';
+		}
+		if (num >= 1000000) {
+			return (num / 1000000).toFixed(1).replace(/\.0$/, '') + 'M';
+		}
+		if (num >= 1000) {
+			return (num / 1000).toFixed(1).replace(/\.0$/, '') + 'K';
+		}
+		return num;
 	}
 };

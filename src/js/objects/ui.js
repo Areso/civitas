@@ -41,9 +41,9 @@ city_builder.ui = {
 	cost_panel: function (costs) {
 		var out = '';
 		if (typeof costs !== 'undefined') {
-			out += '<dt>Cost</dt>';
+			out += '<dt>' + city_builder.l('Cost') + '</dt>';
 			for (var item in costs) {
-				out += '<dd>' + costs[item] + city_builder.ui.resource_small_img(item) + '</dd>';
+				out += '<dd>' + city_builder.utils.nice_numbers(costs[item]) + city_builder.ui.resource_small_img(item) + '</dd>';
 			}
 		}
 		return out;

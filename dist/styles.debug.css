@@ -2,7 +2,7 @@
  * City-builder HTML5 engine/game
  *
  * @author sizeof(cat) <sizeofcat AT riseup.net>
- * @version 0.1.3222017
+ * @version 0.1.3242017
  * @license MIT
  */ @font-face {
 	font-family: 'Hammersmith One';
@@ -322,12 +322,40 @@ header .top-panel span {
 }
 
 .panel .toolbar .btn {
-	padding: 6px 20px;
+/*	padding: 6px 20px;
 	display: block;
 	text-align: center;
 	text-transform: uppercase;
 	background-color: #8a8955;
-	color: #fff;
+	color: #fff;*/
+	border:1px solid #908c68;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	padding: 10px 10px 10px 10px;
+	text-shadow: -1px -1px 0 rgba(0,0,0,0.3);
+	color: #FFFFFF;
+	background-color: #a9a588;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#a9a588), to(#8e865b));
+	background-image: -webkit-linear-gradient(top, #a9a588, #8e865b);
+	background-image: -moz-linear-gradient(top, #a9a588, #8e865b);
+	background-image: -ms-linear-gradient(top, #a9a588, #8e865b);
+	background-image: -o-linear-gradient(top, #a9a588, #8e865b);
+	background-image: linear-gradient(to bottom, #a9a588, #8e865b);
+	text-transform: uppercase;
+	text-align: center;
+	display: block;
+}
+
+.panel .toolbar .btn:hover {
+	border:1px solid #767255;
+	background-color: #938e6b;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#938e6b), to(#6f6947));
+	background-image: -webkit-linear-gradient(top, #938e6b, #6f6947);
+	background-image: -moz-linear-gradient(top, #938e6b, #6f6947);
+	background-image: -ms-linear-gradient(top, #938e6b, #6f6947);
+	background-image: -o-linear-gradient(top, #938e6b, #6f6947);
+	background-image: linear-gradient(to bottom, #938e6b, #6f6947);
 }
 
 .panel .toolbar .btn.iblock {
@@ -349,11 +377,11 @@ header .top-panel span {
 }
 
 .panel fieldset {
-	border: 1px solid #555;
+	border: 1px solid #ccc;
 	margin-bottom: 10px;
 }
 .panel fieldset legend {
-	border: 1px solid #555;
+	/*border: 1px solid #555; */
 	padding: 0 10px;
 }
 
@@ -393,6 +421,10 @@ header .top-panel span {
 	margin-bottom: 5px;
 }
 
+#panel-advisor .contents dd {
+	width: auto;
+}
+
 .ui .panel .contents dd,
 .start dd {
 	margin-left: 50%;
@@ -429,8 +461,8 @@ table.mercenaries td:nth-child(3) {
 /* City Advisor panel */
 
 #panel-advisor {
-	width: 950px;
-	max-width: 950px;
+	width: 750px;
+	max-width: 750px;
 	height: 520px;
 	max-height: 520px;
 	left: 10%;
@@ -444,7 +476,7 @@ table.mercenaries td:nth-child(3) {
 
 .panel .army-recruiter,
 .panel .navy-recruiter {
-	width: 750px;
+	width: 600px;
 	float: right;
 	padding: 10px 0 0 0;
 }
@@ -457,7 +489,7 @@ table.mercenaries td:nth-child(3) {
 .panel .army-list,
 .panel .navy-list {
 	float: left;
-	width: 180px;
+	width: 140px;
 	padding: 10px 0 0 0;
 }
 
@@ -466,7 +498,7 @@ table.mercenaries td:nth-child(3) {
 	display: block;
 	float: left;
 	margin: 0 10px 10px 0;
-	width: 226px;
+	width: 176px;
 	position: relative;
 }
 
@@ -488,7 +520,7 @@ table.mercenaries td:nth-child(3) {
 .panel .army-recruiter fieldset .info,
 .panel .navy-recruiter fieldset .info {
 	float: right;
-	width: 140px;
+	width: 100px;
 	margin-left: 10px;
 }
 
@@ -595,9 +627,9 @@ table.mercenaries td:nth-child(3) {
 	text-align: center;
 	margin: 0 10px 10px 0;
 	position: relative;
-	-webkit-box-shadow: inset 0 0 10px 0 rgba(142,146,72,0.75);
-	-moz-box-shadow: inset 0 0 10px 0 rgba(142,146,72,0.75);
-	box-shadow: inset 0 0 10px 0 rgba(142,146,72,0.75);
+	-webkit-box-shadow: inset 0 0 10px 0 rgba(0, 155, 70, 0.75);
+	-moz-box-shadow: inset 0 0 10px 0 rgba(0, 155, 70, 0.75);
+	box-shadow: inset 0 0 10px 0 rgba(0, 155, 70, 0.75);
 	cursor: pointer;
 }
 
@@ -611,9 +643,9 @@ table.mercenaries td:nth-child(3) {
 }
 
 .panel .building-item.active {
-	-webkit-box-shadow: inset 0 0 18px 0 rgba(200,200,200,0.75) !important;
-	-moz-box-shadow: inset 0 0 18px 0 rgba(200,200,200,0.75) !important;
-	box-shadow: inset 0 0 18px 0 rgba(200,200,200,0.75) !important;
+	-webkit-box-shadow: inset 0 0 18px 0 rgba(20, 20, 20, 0.75) !important;
+	-moz-box-shadow: inset 0 0 18px 0 rgba(20, 20, 20, 0.75) !important;
+	box-shadow: inset 0 0 18px 0 rgba(20, 20, 20, 0.75) !important;
 }
 .panel .building-item .building-info {
 	display: none;
@@ -813,11 +845,13 @@ section.start fieldset legend {
 
 /* Misc */
 
-p.title {
+p.title,
+p span.title {
 	font-size: 14px;
 }
 
-p.description {
+p.description,
+p span.description {
 	font-size: 10px;
 }
 
@@ -892,7 +926,7 @@ td.icon {
 }
 
 .tabs > div {
-	border-top: 1px solid #8A8955;
+	border-top: 1px solid #ccc;
 }
 .tabs > ul > li > a {
 	color: #8A8955;
@@ -970,7 +1004,7 @@ table tr td:last-child {
 }
 
 table tr td.large {
-	width: 34%;
+	width: 45%;
 }
 
 .ui-tabs-panel .contents {

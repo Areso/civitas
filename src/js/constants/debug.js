@@ -12,6 +12,7 @@ if (city_builder.DEBUG === true) {
 		climate: city_builder.CLIMATE_TYPE_TEMPERATE,
 		personality: city_builder.PERSONALITY_TYPE_DIPLOMAT,
 		level: 30,
+		coins: 1000000,
 		prestige: 999,
 		trades: {
 			'imports': {

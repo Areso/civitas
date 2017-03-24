@@ -2,7 +2,7 @@
  * City-builder HTML5 engine/game
  *
  * @author sizeof(cat) <sizeofcat AT riseup.net>
- * @version 0.1.3222017
+ * @version 0.1.3242017
  * @license MIT
  */ 'use strict';
 
@@ -3052,7 +3052,7 @@ city_builder.CITIES = {
 		personality: city_builder.PERSONALITY_TYPE_DIPLOMAT,
 		level: 25,
 		prestige: 700,
-		// coins: 230000,
+		coins: 230000,
 		trades: {
 			'imports': {
 				gold: city_builder.GOODS_IMPORTANCE_MEDIUM,
@@ -3097,7 +3097,7 @@ city_builder.CITIES = {
 		climate: city_builder.CLIMATE_TYPE_TROPICAL,
 		personality: city_builder.PERSONALITY_TYPE_DIPLOMAT,
 		level: 24,
-		// coins: 130000,
+		coins: 130000,
 		prestige: 700,
 		trades: {
 			'imports': {
@@ -3145,7 +3145,7 @@ city_builder.CITIES = {
 		avatar: 33,
 		climate: city_builder.CLIMATE_TYPE_TROPICAL,
 		personality: city_builder.PERSONALITY_TYPE_WARLORD,
-		// coins: 200000,
+		coins: 200000,
 		level: 22,
 		prestige: 500,
 		trades: {
@@ -3191,7 +3191,7 @@ city_builder.CITIES = {
 		avatar: 34,
 		climate: city_builder.CLIMATE_TYPE_ARID,
 		personality: city_builder.PERSONALITY_TYPE_DIPLOMAT,
-		// coins: 200000,
+		coins: 200000,
 		level: 35,
 		prestige: 800,
 		trades: {
@@ -3237,7 +3237,7 @@ city_builder.CITIES = {
 		avatar: 30,
 		climate: city_builder.CLIMATE_TYPE_ARID,
 		personality: city_builder.PERSONALITY_TYPE_DIPLOMAT,
-		// coins: 130000,
+		coins: 130000,
 		level: 33,
 		prestige: 780,
 		trades: {
@@ -3279,7 +3279,7 @@ city_builder.CITIES = {
 		avatar: 5,
 		climate: city_builder.CLIMATE_TYPE_POLAR,
 		personality: city_builder.PERSONALITY_TYPE_WARLORD,
-		// coins: 30000,
+		coins: 30000,
 		level: 20,
 		prestige: 200,
 		trades: {
@@ -3321,7 +3321,7 @@ city_builder.CITIES = {
 		avatar: 17,
 		climate: city_builder.CLIMATE_TYPE_TEMPERATE,
 		personality: city_builder.PERSONALITY_TYPE_BALANCED,
-		// coins: 330000,
+		coins: 330000,
 		level: 38,
 		prestige: 900,
 		trades: {
@@ -3374,7 +3374,7 @@ city_builder.CITIES = {
 		avatar: 8,
 		climate: city_builder.CLIMATE_TYPE_CONTINENTAL,
 		personality: city_builder.PERSONALITY_TYPE_WARLORD,
-		// coins: 22000,
+		coins: 22000,
 		level: 18,
 		prestige: 160,
 		trades: {
@@ -3414,7 +3414,7 @@ city_builder.CITIES = {
 		avatar: 9,
 		climate: city_builder.CLIMATE_TYPE_TROPICAL,
 		personality: city_builder.PERSONALITY_TYPE_BALANCED,
-		// coins: 180000,
+		coins: 180000,
 		level: 22,
 		prestige: 200,
 		trades: {
@@ -3455,7 +3455,7 @@ city_builder.CITIES = {
 		avatar: 10,
 		climate: city_builder.CLIMATE_TYPE_TROPICAL,
 		personality: city_builder.PERSONALITY_TYPE_WARLORD,
-		// coins: 80000,
+		coins: 80000,
 		level: 18,
 		prestige: 300,
 		trades: {
@@ -3501,7 +3501,7 @@ city_builder.CITIES = {
 		avatar: 36,
 		climate: city_builder.CLIMATE_TYPE_TROPICAL,
 		personality: city_builder.PERSONALITY_TYPE_DIPLOMAT,
-		// coins: 280000,
+		coins: 280000,
 		level: 31,
 		prestige: 600,
 		trades: {
@@ -3547,7 +3547,7 @@ city_builder.CITIES = {
 		avatar: 12,
 		climate: city_builder.CLIMATE_TYPE_TEMPERATE,
 		personality: city_builder.PERSONALITY_TYPE_BALANCED,
-		// coins: 110000,
+		coins: 110000,
 		level: 21,
 		prestige: 180,
 		trades: {
@@ -3591,7 +3591,7 @@ city_builder.CITIES = {
 		avatar: 24,
 		climate: city_builder.CLIMATE_TYPE_CONTINENTAL,
 		personality: city_builder.PERSONALITY_TYPE_WARLORD,
-		// coins: 10000,
+		coins: 10000,
 		level: 22,
 		prestige: 360,
 		trades: {
@@ -3635,7 +3635,7 @@ city_builder.CITIES = {
 		avatar: 14,
 		climate: city_builder.CLIMATE_TYPE_TROPICAL,
 		personality: city_builder.PERSONALITY_TYPE_WARLORD,
-		// coins: 80000,
+		coins: 80000,
 		level: 26,
 		prestige: 400,
 		trades: {
@@ -3677,7 +3677,7 @@ city_builder.CITIES = {
 		avatar: 15,
 		climate: city_builder.CLIMATE_TYPE_TEMPERATE,
 		personality: city_builder.PERSONALITY_TYPE_WARLORD,
-		// coins: 240000,
+		coins: 240000,
 		level: 22,
 		prestige: 420,
 		trades: {
@@ -4137,6 +4137,7 @@ if (city_builder.DEBUG === true) {
 		climate: city_builder.CLIMATE_TYPE_TEMPERATE,
 		personality: city_builder.PERSONALITY_TYPE_DIPLOMAT,
 		level: 30,
+		coins: 1000000,
 		prestige: 999,
 		trades: {
 			'imports': {
@@ -4199,7 +4200,19 @@ city_builder.utils = {
 	calc_price_minus_discount: function (amount, resource, discount) {
 		return Math.round(amount * (city_builder.RESOURCES[resource].price - discount));
 	},
-	
+		
+	/**
+	 * Calculate the resource price for the specified amount.
+	 * 
+	 * @param {Number} amount
+	 * @param {String} resource
+	 * @returns {Number}
+	 * @public
+	 */
+	calc_price: function (amount, resource) {
+		return Math.round(amount * (city_builder.RESOURCES[resource].price));
+	},
+
 	/**
 	 * Calculate the resource price for the specified amount plus the discount.
 	 * 
@@ -4225,6 +4238,19 @@ city_builder.utils = {
 		var mm = today.getMinutes();
 		var ss = today.getSeconds();
 		return hh + ':' + mm + ':' + ss;
+	},
+
+	nice_numbers: function(num) {
+		if (num >= 1000000000) {
+			return (num / 1000000000).toFixed(1).replace(/\.0$/, '') + 'G';
+		}
+		if (num >= 1000000) {
+			return (num / 1000000).toFixed(1).replace(/\.0$/, '') + 'M';
+		}
+		if (num >= 1000) {
+			return (num / 1000).toFixed(1).replace(/\.0$/, '') + 'K';
+		}
+		return num;
 	}
 };
 
@@ -4503,9 +4529,9 @@ city_builder.ui = {
 	cost_panel: function (costs) {
 		var out = '';
 		if (typeof costs !== 'undefined') {
-			out += '<dt>Cost</dt>';
+			out += '<dt>' + city_builder.l('Cost') + '</dt>';
 			for (var item in costs) {
-				out += '<dd>' + costs[item] + city_builder.ui.resource_small_img(item) + '</dd>';
+				out += '<dd>' + city_builder.utils.nice_numbers(costs[item]) + city_builder.ui.resource_small_img(item) + '</dd>';
 			}
 		}
 		return out;
@@ -4832,6 +4858,7 @@ city_builder.city = function(params) {
 		if (typeof params.data.coins !== 'undefined') {
 			this.resources.coins.storage = params.data.coins;
 		}
+		console.log(this);
 		this.prestige = (typeof params.data.prestige !== 'undefined') ? params.data.prestige : 1;
 		this.personality = (typeof params.data.personality !== 'undefined') ? params.data.personality : city_builder.PERSONALITY_TYPE_BALANCED;
 		this.nationality = (typeof params.data.nationality !== 'undefined') ? params.data.nationality : city_builder.NATION_TYPE_ROMAN;
@@ -5073,6 +5100,10 @@ city_builder.city = function(params) {
 					return false;
 				}
 				this.inc_coins_amount(price);
+				if (!_city.dec_coins_amount(city_builder.utils.calc_price(amount, item))) {
+					this.get_core().error(city + ' does not have enough coins.');
+					return false;
+				}
 				this.remove_from_imports(_city, item, amount);
 				this.raise_influence(city, 1);
 				this.raise_prestige();
@@ -6452,6 +6483,30 @@ city_builder.city = function(params) {
 		return this;
 	};
 	
+	/**
+	 * Propose a pact to the specified city.
+	 *
+	 * @public
+	 * @returns {city_builder.city}
+	 * @param {city_builder.city}
+	 */
+	this.propose_pact = function(city) {
+		// TODO
+		return this;
+	};
+
+	/**
+	 * Assign a spy to the specified city.
+	 *
+	 * @public
+	 * @returns {city_builder.city}
+	 * @param {city_builder.city}
+	 */
+	this.assign_spy = function(city) {
+		// TODO
+		return this;
+	};
+
 	// Fire up the constructor
 	return this.__constructor(params);
 };
@@ -7435,7 +7490,7 @@ city_builder.panel_buildings = function (params) {
 			$(el + ' .b-desc').html(building.description);
 			var _z = '<dl class="nomg">';
 			for (var y in building.cost) {
-				_z += '<dt>' + building.cost[y] + '</dt><dd><img class="tips" title="' + city_builder.RESOURCES[y].name + '" src="' + city_builder.ASSETS_URL + 'images/resources/' + y + '_small.png" /></dd>';
+				_z += '<dt>' + city_builder.utils.nice_numbers(building.cost[y]) + '</dt><dd><img class="tips" title="' + city_builder.RESOURCES[y].name + '" src="' + city_builder.ASSETS_URL + 'images/resources/' + y + '_small.png" /></dd>';
 			}
 			_z += '</dl>';
 			$(el + ' .b-cost').append(_z);
@@ -7778,6 +7833,7 @@ city_builder.panel_city = function (params) {
 				'<dt>' + city_builder.l('Nationality') + '</dt><dd>' + city.get_nationality().name.capitalize() + '</dd>' +
 				'<dt>' + city_builder.l('Level') + '</dt><dd>' + city.get_level() + '</dd>' +
 				'<dt>' + city_builder.l('Prestige') + '</dt><dd>' + city.get_prestige() + '</dd>' +
+				'<dt>' + city_builder.l('Coins') + '</dt><dd>' + city_builder.utils.nice_numbers(city.get_coins_amount()) + '</dd>' +
 				'<dt>' + city_builder.l('Influence') + '</dt><dd>' + this.core.get_city().get_influence_with_city(city.get_name()) + '</dd>' +
 				'</dl>');
 		$(el + ' #tab-army').append(city_builder.ui.army_list(city.get_army_total()));
@@ -8358,7 +8414,7 @@ city_builder.panel_advisor = function (params) {
 					'<div class="cost">' +
 					'<dl class="nomg">';
 			for (var res in city_builder.SOLDIER_TYPES[item].cost) {
-				_t += '<dt>' + city_builder.SOLDIER_TYPES[item].cost[res] + '</dt><dd><img class="tips" title="' + city_builder.RESOURCES[res].name + '" src="' + city_builder.ASSETS_URL + 'images/resources/' + res + '_small.png" /></dd>';
+				_t += '<dt>' + city_builder.utils.nice_numbers(city_builder.SOLDIER_TYPES[item].cost[res]) + '</dt><dd><img class="tips" title="' + city_builder.RESOURCES[res].name + '" src="' + city_builder.ASSETS_URL + 'images/resources/' + res + '_small.png" /></dd>';
 			}
 			_t += '</dl>' +
 					'</div>' +
@@ -8387,7 +8443,7 @@ city_builder.panel_advisor = function (params) {
 					'<div class="cost">' +
 					'<dl class="nomg">';
 			for (var res in city_builder.SHIP_TYPES[item].cost) {
-				_t += '<dt>' + city_builder.SHIP_TYPES[item].cost[res] + '</dt><dd><img class="tips" title="' + city_builder.RESOURCES[res].name + '" src="' + city_builder.ASSETS_URL + 'images/resources/' + res + '_small.png" /></dd>';
+				_t += '<dt>' + city_builder.utils.nice_numbers(city_builder.SHIP_TYPES[item].cost[res]) + '</dt><dd><img class="tips" title="' + city_builder.RESOURCES[res].name + '" src="' + city_builder.ASSETS_URL + 'images/resources/' + res + '_small.png" /></dd>';
 			}
 			_t += '</dl>' +
 					'</div>' +
@@ -8441,8 +8497,10 @@ city_builder.panel_advisor = function (params) {
 			_t += '<tr>' +
 					'<td class="icon"><img src="' + city_builder.ASSETS_URL + 'images/avatars/avatar' + cities[i].get_avatar() + '.png" /></td>' +
 					'<td>' +
-					'<p class="title">' + cities[i].get_name() + '</p>' +
-					'<p class="description">' + city_builder.l('Leader') + ': ' + cities[i].get_ruler() + ' ' + city_builder.l('Personality') + ': ' + cities[i].get_personality().name + '</p>';
+					'<p>' +
+						'<span class="title">' + cities[i].get_name() + '</span> ' +
+						'<span class="description">' + city_builder.l('Leader') + ': ' + cities[i].get_ruler() + ' ' + city_builder.l('Personality') + ': ' + cities[i].get_personality().name + '</span>' +
+					'</p>';
 			var influence = this.core.get_city().get_influence();
 			influence = influence[cities[i].get_name()];
 			var _e = '';
@@ -8462,9 +8520,10 @@ city_builder.panel_advisor = function (params) {
 			_t += '</td>' +
 					'<td class="large">' +
 					'<a data-name="' + cities[i].get_name() + '" title="' + city_builder.l('View info about this city.') + '" class="tips view-city" href="#">' + city_builder.l('view') + '</a> ' +
+					'<a data-name="' + cities[i].get_name() + '" title="' + city_builder.l('Send a spy to this city.') + '" data-id="' + i + '" class="tips spy" href="#">' + city_builder.l('spy') + '</a> ' +
 					'<a data-name="' + cities[i].get_name() + '" title="' + city_builder.l('Propose a pact to this city`s ruler.') + '" class="tips pact" href="#">' + city_builder.l('pact') + '</a> ' +
-					'<a data-name="' + cities[i].get_name() + '" title="' + city_builder.l('Send goods to this city.') + '" data-id="' + i + '" class="tips send-goods" href="#">' + city_builder.l('send goods') + '</a> ' +
-					'<a data-name="' + cities[i].get_name() + '" title="' + city_builder.l('Declare war to this city.') + '" data-id="' + i + '" class="tips declare-war" href="#">' + city_builder.l('declare war') + '</a>' +
+					'<a data-name="' + cities[i].get_name() + '" title="' + city_builder.l('Send goods to this city.') + '" data-id="' + i + '" class="tips send-goods" href="#">' + city_builder.l('send') + '</a> ' +
+					'<a data-name="' + cities[i].get_name() + '" title="' + city_builder.l('Declare war to this city.') + '" data-id="' + i + '" class="tips declare-war" href="#">' + city_builder.l('war') + '</a>' +
 					'</td>' +
 					'</tr>';
 
@@ -8482,7 +8541,7 @@ city_builder.panel_advisor = function (params) {
 				var influence = self.core.get_city().get_influence_with_city(city);
 				if (influence >= 50) {
 					if (self.core.get_city().propose_pact(city) === true) {
-						//self.refreshNavy();
+						// TODO
 					}
 					$('.tipsy').remove();
 
@@ -8493,6 +8552,18 @@ city_builder.panel_advisor = function (params) {
 			}
 			else {
 				self.core.error(city_builder.l('You will need to construct an Embassy before being able to propose treaties and pacts to other cities.'));
+			}
+			return false;
+		}).on('click', '.spy', function () {
+			if (can_diplomacy === true) {
+				var city = $(this).data('name');
+				if (self.core.get_city().assign_spy(city) === true) {
+					// TODO
+				}
+				$('.tipsy').remove();
+			}
+			else {
+				self.core.error(city_builder.l('You will need to construct an Embassy before being able to assign spies to other cities.'));
 			}
 			return false;
 		}).on('click', '.recruit-ship', function () {
@@ -8952,7 +9023,7 @@ city_builder.panel_trades = function (params) {
 			out += '<tr>' +
 					'<td class="icon"><img src="' + city_builder.ASSETS_URL + 'images/armies/' + city_builder.MERCENARIES[i].icon + '.png" /></td>' +
 					'<td><p class="title">' + city_builder.MERCENARIES[i].name + '</p><p class="description">' + city_builder.MERCENARIES[i].description + '</p></td>' +
-					'<td>' + city_builder.MERCENARIES[i].cost + city_builder.ui.resource_small_img('coins') + '</td>' +
+					'<td>' + city_builder.utils.nice_numbers(city_builder.MERCENARIES[i].cost) + city_builder.ui.resource_small_img('coins') + '</td>' +
 					'<td><a title="' + city_builder.l('View info on this mercenary army') + '" data-id="' + i + '" class="tips view-army" href="#">view</a> ' +
 					city_builder.ui.panel_btn('recruit', city_builder.l('Recruit this mercenary army'), city_builder.MERCENARIES[i].handle, 'recruit', this.core.get_city().is_mercenary_recruited(city_builder.MERCENARIES[i].handle)) +
 					'</tr>';

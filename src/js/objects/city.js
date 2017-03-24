@@ -166,6 +166,7 @@ city_builder.city = function(params) {
 		if (typeof params.data.coins !== 'undefined') {
 			this.resources.coins.storage = params.data.coins;
 		}
+		console.log(this);
 		this.prestige = (typeof params.data.prestige !== 'undefined') ? params.data.prestige : 1;
 		this.personality = (typeof params.data.personality !== 'undefined') ? params.data.personality : city_builder.PERSONALITY_TYPE_BALANCED;
 		this.nationality = (typeof params.data.nationality !== 'undefined') ? params.data.nationality : city_builder.NATION_TYPE_ROMAN;
@@ -407,6 +408,10 @@ city_builder.city = function(params) {
 					return false;
 				}
 				this.inc_coins_amount(price);
+				if (!_city.dec_coins_amount(city_builder.utils.calc_price(amount, item))) {
+					this.get_core().error(city + ' does not have enough coins.');
+					return false;
+				}
 				this.remove_from_imports(_city, item, amount);
 				this.raise_influence(city, 1);
 				this.raise_prestige();
@@ -1786,6 +1791,30 @@ city_builder.city = function(params) {
 		return this;
 	};
 	
+	/**
+	 * Propose a pact to the specified city.
+	 *
+	 * @public
+	 * @returns {city_builder.city}
+	 * @param {city_builder.city}
+	 */
+	this.propose_pact = function(city) {
+		// TODO
+		return this;
+	};
+
+	/**
+	 * Assign a spy to the specified city.
+	 *
+	 * @public
+	 * @returns {city_builder.city}
+	 * @param {city_builder.city}
+	 */
+	this.assign_spy = function(city) {
+		// TODO
+		return this;
+	};
+
 	// Fire up the constructor
 	return this.__constructor(params);
 };

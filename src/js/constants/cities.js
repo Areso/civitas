@@ -13,7 +13,7 @@ city_builder.CITIES = {
 		personality: city_builder.PERSONALITY_TYPE_DIPLOMAT,
 		level: 25,
 		prestige: 700,
-		// coins: 230000,
+		coins: 230000,
 		trades: {
 			'imports': {
 				gold: city_builder.GOODS_IMPORTANCE_MEDIUM,
@@ -58,7 +58,7 @@ city_builder.CITIES = {
 		climate: city_builder.CLIMATE_TYPE_TROPICAL,
 		personality: city_builder.PERSONALITY_TYPE_DIPLOMAT,
 		level: 24,
-		// coins: 130000,
+		coins: 130000,
 		prestige: 700,
 		trades: {
 			'imports': {
@@ -106,7 +106,7 @@ city_builder.CITIES = {
 		avatar: 33,
 		climate: city_builder.CLIMATE_TYPE_TROPICAL,
 		personality: city_builder.PERSONALITY_TYPE_WARLORD,
-		// coins: 200000,
+		coins: 200000,
 		level: 22,
 		prestige: 500,
 		trades: {
@@ -152,7 +152,7 @@ city_builder.CITIES = {
 		avatar: 34,
 		climate: city_builder.CLIMATE_TYPE_ARID,
 		personality: city_builder.PERSONALITY_TYPE_DIPLOMAT,
-		// coins: 200000,
+		coins: 200000,
 		level: 35,
 		prestige: 800,
 		trades: {
@@ -198,7 +198,7 @@ city_builder.CITIES = {
 		avatar: 30,
 		climate: city_builder.CLIMATE_TYPE_ARID,
 		personality: city_builder.PERSONALITY_TYPE_DIPLOMAT,
-		// coins: 130000,
+		coins: 130000,
 		level: 33,
 		prestige: 780,
 		trades: {
@@ -240,7 +240,7 @@ city_builder.CITIES = {
 		avatar: 5,
 		climate: city_builder.CLIMATE_TYPE_POLAR,
 		personality: city_builder.PERSONALITY_TYPE_WARLORD,
-		// coins: 30000,
+		coins: 30000,
 		level: 20,
 		prestige: 200,
 		trades: {
@@ -282,7 +282,7 @@ city_builder.CITIES = {
 		avatar: 17,
 		climate: city_builder.CLIMATE_TYPE_TEMPERATE,
 		personality: city_builder.PERSONALITY_TYPE_BALANCED,
-		// coins: 330000,
+		coins: 330000,
 		level: 38,
 		prestige: 900,
 		trades: {
@@ -335,7 +335,7 @@ city_builder.CITIES = {
 		avatar: 8,
 		climate: city_builder.CLIMATE_TYPE_CONTINENTAL,
 		personality: city_builder.PERSONALITY_TYPE_WARLORD,
-		// coins: 22000,
+		coins: 22000,
 		level: 18,
 		prestige: 160,
 		trades: {
@@ -375,7 +375,7 @@ city_builder.CITIES = {
 		avatar: 9,
 		climate: city_builder.CLIMATE_TYPE_TROPICAL,
 		personality: city_builder.PERSONALITY_TYPE_BALANCED,
-		// coins: 180000,
+		coins: 180000,
 		level: 22,
 		prestige: 200,
 		trades: {
@@ -416,7 +416,7 @@ city_builder.CITIES = {
 		avatar: 10,
 		climate: city_builder.CLIMATE_TYPE_TROPICAL,
 		personality: city_builder.PERSONALITY_TYPE_WARLORD,
-		// coins: 80000,
+		coins: 80000,
 		level: 18,
 		prestige: 300,
 		trades: {
@@ -462,7 +462,7 @@ city_builder.CITIES = {
 		avatar: 36,
 		climate: city_builder.CLIMATE_TYPE_TROPICAL,
 		personality: city_builder.PERSONALITY_TYPE_DIPLOMAT,
-		// coins: 280000,
+		coins: 280000,
 		level: 31,
 		prestige: 600,
 		trades: {
@@ -508,7 +508,7 @@ city_builder.CITIES = {
 		avatar: 12,
 		climate: city_builder.CLIMATE_TYPE_TEMPERATE,
 		personality: city_builder.PERSONALITY_TYPE_BALANCED,
-		// coins: 110000,
+		coins: 110000,
 		level: 21,
 		prestige: 180,
 		trades: {
@@ -552,7 +552,7 @@ city_builder.CITIES = {
 		avatar: 24,
 		climate: city_builder.CLIMATE_TYPE_CONTINENTAL,
 		personality: city_builder.PERSONALITY_TYPE_WARLORD,
-		// coins: 10000,
+		coins: 10000,
 		level: 22,
 		prestige: 360,
 		trades: {
@@ -596,7 +596,7 @@ city_builder.CITIES = {
 		avatar: 14,
 		climate: city_builder.CLIMATE_TYPE_TROPICAL,
 		personality: city_builder.PERSONALITY_TYPE_WARLORD,
-		// coins: 80000,
+		coins: 80000,
 		level: 26,
 		prestige: 400,
 		trades: {
@@ -638,7 +638,7 @@ city_builder.CITIES = {
 		avatar: 15,
 		climate: city_builder.CLIMATE_TYPE_TEMPERATE,
 		personality: city_builder.PERSONALITY_TYPE_WARLORD,
-		// coins: 240000,
+		coins: 240000,
 		level: 22,
 		prestige: 420,
 		trades: {

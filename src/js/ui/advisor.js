@@ -116,7 +116,7 @@ city_builder.panel_advisor = function (params) {
 					'<div class="cost">' +
 					'<dl class="nomg">';
 			for (var res in city_builder.SOLDIER_TYPES[item].cost) {
-				_t += '<dt>' + city_builder.SOLDIER_TYPES[item].cost[res] + '</dt><dd><img class="tips" title="' + city_builder.RESOURCES[res].name + '" src="' + city_builder.ASSETS_URL + 'images/resources/' + res + '_small.png" /></dd>';
+				_t += '<dt>' + city_builder.utils.nice_numbers(city_builder.SOLDIER_TYPES[item].cost[res]) + '</dt><dd><img class="tips" title="' + city_builder.RESOURCES[res].name + '" src="' + city_builder.ASSETS_URL + 'images/resources/' + res + '_small.png" /></dd>';
 			}
 			_t += '</dl>' +
 					'</div>' +
@@ -145,7 +145,7 @@ city_builder.panel_advisor = function (params) {
 					'<div class="cost">' +
 					'<dl class="nomg">';
 			for (var res in city_builder.SHIP_TYPES[item].cost) {
-				_t += '<dt>' + city_builder.SHIP_TYPES[item].cost[res] + '</dt><dd><img class="tips" title="' + city_builder.RESOURCES[res].name + '" src="' + city_builder.ASSETS_URL + 'images/resources/' + res + '_small.png" /></dd>';
+				_t += '<dt>' + city_builder.utils.nice_numbers(city_builder.SHIP_TYPES[item].cost[res]) + '</dt><dd><img class="tips" title="' + city_builder.RESOURCES[res].name + '" src="' + city_builder.ASSETS_URL + 'images/resources/' + res + '_small.png" /></dd>';
 			}
 			_t += '</dl>' +
 					'</div>' +
@@ -199,8 +199,10 @@ city_builder.panel_advisor = function (params) {
 			_t += '<tr>' +
 					'<td class="icon"><img src="' + city_builder.ASSETS_URL + 'images/avatars/avatar' + cities[i].get_avatar() + '.png" /></td>' +
 					'<td>' +
-					'<p class="title">' + cities[i].get_name() + '</p>' +
-					'<p class="description">' + city_builder.l('Leader') + ': ' + cities[i].get_ruler() + ' ' + city_builder.l('Personality') + ': ' + cities[i].get_personality().name + '</p>';
+					'<p>' +
+						'<span class="title">' + cities[i].get_name() + '</span> ' +
+						'<span class="description">' + city_builder.l('Leader') + ': ' + cities[i].get_ruler() + ' ' + city_builder.l('Personality') + ': ' + cities[i].get_personality().name + '</span>' +
+					'</p>';
 			var influence = this.core.get_city().get_influence();
 			influence = influence[cities[i].get_name()];
 			var _e = '';
@@ -220,9 +222,10 @@ city_builder.panel_advisor = function (params) {
 			_t += '</td>' +
 					'<td class="large">' +
 					'<a data-name="' + cities[i].get_name() + '" title="' + city_builder.l('View info about this city.') + '" class="tips view-city" href="#">' + city_builder.l('view') + '</a> ' +
+					'<a data-name="' + cities[i].get_name() + '" title="' + city_builder.l('Send a spy to this city.') + '" data-id="' + i + '" class="tips spy" href="#">' + city_builder.l('spy') + '</a> ' +
 					'<a data-name="' + cities[i].get_name() + '" title="' + city_builder.l('Propose a pact to this city`s ruler.') + '" class="tips pact" href="#">' + city_builder.l('pact') + '</a> ' +
-					'<a data-name="' + cities[i].get_name() + '" title="' + city_builder.l('Send goods to this city.') + '" data-id="' + i + '" class="tips send-goods" href="#">' + city_builder.l('send goods') + '</a> ' +
-					'<a data-name="' + cities[i].get_name() + '" title="' + city_builder.l('Declare war to this city.') + '" data-id="' + i + '" class="tips declare-war" href="#">' + city_builder.l('declare war') + '</a>' +
+					'<a data-name="' + cities[i].get_name() + '" title="' + city_builder.l('Send goods to this city.') + '" data-id="' + i + '" class="tips send-goods" href="#">' + city_builder.l('send') + '</a> ' +
+					'<a data-name="' + cities[i].get_name() + '" title="' + city_builder.l('Declare war to this city.') + '" data-id="' + i + '" class="tips declare-war" href="#">' + city_builder.l('war') + '</a>' +
 					'</td>' +
 					'</tr>';
 
@@ -240,7 +243,7 @@ city_builder.panel_advisor = function (params) {
 				var influence = self.core.get_city().get_influence_with_city(city);
 				if (influence >= 50) {
 					if (self.core.get_city().propose_pact(city) === true) {
-						//self.refreshNavy();
+						// TODO
 					}
 					$('.tipsy').remove();
 
@@ -251,6 +254,18 @@ city_builder.panel_advisor = function (params) {
 			}
 			else {
 				self.core.error(city_builder.l('You will need to construct an Embassy before being able to propose treaties and pacts to other cities.'));
+			}
+			return false;
+		}).on('click', '.spy', function () {
+			if (can_diplomacy === true) {
+				var city = $(this).data('name');
+				if (self.core.get_city().assign_spy(city) === true) {
+					// TODO
+				}
+				$('.tipsy').remove();
+			}
+			else {
+				self.core.error(city_builder.l('You will need to construct an Embassy before being able to assign spies to other cities.'));
 			}
 			return false;
 		}).on('click', '.recruit-ship', function () {
