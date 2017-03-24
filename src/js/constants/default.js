@@ -167,3 +167,35 @@ city_builder.GOODS_IMPORTANCE_MEDIUM = 20;
  * @type {Number}
  */
 city_builder.GOODS_IMPORTANCE_LOW = 10;
+
+/**
+ * Difficulty level of the game is easy.
+ * 
+ * @constant
+ * @type {Number}
+ */
+city_builder.DIFFICULTY_LEVEL_EASY = 1;
+
+/**
+ * Difficulty level of the game is medium.
+ * 
+ * @constant
+ * @type {Number}
+ */
+city_builder.DIFFICULTY_LEVEL_MEDIUM = 2;
+
+/**
+ * Difficulty level of the game is hard.
+ * 
+ * @constant
+ * @type {Number}
+ */
+city_builder.DIFFICULTY_LEVEL_HARD = 3;
+
+/**
+ * Difficulty level of the game is hardcore.
+ * 
+ * @constant
+ * @type {Number}
+ */
+city_builder.DIFFICULTY_LEVEL_HARDCORE = 4;

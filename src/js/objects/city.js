@@ -158,8 +158,6 @@ city_builder.city = function(params) {
 		if (typeof params.data.coins !== 'undefined') {
 			this.resources.coins.storage = params.data.coins;
 		}
-		//console.log(this);
-		//this.resources.prestige = city_builder.RESOURCES['prestige'];
 		this.personality = (typeof params.data.personality !== 'undefined') ? params.data.personality : city_builder.PERSONALITY_TYPE_BALANCED;
 		this.nationality = (typeof params.data.nationality !== 'undefined') ? params.data.nationality : city_builder.NATION_TYPE_ROMAN;
 		this.climate = (typeof params.data.climate !== 'undefined') ? params.data.climate : city_builder.CLIMATE_TYPE_TEMPERATE;

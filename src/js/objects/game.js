@@ -97,6 +97,14 @@ city_builder.game = function () {
 	this.history = null;
 
 	/**
+	 * Game difficulty.
+	 *
+	 * @type {Number}
+	 * @private
+	 */
+	this.difficulty = city_builder.DIFFICULTY_LEVEL_EASY;
+
+	/**
 	 * Object constructor.
 	 * 
 	 * @private
@@ -155,6 +163,11 @@ city_builder.game = function () {
 				localStorage.removeItem(city_builder.STORAGE_KEY + '.data');
 				document.location.reload();
 			}
+			return false;
+		}).on('click', '.do-help', function () {
+			new city_builder.panel_help({
+				core: self
+			});
 			return false;
 		}).on('click', '.do-trades', function () {
 			new city_builder.panel_trades({
@@ -351,6 +364,7 @@ city_builder.game = function () {
 			var cityname = $('.start .cityname').val();
 			var nation = $('.start .nation').val();
 			var climate = $('.start .climate').val();
+			var difficulty = $('.start .difficulty').val();
 			if (name === '') {
 				self.error('Enter your ruler name, for example <strong>Ramses</strong>.', 'Error', true);
 				return false;
@@ -359,7 +373,7 @@ city_builder.game = function () {
 				self.error('Enter your city name, for example <strong>Alexandria</strong>.', 'Error', true);
 				return false;
 			}
-			self.start_game(name, cityname, nation, climate, avatar);
+			self.start_game(name, cityname, nation, climate, avatar, difficulty);
 			return false;
 		}).on('click', '.down', function () {
 			if (avatar < city_builder.AVATARS) {
@@ -385,10 +399,12 @@ city_builder.game = function () {
 	 * @param {Number} nation
 	 * @param {Number} climate
 	 * @param {Number} avatar
+	 * @param {Number} difficulty
 	 */
-	this.start_game = function (name, cityname, nation, climate, avatar) {
+	this.start_game = function (name, cityname, nation, climate, avatar, difficulty) {
 		var self = this;
 		var data = null;
+		this.difficulty = parseInt(difficulty);
 		if (localStorage.getItem('city_builder.data') !== null) {
 			data = this._load_main_city();
 		}
@@ -958,6 +974,16 @@ city_builder.game = function () {
 		return city_builder.VERSION;
 	};
 	
+	/**
+	 * Get the difficulty level of the game.
+	 * 
+	 * @public
+	 * @returns {Number}
+	 */
+	this.get_difficulty = function() {
+		return this.difficulty;
+	};
+
 	// Fire up the constructor
 	return this.__constructor();
 };

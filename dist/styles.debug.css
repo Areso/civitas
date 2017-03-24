@@ -2,7 +2,7 @@
  * City-builder HTML5 engine/game
  *
  * @author sizeof(cat) <sizeofcat AT riseup.net>
- * @version 0.1.3242017
+ * @version 0.1.3252017
  * @license MIT
  */ @font-face {
 	font-family: 'Hammersmith One';
@@ -185,12 +185,12 @@ header .top-panel span {
 /* Footer */
 
 .ui > footer {
-	width: 529px;
+	width: 584px;
 	height: 100px;
 	background: transparent url(../images/ui/bottom.png) no-repeat;
 	position: fixed;
 	bottom: 0;
-	left: 5%;
+	left: 10px;
 	font-family: 'Hammersmith One';
 	z-index: 9999;
 }
@@ -200,7 +200,7 @@ header .top-panel span {
 	bottom: 16px;
 	left: 60px;
 	height: 40px;
-	width: 420px;
+	width: 480px;
 }
 
 .ui > footer .toolbar > div {
@@ -433,13 +433,20 @@ header .top-panel span {
 	width: 140px;
 }
 
+/* Help panel */
+
+#panel-help {
+	max-width: 800px;
+	width: 800px;
+	height: 400px;
+	max-height: 400px;
+}
+
 /* Worldmap panel */
 
 #panel-world {
 	max-width: 1100px;
 	max-height: 700px;
-	top: 80px;
-	left: 10px;
 }
 
 /* World Trades panel */
@@ -449,8 +456,6 @@ header .top-panel span {
 	max-width: 700px;
 	max-height: 460px;
 	height: 460px;
-	left: 25%;
-	top: 10%;
 }
 
 table.mercenaries td:nth-child(3) {
@@ -465,8 +470,6 @@ table.mercenaries td:nth-child(3) {
 	max-width: 750px;
 	height: 520px;
 	max-height: 520px;
-	left: 10%;
-	top: 15%;
 }
 
 #panel-advisor img.avatar {
@@ -557,8 +560,6 @@ table.mercenaries td:nth-child(3) {
 #panel-storage {
 	max-width: 672px;
 	max-height: 640px;
-	left: 25%;
-	top: 10%;
 }
 
 .panel .storage-item {
@@ -600,12 +601,10 @@ table.mercenaries td:nth-child(3) {
 /* City Builder panel */
 
 #panel-buildings {
-	left: 5%;
 	max-width: 940px;
 	max-height: 582px;
 	height: 582px;
 	width: 590px;
-	top: 10%;
 }
 
 #panel-buildings.expanded {
@@ -1312,6 +1311,10 @@ footer .do-options {
 
 footer .do-restart {
 	background: transparent url(../images/ui/restart.png) no-repeat;
+}
+
+footer .do-help {
+	background: transparent url(../images/ui/help.png) no-repeat;
 }
 
 .panel header .btn.start {

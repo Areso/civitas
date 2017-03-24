@@ -2,7 +2,7 @@
  * City-builder HTML5 engine/game
  *
  * @author sizeof(cat) <sizeofcat AT riseup.net>
- * @version 0.1.3242017
+ * @version 0.1.3252017
  * @license MIT
  */ 'use strict';
 
@@ -196,6 +196,38 @@ city_builder.GOODS_IMPORTANCE_MEDIUM = 20;
  * @type {Number}
  */
 city_builder.GOODS_IMPORTANCE_LOW = 10;
+
+/**
+ * Difficulty level of the game is easy.
+ * 
+ * @constant
+ * @type {Number}
+ */
+city_builder.DIFFICULTY_LEVEL_EASY = 1;
+
+/**
+ * Difficulty level of the game is medium.
+ * 
+ * @constant
+ * @type {Number}
+ */
+city_builder.DIFFICULTY_LEVEL_MEDIUM = 2;
+
+/**
+ * Difficulty level of the game is hard.
+ * 
+ * @constant
+ * @type {Number}
+ */
+city_builder.DIFFICULTY_LEVEL_HARD = 3;
+
+/**
+ * Difficulty level of the game is hardcore.
+ * 
+ * @constant
+ * @type {Number}
+ */
+city_builder.DIFFICULTY_LEVEL_HARDCORE = 4;
 
 city_builder.lang = {
 	'World Market Trades': '',
@@ -4857,8 +4889,6 @@ city_builder.city = function(params) {
 		if (typeof params.data.coins !== 'undefined') {
 			this.resources.coins.storage = params.data.coins;
 		}
-		//console.log(this);
-		//this.resources.prestige = city_builder.RESOURCES['prestige'];
 		this.personality = (typeof params.data.personality !== 'undefined') ? params.data.personality : city_builder.PERSONALITY_TYPE_BALANCED;
 		this.nationality = (typeof params.data.nationality !== 'undefined') ? params.data.nationality : city_builder.NATION_TYPE_ROMAN;
 		this.climate = (typeof params.data.climate !== 'undefined') ? params.data.climate : city_builder.CLIMATE_TYPE_TEMPERATE;
@@ -7958,6 +7988,103 @@ city_builder.panel_city = function (params) {
 };
 
 /**
+ * Main Game help panel object.
+ * 
+ * @param {type} params
+ * @class {city_builder.panel}
+ * @returns {city_builder.__constructor}
+ */
+city_builder.panel_help = function (params) {
+
+	/**
+	 * Reference to the core object.
+	 * 
+	 * @type {city_builder.game}
+	 */
+	this.core = null;
+
+	/**
+	 * DOM id of this panel.
+	 * 
+	 * @type {String}
+	 * @constant
+	 */
+	this.id = 'help';
+
+	/**
+	 * Localized title of the panel.
+	 * 
+	 * @type {String}
+	 */
+	this.title = city_builder.l('Help');
+
+	/**
+	 * Object destructor.
+	 * 
+	 * @private
+	 * @returns {Boolean}
+	 */
+	this.__destructor = function () {
+		this.core.console_log('destroying panel with id `' + this.id + '`');
+		var el = '#panel-' + this.id;
+		$(el).remove();
+		$('.tipsy').remove();
+		return false;
+	};
+
+	/**
+	 * Method for destroying the window/panel.
+	 * 
+	 * @public
+	 * @returns {Boolean}
+	 */
+	this.destroy = function () {
+		return this.__destructor();
+	};
+
+	/**
+	 * Object constructor.
+	 * 
+	 * @private
+	 * @returns {city_builder.panel}
+	 * @param {Object} params
+	 */
+	this.__constructor = function (params) {
+		this.core = params.core;
+		var el = '#panel-' + this.id;
+		var self = this;
+		if (city_builder.ui.panel_exists(el)) {
+			this.destroy();
+		}
+		this.core.console_log('creating panel with id `' + this.id + '`');
+		var city = this.core.get_city();
+		$('.ui').append(city_builder.ui.generic_panel_template.replace(/{id}/g, this.id).replace(/{title}/g, this.title));
+		var _t = '';
+		$(el + ' .contents').append(_t);
+		$(el).on('click', '.close', function () {
+			self.destroy();
+			return false;
+		}).draggable({
+			handle: 'header',
+			containment: 'window',
+			snap: '.panel'
+		});
+		$(el + ' .tabs').tabs();
+		$(el + ' .tips').tipsy({
+			gravity: 's'
+		});
+		$(el).css({
+			'left': ($(window).width() / 2) - ($(el).width() / 2),
+			'top': ($(window).height() / 2) - ($(el).height() / 2)
+		});
+		return this;
+	};
+
+	// Fire up the constructor
+	return this.__constructor(params);
+};
+
+/**
  * Main Game storage panel object.
  * 
  * @param {type} params
@@ -9799,6 +9926,14 @@ city_builder.game = function () {
 	this.history = null;
 
 	/**
+	 * Game difficulty.
+	 *
+	 * @type {Number}
+	 * @private
+	 */
+	this.difficulty = city_builder.DIFFICULTY_LEVEL_EASY;
+
+	/**
 	 * Object constructor.
 	 * 
 	 * @private
@@ -9857,6 +9992,11 @@ city_builder.game = function () {
 				localStorage.removeItem(city_builder.STORAGE_KEY + '.data');
 				document.location.reload();
 			}
+			return false;
+		}).on('click', '.do-help', function () {
+			new city_builder.panel_help({
+				core: self
+			});
 			return false;
 		}).on('click', '.do-trades', function () {
 			new city_builder.panel_trades({
@@ -10053,6 +10193,7 @@ city_builder.game = function () {
 			var cityname = $('.start .cityname').val();
 			var nation = $('.start .nation').val();
 			var climate = $('.start .climate').val();
+			var difficulty = $('.start .difficulty').val();
 			if (name === '') {
 				self.error('Enter your ruler name, for example <strong>Ramses</strong>.', 'Error', true);
 				return false;
@@ -10061,7 +10202,7 @@ city_builder.game = function () {
 				self.error('Enter your city name, for example <strong>Alexandria</strong>.', 'Error', true);
 				return false;
 			}
-			self.start_game(name, cityname, nation, climate, avatar);
+			self.start_game(name, cityname, nation, climate, avatar, difficulty);
 			return false;
 		}).on('click', '.down', function () {
 			if (avatar < city_builder.AVATARS) {
@@ -10087,10 +10228,12 @@ city_builder.game = function () {
 	 * @param {Number} nation
 	 * @param {Number} climate
 	 * @param {Number} avatar
+	 * @param {Number} difficulty
 	 */
-	this.start_game = function (name, cityname, nation, climate, avatar) {
+	this.start_game = function (name, cityname, nation, climate, avatar, difficulty) {
 		var self = this;
 		var data = null;
+		this.difficulty = parseInt(difficulty);
 		if (localStorage.getItem('city_builder.data') !== null) {
 			data = this._load_main_city();
 		}
@@ -10660,6 +10803,16 @@ city_builder.game = function () {
 		return city_builder.VERSION;
 	};
 	
+	/**
+	 * Get the difficulty level of the game.
+	 * 
+	 * @public
+	 * @returns {Number}
+	 */
+	this.get_difficulty = function() {
+		return this.difficulty;
+	};
+
 	// Fire up the constructor
 	return this.__constructor();
 };
