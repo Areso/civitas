@@ -322,25 +322,17 @@ header .top-panel span {
 }
 
 .panel .toolbar .btn {
-/*	padding: 6px 20px;
-	display: block;
-	text-align: center;
-	text-transform: uppercase;
-	background-color: #8a8955;
-	color: #fff;*/
-	border:1px solid #908c68;
+	border: 1px solid #908c68;
 	-webkit-border-radius: 3px;
 	-moz-border-radius: 3px;
 	border-radius: 3px;
 	padding: 10px 10px 10px 10px;
-	text-shadow: -1px -1px 0 rgba(0,0,0,0.3);
-	color: #FFFFFF;
+	text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
+	color: #fff;
 	background-color: #a9a588;
 	background-image: -webkit-gradient(linear, left top, left bottom, from(#a9a588), to(#8e865b));
 	background-image: -webkit-linear-gradient(top, #a9a588, #8e865b);
 	background-image: -moz-linear-gradient(top, #a9a588, #8e865b);
-	background-image: -ms-linear-gradient(top, #a9a588, #8e865b);
-	background-image: -o-linear-gradient(top, #a9a588, #8e865b);
 	background-image: linear-gradient(to bottom, #a9a588, #8e865b);
 	text-transform: uppercase;
 	text-align: center;
@@ -348,13 +340,11 @@ header .top-panel span {
 }
 
 .panel .toolbar .btn:hover {
-	border:1px solid #767255;
+	border: 1px solid #767255;
 	background-color: #938e6b;
 	background-image: -webkit-gradient(linear, left top, left bottom, from(#938e6b), to(#6f6947));
 	background-image: -webkit-linear-gradient(top, #938e6b, #6f6947);
 	background-image: -moz-linear-gradient(top, #938e6b, #6f6947);
-	background-image: -ms-linear-gradient(top, #938e6b, #6f6947);
-	background-image: -o-linear-gradient(top, #938e6b, #6f6947);
 	background-image: linear-gradient(to bottom, #938e6b, #6f6947);
 }
 
