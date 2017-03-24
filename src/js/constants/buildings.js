@@ -513,7 +513,8 @@ city_builder.BUILDINGS = [{
 			'soldiers and some extra fame.',
 		is_production: true,
 		production: {
-			fame: 100
+			fame: 100,
+			prestige: 1
 		},
 		upgrades: 2,
 		visible_upgrades: true,
@@ -522,7 +523,7 @@ city_builder.BUILDINGS = [{
 			y: 77
 		},
 		materials: {
-			coins: 20
+			coins: 200
 		},
 		cost: {
 			coins: 200000,

@@ -101,7 +101,7 @@ ul, li {
 	width: 142px;
 	height: 19px;
 	position: absolute;
-	left: 38px;
+	left: 8px;
 	bottom: 7px;
 	z-index: 9999;
 	padding: 0;
@@ -140,7 +140,7 @@ ul, li {
 	right: 7px;
 	width: 60px;
 	bottom: 5px;
-	width: 26px;
+	width: 54px;
 }
 
 .ui .cityfame > span {
@@ -985,6 +985,11 @@ table tr:hover td:last-child a.disabled {
 table.normal tr td:nth-child(4) {
 	width: 10%;
 	text-align: right;
+}
+
+.rankings-list {
+	height: 300px;
+	overflow: auto;
 }
 
 table.normal tr td:nth-child(5) {

@@ -16,6 +16,12 @@ city_builder.RESOURCES = {
 		total: 1,
 		amount: 1
 	},
+	'prestige': {
+		name: 'Prestige',
+		handle: 'prestige',
+		total: 1,
+		amount: 1
+	},
 	'almonds': {
 		name: 'Almonds',
 		price: 200,

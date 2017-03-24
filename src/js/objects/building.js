@@ -357,6 +357,21 @@ city_builder.building = function(params) {
 	};
 	
 	/**
+	 * Raise the prestige of the city this building is located in.
+	 * 
+	 * @public
+	 * @returns {Number}
+	 */
+	this.adjust_city_prestige = function() {
+		var building = this.get_building_data();
+		var prd = building.production;
+		var amount = prd.prestige;
+		this.get_city().inc_prestige_amount(amount);
+		this.get_core().log(this.get_name() + ' raised city prestige by ' + amount + '.');
+		return this.get_city().get_prestige().amount;
+	};
+
+	/**
 	 * Raise the fame of the city this building is located in.
 	 * 
 	 * @public
@@ -367,7 +382,7 @@ city_builder.building = function(params) {
 		var prd = building.production;
 		var amount = prd.fame * this.get_level();
 		this.get_city().inc_fame_amount(amount);
-		this.get_core().log(this.get_name() + ' raised city fame with ' + amount + '.');
+		this.get_core().log(this.get_name() + ' raised city fame by ' + amount + '.');
 		return this.get_city().get_fame().amount;
 	};
 	
@@ -530,6 +545,8 @@ city_builder.building = function(params) {
 			case 'camp':
 				break;
 			case 'castle':
+				this.adjust_city_fame_for_coins();
+				this.adjust_city_prestige();
 				break;
 				/* MUNICIPAL */
 			case 'church':

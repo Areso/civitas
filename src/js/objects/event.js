@@ -1,8 +1,8 @@
 /**
- * Main Game building object.
+ * Main Game event object.
  * 
  * @param {type} params
- * @class {city_builder.building}
+ * @class {city_builder.event}
  * @returns {city_builder.event}
  */
 city_builder.event = function (params) {

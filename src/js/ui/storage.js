@@ -76,7 +76,7 @@ city_builder.panel_storage = function (params) {
 		var main_storage = '';
 		var extra_storage = '';
 		for (var resource in city_builder.RESOURCES) {
-			if (resource !== 'fame') {
+			if (resource !== 'fame' && resource !== 'prestige') {
 				if ($.inArray(resource, city_builder.MAIN_RESOURCES) !== -1) {
 					main_storage += city_builder.ui.resource_storage_el(resource, resources[resource].storage);
 				} else {

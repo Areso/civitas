@@ -88,12 +88,38 @@ city_builder.panel_rankings = function (params) {
 		this.core.console_log('creating panel with id `' + this.id + '`');
 		$(el).remove();
 		$('.ui').append(city_builder.ui.generic_panel_template.replace(/{id}/g, this.id).replace(/{title}/g, this.title));
-		var out = '';
-
+		var ranking_list = [];
 		for (var item in city_builder.CITIES) {
-			console.log(item + '=' + this.get_ranking(item));
+			ranking_list.push({
+				name: item,
+				score: this.get_ranking(item)
+			});
 		}
-		console.log(this.core.get_city().get_name() + '=' + this.get_ranking(this.core.get_city()));
+		ranking_list.push({
+			name: this.core.get_city().get_name(),
+			score: this.get_ranking(this.core.get_city())
+		});
+		ranking_list.sort(function(a, b) {
+		    var keyA = new Date(a.score);
+		    var keyB = new Date(b.score);
+		    if (keyA > keyB) {
+		    	return -1;
+		    }
+		    if (keyA < keyB) {
+		    	return 1;
+		    }
+		    return 0;
+		});
+		var out = '<div class="rankings-list">' +
+			'<dl>' +
+			'<dt>' + city_builder.l('City') + '</dt>' + 
+			'<dd>' + city_builder.l('Score') + '</dd>' +
+			'</dl>';
+		for (var i = 0; i < ranking_list.length; i++) {
+			out += '<dt>' + ranking_list[i].name + '</dt><dd>' + ranking_list[i].score + '</dd>';
+		}
+		out += '</dl>' +
+			'</div>';
 		$(el + ' .contents').empty().append(out);
 		$(el).on('click', '.close', function () {
 			self.destroy();

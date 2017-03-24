@@ -30,6 +30,7 @@ gulp.task('app', ['cleanup_js'], function() {
 		'src/js/objects/modules/jailer.js',
 		'src/js/objects/ui.js',
 		'src/js/objects/city.js',
+		'src/js/objects/history.js',
 		'src/js/objects/event.js',
 		'src/js/objects/building.js',
 		'src/js/ui/building.js',

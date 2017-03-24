@@ -68,7 +68,7 @@ city_builder.game = function () {
 	 * Pointer to an instance of the game API object.
 	 * 
 	 * @type {city_builder.api}
-	 * @private
+	 * @public
 	 */
 	this.api = null;
 
@@ -76,7 +76,7 @@ city_builder.game = function () {
 	 * Pointer to an instance of the game Jailer object.
 	 * 
 	 * @type {city_builder.jailer}
-	 * @private
+	 * @public
 	 */
 	this.jailer = null;
 
@@ -89,6 +89,14 @@ city_builder.game = function () {
 	this.settings = {};
 
 	/**
+	 * Pointer to an instance of the game history.
+	 *
+	 * @type {city_builder.history}
+	 * @public
+	 */
+	this.history = null;
+
+	/**
 	 * Object constructor.
 	 * 
 	 * @private
@@ -98,6 +106,9 @@ city_builder.game = function () {
 		var clicked = false;
 		var clickY, clickX;
 		var self = this;
+		this.history = new city_builder.history({
+			core: this
+		});
 		this.jailer = new city_builder.jailer({
 			core: this
 		});
@@ -837,7 +848,7 @@ city_builder.game = function () {
 		var storage_space = city.get_storage_space();
 		var needed = city_builder.LEVELS[city.get_level()];
 		$('.citylevel').html(city.get_level());
-		$('.cityprestige').html(city.get_prestige());
+		$('.cityprestige').html(city.get_prestige_amount());
 		for (var i = 0; i < city_builder.TOOLBAR_RESOURCES.length; i++) {
 			var resource = city_builder.TOOLBAR_RESOURCES[i];
 			var el = $('.top-panel .' + resource);

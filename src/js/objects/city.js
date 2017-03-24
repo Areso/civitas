@@ -48,15 +48,7 @@ city_builder.city = function(params) {
 	 * @type {Number}
 	 */
 	this.storage = 0;
-	
-	/**
-	 * Total prestige of the city.
-	 * 
-	 * @private
-	 * @type {Number}
-	 */
-	this.prestige = 1;
-	
+
 	/**
 	 * The personality of the city ruler. It affects the relations with the
 	 * other cities of the world.
@@ -166,8 +158,8 @@ city_builder.city = function(params) {
 		if (typeof params.data.coins !== 'undefined') {
 			this.resources.coins.storage = params.data.coins;
 		}
-		console.log(this);
-		this.prestige = (typeof params.data.prestige !== 'undefined') ? params.data.prestige : 1;
+		//console.log(this);
+		//this.resources.prestige = city_builder.RESOURCES['prestige'];
 		this.personality = (typeof params.data.personality !== 'undefined') ? params.data.personality : city_builder.PERSONALITY_TYPE_BALANCED;
 		this.nationality = (typeof params.data.nationality !== 'undefined') ? params.data.nationality : city_builder.NATION_TYPE_ROMAN;
 		this.climate = (typeof params.data.climate !== 'undefined') ? params.data.climate : city_builder.CLIMATE_TYPE_TEMPERATE;
@@ -475,7 +467,6 @@ city_builder.city = function(params) {
 			climate: this.get_climate().id,
 			nationality: this.get_nationality().id,
 			avatar: this.get_avatar(),
-			prestige: this.get_prestige(),
 			influence: this.get_influence(),
 			army: this.get_army_total(),
 			navy: this.get_navy_total(),
@@ -511,7 +502,6 @@ city_builder.city = function(params) {
 		this.set_avatar(data.avatar);
 		this.set_nationality(data.nationality);
 		this.set_climate(data.climate);
-		this.set_prestige(data.prestige);
 		this.setup_army(true, data.army);
 		this.setup_navy(true, data.navy);
 		this.set_mercenary(data.mercenary);
@@ -650,7 +640,7 @@ city_builder.city = function(params) {
 	this.get_storage_space = function() {
 		var storage = 0;
 		for (var item in this.get_resources()) {
-			if (item !== 'coins' && item !== 'fame') {
+			if (item !== 'coins' && item !== 'fame' && item !== 'prestige') {
 				storage += this.get_resources()[item].storage;
 			}
 		}
@@ -763,8 +753,7 @@ city_builder.city = function(params) {
 	 * @returns {Number}
 	 */
 	this.get_rank = function() {
-		var rank = Math.floor((this.get_level() * this.get_prestige() * this.get_army_total().total) / 100);
-		return rank;
+		return Math.floor((this.get_level() * this.get_fame_amount() * this.get_prestige_amount() * (this.get_army_total().total > 0 ? this.get_army_total().total: 1)) / 128);
 	};
 	
 	/**
@@ -871,7 +860,7 @@ city_builder.city = function(params) {
 	 * @returns {Number}
 	 */
 	this.get_prestige = function() {
-		return this.prestige;
+		return this.resources.prestige;
 	};
 	
 	/**
@@ -1162,7 +1151,7 @@ city_builder.city = function(params) {
 			advices.push('You have lots of coins, why not invest some in goods?');
 		}
 		for (var item in this.resources) {
-			if (item !== 'coins' && item !== 'fame') {
+			if (item !== 'coins' && item !== 'fame' && item !== 'prestige') {
 				if (this.resources[item].storage > 1000) {
 					advices.push('You seem to have a surplus of ' + city_builder.RESOURCES[item].name + '. You can sell some and get coins instead.');
 				}
@@ -1623,14 +1612,14 @@ city_builder.city = function(params) {
 	 */
 	this.raise_prestige = function(amount) {
 		if (typeof amount !== 'undefined') {
-			this.prestige += amount;
+			this.resources.prestige.amount += amount;
 		}
 		else {
-			++this.prestige;
+			++this.resources.prestige.amount;
 		}
-		$('.cityprestige').html(this.get_prestige());
+		$('.cityprestige').html(this.get_prestige_amount());
 		this.get_core().notify('The prestige of your city raised.');
-		return this.prestige;
+		return this.resources.prestige.amount;
 	};
 	
 	/**
@@ -1642,19 +1631,19 @@ city_builder.city = function(params) {
 	 */
 	this.lower_prestige = function(amount) {
 		if (typeof amount !== 'undefined') {
-			if ((this.prestige - amount) >= 1) {
-				this.prestige -= amount;
+			if ((this.resources.prestige.amount - amount) >= 1) {
+				this.resources.prestige.amount -= amount;
 				this.get_core().notify('The prestige of your city lowered.');
 			}
 		}
 		else {
-			if ((this.prestige - 1) >= 1) {
-				--this.prestige;
+			if ((this.resources.prestige.amount - 1) >= 1) {
+				--this.resources.prestige.amount;
 				this.get_core().notify('The prestige of your city lowered.');
 			}
 		}
-		$('.cityprestige').html(this.get_prestige());
-		return this.prestige;
+		$('.cityprestige').html(this.get_prestige_amount());
+		return this.resources.prestige.amount;
 	};
 	
 	/**
@@ -1664,8 +1653,8 @@ city_builder.city = function(params) {
 	 * @public
 	 */
 	this.reset_prestige = function() {
-		this.prestige = 1;
-		$('.cityprestige').html(this.get_prestige());
+		this.resources.prestige.amount = 1;
+		$('.cityprestige').html(this.get_prestige_amount());
 		return this;
 	};
 	
@@ -1677,9 +1666,53 @@ city_builder.city = function(params) {
 	 * @param {Number} value
 	 */
 	this.set_prestige = function(value) {
-		this.prestige = value;
-		$('.cityprestige').html(this.get_prestige());
+		this.resources.prestige.amount = value;
+		$('.cityprestige').html(this.get_prestige_amount());
 		return this;
+	};
+	
+	/**
+	 * Increase this city's prestige by the specified amount.
+	 * 
+	 * @public
+	 * @param {Number} value
+	 * @returns {Number}
+	 */
+	this.inc_prestige_amount = function(value) {
+		return this.set_prestige_amount(this.get_prestige_amount() + value);
+	};
+	
+	/**
+	 * Decrease this city's prestige by the specified amount.
+	 * 
+	 * @public
+	 * @param {Number} value
+	 * @returns {Number}
+	 */
+	this.dec_prestige_amount = function(value) {
+		return this.set_prestige_amount(this.get_prestige_amount() - value);
+	};
+
+	/**
+	 * Set this city's prestige to the specified value.
+	 * 
+	 * @public
+	 * @param {Number} value
+	 * @returns {Number}
+	 */
+	this.set_prestige_amount = function(value) {
+		this.get_prestige().amount = value;
+		return value;
+	};
+
+	/**
+	 * Get the number of prestige this city has.
+	 * 
+	 * @public
+	 * @returns {Number}
+	 */
+	this.get_prestige_amount = function() {
+		return this.get_prestige().amount;
 	};
 	
 	/**

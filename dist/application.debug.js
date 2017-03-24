@@ -1496,7 +1496,8 @@ city_builder.BUILDINGS = [{
 			'soldiers and some extra fame.',
 		is_production: true,
 		production: {
-			fame: 100
+			fame: 100,
+			prestige: 1
 		},
 		upgrades: 2,
 		visible_upgrades: true,
@@ -1505,7 +1506,7 @@ city_builder.BUILDINGS = [{
 			y: 77
 		},
 		materials: {
-			coins: 20
+			coins: 200
 		},
 		cost: {
 			coins: 200000,
@@ -3840,6 +3841,12 @@ city_builder.RESOURCES = {
 		total: 1,
 		amount: 1
 	},
+	'prestige': {
+		name: 'Prestige',
+		handle: 'prestige',
+		total: 1,
+		amount: 1
+	},
 	'almonds': {
 		name: 'Almonds',
 		price: 200,
@@ -4740,15 +4747,7 @@ city_builder.city = function(params) {
 	 * @type {Number}
 	 */
 	this.storage = 0;
-	
-	/**
-	 * Total prestige of the city.
-	 * 
-	 * @private
-	 * @type {Number}
-	 */
-	this.prestige = 1;
-	
+
 	/**
 	 * The personality of the city ruler. It affects the relations with the
 	 * other cities of the world.
@@ -4858,8 +4857,8 @@ city_builder.city = function(params) {
 		if (typeof params.data.coins !== 'undefined') {
 			this.resources.coins.storage = params.data.coins;
 		}
-		console.log(this);
-		this.prestige = (typeof params.data.prestige !== 'undefined') ? params.data.prestige : 1;
+		//console.log(this);
+		//this.resources.prestige = city_builder.RESOURCES['prestige'];
 		this.personality = (typeof params.data.personality !== 'undefined') ? params.data.personality : city_builder.PERSONALITY_TYPE_BALANCED;
 		this.nationality = (typeof params.data.nationality !== 'undefined') ? params.data.nationality : city_builder.NATION_TYPE_ROMAN;
 		this.climate = (typeof params.data.climate !== 'undefined') ? params.data.climate : city_builder.CLIMATE_TYPE_TEMPERATE;
@@ -5167,7 +5166,6 @@ city_builder.city = function(params) {
 			climate: this.get_climate().id,
 			nationality: this.get_nationality().id,
 			avatar: this.get_avatar(),
-			prestige: this.get_prestige(),
 			influence: this.get_influence(),
 			army: this.get_army_total(),
 			navy: this.get_navy_total(),
@@ -5203,7 +5201,6 @@ city_builder.city = function(params) {
 		this.set_avatar(data.avatar);
 		this.set_nationality(data.nationality);
 		this.set_climate(data.climate);
-		this.set_prestige(data.prestige);
 		this.setup_army(true, data.army);
 		this.setup_navy(true, data.navy);
 		this.set_mercenary(data.mercenary);
@@ -5342,7 +5339,7 @@ city_builder.city = function(params) {
 	this.get_storage_space = function() {
 		var storage = 0;
 		for (var item in this.get_resources()) {
-			if (item !== 'coins' && item !== 'fame') {
+			if (item !== 'coins' && item !== 'fame' && item !== 'prestige') {
 				storage += this.get_resources()[item].storage;
 			}
 		}
@@ -5455,8 +5452,7 @@ city_builder.city = function(params) {
 	 * @returns {Number}
 	 */
 	this.get_rank = function() {
-		var rank = Math.floor((this.get_level() * this.get_prestige() * this.get_army_total().total) / 100);
-		return rank;
+		return Math.floor((this.get_level() * this.get_fame_amount() * this.get_prestige_amount() * (this.get_army_total().total > 0 ? this.get_army_total().total: 1)) / 128);
 	};
 	
 	/**
@@ -5563,7 +5559,7 @@ city_builder.city = function(params) {
 	 * @returns {Number}
 	 */
 	this.get_prestige = function() {
-		return this.prestige;
+		return this.resources.prestige;
 	};
 	
 	/**
@@ -5854,7 +5850,7 @@ city_builder.city = function(params) {
 			advices.push('You have lots of coins, why not invest some in goods?');
 		}
 		for (var item in this.resources) {
-			if (item !== 'coins' && item !== 'fame') {
+			if (item !== 'coins' && item !== 'fame' && item !== 'prestige') {
 				if (this.resources[item].storage > 1000) {
 					advices.push('You seem to have a surplus of ' + city_builder.RESOURCES[item].name + '. You can sell some and get coins instead.');
 				}
@@ -6315,14 +6311,14 @@ city_builder.city = function(params) {
 	 */
 	this.raise_prestige = function(amount) {
 		if (typeof amount !== 'undefined') {
-			this.prestige += amount;
+			this.resources.prestige.amount += amount;
 		}
 		else {
-			++this.prestige;
+			++this.resources.prestige.amount;
 		}
-		$('.cityprestige').html(this.get_prestige());
+		$('.cityprestige').html(this.get_prestige_amount());
 		this.get_core().notify('The prestige of your city raised.');
-		return this.prestige;
+		return this.resources.prestige.amount;
 	};
 	
 	/**
@@ -6334,19 +6330,19 @@ city_builder.city = function(params) {
 	 */
 	this.lower_prestige = function(amount) {
 		if (typeof amount !== 'undefined') {
-			if ((this.prestige - amount) >= 1) {
-				this.prestige -= amount;
+			if ((this.resources.prestige.amount - amount) >= 1) {
+				this.resources.prestige.amount -= amount;
 				this.get_core().notify('The prestige of your city lowered.');
 			}
 		}
 		else {
-			if ((this.prestige - 1) >= 1) {
-				--this.prestige;
+			if ((this.resources.prestige.amount - 1) >= 1) {
+				--this.resources.prestige.amount;
 				this.get_core().notify('The prestige of your city lowered.');
 			}
 		}
-		$('.cityprestige').html(this.get_prestige());
-		return this.prestige;
+		$('.cityprestige').html(this.get_prestige_amount());
+		return this.resources.prestige.amount;
 	};
 	
 	/**
@@ -6356,8 +6352,8 @@ city_builder.city = function(params) {
 	 * @public
 	 */
 	this.reset_prestige = function() {
-		this.prestige = 1;
-		$('.cityprestige').html(this.get_prestige());
+		this.resources.prestige.amount = 1;
+		$('.cityprestige').html(this.get_prestige_amount());
 		return this;
 	};
 	
@@ -6369,9 +6365,53 @@ city_builder.city = function(params) {
 	 * @param {Number} value
 	 */
 	this.set_prestige = function(value) {
-		this.prestige = value;
-		$('.cityprestige').html(this.get_prestige());
+		this.resources.prestige.amount = value;
+		$('.cityprestige').html(this.get_prestige_amount());
 		return this;
+	};
+	
+	/**
+	 * Increase this city's prestige by the specified amount.
+	 * 
+	 * @public
+	 * @param {Number} value
+	 * @returns {Number}
+	 */
+	this.inc_prestige_amount = function(value) {
+		return this.set_prestige_amount(this.get_prestige_amount() + value);
+	};
+	
+	/**
+	 * Decrease this city's prestige by the specified amount.
+	 * 
+	 * @public
+	 * @param {Number} value
+	 * @returns {Number}
+	 */
+	this.dec_prestige_amount = function(value) {
+		return this.set_prestige_amount(this.get_prestige_amount() - value);
+	};
+
+	/**
+	 * Set this city's prestige to the specified value.
+	 * 
+	 * @public
+	 * @param {Number} value
+	 * @returns {Number}
+	 */
+	this.set_prestige_amount = function(value) {
+		this.get_prestige().amount = value;
+		return value;
+	};
+
+	/**
+	 * Get the number of prestige this city has.
+	 * 
+	 * @public
+	 * @returns {Number}
+	 */
+	this.get_prestige_amount = function() {
+		return this.get_prestige().amount;
 	};
 	
 	/**
@@ -6512,10 +6552,43 @@ city_builder.city = function(params) {
 };
 
 /**
- * Main Game building object.
+ * Main Game history object.
  * 
  * @param {type} params
- * @class {city_builder.building}
+ * @class {city_builder.history}
+ * @returns {city_builder.history}
+ */
+city_builder.history = function (params) {
+
+	/**
+	 * Reference to the core object.
+	 * 
+	 * @type {city_builder.game}
+	 */
+	this.core = null;
+
+	/**
+	 * Object constructor.
+	 * 
+	 * @private
+	 * @returns {city_builder.history}
+	 * @param {Object} params
+	 */
+	this.__constructor = function (params) {
+		this.core = params.core;
+		// TODO
+		return this;
+	};
+
+	// Fire up the constructor
+	return this.__constructor(params);
+};
+
+/**
+ * Main Game event object.
+ * 
+ * @param {type} params
+ * @class {city_builder.event}
  * @returns {city_builder.event}
  */
 city_builder.event = function (params) {
@@ -6978,6 +7051,21 @@ city_builder.building = function(params) {
 	};
 	
 	/**
+	 * Raise the prestige of the city this building is located in.
+	 * 
+	 * @public
+	 * @returns {Number}
+	 */
+	this.adjust_city_prestige = function() {
+		var building = this.get_building_data();
+		var prd = building.production;
+		var amount = prd.prestige;
+		this.get_city().inc_prestige_amount(amount);
+		this.get_core().log(this.get_name() + ' raised city prestige by ' + amount + '.');
+		return this.get_city().get_prestige().amount;
+	};
+
+	/**
 	 * Raise the fame of the city this building is located in.
 	 * 
 	 * @public
@@ -6988,7 +7076,7 @@ city_builder.building = function(params) {
 		var prd = building.production;
 		var amount = prd.fame * this.get_level();
 		this.get_city().inc_fame_amount(amount);
-		this.get_core().log(this.get_name() + ' raised city fame with ' + amount + '.');
+		this.get_core().log(this.get_name() + ' raised city fame by ' + amount + '.');
 		return this.get_city().get_fame().amount;
 	};
 	
@@ -7151,6 +7239,8 @@ city_builder.building = function(params) {
 			case 'camp':
 				break;
 			case 'castle':
+				this.adjust_city_fame_for_coins();
+				this.adjust_city_prestige();
 				break;
 				/* MUNICIPAL */
 			case 'church':
@@ -7697,7 +7787,7 @@ city_builder.panel_storage = function (params) {
 		var main_storage = '';
 		var extra_storage = '';
 		for (var resource in city_builder.RESOURCES) {
-			if (resource !== 'fame') {
+			if (resource !== 'fame' && resource !== 'prestige') {
 				if ($.inArray(resource, city_builder.MAIN_RESOURCES) !== -1) {
 					main_storage += city_builder.ui.resource_storage_el(resource, resources[resource].storage);
 				} else {
@@ -7957,12 +8047,38 @@ city_builder.panel_rankings = function (params) {
 		this.core.console_log('creating panel with id `' + this.id + '`');
 		$(el).remove();
 		$('.ui').append(city_builder.ui.generic_panel_template.replace(/{id}/g, this.id).replace(/{title}/g, this.title));
-		var out = '';
-
+		var ranking_list = [];
 		for (var item in city_builder.CITIES) {
-			console.log(item + '=' + this.get_ranking(item));
+			ranking_list.push({
+				name: item,
+				score: this.get_ranking(item)
+			});
 		}
-		console.log(this.core.get_city().get_name() + '=' + this.get_ranking(this.core.get_city()));
+		ranking_list.push({
+			name: this.core.get_city().get_name(),
+			score: this.get_ranking(this.core.get_city())
+		});
+		ranking_list.sort(function(a, b) {
+		    var keyA = new Date(a.score);
+		    var keyB = new Date(b.score);
+		    if (keyA > keyB) {
+		    	return -1;
+		    }
+		    if (keyA < keyB) {
+		    	return 1;
+		    }
+		    return 0;
+		});
+		var out = '<div class="rankings-list">' +
+			'<dl>' +
+			'<dt>' + city_builder.l('City') + '</dt>' + 
+			'<dd>' + city_builder.l('Score') + '</dd>' +
+			'</dl>';
+		for (var i = 0; i < ranking_list.length; i++) {
+			out += '<dt>' + ranking_list[i].name + '</dt><dd>' + ranking_list[i].score + '</dd>';
+		}
+		out += '</dl>' +
+			'</div>';
 		$(el + ' .contents').empty().append(out);
 		$(el).on('click', '.close', function () {
 			self.destroy();
@@ -9654,7 +9770,7 @@ city_builder.game = function () {
 	 * Pointer to an instance of the game API object.
 	 * 
 	 * @type {city_builder.api}
-	 * @private
+	 * @public
 	 */
 	this.api = null;
 
@@ -9662,7 +9778,7 @@ city_builder.game = function () {
 	 * Pointer to an instance of the game Jailer object.
 	 * 
 	 * @type {city_builder.jailer}
-	 * @private
+	 * @public
 	 */
 	this.jailer = null;
 
@@ -9675,6 +9791,14 @@ city_builder.game = function () {
 	this.settings = {};
 
 	/**
+	 * Pointer to an instance of the game history.
+	 *
+	 * @type {city_builder.history}
+	 * @public
+	 */
+	this.history = null;
+
+	/**
 	 * Object constructor.
 	 * 
 	 * @private
@@ -9684,6 +9808,9 @@ city_builder.game = function () {
 		var clicked = false;
 		var clickY, clickX;
 		var self = this;
+		this.history = new city_builder.history({
+			core: this
+		});
 		this.jailer = new city_builder.jailer({
 			core: this
 		});
@@ -10423,7 +10550,7 @@ city_builder.game = function () {
 		var storage_space = city.get_storage_space();
 		var needed = city_builder.LEVELS[city.get_level()];
 		$('.citylevel').html(city.get_level());
-		$('.cityprestige').html(city.get_prestige());
+		$('.cityprestige').html(city.get_prestige_amount());
 		for (var i = 0; i < city_builder.TOOLBAR_RESOURCES.length; i++) {
 			var resource = city_builder.TOOLBAR_RESOURCES[i];
 			var el = $('.top-panel .' + resource);
