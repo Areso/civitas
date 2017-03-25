@@ -419,11 +419,13 @@ city_builder.BUILDINGS = [{
 		description: 'An Embassy is required to propose pacts, declare war, send goods to other ' +
 			'cities.',
 		is_municipal: true,
+		is_production: true, 
 		production: {
-			fame: 20
+			fame: 20,
+			espionage: 5
 		},
 		materials: {
-			coins: 20
+			coins: 50
 		},
 		position: {
 			x: 680,

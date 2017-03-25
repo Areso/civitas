@@ -22,6 +22,12 @@ city_builder.RESOURCES = {
 		total: 1,
 		amount: 1
 	},
+	'espionage': {
+		name: 'Espionage',
+		handle: 'espionage',
+		total: 1,
+		amount: 1
+	},
 	'almonds': {
 		name: 'Almonds',
 		price: 200,

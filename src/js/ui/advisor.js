@@ -89,6 +89,7 @@ city_builder.panel_advisor = function (params) {
 				'<dt>' + city_builder.l('Nationality') + '</dt><dd>' + city.get_nationality().name.capitalize() + '</dd>' +
 				'<dt>' + city_builder.l('Level') + '</dt><dd class="citylevel">' + city.get_level() + '</dd>' +
 				'<dt>' + city_builder.l('Prestige') + '</dt><dd class="cityprestige">' + city.get_prestige_amount() + '</dd>' +
+				'<dt>' + city_builder.l('Espionage') + '</dt><dd class="cityespionage">' + city.get_espionage_amount() + '</dd>' +
 				'</dl>';
 		var advices = city.call_advisor();
 		if (advices.length > 0) {

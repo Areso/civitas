@@ -639,7 +639,7 @@ city_builder.city = function(params) {
 	this.get_storage_space = function() {
 		var storage = 0;
 		for (var item in this.get_resources()) {
-			if (item !== 'coins' && item !== 'fame' && item !== 'prestige') {
+			if (item !== 'coins' && item !== 'fame' && item !== 'prestige' && item !== 'espionage') {
 				storage += this.get_resources()[item].storage;
 			}
 		}
@@ -855,6 +855,16 @@ city_builder.city = function(params) {
 	 */
 	this.get_prestige = function() {
 		return this.resources.prestige;
+	};
+	
+	/**
+	 * Return the value of this city's espionage.
+	 * 
+	 * @public
+	 * @returns {Number}
+	 */
+	this.get_espionage = function() {
+		return this.resources.espionage;
 	};
 	
 	/**
@@ -1144,7 +1154,7 @@ city_builder.city = function(params) {
 			advices.push('You have lots of coins, why not invest some in goods?');
 		}
 		for (var item in this.resources) {
-			if (item !== 'coins' && item !== 'fame' && item !== 'prestige') {
+			if (item !== 'coins' && item !== 'fame' && item !== 'prestige' && item !== 'espionage') {
 				if (this.resources[item].storage > 1000) {
 					advices.push('You seem to have a surplus of ' + city_builder.RESOURCES[item].name + '. You can sell some and get coins instead.');
 				}
@@ -1591,6 +1601,24 @@ city_builder.city = function(params) {
 	};
 	
 	/**
+	 * Raise the espionage of this city by the specified amount.
+	 * 
+	 * @public
+	 * @param {Number} amount
+	 * @returns {Number}
+	 */
+	this.raise_espionage = function(amount) {
+		if (typeof amount !== 'undefined') {
+			this.resources.espionage.amount += amount;
+		} else {
+			++this.resources.espionage.amount;
+		}
+		$('.cityespionage').html(this.get_espionage_amount());
+		this.get_core().notify('The espionage of your city raised.');
+		return this.resources.espionage.amount;
+	};
+	
+	/**
 	 * Raise the prestige of this city by the specified amount.
 	 * 
 	 * @public
@@ -1632,7 +1660,42 @@ city_builder.city = function(params) {
 	};
 	
 	/**
-	 * Reset the prestige of this city to 0.
+	 * Lower the espionage of this city by the specified amount.
+	 * 
+	 * @public
+	 * @param {Number} amount
+	 * @returns {Number}
+	 */
+	this.lower_espionage = function(amount) {
+		if (typeof amount !== 'undefined') {
+			if ((this.resources.espionage.amount - amount) >= 1) {
+				this.resources.espionage.amount -= amount;
+				this.get_core().notify('The espionage of your city lowered.');
+			}
+		} else {
+			if ((this.resources.espionage.amount - 1) >= 1) {
+				--this.resources.espionage.amount;
+				this.get_core().notify('The espionage of your city lowered.');
+			}
+		}
+		$('.cityespionage').html(this.get_espionage_amount());
+		return this.resources.espionage.amount;
+	};
+
+	/**
+	 * Reset the espionage of this city to 1.
+	 * 
+	 * @returns {city_builder.city}
+	 * @public
+	 */
+	this.reset_espionage = function() {
+		this.resources.espionage.amount = 1;
+		$('.cityespionage').html(this.get_espionage_amount());
+		return this;
+	};
+
+	/**
+	 * Reset the prestige of this city to 1.
 	 * 
 	 * @returns {city_builder.city}
 	 * @public
@@ -1640,6 +1703,19 @@ city_builder.city = function(params) {
 	this.reset_prestige = function() {
 		this.resources.prestige.amount = 1;
 		$('.cityprestige').html(this.get_prestige_amount());
+		return this;
+	};
+	
+	/**
+	 * Set the espionage of this city.
+	 * 
+	 * @public
+	 * @returns {city_builder.city}
+	 * @param {Number} value
+	 */
+	this.set_espionage = function(value) {
+		this.resources.espionage.amount = value;
+		$('.cityespionage').html(this.get_espionage_amount());
 		return this;
 	};
 	
@@ -1657,6 +1733,17 @@ city_builder.city = function(params) {
 	};
 	
 	/**
+	 * Increase this city's espionage by the specified amount.
+	 * 
+	 * @public
+	 * @param {Number} value
+	 * @returns {Number}
+	 */
+	this.inc_espionage_amount = function(value) {
+		return this.set_espionage_amount(this.get_espionage_amount() + value);
+	};
+	
+	/**
 	 * Increase this city's prestige by the specified amount.
 	 * 
 	 * @public
@@ -1668,6 +1755,17 @@ city_builder.city = function(params) {
 	};
 	
 	/**
+	 * Decrease this city's espionage by the specified amount.
+	 * 
+	 * @public
+	 * @param {Number} value
+	 * @returns {Number}
+	 */
+	this.dec_espionage_amount = function(value) {
+		return this.set_espionage_amount(this.get_espionage_amount() - value);
+	};
+
+	/**
 	 * Decrease this city's prestige by the specified amount.
 	 * 
 	 * @public
@@ -1678,6 +1776,28 @@ city_builder.city = function(params) {
 		return this.set_prestige_amount(this.get_prestige_amount() - value);
 	};
 
+	/**
+	 * Set this city's espionage to the specified value.
+	 * 
+	 * @public
+	 * @param {Number} value
+	 * @returns {Number}
+	 */
+	this.set_espionage_amount = function(value) {
+		this.get_espionage().amount = value;
+		return value;
+	};
+
+	/**
+	 * Get the number of espionage this city has.
+	 * 
+	 * @public
+	 * @returns {Number}
+	 */
+	this.get_espionage_amount = function() {
+		return this.get_espionage().amount;
+	};
+	
 	/**
 	 * Set this city's prestige to the specified value.
 	 * 
