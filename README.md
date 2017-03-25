@@ -24,6 +24,17 @@ Missing
 - (IN PROGRESS) Declare war, treaties, much of diplomacy.
 - And many others. Stay tuned though.
 
+Screenshots
+===========
+
+[Intro game](docs/images/intro-game.png)
+
+[Main game area](docs/images/game-started.png)
+
+[Buildings screen](docs/images/buildings-screen.png)
+
+[Storage space](docs/images/storage.png)
+
 License
 =======
 
