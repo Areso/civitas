@@ -199,6 +199,18 @@ city_builder.DIFFICULTY_LEVEL_HARD = 3;
  */
 city_builder.DIFFICULTY_LEVEL_HARDCORE = 4;
 
+/**
+ * When a building is notifying the player it's out of resources (the building, not the player).
+ *
+ * @constant
+ * @type {Number}
+ */
 city_builder.NOTIFICATION_MISSING_RESOURCES = 1;
 
+/**
+ * When a building is notifying the player its production is paused manually by the player.
+ *
+ * @constant
+ * @type {Number}
+ */
 city_builder.NOTIFICATION_PRODUCTION_PAUSED = 2;
