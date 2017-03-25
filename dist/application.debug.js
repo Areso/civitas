@@ -6897,6 +6897,7 @@ city_builder.building = function(params) {
 		if (this.is_production_building()) {
 			this.get_core().notify(this.get_name() + '`s production started.');
 			this.working = true;
+			$('#building-' + this.handle).empty();
 			return true;
 		} else {
 			return false;
@@ -6913,6 +6914,7 @@ city_builder.building = function(params) {
 		if (this.is_production_building()) {
 			this.get_core().notify(this.get_name() + '`s production stopped.');
 			this.working = false;
+			this.notify(city_builder.NOTIFICATION_PRODUCTION_PAUSED);
 			return true;
 		} else {
 			return false;
