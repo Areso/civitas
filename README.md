@@ -1,3 +1,5 @@
+![Main game area](docs/images/game-started.png)
+
 Description
 ===========
 
