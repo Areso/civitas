@@ -9198,7 +9198,7 @@ city_builder.panel_trades = function (params) {
 		out += '<thead>' +
 				'<tr>' +
 				'<td><select class="bm-materials"></select></td>' +
-				'<td><input type="text" class="bm-quantity" /></td>' +
+				'<td><input type="text" placeholder="' + city_builder.l('amount') + '" class="bm-quantity" /></td>' +
 				'<td><a title="' + city_builder.l('List goods on Black Market') + '" class="tips bmarket" href="#">' + city_builder.l('list') + '</a></td>' +
 				'</tr>' +
 				'</thead>';
@@ -9242,7 +9242,7 @@ city_builder.panel_trades = function (params) {
 		var city = this.core.get_city();
 		var resources = city.get_resources();
 		for (var item in resources) {
-			if (item !== 'fame' && item !== 'coins') {
+			if (item !== 'fame' && item !== 'coins' && item !== 'prestige') {
 				out += '<option value="' + item + '"> ' + city_builder.RESOURCES[item].name + '</option>';
 			}
 		}
