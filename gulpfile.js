@@ -45,7 +45,7 @@ gulp.task('app', ['cleanup_js'], function() {
 		'src/js/ui/advisor.js',
 		'src/js/ui/army.js',
 		'src/js/ui/trades.js',
-		'src/js/ui/window.js',
+		'src/js/ui/settings.js',
 		'src/js/objects/soldier.js',
 		'src/js/objects/ship.js',
 		'src/js/objects/army.js',

@@ -149,11 +149,10 @@ city_builder.game = function () {
 			this.start_game();
 		}
 		$('.toolbar').on('click', '.do-options', function () {
-			new city_builder.panel_window({
+			new city_builder.panel_settings({
 				core: self,
-				id: 'options',
-				header: 'Game Options',
-				type: 'window'
+				id: 'settings',
+				header: 'Game Settings'
 			});
 			return false;
 		}).on('click', '.do-worldmap', function () {

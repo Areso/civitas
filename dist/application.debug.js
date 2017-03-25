@@ -8665,7 +8665,7 @@ city_builder.panel_advisor = function (params) {
 				'<dt>' + city_builder.l('Personality') + '</dt><dd>' + city.get_personality().name.capitalize() + '</dd>' +
 				'<dt>' + city_builder.l('Nationality') + '</dt><dd>' + city.get_nationality().name.capitalize() + '</dd>' +
 				'<dt>' + city_builder.l('Level') + '</dt><dd class="citylevel">' + city.get_level() + '</dd>' +
-				'<dt>' + city_builder.l('Prestige') + '</dt><dd class="cityprestige">' + city.get_prestige() + '</dd>' +
+				'<dt>' + city_builder.l('Prestige') + '</dt><dd class="cityprestige">' + city.get_prestige_amount() + '</dd>' +
 				'</dl>';
 		var advices = city.call_advisor();
 		if (advices.length > 0) {
@@ -9339,13 +9339,13 @@ city_builder.panel_trades = function (params) {
 };
 
 /**
- * Main Game window panel object.
+ * Main Game settings panel object.
  * 
  * @param {type} params
  * @class {city_builder.panel}
  * @returns {city_builder.__constructor}
  */
-city_builder.panel_window = function (params) {
+city_builder.panel_settings = function (params) {
 
 	/**
 	 * Reference to the core object.
@@ -9404,16 +9404,22 @@ city_builder.panel_window = function (params) {
 		}
 		this.core.console_log('creating panel with id `' + this.id + '`');
 		$('.ui').append(city_builder.ui.generic_panel_template.replace(/{id}/g, this.id).replace(/{title}/g, params.header));
-		var out = '';
-		out += city_builder.ui.normal_panel(city_builder.l('Background Music'), '<a href="#" class="music-control ' + ((this.core.get_settings('music') === true) ? 'playing' : 'paused') + '"></a>');
-		out += city_builder.ui.normal_panel(city_builder.l('Console'), '<a href="#" class="console-control ' + ((this.core.get_settings('console') === true) ? 'on' : 'off') + '">toggle</a>');
-		$(el + ' .contents').append(out);
+		$(el + ' .contents').append(city_builder.ui.tabs([city_builder.l('Sounds'), city_builder.l('UI')]));
+		$(el + ' #tab-sounds').append('<div>' +
+			'<a href="#" class="music-control ui-control ' + ((this.core.get_settings('music') === true) ? 'on' : 'off') + '">toggle music</a>' +
+			'<input class="music-volume" type="range" min="0" max="1" step="0.1" ' + ((this.core.get_settings('music') !== true) ? 'disabled' : '') + ' />' +
+			'</div>');
+		$(el + ' #tab-ui').append('<div>' +
+			'<a href="#" class="console-control ui-control ' + ((this.core.get_settings('console') === true) ? 'on' : 'off') + '">toggle console</a>' +
+			'</div>');
 		$(el).on('click', '.music-control', function () {
-			if ($(this).hasClass('paused')) {
-				$(this).removeClass('paused').addClass('playing');
+			if ($(this).hasClass('on')) {
+				$(this).removeClass('on').addClass('off');
+				$('.music-volume').attr('disabled', true);
 				self.core.set_settings_music(true);
 			} else {
-				$(this).removeClass('playing').addClass('paused');
+				$(this).removeClass('off').addClass('on');
+				$('.music-volume').attr('disabled', false);
 				self.core.set_settings_music(false);
 			}
 			return false;
@@ -9425,6 +9431,10 @@ city_builder.panel_window = function (params) {
 				$(this).removeClass('off').addClass('on');
 				self.core.set_settings_console(true);
 			}
+			return false;
+		}).on('change', '.music-volume', function () {
+			var value = $(this).val();
+			self.core.music.volume = value;
 			return false;
 		}).on('click', '.close', function () {
 			self.destroy();
@@ -10015,11 +10025,10 @@ city_builder.game = function () {
 			this.start_game();
 		}
 		$('.toolbar').on('click', '.do-options', function () {
-			new city_builder.panel_window({
+			new city_builder.panel_settings({
 				core: self,
-				id: 'options',
-				header: 'Game Options',
-				type: 'window'
+				id: 'settings',
+				header: 'Game Settings'
 			});
 			return false;
 		}).on('click', '.do-worldmap', function () {

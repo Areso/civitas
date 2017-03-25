@@ -1,11 +1,11 @@
 /**
- * Main Game window panel object.
+ * Main Game settings panel object.
  * 
  * @param {type} params
  * @class {city_builder.panel}
  * @returns {city_builder.__constructor}
  */
-city_builder.panel_window = function (params) {
+city_builder.panel_settings = function (params) {
 
 	/**
 	 * Reference to the core object.
@@ -64,16 +64,22 @@ city_builder.panel_window = function (params) {
 		}
 		this.core.console_log('creating panel with id `' + this.id + '`');
 		$('.ui').append(city_builder.ui.generic_panel_template.replace(/{id}/g, this.id).replace(/{title}/g, params.header));
-		var out = '';
-		out += city_builder.ui.normal_panel(city_builder.l('Background Music'), '<a href="#" class="music-control ' + ((this.core.get_settings('music') === true) ? 'playing' : 'paused') + '"></a>');
-		out += city_builder.ui.normal_panel(city_builder.l('Console'), '<a href="#" class="console-control ' + ((this.core.get_settings('console') === true) ? 'on' : 'off') + '">toggle</a>');
-		$(el + ' .contents').append(out);
+		$(el + ' .contents').append(city_builder.ui.tabs([city_builder.l('Sounds'), city_builder.l('UI')]));
+		$(el + ' #tab-sounds').append('<div>' +
+			'<a href="#" class="music-control ui-control ' + ((this.core.get_settings('music') === true) ? 'on' : 'off') + '">toggle music</a>' +
+			'<input class="music-volume" type="range" min="0" max="1" step="0.1" ' + ((this.core.get_settings('music') !== true) ? 'disabled' : '') + ' />' +
+			'</div>');
+		$(el + ' #tab-ui').append('<div>' +
+			'<a href="#" class="console-control ui-control ' + ((this.core.get_settings('console') === true) ? 'on' : 'off') + '">toggle console</a>' +
+			'</div>');
 		$(el).on('click', '.music-control', function () {
-			if ($(this).hasClass('paused')) {
-				$(this).removeClass('paused').addClass('playing');
+			if ($(this).hasClass('on')) {
+				$(this).removeClass('on').addClass('off');
+				$('.music-volume').attr('disabled', true);
 				self.core.set_settings_music(true);
 			} else {
-				$(this).removeClass('playing').addClass('paused');
+				$(this).removeClass('off').addClass('on');
+				$('.music-volume').attr('disabled', false);
 				self.core.set_settings_music(false);
 			}
 			return false;
@@ -85,6 +91,10 @@ city_builder.panel_window = function (params) {
 				$(this).removeClass('off').addClass('on');
 				self.core.set_settings_console(true);
 			}
+			return false;
+		}).on('change', '.music-volume', function () {
+			var value = $(this).val();
+			self.core.music.volume = value;
 			return false;
 		}).on('click', '.close', function () {
 			self.destroy();
