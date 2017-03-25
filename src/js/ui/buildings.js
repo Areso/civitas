@@ -151,8 +151,7 @@ city_builder.panel_buildings = function (params) {
 						for (var i = 0; i < building.requires.buildings.length; i++) {
 							_z += '<dt>' + city_builder.l('Building') + '</dt><dd>' + self.core.get_building_config_data(building.requires.buildings[i]).name + '</dd>';
 						}
-					}
-					else {
+					} else {
 						_z += '<dt>' + city_builder.l('Building') + '</dt><dd>' + self.core.get_building_config_data(building.requires.buildings).name + '</dd>';
 					}
 				}
@@ -168,8 +167,7 @@ city_builder.panel_buildings = function (params) {
 				_z += '</dl>';
 				$(el + ' .b-chance').append(_z);
 				$('fieldset.extra').show();
-			}
-			else {
+			} else {
 				$('fieldset.extra').hide();
 			}
 			if (building.is_production === true) {
@@ -192,8 +190,7 @@ city_builder.panel_buildings = function (params) {
 					$(el + ' .b-mats').append(_z);
 					$('fieldset.materials').show();
 				}
-			}
-			else if (building.is_housing === true) {
+			} else if (building.is_housing === true) {
 				$('fieldset.production, fieldset.storage').hide();
 				if (typeof building.materials !== 'undefined') {
 					_z = '<dl class="nomg">';
@@ -204,7 +201,6 @@ city_builder.panel_buildings = function (params) {
 					$(el + ' .b-mats').append(_z);
 					$('fieldset.materials').show();
 				}
-
 				if (typeof building.tax !== 'undefined') {
 					_z = '<dl class="nomg">' +
 							'<dt>Tax</dt>' +
@@ -213,23 +209,20 @@ city_builder.panel_buildings = function (params) {
 					$(el + ' .b-tax').append(_z);
 					$('fieldset.taxes').show();
 				}
-			}
-			else if (typeof building.storage !== 'undefined') {
+			} else if (typeof building.storage !== 'undefined') {
 				$('fieldset.taxes, fieldset.production, fieldset.materials').hide();
 				_z = '<dl class="nomg">' +
 						'<dt>' + building.storage + '</dt><dd><img src="' + city_builder.ASSETS_URL + 'images/resources/storage_small.png" /></dd>' +
 						'</dl>';
 				$(el + ' .b-store').append(_z);
 				$('fieldset.storage').show();
-			}
-			else {
+			} else {
 				$('fieldset.taxes, fieldset.production, fieldset.materials, fieldset.storage').hide();
 			}
 			var _i = city.is_building_built(building.handle);
 			if (_i !== true) {
 				$(el + ' .toolbar').append('<a href="#" class="btn build" data-handle="' + building.handle + '">' + city_builder.l('Build') + '</a>');
-			}
-			else {
+			} else {
 				$(el + ' .toolbar').append(city_builder.l('You already constructed this building.'));
 			}
 			$(el + ' .tips').tipsy({

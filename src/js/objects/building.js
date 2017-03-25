@@ -64,6 +64,14 @@ city_builder.building = function(params) {
 	this.is_municipal = false;
 	
 	/**
+	 * The DOM handle of this building.
+	 *
+	 * @type {String}
+	 * @private
+	 */
+	this.handle = null;
+
+	/**
 	 * Object constructor.
 	 * 
 	 * @private
@@ -75,10 +83,12 @@ city_builder.building = function(params) {
 		this.city = params.city;
 		this.type = params.type;
 		this.name = params.data.name;
-		this.isProduction = (typeof params.data.is_production !== 'undefined' && params.data.is_production === true) ? true : false;
-		this.isMunicipal = (typeof params.data.is_municipal !== 'undefined' && params.data.is_municipal === true) ? true : false;
+		this.is_production = (typeof params.data.is_production !== 'undefined' && params.data.is_production === true) ? true : false;
+		this.is_municipal = (typeof params.data.is_municipal !== 'undefined' && params.data.is_municipal === true) ? true : false;
 		this.level = (typeof params.data.level !== 'undefined') ? params.data.level : 1;
 		params.data.level = this.level;
+		this.handle = params.data.handle;
+		$('#building-' + this.handle).empty();
 		if (params.hidden !== true) {
 			$('section.game').append(city_builder.ui.building_element(params)).on('click', '#building-' + params.data.handle, function() {
 				new city_builder.panel_building({
@@ -159,8 +169,7 @@ city_builder.building = function(params) {
 			this.get_core().notify(this.get_name() + '`s production started.');
 			this.working = true;
 			return true;
-		}
-		else {
+		} else {
 			return false;
 		}
 	};
@@ -176,8 +185,7 @@ city_builder.building = function(params) {
 			this.get_core().notify(this.get_name() + '`s production stopped.');
 			this.working = false;
 			return true;
-		}
-		else {
+		} else {
 			return false;
 		}
 	};
@@ -210,14 +218,15 @@ city_builder.building = function(params) {
 				if (mats[i] !== 'coins') {
 					if (res[mats[i]].storage - mat[mats[i]] < 0) {
 						this.get_core().log(this.get_name() + ' doesn`t have enough ' + mats[i] + '.', true);
+						this.notify(city_builder.NOTIFICATION_MISSING_RESOURCES);
 						return false;
 					}
 				}
 			}
-		}
-		else {
+		} else {
 			if (res[mats].storage - mat[mats] < 0) {
 				this.get_core().log(this.get_name() + ' doesn`t have enough ' + mats + '.', true);
+				this.notify(city_builder.NOTIFICATION_MISSING_RESOURCES);
 				return false;
 			}
 		}
@@ -241,8 +250,7 @@ city_builder.building = function(params) {
 				//res[material[i]].storage = res[material[i]].storage - mat[material[i]];
 				this.get_core().log(this.get_name() + ' used ' + mat[material[i]] + ' ' + material[i] + '.');
 			}
-		}
-		else {
+		} else {
 			this.get_city().remove_resource(material, mat[material]);
 			//res[material].storage = res[material].storage - mat[material];
 			this.get_core().log(this.get_name() + ' used ' + mat[material] + ' ' + material + '.');
@@ -293,7 +301,6 @@ city_builder.building = function(params) {
 		if (typeof material === 'object') {
 			for (var i = 0; i < material.length; i++) {
 				if (!this.is_producing()) {
-					this.get_core().log(this.get_name() + ' production is stopped.');
 					return this;
 				}
 				var amount = prd[material[i]] * this.get_level();
@@ -311,12 +318,10 @@ city_builder.building = function(params) {
 					this.get_core().log(this.get_name() + ' produced ' + amount + ' ' + material[i] + '.');
 				}
 			}
-		}
-		else {
+		} else {
 			var amount = prd[material] * this.get_level();
 			if (this.get_city().has_storage_space_for(amount)) {
 				if (!this.is_producing()) {
-					this.get_core().log(this.get_name() + ' production is stopped.');
 					return this;
 				}
 				this.get_city().add_to_storage(material, amount);
@@ -349,8 +354,7 @@ city_builder.building = function(params) {
 				this.use_material(mats_use);
 				this.produce_material(mats_production);
 			}
-		}
-		else {
+		} else {
 			this.produce_material(mats_production);
 		}
 		return this;
@@ -450,14 +454,15 @@ city_builder.building = function(params) {
 						good = false;
 						var req = city_builder.BUILDINGS[city_builder.BUILDINGS.findIndexM(required[i])];
 						this.get_core().log(this.get_name() + ' doesn`t have the required buildings: ' + req.name + '.', true);
+						this.notify(city_builder.NOTIFICATION_MISSING_RESOURCES);
 					}
 				}
-			}
-			else {
+			} else {
 				if (!this.get_city().is_building_built(required)) {
 					good = false;
 					var req = city_builder.BUILDINGS[city_builder.BUILDINGS.findIndexM(required)];
 					this.get_core().log(this.get_name() + ' doesn`t have the required buildings: ' + req.name + '.', true);
+					this.notify(city_builder.NOTIFICATION_MISSING_RESOURCES);
 				}
 			}
 		}
@@ -487,8 +492,7 @@ city_builder.building = function(params) {
 					this.get_core().log(this.get_name() + ' gave ' + amount + ' coins via tax.');
 				}
 			}
-		}
-		else {
+		} else {
 			if (this.is_producing()) {
 				var prd = building.production;
 				for (var item in prd) {
@@ -500,11 +504,13 @@ city_builder.building = function(params) {
 							this.use_material(_m);
 							this.produce_material(_p);
 						}
-					}
-					else {
+					} else {
 						this.produce_material(_p);
 					}
 				}
+			} else {
+				this.get_core().log(this.get_name() + ' production is stopped.');
+				this.notify(city_builder.NOTIFICATION_PRODUCTION_PAUSED);
 			}
 		}
 		return this;
@@ -616,6 +622,37 @@ city_builder.building = function(params) {
 		return this.type;
 	};
 	
+	/**
+	 * Return the DOM handle of this building.
+	 *
+	 * @public
+	 * @returns {String}
+	 */
+	this.get_handle = function() {
+		return this.handle;
+	};
+
+	/**
+	 * Perform building notifications.
+	 *
+	 * @public
+	 * @param {Number} notification_type
+	 * @returns {city_builder.building}
+	 */
+	this.notify = function(notification_type) {
+		var handle = $('#building-' + this.get_handle());
+		switch (notification_type) {
+			case city_builder.NOTIFICATION_PRODUCTION_PAUSED:
+				handle.empty().append('<span class="notification paused"></span>');
+				break;
+			case city_builder.NOTIFICATION_MISSING_RESOURCES:
+			default:
+				handle.empty().append('<span class="notification error"></span>');
+				break;
+		}
+		return this;
+	};
+
 	// Fire up the constructor
 	return this.__constructor(params);
 };

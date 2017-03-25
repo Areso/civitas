@@ -184,8 +184,7 @@ city_builder.city = function(params) {
 				this.get_core().error(city + ' does not exist.');
 				return false;
 			}
-		}
-		else {
+		} else {
 			_city = city;
 		}
 		var trades = _city.get_trades();
@@ -366,8 +365,7 @@ city_builder.city = function(params) {
 				this.get_core().error(city + ' does not exist.');
 				return false;
 			}
-		}
-		else {
+		} else {
 			_city = city;
 		}
 		var trades = _city.get_trades();
@@ -674,8 +672,7 @@ city_builder.city = function(params) {
 					this.buildings_list.push(building_type[i]);
 				}
 			}
-		}
-		else {
+		} else {
 			var _b = city_builder.BUILDINGS.findIndexM(building_type);
 			if (_b !== false) {
 				var _c = city_builder.BUILDINGS[_b];
@@ -710,8 +707,7 @@ city_builder.city = function(params) {
 			if ((this.resources.coins.storage - _c.cost.coins) < 0) {
 				this.get_core().error('You don`t have enough coins to construct this building.');
 				return false;
-			}
-			else {
+			} else {
 				this.resources.coins.storage = this.resources.coins.storage - _c.cost.coins;
 			}
 			for (var item in _c.cost) {
@@ -719,8 +715,7 @@ city_builder.city = function(params) {
 					if ((this.get_resources()[item].storage - _c.cost[item]) < 0) {
 						this.get_core().error('You don`t have enough ' + item + ' to construct this building.');
 						return false;
-					}
-					else {
+					} else {
 						this.get_resources()[item].storage = this.get_resources()[item].storage - _c.cost[item];
 					}
 				}
@@ -783,12 +778,10 @@ city_builder.city = function(params) {
 	this.demolish = function(id) {
 		if (typeof id === 'number') {
 			this.buildings.splice(id, 1);
-		}
-		else if (typeof id === 'string') {
-
-		}
-		else {
-
+		} else if (typeof id === 'string') {
+			// TODO
+		} else {
+			// TODO
 		}
 		return this;
 	};
@@ -1135,8 +1128,7 @@ city_builder.city = function(params) {
 		var storage = this.get_storage_space();
 		if (storage.occupied >= storage.all) {
 			advices.push('You have no storage space to store your new goods and they will be lost. Sell some goods or build a warehouse.');
-		}
-		else if ((storage.all - storage.occupied) < 100) {
+		} else if ((storage.all - storage.occupied) < 100) {
 			advices.push('You will soon run out of storage space and all goods produced will be lost. Sell some goods or build a warehouse.');
 		}
 		if (this.resources.coins.storage < 1000) {
@@ -1514,21 +1506,18 @@ city_builder.city = function(params) {
 				for (var i = 0; i < navy[ship]; i++) {
 					if (hidden === true) {
 						this._recruit_ship(ship);
-					}
-					else {
+					} else {
 						this.recruit_ship(ship);
 					}
 				}
 			}
-		}
-		else {
+		} else {
 			var navy = data.navy;
 			for (var ship in navy) {
 				for (var i = 0; i < navy[ship]; i++) {
 					if (hidden === true) {
 						this._recruit_ship(ship);
-					}
-					else {
+					} else {
 						this.recruit_ship(ship);
 					}
 				}
@@ -1552,21 +1541,18 @@ city_builder.city = function(params) {
 				for (var i = 0; i < army[soldier]; i++) {
 					if (hidden === true) {
 						this._recruit_soldier(soldier);
-					}
-					else {
+					} else {
 						this.recruit_soldier(soldier);
 					}
 				}
 			}
-		}
-		else {
+		} else {
 			var army = data.army;
 			for (var soldier in army) {
 				for (var i = 0; i < army[soldier]; i++) {
 					if (hidden === true) {
 						this._recruit_soldier(soldier);
-					}
-					else {
+					} else {
 						this.recruit_soldier(soldier);
 					}
 				}
@@ -1611,8 +1597,7 @@ city_builder.city = function(params) {
 	this.raise_prestige = function(amount) {
 		if (typeof amount !== 'undefined') {
 			this.resources.prestige.amount += amount;
-		}
-		else {
+		} else {
 			++this.resources.prestige.amount;
 		}
 		$('.cityprestige').html(this.get_prestige_amount());
@@ -1633,8 +1618,7 @@ city_builder.city = function(params) {
 				this.resources.prestige.amount -= amount;
 				this.get_core().notify('The prestige of your city lowered.');
 			}
-		}
-		else {
+		} else {
 			if ((this.resources.prestige.amount - 1) >= 1) {
 				--this.resources.prestige.amount;
 				this.get_core().notify('The prestige of your city lowered.');

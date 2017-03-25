@@ -181,8 +181,7 @@ city_builder.panel_advisor = function (params) {
 
 			}
 			_t += '</table>';
-		}
-		else {
+		} else {
 			_t += '<p>' + city_builder.l('You have no mercenary armies hired for your city. Go to the World Market Trades and hire one.') + '</p>';
 		}
 		_t += '</div>' +
@@ -208,14 +207,11 @@ city_builder.panel_advisor = function (params) {
 			var _e = '';
 			if (influence < 20) {
 				_e = ' vbad';
-			}
-			else if (influence >= 20 && influence < 50) {
+			} else if (influence >= 20 && influence < 50) {
 				_e = ' bad';
-			}
-			else if (influence >= 50 && influence < 80) {
+			} else if (influence >= 50 && influence < 80) {
 				_e = ' good';
-			}
-			else if (influence >= 80) {
+			} else if (influence >= 80) {
 				_e = ' vgood';
 			}
 			_t += '<div class="progress"><span style="width:' + influence + '%" class="bar' + _e + '"></span></div>';
@@ -247,12 +243,10 @@ city_builder.panel_advisor = function (params) {
 					}
 					$('.tipsy').remove();
 
-				}
-				else {
+				} else {
 					self.core.error(city_builder.l('Your influence on') + ' ' + city + ' ' + city_builder.l('is too low to propose a pact.'));
 				}
-			}
-			else {
+			} else {
 				self.core.error(city_builder.l('You will need to construct an Embassy before being able to propose treaties and pacts to other cities.'));
 			}
 			return false;
@@ -263,8 +257,7 @@ city_builder.panel_advisor = function (params) {
 					// TODO
 				}
 				$('.tipsy').remove();
-			}
-			else {
+			} else {
 				self.core.error(city_builder.l('You will need to construct an Embassy before being able to assign spies to other cities.'));
 			}
 			return false;
@@ -275,8 +268,7 @@ city_builder.panel_advisor = function (params) {
 					self._refresh_navy();
 				}
 				$('.tipsy').remove();
-			}
-			else {
+			} else {
 				self.core.error(city_builder.l('You will need to construct a Shipyard before being able to construct ships in your city.'));
 			}
 			return false;
@@ -311,8 +303,7 @@ city_builder.panel_advisor = function (params) {
 					self._refresh_army();
 				}
 				$('.tipsy').remove();
-			}
-			else {
+			} else {
 				self.core.error(city_builder.l('You will need to construct a Military Camp or Castle before recruiting soldiers in your city.'));
 			}
 			return false;

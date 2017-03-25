@@ -224,6 +224,22 @@ header .top-panel span {
 	cursor: pointer;
 }
 
+.game .building .notification {
+	width: 20px;
+	height: 20px;
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+
+.game .building .notification.error {
+	background: transparent url(../images/ui/error_small.png) no-repeat;
+}
+
+.game .building .notification.paused {
+	background: transparent url(../images/ui/pause_small.png) no-repeat;
+}
+
 .game .slots {
 	position:absolute;
 }
@@ -901,7 +917,7 @@ td.icon {
 .bldg-tabs {
 	padding: 10px 0 0 0;
 	overflow: auto;
-	height: 520px;
+	height: 508px;
 }
 
 .tabs > ul > li {
@@ -912,7 +928,7 @@ td.icon {
 	border-top: 1px solid #ccc;
 }
 .tabs > ul > li > a {
-	color: #8A8955;
+	color: #666;
 	text-decoration: none;
 	padding: 6px 10px;
 	display: block;
@@ -929,7 +945,7 @@ td.icon {
 }
 
 .tabs ul li.ui-tabs-active {
-	background-color: #8A8955;
+	background-color: #555;
 }
 
 .tabs ul li.ui-tabs-active a {

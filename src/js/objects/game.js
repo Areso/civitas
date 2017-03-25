@@ -334,8 +334,7 @@ city_builder.game = function () {
 	this.set_black_market = function (value) {
 		if (typeof value !== 'undefined') {
 			this.black_market = value;
-		}
-		else {
+		} else {
 			this.black_market = {};
 		}
 		return this;
@@ -407,8 +406,7 @@ city_builder.game = function () {
 		this.difficulty = parseInt(difficulty);
 		if (localStorage.getItem('city_builder.data') !== null) {
 			data = this._load_main_city();
-		}
-		else {
+		} else {
 			this._setup_main_city(name, cityname, nation, climate, avatar);
 		}
 		this.setup_neighbours(data);
@@ -478,8 +476,7 @@ city_builder.game = function () {
 					return city;
 				}
 			}
-		}
-		else {
+		} else {
 			return this.cities[0];
 		}
 		return false;
@@ -549,15 +546,13 @@ city_builder.game = function () {
 	this.get_building_config_data = function (handle) {
 		if (typeof handle === 'string') {
 			return city_builder.BUILDINGS[city_builder.BUILDINGS.findIndexM(handle)];
-		}
-		else if (typeof handle === 'number') {
+		} else if (typeof handle === 'number') {
 			for (var i = 0; i < city_builder.BUILDINGS.length; i++) {
 				if (city_builder.BUILDINGS[i].handle === handle) {
 					return city_builder.BUILDINGS[i];
 				}
 			}
-		}
-		else {
+		} else {
 			return false;
 		}
 	};
@@ -647,8 +642,7 @@ city_builder.game = function () {
 	this.log = function (message, error) {
 		if (typeof message !== 'undefined') {
 			$('.ui .console .contents').prepend('<div' + ((typeof error !== 'undefined' && error === true) ? ' class="error"' : '') + '>' + '<span>' + city_builder.utils.get_now() + '</span> - ' + message + '</div>');
-		}
-		else {
+		} else {
 			$('.ui .console .contents').prepend('<div class="separator"></div>');
 		}
 		return this;
@@ -777,8 +771,7 @@ city_builder.game = function () {
 				if (seconds < format[0]) {
 					if (typeof format[2] === "string") {
 						return format[list_choice];
-					}
-					else {
+					} else {
 						return Math.floor(seconds / format[2]) + " " + format[1];
 					}
 				}
@@ -846,8 +839,7 @@ city_builder.game = function () {
 		var storage = this.get_city().get_storage_space();
 		if (storage.occupied >= storage.all) {
 			this.error('You ran out of storage space and all goods produced will be lost. Upgrade your warehouse or marketplace.', 'No storage space');
-		}
-		else if ((storage.all - storage.occupied) < 100) {
+		} else if ((storage.all - storage.occupied) < 100) {
 			this.error('You will soon run out of storage space and all goods produced will be lost. Upgrade your warehouse or marketplace.', 'Storage nearly full');
 		}
 		return storage;
@@ -925,8 +917,7 @@ city_builder.game = function () {
 			if (data !== null) {
 				this.get_city().influence[item] = data.influence[item];
 				new_city.trades = data.trades[item];
-			}
-			else {
+			} else {
 				this.get_city().influence[item] = 50;
 			}
 			this.cities.push(new_city);

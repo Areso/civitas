@@ -40,8 +40,7 @@ city_builder.l = function (value) {
 	if (typeof city_builder.lang[value] !== 'undefined' &&
 		city_builder.lang[value] !== '') {
 		return city_builder.lang[value];
-	}
-	else {
+	} else {
 		return value;
 	}
 };
@@ -229,6 +228,9 @@ city_builder.DIFFICULTY_LEVEL_HARD = 3;
  */
 city_builder.DIFFICULTY_LEVEL_HARDCORE = 4;
 
+city_builder.NOTIFICATION_MISSING_RESOURCES = 1;
+
+city_builder.NOTIFICATION_PRODUCTION_PAUSED = 2;
 city_builder.lang = {
 	'World Market Trades': '',
 	'Imports': '',
@@ -837,7 +839,7 @@ city_builder.MERCENARIES = [{
 		'Crossbowman': 220,
 		'Pikeman': 300
 	},
-	cost: 12000
+	cost: 120000
 }, {
 	name: 'Legio II Augusta',
 	description: 'Legio secunda Augusta (Second Augustan Legion) is a Roman legion.',
@@ -849,7 +851,7 @@ city_builder.MERCENARIES = [{
 		'Crossbowman': 300,
 		'Pikeman': 140
 	},
-	cost: 13000
+	cost: 130000
 }, {
 	name: 'Legio III Cyrenaica',
 	description: 'Legio tertia Cyrenaica (Third Cyrenean legion) is a Roman legion.',
@@ -860,7 +862,7 @@ city_builder.MERCENARIES = [{
 		'Crossbowman': 500,
 		'Pikeman': 180
 	},
-	cost: 10000
+	cost: 100000
 }, {
 	name: 'Legio IV Flavia Felix',
 	description: 'Legio quarta Flavia Felix (Fourth Lucky Flavian Legion) is a Roman legion.',
@@ -874,7 +876,7 @@ city_builder.MERCENARIES = [{
 		'Crossbowman': 200,
 		'Pikeman': 180
 	},
-	cost: 19000
+	cost: 190000
 }, {
 	name: 'Legio V Alaudae',
 	description: 'Legio quinta Alaudae (Fifth Larks Legion) is a Roman legion.',
@@ -885,7 +887,7 @@ city_builder.MERCENARIES = [{
 		'Axeman': 200,
 		'Bowman': 190
 	},
-	cost: 11000
+	cost: 110000
 }, {
 	name: 'Legio VI Victrix',
 	description: 'Legio sexta Victrix (Sixth Victorious Legion) is a Roman legion.',
@@ -897,7 +899,7 @@ city_builder.MERCENARIES = [{
 		'Knight': 100,
 		'Bowman': 200
 	},
-	cost: 14000
+	cost: 140000
 }, {
 	name: 'Varangian Guard',
 	description: 'The Varangian Guard is an elite unit of the Byzantine Army.',
@@ -910,7 +912,7 @@ city_builder.MERCENARIES = [{
 		'Crossbowman': 100,
 		'Pikeman': 220
 	},
-	cost: 12000
+	cost: 120000
 }, {
 	name: 'Magna Societas Catalanorum',
 	description: 'The Catalan Company of the East, officially the Magna Societas ' +
@@ -923,7 +925,7 @@ city_builder.MERCENARIES = [{
 		'Bowman': 210,
 		'Pikeman': 310
 	},
-	cost: 10000
+	cost: 100000
 }];
 
 /**
@@ -4279,6 +4281,12 @@ city_builder.utils = {
 		return hh + ':' + mm + ':' + ss;
 	},
 
+	/**
+	 * Format a number so that it's more user-friendly.
+	 *
+	 * @returns {String}
+	 * @public
+	 */
 	nice_numbers: function(num) {
 		if (num >= 1000000000) {
 			return (num / 1000000000).toFixed(1).replace(/\.0$/, '') + 'G';
@@ -4915,8 +4923,7 @@ city_builder.city = function(params) {
 				this.get_core().error(city + ' does not exist.');
 				return false;
 			}
-		}
-		else {
+		} else {
 			_city = city;
 		}
 		var trades = _city.get_trades();
@@ -5097,8 +5104,7 @@ city_builder.city = function(params) {
 				this.get_core().error(city + ' does not exist.');
 				return false;
 			}
-		}
-		else {
+		} else {
 			_city = city;
 		}
 		var trades = _city.get_trades();
@@ -5405,8 +5411,7 @@ city_builder.city = function(params) {
 					this.buildings_list.push(building_type[i]);
 				}
 			}
-		}
-		else {
+		} else {
 			var _b = city_builder.BUILDINGS.findIndexM(building_type);
 			if (_b !== false) {
 				var _c = city_builder.BUILDINGS[_b];
@@ -5441,8 +5446,7 @@ city_builder.city = function(params) {
 			if ((this.resources.coins.storage - _c.cost.coins) < 0) {
 				this.get_core().error('You don`t have enough coins to construct this building.');
 				return false;
-			}
-			else {
+			} else {
 				this.resources.coins.storage = this.resources.coins.storage - _c.cost.coins;
 			}
 			for (var item in _c.cost) {
@@ -5450,8 +5454,7 @@ city_builder.city = function(params) {
 					if ((this.get_resources()[item].storage - _c.cost[item]) < 0) {
 						this.get_core().error('You don`t have enough ' + item + ' to construct this building.');
 						return false;
-					}
-					else {
+					} else {
 						this.get_resources()[item].storage = this.get_resources()[item].storage - _c.cost[item];
 					}
 				}
@@ -5514,12 +5517,10 @@ city_builder.city = function(params) {
 	this.demolish = function(id) {
 		if (typeof id === 'number') {
 			this.buildings.splice(id, 1);
-		}
-		else if (typeof id === 'string') {
-
-		}
-		else {
-
+		} else if (typeof id === 'string') {
+			// TODO
+		} else {
+			// TODO
 		}
 		return this;
 	};
@@ -5866,8 +5867,7 @@ city_builder.city = function(params) {
 		var storage = this.get_storage_space();
 		if (storage.occupied >= storage.all) {
 			advices.push('You have no storage space to store your new goods and they will be lost. Sell some goods or build a warehouse.');
-		}
-		else if ((storage.all - storage.occupied) < 100) {
+		} else if ((storage.all - storage.occupied) < 100) {
 			advices.push('You will soon run out of storage space and all goods produced will be lost. Sell some goods or build a warehouse.');
 		}
 		if (this.resources.coins.storage < 1000) {
@@ -6245,21 +6245,18 @@ city_builder.city = function(params) {
 				for (var i = 0; i < navy[ship]; i++) {
 					if (hidden === true) {
 						this._recruit_ship(ship);
-					}
-					else {
+					} else {
 						this.recruit_ship(ship);
 					}
 				}
 			}
-		}
-		else {
+		} else {
 			var navy = data.navy;
 			for (var ship in navy) {
 				for (var i = 0; i < navy[ship]; i++) {
 					if (hidden === true) {
 						this._recruit_ship(ship);
-					}
-					else {
+					} else {
 						this.recruit_ship(ship);
 					}
 				}
@@ -6283,21 +6280,18 @@ city_builder.city = function(params) {
 				for (var i = 0; i < army[soldier]; i++) {
 					if (hidden === true) {
 						this._recruit_soldier(soldier);
-					}
-					else {
+					} else {
 						this.recruit_soldier(soldier);
 					}
 				}
 			}
-		}
-		else {
+		} else {
 			var army = data.army;
 			for (var soldier in army) {
 				for (var i = 0; i < army[soldier]; i++) {
 					if (hidden === true) {
 						this._recruit_soldier(soldier);
-					}
-					else {
+					} else {
 						this.recruit_soldier(soldier);
 					}
 				}
@@ -6342,8 +6336,7 @@ city_builder.city = function(params) {
 	this.raise_prestige = function(amount) {
 		if (typeof amount !== 'undefined') {
 			this.resources.prestige.amount += amount;
-		}
-		else {
+		} else {
 			++this.resources.prestige.amount;
 		}
 		$('.cityprestige').html(this.get_prestige_amount());
@@ -6364,8 +6357,7 @@ city_builder.city = function(params) {
 				this.resources.prestige.amount -= amount;
 				this.get_core().notify('The prestige of your city lowered.');
 			}
-		}
-		else {
+		} else {
 			if ((this.resources.prestige.amount - 1) >= 1) {
 				--this.resources.prestige.amount;
 				this.get_core().notify('The prestige of your city lowered.');
@@ -6788,6 +6780,14 @@ city_builder.building = function(params) {
 	this.is_municipal = false;
 	
 	/**
+	 * The DOM handle of this building.
+	 *
+	 * @type {String}
+	 * @private
+	 */
+	this.handle = null;
+
+	/**
 	 * Object constructor.
 	 * 
 	 * @private
@@ -6799,10 +6799,12 @@ city_builder.building = function(params) {
 		this.city = params.city;
 		this.type = params.type;
 		this.name = params.data.name;
-		this.isProduction = (typeof params.data.is_production !== 'undefined' && params.data.is_production === true) ? true : false;
-		this.isMunicipal = (typeof params.data.is_municipal !== 'undefined' && params.data.is_municipal === true) ? true : false;
+		this.is_production = (typeof params.data.is_production !== 'undefined' && params.data.is_production === true) ? true : false;
+		this.is_municipal = (typeof params.data.is_municipal !== 'undefined' && params.data.is_municipal === true) ? true : false;
 		this.level = (typeof params.data.level !== 'undefined') ? params.data.level : 1;
 		params.data.level = this.level;
+		this.handle = params.data.handle;
+		$('#building-' + this.handle).empty();
 		if (params.hidden !== true) {
 			$('section.game').append(city_builder.ui.building_element(params)).on('click', '#building-' + params.data.handle, function() {
 				new city_builder.panel_building({
@@ -6883,8 +6885,7 @@ city_builder.building = function(params) {
 			this.get_core().notify(this.get_name() + '`s production started.');
 			this.working = true;
 			return true;
-		}
-		else {
+		} else {
 			return false;
 		}
 	};
@@ -6900,8 +6901,7 @@ city_builder.building = function(params) {
 			this.get_core().notify(this.get_name() + '`s production stopped.');
 			this.working = false;
 			return true;
-		}
-		else {
+		} else {
 			return false;
 		}
 	};
@@ -6934,14 +6934,15 @@ city_builder.building = function(params) {
 				if (mats[i] !== 'coins') {
 					if (res[mats[i]].storage - mat[mats[i]] < 0) {
 						this.get_core().log(this.get_name() + ' doesn`t have enough ' + mats[i] + '.', true);
+						this.notify(city_builder.NOTIFICATION_MISSING_RESOURCES);
 						return false;
 					}
 				}
 			}
-		}
-		else {
+		} else {
 			if (res[mats].storage - mat[mats] < 0) {
 				this.get_core().log(this.get_name() + ' doesn`t have enough ' + mats + '.', true);
+				this.notify(city_builder.NOTIFICATION_MISSING_RESOURCES);
 				return false;
 			}
 		}
@@ -6965,8 +6966,7 @@ city_builder.building = function(params) {
 				//res[material[i]].storage = res[material[i]].storage - mat[material[i]];
 				this.get_core().log(this.get_name() + ' used ' + mat[material[i]] + ' ' + material[i] + '.');
 			}
-		}
-		else {
+		} else {
 			this.get_city().remove_resource(material, mat[material]);
 			//res[material].storage = res[material].storage - mat[material];
 			this.get_core().log(this.get_name() + ' used ' + mat[material] + ' ' + material + '.');
@@ -7017,7 +7017,6 @@ city_builder.building = function(params) {
 		if (typeof material === 'object') {
 			for (var i = 0; i < material.length; i++) {
 				if (!this.is_producing()) {
-					this.get_core().log(this.get_name() + ' production is stopped.');
 					return this;
 				}
 				var amount = prd[material[i]] * this.get_level();
@@ -7035,12 +7034,10 @@ city_builder.building = function(params) {
 					this.get_core().log(this.get_name() + ' produced ' + amount + ' ' + material[i] + '.');
 				}
 			}
-		}
-		else {
+		} else {
 			var amount = prd[material] * this.get_level();
 			if (this.get_city().has_storage_space_for(amount)) {
 				if (!this.is_producing()) {
-					this.get_core().log(this.get_name() + ' production is stopped.');
 					return this;
 				}
 				this.get_city().add_to_storage(material, amount);
@@ -7073,8 +7070,7 @@ city_builder.building = function(params) {
 				this.use_material(mats_use);
 				this.produce_material(mats_production);
 			}
-		}
-		else {
+		} else {
 			this.produce_material(mats_production);
 		}
 		return this;
@@ -7174,14 +7170,15 @@ city_builder.building = function(params) {
 						good = false;
 						var req = city_builder.BUILDINGS[city_builder.BUILDINGS.findIndexM(required[i])];
 						this.get_core().log(this.get_name() + ' doesn`t have the required buildings: ' + req.name + '.', true);
+						this.notify(city_builder.NOTIFICATION_MISSING_RESOURCES);
 					}
 				}
-			}
-			else {
+			} else {
 				if (!this.get_city().is_building_built(required)) {
 					good = false;
 					var req = city_builder.BUILDINGS[city_builder.BUILDINGS.findIndexM(required)];
 					this.get_core().log(this.get_name() + ' doesn`t have the required buildings: ' + req.name + '.', true);
+					this.notify(city_builder.NOTIFICATION_MISSING_RESOURCES);
 				}
 			}
 		}
@@ -7211,8 +7208,7 @@ city_builder.building = function(params) {
 					this.get_core().log(this.get_name() + ' gave ' + amount + ' coins via tax.');
 				}
 			}
-		}
-		else {
+		} else {
 			if (this.is_producing()) {
 				var prd = building.production;
 				for (var item in prd) {
@@ -7224,11 +7220,13 @@ city_builder.building = function(params) {
 							this.use_material(_m);
 							this.produce_material(_p);
 						}
-					}
-					else {
+					} else {
 						this.produce_material(_p);
 					}
 				}
+			} else {
+				this.get_core().log(this.get_name() + ' production is stopped.');
+				this.notify(city_builder.NOTIFICATION_PRODUCTION_PAUSED);
 			}
 		}
 		return this;
@@ -7340,6 +7338,37 @@ city_builder.building = function(params) {
 		return this.type;
 	};
 	
+	/**
+	 * Return the DOM handle of this building.
+	 *
+	 * @public
+	 * @returns {String}
+	 */
+	this.get_handle = function() {
+		return this.handle;
+	};
+
+	/**
+	 * Perform building notifications.
+	 *
+	 * @public
+	 * @param {Number} notification_type
+	 * @returns {city_builder.building}
+	 */
+	this.notify = function(notification_type) {
+		var handle = $('#building-' + this.get_handle());
+		switch (notification_type) {
+			case city_builder.NOTIFICATION_PRODUCTION_PAUSED:
+				handle.empty().append('<span class="notification paused"></span>');
+				break;
+			case city_builder.NOTIFICATION_MISSING_RESOURCES:
+			default:
+				handle.empty().append('<span class="notification error"></span>');
+				break;
+		}
+		return this;
+	};
+
 	// Fire up the constructor
 	return this.__constructor(params);
 };
@@ -7422,8 +7451,7 @@ city_builder.panel_building = function (params) {
 		$(el + ' .contents').append(_t);
 		if (_c.is_marketplace()) {
 			$(el + ' header .demolish').remove();
-		}
-		else {
+		} else {
 			$(el).on('click', '.demolish', function () {
 				self.destroy();
 				return false;
@@ -7432,8 +7460,7 @@ city_builder.panel_building = function (params) {
 		if (_c.is_production_building()) {
 			if (_c.is_producing()) {
 				$(el + ' .pause').removeClass('start');
-			}
-			else {
+			} else {
 				$(el + ' .start').removeClass('pause');
 			}
 			$(el).on('click', '.pause', function () {
@@ -7445,8 +7472,7 @@ city_builder.panel_building = function (params) {
 				_c.start_production();
 				return false;
 			});
-		}
-		else {
+		} else {
 			$(el + ' .start, ' + el + ' .pause').remove();
 		}
 		$(el).on('click', '.close', function () {
@@ -7621,8 +7647,7 @@ city_builder.panel_buildings = function (params) {
 						for (var i = 0; i < building.requires.buildings.length; i++) {
 							_z += '<dt>' + city_builder.l('Building') + '</dt><dd>' + self.core.get_building_config_data(building.requires.buildings[i]).name + '</dd>';
 						}
-					}
-					else {
+					} else {
 						_z += '<dt>' + city_builder.l('Building') + '</dt><dd>' + self.core.get_building_config_data(building.requires.buildings).name + '</dd>';
 					}
 				}
@@ -7638,8 +7663,7 @@ city_builder.panel_buildings = function (params) {
 				_z += '</dl>';
 				$(el + ' .b-chance').append(_z);
 				$('fieldset.extra').show();
-			}
-			else {
+			} else {
 				$('fieldset.extra').hide();
 			}
 			if (building.is_production === true) {
@@ -7662,8 +7686,7 @@ city_builder.panel_buildings = function (params) {
 					$(el + ' .b-mats').append(_z);
 					$('fieldset.materials').show();
 				}
-			}
-			else if (building.is_housing === true) {
+			} else if (building.is_housing === true) {
 				$('fieldset.production, fieldset.storage').hide();
 				if (typeof building.materials !== 'undefined') {
 					_z = '<dl class="nomg">';
@@ -7674,7 +7697,6 @@ city_builder.panel_buildings = function (params) {
 					$(el + ' .b-mats').append(_z);
 					$('fieldset.materials').show();
 				}
-
 				if (typeof building.tax !== 'undefined') {
 					_z = '<dl class="nomg">' +
 							'<dt>Tax</dt>' +
@@ -7683,23 +7705,20 @@ city_builder.panel_buildings = function (params) {
 					$(el + ' .b-tax').append(_z);
 					$('fieldset.taxes').show();
 				}
-			}
-			else if (typeof building.storage !== 'undefined') {
+			} else if (typeof building.storage !== 'undefined') {
 				$('fieldset.taxes, fieldset.production, fieldset.materials').hide();
 				_z = '<dl class="nomg">' +
 						'<dt>' + building.storage + '</dt><dd><img src="' + city_builder.ASSETS_URL + 'images/resources/storage_small.png" /></dd>' +
 						'</dl>';
 				$(el + ' .b-store').append(_z);
 				$('fieldset.storage').show();
-			}
-			else {
+			} else {
 				$('fieldset.taxes, fieldset.production, fieldset.materials, fieldset.storage').hide();
 			}
 			var _i = city.is_building_built(building.handle);
 			if (_i !== true) {
 				$(el + ' .toolbar').append('<a href="#" class="btn build" data-handle="' + building.handle + '">' + city_builder.l('Build') + '</a>');
-			}
-			else {
+			} else {
 				$(el + ' .toolbar').append(city_builder.l('You already constructed this building.'));
 			}
 			$(el + ' .tips').tipsy({
@@ -8514,8 +8533,7 @@ city_builder.panel_world = function (params) {
 				new city_builder.panel_advisor({
 					core: self.core
 				});
-			}
-			else {
+			} else {
 				var _city = self.core.get_city(city_name);
 				new city_builder.panel_city({
 					core: self.core,
@@ -8722,8 +8740,7 @@ city_builder.panel_advisor = function (params) {
 
 			}
 			_t += '</table>';
-		}
-		else {
+		} else {
 			_t += '<p>' + city_builder.l('You have no mercenary armies hired for your city. Go to the World Market Trades and hire one.') + '</p>';
 		}
 		_t += '</div>' +
@@ -8749,14 +8766,11 @@ city_builder.panel_advisor = function (params) {
 			var _e = '';
 			if (influence < 20) {
 				_e = ' vbad';
-			}
-			else if (influence >= 20 && influence < 50) {
+			} else if (influence >= 20 && influence < 50) {
 				_e = ' bad';
-			}
-			else if (influence >= 50 && influence < 80) {
+			} else if (influence >= 50 && influence < 80) {
 				_e = ' good';
-			}
-			else if (influence >= 80) {
+			} else if (influence >= 80) {
 				_e = ' vgood';
 			}
 			_t += '<div class="progress"><span style="width:' + influence + '%" class="bar' + _e + '"></span></div>';
@@ -8788,12 +8802,10 @@ city_builder.panel_advisor = function (params) {
 					}
 					$('.tipsy').remove();
 
-				}
-				else {
+				} else {
 					self.core.error(city_builder.l('Your influence on') + ' ' + city + ' ' + city_builder.l('is too low to propose a pact.'));
 				}
-			}
-			else {
+			} else {
 				self.core.error(city_builder.l('You will need to construct an Embassy before being able to propose treaties and pacts to other cities.'));
 			}
 			return false;
@@ -8804,8 +8816,7 @@ city_builder.panel_advisor = function (params) {
 					// TODO
 				}
 				$('.tipsy').remove();
-			}
-			else {
+			} else {
 				self.core.error(city_builder.l('You will need to construct an Embassy before being able to assign spies to other cities.'));
 			}
 			return false;
@@ -8816,8 +8827,7 @@ city_builder.panel_advisor = function (params) {
 					self._refresh_navy();
 				}
 				$('.tipsy').remove();
-			}
-			else {
+			} else {
 				self.core.error(city_builder.l('You will need to construct a Shipyard before being able to construct ships in your city.'));
 			}
 			return false;
@@ -8852,8 +8862,7 @@ city_builder.panel_advisor = function (params) {
 					self._refresh_army();
 				}
 				$('.tipsy').remove();
-			}
-			else {
+			} else {
 				self.core.error(city_builder.l('You will need to construct a Military Camp or Castle before recruiting soldiers in your city.'));
 			}
 			return false;
@@ -9383,8 +9392,7 @@ city_builder.panel_window = function (params) {
 			if (self.core.music.paused === true) {
 				$(this).removeClass('paused').addClass('playing');
 				self.core.music.play();
-			}
-			else {
+			} else {
 				$(this).removeClass('playing').addClass('paused');
 				self.core.music.pause();
 			}
@@ -10163,8 +10171,7 @@ city_builder.game = function () {
 	this.set_black_market = function (value) {
 		if (typeof value !== 'undefined') {
 			this.black_market = value;
-		}
-		else {
+		} else {
 			this.black_market = {};
 		}
 		return this;
@@ -10236,8 +10243,7 @@ city_builder.game = function () {
 		this.difficulty = parseInt(difficulty);
 		if (localStorage.getItem('city_builder.data') !== null) {
 			data = this._load_main_city();
-		}
-		else {
+		} else {
 			this._setup_main_city(name, cityname, nation, climate, avatar);
 		}
 		this.setup_neighbours(data);
@@ -10307,8 +10313,7 @@ city_builder.game = function () {
 					return city;
 				}
 			}
-		}
-		else {
+		} else {
 			return this.cities[0];
 		}
 		return false;
@@ -10378,15 +10383,13 @@ city_builder.game = function () {
 	this.get_building_config_data = function (handle) {
 		if (typeof handle === 'string') {
 			return city_builder.BUILDINGS[city_builder.BUILDINGS.findIndexM(handle)];
-		}
-		else if (typeof handle === 'number') {
+		} else if (typeof handle === 'number') {
 			for (var i = 0; i < city_builder.BUILDINGS.length; i++) {
 				if (city_builder.BUILDINGS[i].handle === handle) {
 					return city_builder.BUILDINGS[i];
 				}
 			}
-		}
-		else {
+		} else {
 			return false;
 		}
 	};
@@ -10476,8 +10479,7 @@ city_builder.game = function () {
 	this.log = function (message, error) {
 		if (typeof message !== 'undefined') {
 			$('.ui .console .contents').prepend('<div' + ((typeof error !== 'undefined' && error === true) ? ' class="error"' : '') + '>' + '<span>' + city_builder.utils.get_now() + '</span> - ' + message + '</div>');
-		}
-		else {
+		} else {
 			$('.ui .console .contents').prepend('<div class="separator"></div>');
 		}
 		return this;
@@ -10606,8 +10608,7 @@ city_builder.game = function () {
 				if (seconds < format[0]) {
 					if (typeof format[2] === "string") {
 						return format[list_choice];
-					}
-					else {
+					} else {
 						return Math.floor(seconds / format[2]) + " " + format[1];
 					}
 				}
@@ -10675,8 +10676,7 @@ city_builder.game = function () {
 		var storage = this.get_city().get_storage_space();
 		if (storage.occupied >= storage.all) {
 			this.error('You ran out of storage space and all goods produced will be lost. Upgrade your warehouse or marketplace.', 'No storage space');
-		}
-		else if ((storage.all - storage.occupied) < 100) {
+		} else if ((storage.all - storage.occupied) < 100) {
 			this.error('You will soon run out of storage space and all goods produced will be lost. Upgrade your warehouse or marketplace.', 'Storage nearly full');
 		}
 		return storage;
@@ -10754,8 +10754,7 @@ city_builder.game = function () {
 			if (data !== null) {
 				this.get_city().influence[item] = data.influence[item];
 				new_city.trades = data.trades[item];
-			}
-			else {
+			} else {
 				this.get_city().influence[item] = 50;
 			}
 			this.cities.push(new_city);

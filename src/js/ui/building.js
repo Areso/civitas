@@ -76,8 +76,7 @@ city_builder.panel_building = function (params) {
 		$(el + ' .contents').append(_t);
 		if (_c.is_marketplace()) {
 			$(el + ' header .demolish').remove();
-		}
-		else {
+		} else {
 			$(el).on('click', '.demolish', function () {
 				self.destroy();
 				return false;
@@ -86,8 +85,7 @@ city_builder.panel_building = function (params) {
 		if (_c.is_production_building()) {
 			if (_c.is_producing()) {
 				$(el + ' .pause').removeClass('start');
-			}
-			else {
+			} else {
 				$(el + ' .start').removeClass('pause');
 			}
 			$(el).on('click', '.pause', function () {
@@ -99,8 +97,7 @@ city_builder.panel_building = function (params) {
 				_c.start_production();
 				return false;
 			});
-		}
-		else {
+		} else {
 			$(el + ' .start, ' + el + ' .pause').remove();
 		}
 		$(el).on('click', '.close', function () {

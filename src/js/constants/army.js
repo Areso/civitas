@@ -147,7 +147,7 @@ city_builder.MERCENARIES = [{
 		'Crossbowman': 220,
 		'Pikeman': 300
 	},
-	cost: 12000
+	cost: 120000
 }, {
 	name: 'Legio II Augusta',
 	description: 'Legio secunda Augusta (Second Augustan Legion) is a Roman legion.',
@@ -159,7 +159,7 @@ city_builder.MERCENARIES = [{
 		'Crossbowman': 300,
 		'Pikeman': 140
 	},
-	cost: 13000
+	cost: 130000
 }, {
 	name: 'Legio III Cyrenaica',
 	description: 'Legio tertia Cyrenaica (Third Cyrenean legion) is a Roman legion.',
@@ -170,7 +170,7 @@ city_builder.MERCENARIES = [{
 		'Crossbowman': 500,
 		'Pikeman': 180
 	},
-	cost: 10000
+	cost: 100000
 }, {
 	name: 'Legio IV Flavia Felix',
 	description: 'Legio quarta Flavia Felix (Fourth Lucky Flavian Legion) is a Roman legion.',
@@ -184,7 +184,7 @@ city_builder.MERCENARIES = [{
 		'Crossbowman': 200,
 		'Pikeman': 180
 	},
-	cost: 19000
+	cost: 190000
 }, {
 	name: 'Legio V Alaudae',
 	description: 'Legio quinta Alaudae (Fifth Larks Legion) is a Roman legion.',
@@ -195,7 +195,7 @@ city_builder.MERCENARIES = [{
 		'Axeman': 200,
 		'Bowman': 190
 	},
-	cost: 11000
+	cost: 110000
 }, {
 	name: 'Legio VI Victrix',
 	description: 'Legio sexta Victrix (Sixth Victorious Legion) is a Roman legion.',
@@ -207,7 +207,7 @@ city_builder.MERCENARIES = [{
 		'Knight': 100,
 		'Bowman': 200
 	},
-	cost: 14000
+	cost: 140000
 }, {
 	name: 'Varangian Guard',
 	description: 'The Varangian Guard is an elite unit of the Byzantine Army.',
@@ -220,7 +220,7 @@ city_builder.MERCENARIES = [{
 		'Crossbowman': 100,
 		'Pikeman': 220
 	},
-	cost: 12000
+	cost: 120000
 }, {
 	name: 'Magna Societas Catalanorum',
 	description: 'The Catalan Company of the East, officially the Magna Societas ' +
@@ -233,5 +233,5 @@ city_builder.MERCENARIES = [{
 		'Bowman': 210,
 		'Pikeman': 310
 	},
-	cost: 10000
+	cost: 100000
 }];

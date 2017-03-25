@@ -70,8 +70,7 @@ city_builder.panel_window = function (params) {
 			if (self.core.music.paused === true) {
 				$(this).removeClass('paused').addClass('playing');
 				self.core.music.play();
-			}
-			else {
+			} else {
 				$(this).removeClass('playing').addClass('paused');
 				self.core.music.pause();
 			}

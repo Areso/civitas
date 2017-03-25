@@ -82,8 +82,7 @@ city_builder.panel_world = function (params) {
 				new city_builder.panel_advisor({
 					core: self.core
 				});
-			}
-			else {
+			} else {
 				var _city = self.core.get_city(city_name);
 				new city_builder.panel_city({
 					core: self.core,

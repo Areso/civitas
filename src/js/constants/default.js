@@ -11,8 +11,7 @@ city_builder.l = function (value) {
 	if (typeof city_builder.lang[value] !== 'undefined' &&
 		city_builder.lang[value] !== '') {
 		return city_builder.lang[value];
-	}
-	else {
+	} else {
 		return value;
 	}
 };
@@ -199,3 +198,7 @@ city_builder.DIFFICULTY_LEVEL_HARD = 3;
  * @type {Number}
  */
 city_builder.DIFFICULTY_LEVEL_HARDCORE = 4;
+
+city_builder.NOTIFICATION_MISSING_RESOURCES = 1;
+
+city_builder.NOTIFICATION_PRODUCTION_PAUSED = 2;

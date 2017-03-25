@@ -55,6 +55,12 @@ city_builder.utils = {
 		return hh + ':' + mm + ':' + ss;
 	},
 
+	/**
+	 * Format a number so that it's more user-friendly.
+	 *
+	 * @returns {String}
+	 * @public
+	 */
 	nice_numbers: function(num) {
 		if (num >= 1000000000) {
 			return (num / 1000000000).toFixed(1).replace(/\.0$/, '') + 'G';
