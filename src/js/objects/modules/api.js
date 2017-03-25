@@ -159,7 +159,7 @@ city_builder.api = function (params) {
 	 * Object constructor.
 	 * 
 	 * @private
-	 * @returns {city_builder.event}
+	 * @returns {city_builder.api}
 	 * @param {Object} params
 	 */
 	this.__constructor = function (params) {

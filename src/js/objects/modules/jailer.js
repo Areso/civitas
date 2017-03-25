@@ -25,7 +25,7 @@ city_builder.jailer = function (params) {
 	 * Object constructor.
 	 * 
 	 * @private
-	 * @returns {city_builder.event}
+	 * @returns {city_builder.jailer}
 	 * @param {Object} params
 	 */
 	this.__constructor = function (params) {

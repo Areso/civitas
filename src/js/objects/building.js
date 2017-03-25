@@ -247,17 +247,14 @@ city_builder.building = function(params) {
 	 */
 	this.use_material = function(material) {
 		var building = this.get_building_data();
-		//var res = this.get_city_resources();
 		var mat = building.materials;
 		if (typeof material === 'object') {
 			for (var i = 0; i < material.length; i++) {
 				this.get_city().remove_resource(material[i], mat[material[i]]);
-				//res[material[i]].storage = res[material[i]].storage - mat[material[i]];
 				this.get_core().log(this.get_name() + ' used ' + mat[material[i]] + ' ' + material[i] + '.');
 			}
 		} else {
 			this.get_city().remove_resource(material, mat[material]);
-			//res[material].storage = res[material].storage - mat[material];
 			this.get_core().log(this.get_name() + ' used ' + mat[material] + ' ' + material + '.');
 		}
 		return this;
@@ -552,14 +549,14 @@ city_builder.building = function(params) {
 				break;
 			case 'warehouse':
 				break;
-				/* MILITARY */
+			/* MILITARY */
 			case 'camp':
 				break;
 			case 'castle':
 				this.adjust_city_fame_for_coins();
 				this.adjust_city_prestige();
 				break;
-				/* MUNICIPAL */
+			/* MUNICIPAL */
 			case 'church':
 				this.adjust_city_fame_for_coins();
 				break;
@@ -569,7 +566,7 @@ city_builder.building = function(params) {
 			case 'tavern':
 				this.adjust_city_fame_for_coins();
 				break;
-				/* ALL OTHER */
+			/* ALL OTHER */
 			default:
 				this._process();
 				break;

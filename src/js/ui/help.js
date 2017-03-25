@@ -71,6 +71,7 @@ city_builder.panel_help = function (params) {
 		var city = this.core.get_city();
 		$('.ui').append(city_builder.ui.generic_panel_template.replace(/{id}/g, this.id).replace(/{title}/g, this.title));
 		var _t = '';
+		
 		$(el + ' .contents').append(_t);
 		$(el).on('click', '.close', function () {
 			self.destroy();

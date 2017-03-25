@@ -73,7 +73,6 @@ city_builder.panel_declare_war = function (params) {
 		$('.ui').append(city_builder.ui.generic_panel_template.replace(/{id}/g, this.id).replace(/{title}/g, this.title));
 		var out = '';
 		
-		
 		$(el + ' .contents').empty().append(out);
 		$(el).on('click', '.close', function () {
 			self.destroy();

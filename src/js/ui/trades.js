@@ -87,7 +87,6 @@ city_builder.panel_trades = function (params) {
 			if (city.buy_from_city(handle, resource) !== false) {
 				self._refresh_exports();
 			}
-			$('.tipsy').remove();
 			return false;
 		}).on('click', '.sell:not(.disabled)', function () {
 			var handle = $(this).data('city');
@@ -95,7 +94,6 @@ city_builder.panel_trades = function (params) {
 			if (city.sell_to_city(handle, resource) !== false) {
 				self._refresh_imports();
 			}
-			$('.tipsy').remove();
 			return false;
 		}).on('click', '.bmarket', function () {
 			var resource = $('.bm-materials').val();
@@ -105,14 +103,12 @@ city_builder.panel_trades = function (params) {
 				self._refresh_black_market();
 				$('.bm-quantity').val('');
 			}
-			$('.tipsy').remove();
 			return false;
 		}).on('click', '.recruit:not(.disabled)', function () {
 			var handle = $(this).data('handle');
 			if (city.recruit_mercenary_army(handle) !== false) {
 				self._refresh_mercenaries();
 			}
-			$('.tipsy').remove();
 			return false;
 		}).on('click', '.view-army:not(.disabled)', function () {
 			var army = $(this).data('id');
@@ -121,7 +117,6 @@ city_builder.panel_trades = function (params) {
 				core: self.core,
 				data: army_data
 			});
-			$('.tipsy').remove();
 			return false;
 		}).on('click', '.close', function () {
 			self.destroy();

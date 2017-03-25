@@ -4323,6 +4323,38 @@ city_builder.utils = {
 };
 
 /**
+ * Main Game AI (Artificial Intelligence) object.
+ * 
+ * @param {type} params
+ * @class {city_builder.ai}
+ * @returns {city_builder.__constructor}
+ */
+city_builder.ai = function (params) {
+
+	/**
+	 * Reference to the core object.
+	 * 
+	 * @type {city_builder.game}
+	 */
+	this.core = null;
+
+	/**
+	 * Object constructor.
+	 * 
+	 * @private
+	 * @returns {city_builder.ai}
+	 * @param {Object} params
+	 */
+	this.__constructor = function (params) {
+		this.core = params.core;
+		return this;
+	};
+
+	// Fire up the constructor
+	return this.__constructor(params);
+};
+
+/**
  * Main Game API object.
  * 
  * @param {type} params
@@ -4483,7 +4515,7 @@ city_builder.api = function (params) {
 	 * Object constructor.
 	 * 
 	 * @private
-	 * @returns {city_builder.event}
+	 * @returns {city_builder.api}
 	 * @param {Object} params
 	 */
 	this.__constructor = function (params) {
@@ -4522,7 +4554,7 @@ city_builder.jailer = function (params) {
 	 * Object constructor.
 	 * 
 	 * @private
-	 * @returns {city_builder.event}
+	 * @returns {city_builder.jailer}
 	 * @param {Object} params
 	 */
 	this.__constructor = function (params) {
@@ -7121,17 +7153,14 @@ city_builder.building = function(params) {
 	 */
 	this.use_material = function(material) {
 		var building = this.get_building_data();
-		//var res = this.get_city_resources();
 		var mat = building.materials;
 		if (typeof material === 'object') {
 			for (var i = 0; i < material.length; i++) {
 				this.get_city().remove_resource(material[i], mat[material[i]]);
-				//res[material[i]].storage = res[material[i]].storage - mat[material[i]];
 				this.get_core().log(this.get_name() + ' used ' + mat[material[i]] + ' ' + material[i] + '.');
 			}
 		} else {
 			this.get_city().remove_resource(material, mat[material]);
-			//res[material].storage = res[material].storage - mat[material];
 			this.get_core().log(this.get_name() + ' used ' + mat[material] + ' ' + material + '.');
 		}
 		return this;
@@ -7426,14 +7455,14 @@ city_builder.building = function(params) {
 				break;
 			case 'warehouse':
 				break;
-				/* MILITARY */
+			/* MILITARY */
 			case 'camp':
 				break;
 			case 'castle':
 				this.adjust_city_fame_for_coins();
 				this.adjust_city_prestige();
 				break;
-				/* MUNICIPAL */
+			/* MUNICIPAL */
 			case 'church':
 				this.adjust_city_fame_for_coins();
 				break;
@@ -7443,7 +7472,7 @@ city_builder.building = function(params) {
 			case 'tavern':
 				this.adjust_city_fame_for_coins();
 				break;
-				/* ALL OTHER */
+			/* ALL OTHER */
 			default:
 				this._process();
 				break;
@@ -8246,6 +8275,7 @@ city_builder.panel_help = function (params) {
 		var city = this.core.get_city();
 		$('.ui').append(city_builder.ui.generic_panel_template.replace(/{id}/g, this.id).replace(/{title}/g, this.title));
 		var _t = '';
+		
 		$(el + ' .contents').append(_t);
 		$(el).on('click', '.close', function () {
 			self.destroy();
@@ -8491,7 +8521,6 @@ city_builder.panel_send_goods = function (params) {
 		$('.ui').append(city_builder.ui.generic_panel_template.replace(/{id}/g, this.id).replace(/{title}/g, this.title));
 		var out = '';
 		
-		
 		$(el + ' .contents').empty().append(out);
 		$(el).on('click', '.close', function () {
 			self.destroy();
@@ -8590,7 +8619,6 @@ city_builder.panel_declare_war = function (params) {
 		var otherCity = params.data;
 		$('.ui').append(city_builder.ui.generic_panel_template.replace(/{id}/g, this.id).replace(/{title}/g, this.title));
 		var out = '';
-		
 		
 		$(el + ' .contents').empty().append(out);
 		$(el).on('click', '.close', function () {
@@ -8965,10 +8993,12 @@ city_builder.panel_advisor = function (params) {
 				var city = $(this).data('name');
 				var influence = self.core.get_city().get_influence_with_city(city);
 				if (influence >= 50) {
+					self.core.error('Not implemented yet.');
+					/*
 					if (self.core.get_city().propose_pact(city) === true) {
 						// TODO
 					}
-					$('.tipsy').remove();
+					*/
 
 				} else {
 					self.core.error(city_builder.l('Your influence on') + ' ' + city + ' ' + city_builder.l('is too low to propose a pact.'));
@@ -8980,10 +9010,12 @@ city_builder.panel_advisor = function (params) {
 		}).on('click', '.spy', function () {
 			if (can_diplomacy === true) {
 				var city = $(this).data('name');
+				self.core.error('Not implemented yet.');
+				/*
 				if (self.core.get_city().assign_spy(city) === true) {
 					// TODO
 				}
-				$('.tipsy').remove();
+				*/
 			} else {
 				self.core.error(city_builder.l('You will need to construct an Embassy before being able to assign spies to other cities.'));
 			}
@@ -8991,29 +9023,45 @@ city_builder.panel_advisor = function (params) {
 		}).on('click', '.recruit-ship', function () {
 			if (can_build_ships === true) {
 				var ship = $(this).data('handle');
+				self.core.error('Not implemented yet.');
+				/*
 				if (self.core.get_city().recruit_ship(ship) === true) {
 					self._refresh_navy();
 				}
-				$('.tipsy').remove();
+				*/
 			} else {
 				self.core.error(city_builder.l('You will need to construct a Shipyard before being able to construct ships in your city.'));
 			}
 			return false;
 		}).on('click', '.declare-war', function () {
-			var name = $(this).data('name');
-			var _city = self.core.get_city(name);
-			new city_builder.panel_declare_war({
-				core: self.core,
-				data: _city
-			});
+			if (can_diplomacy === true) {
+				var name = $(this).data('name');
+				var _city = self.core.get_city(name);
+				self.core.error('Not implemented yet.');
+				/*
+				new city_builder.panel_declare_war({
+					core: self.core,
+					data: _city
+				});
+				*/
+			} else {
+				self.core.error(city_builder.l('You will need to construct an Embassy before being able to declare war to other cities.'));
+			}
 			return false;
 		}).on('click', '.send-goods', function () {
-			var name = $(this).data('name');
-			var _city = self.core.get_city(name);
-			new city_builder.panel_send_goods({
-				core: self.core,
-				data: _city
-			});
+			if (can_diplomacy === true) {
+				var name = $(this).data('name');
+				var _city = self.core.get_city(name);
+				self.core.error('Not implemented yet.');
+				/*
+				new city_builder.panel_send_goods({
+					core: self.core,
+					data: _city
+				});
+				*/
+			} else {
+				self.core.error(city_builder.l('You will need to construct an Embassy before being able to send goods to other cities.'));
+			}
 			return false;
 		}).on('click', '.view-city', function () {
 			var name = $(this).data('name');
@@ -9029,7 +9077,6 @@ city_builder.panel_advisor = function (params) {
 				if (self.core.get_city().recruit_soldier(soldier) === true) {
 					self._refresh_army();
 				}
-				$('.tipsy').remove();
 			} else {
 				self.core.error(city_builder.l('You will need to construct a Military Camp or Castle before recruiting soldiers in your city.'));
 			}
@@ -9041,7 +9088,21 @@ city_builder.panel_advisor = function (params) {
 				core: self.core,
 				data: data
 			});
-			$('.tipsy').remove();
+			return false;
+		}).on('click', '.raid-merc', function () {
+			var _army = $(this).data('id');
+			var data = city_builder.MERCENARIES[_army];
+			self.core.error('Not implemented yet.');
+			return false;
+		}).on('click', '.campaign-merc', function () {
+			var _army = $(this).data('id');
+			var data = city_builder.MERCENARIES[_army];
+			self.core.error('Not implemented yet.');
+			return false;
+		}).on('click', '.disband-merc', function () {
+			var _army = $(this).data('id');
+			var data = city_builder.MERCENARIES[_army];
+			self.core.error('Not implemented yet.');
 			return false;
 		}).on('click', '.close', function () {
 			self.destroy();
@@ -9281,7 +9342,6 @@ city_builder.panel_trades = function (params) {
 			if (city.buy_from_city(handle, resource) !== false) {
 				self._refresh_exports();
 			}
-			$('.tipsy').remove();
 			return false;
 		}).on('click', '.sell:not(.disabled)', function () {
 			var handle = $(this).data('city');
@@ -9289,7 +9349,6 @@ city_builder.panel_trades = function (params) {
 			if (city.sell_to_city(handle, resource) !== false) {
 				self._refresh_imports();
 			}
-			$('.tipsy').remove();
 			return false;
 		}).on('click', '.bmarket', function () {
 			var resource = $('.bm-materials').val();
@@ -9299,14 +9358,12 @@ city_builder.panel_trades = function (params) {
 				self._refresh_black_market();
 				$('.bm-quantity').val('');
 			}
-			$('.tipsy').remove();
 			return false;
 		}).on('click', '.recruit:not(.disabled)', function () {
 			var handle = $(this).data('handle');
 			if (city.recruit_mercenary_army(handle) !== false) {
 				self._refresh_mercenaries();
 			}
-			$('.tipsy').remove();
 			return false;
 		}).on('click', '.view-army:not(.disabled)', function () {
 			var army = $(this).data('id');
@@ -9315,7 +9372,6 @@ city_builder.panel_trades = function (params) {
 				core: self.core,
 				data: army_data
 			});
-			$('.tipsy').remove();
 			return false;
 		}).on('click', '.close', function () {
 			self.destroy();

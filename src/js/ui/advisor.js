@@ -239,10 +239,12 @@ city_builder.panel_advisor = function (params) {
 				var city = $(this).data('name');
 				var influence = self.core.get_city().get_influence_with_city(city);
 				if (influence >= 50) {
+					self.core.error('Not implemented yet.');
+					/*
 					if (self.core.get_city().propose_pact(city) === true) {
 						// TODO
 					}
-					$('.tipsy').remove();
+					*/
 
 				} else {
 					self.core.error(city_builder.l('Your influence on') + ' ' + city + ' ' + city_builder.l('is too low to propose a pact.'));
@@ -254,10 +256,12 @@ city_builder.panel_advisor = function (params) {
 		}).on('click', '.spy', function () {
 			if (can_diplomacy === true) {
 				var city = $(this).data('name');
+				self.core.error('Not implemented yet.');
+				/*
 				if (self.core.get_city().assign_spy(city) === true) {
 					// TODO
 				}
-				$('.tipsy').remove();
+				*/
 			} else {
 				self.core.error(city_builder.l('You will need to construct an Embassy before being able to assign spies to other cities.'));
 			}
@@ -265,29 +269,45 @@ city_builder.panel_advisor = function (params) {
 		}).on('click', '.recruit-ship', function () {
 			if (can_build_ships === true) {
 				var ship = $(this).data('handle');
+				self.core.error('Not implemented yet.');
+				/*
 				if (self.core.get_city().recruit_ship(ship) === true) {
 					self._refresh_navy();
 				}
-				$('.tipsy').remove();
+				*/
 			} else {
 				self.core.error(city_builder.l('You will need to construct a Shipyard before being able to construct ships in your city.'));
 			}
 			return false;
 		}).on('click', '.declare-war', function () {
-			var name = $(this).data('name');
-			var _city = self.core.get_city(name);
-			new city_builder.panel_declare_war({
-				core: self.core,
-				data: _city
-			});
+			if (can_diplomacy === true) {
+				var name = $(this).data('name');
+				var _city = self.core.get_city(name);
+				self.core.error('Not implemented yet.');
+				/*
+				new city_builder.panel_declare_war({
+					core: self.core,
+					data: _city
+				});
+				*/
+			} else {
+				self.core.error(city_builder.l('You will need to construct an Embassy before being able to declare war to other cities.'));
+			}
 			return false;
 		}).on('click', '.send-goods', function () {
-			var name = $(this).data('name');
-			var _city = self.core.get_city(name);
-			new city_builder.panel_send_goods({
-				core: self.core,
-				data: _city
-			});
+			if (can_diplomacy === true) {
+				var name = $(this).data('name');
+				var _city = self.core.get_city(name);
+				self.core.error('Not implemented yet.');
+				/*
+				new city_builder.panel_send_goods({
+					core: self.core,
+					data: _city
+				});
+				*/
+			} else {
+				self.core.error(city_builder.l('You will need to construct an Embassy before being able to send goods to other cities.'));
+			}
 			return false;
 		}).on('click', '.view-city', function () {
 			var name = $(this).data('name');
@@ -303,7 +323,6 @@ city_builder.panel_advisor = function (params) {
 				if (self.core.get_city().recruit_soldier(soldier) === true) {
 					self._refresh_army();
 				}
-				$('.tipsy').remove();
 			} else {
 				self.core.error(city_builder.l('You will need to construct a Military Camp or Castle before recruiting soldiers in your city.'));
 			}
@@ -315,7 +334,21 @@ city_builder.panel_advisor = function (params) {
 				core: self.core,
 				data: data
 			});
-			$('.tipsy').remove();
+			return false;
+		}).on('click', '.raid-merc', function () {
+			var _army = $(this).data('id');
+			var data = city_builder.MERCENARIES[_army];
+			self.core.error('Not implemented yet.');
+			return false;
+		}).on('click', '.campaign-merc', function () {
+			var _army = $(this).data('id');
+			var data = city_builder.MERCENARIES[_army];
+			self.core.error('Not implemented yet.');
+			return false;
+		}).on('click', '.disband-merc', function () {
+			var _army = $(this).data('id');
+			var data = city_builder.MERCENARIES[_army];
+			self.core.error('Not implemented yet.');
 			return false;
 		}).on('click', '.close', function () {
 			self.destroy();
