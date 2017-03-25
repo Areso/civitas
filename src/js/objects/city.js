@@ -476,7 +476,8 @@ city_builder.city = function(params) {
 				month: this.get_core().month,
 				year: this.get_core().year,
 				day_of_month: this.get_core().day_of_month
-			}
+			},
+			settings: this.get_core().get_settings()
 		};
 		if (to_local_storage === true) {
 			localStorage.setItem('city_builder.data', window.btoa(JSON.stringify(data)));
@@ -504,6 +505,8 @@ city_builder.city = function(params) {
 		this.set_resources(data.resources);
 		this.get_core().set_date_time(data.date_time);
 		this.get_core().set_black_market(data.black_market);
+		this.get_core().set_settings_music(data.settings.music);
+		this.get_core().set_settings_console(data.settings.console);
 		return this;
 	};
 	

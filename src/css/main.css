@@ -1,21 +1,11 @@
 @font-face {
-	font-family: 'Hammersmith One';
-	font-style: normal;
-	font-weight: 400;
-	src: local('Hammersmith One'),
-		local('HammersmithOne'),
-		url('../fonts/HammersmithOne.woff2') format('woff2'),
-		url('../fonts/HammersmithOne.woff') format('woff');
-}
-
-@font-face {
-	font-family: 'Mouse Memoirs';
-	font-style: normal;
-	font-weight: 400;
-	src: local('Mouse Memoirs'),
-		local('MouseMemoirs-Regular'),
-		url('../fonts/MouseMemoirs.woff2') format('woff2'),
-		url('../fonts/MouseMemoirs.woff') format('woff');
+  font-family: 'Nova Oval';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Nova Oval'),
+  	local('NovaOval'),
+  	url(http://fonts.gstatic.com/s/novaoval/v8/Raz8Gead6A3y70SEndGXGZBw1xU1rKptJj_0jans920.woff2) format('woff2');
+	unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;
 }
 
 * {
@@ -35,7 +25,7 @@ a {
 body {
 	margin: 0;
 	padding: 0;
-	font-family: 'Hammersmith One';
+	font-family: 'Nova Oval';
 	overflow: hidden;
 }
 
@@ -110,7 +100,7 @@ ul, li {
 .ui > header .cityname {
 	position: absolute;
 	top: 5px;
-	font-family: 'Mouse Memoirs';
+	font-family: 'Nova Oval';
 	font-size: 18px;
 	left: 84px;
 	width: 124px;
@@ -125,7 +115,7 @@ ul, li {
 	font-weight: bold;
 	text-align: center;
 	position: absolute;
-	font-family: 'Mouse Memoirs';
+	font-family: 'Nova Oval';
 	right: 20px;
 	top: 22px;
 }
@@ -136,7 +126,7 @@ ul, li {
 	font-weight: bold;
 	text-align: center;
 	position: absolute;
-	font-family: 'Mouse Memoirs';
+	font-family: 'Nova Oval';
 	right: 7px;
 	width: 60px;
 	bottom: 5px;
@@ -184,8 +174,8 @@ header .top-panel span {
 	background: transparent url(../images/ui/bottom.png) no-repeat;
 	position: fixed;
 	bottom: 0;
-	left: 10px;
-	font-family: 'Hammersmith One';
+	left: 25%;
+	font-family: 'Nova Oval';
 	z-index: 9999;
 }
 
@@ -250,12 +240,12 @@ header .top-panel span {
 }
 
 .smalldesc {
-	font-size: 16px;
-	font-family: 'Mouse Memoirs';
+	font-size: 12px;
+	font-family: 'Nova Oval';
 	vertical-align: middle;
 	line-height: 20px;
 	display: inline-block;
-	border-bottom: 1px solid #777;
+	border-bottom: 1px solid #ccc;
 	padding-bottom: 5px;
 	margin-bottom: 5px;
 }
@@ -265,6 +255,7 @@ header .top-panel span {
 }
 
 .tipsy .smalldesc {
+	font-size: 12px;
 	border: 0 !important;
 	padding: 0;
 	margin: 0;
@@ -281,9 +272,13 @@ header .top-panel span {
 	vertical-align: middle;
 }
 
+.ui dd img {
+	margin-left: 4px;
+}
+
 .buildinginfo {
 	text-transform: uppercase;
-	font-size: 20px;
+	font-size: 16px;
 }
 
 /* Panels */
@@ -300,9 +295,12 @@ header .top-panel span {
 	max-height: 400px;
 	color: #444;
 	padding: 10px;
-	box-shadow: 0 0 2px #000;
-	-webkit-box-shadow: 0 0 2px #000;
-	-moz-box-shadow: 0 0 2px #000;
+	box-shadow: 0 0 5px #ccc;
+	-webkit-box-shadow: 0 0 5px #ccc;
+	-moz-box-shadow: 0 0 5px #ccc;
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
 }
 
 .ui .panel.black {
@@ -311,8 +309,8 @@ header .top-panel span {
 
 .ui .panel header {
 	text-transform: uppercase;
-	font-size: 22px;
-	font-family: 'Mouse Memoirs';
+	font-size: 18px;
+	font-family: 'Nova Oval';
 	margin-bottom: 10px;
 	cursor: move;
 }
@@ -329,6 +327,10 @@ header .top-panel span {
 
 .panel .toolbar {
 	margin-top: 10px;
+}
+
+.ui .panel a {
+	color: #444;
 }
 
 .panel .toolbar .btn {
@@ -386,7 +388,7 @@ header .top-panel span {
 }
 
 .panel .b-name {
-	font-family: 'Mouse Memoirs';
+	font-family: 'Nova Oval';
 	font-size: 26px;
 	margin: 0 0 10px 0;
 }
@@ -431,6 +433,12 @@ header .top-panel span {
 	line-height: 20px;
 	margin-bottom: 5px;
 	width: 140px;
+}
+
+/* Building panel */
+
+#panel-building {
+	opacity: 0.8;
 }
 
 /* Help panel */
@@ -569,9 +577,9 @@ table.mercenaries td:nth-child(3) {
 	text-align: center;
 	margin: 0 4px 4px 0;
 	position: relative;
-	-webkit-box-shadow: inset 0 0 18px 0 rgba(100,100,100, 0.75);
-	-moz-box-shadow: inset 0 0 18px 0 rgba(100,100,100, 0.75);
-	box-shadow: inset 0 0 18px 0 rgba(100,100,100, 0.75);
+	-webkit-box-shadow: inset 0 0 3px 0 rgba(20, 20, 20, 0.75);
+	-moz-box-shadow: inset 0 0 3px 0 rgba(20, 20, 20, 0.75);
+	box-shadow: inset 0 0 3px 0 rgba(20, 20, 20, 0.75);
 }
 
 .panel .storage-item .title {
@@ -626,9 +634,9 @@ table.mercenaries td:nth-child(3) {
 	text-align: center;
 	margin: 0 10px 10px 0;
 	position: relative;
-	-webkit-box-shadow: inset 0 0 10px 0 rgba(0, 155, 70, 0.75);
-	-moz-box-shadow: inset 0 0 10px 0 rgba(0, 155, 70, 0.75);
-	box-shadow: inset 0 0 10px 0 rgba(0, 155, 70, 0.75);
+	-webkit-box-shadow: inset 0 0 4px 0 rgba(0, 155, 70, 0.75);
+	-moz-box-shadow: inset 0 0 4px 0 rgba(0, 155, 70, 0.75);
+	box-shadow: inset 0 0 4px 0 rgba(0, 155, 70, 0.75);
 	cursor: pointer;
 }
 
@@ -642,9 +650,9 @@ table.mercenaries td:nth-child(3) {
 }
 
 .panel .building-item.active {
-	-webkit-box-shadow: inset 0 0 18px 0 rgba(20, 20, 20, 0.75) !important;
-	-moz-box-shadow: inset 0 0 18px 0 rgba(20, 20, 20, 0.75) !important;
-	box-shadow: inset 0 0 18px 0 rgba(20, 20, 20, 0.75) !important;
+	-webkit-box-shadow: inset 0 0 4px 0 rgba(20, 20, 20, 0.75) !important;
+	-moz-box-shadow: inset 0 0 4px 0 rgba(20, 20, 20, 0.75) !important;
+	box-shadow: inset 0 0 4px 0 rgba(20, 20, 20, 0.75) !important;
 }
 .panel .building-item .building-info {
 	display: none;
@@ -652,9 +660,9 @@ table.mercenaries td:nth-child(3) {
 }
 
 .panel .building-item.disabled {
-	-webkit-box-shadow: inset 0 0 10px 0 rgba(186,105,74,0.75);
-	-moz-box-shadow: inset 0 0 10px 0 rgba(186,105,74,0.75);
-	box-shadow: inset 0 0 10px 0 rgba(186,105,74,0.75);
+	-webkit-box-shadow: inset 0 0 4px 0 rgba(186, 105, 74, 0.75);
+	-moz-box-shadow: inset 0 0 4px 0 rgba(186, 105, 74, 0.75);
+	box-shadow: inset 0 0 4px 0 rgba(186, 105, 74, 0.75);
 }
 
 .panel .building-item .title {
@@ -742,8 +750,8 @@ section.start fieldset legend {
 
 .notifications {
 	position: fixed;
-	top: 120px;
-	left: 0;
+	top: 10px;
+	right: 10px;
 	width: 340px;
 	z-index: 99999;
 }
@@ -751,22 +759,26 @@ section.start fieldset legend {
 .notifications .notty {
 	padding: 10px;
 	margin-bottom: 10px;
-	color: #fff;
+	color: #444;
 	font-size: 12px;
-	background-color: #000;
-	-webkit-box-shadow: rgba(0, 0, 0, 0.8) 0 2px 3px;
-	-moz-box-shadow: rgba(0, 0, 0, 0.8) 0 2px 3px;
-	box-shadow: rgba(0, 0, 0, 0.8) 0 2px 3px;
+	background-color: #fff;
+	box-shadow: 0 0 5px #ccc;
+	-webkit-box-shadow: 0 0 5px #ccc;
+	-moz-box-shadow: 0 0 5px #ccc;
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
 	position: relative;
 	overflow: hidden;
+	opacity: 0.8;
 }
 
 .notifications .notty.error {
-	background-color: #7b0001;
+	background-color: #f5c0c0;
 }
 
 .notifications .notty.other {
-	background-color: #3C437D;
+	background-color: #c0c5f5;
 }
 
 .notifications .notty .hide {
@@ -838,7 +850,7 @@ section.start fieldset legend {
 .notifications .notty h2 {
 	margin: 0 0 5px 0;
 	font-size: 14px;
-	color: #fff;
+	color: #444;
 	text-transform: uppercase;
 }
 
@@ -1027,12 +1039,18 @@ a.disabled {
 	height: 137px;
 	width: 494px;
 	position: fixed;
-	bottom: 0;
+	top: 0;
 	right: 0;
 	z-index: 999;
 	font-size: 11px;
 	color: #777;
 	font-size: 12px;
+	opacity: 0.8;
+	display: none;
+}
+
+.ui .console:hover {
+	opacity: 0.9;
 }
 
 .avatar-select-container {
@@ -1102,15 +1120,16 @@ a.disabled {
 /* Tipsy */
 
 .tipsy {
-	font-family: 'Mouse Memoirs';
+	font-family: 'Nova Oval';
+	font-size: 12px;
 	position: absolute;
 	padding: 5px;
 	z-index: 100000;
 }
 
 .tipsy-inner {
-	background-color: #000;
-	color: #FFF;
+	background-color: #fff;
+	color: #000;
 	max-width: 280px;
 	padding: 10px;
 	text-align: left;
@@ -1123,9 +1142,9 @@ a.disabled {
 }
 
 .tipsy-inner {
-	box-shadow: 0 0 5px #000000;
-	-webkit-box-shadow: 0 0 5px #000000;
-	-moz-box-shadow: 0 0 5px #000000;
+	box-shadow: 0 0 5px #ccc;
+	-webkit-box-shadow: 0 0 5px #ccc;
+	-moz-box-shadow: 0 0 5px #ccc;
 }
 
 .tipsy-arrow {
@@ -1133,23 +1152,23 @@ a.disabled {
 	width: 0;
 	height: 0;
 	line-height: 0;
-	border: 5px dashed #000;
+	border: 5px dashed #fff;
 }
 
 .tipsy-arrow-n {
-	border-bottom-color: #000;
+	border-bottom-color: #fff;
 }
 
 .tipsy-arrow-s {
-	border-top-color: #000;
+	border-top-color: #fff;
 }
 
 .tipsy-arrow-e {
-	border-left-color: #000;
+	border-left-color: #fff;
 }
 
 .tipsy-arrow-w {
-	border-right-color: #000;
+	border-right-color: #fff;
 }
 
 .tipsy-n .tipsy-arrow {

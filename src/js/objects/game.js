@@ -86,7 +86,10 @@ city_builder.game = function () {
 	 * @type {Object}
 	 * @private
 	 */
-	this.settings = {};
+	this.settings = {
+		console: false,
+		music: false
+	};
 
 	/**
 	 * Pointer to an instance of the game history.
@@ -278,7 +281,47 @@ city_builder.game = function () {
 	 * @returns {city_builder.game}
 	 */
 	this.set_settings = function (key, value) {
-		this.settings[key] = value;
+		if (typeof value === 'undefined') {
+			this.settings = key;
+		} else {
+			this.settings[key] = value;
+		}
+		return this;
+	};
+
+	/**
+	 * Set music on/off.
+	 * 
+	 * @param {String} key
+	 * @param {Mixed} value
+	 * @public
+	 * @returns {city_builder.game}
+	 */
+	this.set_settings_music = function(value) {
+		if (value === true) {
+			this.music.play();
+		} else {
+			this.music.pause();
+		}
+		this.set_settings('music', value);
+		return this;
+	};
+
+	/**
+	 * Set console display on/off
+	 * 
+	 * @param {String} key
+	 * @param {Mixed} value
+	 * @public
+	 * @returns {city_builder.game}
+	 */
+	this.set_settings_console = function(value) {
+		if (value === true) {
+			$('aside.console').show();
+		} else {
+			$('aside.console').hide();
+		}
+		this.set_settings('console', value);
 		return this;
 	};
 
@@ -290,7 +333,11 @@ city_builder.game = function () {
 	 * @returns {city_builder.game.settings}
 	 */
 	this.get_settings = function (key) {
-		return this.settings[key];
+		if (typeof key === 'undefined') {
+			return this.settings;
+		} else {
+			return this.settings[key];
+		}
 	};
 
 	/**

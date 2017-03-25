@@ -64,15 +64,26 @@ city_builder.panel_window = function (params) {
 		}
 		this.core.console_log('creating panel with id `' + this.id + '`');
 		$('.ui').append(city_builder.ui.generic_panel_template.replace(/{id}/g, this.id).replace(/{title}/g, params.header));
-		var out = city_builder.ui.normal_panel(city_builder.l('Background Music'), '<a href="#" class="music-control paused"></a>');
+		var out = '';
+		out += city_builder.ui.normal_panel(city_builder.l('Background Music'), '<a href="#" class="music-control ' + ((this.core.get_settings('music') === true) ? 'playing' : 'paused') + '"></a>');
+		out += city_builder.ui.normal_panel(city_builder.l('Console'), '<a href="#" class="console-control ' + ((this.core.get_settings('console') === true) ? 'on' : 'off') + '">toggle</a>');
 		$(el + ' .contents').append(out);
 		$(el).on('click', '.music-control', function () {
-			if (self.core.music.paused === true) {
+			if ($(this).hasClass('paused')) {
 				$(this).removeClass('paused').addClass('playing');
-				self.core.music.play();
+				self.core.set_settings_music(true);
 			} else {
 				$(this).removeClass('playing').addClass('paused');
-				self.core.music.pause();
+				self.core.set_settings_music(false);
+			}
+			return false;
+		}).on('click', '.console-control', function () {
+			if ($(this).hasClass('on')) {
+				$(this).removeClass('on').addClass('off');
+				self.core.set_settings_console(false);
+			} else {
+				$(this).removeClass('off').addClass('on');
+				self.core.set_settings_console(true);
 			}
 			return false;
 		}).on('click', '.close', function () {

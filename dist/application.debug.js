@@ -5228,7 +5228,8 @@ city_builder.city = function(params) {
 				month: this.get_core().month,
 				year: this.get_core().year,
 				day_of_month: this.get_core().day_of_month
-			}
+			},
+			settings: this.get_core().get_settings()
 		};
 		if (to_local_storage === true) {
 			localStorage.setItem('city_builder.data', window.btoa(JSON.stringify(data)));
@@ -5256,6 +5257,8 @@ city_builder.city = function(params) {
 		this.set_resources(data.resources);
 		this.get_core().set_date_time(data.date_time);
 		this.get_core().set_black_market(data.black_market);
+		this.get_core().set_settings_music(data.settings.music);
+		this.get_core().set_settings_console(data.settings.console);
 		return this;
 	};
 	
@@ -9401,15 +9404,26 @@ city_builder.panel_window = function (params) {
 		}
 		this.core.console_log('creating panel with id `' + this.id + '`');
 		$('.ui').append(city_builder.ui.generic_panel_template.replace(/{id}/g, this.id).replace(/{title}/g, params.header));
-		var out = city_builder.ui.normal_panel(city_builder.l('Background Music'), '<a href="#" class="music-control paused"></a>');
+		var out = '';
+		out += city_builder.ui.normal_panel(city_builder.l('Background Music'), '<a href="#" class="music-control ' + ((this.core.get_settings('music') === true) ? 'playing' : 'paused') + '"></a>');
+		out += city_builder.ui.normal_panel(city_builder.l('Console'), '<a href="#" class="console-control ' + ((this.core.get_settings('console') === true) ? 'on' : 'off') + '">toggle</a>');
 		$(el + ' .contents').append(out);
 		$(el).on('click', '.music-control', function () {
-			if (self.core.music.paused === true) {
+			if ($(this).hasClass('paused')) {
 				$(this).removeClass('paused').addClass('playing');
-				self.core.music.play();
+				self.core.set_settings_music(true);
 			} else {
 				$(this).removeClass('playing').addClass('paused');
-				self.core.music.pause();
+				self.core.set_settings_music(false);
+			}
+			return false;
+		}).on('click', '.console-control', function () {
+			if ($(this).hasClass('on')) {
+				$(this).removeClass('on').addClass('off');
+				self.core.set_settings_console(false);
+			} else {
+				$(this).removeClass('off').addClass('on');
+				self.core.set_settings_console(true);
 			}
 			return false;
 		}).on('click', '.close', function () {
@@ -9938,7 +9952,10 @@ city_builder.game = function () {
 	 * @type {Object}
 	 * @private
 	 */
-	this.settings = {};
+	this.settings = {
+		console: false,
+		music: false
+	};
 
 	/**
 	 * Pointer to an instance of the game history.
@@ -10130,7 +10147,47 @@ city_builder.game = function () {
 	 * @returns {city_builder.game}
 	 */
 	this.set_settings = function (key, value) {
-		this.settings[key] = value;
+		if (typeof value === 'undefined') {
+			this.settings = key;
+		} else {
+			this.settings[key] = value;
+		}
+		return this;
+	};
+
+	/**
+	 * Set music on/off.
+	 * 
+	 * @param {String} key
+	 * @param {Mixed} value
+	 * @public
+	 * @returns {city_builder.game}
+	 */
+	this.set_settings_music = function(value) {
+		if (value === true) {
+			this.music.play();
+		} else {
+			this.music.pause();
+		}
+		this.set_settings('music', value);
+		return this;
+	};
+
+	/**
+	 * Set console display on/off
+	 * 
+	 * @param {String} key
+	 * @param {Mixed} value
+	 * @public
+	 * @returns {city_builder.game}
+	 */
+	this.set_settings_console = function(value) {
+		if (value === true) {
+			$('aside.console').show();
+		} else {
+			$('aside.console').hide();
+		}
+		this.set_settings('console', value);
 		return this;
 	};
 
@@ -10142,7 +10199,11 @@ city_builder.game = function () {
 	 * @returns {city_builder.game.settings}
 	 */
 	this.get_settings = function (key) {
-		return this.settings[key];
+		if (typeof key === 'undefined') {
+			return this.settings;
+		} else {
+			return this.settings[key];
+		}
 	};
 
 	/**
