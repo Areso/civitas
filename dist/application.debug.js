@@ -5541,12 +5541,26 @@ city_builder.city = function(params) {
 	this.demolish = function(id) {
 		if (typeof id === 'number') {
 			this.buildings.splice(id, 1);
+			return true;
 		} else if (typeof id === 'string') {
-			// TODO
-		} else {
+			if (id !== 'marketplace') {
+				for (var i = 0; i < this.buildings.length; i++) {
+					if (this.buildings[i].get_type() === id) {
+						this.buildings.splice(i, 1);
+					}
+				}
+				var bl_id = this.buildings_list.indexOf(id);
+				if (bl_id > -1) {
+				    this.buildings_list.splice(bl_id, 1);
+				}
+				return true;
+			} else {
+				return false;
+			}
+ 		} else {
 			// TODO
 		}
-		return this;
+		return false;
 	};
 	
 	/**
@@ -7055,13 +7069,16 @@ city_builder.building = function(params) {
 	/**
 	 * Demolish this building and remove it from the DOM.
 	 * 
-	 * @TODO
 	 * @public
-	 * @returns {city_builder.building}
+	 * @returns {boolean}
 	 */
 	this.demolish = function() {
-		$('section.game .building[data=' + this.get_type() + ']').remove();
-		return this;
+		if (this.get_city().demolish(this.get_type())) {
+			$('section.game .building[data-type=' + this.get_type() + ']').remove();
+			return true;
+		} else {
+			return false;
+		}
 	};
 	
 	/**
@@ -7599,7 +7616,11 @@ city_builder.panel_building = function (params) {
 			$(el + ' header .demolish').remove();
 		} else {
 			$(el).on('click', '.demolish', function () {
-				self.destroy();
+				if (_c.demolish()) {
+					self.destroy();
+				} else {
+					self.core.error('Unable to demolish the specified building `' + _c.get_name() + '`!');
+				}
 				return false;
 			});
 		}

@@ -78,7 +78,11 @@ city_builder.panel_building = function (params) {
 			$(el + ' header .demolish').remove();
 		} else {
 			$(el).on('click', '.demolish', function () {
-				self.destroy();
+				if (_c.demolish()) {
+					self.destroy();
+				} else {
+					self.core.error('Unable to demolish the specified building `' + _c.get_name() + '`!');
+				}
 				return false;
 			});
 		}

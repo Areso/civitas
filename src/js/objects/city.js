@@ -781,12 +781,26 @@ city_builder.city = function(params) {
 	this.demolish = function(id) {
 		if (typeof id === 'number') {
 			this.buildings.splice(id, 1);
+			return true;
 		} else if (typeof id === 'string') {
-			// TODO
-		} else {
+			if (id !== 'marketplace') {
+				for (var i = 0; i < this.buildings.length; i++) {
+					if (this.buildings[i].get_type() === id) {
+						this.buildings.splice(i, 1);
+					}
+				}
+				var bl_id = this.buildings_list.indexOf(id);
+				if (bl_id > -1) {
+				    this.buildings_list.splice(bl_id, 1);
+				}
+				return true;
+			} else {
+				return false;
+			}
+ 		} else {
 			// TODO
 		}
-		return this;
+		return false;
 	};
 	
 	/**

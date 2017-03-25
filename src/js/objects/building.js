@@ -195,13 +195,16 @@ city_builder.building = function(params) {
 	/**
 	 * Demolish this building and remove it from the DOM.
 	 * 
-	 * @TODO
 	 * @public
-	 * @returns {city_builder.building}
+	 * @returns {boolean}
 	 */
 	this.demolish = function() {
-		$('section.game .building[data=' + this.get_type() + ']').remove();
-		return this;
+		if (this.get_city().demolish(this.get_type())) {
+			$('section.game .building[data-type=' + this.get_type() + ']').remove();
+			return true;
+		} else {
+			return false;
+		}
 	};
 	
 	/**
