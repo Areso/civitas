@@ -12,14 +12,16 @@ Features
 - Armies, ships, wars, treaties.
 - Fame system that allows your city to level up via trades, conquers and special buildings.
 - Prestige system that affects diplomacy.
+- Random events that can change your diplomacy status with the other cities, give you coins or
+random resources.
 
 Missing
 =======
 
-- Server component, no actual data is saved externally, only in your browser's localStorage.
-- Ranking screen, where cities get ranked according to their status in the world.
-- Any player interaction since no data is transmitted to the server component.
-- Declare war, treaties, much of diplomacy.
+- (NOT STARTED) Server component, no actual data is saved externally, only in your browser's localStorage.
+- (IN PROGRESS) Ranking screen, where cities get ranked according to their status in the world.
+- (NOT STARTED) Any player interaction since no data is transmitted to the server component.
+- (IN PROGRESS) Declare war, treaties, much of diplomacy.
 - And many others. Stay tuned though.
 
 License
