@@ -700,6 +700,23 @@ city_builder.game = function () {
 	};
 
 	/**
+	 * Open the help panel with the specified context and term.
+	 *
+	 * @public
+	 * @param {String} ctxt
+	 * @param {String} term
+	 * @returns {city_builder_game} 
+	 */
+	this.help = function(ctxt, term) {
+		this.open_panel(city_builder.panel_help({
+			core: this,
+			ctxt: ctxt,
+			term: term
+		}));
+		return this;
+	};
+
+	/**
 	 * Method that gets called each 'month'.
 	 * 
 	 * @private

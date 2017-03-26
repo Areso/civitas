@@ -23,6 +23,20 @@ city_builder.panel_help = function (params) {
 	this.id = 'help';
 
 	/**
+	 * Help term to search for.
+	 *
+	 * @type {String}
+	 */
+	this.term = null;
+
+	/**
+	 * Help context, for ex 'building' or 'army'.
+	 *
+	 * @type {String}
+	 */
+	this.ctxt = null;
+
+	/**
 	 * Localized title of the panel.
 	 * 
 	 * @type {String}
@@ -63,14 +77,23 @@ city_builder.panel_help = function (params) {
 	 */
 	this.__constructor = function (params) {
 		this.core = params.core;
+		this.term = params.term;
+		this.ctxt = params.ctxt;
 		var el = '#panel-' + this.id;
 		var self = this;
 		if (city_builder.ui.panel_exists(el)) {
 			this.destroy();
 		}
 		this.core.console_log('creating panel with id `' + this.id + '`');
-		var city = this.core.get_city();
-		$('.ui').append(city_builder.ui.generic_panel_template.replace(/{id}/g, this.id).replace(/{title}/g, this.title));
+		$('.ui').append(city_builder.ui.generic_panel_template.replace(/{id}/g, this.id));
+		var title = '';
+		switch (this.ctxt) {
+			case 'building':
+				var data = this.core.get_city().get_building_by_handle(this.term);
+				title = data.get_name();
+				break;
+		}
+		$(el + ' header .title').html(title !== '' ? 'Help about ' + title : 'Help');
 		var _t = '';
 		
 		$(el + ' .contents').append(_t);

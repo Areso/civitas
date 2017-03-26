@@ -2,7 +2,7 @@
  * City-builder HTML5 engine/game
  *
  * @author sizeof(cat) <sizeofcat AT riseup.net>
- * @version 0.1.3262017
+ * @version 0.1.3272017
  * @license MIT
  */ @font-face {
   font-family: 'Nova Oval';
@@ -111,12 +111,12 @@ ul, li {
 	left: 84px;
 	width: 124px;
 	text-align: center;
-	color: #fff;
+	color: #bbb;
 	text-transform: uppercase;
 }
 
 .ui header .citylevel {
-	color: #fff;
+	color: #bbb;
 	font-size: 50px;
 	font-weight: bold;
 	text-align: center;
@@ -127,7 +127,7 @@ ul, li {
 }
 
 .ui header .cityprestige {
-	color: #fff;
+	color: #bbb;
 	font-size: 20px;
 	font-weight: bold;
 	text-align: center;
@@ -406,6 +406,15 @@ header .top-panel span {
 	float: right;
 	cursor: pointer;
 	margin-left: 8px;
+}
+
+.panel .footer .btn {
+	width: 46px;
+	height: 46px;
+	display: block;
+	float: left;
+	cursor: pointer;
+	margin-right: 8px;
 }
 
 .panel table {
@@ -1403,7 +1412,6 @@ a.disabled {
 	background: transparent url(../images/resources/cattle_medium.png) no-repeat left center;
 }
 
-
 footer .do-trades {
 	background: transparent url(../images/ui/diplomacy.png) no-repeat;
 }
@@ -1440,20 +1448,30 @@ footer .do-help {
 	background: transparent url(../images/ui/help.png) no-repeat;
 }
 
-.panel header .btn.start {
-	background: transparent url(../images/ui/start.png) no-repeat;
+.panel .footer .btn.start {
+	background: transparent url(../images/ui/icon_start_production.png) no-repeat;
 }
 
-.panel header .btn.pause {
-	background: transparent url(../images/ui/pause.png) no-repeat;
+.panel .footer .btn.pause {
+	background: transparent url(../images/ui/icon_stop_production.png) no-repeat;
 }
 
 .panel header .btn.close {
 	background: transparent url(../images/ui/close.png) no-repeat;
 }
 
-.panel header .btn.demolish {
-	background: transparent url(../images/ui/delete.png) no-repeat;
+.panel .footer .btn.demolish {
+	background: transparent url(../images/ui/icon_demolish.png) no-repeat;
+}
+
+.panel .footer .btn.upgrade {
+	background: transparent url(../images/ui/icon_upgrade.png) no-repeat;
+}
+
+.panel .footer .btn.help {
+	background: transparent url(../images/ui/icon_help.png) no-repeat;
+	float: right;
+	margin-right: 0;
 }
 
 .panel .worldmap {

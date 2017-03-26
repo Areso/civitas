@@ -2,7 +2,7 @@
  * City-builder HTML5 engine/game
  *
  * @author sizeof(cat) <sizeofcat AT riseup.net>
- * @version 0.1.3262017
+ * @version 0.1.3272017
  * @license MIT
  */ 'use strict';
 
@@ -1222,11 +1222,22 @@ city_builder.CITY_BUILDINGS_TEMPERATE = [
  * @type {Array}
  */
 city_builder.BUILDINGS_START = [
-	'marketplace',
-	'lumberjack',
-	'stone',
-	'house1',
-	'house2'
+	{
+		handle: 'marketplace',
+		level: 1
+	}, {
+		handle: 'lumberjack',
+		level: 1
+	}, {
+		handle: 'stone',
+		level: 1
+	}, {
+		handle: 'house1',
+		level: 1
+	}, {
+		handle: 'house2',
+		level: 1
+	}
 ];
 
 /**
@@ -1362,7 +1373,7 @@ city_builder.BUILDINGS = [{
 		description: 'The marketplace is the main building of your city and provides a place ' +
 			'for the inhabitants of your settlement to gather. It cannot be demolished.',
 		storage: 100000,
-		upgrades: 4,
+		levels: 4,
 		visible_upgrades: true,
 		production: {
 			fame: 10
@@ -1384,7 +1395,7 @@ city_builder.BUILDINGS = [{
 			'goods from production buildings. A warehouse also adds extra storage space for the ' +
 			'materials in your city.',
 		storage: 100000,
-		upgrades: 3,
+		levels: 3,
 		visible_upgrades: true,
 		position: {
 			x: 1162,
@@ -1416,7 +1427,7 @@ city_builder.BUILDINGS = [{
 			x: 560,
 			y: 428
 		},
-		upgrades: 3,
+		levels: 3,
 		cost: {
 			coins: 10000,
 			wood: 10,
@@ -1434,7 +1445,7 @@ city_builder.BUILDINGS = [{
 			x: 1740,
 			y: 330
 		},
-		upgrades: 3,
+		levels: 3,
 		cost: {
 			coins: 3000,
 			wood: 40,
@@ -1461,7 +1472,7 @@ city_builder.BUILDINGS = [{
 			x: 680,
 			y: 400
 		},
-		upgrades: 3,
+		levels: 3,
 		cost: {
 			coins: 5000,
 			wood: 100,
@@ -1486,7 +1497,7 @@ city_builder.BUILDINGS = [{
 			x: 680,
 			y: 400
 		},
-		upgrades: 3,
+		levels: 3,
 		cost: {
 			coins: 5000,
 			wood: 100,
@@ -1505,7 +1516,7 @@ city_builder.BUILDINGS = [{
 			x: 1746,
 			y: 552
 		},
-		upgrades: 3,
+		levels: 3,
 		chance: {
 			pearls: 0.05
 		},
@@ -1525,7 +1536,7 @@ city_builder.BUILDINGS = [{
 		handle: 'camp',
 		description: 'The military camp is your main base of defense and attack until you can ' +
 			'develop a Castle.',
-		upgrades: 3,
+		levels: 3,
 		position: {
 			x: 1461,
 			y: 153
@@ -1548,7 +1559,7 @@ city_builder.BUILDINGS = [{
 			fame: 100,
 			prestige: 1
 		},
-		upgrades: 2,
+		levels: 2,
 		visible_upgrades: true,
 		position: {
 			x: 982,
@@ -1574,7 +1585,7 @@ city_builder.BUILDINGS = [{
 		production: {
 			wood: 3
 		},
-		upgrades: 3,
+		levels: 3,
 		position: {
 			x: 129,
 			y: 755
@@ -1600,7 +1611,7 @@ city_builder.BUILDINGS = [{
 			x: 469,
 			y: 243
 		},
-		upgrades: 3,
+		levels: 3,
 		cost: {
 			coins: 2000,
 			wood: 20
@@ -1622,7 +1633,7 @@ city_builder.BUILDINGS = [{
 			x: 342,
 			y: 253
 		},
-		upgrades: 3,
+		levels: 3,
 		chance: {
 			gems: 0.01
 		},
@@ -1648,7 +1659,7 @@ city_builder.BUILDINGS = [{
 			x: 640,
 			y: 182
 		},
-		upgrades: 3,
+		levels: 3,
 		chance: {
 			gems: 0.01
 		},
@@ -1674,7 +1685,7 @@ city_builder.BUILDINGS = [{
 			x: 172,
 			y: 258
 		},
-		upgrades: 3,
+		levels: 3,
 		cost: {
 			coins: 1000,
 			wood: 20,
@@ -1697,7 +1708,7 @@ city_builder.BUILDINGS = [{
 			x: 732,
 			y: 133
 		},
-		upgrades: 3,
+		levels: 3,
 		chance: {
 			gems: 0.01
 		},
@@ -1727,7 +1738,7 @@ city_builder.BUILDINGS = [{
 			x: 1234,
 			y: 418
 		},
-		upgrades: 3,
+		levels: 3,
 		cost: {
 			coins: 3000,
 			wood: 20,
@@ -1751,7 +1762,7 @@ city_builder.BUILDINGS = [{
 			x: 1234,
 			y: 418
 		},
-		upgrades: 3,
+		levels: 3,
 		cost: {
 			coins: 4000,
 			wood: 20,
@@ -1776,7 +1787,7 @@ city_builder.BUILDINGS = [{
 			x: 1003,
 			y: 223
 		},
-		upgrades: 3,
+		levels: 3,
 		cost: {
 			coins: 5000,
 			wood: 30,
@@ -1803,7 +1814,7 @@ city_builder.BUILDINGS = [{
 			x: 863,
 			y: 131
 		},
-		upgrades: 3,
+		levels: 3,
 		cost: {
 			coins: 6000,
 			wood: 100,
@@ -1830,7 +1841,7 @@ city_builder.BUILDINGS = [{
 			x: 1082,
 			y: 297
 		},
-		upgrades: 3,
+		levels: 3,
 		cost: {
 			coins: 4000,
 			wood: 40,
@@ -1856,7 +1867,7 @@ city_builder.BUILDINGS = [{
 			x: 153,
 			y: 381
 		},
-		upgrades: 3,
+		levels: 3,
 		cost: {
 			coins: 4000,
 			wood: 40,
@@ -1881,7 +1892,7 @@ city_builder.BUILDINGS = [{
 			x: 483,
 			y: 327
 		},
-		upgrades: 3,
+		levels: 3,
 		cost: {
 			coins: 4000,
 			wood: 50,
@@ -1906,7 +1917,7 @@ city_builder.BUILDINGS = [{
 			x: 628,
 			y: 292
 		},
-		upgrades: 3,
+		levels: 3,
 		cost: {
 			coins: 4000,
 			wood: 55,
@@ -1927,7 +1938,7 @@ city_builder.BUILDINGS = [{
 			x: 1238,
 			y: 131
 		},
-		upgrades: 3,
+		levels: 3,
 		cost: {
 			coins: 2000,
 			wood: 40,
@@ -1953,7 +1964,7 @@ city_builder.BUILDINGS = [{
 			x: 1355,
 			y: 496
 		},
-		upgrades: 3,
+		levels: 3,
 		cost: {
 			coins: 3000,
 			wood: 30,
@@ -1977,7 +1988,7 @@ city_builder.BUILDINGS = [{
 			x: 1355,
 			y: 496
 		},
-		upgrades: 3,
+		levels: 3,
 		cost: {
 			coins: 5000,
 			wood: 40,
@@ -1998,7 +2009,7 @@ city_builder.BUILDINGS = [{
 			hides: 2,
 			salt: 1
 		},
-		upgrades: 3,
+		levels: 3,
 		position: {
 			x: 1490,
 			y: 552
@@ -2027,7 +2038,7 @@ city_builder.BUILDINGS = [{
 			x: 905,
 			y: 292
 		},
-		upgrades: 3,
+		levels: 3,
 		cost: {
 			coins: 7000,
 			wood: 80,
@@ -2051,7 +2062,7 @@ city_builder.BUILDINGS = [{
 			x: 1260,
 			y: 740
 		},
-		upgrades: 3,
+		levels: 3,
 		cost: {
 			coins: 7000,
 			wood: 80,
@@ -2076,7 +2087,7 @@ city_builder.BUILDINGS = [{
 			x: 1020,
 			y: 380
 		},
-		upgrades: 3,
+		levels: 3,
 		cost: {
 			coins: 5000,
 			wood: 50,
@@ -2101,7 +2112,7 @@ city_builder.BUILDINGS = [{
 			x: 1160,
 			y: 820
 		},
-		upgrades: 3,
+		levels: 3,
 		cost: {
 			coins: 8100,
 			wood: 70,
@@ -2126,7 +2137,7 @@ city_builder.BUILDINGS = [{
 			x: 1600,
 			y: 500
 		},
-		upgrades: 3,
+		levels: 3,
 		cost: {
 			coins: 8300,
 			wood: 60,
@@ -2151,7 +2162,7 @@ city_builder.BUILDINGS = [{
 			x: 1260,
 			y: 900
 		},
-		upgrades: 3,
+		levels: 3,
 		cost: {
 			coins: 8400,
 			wood: 100,
@@ -2176,7 +2187,7 @@ city_builder.BUILDINGS = [{
 			x: 920,
 			y: 660
 		},
-		upgrades: 3,
+		levels: 3,
 		cost: {
 			coins: 8200,
 			wood: 80,
@@ -2201,7 +2212,7 @@ city_builder.BUILDINGS = [{
 			x: 1020,
 			y: 730
 		},
-		upgrades: 3,
+		levels: 3,
 		cost: {
 			coins: 7500,
 			wood: 70,
@@ -2225,7 +2236,7 @@ city_builder.BUILDINGS = [{
 			x: 1700,
 			y: 700
 		},
-		upgrades: 3,
+		levels: 3,
 		cost: {
 			coins: 4000,
 			wood: 70,
@@ -2249,7 +2260,7 @@ city_builder.BUILDINGS = [{
 			x: 1380,
 			y: 340
 		},
-		upgrades: 3,
+		levels: 3,
 		cost: {
 			coins: 5000,
 			wood: 50,
@@ -2270,7 +2281,7 @@ city_builder.BUILDINGS = [{
 			x: 349,
 			y: 382
 		},
-		upgrades: 3,
+		levels: 3,
 		cost: {
 			coins: 4000,
 			wood: 50,
@@ -2291,7 +2302,7 @@ city_builder.BUILDINGS = [{
 			x: 1700,
 			y: 340
 		},
-		upgrades: 3,
+		levels: 3,
 		cost: {
 			coins: 4000,
 			wood: 50,
@@ -2316,7 +2327,7 @@ city_builder.BUILDINGS = [{
 			x: 1630,
 			y: 800
 		},
-		upgrades: 3,
+		levels: 3,
 		cost: {
 			coins: 4100,
 			wood: 80,
@@ -2341,7 +2352,7 @@ city_builder.BUILDINGS = [{
 			x: 1020,
 			y: 600
 		},
-		upgrades: 3,
+		levels: 3,
 		cost: {
 			coins: 4200,
 			wood: 60,
@@ -2366,7 +2377,7 @@ city_builder.BUILDINGS = [{
 			x: 770,
 			y: 250
 		},
-		upgrades: 3,
+		levels: 3,
 		cost: {
 			coins: 6400,
 			wood: 80,
@@ -2391,7 +2402,7 @@ city_builder.BUILDINGS = [{
 			x: 1480,
 			y: 250
 		},
-		upgrades: 3,
+		levels: 3,
 		cost: {
 			coins: 5000,
 			wood: 50,
@@ -2417,7 +2428,7 @@ city_builder.BUILDINGS = [{
 			x: 790,
 			y: 340
 		},
-		upgrades: 5,
+		levels: 5,
 		visible_upgrades: true,
 		requires: {
 			city_level: 1
@@ -2439,7 +2450,7 @@ city_builder.BUILDINGS = [{
 			x: 849,
 			y: 412
 		},
-		upgrades: 5,
+		levels: 5,
 		visible_upgrades: true,
 		requires: {
 			city_level: 1
@@ -2463,7 +2474,7 @@ city_builder.BUILDINGS = [{
 			x: 945,
 			y: 480
 		},
-		upgrades: 5,
+		levels: 5,
 		visible_upgrades: true,
 		requires: {
 			city_level: 3
@@ -2487,7 +2498,7 @@ city_builder.BUILDINGS = [{
 			x: 860,
 			y: 552
 		},
-		upgrades: 5,
+		levels: 5,
 		visible_upgrades: true,
 		requires: {
 			city_level: 6
@@ -2512,7 +2523,7 @@ city_builder.BUILDINGS = [{
 			x: 764,
 			y: 613
 		},
-		upgrades: 5,
+		levels: 5,
 		visible_upgrades: true,
 		requires: {
 			city_level: 10
@@ -2537,7 +2548,7 @@ city_builder.BUILDINGS = [{
 			x: 663,
 			y: 659
 		},
-		upgrades: 5,
+		levels: 5,
 		visible_upgrades: true,
 		requires: {
 			city_level: 16
@@ -2563,7 +2574,7 @@ city_builder.BUILDINGS = [{
 			x: 579,
 			y: 601
 		},
-		upgrades: 5,
+		levels: 5,
 		visible_upgrades: true,
 		requires: {
 			city_level: 20
@@ -2590,7 +2601,7 @@ city_builder.BUILDINGS = [{
 			x: 520,
 			y: 530
 		},
-		upgrades: 5,
+		levels: 5,
 		visible_upgrades: true,
 		requires: {
 			city_level: 25
@@ -2618,7 +2629,7 @@ city_builder.BUILDINGS = [{
 			x: 447,
 			y: 463
 		},
-		upgrades: 5,
+		levels: 5,
 		visible_upgrades: true,
 		requires: {
 			city_level: 30
@@ -2636,7 +2647,7 @@ city_builder.BUILDINGS = [{
 			x: 1500,
 			y: 882
 		},
-		upgrades: 3,
+		levels: 3,
 		cost: {
 			coins: 4000,
 			wood: 50,
@@ -2670,7 +2681,7 @@ city_builder.BUILDINGS = [{
 		production: {
 			almonds: 1
 		},
-		upgrades: 3,
+		levels: 3,
 		position: {
 			x: 280,
 			y: 569
@@ -2710,7 +2721,7 @@ city_builder.BUILDINGS = [{
 			cattle: 1,
 			milk: 1
 		},
-		upgrades: 3,
+		levels: 3,
 		materials: {
 			herbs: 2
 		},
@@ -2752,7 +2763,7 @@ city_builder.BUILDINGS = [{
 		production: {
 			meat: 1
 		},
-		upgrades: 3,
+		levels: 3,
 		materials: {
 			herbs: 2
 		},
@@ -2795,7 +2806,7 @@ city_builder.BUILDINGS = [{
 			wheat: 3,
 			herbs: 1
 		},
-		upgrades: 3,
+		levels: 3,
 		position: {
 			x: 1027,
 			y: 859
@@ -2834,7 +2845,7 @@ city_builder.BUILDINGS = [{
 			grapes: 2,
 			herbs: 1
 		},
-		upgrades: 3,
+		levels: 3,
 		position: {
 			x: 1200,
 			y: 600
@@ -2873,7 +2884,7 @@ city_builder.BUILDINGS = [{
 			coffeebeans: 2,
 			herbs: 1
 		},
-		upgrades: 3,
+		levels: 3,
 		position: {
 			x: 244,
 			y: 466
@@ -2912,7 +2923,7 @@ city_builder.BUILDINGS = [{
 			hemp: 2,
 			herbs: 1
 		},
-		upgrades: 3,
+		levels: 3,
 		position: {
 			x: 347,
 			y: 698
@@ -2950,7 +2961,7 @@ city_builder.BUILDINGS = [{
 		production: {
 			silk: 2
 		},
-		upgrades: 3,
+		levels: 3,
 		position: {
 			x: 456,
 			y: 745
@@ -2989,7 +3000,7 @@ city_builder.BUILDINGS = [{
 			sugarcane: 2,
 			herbs: 1
 		},
-		upgrades: 3,
+		levels: 3,
 		position: {
 			x: 536,
 			y: 804
@@ -3027,7 +3038,7 @@ city_builder.BUILDINGS = [{
 		production: {
 			indigo: 1
 		},
-		upgrades: 3,
+		levels: 3,
 		position: {
 			x: 260,
 			y: 870
@@ -3049,7 +3060,7 @@ city_builder.BUILDINGS = [{
 		production: {
 			roses: 1
 		},
-		upgrades: 3,
+		levels: 3,
 		position: {
 			x: 440,
 			y: 630
@@ -3071,7 +3082,7 @@ city_builder.BUILDINGS = [{
 		production: {
 			spices: 1
 		},
-		upgrades: 3,
+		levels: 3,
 		position: {
 			x: 260,
 			y: 870
@@ -4593,22 +4604,25 @@ city_builder.ui = {
 	
 	building_panel_template: '<div id="panel-{id}" class="panel pb">' +
 			'<header>' +
-			'<span class="title"></span>' +
-			'<a class="tips close btn" title="' + city_builder.l('Close this panel') + '"></a>' +
-			'<a class="tips demolish btn" title="' + city_builder.l('Demolish this building') + '"></a>' +
-			'<a class="tips pause start btn" title="' + city_builder.l('Control (start/pause) production') + '"></a>' +
+				'<span class="title"></span>' +
+				'<a class="tips close btn" title="' + city_builder.l('Close this panel') + '"></a>' +
 			'</header>' +
 			'<div class="contents"></div>' +
-			'<foooter></footer>' +
-			'</div>',
+			'<foooter class="footer">' +
+				'<a class="tips demolish btn" title="' + city_builder.l('Demolish this building') + '"></a>' +
+				'<a class="tips pause start btn" title="' + city_builder.l('Control (start/pause) production') + '"></a>' +
+				'<a class="tips upgrade btn" title="' + city_builder.l('Upgrade building') + '"></a>' +
+				'<a class="tips help btn" data-ctxt="{context}" data-term="{building}" title="' + city_builder.l('Info about this building') + '"></a>' +
+			'</footer>' +
+		'</div>',
 	
 	worldmap_panel_template: '<div id="panel-{id}" class="panel">' +
 			'<header>' +
-			'<span class="title">' + city_builder.l('World Map') + '</span>' +
-			'<a class="tips btn close" title="' + city_builder.l('Close this panel') + '"></a>' +
+				'<span class="title">' + city_builder.l('World Map') + '</span>' +
+				'<a class="tips btn close" title="' + city_builder.l('Close this panel') + '"></a>' +
 			'</header>' +
 			'<div class="contents"><div class="worldmap"></div></div>' +
-			'</div>',
+		'</div>',
 	
 	generic_panel_template: '<div id="panel-{id}" class="panel">' +
 			'<header>' +
@@ -4831,6 +4845,12 @@ city_builder.city = function(params) {
 	 */
 	this.buildings = [];
 	
+	/**
+	 * Export data of the buildings list.
+	 *
+	 * @private
+	 * @type {Array}
+	 */
 	this.buildings_list = [];
 	
 	/**
@@ -5456,31 +5476,47 @@ city_builder.city = function(params) {
 		hidden = (typeof hidden !== 'undefined') && hidden === true ? true : false;
 		if (typeof building_type === 'object') {
 			for (var i = 0; i < building_type.length; i++) {
-				var _b = city_builder.BUILDINGS.findIndexM(building_type[i]);
+				var handle = typeof building_type[i].handle !== 'undefined' ? building_type[i].handle : building_type[i];
+				var level = typeof building_type[i].level !== 'undefined' ? building_type[i].level : 1;
+				var _b = city_builder.BUILDINGS.findIndexM(handle);
 				if (_b !== false) {
 					var _c = city_builder.BUILDINGS[_b];
+					if (level > 1) {
+						_c.level = level;
+					}
 					var _building = new city_builder.building({
 						city: this,
-						type: building_type[i],
+						type: handle,
 						data: _c,
 						hidden: hidden
 					});
 					this.buildings.push(_building);
-					this.buildings_list.push(building_type[i]);
+					this.buildings_list.push({
+						handle: handle,
+						level: level
+					});
 				}
 			}
 		} else {
-			var _b = city_builder.BUILDINGS.findIndexM(building_type);
+			var handle = typeof building_type.handle !== 'undefined' ? building_type.handle : building_type;
+			var level = typeof building_type.level !== 'undefined' ? building_type.level : 1;
+			var _b = city_builder.BUILDINGS.findIndexM(handle);
 			if (_b !== false) {
 				var _c = city_builder.BUILDINGS[_b];
+				if (level > 1) {
+					_c.level = level;
+				}
 				var _building = new city_builder.building({
 					city: this,
-					type: building_type,
+					type: handle,
 					data: _c,
 					hidden: hidden
 				});
 				this.buildings.push(_building);
-				this.buildings_list.push(building_type);
+				this.buildings_list.push({
+					handle: handle,
+					level: level
+				});
 			}
 		}
 		return false;
@@ -5523,7 +5559,10 @@ city_builder.city = function(params) {
 				data: _c
 			});
 			this.buildings.push(_building);
-			this.buildings_list.push(building_type);
+			this.buildings_list.push({
+				handle: building_type,
+				level: 1
+			});
 			this.get_core().refresh_ui();
 			this.get_core().save();
 			this.get_core().notify('New building constructed: ' + _building.get_name());
@@ -5583,10 +5622,11 @@ city_builder.city = function(params) {
 						this.buildings.splice(i, 1);
 					}
 				}
-				var bl_id = this.buildings_list.indexOf(id);
-				if (bl_id > -1) {
+				var bl_id = this.buildings_list.findIndexM(id);
+				if (bl_id !== false) {
 				    this.buildings_list.splice(bl_id, 1);
 				}
+				this.get_core().save();
 				return true;
 			} else {
 				return false;
@@ -7034,6 +7074,14 @@ city_builder.building = function(params) {
 		return this;
 	};
 	
+	this.is_upgradable = function() {
+		var building = this.get_building_data();
+		if (this.level < building.levels) {
+			return true;
+		}
+		return false;
+	};
+
 	/**
 	 * Upgrade this building.
 	 * 
@@ -7041,11 +7089,16 @@ city_builder.building = function(params) {
 	 * @returns {Boolean}
 	 */
 	this.upgrade = function() {
-		var building = this.get_building_data();
-		if (this.level < building.upgrades) {
-			++this.level;
-			this.get_core().refresh_panels();
-			return true;
+		if (this.is_upgradable() === true) {
+			var bl_id = this.get_city().buildings_list.findIndexM(this.get_type());
+			if (bl_id !== false) {
+				++this.level;
+				this.get_city().buildings_list[bl_id].level = this.get_level();
+				this.get_core().refresh_panels();
+				this.get_core().save();
+				this.get_core().notify(this.get_name() + ' upgraded to level ' + this.get_level());
+				return true;
+			}
 		}
 		return false;
 	};
@@ -7058,7 +7111,15 @@ city_builder.building = function(params) {
 	 */
 	this.downgrade = function() {
 		if (this.level > 1) {
-			--this.level;
+			var bl_id = this.get_city().buildings_list.findIndexM(this.get_type());
+			if (bl_id !== false) {
+				--this.level;
+				this.get_city().buildings_list[bl_id].level = this.get_level();
+				this.get_core().refresh_panels();
+				this.get_core().save();
+				this.get_core().notify(this.get_name() + ' downgraded to level ' + this.get_level());
+				return true;
+			}
 			this.get_core().refresh_panels();
 			return true;
 		}
@@ -7143,6 +7204,7 @@ city_builder.building = function(params) {
 	this.demolish = function() {
 		if (this.get_city().demolish(this.get_type())) {
 			$('section.game .building[data-type=' + this.get_type() + ']').remove();
+			this.get_core().notify(this.get_name() + ' demolished successfully!');
 			this.get_core().refresh_panels();
 			return true;
 		} else {
@@ -7644,6 +7706,13 @@ city_builder.panel_building = function (params) {
 	this.id = 'building';
 
 	/**
+	 * Building data passed to the panel.
+	 *
+	 * @type {Object}
+	 */
+	this.params_data = null;
+
+	/**
 	 * Object destructor.
 	 * 
 	 * @private
@@ -7678,6 +7747,7 @@ city_builder.panel_building = function (params) {
 	this.__constructor = function (params) {
 		var self = this;
 		this.core = params.core;
+		this.params_data = params.data;
 		var el = '#panel-' + this.id;
 		if (city_builder.ui.panel_exists(el)) {
 			this.destroy();
@@ -7685,20 +7755,28 @@ city_builder.panel_building = function (params) {
 		this.core.console_log('creating panel with id `' + this.id + '`');
 		var _c = this.core.get_city().get_building_by_handle(params.data.handle);
 		var level = _c.get_level();
-		$('.ui').append(city_builder.ui.building_panel_template.replace(/{id}/g, this.id));
+		$('.ui').append(city_builder.ui.building_panel_template
+			.replace(/{id}/g, this.id)
+			.replace(/{building}/g, params.data.handle)
+			.replace(/{context}/g, 'building'));
 		$(el + ' header .title').html(params.data.name);
-		var _t = '<p class="smalldesc">' + params.data.description + '</p>' +
-			'<dl>' +
-				city_builder.ui.cost_panel(params.data.cost) +
-				city_builder.ui.materials_panel(params.data.materials) +
-				city_builder.ui.production_panel(params.data.production, level) +
-				city_builder.ui.requires_panel(params.data.requires) +
-				city_builder.ui.tax_panel(params.data.tax, level) +
-				city_builder.ui.storage_panel(params.data.storage, level) +
-			'</dl>';
-		$(el + ' .contents').append(_t);
+		this.refresh();
+		if (!_c.is_upgradable()) {
+			$(el + ' .footer .upgrade').remove();
+		} else {
+			$(el).on('click', '.upgrade', function () {
+				if (_c.upgrade()) {
+					if (!_c.is_upgradable()) {
+						$(el + ' .footer .upgrade').remove();
+					}
+				} else {
+					self.core.error('Unable to upgrade the specified building `' + _c.get_name() + '`!');
+				}
+				return false;
+			});
+		}
 		if (_c.is_marketplace()) {
-			$(el + ' header .demolish').remove();
+			$(el + ' .footer .demolish').remove();
 		} else {
 			$(el).on('click', '.demolish', function () {
 				if (_c.demolish()) {
@@ -7727,7 +7805,12 @@ city_builder.panel_building = function (params) {
 		} else {
 			$(el + ' .start, ' + el + ' .pause').remove();
 		}
-		$(el).on('click', '.close', function () {
+		$(el).on('click', '.help', function () {
+			var term = $(this).data('term');
+			var ctxt = $(this).data('ctxt');
+			self.core.help(ctxt, term);
+			return false;
+		}).on('click', '.close', function () {
 			self.destroy();
 			return false;
 		}).draggable({
@@ -7750,6 +7833,18 @@ city_builder.panel_building = function (params) {
 	 * @returns {city_builder.panel_building}
 	 */
 	this.refresh = function() {
+		var _c = this.core.get_city().get_building_by_handle(params.data.handle);
+		var level = _c.get_level();
+		var _t = '<p class="smalldesc">' + this.params_data.description + '</p>' +
+			'<dl>' +
+				city_builder.ui.cost_panel(this.params_data.cost) +
+				city_builder.ui.materials_panel(this.params_data.materials) +
+				city_builder.ui.production_panel(this.params_data.production, level) +
+				city_builder.ui.requires_panel(this.params_data.requires) +
+				city_builder.ui.tax_panel(this.params_data.tax, level) +
+				city_builder.ui.storage_panel(this.params_data.storage, level) +
+			'</dl>';
+		$('#panel-' + this.id + ' .contents').empty().append(_t);
 		return this;
 	};
 
@@ -8332,6 +8427,20 @@ city_builder.panel_help = function (params) {
 	this.id = 'help';
 
 	/**
+	 * Help term to search for.
+	 *
+	 * @type {String}
+	 */
+	this.term = null;
+
+	/**
+	 * Help context, for ex 'building' or 'army'.
+	 *
+	 * @type {String}
+	 */
+	this.ctxt = null;
+
+	/**
 	 * Localized title of the panel.
 	 * 
 	 * @type {String}
@@ -8372,14 +8481,23 @@ city_builder.panel_help = function (params) {
 	 */
 	this.__constructor = function (params) {
 		this.core = params.core;
+		this.term = params.term;
+		this.ctxt = params.ctxt;
 		var el = '#panel-' + this.id;
 		var self = this;
 		if (city_builder.ui.panel_exists(el)) {
 			this.destroy();
 		}
 		this.core.console_log('creating panel with id `' + this.id + '`');
-		var city = this.core.get_city();
-		$('.ui').append(city_builder.ui.generic_panel_template.replace(/{id}/g, this.id).replace(/{title}/g, this.title));
+		$('.ui').append(city_builder.ui.generic_panel_template.replace(/{id}/g, this.id));
+		var title = '';
+		switch (this.ctxt) {
+			case 'building':
+				var data = this.core.get_city().get_building_by_handle(this.term);
+				title = data.get_name();
+				break;
+		}
+		$(el + ' header .title').html(title !== '' ? 'Help about ' + title : 'Help');
 		var _t = '';
 		
 		$(el + ' .contents').append(_t);
@@ -9306,7 +9424,7 @@ city_builder.panel_advisor = function (params) {
 					'<td>';
 					if (building_data.materials) {
 						for (var item in building_data.materials) {
-							_t += ' -' + buildings[l].get_level() * building_data.materials[item] + ' ' + city_builder.ui.resource_small_img(item);
+							_t += ' -' + building_data.materials[item] + ' ' + city_builder.ui.resource_small_img(item);
 						}
 					}
 				_t += '</td>' +
@@ -9355,7 +9473,7 @@ city_builder.panel_advisor = function (params) {
 					'<td>';
 					if (building_data.materials) {
 						for (var item in building_data.materials) {
-							_t += ' -' + buildings[l].get_level() * building_data.materials[item] + ' ' + city_builder.ui.resource_small_img(item);
+							_t += ' -' + building_data.materials[item] + ' ' + city_builder.ui.resource_small_img(item);
 						}
 					}
 				_t += '</td>' +
@@ -11167,6 +11285,23 @@ city_builder.game = function () {
 	 */
 	this.save = function () {
 		this.get_city().export_data(true);
+		return this;
+	};
+
+	/**
+	 * Open the help panel with the specified context and term.
+	 *
+	 * @public
+	 * @param {String} ctxt
+	 * @param {String} term
+	 * @returns {city_builder_game} 
+	 */
+	this.help = function(ctxt, term) {
+		this.open_panel(city_builder.panel_help({
+			core: this,
+			ctxt: ctxt,
+			term: term
+		}));
 		return this;
 	};
 

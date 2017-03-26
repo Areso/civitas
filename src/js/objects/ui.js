@@ -5,22 +5,25 @@ city_builder.ui = {
 	
 	building_panel_template: '<div id="panel-{id}" class="panel pb">' +
 			'<header>' +
-			'<span class="title"></span>' +
-			'<a class="tips close btn" title="' + city_builder.l('Close this panel') + '"></a>' +
-			'<a class="tips demolish btn" title="' + city_builder.l('Demolish this building') + '"></a>' +
-			'<a class="tips pause start btn" title="' + city_builder.l('Control (start/pause) production') + '"></a>' +
+				'<span class="title"></span>' +
+				'<a class="tips close btn" title="' + city_builder.l('Close this panel') + '"></a>' +
 			'</header>' +
 			'<div class="contents"></div>' +
-			'<foooter></footer>' +
-			'</div>',
+			'<foooter class="footer">' +
+				'<a class="tips demolish btn" title="' + city_builder.l('Demolish this building') + '"></a>' +
+				'<a class="tips pause start btn" title="' + city_builder.l('Control (start/pause) production') + '"></a>' +
+				'<a class="tips upgrade btn" title="' + city_builder.l('Upgrade building') + '"></a>' +
+				'<a class="tips help btn" data-ctxt="{context}" data-term="{building}" title="' + city_builder.l('Info about this building') + '"></a>' +
+			'</footer>' +
+		'</div>',
 	
 	worldmap_panel_template: '<div id="panel-{id}" class="panel">' +
 			'<header>' +
-			'<span class="title">' + city_builder.l('World Map') + '</span>' +
-			'<a class="tips btn close" title="' + city_builder.l('Close this panel') + '"></a>' +
+				'<span class="title">' + city_builder.l('World Map') + '</span>' +
+				'<a class="tips btn close" title="' + city_builder.l('Close this panel') + '"></a>' +
 			'</header>' +
 			'<div class="contents"><div class="worldmap"></div></div>' +
-			'</div>',
+		'</div>',
 	
 	generic_panel_template: '<div id="panel-{id}" class="panel">' +
 			'<header>' +

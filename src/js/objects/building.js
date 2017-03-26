@@ -126,6 +126,14 @@ city_builder.building = function(params) {
 		return this;
 	};
 	
+	this.is_upgradable = function() {
+		var building = this.get_building_data();
+		if (this.level < building.levels) {
+			return true;
+		}
+		return false;
+	};
+
 	/**
 	 * Upgrade this building.
 	 * 
@@ -133,11 +141,16 @@ city_builder.building = function(params) {
 	 * @returns {Boolean}
 	 */
 	this.upgrade = function() {
-		var building = this.get_building_data();
-		if (this.level < building.upgrades) {
-			++this.level;
-			this.get_core().refresh_panels();
-			return true;
+		if (this.is_upgradable() === true) {
+			var bl_id = this.get_city().buildings_list.findIndexM(this.get_type());
+			if (bl_id !== false) {
+				++this.level;
+				this.get_city().buildings_list[bl_id].level = this.get_level();
+				this.get_core().refresh_panels();
+				this.get_core().save();
+				this.get_core().notify(this.get_name() + ' upgraded to level ' + this.get_level());
+				return true;
+			}
 		}
 		return false;
 	};
@@ -150,7 +163,15 @@ city_builder.building = function(params) {
 	 */
 	this.downgrade = function() {
 		if (this.level > 1) {
-			--this.level;
+			var bl_id = this.get_city().buildings_list.findIndexM(this.get_type());
+			if (bl_id !== false) {
+				--this.level;
+				this.get_city().buildings_list[bl_id].level = this.get_level();
+				this.get_core().refresh_panels();
+				this.get_core().save();
+				this.get_core().notify(this.get_name() + ' downgraded to level ' + this.get_level());
+				return true;
+			}
 			this.get_core().refresh_panels();
 			return true;
 		}
@@ -235,6 +256,7 @@ city_builder.building = function(params) {
 	this.demolish = function() {
 		if (this.get_city().demolish(this.get_type())) {
 			$('section.game .building[data-type=' + this.get_type() + ']').remove();
+			this.get_core().notify(this.get_name() + ' demolished successfully!');
 			this.get_core().refresh_panels();
 			return true;
 		} else {

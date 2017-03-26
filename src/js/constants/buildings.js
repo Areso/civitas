@@ -192,11 +192,22 @@ city_builder.CITY_BUILDINGS_TEMPERATE = [
  * @type {Array}
  */
 city_builder.BUILDINGS_START = [
-	'marketplace',
-	'lumberjack',
-	'stone',
-	'house1',
-	'house2'
+	{
+		handle: 'marketplace',
+		level: 1
+	}, {
+		handle: 'lumberjack',
+		level: 1
+	}, {
+		handle: 'stone',
+		level: 1
+	}, {
+		handle: 'house1',
+		level: 1
+	}, {
+		handle: 'house2',
+		level: 1
+	}
 ];
 
 /**
@@ -332,7 +343,7 @@ city_builder.BUILDINGS = [{
 		description: 'The marketplace is the main building of your city and provides a place ' +
 			'for the inhabitants of your settlement to gather. It cannot be demolished.',
 		storage: 100000,
-		upgrades: 4,
+		levels: 4,
 		visible_upgrades: true,
 		production: {
 			fame: 10
@@ -354,7 +365,7 @@ city_builder.BUILDINGS = [{
 			'goods from production buildings. A warehouse also adds extra storage space for the ' +
 			'materials in your city.',
 		storage: 100000,
-		upgrades: 3,
+		levels: 3,
 		visible_upgrades: true,
 		position: {
 			x: 1162,
@@ -386,7 +397,7 @@ city_builder.BUILDINGS = [{
 			x: 560,
 			y: 428
 		},
-		upgrades: 3,
+		levels: 3,
 		cost: {
 			coins: 10000,
 			wood: 10,
@@ -404,7 +415,7 @@ city_builder.BUILDINGS = [{
 			x: 1740,
 			y: 330
 		},
-		upgrades: 3,
+		levels: 3,
 		cost: {
 			coins: 3000,
 			wood: 40,
@@ -431,7 +442,7 @@ city_builder.BUILDINGS = [{
 			x: 680,
 			y: 400
 		},
-		upgrades: 3,
+		levels: 3,
 		cost: {
 			coins: 5000,
 			wood: 100,
@@ -456,7 +467,7 @@ city_builder.BUILDINGS = [{
 			x: 680,
 			y: 400
 		},
-		upgrades: 3,
+		levels: 3,
 		cost: {
 			coins: 5000,
 			wood: 100,
@@ -475,7 +486,7 @@ city_builder.BUILDINGS = [{
 			x: 1746,
 			y: 552
 		},
-		upgrades: 3,
+		levels: 3,
 		chance: {
 			pearls: 0.05
 		},
@@ -495,7 +506,7 @@ city_builder.BUILDINGS = [{
 		handle: 'camp',
 		description: 'The military camp is your main base of defense and attack until you can ' +
 			'develop a Castle.',
-		upgrades: 3,
+		levels: 3,
 		position: {
 			x: 1461,
 			y: 153
@@ -518,7 +529,7 @@ city_builder.BUILDINGS = [{
 			fame: 100,
 			prestige: 1
 		},
-		upgrades: 2,
+		levels: 2,
 		visible_upgrades: true,
 		position: {
 			x: 982,
@@ -544,7 +555,7 @@ city_builder.BUILDINGS = [{
 		production: {
 			wood: 3
 		},
-		upgrades: 3,
+		levels: 3,
 		position: {
 			x: 129,
 			y: 755
@@ -570,7 +581,7 @@ city_builder.BUILDINGS = [{
 			x: 469,
 			y: 243
 		},
-		upgrades: 3,
+		levels: 3,
 		cost: {
 			coins: 2000,
 			wood: 20
@@ -592,7 +603,7 @@ city_builder.BUILDINGS = [{
 			x: 342,
 			y: 253
 		},
-		upgrades: 3,
+		levels: 3,
 		chance: {
 			gems: 0.01
 		},
@@ -618,7 +629,7 @@ city_builder.BUILDINGS = [{
 			x: 640,
 			y: 182
 		},
-		upgrades: 3,
+		levels: 3,
 		chance: {
 			gems: 0.01
 		},
@@ -644,7 +655,7 @@ city_builder.BUILDINGS = [{
 			x: 172,
 			y: 258
 		},
-		upgrades: 3,
+		levels: 3,
 		cost: {
 			coins: 1000,
 			wood: 20,
@@ -667,7 +678,7 @@ city_builder.BUILDINGS = [{
 			x: 732,
 			y: 133
 		},
-		upgrades: 3,
+		levels: 3,
 		chance: {
 			gems: 0.01
 		},
@@ -697,7 +708,7 @@ city_builder.BUILDINGS = [{
 			x: 1234,
 			y: 418
 		},
-		upgrades: 3,
+		levels: 3,
 		cost: {
 			coins: 3000,
 			wood: 20,
@@ -721,7 +732,7 @@ city_builder.BUILDINGS = [{
 			x: 1234,
 			y: 418
 		},
-		upgrades: 3,
+		levels: 3,
 		cost: {
 			coins: 4000,
 			wood: 20,
@@ -746,7 +757,7 @@ city_builder.BUILDINGS = [{
 			x: 1003,
 			y: 223
 		},
-		upgrades: 3,
+		levels: 3,
 		cost: {
 			coins: 5000,
 			wood: 30,
@@ -773,7 +784,7 @@ city_builder.BUILDINGS = [{
 			x: 863,
 			y: 131
 		},
-		upgrades: 3,
+		levels: 3,
 		cost: {
 			coins: 6000,
 			wood: 100,
@@ -800,7 +811,7 @@ city_builder.BUILDINGS = [{
 			x: 1082,
 			y: 297
 		},
-		upgrades: 3,
+		levels: 3,
 		cost: {
 			coins: 4000,
 			wood: 40,
@@ -826,7 +837,7 @@ city_builder.BUILDINGS = [{
 			x: 153,
 			y: 381
 		},
-		upgrades: 3,
+		levels: 3,
 		cost: {
 			coins: 4000,
 			wood: 40,
@@ -851,7 +862,7 @@ city_builder.BUILDINGS = [{
 			x: 483,
 			y: 327
 		},
-		upgrades: 3,
+		levels: 3,
 		cost: {
 			coins: 4000,
 			wood: 50,
@@ -876,7 +887,7 @@ city_builder.BUILDINGS = [{
 			x: 628,
 			y: 292
 		},
-		upgrades: 3,
+		levels: 3,
 		cost: {
 			coins: 4000,
 			wood: 55,
@@ -897,7 +908,7 @@ city_builder.BUILDINGS = [{
 			x: 1238,
 			y: 131
 		},
-		upgrades: 3,
+		levels: 3,
 		cost: {
 			coins: 2000,
 			wood: 40,
@@ -923,7 +934,7 @@ city_builder.BUILDINGS = [{
 			x: 1355,
 			y: 496
 		},
-		upgrades: 3,
+		levels: 3,
 		cost: {
 			coins: 3000,
 			wood: 30,
@@ -947,7 +958,7 @@ city_builder.BUILDINGS = [{
 			x: 1355,
 			y: 496
 		},
-		upgrades: 3,
+		levels: 3,
 		cost: {
 			coins: 5000,
 			wood: 40,
@@ -968,7 +979,7 @@ city_builder.BUILDINGS = [{
 			hides: 2,
 			salt: 1
 		},
-		upgrades: 3,
+		levels: 3,
 		position: {
 			x: 1490,
 			y: 552
@@ -997,7 +1008,7 @@ city_builder.BUILDINGS = [{
 			x: 905,
 			y: 292
 		},
-		upgrades: 3,
+		levels: 3,
 		cost: {
 			coins: 7000,
 			wood: 80,
@@ -1021,7 +1032,7 @@ city_builder.BUILDINGS = [{
 			x: 1260,
 			y: 740
 		},
-		upgrades: 3,
+		levels: 3,
 		cost: {
 			coins: 7000,
 			wood: 80,
@@ -1046,7 +1057,7 @@ city_builder.BUILDINGS = [{
 			x: 1020,
 			y: 380
 		},
-		upgrades: 3,
+		levels: 3,
 		cost: {
 			coins: 5000,
 			wood: 50,
@@ -1071,7 +1082,7 @@ city_builder.BUILDINGS = [{
 			x: 1160,
 			y: 820
 		},
-		upgrades: 3,
+		levels: 3,
 		cost: {
 			coins: 8100,
 			wood: 70,
@@ -1096,7 +1107,7 @@ city_builder.BUILDINGS = [{
 			x: 1600,
 			y: 500
 		},
-		upgrades: 3,
+		levels: 3,
 		cost: {
 			coins: 8300,
 			wood: 60,
@@ -1121,7 +1132,7 @@ city_builder.BUILDINGS = [{
 			x: 1260,
 			y: 900
 		},
-		upgrades: 3,
+		levels: 3,
 		cost: {
 			coins: 8400,
 			wood: 100,
@@ -1146,7 +1157,7 @@ city_builder.BUILDINGS = [{
 			x: 920,
 			y: 660
 		},
-		upgrades: 3,
+		levels: 3,
 		cost: {
 			coins: 8200,
 			wood: 80,
@@ -1171,7 +1182,7 @@ city_builder.BUILDINGS = [{
 			x: 1020,
 			y: 730
 		},
-		upgrades: 3,
+		levels: 3,
 		cost: {
 			coins: 7500,
 			wood: 70,
@@ -1195,7 +1206,7 @@ city_builder.BUILDINGS = [{
 			x: 1700,
 			y: 700
 		},
-		upgrades: 3,
+		levels: 3,
 		cost: {
 			coins: 4000,
 			wood: 70,
@@ -1219,7 +1230,7 @@ city_builder.BUILDINGS = [{
 			x: 1380,
 			y: 340
 		},
-		upgrades: 3,
+		levels: 3,
 		cost: {
 			coins: 5000,
 			wood: 50,
@@ -1240,7 +1251,7 @@ city_builder.BUILDINGS = [{
 			x: 349,
 			y: 382
 		},
-		upgrades: 3,
+		levels: 3,
 		cost: {
 			coins: 4000,
 			wood: 50,
@@ -1261,7 +1272,7 @@ city_builder.BUILDINGS = [{
 			x: 1700,
 			y: 340
 		},
-		upgrades: 3,
+		levels: 3,
 		cost: {
 			coins: 4000,
 			wood: 50,
@@ -1286,7 +1297,7 @@ city_builder.BUILDINGS = [{
 			x: 1630,
 			y: 800
 		},
-		upgrades: 3,
+		levels: 3,
 		cost: {
 			coins: 4100,
 			wood: 80,
@@ -1311,7 +1322,7 @@ city_builder.BUILDINGS = [{
 			x: 1020,
 			y: 600
 		},
-		upgrades: 3,
+		levels: 3,
 		cost: {
 			coins: 4200,
 			wood: 60,
@@ -1336,7 +1347,7 @@ city_builder.BUILDINGS = [{
 			x: 770,
 			y: 250
 		},
-		upgrades: 3,
+		levels: 3,
 		cost: {
 			coins: 6400,
 			wood: 80,
@@ -1361,7 +1372,7 @@ city_builder.BUILDINGS = [{
 			x: 1480,
 			y: 250
 		},
-		upgrades: 3,
+		levels: 3,
 		cost: {
 			coins: 5000,
 			wood: 50,
@@ -1387,7 +1398,7 @@ city_builder.BUILDINGS = [{
 			x: 790,
 			y: 340
 		},
-		upgrades: 5,
+		levels: 5,
 		visible_upgrades: true,
 		requires: {
 			city_level: 1
@@ -1409,7 +1420,7 @@ city_builder.BUILDINGS = [{
 			x: 849,
 			y: 412
 		},
-		upgrades: 5,
+		levels: 5,
 		visible_upgrades: true,
 		requires: {
 			city_level: 1
@@ -1433,7 +1444,7 @@ city_builder.BUILDINGS = [{
 			x: 945,
 			y: 480
 		},
-		upgrades: 5,
+		levels: 5,
 		visible_upgrades: true,
 		requires: {
 			city_level: 3
@@ -1457,7 +1468,7 @@ city_builder.BUILDINGS = [{
 			x: 860,
 			y: 552
 		},
-		upgrades: 5,
+		levels: 5,
 		visible_upgrades: true,
 		requires: {
 			city_level: 6
@@ -1482,7 +1493,7 @@ city_builder.BUILDINGS = [{
 			x: 764,
 			y: 613
 		},
-		upgrades: 5,
+		levels: 5,
 		visible_upgrades: true,
 		requires: {
 			city_level: 10
@@ -1507,7 +1518,7 @@ city_builder.BUILDINGS = [{
 			x: 663,
 			y: 659
 		},
-		upgrades: 5,
+		levels: 5,
 		visible_upgrades: true,
 		requires: {
 			city_level: 16
@@ -1533,7 +1544,7 @@ city_builder.BUILDINGS = [{
 			x: 579,
 			y: 601
 		},
-		upgrades: 5,
+		levels: 5,
 		visible_upgrades: true,
 		requires: {
 			city_level: 20
@@ -1560,7 +1571,7 @@ city_builder.BUILDINGS = [{
 			x: 520,
 			y: 530
 		},
-		upgrades: 5,
+		levels: 5,
 		visible_upgrades: true,
 		requires: {
 			city_level: 25
@@ -1588,7 +1599,7 @@ city_builder.BUILDINGS = [{
 			x: 447,
 			y: 463
 		},
-		upgrades: 5,
+		levels: 5,
 		visible_upgrades: true,
 		requires: {
 			city_level: 30
@@ -1606,7 +1617,7 @@ city_builder.BUILDINGS = [{
 			x: 1500,
 			y: 882
 		},
-		upgrades: 3,
+		levels: 3,
 		cost: {
 			coins: 4000,
 			wood: 50,
@@ -1640,7 +1651,7 @@ city_builder.BUILDINGS = [{
 		production: {
 			almonds: 1
 		},
-		upgrades: 3,
+		levels: 3,
 		position: {
 			x: 280,
 			y: 569
@@ -1680,7 +1691,7 @@ city_builder.BUILDINGS = [{
 			cattle: 1,
 			milk: 1
 		},
-		upgrades: 3,
+		levels: 3,
 		materials: {
 			herbs: 2
 		},
@@ -1722,7 +1733,7 @@ city_builder.BUILDINGS = [{
 		production: {
 			meat: 1
 		},
-		upgrades: 3,
+		levels: 3,
 		materials: {
 			herbs: 2
 		},
@@ -1765,7 +1776,7 @@ city_builder.BUILDINGS = [{
 			wheat: 3,
 			herbs: 1
 		},
-		upgrades: 3,
+		levels: 3,
 		position: {
 			x: 1027,
 			y: 859
@@ -1804,7 +1815,7 @@ city_builder.BUILDINGS = [{
 			grapes: 2,
 			herbs: 1
 		},
-		upgrades: 3,
+		levels: 3,
 		position: {
 			x: 1200,
 			y: 600
@@ -1843,7 +1854,7 @@ city_builder.BUILDINGS = [{
 			coffeebeans: 2,
 			herbs: 1
 		},
-		upgrades: 3,
+		levels: 3,
 		position: {
 			x: 244,
 			y: 466
@@ -1882,7 +1893,7 @@ city_builder.BUILDINGS = [{
 			hemp: 2,
 			herbs: 1
 		},
-		upgrades: 3,
+		levels: 3,
 		position: {
 			x: 347,
 			y: 698
@@ -1920,7 +1931,7 @@ city_builder.BUILDINGS = [{
 		production: {
 			silk: 2
 		},
-		upgrades: 3,
+		levels: 3,
 		position: {
 			x: 456,
 			y: 745
@@ -1959,7 +1970,7 @@ city_builder.BUILDINGS = [{
 			sugarcane: 2,
 			herbs: 1
 		},
-		upgrades: 3,
+		levels: 3,
 		position: {
 			x: 536,
 			y: 804
@@ -1997,7 +2008,7 @@ city_builder.BUILDINGS = [{
 		production: {
 			indigo: 1
 		},
-		upgrades: 3,
+		levels: 3,
 		position: {
 			x: 260,
 			y: 870
@@ -2019,7 +2030,7 @@ city_builder.BUILDINGS = [{
 		production: {
 			roses: 1
 		},
-		upgrades: 3,
+		levels: 3,
 		position: {
 			x: 440,
 			y: 630
@@ -2041,7 +2052,7 @@ city_builder.BUILDINGS = [{
 		production: {
 			spices: 1
 		},
-		upgrades: 3,
+		levels: 3,
 		position: {
 			x: 260,
 			y: 870

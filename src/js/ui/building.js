@@ -23,6 +23,13 @@ city_builder.panel_building = function (params) {
 	this.id = 'building';
 
 	/**
+	 * Building data passed to the panel.
+	 *
+	 * @type {Object}
+	 */
+	this.params_data = null;
+
+	/**
 	 * Object destructor.
 	 * 
 	 * @private
@@ -57,6 +64,7 @@ city_builder.panel_building = function (params) {
 	this.__constructor = function (params) {
 		var self = this;
 		this.core = params.core;
+		this.params_data = params.data;
 		var el = '#panel-' + this.id;
 		if (city_builder.ui.panel_exists(el)) {
 			this.destroy();
@@ -64,20 +72,28 @@ city_builder.panel_building = function (params) {
 		this.core.console_log('creating panel with id `' + this.id + '`');
 		var _c = this.core.get_city().get_building_by_handle(params.data.handle);
 		var level = _c.get_level();
-		$('.ui').append(city_builder.ui.building_panel_template.replace(/{id}/g, this.id));
+		$('.ui').append(city_builder.ui.building_panel_template
+			.replace(/{id}/g, this.id)
+			.replace(/{building}/g, params.data.handle)
+			.replace(/{context}/g, 'building'));
 		$(el + ' header .title').html(params.data.name);
-		var _t = '<p class="smalldesc">' + params.data.description + '</p>' +
-			'<dl>' +
-				city_builder.ui.cost_panel(params.data.cost) +
-				city_builder.ui.materials_panel(params.data.materials) +
-				city_builder.ui.production_panel(params.data.production, level) +
-				city_builder.ui.requires_panel(params.data.requires) +
-				city_builder.ui.tax_panel(params.data.tax, level) +
-				city_builder.ui.storage_panel(params.data.storage, level) +
-			'</dl>';
-		$(el + ' .contents').append(_t);
+		this.refresh();
+		if (!_c.is_upgradable()) {
+			$(el + ' .footer .upgrade').remove();
+		} else {
+			$(el).on('click', '.upgrade', function () {
+				if (_c.upgrade()) {
+					if (!_c.is_upgradable()) {
+						$(el + ' .footer .upgrade').remove();
+					}
+				} else {
+					self.core.error('Unable to upgrade the specified building `' + _c.get_name() + '`!');
+				}
+				return false;
+			});
+		}
 		if (_c.is_marketplace()) {
-			$(el + ' header .demolish').remove();
+			$(el + ' .footer .demolish').remove();
 		} else {
 			$(el).on('click', '.demolish', function () {
 				if (_c.demolish()) {
@@ -106,7 +122,12 @@ city_builder.panel_building = function (params) {
 		} else {
 			$(el + ' .start, ' + el + ' .pause').remove();
 		}
-		$(el).on('click', '.close', function () {
+		$(el).on('click', '.help', function () {
+			var term = $(this).data('term');
+			var ctxt = $(this).data('ctxt');
+			self.core.help(ctxt, term);
+			return false;
+		}).on('click', '.close', function () {
 			self.destroy();
 			return false;
 		}).draggable({
@@ -129,6 +150,18 @@ city_builder.panel_building = function (params) {
 	 * @returns {city_builder.panel_building}
 	 */
 	this.refresh = function() {
+		var _c = this.core.get_city().get_building_by_handle(params.data.handle);
+		var level = _c.get_level();
+		var _t = '<p class="smalldesc">' + this.params_data.description + '</p>' +
+			'<dl>' +
+				city_builder.ui.cost_panel(this.params_data.cost) +
+				city_builder.ui.materials_panel(this.params_data.materials) +
+				city_builder.ui.production_panel(this.params_data.production, level) +
+				city_builder.ui.requires_panel(this.params_data.requires) +
+				city_builder.ui.tax_panel(this.params_data.tax, level) +
+				city_builder.ui.storage_panel(this.params_data.storage, level) +
+			'</dl>';
+		$('#panel-' + this.id + ' .contents').empty().append(_t);
 		return this;
 	};
 

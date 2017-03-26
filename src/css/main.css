@@ -105,12 +105,12 @@ ul, li {
 	left: 84px;
 	width: 124px;
 	text-align: center;
-	color: #fff;
+	color: #bbb;
 	text-transform: uppercase;
 }
 
 .ui header .citylevel {
-	color: #fff;
+	color: #bbb;
 	font-size: 50px;
 	font-weight: bold;
 	text-align: center;
@@ -121,7 +121,7 @@ ul, li {
 }
 
 .ui header .cityprestige {
-	color: #fff;
+	color: #bbb;
 	font-size: 20px;
 	font-weight: bold;
 	text-align: center;
@@ -400,6 +400,15 @@ header .top-panel span {
 	float: right;
 	cursor: pointer;
 	margin-left: 8px;
+}
+
+.panel .footer .btn {
+	width: 46px;
+	height: 46px;
+	display: block;
+	float: left;
+	cursor: pointer;
+	margin-right: 8px;
 }
 
 .panel table {

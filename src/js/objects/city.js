@@ -39,6 +39,12 @@ city_builder.city = function(params) {
 	 */
 	this.buildings = [];
 	
+	/**
+	 * Export data of the buildings list.
+	 *
+	 * @private
+	 * @type {Array}
+	 */
 	this.buildings_list = [];
 	
 	/**
@@ -664,31 +670,47 @@ city_builder.city = function(params) {
 		hidden = (typeof hidden !== 'undefined') && hidden === true ? true : false;
 		if (typeof building_type === 'object') {
 			for (var i = 0; i < building_type.length; i++) {
-				var _b = city_builder.BUILDINGS.findIndexM(building_type[i]);
+				var handle = typeof building_type[i].handle !== 'undefined' ? building_type[i].handle : building_type[i];
+				var level = typeof building_type[i].level !== 'undefined' ? building_type[i].level : 1;
+				var _b = city_builder.BUILDINGS.findIndexM(handle);
 				if (_b !== false) {
 					var _c = city_builder.BUILDINGS[_b];
+					if (level > 1) {
+						_c.level = level;
+					}
 					var _building = new city_builder.building({
 						city: this,
-						type: building_type[i],
+						type: handle,
 						data: _c,
 						hidden: hidden
 					});
 					this.buildings.push(_building);
-					this.buildings_list.push(building_type[i]);
+					this.buildings_list.push({
+						handle: handle,
+						level: level
+					});
 				}
 			}
 		} else {
-			var _b = city_builder.BUILDINGS.findIndexM(building_type);
+			var handle = typeof building_type.handle !== 'undefined' ? building_type.handle : building_type;
+			var level = typeof building_type.level !== 'undefined' ? building_type.level : 1;
+			var _b = city_builder.BUILDINGS.findIndexM(handle);
 			if (_b !== false) {
 				var _c = city_builder.BUILDINGS[_b];
+				if (level > 1) {
+					_c.level = level;
+				}
 				var _building = new city_builder.building({
 					city: this,
-					type: building_type,
+					type: handle,
 					data: _c,
 					hidden: hidden
 				});
 				this.buildings.push(_building);
-				this.buildings_list.push(building_type);
+				this.buildings_list.push({
+					handle: handle,
+					level: level
+				});
 			}
 		}
 		return false;
@@ -731,7 +753,10 @@ city_builder.city = function(params) {
 				data: _c
 			});
 			this.buildings.push(_building);
-			this.buildings_list.push(building_type);
+			this.buildings_list.push({
+				handle: building_type,
+				level: 1
+			});
 			this.get_core().refresh_ui();
 			this.get_core().save();
 			this.get_core().notify('New building constructed: ' + _building.get_name());
@@ -791,10 +816,11 @@ city_builder.city = function(params) {
 						this.buildings.splice(i, 1);
 					}
 				}
-				var bl_id = this.buildings_list.indexOf(id);
-				if (bl_id > -1) {
+				var bl_id = this.buildings_list.findIndexM(id);
+				if (bl_id !== false) {
 				    this.buildings_list.splice(bl_id, 1);
 				}
+				this.get_core().save();
 				return true;
 			} else {
 				return false;

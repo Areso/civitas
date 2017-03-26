@@ -385,7 +385,7 @@ city_builder.panel_advisor = function (params) {
 					'<td>';
 					if (building_data.materials) {
 						for (var item in building_data.materials) {
-							_t += ' -' + buildings[l].get_level() * building_data.materials[item] + ' ' + city_builder.ui.resource_small_img(item);
+							_t += ' -' + building_data.materials[item] + ' ' + city_builder.ui.resource_small_img(item);
 						}
 					}
 				_t += '</td>' +
@@ -434,7 +434,7 @@ city_builder.panel_advisor = function (params) {
 					'<td>';
 					if (building_data.materials) {
 						for (var item in building_data.materials) {
-							_t += ' -' + buildings[l].get_level() * building_data.materials[item] + ' ' + city_builder.ui.resource_small_img(item);
+							_t += ' -' + building_data.materials[item] + ' ' + city_builder.ui.resource_small_img(item);
 						}
 					}
 				_t += '</td>' +
