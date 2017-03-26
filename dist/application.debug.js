@@ -4746,12 +4746,12 @@ city_builder.ui = {
 		return out;
 	},
 	
-	production_panel: function (materials) {
+	production_panel: function (materials, level) {
 		var out = '';
 		if (typeof materials !== 'undefined') {
 			out += '<dt>' + city_builder.l('Produces') + '</dt>';
 			for (var item in materials) {
-				out += '<dd>' + materials[item] + city_builder.ui.resource_small_img(item) + '</dd>';
+				out += '<dd>' + (level * materials[item]) + city_builder.ui.resource_small_img(item) + '</dd>';
 			}
 		}
 		return out;
@@ -4767,20 +4767,20 @@ city_builder.ui = {
 		return out;
 	},
 	
-	tax_panel: function (tax) {
+	tax_panel: function (tax, level) {
 		var out = '';
 		if (typeof tax !== 'undefined') {
 			out += '<dt>' + city_builder.l('Tax') + '</dt>';
-			out += '<dd>' + tax + city_builder.ui.resource_small_img('coins') + '</dd>';
+			out += '<dd>' + (level * tax) + city_builder.ui.resource_small_img('coins') + '</dd>';
 		}
 		return out;
 	},
 	
-	storage_panel: function (storage) {
+	storage_panel: function (storage, level) {
 		var out = '';
 		if (typeof storage !== 'undefined') {
 			out += '<dt>' + city_builder.l('Storage') + '</dt>';
-			out += '<dd>' + storage + '<img alt="Storage space" class="tips" title="' + city_builder.l('Storage Space') + '" src="' + city_builder.ASSETS_URL + 'images/resources/storage_small.png" /></dd>';
+			out += '<dd>' + (level * storage) + '<img alt="Storage space" class="tips" title="' + city_builder.l('Storage Space') + '" src="' + city_builder.ASSETS_URL + 'images/resources/storage_small.png" /></dd>';
 		}
 		return out;
 	},
@@ -5126,7 +5126,7 @@ city_builder.city = function(params) {
 	this.list_black_market = function(resource, amount) {
 		if (this.remove_resource(resource, amount)) {
 			var discount = (city_builder.RESOURCES[resource].price * city_builder.BLACK_MARKET_DISCOUNT) / 100;
-			var price = city_builder.utils.calculate_price_minus_discount(amount, resource, discount);
+			var price = city_builder.utils.calc_price_minus_discount(amount, resource, discount);
 			this.get_core().add_black_market(resource, amount, price);
 			this.get_core().refresh_ui();
 			this.get_core().notify(this.get_name() + ' placed ' + amount + ' ' + city_builder.RESOURCES[resource].name + ' on the Black Market and will receive ' + price + ' coins next month.', 'Goods listed');
@@ -7684,16 +7684,17 @@ city_builder.panel_building = function (params) {
 		}
 		this.core.console_log('creating panel with id `' + this.id + '`');
 		var _c = this.core.get_city().get_building_by_handle(params.data.handle);
+		var level = _c.get_level();
 		$('.ui').append(city_builder.ui.building_panel_template.replace(/{id}/g, this.id));
 		$(el + ' header .title').html(params.data.name);
 		var _t = '<p class="smalldesc">' + params.data.description + '</p>' +
 				'<dl>' +
 				city_builder.ui.cost_panel(params.data.cost) +
 				city_builder.ui.materials_panel(params.data.materials) +
-				city_builder.ui.production_panel(params.data.production) +
+				city_builder.ui.production_panel(params.data.production, level) +
 				city_builder.ui.requires_panel(params.data.requires) +
-				city_builder.ui.tax_panel(params.data.tax) +
-				city_builder.ui.storage_panel(params.data.storage) +
+				city_builder.ui.tax_panel(params.data.tax, level) +
+				city_builder.ui.storage_panel(params.data.storage, level) +
 				'</dl>';
 		$(el + ' .contents').append(_t);
 		if (_c.is_marketplace()) {
@@ -9700,7 +9701,7 @@ city_builder.panel_trades = function (params) {
 		var city = this.core.get_city();
 		var resources = city.get_resources();
 		for (var item in resources) {
-			if (item !== 'fame' && item !== 'coins' && item !== 'prestige') {
+			if (item !== 'fame' && item !== 'coins' && item !== 'prestige' && item !== 'espionage') {
 				out += '<option value="' + item + '"> ' + city_builder.RESOURCES[item].name + '</option>';
 			}
 		}
@@ -9716,7 +9717,17 @@ city_builder.panel_trades = function (params) {
 	 */
 	this._refresh_imports = function () {
 		var cities = this.core.get_cities();
-		var out = '<table class="normal">';
+		var out = '<table class="normal">' +
+					'<thead>' +
+					'<tr>' +
+						'<td>City</td>' +
+						'<td>Goods</td>' +
+						'<td>Amount</td>' +
+						'<td>Price/item</td>' +
+						'<td>Total price</td>' +
+						'<td></td>' +
+					'</tr>' +
+					'</thead>';
 		for (var z = 0; z < cities.length; z++) {
 			var trades = cities[z].get_trades();
 			if (trades !== null) {
@@ -9729,12 +9740,22 @@ city_builder.panel_trades = function (params) {
 							'<td>' + imports[item] + '</td>' +
 							'<td>' + Math.round(city_builder.RESOURCES[item].price - discount) + city_builder.ui.resource_small_img('coins') + '</td>' +
 							'<td>' + Math.round((city_builder.RESOURCES[item].price - discount) * imports[item]) + city_builder.ui.resource_small_img('coins') + '</td>' +
-							'<td><a title="' + city_builder.l('Sell those goods') + '" data-resource="' + item + '" data-city="' + cities[z].get_name() + '" class="tips sell' + (imports[item] === 0 ? ' disabled' : '') + '" href="#">' + city_builder.l('sell') + '</a></td>' +
+							'<td class="center"><a title="' + city_builder.l('Sell those goods') + '" data-resource="' + item + '" data-city="' + cities[z].get_name() + '" class="tips sell' + (imports[item] === 0 ? ' disabled' : '') + '" href="#">' + city_builder.l('sell') + '</a></td>' +
 							'</tr>';
 				}
 			}
 		}
-		out += '</table>';
+		out += '<tfoot>' +
+					'<tr>' +
+						'<td>City</td>' +
+						'<td>Goods</td>' +
+						'<td>Amount</td>' +
+						'<td>Price/item</td>' +
+						'<td>Total price</td>' +
+						'<td></td>' +
+					'</tr>' +
+				'</tfoot>' +
+			'</table>';
 		$('#tab-imports > .contents').empty().append(out);
 		return this;
 	};
@@ -9769,7 +9790,17 @@ city_builder.panel_trades = function (params) {
 	 */
 	this._refresh_exports = function () {
 		var cities = this.core.get_cities();
-		var out = '<table class="normal">';
+		var out = '<table class="normal">' +
+					'<thead>' +
+					'<tr>' +
+						'<td>City</td>' +
+						'<td>Goods</td>' +
+						'<td>Amount</td>' +
+						'<td>Price/item</td>' +
+						'<td>Total price</td>' +
+						'<td></td>' +
+					'</tr>' +
+					'</thead>';
 		for (var z = 0; z < cities.length; z++) {
 			var trades = cities[z].get_trades();
 			if (trades !== null) {
@@ -9782,12 +9813,22 @@ city_builder.panel_trades = function (params) {
 							'<td>' + exports[item] + '</td>' +
 							'<td>' + Math.round(city_builder.RESOURCES[item].price + discount) + city_builder.ui.resource_small_img('coins') + '</td>' +
 							'<td>' + Math.round((city_builder.RESOURCES[item].price + discount) * exports[item]) + city_builder.ui.resource_small_img('coins') + '</td>' +
-							'<td><a title="' + city_builder.l('Buy those goods') + '" data-resource="' + item + '" data-city="' + cities[z].get_name() + '" class="tips buy' + (exports[item] === 0 ? ' disabled' : '') + '" href="#">' + city_builder.l('buy') + '</a></td>' +
+							'<td class="center"><a title="' + city_builder.l('Buy those goods') + '" data-resource="' + item + '" data-city="' + cities[z].get_name() + '" class="tips buy' + (exports[item] === 0 ? ' disabled' : '') + '" href="#">' + city_builder.l('buy') + '</a></td>' +
 							'</tr>';
 				}
 			}
 		}
-		out += '</table>';
+		out += '<tfoot>' +
+					'<tr>' +
+						'<td>City</td>' +
+						'<td>Goods</td>' +
+						'<td>Amount</td>' +
+						'<td>Price/item</td>' +
+						'<td>Total price</td>' +
+						'<td></td>' +
+					'</tr>' +
+				'</tfoot>' +
+			'</table>';
 		$('#tab-exports > .contents').empty().append(out);
 		return this;
 	};

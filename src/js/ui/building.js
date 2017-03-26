@@ -63,16 +63,17 @@ city_builder.panel_building = function (params) {
 		}
 		this.core.console_log('creating panel with id `' + this.id + '`');
 		var _c = this.core.get_city().get_building_by_handle(params.data.handle);
+		var level = _c.get_level();
 		$('.ui').append(city_builder.ui.building_panel_template.replace(/{id}/g, this.id));
 		$(el + ' header .title').html(params.data.name);
 		var _t = '<p class="smalldesc">' + params.data.description + '</p>' +
 				'<dl>' +
 				city_builder.ui.cost_panel(params.data.cost) +
 				city_builder.ui.materials_panel(params.data.materials) +
-				city_builder.ui.production_panel(params.data.production) +
+				city_builder.ui.production_panel(params.data.production, level) +
 				city_builder.ui.requires_panel(params.data.requires) +
-				city_builder.ui.tax_panel(params.data.tax) +
-				city_builder.ui.storage_panel(params.data.storage) +
+				city_builder.ui.tax_panel(params.data.tax, level) +
+				city_builder.ui.storage_panel(params.data.storage, level) +
 				'</dl>';
 		$(el + ' .contents').append(_t);
 		if (_c.is_marketplace()) {

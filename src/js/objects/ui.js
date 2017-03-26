@@ -158,12 +158,12 @@ city_builder.ui = {
 		return out;
 	},
 	
-	production_panel: function (materials) {
+	production_panel: function (materials, level) {
 		var out = '';
 		if (typeof materials !== 'undefined') {
 			out += '<dt>' + city_builder.l('Produces') + '</dt>';
 			for (var item in materials) {
-				out += '<dd>' + materials[item] + city_builder.ui.resource_small_img(item) + '</dd>';
+				out += '<dd>' + (level * materials[item]) + city_builder.ui.resource_small_img(item) + '</dd>';
 			}
 		}
 		return out;
@@ -179,20 +179,20 @@ city_builder.ui = {
 		return out;
 	},
 	
-	tax_panel: function (tax) {
+	tax_panel: function (tax, level) {
 		var out = '';
 		if (typeof tax !== 'undefined') {
 			out += '<dt>' + city_builder.l('Tax') + '</dt>';
-			out += '<dd>' + tax + city_builder.ui.resource_small_img('coins') + '</dd>';
+			out += '<dd>' + (level * tax) + city_builder.ui.resource_small_img('coins') + '</dd>';
 		}
 		return out;
 	},
 	
-	storage_panel: function (storage) {
+	storage_panel: function (storage, level) {
 		var out = '';
 		if (typeof storage !== 'undefined') {
 			out += '<dt>' + city_builder.l('Storage') + '</dt>';
-			out += '<dd>' + storage + '<img alt="Storage space" class="tips" title="' + city_builder.l('Storage Space') + '" src="' + city_builder.ASSETS_URL + 'images/resources/storage_small.png" /></dd>';
+			out += '<dd>' + (level * storage) + '<img alt="Storage space" class="tips" title="' + city_builder.l('Storage Space') + '" src="' + city_builder.ASSETS_URL + 'images/resources/storage_small.png" /></dd>';
 		}
 		return out;
 	},

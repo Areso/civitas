@@ -199,7 +199,7 @@ city_builder.panel_trades = function (params) {
 		var city = this.core.get_city();
 		var resources = city.get_resources();
 		for (var item in resources) {
-			if (item !== 'fame' && item !== 'coins' && item !== 'prestige') {
+			if (item !== 'fame' && item !== 'coins' && item !== 'prestige' && item !== 'espionage') {
 				out += '<option value="' + item + '"> ' + city_builder.RESOURCES[item].name + '</option>';
 			}
 		}
@@ -215,7 +215,17 @@ city_builder.panel_trades = function (params) {
 	 */
 	this._refresh_imports = function () {
 		var cities = this.core.get_cities();
-		var out = '<table class="normal">';
+		var out = '<table class="normal">' +
+					'<thead>' +
+					'<tr>' +
+						'<td>City</td>' +
+						'<td>Goods</td>' +
+						'<td>Amount</td>' +
+						'<td>Price/item</td>' +
+						'<td>Total price</td>' +
+						'<td></td>' +
+					'</tr>' +
+					'</thead>';
 		for (var z = 0; z < cities.length; z++) {
 			var trades = cities[z].get_trades();
 			if (trades !== null) {
@@ -228,12 +238,22 @@ city_builder.panel_trades = function (params) {
 							'<td>' + imports[item] + '</td>' +
 							'<td>' + Math.round(city_builder.RESOURCES[item].price - discount) + city_builder.ui.resource_small_img('coins') + '</td>' +
 							'<td>' + Math.round((city_builder.RESOURCES[item].price - discount) * imports[item]) + city_builder.ui.resource_small_img('coins') + '</td>' +
-							'<td><a title="' + city_builder.l('Sell those goods') + '" data-resource="' + item + '" data-city="' + cities[z].get_name() + '" class="tips sell' + (imports[item] === 0 ? ' disabled' : '') + '" href="#">' + city_builder.l('sell') + '</a></td>' +
+							'<td class="center"><a title="' + city_builder.l('Sell those goods') + '" data-resource="' + item + '" data-city="' + cities[z].get_name() + '" class="tips sell' + (imports[item] === 0 ? ' disabled' : '') + '" href="#">' + city_builder.l('sell') + '</a></td>' +
 							'</tr>';
 				}
 			}
 		}
-		out += '</table>';
+		out += '<tfoot>' +
+					'<tr>' +
+						'<td>City</td>' +
+						'<td>Goods</td>' +
+						'<td>Amount</td>' +
+						'<td>Price/item</td>' +
+						'<td>Total price</td>' +
+						'<td></td>' +
+					'</tr>' +
+				'</tfoot>' +
+			'</table>';
 		$('#tab-imports > .contents').empty().append(out);
 		return this;
 	};
@@ -268,7 +288,17 @@ city_builder.panel_trades = function (params) {
 	 */
 	this._refresh_exports = function () {
 		var cities = this.core.get_cities();
-		var out = '<table class="normal">';
+		var out = '<table class="normal">' +
+					'<thead>' +
+					'<tr>' +
+						'<td>City</td>' +
+						'<td>Goods</td>' +
+						'<td>Amount</td>' +
+						'<td>Price/item</td>' +
+						'<td>Total price</td>' +
+						'<td></td>' +
+					'</tr>' +
+					'</thead>';
 		for (var z = 0; z < cities.length; z++) {
 			var trades = cities[z].get_trades();
 			if (trades !== null) {
@@ -281,12 +311,22 @@ city_builder.panel_trades = function (params) {
 							'<td>' + exports[item] + '</td>' +
 							'<td>' + Math.round(city_builder.RESOURCES[item].price + discount) + city_builder.ui.resource_small_img('coins') + '</td>' +
 							'<td>' + Math.round((city_builder.RESOURCES[item].price + discount) * exports[item]) + city_builder.ui.resource_small_img('coins') + '</td>' +
-							'<td><a title="' + city_builder.l('Buy those goods') + '" data-resource="' + item + '" data-city="' + cities[z].get_name() + '" class="tips buy' + (exports[item] === 0 ? ' disabled' : '') + '" href="#">' + city_builder.l('buy') + '</a></td>' +
+							'<td class="center"><a title="' + city_builder.l('Buy those goods') + '" data-resource="' + item + '" data-city="' + cities[z].get_name() + '" class="tips buy' + (exports[item] === 0 ? ' disabled' : '') + '" href="#">' + city_builder.l('buy') + '</a></td>' +
 							'</tr>';
 				}
 			}
 		}
-		out += '</table>';
+		out += '<tfoot>' +
+					'<tr>' +
+						'<td>City</td>' +
+						'<td>Goods</td>' +
+						'<td>Amount</td>' +
+						'<td>Price/item</td>' +
+						'<td>Total price</td>' +
+						'<td></td>' +
+					'</tr>' +
+				'</tfoot>' +
+			'</table>';
 		$('#tab-exports > .contents').empty().append(out);
 		return this;
 	};

@@ -584,7 +584,7 @@ table.mercenaries td:nth-child(3) {
 }
 
 .panel ul.advices {
-	max-height: 236px;
+	max-height: 216px;
 	display: block;
 	margin: 0;
 	padding: 0;
@@ -1114,9 +1114,8 @@ table tr td:last-child a {
 
 }
 
-table tr:hover td:last-child a.disabled {
-	color: #502d13 !important;
-	background-color: #777 !important;
+table tr td a.disabled {
+	display: none;
 }
 
 table.normal tr td:nth-child(4) {

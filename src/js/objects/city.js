@@ -334,7 +334,7 @@ city_builder.city = function(params) {
 	this.list_black_market = function(resource, amount) {
 		if (this.remove_resource(resource, amount)) {
 			var discount = (city_builder.RESOURCES[resource].price * city_builder.BLACK_MARKET_DISCOUNT) / 100;
-			var price = city_builder.utils.calculate_price_minus_discount(amount, resource, discount);
+			var price = city_builder.utils.calc_price_minus_discount(amount, resource, discount);
 			this.get_core().add_black_market(resource, amount, price);
 			this.get_core().refresh_ui();
 			this.get_core().notify(this.get_name() + ' placed ' + amount + ' ' + city_builder.RESOURCES[resource].name + ' on the Black Market and will receive ' + price + ' coins next month.', 'Goods listed');
