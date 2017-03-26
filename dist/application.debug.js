@@ -9972,12 +9972,21 @@ city_builder.panel_trades = function (params) {
 		var out = '<table class="mercenaries">';
 		for (var i = 0; i < city_builder.MERCENARIES.length; i++) {
 			out += '<tr>' +
-					'<td class="icon"><img src="' + city_builder.ASSETS_URL + 'images/armies/' + city_builder.MERCENARIES[i].icon + '.png" /></td>' +
-					'<td><p class="title">' + city_builder.MERCENARIES[i].name + '</p><p class="description">' + city_builder.MERCENARIES[i].description + '</p></td>' +
-					'<td>' + city_builder.utils.nice_numbers(city_builder.MERCENARIES[i].cost) + city_builder.ui.resource_small_img('coins') + '</td>' +
-					'<td class="medium"><a title="' + city_builder.l('View info on this mercenary army') + '" data-id="' + i + '" class="tips view-army" href="#">view</a> ' +
-					city_builder.ui.panel_btn('recruit', city_builder.l('Recruit this mercenary army'), city_builder.MERCENARIES[i].handle, 'recruit', this.core.get_city().is_mercenary_recruited(city_builder.MERCENARIES[i].handle)) +
-					'</tr>';
+					'<td class="icon">' +
+						'<img src="' + city_builder.ASSETS_URL + 'images/armies/' + city_builder.MERCENARIES[i].icon + '.png" />' +
+					'</td>' +
+					'<td>' +
+						'<p class="title">' + city_builder.MERCENARIES[i].name + '</p>' +
+						'<p class="description">' + city_builder.MERCENARIES[i].description + '</p>' +
+					'</td>' +
+					'<td>' + 
+						city_builder.utils.nice_numbers(city_builder.MERCENARIES[i].cost) + city_builder.ui.resource_small_img('coins') + 
+					'</td>' +
+					'<td class="medium">' +
+						'<a title="' + city_builder.l('View info on this mercenary army') + '" data-id="' + i + '" class="tips view-army" href="#">view</a> ' +
+						city_builder.ui.panel_btn('recruit', city_builder.l('Recruit this mercenary army'), city_builder.MERCENARIES[i].handle, 'recruit', this.core.get_city().is_mercenary_recruited(city_builder.MERCENARIES[i].handle)) +
+					'</td>' +
+				'</tr>';
 		}
 		out += '</table>';
 		$('#tab-mercenaries > .contents').empty().append(out);
