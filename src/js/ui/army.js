@@ -2,8 +2,8 @@
  * Main Game army panel object.
  * 
  * @param {type} params
- * @class {city_builder.panel}
- * @returns {city_builder.__constructor}
+ * @class {city_builder.panel_army}
+ * @returns {city_builder.panel_army}
  */
 city_builder.panel_army = function (params) {
 
@@ -87,6 +87,13 @@ city_builder.panel_army = function (params) {
 		return this;
 	};
 
+	/**
+	 * Callback method called when a function from the core needs to refresh
+	 * information on this panel.
+	 *
+	 * @public
+	 * @returns {city_builder.panel_army}
+	 */
 	this.refresh = function() {
 		return this;
 	};

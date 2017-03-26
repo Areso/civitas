@@ -2,8 +2,8 @@
  * Main Game storage panel object.
  * 
  * @param {type} params
- * @class {city_builder.panel}
- * @returns {city_builder.__constructor}
+ * @class {city_builder.panel_city}
+ * @returns {city_builder.panel_city}
  */
 city_builder.panel_city = function (params) {
 
@@ -105,6 +105,13 @@ city_builder.panel_city = function (params) {
 		return this;
 	};
 
+	/**
+	 * Callback method called when a function from the core needs to refresh
+	 * information on this panel.
+	 *
+	 * @public
+	 * @returns {city_builder.panel_building}
+	 */
 	this.refresh = function() {
 		return this;
 	};

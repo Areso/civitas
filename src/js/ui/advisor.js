@@ -2,8 +2,8 @@
  * Main Game city advisor panel object.
  * 
  * @param {type} params
- * @class {city_builder.panel}
- * @returns {city_builder.__constructor}
+ * @class {city_builder.panel_advisor}
+ * @returns {city_builder.panel_advisor}
  */
 city_builder.panel_advisor = function (params) {
 
@@ -235,6 +235,13 @@ city_builder.panel_advisor = function (params) {
 		return this;
 	};
 
+	/**
+	 * Callback method called when a function from the core needs to refresh
+	 * information on this panel.
+	 *
+	 * @public
+	 * @returns {city_builder.panel_advisor}
+	 */
 	this.refresh = function() {
 		this._refresh_info();
 		this._refresh_production();

@@ -7623,8 +7623,8 @@ city_builder.building = function(params) {
  * Main Game building panel object.
  * 
  * @param {type} params
- * @class {city_builder.panel}
- * @returns {city_builder.__constructor}
+ * @class {city_builder.panel_building}
+ * @returns {city_builder.panel_building}
  */
 city_builder.panel_building = function (params) {
 
@@ -7688,14 +7688,14 @@ city_builder.panel_building = function (params) {
 		$('.ui').append(city_builder.ui.building_panel_template.replace(/{id}/g, this.id));
 		$(el + ' header .title').html(params.data.name);
 		var _t = '<p class="smalldesc">' + params.data.description + '</p>' +
-				'<dl>' +
+			'<dl>' +
 				city_builder.ui.cost_panel(params.data.cost) +
 				city_builder.ui.materials_panel(params.data.materials) +
 				city_builder.ui.production_panel(params.data.production, level) +
 				city_builder.ui.requires_panel(params.data.requires) +
 				city_builder.ui.tax_panel(params.data.tax, level) +
 				city_builder.ui.storage_panel(params.data.storage, level) +
-				'</dl>';
+			'</dl>';
 		$(el + ' .contents').append(_t);
 		if (_c.is_marketplace()) {
 			$(el + ' header .demolish').remove();
@@ -7742,6 +7742,13 @@ city_builder.panel_building = function (params) {
 		return this;
 	};
 
+	/**
+	 * Callback method called when a function from the core needs to refresh
+	 * information on this panel.
+	 *
+	 * @public
+	 * @returns {city_builder.panel_building}
+	 */
 	this.refresh = function() {
 		return this;
 	};
@@ -7754,8 +7761,8 @@ city_builder.panel_building = function (params) {
  * Main Game buildings panel object.
  * 
  * @param {type} params
- * @class {city_builder.panel}
- * @returns {city_builder.__constructor}
+ * @class {city_builder.panel_buildings}
+ * @returns {city_builder.panel_buildings}
  */
 city_builder.panel_buildings = function (params) {
 
@@ -8011,6 +8018,13 @@ city_builder.panel_buildings = function (params) {
 		return this;
 	};
 
+	/**
+	 * Callback method called when a function from the core needs to refresh
+	 * information on this panel.
+	 *
+	 * @public
+	 * @returns {city_builder.panel_building}
+	 */
 	this.refresh = function() {
 		return this;
 	};
@@ -8023,8 +8037,8 @@ city_builder.panel_buildings = function (params) {
  * Main Game storage panel object.
  * 
  * @param {type} params
- * @class {city_builder.panel}
- * @returns {city_builder.__constructor}
+ * @class {city_builder.panel_storage}
+ * @returns {city_builder.panel_storage}
  */
 city_builder.panel_storage = function (params) {
 	
@@ -8129,6 +8143,13 @@ city_builder.panel_storage = function (params) {
 		return this;
 	};
 
+	/**
+	 * Callback method called when a function from the core needs to refresh
+	 * information on this panel.
+	 *
+	 * @public
+	 * @returns {city_builder.panel_building}
+	 */
 	this.refresh = function() {
 		var city = this.core.get_city();
 		var resources = city.get_resources();
@@ -8168,8 +8189,8 @@ city_builder.panel_storage = function (params) {
  * Main Game storage panel object.
  * 
  * @param {type} params
- * @class {city_builder.panel}
- * @returns {city_builder.__constructor}
+ * @class {city_builder.panel_city}
+ * @returns {city_builder.panel_city}
  */
 city_builder.panel_city = function (params) {
 
@@ -8271,6 +8292,13 @@ city_builder.panel_city = function (params) {
 		return this;
 	};
 
+	/**
+	 * Callback method called when a function from the core needs to refresh
+	 * information on this panel.
+	 *
+	 * @public
+	 * @returns {city_builder.panel_building}
+	 */
 	this.refresh = function() {
 		return this;
 	};
@@ -8283,8 +8311,8 @@ city_builder.panel_city = function (params) {
  * Main Game help panel object.
  * 
  * @param {type} params
- * @class {city_builder.panel}
- * @returns {city_builder.__constructor}
+ * @class {city_builder.panel_help}
+ * @returns {city_builder.panel_help}
  */
 city_builder.panel_help = function (params) {
 
@@ -8374,6 +8402,13 @@ city_builder.panel_help = function (params) {
 		return this;
 	};
 
+	/**
+	 * Callback method called when a function from the core needs to refresh
+	 * information on this panel.
+	 *
+	 * @public
+	 * @returns {city_builder.panel_building}
+	 */
 	this.refresh = function() {
 		return this;
 	};
@@ -8386,8 +8421,8 @@ city_builder.panel_help = function (params) {
  * Main Game storage panel object.
  * 
  * @param {type} params
- * @class {city_builder.panel}
- * @returns {city_builder.__constructor}
+ * @class {city_builder.panel_rankings}
+ * @returns {city_builder.panel_rankings}
  */
 city_builder.panel_rankings = function (params) {
 	
@@ -8475,6 +8510,13 @@ city_builder.panel_rankings = function (params) {
 		return this;
 	};
 
+	/**
+	 * Callback method called when a function from the core needs to refresh
+	 * information on this panel.
+	 *
+	 * @public
+	 * @returns {city_builder.panel_building}
+	 */
 	this.refresh = function() {
 		var el = '#panel-' + this.id;
 		var ranking_list = [];
@@ -8539,8 +8581,8 @@ city_builder.panel_rankings = function (params) {
  * Send goods to another city panel object.
  * 
  * @param {type} params
- * @class {city_builder.panel}
- * @returns {city_builder.__constructor}
+ * @class {city_builder.panel_send_goods}
+ * @returns {city_builder.panel_send_goods}
  */
 city_builder.panel_send_goods = function (params) {
 	
@@ -8631,6 +8673,13 @@ city_builder.panel_send_goods = function (params) {
 		return this;
 	};
 
+	/**
+	 * Callback method called when a function from the core needs to refresh
+	 * information on this panel.
+	 *
+	 * @public
+	 * @returns {city_builder.panel_building}
+	 */
 	this.refresh = function() {
 		return this;
 	};
@@ -8643,8 +8692,8 @@ city_builder.panel_send_goods = function (params) {
  * Declare war to another city panel object.
  * 
  * @param {type} params
- * @class {city_builder.panel}
- * @returns {city_builder.__constructor}
+ * @class {city_builder.panel_declare_war}
+ * @returns {city_builder.panel_declare_war}
  */
 city_builder.panel_declare_war = function (params) {
 	
@@ -8735,6 +8784,13 @@ city_builder.panel_declare_war = function (params) {
 		return this;
 	};
 
+	/**
+	 * Callback method called when a function from the core needs to refresh
+	 * information on this panel.
+	 *
+	 * @public
+	 * @returns {city_builder.panel_building}
+	 */
 	this.refresh = function() {
 		return this;
 	};
@@ -8747,8 +8803,8 @@ city_builder.panel_declare_war = function (params) {
  * Main Game world panel object.
  * 
  * @param {type} params
- * @class {city_builder.panel}
- * @returns {city_builder.__constructor}
+ * @class {city_builder.panel_world}
+ * @returns {city_builder.panel_world}
  */
 city_builder.panel_world = function (params) {
 
@@ -8848,6 +8904,13 @@ city_builder.panel_world = function (params) {
 		return this;
 	};
 
+	/**
+	 * Callback method called when a function from the core needs to refresh
+	 * information on this panel.
+	 *
+	 * @public
+	 * @returns {city_builder.panel_building}
+	 */
 	this.refresh = function() {
 		return this;
 	};
@@ -8860,8 +8923,8 @@ city_builder.panel_world = function (params) {
  * Main Game city advisor panel object.
  * 
  * @param {type} params
- * @class {city_builder.panel}
- * @returns {city_builder.__constructor}
+ * @class {city_builder.panel_advisor}
+ * @returns {city_builder.panel_advisor}
  */
 city_builder.panel_advisor = function (params) {
 
@@ -9093,6 +9156,13 @@ city_builder.panel_advisor = function (params) {
 		return this;
 	};
 
+	/**
+	 * Callback method called when a function from the core needs to refresh
+	 * information on this panel.
+	 *
+	 * @public
+	 * @returns {city_builder.panel_advisor}
+	 */
 	this.refresh = function() {
 		this._refresh_info();
 		this._refresh_production();
@@ -9407,8 +9477,8 @@ city_builder.panel_advisor = function (params) {
  * Main Game army panel object.
  * 
  * @param {type} params
- * @class {city_builder.panel}
- * @returns {city_builder.__constructor}
+ * @class {city_builder.panel_army}
+ * @returns {city_builder.panel_army}
  */
 city_builder.panel_army = function (params) {
 
@@ -9492,6 +9562,13 @@ city_builder.panel_army = function (params) {
 		return this;
 	};
 
+	/**
+	 * Callback method called when a function from the core needs to refresh
+	 * information on this panel.
+	 *
+	 * @public
+	 * @returns {city_builder.panel_army}
+	 */
 	this.refresh = function() {
 		return this;
 	};
@@ -9504,8 +9581,8 @@ city_builder.panel_army = function (params) {
  * Main Game trades panel object.
  * 
  * @param {type} params
- * @class {city_builder.panel}
- * @returns {city_builder.__constructor}
+ * @class {city_builder.panel_trades}
+ * @returns {city_builder.panel_trades}
  */
 city_builder.panel_trades = function (params) {
 
@@ -9637,6 +9714,13 @@ city_builder.panel_trades = function (params) {
 		return this;
 	};
 
+	/**
+	 * Callback method called when a function from the core needs to refresh
+	 * information on this panel.
+	 *
+	 * @public
+	 * @returns {city_builder.panel_building}
+	 */
 	this.refresh = function() {
 		this._refresh_imports();
 		this._refresh_exports();
@@ -9841,8 +9925,8 @@ city_builder.panel_trades = function (params) {
  * Main Game settings panel object.
  * 
  * @param {type} params
- * @class {city_builder.panel}
- * @returns {city_builder.__constructor}
+ * @class {city_builder.panel_settings}
+ * @returns {city_builder.panel_settings}
  */
 city_builder.panel_settings = function (params) {
 
@@ -9955,6 +10039,13 @@ city_builder.panel_settings = function (params) {
 		return this;
 	};
 
+	/**
+	 * Callback method called when a function from the core needs to refresh
+	 * information on this panel.
+	 *
+	 * @public
+	 * @returns {city_builder.panel_building}
+	 */
 	this.refresh = function() {
 		return this;
 	};

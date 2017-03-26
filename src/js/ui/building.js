@@ -2,8 +2,8 @@
  * Main Game building panel object.
  * 
  * @param {type} params
- * @class {city_builder.panel}
- * @returns {city_builder.__constructor}
+ * @class {city_builder.panel_building}
+ * @returns {city_builder.panel_building}
  */
 city_builder.panel_building = function (params) {
 
@@ -67,14 +67,14 @@ city_builder.panel_building = function (params) {
 		$('.ui').append(city_builder.ui.building_panel_template.replace(/{id}/g, this.id));
 		$(el + ' header .title').html(params.data.name);
 		var _t = '<p class="smalldesc">' + params.data.description + '</p>' +
-				'<dl>' +
+			'<dl>' +
 				city_builder.ui.cost_panel(params.data.cost) +
 				city_builder.ui.materials_panel(params.data.materials) +
 				city_builder.ui.production_panel(params.data.production, level) +
 				city_builder.ui.requires_panel(params.data.requires) +
 				city_builder.ui.tax_panel(params.data.tax, level) +
 				city_builder.ui.storage_panel(params.data.storage, level) +
-				'</dl>';
+			'</dl>';
 		$(el + ' .contents').append(_t);
 		if (_c.is_marketplace()) {
 			$(el + ' header .demolish').remove();
@@ -121,6 +121,13 @@ city_builder.panel_building = function (params) {
 		return this;
 	};
 
+	/**
+	 * Callback method called when a function from the core needs to refresh
+	 * information on this panel.
+	 *
+	 * @public
+	 * @returns {city_builder.panel_building}
+	 */
 	this.refresh = function() {
 		return this;
 	};

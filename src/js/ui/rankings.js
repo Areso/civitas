@@ -2,8 +2,8 @@
  * Main Game storage panel object.
  * 
  * @param {type} params
- * @class {city_builder.panel}
- * @returns {city_builder.__constructor}
+ * @class {city_builder.panel_rankings}
+ * @returns {city_builder.panel_rankings}
  */
 city_builder.panel_rankings = function (params) {
 	
@@ -91,6 +91,13 @@ city_builder.panel_rankings = function (params) {
 		return this;
 	};
 
+	/**
+	 * Callback method called when a function from the core needs to refresh
+	 * information on this panel.
+	 *
+	 * @public
+	 * @returns {city_builder.panel_building}
+	 */
 	this.refresh = function() {
 		var el = '#panel-' + this.id;
 		var ranking_list = [];

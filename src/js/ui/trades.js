@@ -2,8 +2,8 @@
  * Main Game trades panel object.
  * 
  * @param {type} params
- * @class {city_builder.panel}
- * @returns {city_builder.__constructor}
+ * @class {city_builder.panel_trades}
+ * @returns {city_builder.panel_trades}
  */
 city_builder.panel_trades = function (params) {
 
@@ -135,6 +135,13 @@ city_builder.panel_trades = function (params) {
 		return this;
 	};
 
+	/**
+	 * Callback method called when a function from the core needs to refresh
+	 * information on this panel.
+	 *
+	 * @public
+	 * @returns {city_builder.panel_building}
+	 */
 	this.refresh = function() {
 		this._refresh_imports();
 		this._refresh_exports();
