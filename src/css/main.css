@@ -1144,6 +1144,10 @@ table tr td.large {
 	width: 45%;
 }
 
+table tr td.medium {
+	width: 25%;
+}
+
 .ui-tabs-panel .contents {
 	max-height: 340px;
 	overflow: auto;
