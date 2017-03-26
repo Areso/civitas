@@ -39,6 +39,7 @@ city_builder.panel_rankings = function (params) {
 		this.core.console_log('destroying panel with id `' + this.id + '`');
 		var el = '#panel-' + this.id;
 		$(el).remove();
+		this.core.close_panel(this.id);
 		$('.tipsy').remove();
 		return false;
 	};
@@ -51,24 +52,6 @@ city_builder.panel_rankings = function (params) {
 	 */
 	this.destroy = function () {
 		return this.__destructor();
-	};
-
-	/**
-	 * Retrieve the current ranking score for a city
-	 *
-	 * @public
-	 * @returns {Number}
-	 */
-	this.get_ranking = function(city) {
-		if (typeof city !== 'undefined' && typeof city === 'string') {
-			return this.core.get_city(city).get_rank();
-		}
-		else if (typeof city !== 'undefined' && typeof city === 'object') {
-			return city.get_rank();
-		}
-		else {
-			return this.core.get_city().get_rank();
-		}
 	};
 
 	/**
@@ -88,6 +71,28 @@ city_builder.panel_rankings = function (params) {
 		this.core.console_log('creating panel with id `' + this.id + '`');
 		$(el).remove();
 		$('.ui').append(city_builder.ui.generic_panel_template.replace(/{id}/g, this.id).replace(/{title}/g, this.title));
+		this.refresh();
+		$(el).on('click', '.close', function () {
+			self.destroy();
+			return false;
+		}).draggable({
+			handle: 'header',
+			containment: 'window',
+			snap: '.panel'
+		});
+		$(el + ' .tabs').tabs();
+		$(el + ' .tips').tipsy({
+			gravity: 's'
+		});
+		$(el).css({
+			'left': ($(window).width() / 2) - ($(el).width() / 2),
+			'top': ($(window).height() / 2) - ($(el).height() / 2)
+		});
+		return this;
+	};
+
+	this.refresh = function() {
+		var el = '#panel-' + this.id;
 		var ranking_list = [];
 		for (var item in city_builder.CITIES) {
 			ranking_list.push({
@@ -121,23 +126,25 @@ city_builder.panel_rankings = function (params) {
 		out += '</dl>' +
 			'</div>';
 		$(el + ' .contents').empty().append(out);
-		$(el).on('click', '.close', function () {
-			self.destroy();
-			return false;
-		}).draggable({
-			handle: 'header',
-			containment: 'window',
-			snap: '.panel'
-		});
-		$(el + ' .tabs').tabs();
-		$(el + ' .tips').tipsy({
-			gravity: 's'
-		});
-		$(el).css({
-			'left': ($(window).width() / 2) - ($(el).width() / 2),
-			'top': ($(window).height() / 2) - ($(el).height() / 2)
-		});
 		return this;
+	};
+	
+	/**
+	 * Retrieve the current ranking score for a city
+	 *
+	 * @public
+	 * @returns {Number}
+	 */
+	this.get_ranking = function(city) {
+		if (typeof city !== 'undefined' && typeof city === 'string') {
+			return this.core.get_city(city).get_rank();
+		}
+		else if (typeof city !== 'undefined' && typeof city === 'object') {
+			return city.get_rank();
+		}
+		else {
+			return this.core.get_city().get_rank();
+		}
 	};
 
 	// Fire up the constructor

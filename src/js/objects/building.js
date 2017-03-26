@@ -62,7 +62,15 @@ city_builder.building = function(params) {
 	 * @private
 	 */
 	this.is_municipal = false;
-	
+		
+	/**
+	 * Check if this is a housing building.
+	 * 
+	 * @type {Boolean}
+	 * @private
+	 */
+	this.is_housing = false;
+
 	/**
 	 * The DOM handle of this building.
 	 *
@@ -70,6 +78,14 @@ city_builder.building = function(params) {
 	 * @private
 	 */
 	this.handle = null;
+
+	/**
+	 * Flag if this building has any problems producing its goods.
+	 *
+	 * @type {Boolean}
+	 * @private
+	 */
+	this.problems = false;
 
 	/**
 	 * Object constructor.
@@ -85,17 +101,18 @@ city_builder.building = function(params) {
 		this.name = params.data.name;
 		this.is_production = (typeof params.data.is_production !== 'undefined' && params.data.is_production === true) ? true : false;
 		this.is_municipal = (typeof params.data.is_municipal !== 'undefined' && params.data.is_municipal === true) ? true : false;
+		this.is_housing = (typeof params.data.is_housing !== 'undefined' && params.data.is_housing === true) ? true : false;
 		this.level = (typeof params.data.level !== 'undefined') ? params.data.level : 1;
 		params.data.level = this.level;
 		this.handle = params.data.handle;
 		$('#building-' + this.handle).empty();
 		if (params.hidden !== true) {
 			$('section.game').append(city_builder.ui.building_element(params)).on('click', '#building-' + params.data.handle, function() {
-				new city_builder.panel_building({
+				self.get_core().open_panel(new city_builder.panel_building({
 					core: self.get_core(),
 					header: params.data.name,
 					data: params.data
-				});
+				}));
 			});
 		}
 		var building = this.get_building_data();
@@ -105,6 +122,7 @@ city_builder.building = function(params) {
 				this.get_city().storage = this.get_city().storage + building.storage;
 				break;
 		}
+		this.get_core().refresh_panels();
 		return this;
 	};
 	
@@ -118,6 +136,7 @@ city_builder.building = function(params) {
 		var building = this.get_building_data();
 		if (this.level < building.upgrades) {
 			++this.level;
+			this.get_core().refresh_panels();
 			return true;
 		}
 		return false;
@@ -132,11 +151,22 @@ city_builder.building = function(params) {
 	this.downgrade = function() {
 		if (this.level > 1) {
 			--this.level;
+			this.get_core().refresh_panels();
 			return true;
 		}
 		return false;
 	};
 	
+	/**
+	 * Check if this building is a housing building.
+	 * 
+	 * @public
+	 * @returns {Boolean}
+	 */
+	this.is_housing_building = function() {
+		return this.is_housing;
+	};
+
 	/**
 	 * Check if this building is a production building (its production can be
 	 * started and stopped).
@@ -168,6 +198,8 @@ city_builder.building = function(params) {
 		if (this.is_production_building()) {
 			this.get_core().notify(this.get_name() + '`s production started.');
 			this.working = true;
+			this.problems = false;
+			this.get_core().refresh_panels();
 			$('#building-' + this.handle).empty();
 			return true;
 		} else {
@@ -185,6 +217,8 @@ city_builder.building = function(params) {
 		if (this.is_production_building()) {
 			this.get_core().notify(this.get_name() + '`s production stopped.');
 			this.working = false;
+			this.problems = true;
+			this.get_core().refresh_panels();
 			this.notify(city_builder.NOTIFICATION_PRODUCTION_PAUSED);
 			return true;
 		} else {
@@ -201,6 +235,7 @@ city_builder.building = function(params) {
 	this.demolish = function() {
 		if (this.get_city().demolish(this.get_type())) {
 			$('section.game .building[data-type=' + this.get_type() + ']').remove();
+			this.get_core().refresh_panels();
 			return true;
 		} else {
 			return false;
@@ -224,6 +259,7 @@ city_builder.building = function(params) {
 					if (res[mats[i]].storage - mat[mats[i]] < 0) {
 						this.get_core().log(this.get_name() + ' doesn`t have enough ' + mats[i] + '.', true);
 						this.notify(city_builder.NOTIFICATION_MISSING_RESOURCES);
+						this.problems = true;
 						return false;
 					}
 				}
@@ -232,6 +268,7 @@ city_builder.building = function(params) {
 			if (res[mats].storage - mat[mats] < 0) {
 				this.get_core().log(this.get_name() + ' doesn`t have enough ' + mats + '.', true);
 				this.notify(city_builder.NOTIFICATION_MISSING_RESOURCES);
+				this.problems = true;
 				return false;
 			}
 		}
@@ -457,6 +494,7 @@ city_builder.building = function(params) {
 						var req = city_builder.BUILDINGS[city_builder.BUILDINGS.findIndexM(required[i])];
 						this.get_core().log(this.get_name() + ' doesn`t have the required buildings: ' + req.name + '.', true);
 						this.notify(city_builder.NOTIFICATION_MISSING_RESOURCES);
+						this.problems = true;
 					}
 				}
 			} else {
@@ -465,6 +503,7 @@ city_builder.building = function(params) {
 					var req = city_builder.BUILDINGS[city_builder.BUILDINGS.findIndexM(required)];
 					this.get_core().log(this.get_name() + ' doesn`t have the required buildings: ' + req.name + '.', true);
 					this.notify(city_builder.NOTIFICATION_MISSING_RESOURCES);
+					this.problems = true;
 				}
 			}
 		}
@@ -505,14 +544,17 @@ city_builder.building = function(params) {
 						if (this.has_materials(_m)) {
 							this.use_material(_m);
 							this.produce_material(_p);
+							this.problems = false;
 						}
 					} else {
 						this.produce_material(_p);
+						this.problems = false;
 					}
 				}
 			} else {
 				this.get_core().log(this.get_name() + ' production is stopped.');
 				this.notify(city_builder.NOTIFICATION_PRODUCTION_PAUSED);
+				this.problems = true;
 			}
 		}
 		return this;
@@ -602,6 +644,16 @@ city_builder.building = function(params) {
 	 */
 	this.get_name = function() {
 		return this.name;
+	};
+	
+	/**
+	 * Check whether this building has problems producing its goods.
+	 * 
+	 * @public
+	 * @returns {Boolean}
+	 */
+	this.has_problems = function() {
+		return this.problems;
 	};
 	
 	/**

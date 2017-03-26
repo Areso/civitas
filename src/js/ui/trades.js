@@ -39,6 +39,7 @@ city_builder.panel_trades = function (params) {
 		this.core.console_log('destroying panel with id `' + this.id + '`');
 		var el = '#panel-' + this.id;
 		$(el).remove();
+		this.core.close_panel(this.id);
 		$('.tipsy').remove();
 		return false;
 	};
@@ -77,10 +78,7 @@ city_builder.panel_trades = function (params) {
 		$(el + ' #tab-exports').append('<p>' + city_builder.l('Below is a list of goods that the other cities in the world are looking to sell. The goods replenish yearly, so plan accordingly.') + '</p><div class="contents"></div>');
 		$(el + ' #tab-mercenaries').append('<p>' + city_builder.l('Below is a list of mercenary armies that are looking for hire. Mercenaries are available only for raiding and conquest missions, they do not join your city so they will not participate in defense.') + '</p><div class="contents"></div>');
 		$(el + ' #tab-blackmarket').append('<p>' + city_builder.l('The Black Market is a way to dump your excess materials when you`re in need of emptying your warehouses, but expect a steep price drop (you get ') + (100 - city_builder.BLACK_MARKET_DISCOUNT) + city_builder.l('% of the actual price). The goods will be taken immediately from your warehouses but you will receive the coins next month. Also, you get no prestige from Black Market trades.') + '</p><div class="contents"></div>');
-		this._refresh_imports();
-		this._refresh_exports();
-		this._refresh_mercenaries();
-		this._build_black_market();
+		this.refresh();
 		$(el).on('click', '.buy:not(.disabled)', function () {
 			var handle = $(this).data('city');
 			var resource = $(this).data('resource');
@@ -113,10 +111,10 @@ city_builder.panel_trades = function (params) {
 		}).on('click', '.view-army:not(.disabled)', function () {
 			var army = $(this).data('id');
 			var army_data = city_builder.MERCENARIES[army];
-			new city_builder.panel_army({
+			self.core.open_panel(new city_builder.panel_army({
 				core: self.core,
 				data: army_data
-			});
+			}));
 			return false;
 		}).on('click', '.close', function () {
 			self.destroy();
@@ -134,6 +132,14 @@ city_builder.panel_trades = function (params) {
 			'left': ($(window).width() / 2) - ($(el).width() / 2),
 			'top': ($(window).height() / 2) - ($(el).height() / 2)
 		});
+		return this;
+	};
+
+	this.refresh = function() {
+		this._refresh_imports();
+		this._refresh_exports();
+		this._refresh_mercenaries();
+		this._build_black_market();
 		return this;
 	};
 

@@ -2,7 +2,7 @@
  * City-builder HTML5 engine/game
  *
  * @author sizeof(cat) <sizeofcat AT riseup.net>
- * @version 0.1.3252017
+ * @version 0.1.3262017
  * @license MIT
  */ 'use strict';
 
@@ -5008,6 +5008,7 @@ city_builder.city = function(params) {
 				this.inc_fame_amount(50);
 				this.get_core().refresh_ui();
 				this.get_core().notify(this.get_name() + ' bought ' + amount + ' ' + city_builder.RESOURCES[item].name + ' from ' + city + ' for ' + (city_builder.RESOURCES[item].price + discount) + ' coins each, for a total of ' + price + ' coins.', 'Transaction done');
+				this.get_core().refresh_panels();
 				return {
 					buyer: this.get_name(),
 					amount: amount,
@@ -5198,6 +5199,7 @@ city_builder.city = function(params) {
 				this.inc_fame_amount(50);
 				this.get_core().refresh_ui();
 				this.get_core().notify(this.get_name() + ' sold ' + amount + ' ' + city_builder.RESOURCES[item].name + ' to ' + city + ' for ' + (city_builder.RESOURCES[item].price - discount) + ' coins each, for a total of ' + price + ' coins.', 'Transaction done');
+				this.get_core().refresh_panels();
 				return {
 					seller: this.get_name(),
 					amount: amount,
@@ -6968,7 +6970,15 @@ city_builder.building = function(params) {
 	 * @private
 	 */
 	this.is_municipal = false;
-	
+		
+	/**
+	 * Check if this is a housing building.
+	 * 
+	 * @type {Boolean}
+	 * @private
+	 */
+	this.is_housing = false;
+
 	/**
 	 * The DOM handle of this building.
 	 *
@@ -6976,6 +6986,14 @@ city_builder.building = function(params) {
 	 * @private
 	 */
 	this.handle = null;
+
+	/**
+	 * Flag if this building has any problems producing its goods.
+	 *
+	 * @type {Boolean}
+	 * @private
+	 */
+	this.problems = false;
 
 	/**
 	 * Object constructor.
@@ -6991,17 +7009,18 @@ city_builder.building = function(params) {
 		this.name = params.data.name;
 		this.is_production = (typeof params.data.is_production !== 'undefined' && params.data.is_production === true) ? true : false;
 		this.is_municipal = (typeof params.data.is_municipal !== 'undefined' && params.data.is_municipal === true) ? true : false;
+		this.is_housing = (typeof params.data.is_housing !== 'undefined' && params.data.is_housing === true) ? true : false;
 		this.level = (typeof params.data.level !== 'undefined') ? params.data.level : 1;
 		params.data.level = this.level;
 		this.handle = params.data.handle;
 		$('#building-' + this.handle).empty();
 		if (params.hidden !== true) {
 			$('section.game').append(city_builder.ui.building_element(params)).on('click', '#building-' + params.data.handle, function() {
-				new city_builder.panel_building({
+				self.get_core().open_panel(new city_builder.panel_building({
 					core: self.get_core(),
 					header: params.data.name,
 					data: params.data
-				});
+				}));
 			});
 		}
 		var building = this.get_building_data();
@@ -7011,6 +7030,7 @@ city_builder.building = function(params) {
 				this.get_city().storage = this.get_city().storage + building.storage;
 				break;
 		}
+		this.get_core().refresh_panels();
 		return this;
 	};
 	
@@ -7024,6 +7044,7 @@ city_builder.building = function(params) {
 		var building = this.get_building_data();
 		if (this.level < building.upgrades) {
 			++this.level;
+			this.get_core().refresh_panels();
 			return true;
 		}
 		return false;
@@ -7038,11 +7059,22 @@ city_builder.building = function(params) {
 	this.downgrade = function() {
 		if (this.level > 1) {
 			--this.level;
+			this.get_core().refresh_panels();
 			return true;
 		}
 		return false;
 	};
 	
+	/**
+	 * Check if this building is a housing building.
+	 * 
+	 * @public
+	 * @returns {Boolean}
+	 */
+	this.is_housing_building = function() {
+		return this.is_housing;
+	};
+
 	/**
 	 * Check if this building is a production building (its production can be
 	 * started and stopped).
@@ -7074,6 +7106,8 @@ city_builder.building = function(params) {
 		if (this.is_production_building()) {
 			this.get_core().notify(this.get_name() + '`s production started.');
 			this.working = true;
+			this.problems = false;
+			this.get_core().refresh_panels();
 			$('#building-' + this.handle).empty();
 			return true;
 		} else {
@@ -7091,6 +7125,8 @@ city_builder.building = function(params) {
 		if (this.is_production_building()) {
 			this.get_core().notify(this.get_name() + '`s production stopped.');
 			this.working = false;
+			this.problems = true;
+			this.get_core().refresh_panels();
 			this.notify(city_builder.NOTIFICATION_PRODUCTION_PAUSED);
 			return true;
 		} else {
@@ -7107,6 +7143,7 @@ city_builder.building = function(params) {
 	this.demolish = function() {
 		if (this.get_city().demolish(this.get_type())) {
 			$('section.game .building[data-type=' + this.get_type() + ']').remove();
+			this.get_core().refresh_panels();
 			return true;
 		} else {
 			return false;
@@ -7130,6 +7167,7 @@ city_builder.building = function(params) {
 					if (res[mats[i]].storage - mat[mats[i]] < 0) {
 						this.get_core().log(this.get_name() + ' doesn`t have enough ' + mats[i] + '.', true);
 						this.notify(city_builder.NOTIFICATION_MISSING_RESOURCES);
+						this.problems = true;
 						return false;
 					}
 				}
@@ -7138,6 +7176,7 @@ city_builder.building = function(params) {
 			if (res[mats].storage - mat[mats] < 0) {
 				this.get_core().log(this.get_name() + ' doesn`t have enough ' + mats + '.', true);
 				this.notify(city_builder.NOTIFICATION_MISSING_RESOURCES);
+				this.problems = true;
 				return false;
 			}
 		}
@@ -7363,6 +7402,7 @@ city_builder.building = function(params) {
 						var req = city_builder.BUILDINGS[city_builder.BUILDINGS.findIndexM(required[i])];
 						this.get_core().log(this.get_name() + ' doesn`t have the required buildings: ' + req.name + '.', true);
 						this.notify(city_builder.NOTIFICATION_MISSING_RESOURCES);
+						this.problems = true;
 					}
 				}
 			} else {
@@ -7371,6 +7411,7 @@ city_builder.building = function(params) {
 					var req = city_builder.BUILDINGS[city_builder.BUILDINGS.findIndexM(required)];
 					this.get_core().log(this.get_name() + ' doesn`t have the required buildings: ' + req.name + '.', true);
 					this.notify(city_builder.NOTIFICATION_MISSING_RESOURCES);
+					this.problems = true;
 				}
 			}
 		}
@@ -7411,14 +7452,17 @@ city_builder.building = function(params) {
 						if (this.has_materials(_m)) {
 							this.use_material(_m);
 							this.produce_material(_p);
+							this.problems = false;
 						}
 					} else {
 						this.produce_material(_p);
+						this.problems = false;
 					}
 				}
 			} else {
 				this.get_core().log(this.get_name() + ' production is stopped.');
 				this.notify(city_builder.NOTIFICATION_PRODUCTION_PAUSED);
+				this.problems = true;
 			}
 		}
 		return this;
@@ -7511,6 +7555,16 @@ city_builder.building = function(params) {
 	};
 	
 	/**
+	 * Check whether this building has problems producing its goods.
+	 * 
+	 * @public
+	 * @returns {Boolean}
+	 */
+	this.has_problems = function() {
+		return this.problems;
+	};
+	
+	/**
 	 * Get the level of this building
 	 * 
 	 * @public
@@ -7599,6 +7653,7 @@ city_builder.panel_building = function (params) {
 		this.core.console_log('destroying panel with id `' + this.id + '`');
 		var el = '#panel-' + this.id;
 		$(el).remove();
+		this.core.close_panel(this.id);
 		$('.tipsy').remove();
 		return false;
 	};
@@ -7686,6 +7741,10 @@ city_builder.panel_building = function (params) {
 		return this;
 	};
 
+	this.refresh = function() {
+		return this;
+	};
+
 	// Fire up the constructor
 	return this.__constructor(params);
 };
@@ -7731,6 +7790,7 @@ city_builder.panel_buildings = function (params) {
 		this.core.console_log('destroying panel with id `' + this.id + '`');
 		var el = '#panel-' + this.id;
 		$(el).remove();
+		this.core.close_panel(this.id);
 		$('.tipsy').remove();
 		return false;
 	};
@@ -7950,6 +8010,10 @@ city_builder.panel_buildings = function (params) {
 		return this;
 	};
 
+	this.refresh = function() {
+		return this;
+	};
+	
 	// Fire up the constructor
 	return this.__constructor(params);
 };
@@ -7995,6 +8059,7 @@ city_builder.panel_storage = function (params) {
 		this.core.console_log('destroying panel with id `' + this.id + '`');
 		var el = '#panel-' + this.id;
 		$(el).remove();
+		this.core.close_panel(this.id);
 		$('.tipsy').remove();
 		return false;
 	};
@@ -8024,33 +8089,8 @@ city_builder.panel_storage = function (params) {
 			this.destroy();
 		}
 		this.core.console_log('creating panel with id `' + this.id + '`');
-		var city = this.core.get_city();
-		var resources = city.get_resources();
-		var storage_space = city.get_storage_space();
 		$('.ui').append(city_builder.ui.generic_panel_template.replace(/{id}/g, this.id).replace(/{title}/g, this.title));
-		var out = '<div class="main-storage">';
-		var main_storage = '';
-		var extra_storage = '';
-		for (var resource in city_builder.RESOURCES) {
-			if (resource !== 'fame' && resource !== 'prestige' && resource !== 'espionage') {
-				if ($.inArray(resource, city_builder.MAIN_RESOURCES) !== -1) {
-					main_storage += city_builder.ui.resource_storage_el(resource, resources[resource].storage);
-				} else {
-					extra_storage += city_builder.ui.resource_storage_el(resource, resources[resource].storage);
-				}
-			}
-		}
-		out += main_storage;
-		out += '</div>';
-		out += '<div class="extra-storage hidden">';
-		out += extra_storage;
-		out += '</div>';
-		out += '<div class="clearfix"></div>' +
-				'<p>' + city_builder.l('Total storage space') + ': ' + storage_space.all + ', ' + city_builder.l('used') + ': <span class="citystorage">' + storage_space.occupied + '</span></p>' +
-		'<div class="toolbar">' +
-			'<a class="btn iblock toggle-storage" href="#">' + city_builder.l('Show More Goods') + '</a>' +
-		'</div>';
-		$(el + ' .contents').empty().append(out);
+		this.refresh();
 		$(el).on('click', '.close', function () {
 			self.destroy();
 			return false;
@@ -8088,6 +8128,37 @@ city_builder.panel_storage = function (params) {
 		return this;
 	};
 
+	this.refresh = function() {
+		var city = this.core.get_city();
+		var resources = city.get_resources();
+		var storage_space = city.get_storage_space();
+		var el = '#panel-' + this.id;
+		var out = '<div class="main-storage">';
+		var main_storage = '';
+		var extra_storage = '';
+		for (var resource in city_builder.RESOURCES) {
+			if (resource !== 'fame' && resource !== 'prestige' && resource !== 'espionage') {
+				if ($.inArray(resource, city_builder.MAIN_RESOURCES) !== -1) {
+					main_storage += city_builder.ui.resource_storage_el(resource, resources[resource].storage);
+				} else {
+					extra_storage += city_builder.ui.resource_storage_el(resource, resources[resource].storage);
+				}
+			}
+		}
+		out += main_storage;
+		out += '</div>';
+		out += '<div class="extra-storage hidden">';
+		out += extra_storage;
+		out += '</div>';
+		out += '<div class="clearfix"></div>' +
+				'<p>' + city_builder.l('Total storage space') + ': ' + storage_space.all + ', ' + city_builder.l('used') + ': ' + storage_space.occupied + '</p>' +
+		'<div class="toolbar">' +
+			'<a class="btn iblock toggle-storage" href="#">' + city_builder.l('Show More Goods') + '</a>' +
+		'</div>';
+		$(el + ' .contents').empty().append(out);
+		return this;
+	};
+	
 	// Fire up the constructor
 	return this.__constructor(params);
 };
@@ -8126,6 +8197,7 @@ city_builder.panel_city = function (params) {
 		this.core.console_log('destroying panel with id `' + this.id + '`');
 		var el = '#panel-' + this.id;
 		$(el).remove();
+		this.core.close_panel(this.id);
 		$('.tipsy').remove();
 		return false;
 	};
@@ -8198,6 +8270,10 @@ city_builder.panel_city = function (params) {
 		return this;
 	};
 
+	this.refresh = function() {
+		return this;
+	};
+	
 	// Fire up the constructor
 	return this.__constructor(params);
 };
@@ -8243,6 +8319,7 @@ city_builder.panel_help = function (params) {
 		this.core.console_log('destroying panel with id `' + this.id + '`');
 		var el = '#panel-' + this.id;
 		$(el).remove();
+		this.core.close_panel(this.id);
 		$('.tipsy').remove();
 		return false;
 	};
@@ -8296,6 +8373,10 @@ city_builder.panel_help = function (params) {
 		return this;
 	};
 
+	this.refresh = function() {
+		return this;
+	};
+	
 	// Fire up the constructor
 	return this.__constructor(params);
 };
@@ -8341,6 +8422,7 @@ city_builder.panel_rankings = function (params) {
 		this.core.console_log('destroying panel with id `' + this.id + '`');
 		var el = '#panel-' + this.id;
 		$(el).remove();
+		this.core.close_panel(this.id);
 		$('.tipsy').remove();
 		return false;
 	};
@@ -8353,24 +8435,6 @@ city_builder.panel_rankings = function (params) {
 	 */
 	this.destroy = function () {
 		return this.__destructor();
-	};
-
-	/**
-	 * Retrieve the current ranking score for a city
-	 *
-	 * @public
-	 * @returns {Number}
-	 */
-	this.get_ranking = function(city) {
-		if (typeof city !== 'undefined' && typeof city === 'string') {
-			return this.core.get_city(city).get_rank();
-		}
-		else if (typeof city !== 'undefined' && typeof city === 'object') {
-			return city.get_rank();
-		}
-		else {
-			return this.core.get_city().get_rank();
-		}
 	};
 
 	/**
@@ -8390,6 +8454,28 @@ city_builder.panel_rankings = function (params) {
 		this.core.console_log('creating panel with id `' + this.id + '`');
 		$(el).remove();
 		$('.ui').append(city_builder.ui.generic_panel_template.replace(/{id}/g, this.id).replace(/{title}/g, this.title));
+		this.refresh();
+		$(el).on('click', '.close', function () {
+			self.destroy();
+			return false;
+		}).draggable({
+			handle: 'header',
+			containment: 'window',
+			snap: '.panel'
+		});
+		$(el + ' .tabs').tabs();
+		$(el + ' .tips').tipsy({
+			gravity: 's'
+		});
+		$(el).css({
+			'left': ($(window).width() / 2) - ($(el).width() / 2),
+			'top': ($(window).height() / 2) - ($(el).height() / 2)
+		});
+		return this;
+	};
+
+	this.refresh = function() {
+		var el = '#panel-' + this.id;
 		var ranking_list = [];
 		for (var item in city_builder.CITIES) {
 			ranking_list.push({
@@ -8423,23 +8509,25 @@ city_builder.panel_rankings = function (params) {
 		out += '</dl>' +
 			'</div>';
 		$(el + ' .contents').empty().append(out);
-		$(el).on('click', '.close', function () {
-			self.destroy();
-			return false;
-		}).draggable({
-			handle: 'header',
-			containment: 'window',
-			snap: '.panel'
-		});
-		$(el + ' .tabs').tabs();
-		$(el + ' .tips').tipsy({
-			gravity: 's'
-		});
-		$(el).css({
-			'left': ($(window).width() / 2) - ($(el).width() / 2),
-			'top': ($(window).height() / 2) - ($(el).height() / 2)
-		});
 		return this;
+	};
+	
+	/**
+	 * Retrieve the current ranking score for a city
+	 *
+	 * @public
+	 * @returns {Number}
+	 */
+	this.get_ranking = function(city) {
+		if (typeof city !== 'undefined' && typeof city === 'string') {
+			return this.core.get_city(city).get_rank();
+		}
+		else if (typeof city !== 'undefined' && typeof city === 'object') {
+			return city.get_rank();
+		}
+		else {
+			return this.core.get_city().get_rank();
+		}
 	};
 
 	// Fire up the constructor
@@ -8487,6 +8575,7 @@ city_builder.panel_send_goods = function (params) {
 		this.core.console_log('destroying panel with id `' + this.id + '`');
 		var el = '#panel-' + this.id;
 		$(el).remove();
+		this.core.close_panel(this.id);
 		$('.tipsy').remove();
 		return false;
 	};
@@ -8541,6 +8630,10 @@ city_builder.panel_send_goods = function (params) {
 		return this;
 	};
 
+	this.refresh = function() {
+		return this;
+	};
+	
 	// Fire up the constructor
 	return this.__constructor(params);
 };
@@ -8586,6 +8679,7 @@ city_builder.panel_declare_war = function (params) {
 		this.core.console_log('destroying panel with id `' + this.id + '`');
 		var el = '#panel-' + this.id;
 		$(el).remove();
+		this.core.close_panel(this.id);
 		$('.tipsy').remove();
 		return false;
 	};
@@ -8640,6 +8734,10 @@ city_builder.panel_declare_war = function (params) {
 		return this;
 	};
 
+	this.refresh = function() {
+		return this;
+	};
+	
 	// Fire up the constructor
 	return this.__constructor(params);
 };
@@ -8678,6 +8776,7 @@ city_builder.panel_world = function (params) {
 		this.core.console_log('destroying panel with id `' + this.id + '`');
 		var el = '#panel-' + this.id;
 		$(el).remove();
+		this.core.close_panel(this.id);
 		$('.tipsy').remove();
 		return false;
 	};
@@ -8725,15 +8824,15 @@ city_builder.panel_world = function (params) {
 		}).on('click', '.city', function () {
 			var city_name = $(this).data('name');
 			if (city_name === 'yourcity') {
-				new city_builder.panel_advisor({
+				self.core.open_panel(new city_builder.panel_advisor({
 					core: self.core
-				});
+				}));
 			} else {
 				var _city = self.core.get_city(city_name);
-				new city_builder.panel_city({
+				self.core.open_panel(new city_builder.panel_city({
 					core: self.core,
 					data: _city
-				});
+				}));
 			}
 			return false;
 		});
@@ -8745,6 +8844,10 @@ city_builder.panel_world = function (params) {
 			'left': ($(window).width() / 2) - ($(el).width() / 2),
 			'top': ($(window).height() / 2) - ($(el).height() / 2)
 		});
+		return this;
+	};
+
+	this.refresh = function() {
 		return this;
 	};
 
@@ -8793,6 +8896,7 @@ city_builder.panel_advisor = function (params) {
 		this.core.console_log('destroying panel with id `' + this.id + '`');
 		var el = '#panel-' + this.id;
 		$(el).remove();
+		this.core.close_panel(this.id);
 		$('.tipsy').remove();
 		return false;
 	};
@@ -8823,171 +8927,36 @@ city_builder.panel_advisor = function (params) {
 		}
 		this.core.console_log('creating panel with id `' + this.id + '`');
 		var city = this.core.get_city();
+		var buildings = city.get_buildings();
+		var can_diplomacy = city.is_building_built('embassy');
 		$('.ui').append(city_builder.ui.generic_panel_template.replace(/{id}/g, this.id).replace(/{title}/g, this.title));
 		var _t = '<div class="tabs">' +
 				'<ul>' +
-				'<li><a href="#tab-info">' + city_builder.l('Info') + '</a></li>' +
-				'<li><a href="#tab-production">' + city_builder.l('Production') + '</a></li>' +
-				'<li><a href="#tab-army">' + city_builder.l('Army') + '</a></li>' +
-				'<li><a href="#tab-navy">' + city_builder.l('Navy') + '</a></li>' +
-				'<li><a href="#tab-mercenary">' + city_builder.l('Mercenaries') + '</a></li>' +
-				'<li><a href="#tab-diplomacy">' + city_builder.l('Diplomacy') + '</a></li>' +
+					'<li><a href="#tab-info">' + city_builder.l('Info') + '</a></li>' +
+					'<li><a href="#tab-production">' + city_builder.l('Production') + '</a></li>' +
+					'<li><a href="#tab-housing">' + city_builder.l('Housing') + '</a></li>' +
+					'<li><a href="#tab-army">' + city_builder.l('Army') + '</a></li>' +
+					'<li><a href="#tab-navy">' + city_builder.l('Navy') + '</a></li>' +
+					'<li><a href="#tab-mercenary">' + city_builder.l('Mercenaries') + '</a></li>' +
+					'<li><a href="#tab-diplomacy">' + city_builder.l('Diplomacy') + '</a></li>' +
 				'</ul>' +
 				'<div id="tab-info">' +
-				'<img class="avatar" src="' + city_builder.ASSETS_URL + 'images/avatars/avatar' + city.get_avatar() + '.png" />' +
-				'<dl>' +
-				'<dt>' + city_builder.l('Current date') + '</dt><dd class="citydate">' + this.core.get_date() + '</dd>' +
-				'<dt>' + city_builder.l('Ruler') + '</dt><dd>' + city.get_ruler() + '</dd>' +
-				'<dt>' + city_builder.l('Climate') + '</dt><dd>' + city.get_climate().name.capitalize() + '</dd>' +
-				'<dt>' + city_builder.l('Personality') + '</dt><dd>' + city.get_personality().name.capitalize() + '</dd>' +
-				'<dt>' + city_builder.l('Nationality') + '</dt><dd>' + city.get_nationality().name.capitalize() + '</dd>' +
-				'<dt>' + city_builder.l('Level') + '</dt><dd class="citylevel">' + city.get_level() + '</dd>' +
-				'<dt>' + city_builder.l('Prestige') + '</dt><dd class="cityprestige">' + city.get_prestige_amount() + '</dd>' +
-				'<dt>' + city_builder.l('Espionage') + '</dt><dd class="cityespionage">' + city.get_espionage_amount() + '</dd>' +
-				'</dl>';
-		var advices = city.call_advisor();
-		if (advices.length > 0) {
-			_t += '<p>' + city_builder.l('Your City Advisor recommends you to:') + '</p>' +
-					'<ul class="advices">';
-			for (var z = 0; z < advices.length; z++) {
-				_t += '<li>' + advices[z] + '</li>';
-			}
-			_t += '</ul>';
-		}
-		_t += '</div>' +
+				'</div>' +
 				'<div id="tab-production">' +
 				'</div>' +
-				'<div id="tab-army">';
-		var can_recruit_soldiers = this.core.get_city().is_building_built('camp') || this.core.get_city().is_building_built('castle');
-		if (can_recruit_soldiers !== true) {
-			_t += '<p>' + city_builder.l('You will need to construct a Military Camp or Castle before being able to recruit soldiers in your city.') + '</p>';
-		}
-		_t += '<div class="army-list">' +
+				'<div id="tab-housing">' +
 				'</div>' +
-				'<div class="army-recruiter">';
-		for (var item in city_builder.SOLDIER_TYPES) {
-			_t += '<fieldset>' +
-					'<legend>' + item + '</legend>' +
-					'<div class="cost">' +
-					'<dl class="nomg">';
-			for (var res in city_builder.SOLDIER_TYPES[item].cost) {
-				_t += '<dt>' + city_builder.utils.nice_numbers(city_builder.SOLDIER_TYPES[item].cost[res]) + '</dt><dd><img class="tips" title="' + city_builder.RESOURCES[res].name + '" src="' + city_builder.ASSETS_URL + 'images/resources/' + res + '_small.png" /></dd>';
-			}
-			_t += '</dl>' +
-					'</div>' +
-					'<div class="info">' +
-					'<dl class="nomg">' +
-					'<dt>Attack</dt><dd>' + city_builder.SOLDIER_TYPES[item].attack + '</dd>' +
-					'<dt>Defense</dt><dd>' + city_builder.SOLDIER_TYPES[item].defense + '</dd>' +
-					'</dl>' +
-					'</div>' +
-					'<img data-handle="' + item + '" title="' + city_builder.l('Recruit') + ' ' + item + '" class="tips recruit-soldier" src="' + city_builder.ASSETS_URL + 'images/armies/' + item.toLowerCase() + '.png" />' +
-					'</fieldset>';
-		}
-		_t += '</div>' +
+				'<div id="tab-army">' +
 				'</div>' +
-				'<div id="tab-navy">';
-		var can_build_ships = this.core.get_city().is_building_built('shipyard');
-		if (can_build_ships !== true) {
-			_t += '<p>' + city_builder.l('You will need to construct a Shipyard before being able to construct ships in your city.') + '</p>';
-		}
-		_t += '<div class="navy-list">' +
-				'</div>' +
-				'<div class="navy-recruiter">';
-		for (var item in city_builder.SHIP_TYPES) {
-			_t += '<fieldset>' +
-					'<legend>' + item + '</legend>' +
-					'<div class="cost">' +
-					'<dl class="nomg">';
-			for (var res in city_builder.SHIP_TYPES[item].cost) {
-				_t += '<dt>' + city_builder.utils.nice_numbers(city_builder.SHIP_TYPES[item].cost[res]) + '</dt><dd><img class="tips" title="' + city_builder.RESOURCES[res].name + '" src="' + city_builder.ASSETS_URL + 'images/resources/' + res + '_small.png" /></dd>';
-			}
-			_t += '</dl>' +
-					'</div>' +
-					'<div class="info">' +
-					'<dl class="nomg">' +
-					'<dt>' + city_builder.l('Attack') + '</dt><dd>' + city_builder.SHIP_TYPES[item].attack + '</dd>' +
-					'<dt>' + city_builder.l('Defense') + '</dt><dd>' + city_builder.SHIP_TYPES[item].defense + '</dd>' +
-					'</dl>' +
-					'</div>' +
-					'<img data-handle="' + item + '" title="' + city_builder.l('Recruit') + ' ' + item + '" class="tips recruit-ship" src="' + city_builder.ASSETS_URL + 'images/armies/' + item.toLowerCase() + '.png" />' +
-					'</fieldset>';
-		}
-		_t += '</div>' +
+				'<div id="tab-navy">' +
 				'</div>' +
 				'<div id="tab-mercenary">' +
-				'<p>' + city_builder.l('Mercenary armies are available to hire for a fixed price, they do not cost additional resources but they are only available for raiding and campaign missions, they do not participate in the defense of your city.') + '</p>' +
-				'<p>' + city_builder.l('Also, keep in mind that once a mercenary army is hired, they are at your disposal until the end of the current year.') + '</p>' +
-				'<div class="hired-mercenaries-list">';
-		if (city.mercenary.length > 0) {
-			_t += '<table class="normal">';
-			for (var i = 0; i < city.mercenary.length; i++) {
-				var armyData = city_builder.MERCENARIES[city.mercenary[i].id];
-				_t += '<tr>' +
-						'<td class="icon"><img src="' + city_builder.ASSETS_URL + 'images/armies/' + armyData.icon + '.png" /></td>' +
-						'<td><p class="title">' + armyData.name + '</p><p class="description">' + armyData.description + '</p></td>' +
-						'<td class="large">' +
-						'<a title="' + city_builder.l('View info on this mercenary army.') + '" data-id="' + city.mercenary[i].id + '" class="tips view-merc" href="#">' + city_builder.l('view') + '</a> ' +
-						'<a title="' + city_builder.l('Send this mercenary army on a raiding mission. Depending on the success of the mission, they will return with coins and/or resources.') + '" data-id="' + i + '" class="tips raid-merc" href="#">' + city_builder.l('raid') + '</a> ' +
-						'<a title="' + city_builder.l('Send this mercenary arm on a campaign towards a city. Depending on the success of the mission, they will return with prisoniers (future soldiers for your army), coins and/or resources. Winning a campaign will grant you fame and prestige.') + '" data-id="' + i + '" class="tips campaign-merc" href="#">' + city_builder.l('campaign') + '</a> ' +
-						'<a title="' + city_builder.l('Disband this mercenary army? They will be available for hire later when you need them.') + '" data-id="' + i + '" class="tips disband-merc" href="#">' + city_builder.l('release') + '</a>' +
-						'</td>' +
-						'</tr>';
-
-			}
-			_t += '</table>';
-		} else {
-			_t += '<p>' + city_builder.l('You have no mercenary armies hired for your city. Go to the World Market Trades and hire one.') + '</p>';
-		}
-		_t += '</div>' +
 				'</div>' +
-				'<div id="tab-diplomacy">';
-		var can_diplomacy = this.core.get_city().is_building_built('embassy');
-		if (can_diplomacy !== true) {
-			_t += '<p>' + city_builder.l('You will need to construct an Embassy before being able to propose treaties and pacts to other cities.') + '</p>';
-		}
-		var cities = this.core.get_cities();
-		_t += '<div class="cities-list">' +
-				'<table class="normal">';
-		for (var i = 1; i < cities.length; i++) {
-			_t += '<tr>' +
-					'<td class="icon"><img src="' + city_builder.ASSETS_URL + 'images/avatars/avatar' + cities[i].get_avatar() + '.png" /></td>' +
-					'<td>' +
-					'<p>' +
-						'<span class="title">' + cities[i].get_name() + '</span> ' +
-						'<span class="description">' + city_builder.l('Leader') + ': ' + cities[i].get_ruler() + ' ' + city_builder.l('Personality') + ': ' + cities[i].get_personality().name + '</span>' +
-					'</p>';
-			var influence = this.core.get_city().get_influence();
-			influence = influence[cities[i].get_name()];
-			var _e = '';
-			if (influence < 20) {
-				_e = ' vbad';
-			} else if (influence >= 20 && influence < 50) {
-				_e = ' bad';
-			} else if (influence >= 50 && influence < 80) {
-				_e = ' good';
-			} else if (influence >= 80) {
-				_e = ' vgood';
-			}
-			_t += '<div class="progress"><span style="width:' + influence + '%" class="bar' + _e + '"></span></div>';
-			_t += '</td>' +
-					'<td class="large">' +
-					'<a data-name="' + cities[i].get_name() + '" title="' + city_builder.l('View info about this city.') + '" class="tips view-city" href="#">' + city_builder.l('view') + '</a> ' +
-					'<a data-name="' + cities[i].get_name() + '" title="' + city_builder.l('Send a spy to this city.') + '" data-id="' + i + '" class="tips spy" href="#">' + city_builder.l('spy') + '</a> ' +
-					'<a data-name="' + cities[i].get_name() + '" title="' + city_builder.l('Propose a pact to this city`s ruler.') + '" class="tips pact" href="#">' + city_builder.l('pact') + '</a> ' +
-					'<a data-name="' + cities[i].get_name() + '" title="' + city_builder.l('Send goods to this city.') + '" data-id="' + i + '" class="tips send-goods" href="#">' + city_builder.l('send') + '</a> ' +
-					'<a data-name="' + cities[i].get_name() + '" title="' + city_builder.l('Declare war to this city.') + '" data-id="' + i + '" class="tips declare-war" href="#">' + city_builder.l('war') + '</a>' +
-					'</td>' +
-					'</tr>';
-
-		}
-		_t += '</table>' +
-				'</div>' +
+				'<div id="tab-diplomacy">' +
 				'</div>' +
 				'</div>';
 		$(el + ' .contents').append(_t);
-		this._refresh_army();
-		this._refresh_navy();
+		this.refresh();
 		$(el).on('click', '.pact', function () {
 			if (can_diplomacy === true) {
 				var city = $(this).data('name');
@@ -9039,10 +9008,10 @@ city_builder.panel_advisor = function (params) {
 				var _city = self.core.get_city(name);
 				self.core.error('Not implemented yet.');
 				/*
-				new city_builder.panel_declare_war({
+				self.core.open_panel(new city_builder.panel_declare_war({
 					core: self.core,
 					data: _city
-				});
+				}));
 				*/
 			} else {
 				self.core.error(city_builder.l('You will need to construct an Embassy before being able to declare war to other cities.'));
@@ -9054,10 +9023,10 @@ city_builder.panel_advisor = function (params) {
 				var _city = self.core.get_city(name);
 				self.core.error('Not implemented yet.');
 				/*
-				new city_builder.panel_send_goods({
+				self.core.open_panel(new city_builder.panel_send_goods({
 					core: self.core,
 					data: _city
-				});
+				}));
 				*/
 			} else {
 				self.core.error(city_builder.l('You will need to construct an Embassy before being able to send goods to other cities.'));
@@ -9066,10 +9035,10 @@ city_builder.panel_advisor = function (params) {
 		}).on('click', '.view-city', function () {
 			var name = $(this).data('name');
 			var _city = self.core.get_city(name);
-			new city_builder.panel_city({
+			self.core.open_panel(new city_builder.panel_city({
 				core: self.core,
 				data: _city
-			});
+			}));
 			return false;
 		}).on('click', '.recruit-soldier', function () {
 			if (can_recruit_soldiers === true) {
@@ -9084,10 +9053,10 @@ city_builder.panel_advisor = function (params) {
 		}).on('click', '.view-merc', function () {
 			var _army = $(this).data('id');
 			var data = city_builder.MERCENARIES[_army];
-			new city_builder.panel_army({
+			self.core.open_panel(new city_builder.panel_army({
 				core: self.core,
 				data: data
-			});
+			}));
 			return false;
 		}).on('click', '.raid-merc', function () {
 			var _army = $(this).data('id');
@@ -9123,6 +9092,220 @@ city_builder.panel_advisor = function (params) {
 		return this;
 	};
 
+	this.refresh = function() {
+		this._refresh_info();
+		this._refresh_production();
+		this._refresh_housing();
+		this._refresh_army();
+		this._refresh_navy();
+		this._refresh_mercenaries();
+		this._refresh_diplomacy();
+		return this;
+	};
+
+	this._refresh_mercenaries = function() {
+		var city = this.core.get_city();
+		var _t = '<p>' + city_builder.l('Mercenary armies are available to hire for a fixed price, they do not cost additional resources but they are only available for raiding and campaign missions, they do not participate in the defense of your city.') + '</p>' +
+				'<p>' + city_builder.l('Also, keep in mind that once a mercenary army is hired, they are at your disposal until the end of the current year.') + '</p>' +
+				'<div class="hired-mercenaries-list">';
+		if (city.mercenary.length > 0) {
+			_t += '<table class="normal">';
+			for (var i = 0; i < city.mercenary.length; i++) {
+				var armyData = city_builder.MERCENARIES[city.mercenary[i].id];
+				_t += '<tr>' +
+						'<td class="icon"><img src="' + city_builder.ASSETS_URL + 'images/armies/' + armyData.icon + '.png" /></td>' +
+						'<td><p class="title">' + armyData.name + '</p><p class="description">' + armyData.description + '</p></td>' +
+						'<td class="large">' +
+						'<a title="' + city_builder.l('View info on this mercenary army.') + '" data-id="' + city.mercenary[i].id + '" class="tips view-merc" href="#">' + city_builder.l('view') + '</a> ' +
+						'<a title="' + city_builder.l('Send this mercenary army on a raiding mission. Depending on the success of the mission, they will return with coins and/or resources.') + '" data-id="' + i + '" class="tips raid-merc" href="#">' + city_builder.l('raid') + '</a> ' +
+						'<a title="' + city_builder.l('Send this mercenary arm on a campaign towards a city. Depending on the success of the mission, they will return with prisoniers (future soldiers for your army), coins and/or resources. Winning a campaign will grant you fame and prestige.') + '" data-id="' + i + '" class="tips campaign-merc" href="#">' + city_builder.l('campaign') + '</a> ' +
+						'<a title="' + city_builder.l('Disband this mercenary army? They will be available for hire later when you need them.') + '" data-id="' + i + '" class="tips disband-merc" href="#">' + city_builder.l('release') + '</a>' +
+						'</td>' +
+						'</tr>';
+
+			}
+			_t += '</table>';
+		} else {
+			_t += '<p>' + city_builder.l('You have no mercenary armies hired for your city. Go to the World Market Trades and hire one.') + '</p>';
+		}
+		_t += '</div>';
+		$('#tab-mercenary').empty().append(_t);
+		return this;
+	};
+
+	this._refresh_diplomacy = function() {
+		var city = this.core.get_city();
+		var _t = '';
+		var can_diplomacy = this.core.get_city().is_building_built('embassy');
+		if (can_diplomacy !== true) {
+			_t += '<p>' + city_builder.l('You will need to construct an Embassy before being able to propose treaties and pacts to other cities.') + '</p>';
+		}
+		var cities = this.core.get_cities();
+		_t += '<div class="cities-list">' +
+				'<table class="normal">';
+		for (var i = 1; i < cities.length; i++) {
+			_t += '<tr>' +
+					'<td class="icon"><img src="' + city_builder.ASSETS_URL + 'images/avatars/avatar' + cities[i].get_avatar() + '.png" /></td>' +
+					'<td>' +
+					'<p>' +
+						'<span class="title">' + cities[i].get_name() + '</span> ' +
+						'<span class="description">' + city_builder.l('Leader') + ': ' + cities[i].get_ruler() + ' ' + city_builder.l('Personality') + ': ' + cities[i].get_personality().name + '</span>' +
+					'</p>';
+			var influence = this.core.get_city().get_influence();
+			influence = influence[cities[i].get_name()];
+			var _e = '';
+			if (influence < 20) {
+				_e = ' vbad';
+			} else if (influence >= 20 && influence < 50) {
+				_e = ' bad';
+			} else if (influence >= 50 && influence < 80) {
+				_e = ' good';
+			} else if (influence >= 80) {
+				_e = ' vgood';
+			}
+			_t += '<div class="progress"><span style="width:' + influence + '%" class="bar' + _e + '"></span></div>';
+			_t += '</td>' +
+					'<td class="large">' +
+					'<a data-name="' + cities[i].get_name() + '" title="' + city_builder.l('View info about this city.') + '" class="tips view-city" href="#">' + city_builder.l('view') + '</a> ' +
+					'<a data-name="' + cities[i].get_name() + '" title="' + city_builder.l('Send a spy to this city.') + '" data-id="' + i + '" class="tips spy" href="#">' + city_builder.l('spy') + '</a> ' +
+					'<a data-name="' + cities[i].get_name() + '" title="' + city_builder.l('Propose a pact to this city`s ruler.') + '" class="tips pact" href="#">' + city_builder.l('pact') + '</a> ' +
+					'<a data-name="' + cities[i].get_name() + '" title="' + city_builder.l('Send goods to this city.') + '" data-id="' + i + '" class="tips send-goods" href="#">' + city_builder.l('send') + '</a> ' +
+					'<a data-name="' + cities[i].get_name() + '" title="' + city_builder.l('Declare war to this city.') + '" data-id="' + i + '" class="tips declare-war" href="#">' + city_builder.l('war') + '</a>' +
+					'</td>' +
+					'</tr>';
+
+		}
+		_t += '</table>' +
+				'</div>';
+		$('#tab-diplomacy').empty().append(_t);
+		return this;
+	};
+
+	this._refresh_info = function() {
+		var city = this.core.get_city();
+		var _t = '<img class="avatar" src="' + city_builder.ASSETS_URL + 'images/avatars/avatar' + city.get_avatar() + '.png" />' +
+				'<dl>' +
+				'<dt>' + city_builder.l('Current date') + '</dt><dd class="citydate">' + this.core.get_date() + '</dd>' +
+				'<dt>' + city_builder.l('Ruler') + '</dt><dd>' + city.get_ruler() + '</dd>' +
+				'<dt>' + city_builder.l('Climate') + '</dt><dd>' + city.get_climate().name.capitalize() + '</dd>' +
+				'<dt>' + city_builder.l('Personality') + '</dt><dd>' + city.get_personality().name.capitalize() + '</dd>' +
+				'<dt>' + city_builder.l('Nationality') + '</dt><dd>' + city.get_nationality().name.capitalize() + '</dd>' +
+				'<dt>' + city_builder.l('Level') + '</dt><dd class="citylevel">' + city.get_level() + '</dd>' +
+				'<dt>' + city_builder.l('Prestige') + '</dt><dd class="cityprestige">' + city.get_prestige_amount() + '</dd>' +
+				'<dt>' + city_builder.l('Espionage') + '</dt><dd class="cityespionage">' + city.get_espionage_amount() + '</dd>' +
+				'</dl>';
+		var advices = city.call_advisor();
+		if (advices.length > 0) {
+			_t += '<p>' + city_builder.l('Your City Advisor recommends you to:') + '</p>' +
+					'<ul class="advices">';
+			for (var z = 0; z < advices.length; z++) {
+				_t += '<li>' + advices[z] + '</li>';
+			}
+			_t += '</ul>';
+		}
+		$('#tab-info').empty().append(_t);
+		return this;
+	};
+
+	this._refresh_housing = function() {
+		var city = this.core.get_city();
+		var buildings = city.get_buildings();
+		var _t = '<table class="normal">' +
+					'<thead>' +
+					'<tr>' +
+						'<td></td>' +
+						'<td class="center">Level</td>' +
+						'<td>Tax</td>' +
+						'<td>Materials</td>' +
+					'</tr>' +
+					'</thead>';
+		var total_tax = 0;
+		for (var l = 0; l < buildings.length; l++) {
+			if (buildings[l].is_housing_building() === true) {
+				var building_data = buildings[l].get_building_data();
+				_t += '<tr' + ((buildings[l].has_problems() === false) ? '' : ' class="notify"') +'>' +
+					'<td>' + buildings[l].get_name() + '</td>' +
+					'<td class="center">' + buildings[l].get_level() + '</td>' +
+					'<td>';
+					if (building_data.tax) {
+						total_tax += buildings[l].get_level() * building_data.tax;
+						_t += ' +' + buildings[l].get_level() * building_data.tax + ' ' + city_builder.ui.resource_small_img('coins');
+					}
+				_t += '</td>' +
+					'<td>';
+					if (building_data.materials) {
+						for (var item in building_data.materials) {
+							_t += ' -' + buildings[l].get_level() * building_data.materials[item] + ' ' + city_builder.ui.resource_small_img(item);
+						}
+					}
+				_t += '</td>' +
+				'</tr>';
+			}
+		}
+		_t += '<tfoot>' +
+							'<tr>' +
+								'<td></td>' +
+								'<td></td>' +
+								'<td>Tax income: ' + total_tax + ' ' + city_builder.ui.resource_small_img('coins') + '</td>' +
+								'<td></td>' +
+							'</tr>' +
+						'</tfoot>' +
+					'</table>';
+		$('#tab-housing').empty().append(_t);
+		return this;
+	};
+
+	this._refresh_production = function() {
+		var city = this.core.get_city();
+		var buildings = city.get_buildings();
+		var _t = '<table class="normal">' +
+					'<thead>' +
+					'<tr>' +
+						'<td></td>' +
+						'<td class="center">Level</td>' +
+						'<td>Production</td>' +
+						'<td>Materials</td>' +
+						'<td class="center">Stopped</td>' +
+					'</tr>' +
+					'</thead>';
+		for (var l = 0; l < buildings.length; l++) {
+			if (buildings[l].is_production_building() === true) {
+				var building_data = buildings[l].get_building_data();
+				_t += '<tr' + ((buildings[l].has_problems() === false) ? '' : ' class="notify"') +'>' +
+					'<td>' + buildings[l].get_name() + '</td>' +
+					'<td class="center">' + buildings[l].get_level() + '</td>' +
+					'<td>';
+					if (building_data.production) {
+						for (var item in building_data.production) {
+							_t += ' +' + buildings[l].get_level() * building_data.production[item] + ' ' + city_builder.ui.resource_small_img(item);
+						}
+					}
+				_t += '</td>' +
+					'<td>';
+					if (building_data.materials) {
+						for (var item in building_data.materials) {
+							_t += ' -' + buildings[l].get_level() * building_data.materials[item] + ' ' + city_builder.ui.resource_small_img(item);
+						}
+					}
+				_t += '</td>' +
+					'<td class="center">' + ((buildings[l].is_producing() === true) ? city_builder.l('no') : city_builder.l('yes')) + '</td>' +
+				'</tr>';
+			}
+		}
+		_t += '<tfoot>' +
+					'<tr>' +
+						'<td></td>' +
+						'<td class="center">Level</td>' +
+						'<td>Production</td>' +
+						'<td>Materials</td>' +
+						'<td class="center">Stopped</td>' +
+					'</tr>' +
+					'</tfoot>' +
+					'</table>';
+		$('#tab-production').empty().append(_t);
+		return this;
+	};
+
 	/**
 	 * Internal function for refreshing the Army tab.
 	 * 
@@ -9131,12 +9314,41 @@ city_builder.panel_advisor = function (params) {
 	 */
 	this._refresh_army = function () {
 		var city = this.core.get_city();
+		var _t = '';
+		var can_recruit_soldiers = this.core.get_city().is_building_built('camp') || this.core.get_city().is_building_built('castle');
+		if (can_recruit_soldiers !== true) {
+			_t += '<p>' + city_builder.l('You will need to construct a Military Camp or Castle before being able to recruit soldiers in your city.') + '</p>';
+		}
+		_t += '<div class="army-list">' +
+				'</div>' +
+				'<div class="army-recruiter">';
+		for (var item in city_builder.SOLDIER_TYPES) {
+			_t += '<fieldset>' +
+					'<legend>' + item + '</legend>' +
+					'<div class="cost">' +
+					'<dl class="nomg">';
+			for (var res in city_builder.SOLDIER_TYPES[item].cost) {
+				_t += '<dt>' + city_builder.utils.nice_numbers(city_builder.SOLDIER_TYPES[item].cost[res]) + '</dt><dd><img class="tips" title="' + city_builder.RESOURCES[res].name + '" src="' + city_builder.ASSETS_URL + 'images/resources/' + res + '_small.png" /></dd>';
+			}
+			_t += '</dl>' +
+					'</div>' +
+					'<div class="info">' +
+					'<dl class="nomg">' +
+					'<dt>Attack</dt><dd>' + city_builder.SOLDIER_TYPES[item].attack + '</dd>' +
+					'<dt>Defense</dt><dd>' + city_builder.SOLDIER_TYPES[item].defense + '</dd>' +
+					'</dl>' +
+					'</div>' +
+					'<img data-handle="' + item + '" title="' + city_builder.l('Recruit') + ' ' + item + '" class="tips recruit-soldier" src="' + city_builder.ASSETS_URL + 'images/armies/' + item.toLowerCase() + '.png" />' +
+					'</fieldset>';
+		}
+		_t += '</div>';
+		$('#tab-army').empty().append(_t);
 		var el = '#panel-' + this.id;
-		var _t = '<fieldset>' +
+		var _tt = '<fieldset>' +
 				'<legend>' + city_builder.l('Current Army') + '</legend>' +
 				city_builder.ui.army_list(city.get_army_total(), true) +
 				'</fieldset>';
-		$(el + ' .army-list').empty().append(_t);
+		$(el + ' .army-list').empty().append(_tt);
 		return this;
 	};
 
@@ -9148,12 +9360,41 @@ city_builder.panel_advisor = function (params) {
 	 */
 	this._refresh_navy = function () {
 		var city = this.core.get_city();
+		var _t = '';
+		var can_build_ships = this.core.get_city().is_building_built('shipyard');
+		if (can_build_ships !== true) {
+			_t += '<p>' + city_builder.l('You will need to construct a Shipyard before being able to construct ships in your city.') + '</p>';
+		}
+		_t += '<div class="navy-list">' +
+				'</div>' +
+				'<div class="navy-recruiter">';
+		for (var item in city_builder.SHIP_TYPES) {
+			_t += '<fieldset>' +
+					'<legend>' + item + '</legend>' +
+					'<div class="cost">' +
+					'<dl class="nomg">';
+			for (var res in city_builder.SHIP_TYPES[item].cost) {
+				_t += '<dt>' + city_builder.utils.nice_numbers(city_builder.SHIP_TYPES[item].cost[res]) + '</dt><dd><img class="tips" title="' + city_builder.RESOURCES[res].name + '" src="' + city_builder.ASSETS_URL + 'images/resources/' + res + '_small.png" /></dd>';
+			}
+			_t += '</dl>' +
+					'</div>' +
+					'<div class="info">' +
+					'<dl class="nomg">' +
+					'<dt>' + city_builder.l('Attack') + '</dt><dd>' + city_builder.SHIP_TYPES[item].attack + '</dd>' +
+					'<dt>' + city_builder.l('Defense') + '</dt><dd>' + city_builder.SHIP_TYPES[item].defense + '</dd>' +
+					'</dl>' +
+					'</div>' +
+					'<img data-handle="' + item + '" title="' + city_builder.l('Recruit') + ' ' + item + '" class="tips recruit-ship" src="' + city_builder.ASSETS_URL + 'images/armies/' + item.toLowerCase() + '.png" />' +
+					'</fieldset>';
+		}
+		_t += '</div>';
+		$('#tab-navy').empty().append(_t);
 		var el = '#panel-' + this.id;
-		var _t = '<fieldset>' +
+		var _tt = '<fieldset>' +
 				'<legend>' + city_builder.l('Current Navy') + '</legend>' +
 				city_builder.ui.navy_list(city.get_navy_total(), true) +
 				'</fieldset>';
-		$(el + ' .navy-list').empty().append(_t);
+		$(el + ' .navy-list').empty().append(_tt);
 		return this;
 	};
 
@@ -9195,6 +9436,7 @@ city_builder.panel_army = function (params) {
 		this.core.console_log('destroying panel with id `' + this.id + '`');
 		var el = '#panel-' + this.id;
 		$(el).remove();
+		this.core.close_panel(this.id);
 		$('.tipsy').remove();
 		return false;
 	};
@@ -9249,6 +9491,10 @@ city_builder.panel_army = function (params) {
 		return this;
 	};
 
+	this.refresh = function() {
+		return this;
+	};
+
 	// Fire up the constructor
 	return this.__constructor(params);
 };
@@ -9294,6 +9540,7 @@ city_builder.panel_trades = function (params) {
 		this.core.console_log('destroying panel with id `' + this.id + '`');
 		var el = '#panel-' + this.id;
 		$(el).remove();
+		this.core.close_panel(this.id);
 		$('.tipsy').remove();
 		return false;
 	};
@@ -9332,10 +9579,7 @@ city_builder.panel_trades = function (params) {
 		$(el + ' #tab-exports').append('<p>' + city_builder.l('Below is a list of goods that the other cities in the world are looking to sell. The goods replenish yearly, so plan accordingly.') + '</p><div class="contents"></div>');
 		$(el + ' #tab-mercenaries').append('<p>' + city_builder.l('Below is a list of mercenary armies that are looking for hire. Mercenaries are available only for raiding and conquest missions, they do not join your city so they will not participate in defense.') + '</p><div class="contents"></div>');
 		$(el + ' #tab-blackmarket').append('<p>' + city_builder.l('The Black Market is a way to dump your excess materials when you`re in need of emptying your warehouses, but expect a steep price drop (you get ') + (100 - city_builder.BLACK_MARKET_DISCOUNT) + city_builder.l('% of the actual price). The goods will be taken immediately from your warehouses but you will receive the coins next month. Also, you get no prestige from Black Market trades.') + '</p><div class="contents"></div>');
-		this._refresh_imports();
-		this._refresh_exports();
-		this._refresh_mercenaries();
-		this._build_black_market();
+		this.refresh();
 		$(el).on('click', '.buy:not(.disabled)', function () {
 			var handle = $(this).data('city');
 			var resource = $(this).data('resource');
@@ -9368,10 +9612,10 @@ city_builder.panel_trades = function (params) {
 		}).on('click', '.view-army:not(.disabled)', function () {
 			var army = $(this).data('id');
 			var army_data = city_builder.MERCENARIES[army];
-			new city_builder.panel_army({
+			self.core.open_panel(new city_builder.panel_army({
 				core: self.core,
 				data: army_data
-			});
+			}));
 			return false;
 		}).on('click', '.close', function () {
 			self.destroy();
@@ -9389,6 +9633,14 @@ city_builder.panel_trades = function (params) {
 			'left': ($(window).width() / 2) - ($(el).width() / 2),
 			'top': ($(window).height() / 2) - ($(el).height() / 2)
 		});
+		return this;
+	};
+
+	this.refresh = function() {
+		this._refresh_imports();
+		this._refresh_exports();
+		this._refresh_mercenaries();
+		this._build_black_market();
 		return this;
 	};
 
@@ -9578,6 +9830,7 @@ city_builder.panel_settings = function (params) {
 		this.core.console_log('destroying panel with id `' + this.id + '`');
 		var el = '#panel-' + this.id;
 		$(el).remove();
+		this.core.close_panel(this.id);
 		$('.tipsy').remove();
 		return false;
 	};
@@ -9661,6 +9914,10 @@ city_builder.panel_settings = function (params) {
 		return this;
 	};
 
+	this.refresh = function() {
+		return this;
+	};
+	
 	// Fire up the constructor
 	return this.__constructor(params);
 };
@@ -10190,6 +10447,14 @@ city_builder.game = function () {
 	this.difficulty = city_builder.DIFFICULTY_LEVEL_EASY;
 
 	/**
+	 * Array containing the list of all open panels.
+	 *
+	 * @type {Array}
+	 * @private
+	 */
+	this.panels = [];
+
+	/**
 	 * Object constructor.
 	 * 
 	 * @private
@@ -10231,16 +10496,16 @@ city_builder.game = function () {
 			this.start_game();
 		}
 		$('.toolbar').on('click', '.do-options', function () {
-			new city_builder.panel_settings({
+			self.open_panel(new city_builder.panel_settings({
 				core: self,
 				id: 'settings',
 				header: 'Game Settings'
-			});
+			}));
 			return false;
 		}).on('click', '.do-worldmap', function () {
-			new city_builder.panel_world({
+			self.open_panel(city_builder.panel_world({
 				core: self
-			});
+			}));
 			return false;
 		}).on('click', '.do-restart', function () {
 			if (confirm('Are you sure you want to restart the game? You wll lose all progress!') === true) {
@@ -10249,34 +10514,34 @@ city_builder.game = function () {
 			}
 			return false;
 		}).on('click', '.do-help', function () {
-			new city_builder.panel_help({
+			self.open_panel(new city_builder.panel_help({
 				core: self
-			});
+			}));
 			return false;
 		}).on('click', '.do-trades', function () {
-			new city_builder.panel_trades({
+			self.open_panel(new city_builder.panel_trades({
 				core: self
-			});
+			}));
 			return false;
 		}).on('click', '.do-rankings', function () {
-			new city_builder.panel_rankings({
+			self.open_panel(new city_builder.panel_rankings({
 				core: self
-			});
+			}));
 			return false;
 		}).on('click', '.do-advisor', function () {
-			new city_builder.panel_advisor({
+			self.open_panel(new city_builder.panel_advisor({
 				core: self
-			});
+			}));
 			return false;
 		}).on('click', '.do-storage', function () {
-			new city_builder.panel_storage({
+			self.open_panel(new city_builder.panel_storage({
 				core: self
-			});
+			}));
 			return false;
 		}).on('click', '.do-build', function () {
-			new city_builder.panel_buildings({
+			self.open_panel(new city_builder.panel_buildings({
 				core: self
-			});
+			}));
 			return false;
 		});
 		$('.console').on('click', '.down', function () {
@@ -10287,6 +10552,35 @@ city_builder.game = function () {
 		this.api = new city_builder.api({
 			core: this
 		});
+		return this;
+	};
+
+	/**
+	 * Open the UI panel.
+	 *
+	 * @param {city_builder.panel} panel
+	 * @public
+	 * @returns {city_builder.game}
+	 */
+	this.open_panel = function(panel) {
+		this.panels.push(panel);
+		return this;
+	};
+
+	/**
+	 * Close the UI panel specified by its id.
+	 *
+	 * @public
+	 * @param {String} id
+	 * @returns {city_builder.game}
+	 */
+	this.close_panel = function(id) {
+		var panels = this.get_panels();
+		for (var i = 0; i < panels.length; i++) {
+			if (panels[i].id === id) {
+				panels.splice(i, 1);
+			}
+		}
 		return this;
 	};
 
@@ -10715,6 +11009,21 @@ city_builder.game = function () {
 			this.month = 1;
 		}
 		this.save();
+		this.refresh_panels();
+		return this;
+	};
+
+	/**
+	 * Force refresh of the UI panels open.
+	 *
+	 * @public
+	 * @returns {city_builder.game}
+	 */
+	this.refresh_panels = function() {
+		var panels = this.get_panels();
+		for (var x = 0; x < panels.length; x++) {
+			panels[x].refresh();
+		}
 		return this;
 	};
 
@@ -10998,15 +11307,6 @@ city_builder.game = function () {
 		$('header .cityfame > span').css({
 			width: (city.get_fame_amount() * 100) / needed + '%'
 		});
-		if ($('#panel-storage').length) {
-			for (var resource in city_builder.RESOURCES) {
-				if (resource !== 'fame') {
-					$('#panel-storage div.item-' + resource + ' span.amount').html(city.resources[resource].storage);
-				}
-			}
-		}
-		$('.citydate').empty().append(this.get_date());
-		$('.citystorage').html(storage_space.occupied);
 		$('.top-panel > span').tipsy({
 			gravity: 'n'
 		});
@@ -11093,6 +11393,16 @@ city_builder.game = function () {
 		return city_builder.VERSION;
 	};
 	
+	/**
+	 * Get the panels open in the game.
+	 * 
+	 * @public
+	 * @returns {Array}
+	 */
+	this.get_panels = function() {
+		return this.panels;
+	};
+
 	/**
 	 * Get the difficulty level of the game.
 	 * 

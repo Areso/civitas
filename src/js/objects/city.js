@@ -216,6 +216,7 @@ city_builder.city = function(params) {
 				this.inc_fame_amount(50);
 				this.get_core().refresh_ui();
 				this.get_core().notify(this.get_name() + ' bought ' + amount + ' ' + city_builder.RESOURCES[item].name + ' from ' + city + ' for ' + (city_builder.RESOURCES[item].price + discount) + ' coins each, for a total of ' + price + ' coins.', 'Transaction done');
+				this.get_core().refresh_panels();
 				return {
 					buyer: this.get_name(),
 					amount: amount,
@@ -406,6 +407,7 @@ city_builder.city = function(params) {
 				this.inc_fame_amount(50);
 				this.get_core().refresh_ui();
 				this.get_core().notify(this.get_name() + ' sold ' + amount + ' ' + city_builder.RESOURCES[item].name + ' to ' + city + ' for ' + (city_builder.RESOURCES[item].price - discount) + ' coins each, for a total of ' + price + ' coins.', 'Transaction done');
+				this.get_core().refresh_panels();
 				return {
 					seller: this.get_name(),
 					amount: amount,

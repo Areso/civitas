@@ -32,6 +32,7 @@ city_builder.panel_world = function (params) {
 		this.core.console_log('destroying panel with id `' + this.id + '`');
 		var el = '#panel-' + this.id;
 		$(el).remove();
+		this.core.close_panel(this.id);
 		$('.tipsy').remove();
 		return false;
 	};
@@ -79,15 +80,15 @@ city_builder.panel_world = function (params) {
 		}).on('click', '.city', function () {
 			var city_name = $(this).data('name');
 			if (city_name === 'yourcity') {
-				new city_builder.panel_advisor({
+				self.core.open_panel(new city_builder.panel_advisor({
 					core: self.core
-				});
+				}));
 			} else {
 				var _city = self.core.get_city(city_name);
-				new city_builder.panel_city({
+				self.core.open_panel(new city_builder.panel_city({
 					core: self.core,
 					data: _city
-				});
+				}));
 			}
 			return false;
 		});
@@ -99,6 +100,10 @@ city_builder.panel_world = function (params) {
 			'left': ($(window).width() / 2) - ($(el).width() / 2),
 			'top': ($(window).height() / 2) - ($(el).height() / 2)
 		});
+		return this;
+	};
+
+	this.refresh = function() {
 		return this;
 	};
 

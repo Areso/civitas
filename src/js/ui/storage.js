@@ -39,6 +39,7 @@ city_builder.panel_storage = function (params) {
 		this.core.console_log('destroying panel with id `' + this.id + '`');
 		var el = '#panel-' + this.id;
 		$(el).remove();
+		this.core.close_panel(this.id);
 		$('.tipsy').remove();
 		return false;
 	};
@@ -68,33 +69,8 @@ city_builder.panel_storage = function (params) {
 			this.destroy();
 		}
 		this.core.console_log('creating panel with id `' + this.id + '`');
-		var city = this.core.get_city();
-		var resources = city.get_resources();
-		var storage_space = city.get_storage_space();
 		$('.ui').append(city_builder.ui.generic_panel_template.replace(/{id}/g, this.id).replace(/{title}/g, this.title));
-		var out = '<div class="main-storage">';
-		var main_storage = '';
-		var extra_storage = '';
-		for (var resource in city_builder.RESOURCES) {
-			if (resource !== 'fame' && resource !== 'prestige' && resource !== 'espionage') {
-				if ($.inArray(resource, city_builder.MAIN_RESOURCES) !== -1) {
-					main_storage += city_builder.ui.resource_storage_el(resource, resources[resource].storage);
-				} else {
-					extra_storage += city_builder.ui.resource_storage_el(resource, resources[resource].storage);
-				}
-			}
-		}
-		out += main_storage;
-		out += '</div>';
-		out += '<div class="extra-storage hidden">';
-		out += extra_storage;
-		out += '</div>';
-		out += '<div class="clearfix"></div>' +
-				'<p>' + city_builder.l('Total storage space') + ': ' + storage_space.all + ', ' + city_builder.l('used') + ': <span class="citystorage">' + storage_space.occupied + '</span></p>' +
-		'<div class="toolbar">' +
-			'<a class="btn iblock toggle-storage" href="#">' + city_builder.l('Show More Goods') + '</a>' +
-		'</div>';
-		$(el + ' .contents').empty().append(out);
+		this.refresh();
 		$(el).on('click', '.close', function () {
 			self.destroy();
 			return false;
@@ -132,6 +108,37 @@ city_builder.panel_storage = function (params) {
 		return this;
 	};
 
+	this.refresh = function() {
+		var city = this.core.get_city();
+		var resources = city.get_resources();
+		var storage_space = city.get_storage_space();
+		var el = '#panel-' + this.id;
+		var out = '<div class="main-storage">';
+		var main_storage = '';
+		var extra_storage = '';
+		for (var resource in city_builder.RESOURCES) {
+			if (resource !== 'fame' && resource !== 'prestige' && resource !== 'espionage') {
+				if ($.inArray(resource, city_builder.MAIN_RESOURCES) !== -1) {
+					main_storage += city_builder.ui.resource_storage_el(resource, resources[resource].storage);
+				} else {
+					extra_storage += city_builder.ui.resource_storage_el(resource, resources[resource].storage);
+				}
+			}
+		}
+		out += main_storage;
+		out += '</div>';
+		out += '<div class="extra-storage hidden">';
+		out += extra_storage;
+		out += '</div>';
+		out += '<div class="clearfix"></div>' +
+				'<p>' + city_builder.l('Total storage space') + ': ' + storage_space.all + ', ' + city_builder.l('used') + ': ' + storage_space.occupied + '</p>' +
+		'<div class="toolbar">' +
+			'<a class="btn iblock toggle-storage" href="#">' + city_builder.l('Show More Goods') + '</a>' +
+		'</div>';
+		$(el + ' .contents').empty().append(out);
+		return this;
+	};
+	
 	// Fire up the constructor
 	return this.__constructor(params);
 };

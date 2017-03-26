@@ -108,6 +108,14 @@ city_builder.game = function () {
 	this.difficulty = city_builder.DIFFICULTY_LEVEL_EASY;
 
 	/**
+	 * Array containing the list of all open panels.
+	 *
+	 * @type {Array}
+	 * @private
+	 */
+	this.panels = [];
+
+	/**
 	 * Object constructor.
 	 * 
 	 * @private
@@ -149,16 +157,16 @@ city_builder.game = function () {
 			this.start_game();
 		}
 		$('.toolbar').on('click', '.do-options', function () {
-			new city_builder.panel_settings({
+			self.open_panel(new city_builder.panel_settings({
 				core: self,
 				id: 'settings',
 				header: 'Game Settings'
-			});
+			}));
 			return false;
 		}).on('click', '.do-worldmap', function () {
-			new city_builder.panel_world({
+			self.open_panel(city_builder.panel_world({
 				core: self
-			});
+			}));
 			return false;
 		}).on('click', '.do-restart', function () {
 			if (confirm('Are you sure you want to restart the game? You wll lose all progress!') === true) {
@@ -167,34 +175,34 @@ city_builder.game = function () {
 			}
 			return false;
 		}).on('click', '.do-help', function () {
-			new city_builder.panel_help({
+			self.open_panel(new city_builder.panel_help({
 				core: self
-			});
+			}));
 			return false;
 		}).on('click', '.do-trades', function () {
-			new city_builder.panel_trades({
+			self.open_panel(new city_builder.panel_trades({
 				core: self
-			});
+			}));
 			return false;
 		}).on('click', '.do-rankings', function () {
-			new city_builder.panel_rankings({
+			self.open_panel(new city_builder.panel_rankings({
 				core: self
-			});
+			}));
 			return false;
 		}).on('click', '.do-advisor', function () {
-			new city_builder.panel_advisor({
+			self.open_panel(new city_builder.panel_advisor({
 				core: self
-			});
+			}));
 			return false;
 		}).on('click', '.do-storage', function () {
-			new city_builder.panel_storage({
+			self.open_panel(new city_builder.panel_storage({
 				core: self
-			});
+			}));
 			return false;
 		}).on('click', '.do-build', function () {
-			new city_builder.panel_buildings({
+			self.open_panel(new city_builder.panel_buildings({
 				core: self
-			});
+			}));
 			return false;
 		});
 		$('.console').on('click', '.down', function () {
@@ -205,6 +213,35 @@ city_builder.game = function () {
 		this.api = new city_builder.api({
 			core: this
 		});
+		return this;
+	};
+
+	/**
+	 * Open the UI panel.
+	 *
+	 * @param {city_builder.panel} panel
+	 * @public
+	 * @returns {city_builder.game}
+	 */
+	this.open_panel = function(panel) {
+		this.panels.push(panel);
+		return this;
+	};
+
+	/**
+	 * Close the UI panel specified by its id.
+	 *
+	 * @public
+	 * @param {String} id
+	 * @returns {city_builder.game}
+	 */
+	this.close_panel = function(id) {
+		var panels = this.get_panels();
+		for (var i = 0; i < panels.length; i++) {
+			if (panels[i].id === id) {
+				panels.splice(i, 1);
+			}
+		}
 		return this;
 	};
 
@@ -633,6 +670,21 @@ city_builder.game = function () {
 			this.month = 1;
 		}
 		this.save();
+		this.refresh_panels();
+		return this;
+	};
+
+	/**
+	 * Force refresh of the UI panels open.
+	 *
+	 * @public
+	 * @returns {city_builder.game}
+	 */
+	this.refresh_panels = function() {
+		var panels = this.get_panels();
+		for (var x = 0; x < panels.length; x++) {
+			panels[x].refresh();
+		}
 		return this;
 	};
 
@@ -916,15 +968,6 @@ city_builder.game = function () {
 		$('header .cityfame > span').css({
 			width: (city.get_fame_amount() * 100) / needed + '%'
 		});
-		if ($('#panel-storage').length) {
-			for (var resource in city_builder.RESOURCES) {
-				if (resource !== 'fame') {
-					$('#panel-storage div.item-' + resource + ' span.amount').html(city.resources[resource].storage);
-				}
-			}
-		}
-		$('.citydate').empty().append(this.get_date());
-		$('.citystorage').html(storage_space.occupied);
 		$('.top-panel > span').tipsy({
 			gravity: 'n'
 		});
@@ -1011,6 +1054,16 @@ city_builder.game = function () {
 		return city_builder.VERSION;
 	};
 	
+	/**
+	 * Get the panels open in the game.
+	 * 
+	 * @public
+	 * @returns {Array}
+	 */
+	this.get_panels = function() {
+		return this.panels;
+	};
+
 	/**
 	 * Get the difficulty level of the game.
 	 * 

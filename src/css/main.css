@@ -516,6 +516,11 @@ table.mercenaries td:nth-child(3) {
 	margin-top: 10px;
 }
 
+#tab-production {
+	overflow: auto;
+	height: 460px;
+}
+
 .panel .army-recruiter,
 .panel .navy-recruiter {
 	width: 600px;
@@ -1051,7 +1056,21 @@ td.icon {
 .tabs table td {
 	text-align: left;
 	vertical-align: middle;
+	padding: 4px 10px;
+}
+
+.tabs table thead td,
+.tabs table tfoot td {
+	background-color: #555;
+	color: #fff;
 	padding: 10px;
+}
+
+table tr.notify {
+	background-color: #f5c0c0;
+}
+.tabs table td.center {
+	text-align: center;
 }
 
 .tabs table td img,
@@ -1095,8 +1114,8 @@ table tr:hover td:last-child a.disabled {
 }
 
 table.normal tr td:nth-child(4) {
-	width: 10%;
-	text-align: right;
+	/*width: 10%;*/
+	/*text-align: right;*/
 }
 
 .rankings-list {
@@ -1105,13 +1124,12 @@ table.normal tr td:nth-child(4) {
 }
 
 table.normal tr td:nth-child(5) {
-	width: 20%;
-	text-align: right;
+	/*width: 20%;*/
+	/*text-align: right;*/
 }
 
 table tr td:last-child {
-	width: 28%;
-	text-align: center;
+	/*width: 28%;*/
 }
 
 table tr td.large {

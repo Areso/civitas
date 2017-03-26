@@ -32,6 +32,7 @@ city_builder.panel_city = function (params) {
 		this.core.console_log('destroying panel with id `' + this.id + '`');
 		var el = '#panel-' + this.id;
 		$(el).remove();
+		this.core.close_panel(this.id);
 		$('.tipsy').remove();
 		return false;
 	};
@@ -104,6 +105,10 @@ city_builder.panel_city = function (params) {
 		return this;
 	};
 
+	this.refresh = function() {
+		return this;
+	};
+	
 	// Fire up the constructor
 	return this.__constructor(params);
 };

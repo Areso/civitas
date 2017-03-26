@@ -2,7 +2,7 @@
  * City-builder HTML5 engine/game
  *
  * @author sizeof(cat) <sizeofcat AT riseup.net>
- * @version 0.1.3252017
+ * @version 0.1.3262017
  * @license MIT
  */ @font-face {
   font-family: 'Nova Oval';
@@ -520,6 +520,11 @@ table.mercenaries td:nth-child(3) {
 #panel-advisor img.avatar {
 	margin-right: 10px;
 	margin-top: 10px;
+}
+
+#tab-production {
+	overflow: auto;
+	height: 460px;
 }
 
 .panel .army-recruiter,
@@ -1057,7 +1062,21 @@ td.icon {
 .tabs table td {
 	text-align: left;
 	vertical-align: middle;
+	padding: 4px 10px;
+}
+
+.tabs table thead td,
+.tabs table tfoot td {
+	background-color: #555;
+	color: #fff;
 	padding: 10px;
+}
+
+table tr.notify {
+	background-color: #f5c0c0;
+}
+.tabs table td.center {
+	text-align: center;
 }
 
 .tabs table td img,
@@ -1101,8 +1120,8 @@ table tr:hover td:last-child a.disabled {
 }
 
 table.normal tr td:nth-child(4) {
-	width: 10%;
-	text-align: right;
+	/*width: 10%;*/
+	/*text-align: right;*/
 }
 
 .rankings-list {
@@ -1111,13 +1130,12 @@ table.normal tr td:nth-child(4) {
 }
 
 table.normal tr td:nth-child(5) {
-	width: 20%;
-	text-align: right;
+	/*width: 20%;*/
+	/*text-align: right;*/
 }
 
 table tr td:last-child {
-	width: 28%;
-	text-align: center;
+	/*width: 28%;*/
 }
 
 table tr td.large {
