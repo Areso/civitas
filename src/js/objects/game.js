@@ -988,8 +988,6 @@ city_builder.game = function () {
 		var city = this.get_city();
 		var storage_space = city.get_storage_space();
 		var needed = city_builder.LEVELS[city.get_level()];
-		console.log('n:' + needed);
-		console.log('a:' + city.get_fame());
 		$('.citylevel').html(city.get_level());
 		$('.cityprestige').html(city.get_prestige());
 		this.refresh_toolbar();
