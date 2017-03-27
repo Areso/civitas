@@ -2,7 +2,10 @@
  * Utils object.
  */
 city_builder.utils = {
-	
+	get_resource_name: function(handle) {
+		return city_builder.RESOURCES[handle].name;
+	},
+
 	/**
 	 * Calculate the resource price for the specified amount minus the discount.
 	 * 

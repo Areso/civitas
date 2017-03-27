@@ -74,8 +74,8 @@ city_builder.panel_city = function (params) {
 				'<dt>' + city_builder.l('Personality') + '</dt><dd>' + city.get_personality().name.capitalize() + '</dd>' +
 				'<dt>' + city_builder.l('Nationality') + '</dt><dd>' + city.get_nationality().name.capitalize() + '</dd>' +
 				'<dt>' + city_builder.l('Level') + '</dt><dd>' + city.get_level() + '</dd>' +
-				'<dt>' + city_builder.l('Prestige') + '</dt><dd>' + city.get_prestige_amount() + '</dd>' +
-				'<dt>' + city_builder.l('Coins') + '</dt><dd>' + city_builder.utils.nice_numbers(city.get_coins_amount()) + '</dd>' +
+				'<dt>' + city_builder.l('Prestige') + '</dt><dd>' + city.get_prestige() + '</dd>' +
+				'<dt>' + city_builder.l('Coins') + '</dt><dd>' + city_builder.utils.nice_numbers(city.get_coins()) + '</dd>' +
 				'<dt>' + city_builder.l('Influence') + '</dt><dd>' + this.core.get_city().get_influence_with_city(city.get_name()) + '</dd>' +
 				'</dl>');
 		$(el + ' #tab-army').append(city_builder.ui.army_list(city.get_army_total()));

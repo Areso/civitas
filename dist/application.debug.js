@@ -2,7 +2,7 @@
  * City-builder HTML5 engine/game
  *
  * @author sizeof(cat) <sizeofcat AT riseup.net>
- * @version 0.1.3272017
+ * @version 0.1.3282017
  * @license MIT
  */ 'use strict';
 
@@ -141,7 +141,7 @@ city_builder.LEVELS = [
  * @constant
  * @type {String}
  */
-city_builder.VERSION = '0.1.0';
+city_builder.VERSION = '0.1.' + ((new Date()).getMonth() + 1) + '' + (new Date()).getDate() + '' + (new Date()).getFullYear();
 
 /**
  * Whether the application is in debug mode.
@@ -1188,7 +1188,7 @@ city_builder.SHIP_TYPE_FRIGATE = 5;
  * @constant
  * @type {Array}
  */
-city_builder.BUILDINGS_TROPICAL = [
+city_builder.CITY_BUILDINGS_TROPICAL = [
 
 	/* Municipal */
 	'marketplace', 'warehouse', 'tradingpost', 'church', 'monastery', 'camp', 'castle',
@@ -1556,9 +1556,9 @@ city_builder.BUILDINGS = [{
 			y: 365
 		},
 		cost: {
-			coins: 5000,
-			wood: 50,
-			stones: 50
+			coins: 150000,
+			wood: 500,
+			stones: 500
 		},
 		requires: {
 			city_level: 10
@@ -1584,8 +1584,8 @@ city_builder.BUILDINGS = [{
 		levels: 3,
 		cost: {
 			coins: 10000,
-			wood: 10,
-			stones: 10
+			wood: 20,
+			stones: 20
 		},
 		requires: {
 			city_level: 3
@@ -1601,7 +1601,7 @@ city_builder.BUILDINGS = [{
 		},
 		levels: 3,
 		cost: {
-			coins: 3000,
+			coins: 50000,
 			wood: 40,
 			stones: 40
 		},
@@ -1628,7 +1628,7 @@ city_builder.BUILDINGS = [{
 		},
 		levels: 3,
 		cost: {
-			coins: 5000,
+			coins: 100000,
 			wood: 100,
 			stones: 100
 		},
@@ -1653,9 +1653,9 @@ city_builder.BUILDINGS = [{
 		},
 		levels: 3,
 		cost: {
-			coins: 5000,
-			wood: 100,
-			stones: 100
+			coins: 50000,
+			wood: 200,
+			stones: 200
 		},
 		requires: {
 			city_level: 16
@@ -1675,8 +1675,8 @@ city_builder.BUILDINGS = [{
 			pearls: 0.05
 		},
 		cost: {
-			coins: 10000,
-			wood: 100,
+			coins: 200000,
+			wood: 200,
 			stones: 100
 		},
 		production: {
@@ -1696,7 +1696,7 @@ city_builder.BUILDINGS = [{
 			y: 153
 		},
 		cost: {
-			coins: 5000,
+			coins: 50000,
 			wood: 200,
 			stones: 160
 		},
@@ -1723,7 +1723,7 @@ city_builder.BUILDINGS = [{
 			coins: 200
 		},
 		cost: {
-			coins: 200000,
+			coins: 1000000,
 			wood: 500,
 			stones: 500
 		},
@@ -1792,7 +1792,7 @@ city_builder.BUILDINGS = [{
 			gems: 0.01
 		},
 		cost: {
-			coins: 3000,
+			coins: 10000,
 			wood: 20,
 			stones: 20
 		},
@@ -1818,7 +1818,7 @@ city_builder.BUILDINGS = [{
 			gems: 0.01
 		},
 		cost: {
-			coins: 2000,
+			coins: 10000,
 			wood: 20,
 			stones: 20
 		},
@@ -1841,7 +1841,7 @@ city_builder.BUILDINGS = [{
 		},
 		levels: 3,
 		cost: {
-			coins: 1000,
+			coins: 8000,
 			wood: 20,
 			stones: 20
 		},
@@ -1867,7 +1867,7 @@ city_builder.BUILDINGS = [{
 			gems: 0.01
 		},
 		cost: {
-			coins: 2000,
+			coins: 10000,
 			wood: 20,
 			stones: 20
 		},
@@ -1894,7 +1894,7 @@ city_builder.BUILDINGS = [{
 		},
 		levels: 3,
 		cost: {
-			coins: 3000,
+			coins: 20000,
 			wood: 20,
 			stones: 20
 		},
@@ -1918,7 +1918,7 @@ city_builder.BUILDINGS = [{
 		},
 		levels: 3,
 		cost: {
-			coins: 4000,
+			coins: 10000,
 			wood: 20,
 			stones: 20
 		},
@@ -1943,7 +1943,7 @@ city_builder.BUILDINGS = [{
 		},
 		levels: 3,
 		cost: {
-			coins: 5000,
+			coins: 15000,
 			wood: 30,
 			stones: 30
 		},
@@ -1970,7 +1970,7 @@ city_builder.BUILDINGS = [{
 		},
 		levels: 3,
 		cost: {
-			coins: 6000,
+			coins: 50000,
 			wood: 100,
 			stones: 100
 		},
@@ -1997,7 +1997,7 @@ city_builder.BUILDINGS = [{
 		},
 		levels: 3,
 		cost: {
-			coins: 4000,
+			coins: 25000,
 			wood: 40,
 			stones: 40
 		},
@@ -2023,7 +2023,7 @@ city_builder.BUILDINGS = [{
 		},
 		levels: 3,
 		cost: {
-			coins: 4000,
+			coins: 40000,
 			wood: 40,
 			stones: 50
 		},
@@ -2048,7 +2048,7 @@ city_builder.BUILDINGS = [{
 		},
 		levels: 3,
 		cost: {
-			coins: 4000,
+			coins: 40000,
 			wood: 50,
 			stones: 50
 		},
@@ -2073,7 +2073,7 @@ city_builder.BUILDINGS = [{
 		},
 		levels: 3,
 		cost: {
-			coins: 4000,
+			coins: 40000,
 			wood: 55,
 			stones: 55
 		},
@@ -2094,7 +2094,7 @@ city_builder.BUILDINGS = [{
 		},
 		levels: 3,
 		cost: {
-			coins: 2000,
+			coins: 15000,
 			wood: 40,
 			stones: 40
 		},
@@ -2120,7 +2120,7 @@ city_builder.BUILDINGS = [{
 		},
 		levels: 3,
 		cost: {
-			coins: 3000,
+			coins: 15000,
 			wood: 30,
 			stones: 40
 		},
@@ -2144,7 +2144,7 @@ city_builder.BUILDINGS = [{
 		},
 		levels: 3,
 		cost: {
-			coins: 5000,
+			coins: 15000,
 			wood: 40,
 			stones: 40
 		},
@@ -2169,7 +2169,7 @@ city_builder.BUILDINGS = [{
 			y: 552
 		},
 		cost: {
-			coins: 3000,
+			coins: 20000,
 			wood: 35,
 			stones: 40
 		},
@@ -2194,7 +2194,7 @@ city_builder.BUILDINGS = [{
 		},
 		levels: 3,
 		cost: {
-			coins: 7000,
+			coins: 70000,
 			wood: 80,
 			stones: 60
 		},
@@ -2218,7 +2218,7 @@ city_builder.BUILDINGS = [{
 		},
 		levels: 3,
 		cost: {
-			coins: 7000,
+			coins: 70000,
 			wood: 80,
 			stones: 60
 		},
@@ -2243,7 +2243,7 @@ city_builder.BUILDINGS = [{
 		},
 		levels: 3,
 		cost: {
-			coins: 5000,
+			coins: 50000,
 			wood: 50,
 			stones: 40
 		},
@@ -2268,7 +2268,7 @@ city_builder.BUILDINGS = [{
 		},
 		levels: 3,
 		cost: {
-			coins: 8100,
+			coins: 81000,
 			wood: 70,
 			stones: 70
 		},
@@ -2293,7 +2293,7 @@ city_builder.BUILDINGS = [{
 		},
 		levels: 3,
 		cost: {
-			coins: 8300,
+			coins: 83000,
 			wood: 60,
 			stones: 50
 		},
@@ -2318,7 +2318,7 @@ city_builder.BUILDINGS = [{
 		},
 		levels: 3,
 		cost: {
-			coins: 8400,
+			coins: 84000,
 			wood: 100,
 			stones: 100
 		},
@@ -2343,7 +2343,7 @@ city_builder.BUILDINGS = [{
 		},
 		levels: 3,
 		cost: {
-			coins: 8200,
+			coins: 90000,
 			wood: 80,
 			stones: 40
 		},
@@ -2368,7 +2368,7 @@ city_builder.BUILDINGS = [{
 		},
 		levels: 3,
 		cost: {
-			coins: 7500,
+			coins: 75000,
 			wood: 70,
 			stones: 50
 		},
@@ -2392,7 +2392,7 @@ city_builder.BUILDINGS = [{
 		},
 		levels: 3,
 		cost: {
-			coins: 4000,
+			coins: 15000,
 			wood: 70,
 			stones: 60
 		},
@@ -2416,7 +2416,7 @@ city_builder.BUILDINGS = [{
 		},
 		levels: 3,
 		cost: {
-			coins: 5000,
+			coins: 50000,
 			wood: 50,
 			stones: 80
 		},
@@ -2437,7 +2437,7 @@ city_builder.BUILDINGS = [{
 		},
 		levels: 3,
 		cost: {
-			coins: 4000,
+			coins: 40000,
 			wood: 50,
 			stones: 90
 		},
@@ -2458,7 +2458,7 @@ city_builder.BUILDINGS = [{
 		},
 		levels: 3,
 		cost: {
-			coins: 4000,
+			coins: 40000,
 			wood: 50,
 			stones: 40
 		},
@@ -2483,7 +2483,7 @@ city_builder.BUILDINGS = [{
 		},
 		levels: 3,
 		cost: {
-			coins: 4100,
+			coins: 25000,
 			wood: 80,
 			stones: 70
 		},
@@ -2508,7 +2508,7 @@ city_builder.BUILDINGS = [{
 		},
 		levels: 3,
 		cost: {
-			coins: 4200,
+			coins: 25000,
 			wood: 60,
 			stones: 70
 		},
@@ -2533,7 +2533,7 @@ city_builder.BUILDINGS = [{
 		},
 		levels: 3,
 		cost: {
-			coins: 6400,
+			coins: 45000,
 			wood: 80,
 			stones: 60
 		},
@@ -2558,7 +2558,7 @@ city_builder.BUILDINGS = [{
 		},
 		levels: 3,
 		cost: {
-			coins: 5000,
+			coins: 15000,
 			wood: 50,
 			stones: 50
 		},
@@ -2803,7 +2803,7 @@ city_builder.BUILDINGS = [{
 		},
 		levels: 3,
 		cost: {
-			coins: 4000,
+			coins: 10000,
 			wood: 50,
 			stones: 30
 		},
@@ -2820,7 +2820,7 @@ city_builder.BUILDINGS = [{
 			y: 840
 		},
 		cost: {
-			coins: 1000,
+			coins: 2000,
 			wood: 10,
 			clay: 10
 		},
@@ -2841,7 +2841,7 @@ city_builder.BUILDINGS = [{
 			y: 569
 		},
 		cost: {
-			coins: 8000,
+			coins: 40000,
 			wood: 30,
 			stones: 30
 		},
@@ -2858,7 +2858,7 @@ city_builder.BUILDINGS = [{
 			y: 636
 		},
 		cost: {
-			coins: 1200,
+			coins: 5000,
 			wood: 10,
 			clay: 10
 		},
@@ -2884,7 +2884,7 @@ city_builder.BUILDINGS = [{
 			y: 783
 		},
 		cost: {
-			coins: 3000,
+			coins: 10000,
 			wood: 20,
 			stones: 20
 		},
@@ -2901,7 +2901,7 @@ city_builder.BUILDINGS = [{
 			y: 838
 		},
 		cost: {
-			coins: 800,
+			coins: 1000,
 			wood: 10,
 			clay: 10
 		},
@@ -2926,7 +2926,7 @@ city_builder.BUILDINGS = [{
 			y: 712
 		},
 		cost: {
-			coins: 3000,
+			coins: 15000,
 			wood: 20,
 			stones: 20
 		},
@@ -2943,7 +2943,7 @@ city_builder.BUILDINGS = [{
 			y: 770
 		},
 		cost: {
-			coins: 800,
+			coins: 1500,
 			wood: 10,
 			clay: 10
 		},
@@ -2966,7 +2966,7 @@ city_builder.BUILDINGS = [{
 			y: 859
 		},
 		cost: {
-			coins: 2000,
+			coins: 10000,
 			wood: 20,
 			stones: 20
 		},
@@ -2983,7 +2983,7 @@ city_builder.BUILDINGS = [{
 			y: 915
 		},
 		cost: {
-			coins: 500,
+			coins: 1000,
 			wood: 10,
 			clay: 5
 		},
@@ -3005,7 +3005,7 @@ city_builder.BUILDINGS = [{
 			y: 600
 		},
 		cost: {
-			coins: 4000,
+			coins: 15000,
 			wood: 20,
 			stones: 20
 		},
@@ -3022,7 +3022,7 @@ city_builder.BUILDINGS = [{
 			y: 670
 		},
 		cost: {
-			coins: 1200,
+			coins: 1500,
 			wood: 10,
 			clay: 10
 		},
@@ -3044,7 +3044,7 @@ city_builder.BUILDINGS = [{
 			y: 466
 		},
 		cost: {
-			coins: 6000,
+			coins: 60000,
 			wood: 20,
 			stones: 20
 		},
@@ -3061,7 +3061,7 @@ city_builder.BUILDINGS = [{
 			y: 532
 		},
 		cost: {
-			coins: 2000,
+			coins: 6000,
 			wood: 10,
 			clay: 10
 		},
@@ -3083,7 +3083,7 @@ city_builder.BUILDINGS = [{
 			y: 698
 		},
 		cost: {
-			coins: 4000,
+			coins: 20000,
 			wood: 20,
 			stones: 20
 		},
@@ -3100,7 +3100,7 @@ city_builder.BUILDINGS = [{
 			y: 758
 		},
 		cost: {
-			coins: 1000,
+			coins: 2000,
 			wood: 10,
 			clay: 10
 		},
@@ -3121,7 +3121,7 @@ city_builder.BUILDINGS = [{
 			y: 745
 		},
 		cost: {
-			coins: 8000,
+			coins: 80000,
 			wood: 20,
 			stones: 20
 		},
@@ -3138,7 +3138,7 @@ city_builder.BUILDINGS = [{
 			y: 819
 		},
 		cost: {
-			coins: 1400,
+			coins: 8000,
 			wood: 10,
 			clay: 10
 		},
@@ -3160,7 +3160,7 @@ city_builder.BUILDINGS = [{
 			y: 804
 		},
 		cost: {
-			coins: 10000,
+			coins: 100000,
 			wood: 20,
 			stones: 20
 		},
@@ -3177,7 +3177,7 @@ city_builder.BUILDINGS = [{
 			y: 862
 		},
 		cost: {
-			coins: 4000,
+			coins: 10000,
 			wood: 10,
 			clay: 10
 		},
@@ -3198,7 +3198,7 @@ city_builder.BUILDINGS = [{
 			y: 870
 		},
 		cost: {
-			coins: 5000,
+			coins: 200000,
 			wood: 30,
 			stones: 30,
 			clay: 30
@@ -3220,7 +3220,7 @@ city_builder.BUILDINGS = [{
 			y: 630
 		},
 		cost: {
-			coins: 7000,
+			coins: 20000,
 			wood: 50,
 			stones: 50,
 			clay: 50
@@ -3242,7 +3242,7 @@ city_builder.BUILDINGS = [{
 			y: 870
 		},
 		cost: {
-			coins: 10000,
+			coins: 200000,
 			wood: 60,
 			stones: 60,
 			clay: 60
@@ -3267,8 +3267,10 @@ city_builder.CITIES = {
 		climate: city_builder.CLIMATE_TYPE_TEMPERATE,
 		personality: city_builder.PERSONALITY_TYPE_DIPLOMAT,
 		level: 25,
-		prestige: 700,
-		coins: 230000,
+		resources: {
+			'coins': 230000,
+			'prestige': 700
+		},
 		trades: {
 			'imports': {
 				gold: city_builder.GOODS_IMPORTANCE_MEDIUM,
@@ -3316,8 +3318,10 @@ city_builder.CITIES = {
 		climate: city_builder.CLIMATE_TYPE_TROPICAL,
 		personality: city_builder.PERSONALITY_TYPE_DIPLOMAT,
 		level: 24,
-		coins: 130000,
-		prestige: 700,
+		resources: {
+			'coins': 130000,
+			'prestige': 700
+		},
 		trades: {
 			'imports': {
 				wax: city_builder.GOODS_IMPORTANCE_LOW,
@@ -3367,9 +3371,11 @@ city_builder.CITIES = {
 		icon: 6,
 		climate: city_builder.CLIMATE_TYPE_TEMPERATE,
 		personality: city_builder.PERSONALITY_TYPE_WARLORD,
-		coins: 100000,
-		level: 35,
-		prestige: 1000,
+		level: 30,
+		resources: {
+			'coins': 100000,
+			'prestige': 1000
+		},
 		trades: {
 			'imports': {
 				wheat: city_builder.GOODS_IMPORTANCE_VITAL,
@@ -3404,9 +3410,11 @@ city_builder.CITIES = {
 		icon: 5,
 		climate: city_builder.CLIMATE_TYPE_TROPICAL,
 		personality: city_builder.PERSONALITY_TYPE_WARLORD,
-		coins: 200000,
 		level: 22,
-		prestige: 500,
+		resources: {
+			'coins': 200000,
+			'prestige': 500
+		},
 		trades: {
 			'imports': {
 				flour: city_builder.GOODS_IMPORTANCE_LOW,
@@ -3445,9 +3453,11 @@ city_builder.CITIES = {
 		icon: 7,
 		climate: city_builder.CLIMATE_TYPE_ARID,
 		personality: city_builder.PERSONALITY_TYPE_DIPLOMAT,
-		coins: 200000,
-		level: 35,
-		prestige: 800,
+		level: 30,
+		resources: {
+			'coins': 200000,
+			'prestige': 800
+		},
 		trades: {
 			'imports': {
 				barrels: city_builder.GOODS_IMPORTANCE_LOW,
@@ -3487,9 +3497,11 @@ city_builder.CITIES = {
 		icon: 2,
 		climate: city_builder.CLIMATE_TYPE_TROPICAL,
 		personality: city_builder.PERSONALITY_TYPE_WARLORD,
-		coins: 200000,
 		level: 21,
-		prestige: 100,
+		resources: {
+			'coins': 200000,
+			'prestige': 100
+		},
 		trades: {
 			'imports': {
 				meat: city_builder.GOODS_IMPORTANCE_LOW,
@@ -3525,9 +3537,11 @@ city_builder.CITIES = {
 		icon: 4,
 		climate: city_builder.CLIMATE_TYPE_ARID,
 		personality: city_builder.PERSONALITY_TYPE_DIPLOMAT,
-		coins: 130000,
-		level: 33,
-		prestige: 780,
+		level: 30,
+		resources: {
+			'coins': 130000,
+			'prestige': 780
+		},
 		trades: {
 			'imports': {
 				silk: city_builder.GOODS_IMPORTANCE_LOW,
@@ -3563,9 +3577,11 @@ city_builder.CITIES = {
 		icon: 5,
 		climate: city_builder.CLIMATE_TYPE_POLAR,
 		personality: city_builder.PERSONALITY_TYPE_WARLORD,
-		coins: 30000,
 		level: 20,
-		prestige: 200,
+		resources: {
+			'coins': 30000,
+			'prestige': 200
+		},
 		trades: {
 			'imports': {
 				furs: city_builder.GOODS_IMPORTANCE_LOW,
@@ -3602,9 +3618,11 @@ city_builder.CITIES = {
 		icon: 4,
 		climate: city_builder.CLIMATE_TYPE_TEMPERATE,
 		personality: city_builder.PERSONALITY_TYPE_BALANCED,
-		coins: 330000,
-		level: 38,
-		prestige: 900,
+		level: 30,
+		resources: {
+			'coins': 330000,
+			'prestige': 900
+		},
 		trades: {
 			'imports': {
 				perfume: city_builder.GOODS_IMPORTANCE_MEDIUM,
@@ -3652,9 +3670,11 @@ city_builder.CITIES = {
 		icon: 7,
 		climate: city_builder.CLIMATE_TYPE_CONTINENTAL,
 		personality: city_builder.PERSONALITY_TYPE_WARLORD,
-		coins: 22000,
 		level: 18,
-		prestige: 160,
+		resources: {
+			'coins': 22000,
+			'prestige': 160
+		},
 		trades: {
 			'imports': {
 				flour: city_builder.GOODS_IMPORTANCE_LOW,
@@ -3688,9 +3708,11 @@ city_builder.CITIES = {
 		icon: 7,
 		climate: city_builder.CLIMATE_TYPE_TROPICAL,
 		personality: city_builder.PERSONALITY_TYPE_BALANCED,
-		coins: 180000,
 		level: 22,
-		prestige: 200,
+		resources: {
+			'coins': 180000,
+			'prestige': 200
+		},
 		trades: {
 			'imports': {
 				furs: city_builder.GOODS_IMPORTANCE_LOW,
@@ -3732,9 +3754,11 @@ city_builder.CITIES = {
 		icon: 7,
 		climate: city_builder.CLIMATE_TYPE_TROPICAL,
 		personality: city_builder.PERSONALITY_TYPE_WARLORD,
-		coins: 80000,
 		level: 18,
-		prestige: 300,
+		resources: {
+			'coins': 80000,
+			'prestige': 300
+		},
 		trades: {
 			'imports': {
 				cider: city_builder.GOODS_IMPORTANCE_LOW,
@@ -3774,9 +3798,11 @@ city_builder.CITIES = {
 		icon: 2,
 		climate: city_builder.CLIMATE_TYPE_TROPICAL,
 		personality: city_builder.PERSONALITY_TYPE_WARLORD,
-		coins: 20000,
 		level: 16,
-		prestige: 10,
+		resources: {
+			'coins': 20000,
+			'prestige': 10
+		},
 		trades: {
 			'imports': {
 				meat: city_builder.GOODS_IMPORTANCE_LOW,
@@ -3812,9 +3838,11 @@ city_builder.CITIES = {
 		icon: 4,
 		climate: city_builder.CLIMATE_TYPE_TROPICAL,
 		personality: city_builder.PERSONALITY_TYPE_DIPLOMAT,
-		coins: 280000,
-		level: 31,
-		prestige: 600,
+		level: 30,
+		resources: {
+			'coins': 280000,
+			'prestige': 600
+		},
 		trades: {
 			'imports': {
 				meat: city_builder.GOODS_IMPORTANCE_LOW,
@@ -3854,9 +3882,11 @@ city_builder.CITIES = {
 		icon: 5,
 		climate: city_builder.CLIMATE_TYPE_TEMPERATE,
 		personality: city_builder.PERSONALITY_TYPE_BALANCED,
-		coins: 110000,
 		level: 21,
-		prestige: 180,
+		resources: {
+			'coins': 110000,
+			'prestige': 180
+		},
 		trades: {
 			'imports': {
 				meat: city_builder.GOODS_IMPORTANCE_LOW,
@@ -3896,9 +3926,11 @@ city_builder.CITIES = {
 		icon: 5,
 		climate: city_builder.CLIMATE_TYPE_CONTINENTAL,
 		personality: city_builder.PERSONALITY_TYPE_WARLORD,
-		coins: 10000,
 		level: 22,
-		prestige: 360,
+		resources: {
+			'coins': 10000,
+			'prestige': 360
+		},
 		trades: {
 			'imports': {
 				furs: city_builder.GOODS_IMPORTANCE_LOW,
@@ -3937,9 +3969,11 @@ city_builder.CITIES = {
 		icon: 7,
 		climate: city_builder.CLIMATE_TYPE_TROPICAL,
 		personality: city_builder.PERSONALITY_TYPE_WARLORD,
-		coins: 80000,
 		level: 26,
-		prestige: 400,
+		resources: {
+			'coins': 80000,
+			'prestige': 400
+		},
 		trades: {
 			'imports': {
 				wheat: city_builder.GOODS_IMPORTANCE_VITAL,
@@ -3976,9 +4010,11 @@ city_builder.CITIES = {
 		icon: 7,
 		climate: city_builder.CLIMATE_TYPE_TEMPERATE,
 		personality: city_builder.PERSONALITY_TYPE_BALANCED,
-		coins: 240000,
 		level: 29,
-		prestige: 500,
+		resources: {
+			'coins': 240000,
+			'prestige': 500
+		},
 		trades: {
 			'imports': {
 				salt: city_builder.GOODS_IMPORTANCE_MEDIUM,
@@ -4014,9 +4050,11 @@ city_builder.CITIES = {
 		icon: 7,
 		climate: city_builder.CLIMATE_TYPE_TEMPERATE,
 		personality: city_builder.PERSONALITY_TYPE_WARLORD,
-		coins: 240000,
 		level: 22,
-		prestige: 420,
+		resources: {
+			'coins': 240000,
+			'prestige': 420
+		},
 		trades: {
 			'imports': {
 				gold: city_builder.GOODS_IMPORTANCE_LOW,
@@ -4156,6 +4194,57 @@ city_builder.EVENTS = [{
 	}
 }];
 
+
+/**
+ * List of resources to start with in various difficulty modes.
+ *
+ * @constant
+ * @type {Object}
+ */
+city_builder.RESOURCES_START = [{
+		'coins': 50000,
+		'fame': 10,
+		'prestige': 1,
+		'espionage': 100,
+		'bread': 300,
+		'meat': 100,
+		'stones': 100,
+		'weapons': 100,
+		'wheat': 40,
+		'wood': 100
+	}, {
+		'coins': 20000,
+		'fame': 1,
+		'prestige': 1,
+		'espionage': 10,
+		'bread': 300,
+		'meat': 100,
+		'stones': 100,
+		'weapons': 60,
+		'wheat': 40,
+		'wood': 100
+	}, {
+		'coins': 10000,
+		'fame': 1,
+		'prestige': 1,
+		'espionage': 1,
+		'bread': 300,
+		'meat': 100,
+		'stones': 70,
+		'wheat': 40,
+		'wood': 70
+	}, {
+		'coins': 5000,
+		'fame': 1,
+		'prestige': 1,
+		'espionage': 1,
+		'bread': 100,
+		'meat': 50,
+		'stones': 50,
+		'wheat': 40,
+		'wood': 50
+}];
+
 /**
  * List of all the resources available in-game.
  * 
@@ -4165,336 +4254,267 @@ city_builder.EVENTS = [{
 city_builder.RESOURCES = {
 	'coins': {
 		name: 'Coins',
-		handle: 'coins',
-		storage: 15000
+		handle: 'coins'
 	},
 	'fame': {
 		name: 'Fame',
-		handle: 'fame',
-		total: 1,
-		amount: 1
+		handle: 'fame'
 	},
 	'prestige': {
 		name: 'Prestige',
-		handle: 'prestige',
-		total: 1,
-		amount: 1
+		handle: 'prestige'
 	},
 	'espionage': {
 		name: 'Espionage',
-		handle: 'espionage',
-		total: 1,
-		amount: 1
+		handle: 'espionage'
 	},
 	'almonds': {
 		name: 'Almonds',
-		price: 200,
-		storage: 0
+		price: 200
 	},
 	'barrels': {
 		name: 'Barrels',
-		price: 60,
-		storage: 0
+		price: 60
 	},
 	'beer': {
 		name: 'Beer',
-		price: 30,
-		storage: 0
+		price: 30
 	},
 	'books': {
 		name: 'Books',
-		price: 120,
-		storage: 0
+		price: 120
 	},
 	'bread': {
 		name: 'Bread',
-		price: 30,
-		storage: 300
+		price: 30
 	},
 	'brine': {
 		name: 'Brine',
-		price: 10,
-		storage: 0
+		price: 10
 	},
 	'brass': {
 		name: 'Brass',
-		price: 60,
-		storage: 0
+		price: 60
 	},
 	'candles': {
 		name: 'Candles',
-		price: 100,
-		storage: 0
+		price: 100
 	},
 	'candlesticks': {
 		name: 'Candlesticks',
-		price: 170,
-		storage: 0
+		price: 170
 	},
 	'cannons': {
 		name: 'Cannons',
-		price: 700,
-		storage: 0
+		price: 700
 	},
 	'carpets': {
 		name: 'Carpets',
-		price: 400,
-		storage: 0
+		price: 400
 	},
 	'cattle': {
 		name: 'Cattle',
-		price: 41,
-		storage: 0
+		price: 41
 	},
 	'cider': {
 		name: 'Cider',
-		price: 42,
-		storage: 0
+		price: 42
 	},
 	'clay': {
 		name: 'Clay',
-		price: 35,
-		storage: 0
+		price: 35
 	},
 	'clothes': {
 		name: 'Clothes',
-		price: 104,
-		storage: 0
+		price: 104
 	},
 	'coal': {
 		name: 'Coal',
-		price: 34,
-		storage: 0
+		price: 34
 	},
 	'coffee': {
 		name: 'Coffee',
-		price: 240,
-		storage: 0
+		price: 240
 	},
 	'coffeebeans': {
 		name: 'Coffee Beans',
-		price: 136,
-		storage: 0
+		price: 136
 	},
 	'copper': {
 		name: 'Copper',
-		price: 43,
-		storage: 0
+		price: 43
 	},
 	'donkeys': {
 		name: 'Donkeys',
-		price: 90,
-		storage: 0
+		price: 90
 	},
 	'fish': {
 		name: 'Fish',
-		price: 16,
-		storage: 0
+		price: 16
 	},
 	'flour': {
 		name: 'Flour',
-		price: 42,
-		storage: 0
+		price: 42
 	},
 	'furcoats': {
 		name: 'Fur coats',
-		price: 122,
-		storage: 0
+		price: 122
 	},
 	'furs': {
 		name: 'Furs',
-		price: 78,
-		storage: 0
+		price: 78
 	},
 	'gems': {
 		name: 'Gems',
-		price: 460,
-		storage: 0
+		price: 460
 	},
 	'glass': {
 		name: 'Glass',
-		price: 86,
-		storage: 0
+		price: 86
 	},
 	'glasses': {
 		name: 'Glasses',
-		price: 140,
-		storage: 0
+		price: 140
 	},
 	'gold': {
 		name: 'Gold',
-		price: 194,
-		storage: 0
+		price: 194
 	},
 	'goldores': {
 		name: 'Gold ores',
-		price: 90,
-		storage: 0
+		price: 90
 	},
 	'grapes': {
 		name: 'Grapes',
-		price: 35,
-		storage: 0
+		price: 35
 	},
 	'hemp': {
 		name: 'Hemp',
-		price: 46,
-		storage: 0
+		price: 46
 	},
 	'herbs': {
 		name: 'Herbs',
-		price: 18,
-		storage: 0
+		price: 18
 	},
 	'hides': {
 		name: 'Hides',
-		price: 25,
-		storage: 0
+		price: 25
 	},
 	'indigo': {
 		name: 'Indigo',
-		price: 80,
-		storage: 0
+		price: 80
 	},
 	'iron': {
 		name: 'Iron',
-		price: 86,
-		storage: 0
+		price: 86
 	},
 	'ironores': {
 		name: 'Iron ores',
-		price: 45,
-		storage: 0
+		price: 45
 	},
 	'leather': {
 		name: 'Leather',
-		price: 60,
-		storage: 0
+		price: 60
 	},
 	'meat': {
 		name: 'Meat',
-		price: 30,
-		storage: 100
+		price: 30
 	},
 	'milk': {
 		name: 'Milk',
-		price: 55,
-		storage: 0
+		price: 55
 	},
 	'mosaic': {
 		name: 'Mosaic',
-		price: 200,
-		storage: 0
+		price: 200
 	},
 	'paper': {
 		name: 'Paper',
-		price: 70,
-		storage: 0
+		price: 70
 	},
 	'pearls': {
 		name: 'Pearls',
-		price: 450,
-		storage: 0
+		price: 450
 	},
 	'perfume': {
 		name: 'Perfume',
-		price: 305,
-		storage: 0
+		price: 305
 	},
 	'quartz': {
 		name: 'Quartz',
-		price: 26,
-		storage: 0
+		price: 26
 	},
 	'robes': {
 		name: 'Robes',
-		price: 220,
-		storage: 0
+		price: 220
 	},
 	'ropes': {
 		name: 'Ropes',
-		price: 42,
-		storage: 0
+		price: 42
 	},
 	'roses': {
 		name: 'Roses',
-		price: 70,
-		storage: 0
+		price: 70
 	},
 	'salt': {
 		name: 'Salt',
-		price: 20,
-		storage: 0
+		price: 20
 	},
 	'silk': {
 		name: 'Silk',
-		price: 320,
-		storage: 0
+		price: 320
 	},
 	'silver': {
 		name: 'Silver',
-		price: 300,
-		storage: 0
+		price: 300
 	},
 	'spices': {
 		name: 'Spices',
-		price: 285,
-		storage: 0
+		price: 285
 	},
 	'spyglasses': {
 		name: 'Spyglasses',
-		price: 280,
-		storage: 0
+		price: 280
 	},
 	'statues': {
 		name: 'Statues',
-		price: 800,
-		storage: 0
+		price: 800
 	},
 	'stones': {
 		name: 'Stones',
-		price: 16,
-		storage: 100
+		price: 16
 	},
 	'sugar': {
 		name: 'Sugar',
-		price: 145,
-		storage: 0
+		price: 145
 	},
 	'sugarcane': {
 		name: 'Sugarcane',
-		price: 120,
-		storage: 0
+		price: 120
 	},
 	'sulphur': {
 		name: 'Sulphur',
-		price: 180,
-		storage: 0
+		price: 180
 	},
 	'wax': {
 		name: 'Wax',
-		price: 40,
-		storage: 0
+		price: 40
 	},
 	'weapons': {
 		name: 'Weapons',
-		price: 205,
-		storage: 100
+		price: 205
 	},
 	'wheat': {
 		name: 'Wheat',
-		price: 25,
-		storage: 40
+		price: 25
 	},
 	'wine': {
 		name: 'Wine',
-		price: 95,
-		storage: 0
+		price: 95
 	},
 	'wood': {
 		name: 'Wood',
-		price: 17,
-		storage: 100
+		price: 17
 	}
 };
 
@@ -4510,7 +4530,6 @@ city_builder.MAIN_RESOURCES = [
  * Throw in some coins too.
  */
 if (city_builder.DEBUG === true) {
-	city_builder.RESOURCES['coins']['storage'] = 1000000;
 	city_builder.CITIES['Sandbox'] = {
 		nationality: city_builder.NATION_TYPE_ASSYRIAN,
 		ruler: 'Sandking',
@@ -4519,8 +4538,10 @@ if (city_builder.DEBUG === true) {
 		climate: city_builder.CLIMATE_TYPE_TEMPERATE,
 		personality: city_builder.PERSONALITY_TYPE_DIPLOMAT,
 		level: 30,
-		coins: 1000000,
-		prestige: 999,
+		resources: {
+			'coins': 1000000,
+			'prestige': 999
+		},
 		trades: {
 			'imports': {
 				gold: city_builder.GOODS_IMPORTANCE_VITAL,
@@ -4569,7 +4590,10 @@ if (city_builder.DEBUG === true) {
  * Utils object.
  */
 city_builder.utils = {
-	
+	get_resource_name: function(handle) {
+		return city_builder.RESOURCES[handle].name;
+	},
+
 	/**
 	 * Calculate the resource price for the specified amount minus the discount.
 	 * 
@@ -5028,8 +5052,12 @@ city_builder.ui = {
 	},
 	
 	building_element: function (params) {
+		var building_image = params.type;
 		var description = '<br /><span class="smalldesc">' + params.data.description + '</span>';
-		var image = (typeof params.data.visible_upgrades === 'undefined' || params.data.visible_upgrades === false) ? params.type + '1' : params.type + params.data.level;
+		if (params.type.slice(0, -1) === 'house') {
+			var building_image = params.type.slice(0, -1);
+		}
+		var image = (typeof params.data.visible_upgrades === 'undefined' || params.data.visible_upgrades === false) ? building_image + '1' : building_image + params.data.level;
 		return '<div data-type="' + params.type + '" data-level="' + params.data.level + '" ' +
 				'style="background:transparent url(' + city_builder.ASSETS_URL + 'images/buildings/' + image + '.png) no-repeat;left:' + params.data.position.x + 'px;top:' + params.data.position.y + 'px" ' +
 				'title=\'<span class="buildinginfo">' + params.data.name + '</span> ' + description + '\' ' +
@@ -5039,7 +5067,7 @@ city_builder.ui = {
 	
 	resource_storage_el: function (resource, amount) {
 		return '<div class="storage-item item-' + resource + '">' +
-				'<span class="title">' + city_builder.RESOURCES[resource].name + '</span>' +
+				'<span class="title">' + city_builder.utils.get_resource_name(resource) + '</span>' +
 				'<img src="' + city_builder.ASSETS_URL + 'images/resources/' + resource + '.png" />' +
 				'<span class="amount">' + amount + '</amount>' +
 				'</div>';
@@ -5111,7 +5139,7 @@ city_builder.ui = {
 	},
 	
 	resource_small_img: function (resource) {
-		return '<img alt="' + city_builder.RESOURCES[resource].name + '" class="tips" title="' + city_builder.RESOURCES[resource].name + '" src="' + city_builder.ASSETS_URL + 'images/resources/' + resource + '_small.png" />';
+		return '<img alt="' + city_builder.utils.get_resource_name(resource) + '" class="tips" title="' + city_builder.utils.get_resource_name(resource) + '" src="' + city_builder.ASSETS_URL + 'images/resources/' + resource + '_small.png" />';
 	}
 };
 
@@ -5208,13 +5236,21 @@ city_builder.city = function(params) {
 	this.army = [];
 	
 	/**
+	 * Flag whether this city belongs to a player or is AI-controlled.
+	 *
+	 * @private
+	 * @type {Boolean}
+	 */
+	this.player = false;
+
+	/**
 	 * Ships built in this city.
 	 * 
 	 * @private
 	 * @type {Number}
 	 */
 	this.navy = [];
-	
+
 	/**
 	 * Mercenary armies available for this city.
 	 * 
@@ -5265,6 +5301,12 @@ city_builder.city = function(params) {
 	 */
 	this.icon = null;
 
+	/**
+	 * The influence of this city.
+	 *
+	 * @type {Object}
+	 * @private
+	 */
 	this.influence = {};
 	
 	/**
@@ -5278,17 +5320,9 @@ city_builder.city = function(params) {
 		this.core = params.core;
 		this.name = params.name;
 		this.data = params.data;
+		this.player = (typeof params.player !== 'undefined') ? params.player : false;
 		this.level = (typeof params.data.level !== 'undefined') ? params.data.level : 1;
-		this.resources = city_builder.RESOURCES;
-		this.resources.fame = (typeof params.level !== 'undefined') ? {
-			name: 'Fame',
-			handle: 'fame',
-			total: city_builder.LEVELS[params.data.level],
-			amount: 1
-		} : city_builder.RESOURCES['fame'];
-		if (typeof params.data.coins !== 'undefined') {
-			this.resources.coins.storage = params.data.coins;
-		}
+		this.resources = this._build_resources(params);
 		this.personality = (typeof params.data.personality !== 'undefined') ? params.data.personality : city_builder.PERSONALITY_TYPE_BALANCED;
 		this.nationality = (typeof params.data.nationality !== 'undefined') ? params.data.nationality : city_builder.NATION_TYPE_ROMAN;
 		this.climate = (typeof params.data.climate !== 'undefined') ? params.data.climate : city_builder.CLIMATE_TYPE_TEMPERATE;
@@ -5300,6 +5334,37 @@ city_builder.city = function(params) {
 	};
 	
 	/**
+	 * Adjust the resources according to the city owner.
+	 *
+	 * @private
+	 * @param {Object} params
+	 * @returns {Object}
+	 */
+	this._build_resources = function(params) {
+		var resources = {};
+		var difficulty = this.get_core().get_difficulty();
+		if (this.player === true) {
+			for (var item in city_builder.RESOURCES) {
+				if (typeof city_builder.RESOURCES_START[difficulty - 1][item] === 'undefined') {
+					resources[item] = 0;
+				} else {
+					resources[item] = city_builder.RESOURCES_START[difficulty - 1][item];
+				}
+			}
+		} else {
+			for (var item in city_builder.RESOURCES) {
+				if (typeof params.data.resources[item] !== 'undefined') {
+					resources[item] = params.data.resources[item];
+				} else {
+					resources[item] = 0;
+				}
+			}
+			resources.fame = city_builder.LEVELS[this.get_level()];
+		}
+		return resources;
+	};
+
+	/**
 	 * Buy the specified goods from a city.
 	 * 
 	 * @public
@@ -5309,6 +5374,7 @@ city_builder.city = function(params) {
 	 * @returns {Object|Boolean}
 	 */
 	this.buy_from_city = function(city, resource, amount) {
+		var resources = this.get_resources();
 		var _city;
 		if (typeof city === 'string') {
 			_city = this.get_core().get_city(city);
@@ -5334,25 +5400,25 @@ city_builder.city = function(params) {
 					amount = trades.exports[item];
 				}
 				var discount = (city_builder.RESOURCES[item].price * city_builder.TRADES_ADDITION) / 100;
-				var price = city_builder.utils.calc_price_plus_discount(amount, item, discount);//Math.round(amount * city_builder.RESOURCES[item].price + discount);
+				var price = city_builder.utils.calc_price_plus_discount(amount, item, discount);
 				if (!this.has_storage_space_for(amount)) {
 					return false;
 				}
-				if (this.dec_coins_amount(price) === false) {
+				if (this.dec_coins(price) === false) {
 					return false;
 				}
 				this.add_to_storage(item, amount);
 				this.remove_from_exports(_city, item, amount);
 				this.raise_influence(city, 2);
 				this.raise_prestige();
-				this.inc_fame_amount(50);
+				this.inc_fame(50);
 				this.get_core().refresh_ui();
-				this.get_core().notify(this.get_name() + ' bought ' + amount + ' ' + city_builder.RESOURCES[item].name + ' from ' + city + ' for ' + (city_builder.RESOURCES[item].price + discount) + ' coins each, for a total of ' + price + ' coins.', 'Transaction done');
+				this.get_core().notify(this.get_name() + ' bought ' + amount + ' ' + city_builder.utils.get_resource_name(item) + ' from ' + city + ' for ' + (city_builder.RESOURCES[item].price + discount) + ' coins each, for a total of ' + price + ' coins.', 'Transaction done');
 				this.get_core().refresh_panels();
 				return {
 					buyer: this.get_name(),
 					amount: amount,
-					goods: city_builder.RESOURCES[item].name,
+					goods: city_builder.utils.get_resource_name(item),
 					seller: city,
 					price: Math.round(city_builder.RESOURCES[item].price + discount),
 					totalPrice: price
@@ -5376,17 +5442,9 @@ city_builder.city = function(params) {
 		if (!this.has_resources(item, amount)) {
 			return false;
 		}
-		res[item].storage = res[item].storage - amount;
+		res[item] = res[item] - amount;
 		return true;
 	};
-	
-	/*
-	 this.removeFromStorage = function(item, amount) {
-	 var res = this.getResources();
-	 res[item].storage = res[item].storage - amount;
-	 return true;
-	 };
-	 */
 	
 	/**
 	 * Add a specified amount of a resource to the storage of this city.
@@ -5398,7 +5456,7 @@ city_builder.city = function(params) {
 	 */
 	this.add_to_storage = function(item, amount) {
 		var res = this.get_resources();
-		res[item].storage = res[item].storage + amount;
+		res[item] = res[item] + amount;
 		return true;
 	};
 	
@@ -5410,8 +5468,9 @@ city_builder.city = function(params) {
 	 * @returns {Boolean}
 	 */
 	this.has_coins = function(coins) {
-		if (this.get_coins_amount() - coins < 0) {
-			this.get_core().error(this.get_name() + ' doesn`t have enough ' + city_builder.RESOURCES.coins.name + '.');
+		var resources = this.get_resources();
+		if (this.get_coins() - coins < 0) {
+			this.get_core().error(this.get_name() + ' doesn`t have enough ' + city_builder.utils.get_resource_name('coins') + '.');
 			return false;
 		}
 		return true;
@@ -5427,8 +5486,8 @@ city_builder.city = function(params) {
 	 */
 	this.has_resources = function(resource, amount) {
 		var res = this.get_resources();
-		if ((res[resource].storage - amount) < 0) {
-			this.get_core().error(this.get_name() + ' does not have enough ' + city_builder.RESOURCES[resource].name + '.');
+		if ((res[resource] - amount) < 0) {
+			this.get_core().error(this.get_name() + ' does not have enough ' + city_builder.utils.get_resource_name(resource) + '.');
 			return false;
 		}
 		return true;
@@ -5464,16 +5523,17 @@ city_builder.city = function(params) {
 	 * @returns {Object|Boolean}
 	 */
 	this.list_black_market = function(resource, amount) {
+		var resources = this.get_resources();
 		if (this.remove_resource(resource, amount)) {
 			var discount = (city_builder.RESOURCES[resource].price * city_builder.BLACK_MARKET_DISCOUNT) / 100;
 			var price = city_builder.utils.calc_price_minus_discount(amount, resource, discount);
 			this.get_core().add_black_market(resource, amount, price);
 			this.get_core().refresh_ui();
-			this.get_core().notify(this.get_name() + ' placed ' + amount + ' ' + city_builder.RESOURCES[resource].name + ' on the Black Market and will receive ' + price + ' coins next month.', 'Goods listed');
+			this.get_core().notify(this.get_name() + ' placed ' + amount + ' ' + city_builder.utils.get_resource_name(resource) + ' on the Black Market and will receive ' + price + ' coins next month.', 'Goods listed');
 			return {
 				seller: this.get_name(),
 				amount: amount,
-				goods: city_builder.RESOURCES[resource].name,
+				goods: city_builder.utils.get_resource_name(resource),
 				price: price,
 				discount: discount
 			};
@@ -5491,6 +5551,7 @@ city_builder.city = function(params) {
 	 * @returns {Object|Boolean}
 	 */
 	this.sell_to_city = function(city, resource, amount) {
+		var resources = this.get_resources();
 		var _city;
 		if (typeof city === 'string') {
 			_city = this.get_core().get_city(city);
@@ -5516,34 +5577,26 @@ city_builder.city = function(params) {
 					amount = trades.imports[item];
 				}
 				var discount = (city_builder.RESOURCES[item].price * city_builder.TRADES_DISCOUNT) / 100;
-				var price = city_builder.utils.calc_price_plus_discount(amount, item, discount);//Math.round(amount * city_builder.RESOURCES[item].price - discount);
-				/*
-				 if (!this.hasCoins(price)) {
-				 return false;
-				 }
-				 if (!this.hasStorageSpaceFor(amount)) {
-				 return false;
-				 }
-				 */
+				var price = city_builder.utils.calc_price_plus_discount(amount, item, discount);
 				if (!this.remove_resource(item, amount)) {
 					return false;
 				}
-				this.inc_coins_amount(price);
-				if (!_city.dec_coins_amount(city_builder.utils.calc_price(amount, item))) {
+				this.inc_coins(price);
+				if (!_city.dec_coins(city_builder.utils.calc_price(amount, item))) {
 					this.get_core().error(city + ' does not have enough coins.');
 					return false;
 				}
 				this.remove_from_imports(_city, item, amount);
 				this.raise_influence(city, 1);
 				this.raise_prestige();
-				this.inc_fame_amount(50);
+				this.inc_fame(50);
 				this.get_core().refresh_ui();
-				this.get_core().notify(this.get_name() + ' sold ' + amount + ' ' + city_builder.RESOURCES[item].name + ' to ' + city + ' for ' + (city_builder.RESOURCES[item].price - discount) + ' coins each, for a total of ' + price + ' coins.', 'Transaction done');
+				this.get_core().notify(this.get_name() + ' sold ' + amount + ' ' + city_builder.utils.get_resource_name(item) + ' to ' + city + ' for ' + (city_builder.RESOURCES[item].price - discount) + ' coins each, for a total of ' + price + ' coins.', 'Transaction done');
 				this.get_core().refresh_panels();
 				return {
 					seller: this.get_name(),
 					amount: amount,
-					goods: city_builder.RESOURCES[item].name,
+					goods: city_builder.utils.get_resource_name(item),
 					buyer: city,
 					price: Math.round(city_builder.RESOURCES[item].price - discount),
 					totalPrice: price
@@ -5596,6 +5649,7 @@ city_builder.city = function(params) {
 			level: this.get_level(),
 			climate: this.get_climate().id,
 			nationality: this.get_nationality().id,
+			difficulty: this.get_core().get_difficulty(),
 			avatar: this.get_avatar(),
 			icon: this.get_icon(),
 			influence: this.get_influence(),
@@ -5696,8 +5750,7 @@ city_builder.city = function(params) {
 	 */
 	this.level_up = function() {
 		this.level++;
-		this.resources.fame.total = this.resources.fame.total + this.resources.fame.amount;
-		this.resources.fame.amount = 1;
+		//this.resources.fame = this.resources.fame + city_builder.LEVELS[this.get_level() - 1];
 		$('.citylevel').html(this.get_level());
 		this.get_core().notify('The city of ' + this.get_name() + ' is now level ' + this.get_level() + '.');
 		return this;
@@ -5776,7 +5829,7 @@ city_builder.city = function(params) {
 		var storage = 0;
 		for (var item in this.get_resources()) {
 			if (item !== 'coins' && item !== 'fame' && item !== 'prestige' && item !== 'espionage') {
-				storage += this.get_resources()[item].storage;
+				storage += this.get_resources()[item];
 			}
 		}
 		return {
@@ -5853,25 +5906,26 @@ city_builder.city = function(params) {
 	 */
 	this.build = function(building_type) {
 		var _b = city_builder.BUILDINGS.findIndexM(building_type);
+		var resources = this.get_resources();
 		if (_b !== false) {
 			var _c = city_builder.BUILDINGS[_b];
 			if ((typeof _c.requires.city_level !== 'undefined') && (this.level < _c.requires.city_level)) {
 				this.get_core().error('Your city level is too low to construct this building.');
 				return false;
 			}
-			if ((this.resources.coins.storage - _c.cost.coins) < 0) {
+			if ((resources.coins - _c.cost.coins) < 0) {
 				this.get_core().error('You don`t have enough coins to construct this building.');
 				return false;
 			} else {
-				this.resources.coins.storage = this.resources.coins.storage - _c.cost.coins;
+				resources.coins = resources.coins - _c.cost.coins;
 			}
 			for (var item in _c.cost) {
 				if (item !== 'coins') {
-					if ((this.get_resources()[item].storage - _c.cost[item]) < 0) {
+					if ((this.get_resources()[item] - _c.cost[item]) < 0) {
 						this.get_core().error('You don`t have enough ' + item + ' to construct this building.');
 						return false;
 					} else {
-						this.get_resources()[item].storage = this.get_resources()[item].storage - _c.cost[item];
+						this.get_resources()[item] = this.get_resources()[item] - _c.cost[item];
 					}
 				}
 			}
@@ -5904,7 +5958,7 @@ city_builder.city = function(params) {
 	 * @returns {Number}
 	 */
 	this.get_rank = function() {
-		return Math.floor((this.get_level() * this.get_fame_amount() * this.get_prestige_amount() * (this.get_army_total().total > 0 ? this.get_army_total().total: 1)) / 128);
+		return Math.floor(((this.get_fame() / this.get_level() / 1024) * this.get_prestige() * ((this.get_army_total().total > 0 ? this.get_army_total().total : 1)) / 128) / 32);
 	};
 	
 	/**
@@ -5970,24 +6024,14 @@ city_builder.city = function(params) {
 	};
 	
 	/**
-	 * Get the number of coins this city has.
-	 * 
-	 * @public
-	 * @returns {Number}
-	 */
-	this.get_coins_amount = function() {
-		return this.get_coins().storage;
-	};
-	
-	/**
 	 * Increase this city's coins by the specified amount.
 	 * 
 	 * @public
 	 * @param {Number} value
 	 * @returns {Number}
 	 */
-	this.inc_coins_amount = function(value) {
-		return this.set_coins_amount(this.get_coins_amount() + value);
+	this.inc_coins = function(value) {
+		return this.set_coins(this.get_coins() + value);
 	};
 	
 	/**
@@ -5997,11 +6041,11 @@ city_builder.city = function(params) {
 	 * @param {Number} value
 	 * @returns {Number}
 	 */
-	this.dec_coins_amount = function(value) {
+	this.dec_coins = function(value) {
 		if (!this.has_coins(value)) {
 			return false;
 		}
-		this.set_coins_amount(this.get_coins_amount() - value);
+		this.set_coins(this.get_coins() - value);
 		return true;
 	};
 	
@@ -6012,8 +6056,8 @@ city_builder.city = function(params) {
 	 * @param {Number} value
 	 * @returns {Number}
 	 */
-	this.set_coins_amount = function(value) {
-		this.get_coins().storage = value;
+	this.set_coins = function(value) {
+		this.resources.coins = value;
 		return value;
 	};
 	
@@ -6038,7 +6082,7 @@ city_builder.city = function(params) {
 	};
 	
 	/**
-	 * Get the fame this city has. This is the fame object.
+	 * Get the fame this city has.
 	 * 
 	 * @public
 	 * @returns {Object}
@@ -6046,7 +6090,7 @@ city_builder.city = function(params) {
 	this.get_fame = function() {
 		return this.resources.fame;
 	};
-	
+
 	/**
 	 * Set the fame of the city.
 	 * 
@@ -6072,24 +6116,14 @@ city_builder.city = function(params) {
 	};
 	
 	/**
-	 * Get the number of fame this city has.
-	 * 
-	 * @public
-	 * @returns {Number}
-	 */
-	this.get_fame_amount = function() {
-		return this.get_fame().amount;
-	};
-	
-	/**
 	 * Increase this city's fame by the specified amount.
 	 * 
 	 * @public
 	 * @param {Number} value
 	 * @returns {Number}
 	 */
-	this.inc_fame_amount = function(value) {
-		return this.set_fame_amount(this.get_fame_amount() + value);
+	this.inc_fame = function(value) {
+		return this.set_fame(this.get_fame() + value);
 	};
 	
 	/**
@@ -6099,8 +6133,8 @@ city_builder.city = function(params) {
 	 * @param {Number} value
 	 * @returns {Number}
 	 */
-	this.dec_fame_amount = function(value) {
-		return this.set_fame_amount(this.get_fame_amount() - value);
+	this.dec_fame = function(value) {
+		return this.set_fame(this.get_fame() - value);
 	};
 	
 	/**
@@ -6110,8 +6144,8 @@ city_builder.city = function(params) {
 	 * @param {Number} value
 	 * @returns {Number}
 	 */
-	this.set_fame_amount = function(value) {
-		this.get_fame().amount = value;
+	this.set_fame = function(value) {
+		this.resources.fame = value;
 		return value;
 	};
 	
@@ -6243,7 +6277,7 @@ city_builder.city = function(params) {
 		if (!this.has_resources(resource, amount)) {
 			return false;
 		}
-		res[resource].storage = res[resource].storage - amount;
+		res[resource] = res[resource] - amount;
 		return true;
 	};
 	
@@ -6262,7 +6296,7 @@ city_builder.city = function(params) {
 			}
 		}
 		for (var resource in resources) {
-			res[resource].storage = res[resource].storage - resources[resource];
+			res[resource] = res[resource] - resources[resource];
 		}
 		return true;
 	};
@@ -6290,7 +6324,9 @@ city_builder.city = function(params) {
 	 * @returns {Array}
 	 */
 	this.call_advisor = function() {
+		var resources = this.get_resources();
 		var advices = [];
+		var resources = this.get_resources();
 		if (this.army.length === 0) {
 			advices.push('You have no army, this is an open invitation for attack.');
 		}
@@ -6309,19 +6345,19 @@ city_builder.city = function(params) {
 		} else if ((storage.all - storage.occupied) < 100) {
 			advices.push('You will soon run out of storage space and all goods produced will be lost. Sell some goods or build a warehouse.');
 		}
-		if (this.resources.coins.storage < 1000) {
+		if (resources.coins < 1000) {
 			advices.push('You seem to be losing coins fast, sell some goods or upgrade your houses to get better taxes.');
 		}
-		if (this.resources.wood.storage < 100 || this.resources.stones.storage < 100) {
+		if (resources.wood < 100 || resources.stones < 100) {
 			advices.push('You are lacking construction materials, buy some stones and/or wood off the World Trade Market.');
 		}
-		if (this.resources.coins.storage > 100000) {
+		if (resources.coins > 100000) {
 			advices.push('You have lots of coins, why not invest some in goods?');
 		}
 		for (var item in this.resources) {
 			if (item !== 'coins' && item !== 'fame' && item !== 'prestige' && item !== 'espionage') {
-				if (this.resources[item].storage > 1000) {
-					advices.push('You seem to have a surplus of ' + city_builder.RESOURCES[item].name + '. You can sell some and get coins instead.');
+				if (resources[item] > 1000) {
+					advices.push('You seem to have a surplus of ' + city_builder.utils.get_resource_name(item) + '. You can sell some and get coins instead.');
 				}
 			}
 		}
@@ -6339,7 +6375,7 @@ city_builder.city = function(params) {
 		for (var i = 0; i < city_builder.MERCENARIES.length; i++) {
 			if (name === city_builder.MERCENARIES[i].handle) {
 				var price = city_builder.MERCENARIES[i].cost;
-				if (this.dec_coins_amount(price) === false) {
+				if (this.dec_coins(price) === false) {
 					return false;
 				}
 				var army = {
@@ -6577,7 +6613,7 @@ city_builder.city = function(params) {
 		this.resources = value;
 		return this;
 	};
-	
+
 	/**
 	 * Return the ruler name of this city.
 	 * 
@@ -6587,7 +6623,7 @@ city_builder.city = function(params) {
 	this.get_ruler = function() {
 		return this.ruler;
 	};
-	
+
 	/**
 	 * Set the ruler name of the city.
 	 * 
@@ -6774,13 +6810,13 @@ city_builder.city = function(params) {
 	 */
 	this.raise_espionage = function(amount) {
 		if (typeof amount !== 'undefined') {
-			this.resources.espionage.amount += amount;
+			this.resources.espionage += amount;
 		} else {
-			++this.resources.espionage.amount;
+			++this.resources.espionage;
 		}
-		$('.cityespionage').html(this.get_espionage_amount());
+		$('.cityespionage').html(this.get_espionage());
 		this.get_core().notify('The espionage of your city raised.');
-		return this.resources.espionage.amount;
+		return this.resources.espionage;
 	};
 	
 	/**
@@ -6792,13 +6828,13 @@ city_builder.city = function(params) {
 	 */
 	this.raise_prestige = function(amount) {
 		if (typeof amount !== 'undefined') {
-			this.resources.prestige.amount += amount;
+			this.resources.prestige += amount;
 		} else {
-			++this.resources.prestige.amount;
+			++this.resources.prestige;
 		}
-		$('.cityprestige').html(this.get_prestige_amount());
+		$('.cityprestige').html(this.get_prestige());
 		this.get_core().notify('The prestige of your city raised.');
-		return this.resources.prestige.amount;
+		return this.resources.prestige;
 	};
 	
 	/**
@@ -6810,18 +6846,18 @@ city_builder.city = function(params) {
 	 */
 	this.lower_prestige = function(amount) {
 		if (typeof amount !== 'undefined') {
-			if ((this.resources.prestige.amount - amount) >= 1) {
-				this.resources.prestige.amount -= amount;
+			if ((this.resources.prestige - amount) >= 1) {
+				this.resources.prestige -= amount;
 				this.get_core().notify('The prestige of your city lowered.');
 			}
 		} else {
-			if ((this.resources.prestige.amount - 1) >= 1) {
-				--this.resources.prestige.amount;
+			if ((this.resources.prestige - 1) >= 1) {
+				--this.resources.prestige;
 				this.get_core().notify('The prestige of your city lowered.');
 			}
 		}
-		$('.cityprestige').html(this.get_prestige_amount());
-		return this.resources.prestige.amount;
+		$('.cityprestige').html(this.get_prestige());
+		return this.resources.prestige;
 	};
 	
 	/**
@@ -6833,18 +6869,18 @@ city_builder.city = function(params) {
 	 */
 	this.lower_espionage = function(amount) {
 		if (typeof amount !== 'undefined') {
-			if ((this.resources.espionage.amount - amount) >= 1) {
-				this.resources.espionage.amount -= amount;
+			if ((this.resources.espionage - amount) >= 1) {
+				this.resources.espionage -= amount;
 				this.get_core().notify('The espionage of your city lowered.');
 			}
 		} else {
-			if ((this.resources.espionage.amount - 1) >= 1) {
-				--this.resources.espionage.amount;
+			if ((this.resources.espionage - 1) >= 1) {
+				--this.resources.espionage;
 				this.get_core().notify('The espionage of your city lowered.');
 			}
 		}
-		$('.cityespionage').html(this.get_espionage_amount());
-		return this.resources.espionage.amount;
+		$('.cityespionage').html(this.get_espionage());
+		return this.resources.espionage;
 	};
 
 	/**
@@ -6854,8 +6890,8 @@ city_builder.city = function(params) {
 	 * @public
 	 */
 	this.reset_espionage = function() {
-		this.resources.espionage.amount = 1;
-		$('.cityespionage').html(this.get_espionage_amount());
+		this.resources.espionage = 1;
+		$('.cityespionage').html(this.get_espionage());
 		return this;
 	};
 
@@ -6866,8 +6902,8 @@ city_builder.city = function(params) {
 	 * @public
 	 */
 	this.reset_prestige = function() {
-		this.resources.prestige.amount = 1;
-		$('.cityprestige').html(this.get_prestige_amount());
+		this.resources.prestige = 1;
+		$('.cityprestige').html(this.get_prestige());
 		return this;
 	};
 	
@@ -6879,8 +6915,8 @@ city_builder.city = function(params) {
 	 * @param {Number} value
 	 */
 	this.set_espionage = function(value) {
-		this.resources.espionage.amount = value;
-		$('.cityespionage').html(this.get_espionage_amount());
+		this.resources.espionage = value;
+		$('.cityespionage').html(this.get_espionage());
 		return this;
 	};
 	
@@ -6892,8 +6928,8 @@ city_builder.city = function(params) {
 	 * @param {Number} value
 	 */
 	this.set_prestige = function(value) {
-		this.resources.prestige.amount = value;
-		$('.cityprestige').html(this.get_prestige_amount());
+		this.resources.prestige = value;
+		$('.cityprestige').html(this.get_prestige());
 		return this;
 	};
 	
@@ -6904,8 +6940,8 @@ city_builder.city = function(params) {
 	 * @param {Number} value
 	 * @returns {Number}
 	 */
-	this.inc_espionage_amount = function(value) {
-		return this.set_espionage_amount(this.get_espionage_amount() + value);
+	this.inc_espionage = function(value) {
+		return this.set_espionage(this.get_espionage() + value);
 	};
 	
 	/**
@@ -6915,8 +6951,8 @@ city_builder.city = function(params) {
 	 * @param {Number} value
 	 * @returns {Number}
 	 */
-	this.inc_prestige_amount = function(value) {
-		return this.set_prestige_amount(this.get_prestige_amount() + value);
+	this.inc_prestige = function(value) {
+		return this.set_prestige(this.get_prestige() + value);
 	};
 	
 	/**
@@ -6926,8 +6962,8 @@ city_builder.city = function(params) {
 	 * @param {Number} value
 	 * @returns {Number}
 	 */
-	this.dec_espionage_amount = function(value) {
-		return this.set_espionage_amount(this.get_espionage_amount() - value);
+	this.dec_espionage = function(value) {
+		return this.set_espionage(this.get_espionage() - value);
 	};
 
 	/**
@@ -6937,8 +6973,8 @@ city_builder.city = function(params) {
 	 * @param {Number} value
 	 * @returns {Number}
 	 */
-	this.dec_prestige_amount = function(value) {
-		return this.set_prestige_amount(this.get_prestige_amount() - value);
+	this.dec_prestige = function(value) {
+		return this.set_prestige(this.get_prestige() - value);
 	};
 
 	/**
@@ -6948,21 +6984,11 @@ city_builder.city = function(params) {
 	 * @param {Number} value
 	 * @returns {Number}
 	 */
-	this.set_espionage_amount = function(value) {
-		this.get_espionage().amount = value;
+	this.set_espionage = function(value) {
+		this.resources.espionage = value;
 		return value;
 	};
 
-	/**
-	 * Get the number of espionage this city has.
-	 * 
-	 * @public
-	 * @returns {Number}
-	 */
-	this.get_espionage_amount = function() {
-		return this.get_espionage().amount;
-	};
-	
 	/**
 	 * Set this city's prestige to the specified value.
 	 * 
@@ -6970,19 +6996,9 @@ city_builder.city = function(params) {
 	 * @param {Number} value
 	 * @returns {Number}
 	 */
-	this.set_prestige_amount = function(value) {
-		this.get_prestige().amount = value;
+	this.set_prestige = function(value) {
+		this.resources.prestige = value;
 		return value;
-	};
-
-	/**
-	 * Get the number of prestige this city has.
-	 * 
-	 * @public
-	 * @returns {Number}
-	 */
-	this.get_prestige_amount = function() {
-		return this.get_prestige().amount;
 	};
 	
 	/**
@@ -7258,10 +7274,10 @@ city_builder.event = function (params) {
 		this.notify();
 		switch (this.effect) {
 			case city_builder.EVENT_EFFECT_LOSE_COINS:
-				this.core.get_city().dec_coins_amount(this.data.amount);
+				this.core.get_city().dec_coins(this.data.amount);
 				break;
 			case city_builder.EVENT_EFFECT_GAIN_COINS:
-				this.core.get_city().inc_coins_amount(this.data.amount);
+				this.core.get_city().inc_coins(this.data.amount);
 				break;
 			case city_builder.EVENT_EFFECT_RAISE_INFLUENCE:
 				this.core.get_city().raise_influence(this.core.get_city(this.data.city), this.data.amount);
@@ -7270,10 +7286,10 @@ city_builder.event = function (params) {
 				this.core.get_city().lower_influence(this.core.get_city(this.data.city), this.data.amount);
 				break;
 			case city_builder.EVENT_EFFECT_GAIN_FAME:
-				this.core.get_city().inc_fame_amount(this.data.amount);
+				this.core.get_city().inc_fame(this.data.amount);
 				break;
 			case city_builder.EVENT_EFFECT_LOSE_FAME:
-				this.core.get_city().dec_fame_amount(this.data.amount);
+				this.core.get_city().dec_fame(this.data.amount);
 				break;
 			case city_builder.EVENT_EFFECT_DESTROY_BUILDING:
 				break;
@@ -7406,7 +7422,7 @@ city_builder.building = function(params) {
 		switch (this.type) {
 			case 'marketplace':
 			case 'warehouse':
-				this.get_city().storage = this.get_city().storage + building.storage;
+				this.get_city().storage = this.get_city().storage + (building.storage * this.get_level());
 				break;
 		}
 		this.get_core().refresh_panels();
@@ -7428,15 +7444,42 @@ city_builder.building = function(params) {
 	 * @returns {Boolean}
 	 */
 	this.upgrade = function() {
-		if (this.is_upgradable() === true) {
-			var bl_id = this.get_city().buildings_list.findIndexM(this.get_type());
-			if (bl_id !== false) {
-				++this.level;
-				this.get_city().buildings_list[bl_id].level = this.get_level();
-				this.get_core().refresh_panels();
-				this.get_core().save();
-				this.get_core().notify(this.get_name() + ' upgraded to level ' + this.get_level());
-				return true;
+		var self = this;
+		var city = this.get_city();
+		var resources = city.get_resources();
+		var next_level = this.get_level() + 1;
+		var _b = city_builder.BUILDINGS.findIndexM(this.get_type());
+		if (_b !== false) {
+			var _c = city_builder.BUILDINGS[_b];
+			if (this.is_upgradable() === true) {
+				var bl_id = city.buildings_list.findIndexM(this.get_type());
+				if (bl_id !== false) {
+					if ((resources.coins - (_c.cost.coins * next_level)) < 0) {
+						this.get_core().error('You don`t have enough coins to upgrade this building.');
+						return false;
+					} else {
+						resources.coins = resources.coins - (_c.cost.coins * next_level);
+					}
+					for (var item in _c.cost) {
+						if (item !== 'coins') {
+							if ((city.get_resources()[item] - (_c.cost[item] * next_level)) < 0) {
+								this.get_core().error('You don`t have enough ' + item + ' to upgrade this building.');
+								return false;
+							} else {
+								city.get_resources()[item] = city.get_resources()[item] - (_c.cost[item] * next_level);
+							}
+						}
+					}
+					++this.level;
+					$('section.game .building[data-type=' + this.get_type() + ']').css({
+						'background-image': 'url(./images/buildings/' + ((self.get_type().slice(0, -1) === 'house') ? self.get_type().slice(0, -1) : self.get_type()) + self.get_level() + '.png)'
+					});
+					this.get_city().buildings_list[bl_id].level = this.get_level();
+					this.get_core().refresh_panels();
+					this.get_core().save();
+					this.get_core().notify(this.get_name() + ' upgraded to level ' + this.get_level());
+					return true;
+				}
 			}
 		}
 		return false;
@@ -7565,7 +7608,7 @@ city_builder.building = function(params) {
 		if (typeof mats === 'object') {
 			for (var i = 0; i < mats.length; i++) {
 				if (mats[i] !== 'coins') {
-					if (res[mats[i]].storage - mat[mats[i]] < 0) {
+					if (res[mats[i]] - mat[mats[i]] < 0) {
 						this.get_core().log(this.get_name() + ' doesn`t have enough ' + mats[i] + '.', true);
 						this.notify(city_builder.NOTIFICATION_MISSING_RESOURCES);
 						this.problems = true;
@@ -7574,7 +7617,7 @@ city_builder.building = function(params) {
 				}
 			}
 		} else {
-			if (res[mats].storage - mat[mats] < 0) {
+			if (res[mats] - mat[mats] < 0) {
 				this.get_core().log(this.get_name() + ' doesn`t have enough ' + mats + '.', true);
 				this.notify(city_builder.NOTIFICATION_MISSING_RESOURCES);
 				this.problems = true;
@@ -7644,6 +7687,8 @@ city_builder.building = function(params) {
 	 * @returns {city_builder.building}
 	 */
 	this.produce_material = function(material) {
+		var city = this.get_city();
+		var resources = city.get_resources();
 		var building = this.get_building_data();
 		var prd = building.production;
 		if (typeof material === 'object') {
@@ -7658,7 +7703,7 @@ city_builder.building = function(params) {
 						for (var item in building.chance) {
 							var rnd = Math.random();
 							if (rnd < building.chance[item]) {
-								this.get_core().log(this.get_name() + ' procced extra ' + city_builder.RESOURCES[item].name + '.');
+								this.get_core().log(this.get_name() + ' procced extra ' + city_builder.utils.get_resource_name(item) + '.');
 								this.get_city().add_to_storage(item, 1);
 							}
 						}
@@ -7677,7 +7722,7 @@ city_builder.building = function(params) {
 					for (var item in building.chance) {
 						var rnd = Math.random();
 						if (rnd < building.chance[item]) {
-							this.get_core().log(this.get_name() + ' procced extra ' + city_builder.RESOURCES[item].name + '.');
+							this.get_core().log(this.get_name() + ' procced extra ' + city_builder.utils.get_resource_name(item) + '.');
 							this.get_city().add_to_storage(item, 1);
 						}
 					}
@@ -7718,9 +7763,9 @@ city_builder.building = function(params) {
 		var building = this.get_building_data();
 		var prd = building.production;
 		var amount = prd.prestige;
-		this.get_city().inc_prestige_amount(amount);
+		this.get_city().inc_prestige(amount);
 		this.get_core().log(this.get_name() + ' raised city prestige by ' + amount + '.');
-		return this.get_city().get_prestige().amount;
+		return this.get_city().get_prestige();
 	};
 
 	/**
@@ -7733,9 +7778,9 @@ city_builder.building = function(params) {
 		var building = this.get_building_data();
 		var prd = building.production;
 		var amount = prd.fame * this.get_level();
-		this.get_city().inc_fame_amount(amount);
+		this.get_city().inc_fame(amount);
 		this.get_core().log(this.get_name() + ' raised city fame by ' + amount + '.');
-		return this.get_city().get_fame().amount;
+		return this.get_city().get_fame();
 	};
 	
 	/**
@@ -7751,13 +7796,13 @@ city_builder.building = function(params) {
 		var prd = building.production;
 		if (this.get_city().has_coins(mat.coins)) {
 			var amount = prd.fame * this.get_level();
-			this.get_city().inc_fame_amount(amount);
-			this.get_city().dec_coins_amount(mat.coins);
+			this.get_city().inc_fame(amount);
+			this.get_city().dec_coins(mat.coins);
 			this.get_core().log(this.get_name() + ' raised city fame with ' + amount + ' at the cost of ' + mat.coins + ' coins.');
 		}
 		return {
-			fame: this.get_city().get_fame().amount,
-			coins: this.get_city().get_coins().amount
+			fame: this.get_city().get_fame(),
+			coins: this.get_city().get_coins()
 		};
 	};
 	
@@ -7778,7 +7823,7 @@ city_builder.building = function(params) {
 			if (this.has_materials(_m)) {
 				this.use_material(_m);
 				var amount = building.tax * this.get_level();
-				this.get_city().inc_coins_amount(amount);
+				this.get_city().inc_coins(amount);
 				this.get_core().log(this.get_name() + ' gave ' + amount + ' coins via tax.');
 			}
 		}
@@ -7838,7 +7883,7 @@ city_builder.building = function(params) {
 				if (this.has_materials(_m)) {
 					this.use_material(_m);
 					var amount = building.tax * this.get_level();
-					this.get_city().inc_coins_amount(amount);
+					this.get_city().inc_coins(amount);
 					this.get_core().log(this.get_name() + ' gave ' + amount + ' coins via tax.');
 				}
 			}
@@ -8263,6 +8308,7 @@ city_builder.panel_buildings = function (params) {
 		}
 		this.core.console_log('creating panel with id `' + this.id + '`');
 		var city = this.core.get_city();
+		var resources = city.get_resources();
 		$('.ui').append(city_builder.ui.generic_panel_template
 			.replace(/{id}/g, this.id)
 			.replace(/{title}/g, this.title));
@@ -8337,7 +8383,7 @@ city_builder.panel_buildings = function (params) {
 			$(el + ' .b-desc').html(building.description);
 			var _z = '<dl class="nomg">';
 			for (var y in building.cost) {
-				_z += '<dt>' + city_builder.utils.nice_numbers(building.cost[y]) + '</dt><dd><img class="tips" title="' + city_builder.RESOURCES[y].name + '" src="' + city_builder.ASSETS_URL + 'images/resources/' + y + '_small.png" /></dd>';
+				_z += '<dt>' + city_builder.utils.nice_numbers(building.cost[y]) + '</dt><dd><img class="tips" title="' + city_builder.utils.get_resource_name(y) + '" src="' + city_builder.ASSETS_URL + 'images/resources/' + y + '_small.png" /></dd>';
 			}
 			_z += '</dl>';
 			$(el + ' .b-cost').append(_z);
@@ -8359,7 +8405,7 @@ city_builder.panel_buildings = function (params) {
 			if (typeof building.chance !== 'undefined') {
 				_z = '<dl class="nomg">';
 				for (var chance in building.chance) {
-					_z += '<dt>' + building.chance[chance] * 100 + '%</dt><dd><img class="tips" title="' + city_builder.RESOURCES[chance].name + '" src="' + city_builder.ASSETS_URL + 'images/resources/' + chance + '_small.png" /></dd>';
+					_z += '<dt>' + building.chance[chance] * 100 + '%</dt><dd><img class="tips" title="' + city_builder.utils.get_resource_name(chance) + '" src="' + city_builder.ASSETS_URL + 'images/resources/' + chance + '_small.png" /></dd>';
 				}
 				_z += '</dl>';
 				$(el + ' .b-chance').append(_z);
@@ -8372,7 +8418,7 @@ city_builder.panel_buildings = function (params) {
 				if (typeof building.production !== 'undefined') {
 					_z = '<dl class="nomg">';
 					for (var y in building.production) {
-						_z += '<dt>' + building.production[y] + '</dt><dd><img class="tips" title="' + city_builder.RESOURCES[y].name + '" src="' + city_builder.ASSETS_URL + 'images/resources/' + y + '_small.png" /></dd>';
+						_z += '<dt>' + building.production[y] + '</dt><dd><img class="tips" title="' + city_builder.utils.get_resource_name(y) + '" src="' + city_builder.ASSETS_URL + 'images/resources/' + y + '_small.png" /></dd>';
 					}
 					_z += '</dl>';
 					$(el + ' .b-prod').append(_z);
@@ -8381,7 +8427,7 @@ city_builder.panel_buildings = function (params) {
 				if (typeof building.materials !== 'undefined') {
 					_z = '<dl class="nomg">';
 					for (var y in building.materials) {
-						_z += '<dt>' + building.materials[y] + '</dt><dd><img class="tips" title="' + city_builder.RESOURCES[y].name + '" src="' + city_builder.ASSETS_URL + 'images/resources/' + y + '_small.png" /></dd>';
+						_z += '<dt>' + building.materials[y] + '</dt><dd><img class="tips" title="' + city_builder.utils.get_resource_name(y) + '" src="' + city_builder.ASSETS_URL + 'images/resources/' + y + '_small.png" /></dd>';
 					}
 					_z += '</dl>';
 					$(el + ' .b-mats').append(_z);
@@ -8392,7 +8438,7 @@ city_builder.panel_buildings = function (params) {
 				if (typeof building.materials !== 'undefined') {
 					_z = '<dl class="nomg">';
 					for (var y in building.materials) {
-						_z += '<dt>' + building.materials[y] + '</dt><dd><img class="tips" title="' + city_builder.RESOURCES[y].name + '" src="' + city_builder.ASSETS_URL + 'images/resources/' + y + '_small.png" /></dd>';
+						_z += '<dt>' + building.materials[y] + '</dt><dd><img class="tips" title="' + city_builder.utils.get_resource_name(y) + '" src="' + city_builder.ASSETS_URL + 'images/resources/' + y + '_small.png" /></dd>';
 					}
 					_z += '</dl>';
 					$(el + ' .b-mats').append(_z);
@@ -8409,7 +8455,7 @@ city_builder.panel_buildings = function (params) {
 			} else if (typeof building.storage !== 'undefined') {
 				$('fieldset.taxes, fieldset.production, fieldset.materials').hide();
 				_z = '<dl class="nomg">' +
-						'<dt>' + building.storage + '</dt><dd><img src="' + city_builder.ASSETS_URL + 'images/resources/storage_small.png" /></dd>' +
+						'<dt>' + building.storage + '</dt><dd><img class="tips" title="' + city_builder.l('Storage Space') + '" src="' + city_builder.ASSETS_URL + 'images/resources/storage_small.png" /></dd>' +
 						'</dl>';
 				$(el + ' .b-store').append(_z);
 				$('fieldset.storage').show();
@@ -8597,12 +8643,12 @@ city_builder.panel_storage = function (params) {
 		var out = '<div class="main-storage">';
 		var main_storage = '';
 		var extra_storage = '';
-		for (var resource in city_builder.RESOURCES) {
+		for (var resource in resources) {
 			if (resource !== 'fame' && resource !== 'prestige' && resource !== 'espionage') {
 				if ($.inArray(resource, city_builder.MAIN_RESOURCES) !== -1) {
-					main_storage += city_builder.ui.resource_storage_el(resource, resources[resource].storage);
+					main_storage += city_builder.ui.resource_storage_el(resource, resources[resource]);
 				} else {
-					extra_storage += city_builder.ui.resource_storage_el(resource, resources[resource].storage);
+					extra_storage += city_builder.ui.resource_storage_el(resource, resources[resource]);
 				}
 			}
 		}
@@ -8703,8 +8749,8 @@ city_builder.panel_city = function (params) {
 				'<dt>' + city_builder.l('Personality') + '</dt><dd>' + city.get_personality().name.capitalize() + '</dd>' +
 				'<dt>' + city_builder.l('Nationality') + '</dt><dd>' + city.get_nationality().name.capitalize() + '</dd>' +
 				'<dt>' + city_builder.l('Level') + '</dt><dd>' + city.get_level() + '</dd>' +
-				'<dt>' + city_builder.l('Prestige') + '</dt><dd>' + city.get_prestige_amount() + '</dd>' +
-				'<dt>' + city_builder.l('Coins') + '</dt><dd>' + city_builder.utils.nice_numbers(city.get_coins_amount()) + '</dd>' +
+				'<dt>' + city_builder.l('Prestige') + '</dt><dd>' + city.get_prestige() + '</dd>' +
+				'<dt>' + city_builder.l('Coins') + '</dt><dd>' + city_builder.utils.nice_numbers(city.get_coins()) + '</dd>' +
 				'<dt>' + city_builder.l('Influence') + '</dt><dd>' + this.core.get_city().get_influence_with_city(city.get_name()) + '</dd>' +
 				'</dl>');
 		$(el + ' #tab-army').append(city_builder.ui.army_list(city.get_army_total()));
@@ -9730,8 +9776,8 @@ city_builder.panel_advisor = function (params) {
 				'<dt>' + city_builder.l('Personality') + '</dt><dd>' + city.get_personality().name.capitalize() + '</dd>' +
 				'<dt>' + city_builder.l('Nationality') + '</dt><dd>' + city.get_nationality().name.capitalize() + '</dd>' +
 				'<dt>' + city_builder.l('Level') + '</dt><dd class="citylevel">' + city.get_level() + '</dd>' +
-				'<dt>' + city_builder.l('Prestige') + '</dt><dd class="cityprestige">' + city.get_prestige_amount() + '</dd>' +
-				'<dt>' + city_builder.l('Espionage') + '</dt><dd class="cityespionage">' + city.get_espionage_amount() + '</dd>' +
+				'<dt>' + city_builder.l('Prestige') + '</dt><dd class="cityprestige">' + city.get_prestige() + '</dd>' +
+				'<dt>' + city_builder.l('Espionage') + '</dt><dd class="cityespionage">' + city.get_espionage() + '</dd>' +
 				'</dl>';
 		var advices = city.call_advisor();
 		if (advices.length > 0) {
@@ -9853,6 +9899,7 @@ city_builder.panel_advisor = function (params) {
 	 */
 	this._refresh_army = function () {
 		var city = this.core.get_city();
+		var resources = city.get_resources();
 		var _t = '';
 		var can_recruit_soldiers = this.core.get_city().is_building_built('camp') || this.core.get_city().is_building_built('castle');
 		if (can_recruit_soldiers !== true) {
@@ -9867,7 +9914,7 @@ city_builder.panel_advisor = function (params) {
 					'<div class="cost">' +
 					'<dl class="nomg">';
 			for (var res in city_builder.SOLDIER_TYPES[item].cost) {
-				_t += '<dt>' + city_builder.utils.nice_numbers(city_builder.SOLDIER_TYPES[item].cost[res]) + '</dt><dd><img class="tips" title="' + city_builder.RESOURCES[res].name + '" src="' + city_builder.ASSETS_URL + 'images/resources/' + res + '_small.png" /></dd>';
+				_t += '<dt>' + city_builder.utils.nice_numbers(city_builder.SOLDIER_TYPES[item].cost[res]) + '</dt><dd><img class="tips" title="' + resources[res].name + '" src="' + city_builder.ASSETS_URL + 'images/resources/' + res + '_small.png" /></dd>';
 			}
 			_t += '</dl>' +
 					'</div>' +
@@ -9899,6 +9946,7 @@ city_builder.panel_advisor = function (params) {
 	 */
 	this._refresh_navy = function () {
 		var city = this.core.get_city();
+		var resources = city.get_resources();
 		var _t = '';
 		var can_build_ships = this.core.get_city().is_building_built('shipyard');
 		if (can_build_ships !== true) {
@@ -9913,7 +9961,7 @@ city_builder.panel_advisor = function (params) {
 					'<div class="cost">' +
 					'<dl class="nomg">';
 			for (var res in city_builder.SHIP_TYPES[item].cost) {
-				_t += '<dt>' + city_builder.utils.nice_numbers(city_builder.SHIP_TYPES[item].cost[res]) + '</dt><dd><img class="tips" title="' + city_builder.RESOURCES[res].name + '" src="' + city_builder.ASSETS_URL + 'images/resources/' + res + '_small.png" /></dd>';
+				_t += '<dt>' + city_builder.utils.nice_numbers(city_builder.SHIP_TYPES[item].cost[res]) + '</dt><dd><img class="tips" title="' + resources[res].name + '" src="' + city_builder.ASSETS_URL + 'images/resources/' + res + '_small.png" /></dd>';
 			}
 			_t += '</dl>' +
 					'</div>' +
@@ -10255,7 +10303,7 @@ city_builder.panel_trades = function (params) {
 		var resources = city.get_resources();
 		for (var item in resources) {
 			if (item !== 'fame' && item !== 'coins' && item !== 'prestige' && item !== 'espionage') {
-				out += '<option value="' + item + '"> ' + city_builder.RESOURCES[item].name + '</option>';
+				out += '<option value="' + item + '"> ' + city_builder.utils.get_resource_name(item) + '</option>';
 			}
 		}
 		$('.bm-materials').empty().append(out);
@@ -10282,7 +10330,9 @@ city_builder.panel_trades = function (params) {
 					'</tr>' +
 					'</thead>';
 		for (var z = 0; z < cities.length; z++) {
+			var city = cities[z];
 			var trades = cities[z].get_trades();
+			var resources = city.get_resources();
 			if (trades !== null) {
 				var imports = trades.imports;
 				for (var item in imports) {
@@ -10364,7 +10414,9 @@ city_builder.panel_trades = function (params) {
 					'</tr>' +
 					'</thead>';
 		for (var z = 0; z < cities.length; z++) {
+			var city = cities[z];
 			var trades = cities[z].get_trades();
+			var resources = city.get_resources();
 			if (trades !== null) {
 				var exports = trades.exports;
 				for (var item in exports) {
@@ -10963,8 +11015,6 @@ city_builder.game = function () {
 	 */
 	this.cities = [];
 
-	//this.worldmap = false;
-
 	/**
 	 * Pointer to the audio subsystem component.
 	 * 
@@ -11334,7 +11384,7 @@ city_builder.game = function () {
 	this.reset_black_market = function () {
 		var total = 0;
 		for (var item in this.black_market) {
-			this.get_city().inc_coins_amount(this.black_market[item].price);
+			this.get_city().inc_coins(this.black_market[item].price);
 			total += this.black_market[item].price;
 		}
 		this.black_market = {};
@@ -11393,9 +11443,9 @@ city_builder.game = function () {
 		$('.start').on('click', '.do-start', function () {
 			var name = $('.start .name').val();
 			var cityname = $('.start .cityname').val();
-			var nation = $('.start .nation').val();
-			var climate = $('.start .climate').val();
-			var difficulty = $('.start .difficulty').val();
+			var nation = parseInt($('.start .nation').val());
+			var climate = parseInt($('.start .climate').val());
+			var difficulty = parseInt($('.start .difficulty').val());
 			if (name === '') {
 				self.error('Enter your ruler name, for example <strong>Ramses</strong>.', 'Error', true);
 				return false;
@@ -11443,9 +11493,6 @@ city_builder.game = function () {
 		}
 		this.setup_neighbours(data);
 		this.save();
-		if (localStorage.getItem('city_builder.data') !== null) {
-			//this._doDaily();
-		}
 		$('section.start').remove();
 		$('header .cityname').html(this.get_city().get_name());
 		$('header .cityavatar').css({
@@ -11454,7 +11501,7 @@ city_builder.game = function () {
 		this.refresh_ui();
 		setInterval(function () {
 			self._do_daily();
-		}, 12000);
+		}, 6000);
 		$('.tips').tipsy({
 			gravity: $.fn.tipsy.autoNS,
 			html: true
@@ -11522,6 +11569,7 @@ city_builder.game = function () {
 	 */
 	this._load_main_city = function () {
 		var data = JSON.parse(window.atob(localStorage.getItem('city_builder.data')));
+		this.set_difficulty(data.difficulty);
 		var my_city = new city_builder.city({
 			name: data.name,
 			data: {
@@ -11532,6 +11580,7 @@ city_builder.game = function () {
 				avatar: data.avatar,
 				level: data.level
 			},
+			player: true,
 			core: this
 		});
 		my_city.import_data(data);
@@ -11561,6 +11610,7 @@ city_builder.game = function () {
 				personality: city_builder.PERSONALITY_TYPE_BALANCED,
 				avatar: avatar
 			},
+			player: true,
 			core: this
 		});
 		this.cities.push(my_city);
@@ -11634,6 +11684,7 @@ city_builder.game = function () {
 		for (var x = 0; x < panels.length; x++) {
 			panels[x].refresh();
 		}
+		this.refresh_toolbar();
 		return this;
 	};
 
@@ -11910,6 +11961,25 @@ city_builder.game = function () {
 	};
 
 	/**
+	 * Refresh the resources toolbar.
+	 *
+	 * @public
+	 * @returns {city_builder.game}
+	 */
+	this.refresh_toolbar = function() {
+		var city = this.get_city();
+		var resources = city.get_resources();
+		for (var i = 0; i < city_builder.TOOLBAR_RESOURCES.length; i++) {
+			var resource = city_builder.TOOLBAR_RESOURCES[i];
+			var el = $('.top-panel .' + resource);
+			if (typeof resources[resource] !== 'undefined') {
+				el.attr('title', resources[resource] + ' ' + city_builder.utils.get_resource_name(resource));
+			}
+		}
+		return this;
+	};
+
+	/**
 	 * Refresh all the UI information after a property change.
 	 * 
 	 * @public
@@ -11919,20 +11989,17 @@ city_builder.game = function () {
 		var city = this.get_city();
 		var storage_space = city.get_storage_space();
 		var needed = city_builder.LEVELS[city.get_level()];
+		console.log('n:' + needed);
+		console.log('a:' + city.get_fame());
 		$('.citylevel').html(city.get_level());
-		$('.cityprestige').html(city.get_prestige_amount());
-		for (var i = 0; i < city_builder.TOOLBAR_RESOURCES.length; i++) {
-			var resource = city_builder.TOOLBAR_RESOURCES[i];
-			var el = $('.top-panel .' + resource);
-			if (typeof city.resources[resource] !== 'undefined') {
-				el.attr('title', city.resources[resource].storage + ' ' + city.resources[resource].name);
-			}
-		}
-		if (city.get_fame_amount() >= needed) {
+		$('.cityprestige').html(city.get_prestige());
+		this.refresh_toolbar();
+		if (city.get_fame() >= needed) {
 			city.level_up();
+			needed = city_builder.LEVELS[city.get_level()];
 		}
 		$('header .cityfame > span').css({
-			width: (city.get_fame_amount() * 100) / needed + '%'
+			width: Math.floor((city.get_fame() * 100) / needed) + '%'
 		});
 		$('.top-panel > span').tipsy({
 			gravity: 'n'
@@ -11963,10 +12030,12 @@ city_builder.game = function () {
 			new_city = new city_builder.city({
 				name: item,
 				data: city_builder.CITIES[item],
+				player: false,
 				core: this
 			});
-			//city._build(city_builder['CITY_BUILDINGS_' + city_builder.CLIMATE_TYPES[city_builder.CITIES[item].climate].toUpperCase()], true);
-			//new_city._create_buildings(city_builder.BUILDINGS_ALL, true);
+			var climate = new_city.get_climate();
+			var climate_buildings = 'CITY_BUILDINGS_' + climate.name.toUpperCase();
+			new_city._create_buildings(city_builder[climate_buildings], true);
 			new_city.setup_army(true);
 			new_city.setup_navy(true);
 			if (data !== null) {
@@ -12028,6 +12097,17 @@ city_builder.game = function () {
 	 */
 	this.get_panels = function() {
 		return this.panels;
+	};
+
+	/**
+	 * Set the difficulty level of the game.
+	 * 
+	 * @public
+	 * @returns {Number}
+	 */
+	this.set_difficulty = function(value) {
+		this.difficulty = value;
+		return this;
 	};
 
 	/**

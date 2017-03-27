@@ -127,12 +127,12 @@ city_builder.panel_storage = function (params) {
 		var out = '<div class="main-storage">';
 		var main_storage = '';
 		var extra_storage = '';
-		for (var resource in city_builder.RESOURCES) {
+		for (var resource in resources) {
 			if (resource !== 'fame' && resource !== 'prestige' && resource !== 'espionage') {
 				if ($.inArray(resource, city_builder.MAIN_RESOURCES) !== -1) {
-					main_storage += city_builder.ui.resource_storage_el(resource, resources[resource].storage);
+					main_storage += city_builder.ui.resource_storage_el(resource, resources[resource]);
 				} else {
-					extra_storage += city_builder.ui.resource_storage_el(resource, resources[resource].storage);
+					extra_storage += city_builder.ui.resource_storage_el(resource, resources[resource]);
 				}
 			}
 		}

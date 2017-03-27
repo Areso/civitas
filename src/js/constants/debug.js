@@ -4,7 +4,6 @@
  * Throw in some coins too.
  */
 if (city_builder.DEBUG === true) {
-	city_builder.RESOURCES['coins']['storage'] = 1000000;
 	city_builder.CITIES['Sandbox'] = {
 		nationality: city_builder.NATION_TYPE_ASSYRIAN,
 		ruler: 'Sandking',
@@ -13,8 +12,10 @@ if (city_builder.DEBUG === true) {
 		climate: city_builder.CLIMATE_TYPE_TEMPERATE,
 		personality: city_builder.PERSONALITY_TYPE_DIPLOMAT,
 		level: 30,
-		coins: 1000000,
-		prestige: 999,
+		resources: {
+			'coins': 1000000,
+			'prestige': 999
+		},
 		trades: {
 			'imports': {
 				gold: city_builder.GOODS_IMPORTANCE_VITAL,

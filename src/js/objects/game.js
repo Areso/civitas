@@ -14,8 +14,6 @@ city_builder.game = function () {
 	 */
 	this.cities = [];
 
-	//this.worldmap = false;
-
 	/**
 	 * Pointer to the audio subsystem component.
 	 * 
@@ -385,7 +383,7 @@ city_builder.game = function () {
 	this.reset_black_market = function () {
 		var total = 0;
 		for (var item in this.black_market) {
-			this.get_city().inc_coins_amount(this.black_market[item].price);
+			this.get_city().inc_coins(this.black_market[item].price);
 			total += this.black_market[item].price;
 		}
 		this.black_market = {};
@@ -444,9 +442,9 @@ city_builder.game = function () {
 		$('.start').on('click', '.do-start', function () {
 			var name = $('.start .name').val();
 			var cityname = $('.start .cityname').val();
-			var nation = $('.start .nation').val();
-			var climate = $('.start .climate').val();
-			var difficulty = $('.start .difficulty').val();
+			var nation = parseInt($('.start .nation').val());
+			var climate = parseInt($('.start .climate').val());
+			var difficulty = parseInt($('.start .difficulty').val());
 			if (name === '') {
 				self.error('Enter your ruler name, for example <strong>Ramses</strong>.', 'Error', true);
 				return false;
@@ -494,9 +492,6 @@ city_builder.game = function () {
 		}
 		this.setup_neighbours(data);
 		this.save();
-		if (localStorage.getItem('city_builder.data') !== null) {
-			//this._doDaily();
-		}
 		$('section.start').remove();
 		$('header .cityname').html(this.get_city().get_name());
 		$('header .cityavatar').css({
@@ -505,7 +500,7 @@ city_builder.game = function () {
 		this.refresh_ui();
 		setInterval(function () {
 			self._do_daily();
-		}, 12000);
+		}, 6000);
 		$('.tips').tipsy({
 			gravity: $.fn.tipsy.autoNS,
 			html: true
@@ -573,6 +568,7 @@ city_builder.game = function () {
 	 */
 	this._load_main_city = function () {
 		var data = JSON.parse(window.atob(localStorage.getItem('city_builder.data')));
+		this.set_difficulty(data.difficulty);
 		var my_city = new city_builder.city({
 			name: data.name,
 			data: {
@@ -583,6 +579,7 @@ city_builder.game = function () {
 				avatar: data.avatar,
 				level: data.level
 			},
+			player: true,
 			core: this
 		});
 		my_city.import_data(data);
@@ -612,6 +609,7 @@ city_builder.game = function () {
 				personality: city_builder.PERSONALITY_TYPE_BALANCED,
 				avatar: avatar
 			},
+			player: true,
 			core: this
 		});
 		this.cities.push(my_city);
@@ -685,6 +683,7 @@ city_builder.game = function () {
 		for (var x = 0; x < panels.length; x++) {
 			panels[x].refresh();
 		}
+		this.refresh_toolbar();
 		return this;
 	};
 
@@ -961,6 +960,25 @@ city_builder.game = function () {
 	};
 
 	/**
+	 * Refresh the resources toolbar.
+	 *
+	 * @public
+	 * @returns {city_builder.game}
+	 */
+	this.refresh_toolbar = function() {
+		var city = this.get_city();
+		var resources = city.get_resources();
+		for (var i = 0; i < city_builder.TOOLBAR_RESOURCES.length; i++) {
+			var resource = city_builder.TOOLBAR_RESOURCES[i];
+			var el = $('.top-panel .' + resource);
+			if (typeof resources[resource] !== 'undefined') {
+				el.attr('title', resources[resource] + ' ' + city_builder.utils.get_resource_name(resource));
+			}
+		}
+		return this;
+	};
+
+	/**
 	 * Refresh all the UI information after a property change.
 	 * 
 	 * @public
@@ -970,20 +988,17 @@ city_builder.game = function () {
 		var city = this.get_city();
 		var storage_space = city.get_storage_space();
 		var needed = city_builder.LEVELS[city.get_level()];
+		console.log('n:' + needed);
+		console.log('a:' + city.get_fame());
 		$('.citylevel').html(city.get_level());
-		$('.cityprestige').html(city.get_prestige_amount());
-		for (var i = 0; i < city_builder.TOOLBAR_RESOURCES.length; i++) {
-			var resource = city_builder.TOOLBAR_RESOURCES[i];
-			var el = $('.top-panel .' + resource);
-			if (typeof city.resources[resource] !== 'undefined') {
-				el.attr('title', city.resources[resource].storage + ' ' + city.resources[resource].name);
-			}
-		}
-		if (city.get_fame_amount() >= needed) {
+		$('.cityprestige').html(city.get_prestige());
+		this.refresh_toolbar();
+		if (city.get_fame() >= needed) {
 			city.level_up();
+			needed = city_builder.LEVELS[city.get_level()];
 		}
 		$('header .cityfame > span').css({
-			width: (city.get_fame_amount() * 100) / needed + '%'
+			width: Math.floor((city.get_fame() * 100) / needed) + '%'
 		});
 		$('.top-panel > span').tipsy({
 			gravity: 'n'
@@ -1014,10 +1029,12 @@ city_builder.game = function () {
 			new_city = new city_builder.city({
 				name: item,
 				data: city_builder.CITIES[item],
+				player: false,
 				core: this
 			});
-			//city._build(city_builder['CITY_BUILDINGS_' + city_builder.CLIMATE_TYPES[city_builder.CITIES[item].climate].toUpperCase()], true);
-			//new_city._create_buildings(city_builder.BUILDINGS_ALL, true);
+			var climate = new_city.get_climate();
+			var climate_buildings = 'CITY_BUILDINGS_' + climate.name.toUpperCase();
+			new_city._create_buildings(city_builder[climate_buildings], true);
 			new_city.setup_army(true);
 			new_city.setup_navy(true);
 			if (data !== null) {
@@ -1079,6 +1096,17 @@ city_builder.game = function () {
 	 */
 	this.get_panels = function() {
 		return this.panels;
+	};
+
+	/**
+	 * Set the difficulty level of the game.
+	 * 
+	 * @public
+	 * @returns {Number}
+	 */
+	this.set_difficulty = function(value) {
+		this.difficulty = value;
+		return this;
 	};
 
 	/**

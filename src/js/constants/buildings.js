@@ -4,7 +4,7 @@
  * @constant
  * @type {Array}
  */
-city_builder.BUILDINGS_TROPICAL = [
+city_builder.CITY_BUILDINGS_TROPICAL = [
 
 	/* Municipal */
 	'marketplace', 'warehouse', 'tradingpost', 'church', 'monastery', 'camp', 'castle',
@@ -372,9 +372,9 @@ city_builder.BUILDINGS = [{
 			y: 365
 		},
 		cost: {
-			coins: 5000,
-			wood: 50,
-			stones: 50
+			coins: 150000,
+			wood: 500,
+			stones: 500
 		},
 		requires: {
 			city_level: 10
@@ -400,8 +400,8 @@ city_builder.BUILDINGS = [{
 		levels: 3,
 		cost: {
 			coins: 10000,
-			wood: 10,
-			stones: 10
+			wood: 20,
+			stones: 20
 		},
 		requires: {
 			city_level: 3
@@ -417,7 +417,7 @@ city_builder.BUILDINGS = [{
 		},
 		levels: 3,
 		cost: {
-			coins: 3000,
+			coins: 50000,
 			wood: 40,
 			stones: 40
 		},
@@ -444,7 +444,7 @@ city_builder.BUILDINGS = [{
 		},
 		levels: 3,
 		cost: {
-			coins: 5000,
+			coins: 100000,
 			wood: 100,
 			stones: 100
 		},
@@ -469,9 +469,9 @@ city_builder.BUILDINGS = [{
 		},
 		levels: 3,
 		cost: {
-			coins: 5000,
-			wood: 100,
-			stones: 100
+			coins: 50000,
+			wood: 200,
+			stones: 200
 		},
 		requires: {
 			city_level: 16
@@ -491,8 +491,8 @@ city_builder.BUILDINGS = [{
 			pearls: 0.05
 		},
 		cost: {
-			coins: 10000,
-			wood: 100,
+			coins: 200000,
+			wood: 200,
 			stones: 100
 		},
 		production: {
@@ -512,7 +512,7 @@ city_builder.BUILDINGS = [{
 			y: 153
 		},
 		cost: {
-			coins: 5000,
+			coins: 50000,
 			wood: 200,
 			stones: 160
 		},
@@ -539,7 +539,7 @@ city_builder.BUILDINGS = [{
 			coins: 200
 		},
 		cost: {
-			coins: 200000,
+			coins: 1000000,
 			wood: 500,
 			stones: 500
 		},
@@ -608,7 +608,7 @@ city_builder.BUILDINGS = [{
 			gems: 0.01
 		},
 		cost: {
-			coins: 3000,
+			coins: 10000,
 			wood: 20,
 			stones: 20
 		},
@@ -634,7 +634,7 @@ city_builder.BUILDINGS = [{
 			gems: 0.01
 		},
 		cost: {
-			coins: 2000,
+			coins: 10000,
 			wood: 20,
 			stones: 20
 		},
@@ -657,7 +657,7 @@ city_builder.BUILDINGS = [{
 		},
 		levels: 3,
 		cost: {
-			coins: 1000,
+			coins: 8000,
 			wood: 20,
 			stones: 20
 		},
@@ -683,7 +683,7 @@ city_builder.BUILDINGS = [{
 			gems: 0.01
 		},
 		cost: {
-			coins: 2000,
+			coins: 10000,
 			wood: 20,
 			stones: 20
 		},
@@ -710,7 +710,7 @@ city_builder.BUILDINGS = [{
 		},
 		levels: 3,
 		cost: {
-			coins: 3000,
+			coins: 20000,
 			wood: 20,
 			stones: 20
 		},
@@ -734,7 +734,7 @@ city_builder.BUILDINGS = [{
 		},
 		levels: 3,
 		cost: {
-			coins: 4000,
+			coins: 10000,
 			wood: 20,
 			stones: 20
 		},
@@ -759,7 +759,7 @@ city_builder.BUILDINGS = [{
 		},
 		levels: 3,
 		cost: {
-			coins: 5000,
+			coins: 15000,
 			wood: 30,
 			stones: 30
 		},
@@ -786,7 +786,7 @@ city_builder.BUILDINGS = [{
 		},
 		levels: 3,
 		cost: {
-			coins: 6000,
+			coins: 50000,
 			wood: 100,
 			stones: 100
 		},
@@ -813,7 +813,7 @@ city_builder.BUILDINGS = [{
 		},
 		levels: 3,
 		cost: {
-			coins: 4000,
+			coins: 25000,
 			wood: 40,
 			stones: 40
 		},
@@ -839,7 +839,7 @@ city_builder.BUILDINGS = [{
 		},
 		levels: 3,
 		cost: {
-			coins: 4000,
+			coins: 40000,
 			wood: 40,
 			stones: 50
 		},
@@ -864,7 +864,7 @@ city_builder.BUILDINGS = [{
 		},
 		levels: 3,
 		cost: {
-			coins: 4000,
+			coins: 40000,
 			wood: 50,
 			stones: 50
 		},
@@ -889,7 +889,7 @@ city_builder.BUILDINGS = [{
 		},
 		levels: 3,
 		cost: {
-			coins: 4000,
+			coins: 40000,
 			wood: 55,
 			stones: 55
 		},
@@ -910,7 +910,7 @@ city_builder.BUILDINGS = [{
 		},
 		levels: 3,
 		cost: {
-			coins: 2000,
+			coins: 15000,
 			wood: 40,
 			stones: 40
 		},
@@ -936,7 +936,7 @@ city_builder.BUILDINGS = [{
 		},
 		levels: 3,
 		cost: {
-			coins: 3000,
+			coins: 15000,
 			wood: 30,
 			stones: 40
 		},
@@ -960,7 +960,7 @@ city_builder.BUILDINGS = [{
 		},
 		levels: 3,
 		cost: {
-			coins: 5000,
+			coins: 15000,
 			wood: 40,
 			stones: 40
 		},
@@ -985,7 +985,7 @@ city_builder.BUILDINGS = [{
 			y: 552
 		},
 		cost: {
-			coins: 3000,
+			coins: 20000,
 			wood: 35,
 			stones: 40
 		},
@@ -1010,7 +1010,7 @@ city_builder.BUILDINGS = [{
 		},
 		levels: 3,
 		cost: {
-			coins: 7000,
+			coins: 70000,
 			wood: 80,
 			stones: 60
 		},
@@ -1034,7 +1034,7 @@ city_builder.BUILDINGS = [{
 		},
 		levels: 3,
 		cost: {
-			coins: 7000,
+			coins: 70000,
 			wood: 80,
 			stones: 60
 		},
@@ -1059,7 +1059,7 @@ city_builder.BUILDINGS = [{
 		},
 		levels: 3,
 		cost: {
-			coins: 5000,
+			coins: 50000,
 			wood: 50,
 			stones: 40
 		},
@@ -1084,7 +1084,7 @@ city_builder.BUILDINGS = [{
 		},
 		levels: 3,
 		cost: {
-			coins: 8100,
+			coins: 81000,
 			wood: 70,
 			stones: 70
 		},
@@ -1109,7 +1109,7 @@ city_builder.BUILDINGS = [{
 		},
 		levels: 3,
 		cost: {
-			coins: 8300,
+			coins: 83000,
 			wood: 60,
 			stones: 50
 		},
@@ -1134,7 +1134,7 @@ city_builder.BUILDINGS = [{
 		},
 		levels: 3,
 		cost: {
-			coins: 8400,
+			coins: 84000,
 			wood: 100,
 			stones: 100
 		},
@@ -1159,7 +1159,7 @@ city_builder.BUILDINGS = [{
 		},
 		levels: 3,
 		cost: {
-			coins: 8200,
+			coins: 90000,
 			wood: 80,
 			stones: 40
 		},
@@ -1184,7 +1184,7 @@ city_builder.BUILDINGS = [{
 		},
 		levels: 3,
 		cost: {
-			coins: 7500,
+			coins: 75000,
 			wood: 70,
 			stones: 50
 		},
@@ -1208,7 +1208,7 @@ city_builder.BUILDINGS = [{
 		},
 		levels: 3,
 		cost: {
-			coins: 4000,
+			coins: 15000,
 			wood: 70,
 			stones: 60
 		},
@@ -1232,7 +1232,7 @@ city_builder.BUILDINGS = [{
 		},
 		levels: 3,
 		cost: {
-			coins: 5000,
+			coins: 50000,
 			wood: 50,
 			stones: 80
 		},
@@ -1253,7 +1253,7 @@ city_builder.BUILDINGS = [{
 		},
 		levels: 3,
 		cost: {
-			coins: 4000,
+			coins: 40000,
 			wood: 50,
 			stones: 90
 		},
@@ -1274,7 +1274,7 @@ city_builder.BUILDINGS = [{
 		},
 		levels: 3,
 		cost: {
-			coins: 4000,
+			coins: 40000,
 			wood: 50,
 			stones: 40
 		},
@@ -1299,7 +1299,7 @@ city_builder.BUILDINGS = [{
 		},
 		levels: 3,
 		cost: {
-			coins: 4100,
+			coins: 25000,
 			wood: 80,
 			stones: 70
 		},
@@ -1324,7 +1324,7 @@ city_builder.BUILDINGS = [{
 		},
 		levels: 3,
 		cost: {
-			coins: 4200,
+			coins: 25000,
 			wood: 60,
 			stones: 70
 		},
@@ -1349,7 +1349,7 @@ city_builder.BUILDINGS = [{
 		},
 		levels: 3,
 		cost: {
-			coins: 6400,
+			coins: 45000,
 			wood: 80,
 			stones: 60
 		},
@@ -1374,7 +1374,7 @@ city_builder.BUILDINGS = [{
 		},
 		levels: 3,
 		cost: {
-			coins: 5000,
+			coins: 15000,
 			wood: 50,
 			stones: 50
 		},
@@ -1619,7 +1619,7 @@ city_builder.BUILDINGS = [{
 		},
 		levels: 3,
 		cost: {
-			coins: 4000,
+			coins: 10000,
 			wood: 50,
 			stones: 30
 		},
@@ -1636,7 +1636,7 @@ city_builder.BUILDINGS = [{
 			y: 840
 		},
 		cost: {
-			coins: 1000,
+			coins: 2000,
 			wood: 10,
 			clay: 10
 		},
@@ -1657,7 +1657,7 @@ city_builder.BUILDINGS = [{
 			y: 569
 		},
 		cost: {
-			coins: 8000,
+			coins: 40000,
 			wood: 30,
 			stones: 30
 		},
@@ -1674,7 +1674,7 @@ city_builder.BUILDINGS = [{
 			y: 636
 		},
 		cost: {
-			coins: 1200,
+			coins: 5000,
 			wood: 10,
 			clay: 10
 		},
@@ -1700,7 +1700,7 @@ city_builder.BUILDINGS = [{
 			y: 783
 		},
 		cost: {
-			coins: 3000,
+			coins: 10000,
 			wood: 20,
 			stones: 20
 		},
@@ -1717,7 +1717,7 @@ city_builder.BUILDINGS = [{
 			y: 838
 		},
 		cost: {
-			coins: 800,
+			coins: 1000,
 			wood: 10,
 			clay: 10
 		},
@@ -1742,7 +1742,7 @@ city_builder.BUILDINGS = [{
 			y: 712
 		},
 		cost: {
-			coins: 3000,
+			coins: 15000,
 			wood: 20,
 			stones: 20
 		},
@@ -1759,7 +1759,7 @@ city_builder.BUILDINGS = [{
 			y: 770
 		},
 		cost: {
-			coins: 800,
+			coins: 1500,
 			wood: 10,
 			clay: 10
 		},
@@ -1782,7 +1782,7 @@ city_builder.BUILDINGS = [{
 			y: 859
 		},
 		cost: {
-			coins: 2000,
+			coins: 10000,
 			wood: 20,
 			stones: 20
 		},
@@ -1799,7 +1799,7 @@ city_builder.BUILDINGS = [{
 			y: 915
 		},
 		cost: {
-			coins: 500,
+			coins: 1000,
 			wood: 10,
 			clay: 5
 		},
@@ -1821,7 +1821,7 @@ city_builder.BUILDINGS = [{
 			y: 600
 		},
 		cost: {
-			coins: 4000,
+			coins: 15000,
 			wood: 20,
 			stones: 20
 		},
@@ -1838,7 +1838,7 @@ city_builder.BUILDINGS = [{
 			y: 670
 		},
 		cost: {
-			coins: 1200,
+			coins: 1500,
 			wood: 10,
 			clay: 10
 		},
@@ -1860,7 +1860,7 @@ city_builder.BUILDINGS = [{
 			y: 466
 		},
 		cost: {
-			coins: 6000,
+			coins: 60000,
 			wood: 20,
 			stones: 20
 		},
@@ -1877,7 +1877,7 @@ city_builder.BUILDINGS = [{
 			y: 532
 		},
 		cost: {
-			coins: 2000,
+			coins: 6000,
 			wood: 10,
 			clay: 10
 		},
@@ -1899,7 +1899,7 @@ city_builder.BUILDINGS = [{
 			y: 698
 		},
 		cost: {
-			coins: 4000,
+			coins: 20000,
 			wood: 20,
 			stones: 20
 		},
@@ -1916,7 +1916,7 @@ city_builder.BUILDINGS = [{
 			y: 758
 		},
 		cost: {
-			coins: 1000,
+			coins: 2000,
 			wood: 10,
 			clay: 10
 		},
@@ -1937,7 +1937,7 @@ city_builder.BUILDINGS = [{
 			y: 745
 		},
 		cost: {
-			coins: 8000,
+			coins: 80000,
 			wood: 20,
 			stones: 20
 		},
@@ -1954,7 +1954,7 @@ city_builder.BUILDINGS = [{
 			y: 819
 		},
 		cost: {
-			coins: 1400,
+			coins: 8000,
 			wood: 10,
 			clay: 10
 		},
@@ -1976,7 +1976,7 @@ city_builder.BUILDINGS = [{
 			y: 804
 		},
 		cost: {
-			coins: 10000,
+			coins: 100000,
 			wood: 20,
 			stones: 20
 		},
@@ -1993,7 +1993,7 @@ city_builder.BUILDINGS = [{
 			y: 862
 		},
 		cost: {
-			coins: 4000,
+			coins: 10000,
 			wood: 10,
 			clay: 10
 		},
@@ -2014,7 +2014,7 @@ city_builder.BUILDINGS = [{
 			y: 870
 		},
 		cost: {
-			coins: 5000,
+			coins: 200000,
 			wood: 30,
 			stones: 30,
 			clay: 30
@@ -2036,7 +2036,7 @@ city_builder.BUILDINGS = [{
 			y: 630
 		},
 		cost: {
-			coins: 7000,
+			coins: 20000,
 			wood: 50,
 			stones: 50,
 			clay: 50
@@ -2058,7 +2058,7 @@ city_builder.BUILDINGS = [{
 			y: 870
 		},
 		cost: {
-			coins: 10000,
+			coins: 200000,
 			wood: 60,
 			stones: 60,
 			clay: 60

@@ -119,7 +119,7 @@ city_builder.building = function(params) {
 		switch (this.type) {
 			case 'marketplace':
 			case 'warehouse':
-				this.get_city().storage = this.get_city().storage + building.storage;
+				this.get_city().storage = this.get_city().storage + (building.storage * this.get_level());
 				break;
 		}
 		this.get_core().refresh_panels();
@@ -141,15 +141,42 @@ city_builder.building = function(params) {
 	 * @returns {Boolean}
 	 */
 	this.upgrade = function() {
-		if (this.is_upgradable() === true) {
-			var bl_id = this.get_city().buildings_list.findIndexM(this.get_type());
-			if (bl_id !== false) {
-				++this.level;
-				this.get_city().buildings_list[bl_id].level = this.get_level();
-				this.get_core().refresh_panels();
-				this.get_core().save();
-				this.get_core().notify(this.get_name() + ' upgraded to level ' + this.get_level());
-				return true;
+		var self = this;
+		var city = this.get_city();
+		var resources = city.get_resources();
+		var next_level = this.get_level() + 1;
+		var _b = city_builder.BUILDINGS.findIndexM(this.get_type());
+		if (_b !== false) {
+			var _c = city_builder.BUILDINGS[_b];
+			if (this.is_upgradable() === true) {
+				var bl_id = city.buildings_list.findIndexM(this.get_type());
+				if (bl_id !== false) {
+					if ((resources.coins - (_c.cost.coins * next_level)) < 0) {
+						this.get_core().error('You don`t have enough coins to upgrade this building.');
+						return false;
+					} else {
+						resources.coins = resources.coins - (_c.cost.coins * next_level);
+					}
+					for (var item in _c.cost) {
+						if (item !== 'coins') {
+							if ((city.get_resources()[item] - (_c.cost[item] * next_level)) < 0) {
+								this.get_core().error('You don`t have enough ' + item + ' to upgrade this building.');
+								return false;
+							} else {
+								city.get_resources()[item] = city.get_resources()[item] - (_c.cost[item] * next_level);
+							}
+						}
+					}
+					++this.level;
+					$('section.game .building[data-type=' + this.get_type() + ']').css({
+						'background-image': 'url(./images/buildings/' + ((self.get_type().slice(0, -1) === 'house') ? self.get_type().slice(0, -1) : self.get_type()) + self.get_level() + '.png)'
+					});
+					this.get_city().buildings_list[bl_id].level = this.get_level();
+					this.get_core().refresh_panels();
+					this.get_core().save();
+					this.get_core().notify(this.get_name() + ' upgraded to level ' + this.get_level());
+					return true;
+				}
 			}
 		}
 		return false;
@@ -278,7 +305,7 @@ city_builder.building = function(params) {
 		if (typeof mats === 'object') {
 			for (var i = 0; i < mats.length; i++) {
 				if (mats[i] !== 'coins') {
-					if (res[mats[i]].storage - mat[mats[i]] < 0) {
+					if (res[mats[i]] - mat[mats[i]] < 0) {
 						this.get_core().log(this.get_name() + ' doesn`t have enough ' + mats[i] + '.', true);
 						this.notify(city_builder.NOTIFICATION_MISSING_RESOURCES);
 						this.problems = true;
@@ -287,7 +314,7 @@ city_builder.building = function(params) {
 				}
 			}
 		} else {
-			if (res[mats].storage - mat[mats] < 0) {
+			if (res[mats] - mat[mats] < 0) {
 				this.get_core().log(this.get_name() + ' doesn`t have enough ' + mats + '.', true);
 				this.notify(city_builder.NOTIFICATION_MISSING_RESOURCES);
 				this.problems = true;
@@ -357,6 +384,8 @@ city_builder.building = function(params) {
 	 * @returns {city_builder.building}
 	 */
 	this.produce_material = function(material) {
+		var city = this.get_city();
+		var resources = city.get_resources();
 		var building = this.get_building_data();
 		var prd = building.production;
 		if (typeof material === 'object') {
@@ -371,7 +400,7 @@ city_builder.building = function(params) {
 						for (var item in building.chance) {
 							var rnd = Math.random();
 							if (rnd < building.chance[item]) {
-								this.get_core().log(this.get_name() + ' procced extra ' + city_builder.RESOURCES[item].name + '.');
+								this.get_core().log(this.get_name() + ' procced extra ' + city_builder.utils.get_resource_name(item) + '.');
 								this.get_city().add_to_storage(item, 1);
 							}
 						}
@@ -390,7 +419,7 @@ city_builder.building = function(params) {
 					for (var item in building.chance) {
 						var rnd = Math.random();
 						if (rnd < building.chance[item]) {
-							this.get_core().log(this.get_name() + ' procced extra ' + city_builder.RESOURCES[item].name + '.');
+							this.get_core().log(this.get_name() + ' procced extra ' + city_builder.utils.get_resource_name(item) + '.');
 							this.get_city().add_to_storage(item, 1);
 						}
 					}
@@ -431,9 +460,9 @@ city_builder.building = function(params) {
 		var building = this.get_building_data();
 		var prd = building.production;
 		var amount = prd.prestige;
-		this.get_city().inc_prestige_amount(amount);
+		this.get_city().inc_prestige(amount);
 		this.get_core().log(this.get_name() + ' raised city prestige by ' + amount + '.');
-		return this.get_city().get_prestige().amount;
+		return this.get_city().get_prestige();
 	};
 
 	/**
@@ -446,9 +475,9 @@ city_builder.building = function(params) {
 		var building = this.get_building_data();
 		var prd = building.production;
 		var amount = prd.fame * this.get_level();
-		this.get_city().inc_fame_amount(amount);
+		this.get_city().inc_fame(amount);
 		this.get_core().log(this.get_name() + ' raised city fame by ' + amount + '.');
-		return this.get_city().get_fame().amount;
+		return this.get_city().get_fame();
 	};
 	
 	/**
@@ -464,13 +493,13 @@ city_builder.building = function(params) {
 		var prd = building.production;
 		if (this.get_city().has_coins(mat.coins)) {
 			var amount = prd.fame * this.get_level();
-			this.get_city().inc_fame_amount(amount);
-			this.get_city().dec_coins_amount(mat.coins);
+			this.get_city().inc_fame(amount);
+			this.get_city().dec_coins(mat.coins);
 			this.get_core().log(this.get_name() + ' raised city fame with ' + amount + ' at the cost of ' + mat.coins + ' coins.');
 		}
 		return {
-			fame: this.get_city().get_fame().amount,
-			coins: this.get_city().get_coins().amount
+			fame: this.get_city().get_fame(),
+			coins: this.get_city().get_coins()
 		};
 	};
 	
@@ -491,7 +520,7 @@ city_builder.building = function(params) {
 			if (this.has_materials(_m)) {
 				this.use_material(_m);
 				var amount = building.tax * this.get_level();
-				this.get_city().inc_coins_amount(amount);
+				this.get_city().inc_coins(amount);
 				this.get_core().log(this.get_name() + ' gave ' + amount + ' coins via tax.');
 			}
 		}
@@ -551,7 +580,7 @@ city_builder.building = function(params) {
 				if (this.has_materials(_m)) {
 					this.use_material(_m);
 					var amount = building.tax * this.get_level();
-					this.get_city().inc_coins_amount(amount);
+					this.get_city().inc_coins(amount);
 					this.get_core().log(this.get_name() + ' gave ' + amount + ' coins via tax.');
 				}
 			}

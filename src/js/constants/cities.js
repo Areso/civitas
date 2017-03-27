@@ -13,8 +13,10 @@ city_builder.CITIES = {
 		climate: city_builder.CLIMATE_TYPE_TEMPERATE,
 		personality: city_builder.PERSONALITY_TYPE_DIPLOMAT,
 		level: 25,
-		prestige: 700,
-		coins: 230000,
+		resources: {
+			'coins': 230000,
+			'prestige': 700
+		},
 		trades: {
 			'imports': {
 				gold: city_builder.GOODS_IMPORTANCE_MEDIUM,
@@ -62,8 +64,10 @@ city_builder.CITIES = {
 		climate: city_builder.CLIMATE_TYPE_TROPICAL,
 		personality: city_builder.PERSONALITY_TYPE_DIPLOMAT,
 		level: 24,
-		coins: 130000,
-		prestige: 700,
+		resources: {
+			'coins': 130000,
+			'prestige': 700
+		},
 		trades: {
 			'imports': {
 				wax: city_builder.GOODS_IMPORTANCE_LOW,
@@ -113,9 +117,11 @@ city_builder.CITIES = {
 		icon: 6,
 		climate: city_builder.CLIMATE_TYPE_TEMPERATE,
 		personality: city_builder.PERSONALITY_TYPE_WARLORD,
-		coins: 100000,
-		level: 35,
-		prestige: 1000,
+		level: 30,
+		resources: {
+			'coins': 100000,
+			'prestige': 1000
+		},
 		trades: {
 			'imports': {
 				wheat: city_builder.GOODS_IMPORTANCE_VITAL,
@@ -150,9 +156,11 @@ city_builder.CITIES = {
 		icon: 5,
 		climate: city_builder.CLIMATE_TYPE_TROPICAL,
 		personality: city_builder.PERSONALITY_TYPE_WARLORD,
-		coins: 200000,
 		level: 22,
-		prestige: 500,
+		resources: {
+			'coins': 200000,
+			'prestige': 500
+		},
 		trades: {
 			'imports': {
 				flour: city_builder.GOODS_IMPORTANCE_LOW,
@@ -191,9 +199,11 @@ city_builder.CITIES = {
 		icon: 7,
 		climate: city_builder.CLIMATE_TYPE_ARID,
 		personality: city_builder.PERSONALITY_TYPE_DIPLOMAT,
-		coins: 200000,
-		level: 35,
-		prestige: 800,
+		level: 30,
+		resources: {
+			'coins': 200000,
+			'prestige': 800
+		},
 		trades: {
 			'imports': {
 				barrels: city_builder.GOODS_IMPORTANCE_LOW,
@@ -233,9 +243,11 @@ city_builder.CITIES = {
 		icon: 2,
 		climate: city_builder.CLIMATE_TYPE_TROPICAL,
 		personality: city_builder.PERSONALITY_TYPE_WARLORD,
-		coins: 200000,
 		level: 21,
-		prestige: 100,
+		resources: {
+			'coins': 200000,
+			'prestige': 100
+		},
 		trades: {
 			'imports': {
 				meat: city_builder.GOODS_IMPORTANCE_LOW,
@@ -271,9 +283,11 @@ city_builder.CITIES = {
 		icon: 4,
 		climate: city_builder.CLIMATE_TYPE_ARID,
 		personality: city_builder.PERSONALITY_TYPE_DIPLOMAT,
-		coins: 130000,
-		level: 33,
-		prestige: 780,
+		level: 30,
+		resources: {
+			'coins': 130000,
+			'prestige': 780
+		},
 		trades: {
 			'imports': {
 				silk: city_builder.GOODS_IMPORTANCE_LOW,
@@ -309,9 +323,11 @@ city_builder.CITIES = {
 		icon: 5,
 		climate: city_builder.CLIMATE_TYPE_POLAR,
 		personality: city_builder.PERSONALITY_TYPE_WARLORD,
-		coins: 30000,
 		level: 20,
-		prestige: 200,
+		resources: {
+			'coins': 30000,
+			'prestige': 200
+		},
 		trades: {
 			'imports': {
 				furs: city_builder.GOODS_IMPORTANCE_LOW,
@@ -348,9 +364,11 @@ city_builder.CITIES = {
 		icon: 4,
 		climate: city_builder.CLIMATE_TYPE_TEMPERATE,
 		personality: city_builder.PERSONALITY_TYPE_BALANCED,
-		coins: 330000,
-		level: 38,
-		prestige: 900,
+		level: 30,
+		resources: {
+			'coins': 330000,
+			'prestige': 900
+		},
 		trades: {
 			'imports': {
 				perfume: city_builder.GOODS_IMPORTANCE_MEDIUM,
@@ -398,9 +416,11 @@ city_builder.CITIES = {
 		icon: 7,
 		climate: city_builder.CLIMATE_TYPE_CONTINENTAL,
 		personality: city_builder.PERSONALITY_TYPE_WARLORD,
-		coins: 22000,
 		level: 18,
-		prestige: 160,
+		resources: {
+			'coins': 22000,
+			'prestige': 160
+		},
 		trades: {
 			'imports': {
 				flour: city_builder.GOODS_IMPORTANCE_LOW,
@@ -434,9 +454,11 @@ city_builder.CITIES = {
 		icon: 7,
 		climate: city_builder.CLIMATE_TYPE_TROPICAL,
 		personality: city_builder.PERSONALITY_TYPE_BALANCED,
-		coins: 180000,
 		level: 22,
-		prestige: 200,
+		resources: {
+			'coins': 180000,
+			'prestige': 200
+		},
 		trades: {
 			'imports': {
 				furs: city_builder.GOODS_IMPORTANCE_LOW,
@@ -478,9 +500,11 @@ city_builder.CITIES = {
 		icon: 7,
 		climate: city_builder.CLIMATE_TYPE_TROPICAL,
 		personality: city_builder.PERSONALITY_TYPE_WARLORD,
-		coins: 80000,
 		level: 18,
-		prestige: 300,
+		resources: {
+			'coins': 80000,
+			'prestige': 300
+		},
 		trades: {
 			'imports': {
 				cider: city_builder.GOODS_IMPORTANCE_LOW,
@@ -520,9 +544,11 @@ city_builder.CITIES = {
 		icon: 2,
 		climate: city_builder.CLIMATE_TYPE_TROPICAL,
 		personality: city_builder.PERSONALITY_TYPE_WARLORD,
-		coins: 20000,
 		level: 16,
-		prestige: 10,
+		resources: {
+			'coins': 20000,
+			'prestige': 10
+		},
 		trades: {
 			'imports': {
 				meat: city_builder.GOODS_IMPORTANCE_LOW,
@@ -558,9 +584,11 @@ city_builder.CITIES = {
 		icon: 4,
 		climate: city_builder.CLIMATE_TYPE_TROPICAL,
 		personality: city_builder.PERSONALITY_TYPE_DIPLOMAT,
-		coins: 280000,
-		level: 31,
-		prestige: 600,
+		level: 30,
+		resources: {
+			'coins': 280000,
+			'prestige': 600
+		},
 		trades: {
 			'imports': {
 				meat: city_builder.GOODS_IMPORTANCE_LOW,
@@ -600,9 +628,11 @@ city_builder.CITIES = {
 		icon: 5,
 		climate: city_builder.CLIMATE_TYPE_TEMPERATE,
 		personality: city_builder.PERSONALITY_TYPE_BALANCED,
-		coins: 110000,
 		level: 21,
-		prestige: 180,
+		resources: {
+			'coins': 110000,
+			'prestige': 180
+		},
 		trades: {
 			'imports': {
 				meat: city_builder.GOODS_IMPORTANCE_LOW,
@@ -642,9 +672,11 @@ city_builder.CITIES = {
 		icon: 5,
 		climate: city_builder.CLIMATE_TYPE_CONTINENTAL,
 		personality: city_builder.PERSONALITY_TYPE_WARLORD,
-		coins: 10000,
 		level: 22,
-		prestige: 360,
+		resources: {
+			'coins': 10000,
+			'prestige': 360
+		},
 		trades: {
 			'imports': {
 				furs: city_builder.GOODS_IMPORTANCE_LOW,
@@ -683,9 +715,11 @@ city_builder.CITIES = {
 		icon: 7,
 		climate: city_builder.CLIMATE_TYPE_TROPICAL,
 		personality: city_builder.PERSONALITY_TYPE_WARLORD,
-		coins: 80000,
 		level: 26,
-		prestige: 400,
+		resources: {
+			'coins': 80000,
+			'prestige': 400
+		},
 		trades: {
 			'imports': {
 				wheat: city_builder.GOODS_IMPORTANCE_VITAL,
@@ -722,9 +756,11 @@ city_builder.CITIES = {
 		icon: 7,
 		climate: city_builder.CLIMATE_TYPE_TEMPERATE,
 		personality: city_builder.PERSONALITY_TYPE_BALANCED,
-		coins: 240000,
 		level: 29,
-		prestige: 500,
+		resources: {
+			'coins': 240000,
+			'prestige': 500
+		},
 		trades: {
 			'imports': {
 				salt: city_builder.GOODS_IMPORTANCE_MEDIUM,
@@ -760,9 +796,11 @@ city_builder.CITIES = {
 		icon: 7,
 		climate: city_builder.CLIMATE_TYPE_TEMPERATE,
 		personality: city_builder.PERSONALITY_TYPE_WARLORD,
-		coins: 240000,
 		level: 22,
-		prestige: 420,
+		resources: {
+			'coins': 240000,
+			'prestige': 420
+		},
 		trades: {
 			'imports': {
 				gold: city_builder.GOODS_IMPORTANCE_LOW,

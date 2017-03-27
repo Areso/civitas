@@ -344,8 +344,8 @@ city_builder.panel_advisor = function (params) {
 				'<dt>' + city_builder.l('Personality') + '</dt><dd>' + city.get_personality().name.capitalize() + '</dd>' +
 				'<dt>' + city_builder.l('Nationality') + '</dt><dd>' + city.get_nationality().name.capitalize() + '</dd>' +
 				'<dt>' + city_builder.l('Level') + '</dt><dd class="citylevel">' + city.get_level() + '</dd>' +
-				'<dt>' + city_builder.l('Prestige') + '</dt><dd class="cityprestige">' + city.get_prestige_amount() + '</dd>' +
-				'<dt>' + city_builder.l('Espionage') + '</dt><dd class="cityespionage">' + city.get_espionage_amount() + '</dd>' +
+				'<dt>' + city_builder.l('Prestige') + '</dt><dd class="cityprestige">' + city.get_prestige() + '</dd>' +
+				'<dt>' + city_builder.l('Espionage') + '</dt><dd class="cityespionage">' + city.get_espionage() + '</dd>' +
 				'</dl>';
 		var advices = city.call_advisor();
 		if (advices.length > 0) {
@@ -467,6 +467,7 @@ city_builder.panel_advisor = function (params) {
 	 */
 	this._refresh_army = function () {
 		var city = this.core.get_city();
+		var resources = city.get_resources();
 		var _t = '';
 		var can_recruit_soldiers = this.core.get_city().is_building_built('camp') || this.core.get_city().is_building_built('castle');
 		if (can_recruit_soldiers !== true) {
@@ -481,7 +482,7 @@ city_builder.panel_advisor = function (params) {
 					'<div class="cost">' +
 					'<dl class="nomg">';
 			for (var res in city_builder.SOLDIER_TYPES[item].cost) {
-				_t += '<dt>' + city_builder.utils.nice_numbers(city_builder.SOLDIER_TYPES[item].cost[res]) + '</dt><dd><img class="tips" title="' + city_builder.RESOURCES[res].name + '" src="' + city_builder.ASSETS_URL + 'images/resources/' + res + '_small.png" /></dd>';
+				_t += '<dt>' + city_builder.utils.nice_numbers(city_builder.SOLDIER_TYPES[item].cost[res]) + '</dt><dd><img class="tips" title="' + resources[res].name + '" src="' + city_builder.ASSETS_URL + 'images/resources/' + res + '_small.png" /></dd>';
 			}
 			_t += '</dl>' +
 					'</div>' +
@@ -513,6 +514,7 @@ city_builder.panel_advisor = function (params) {
 	 */
 	this._refresh_navy = function () {
 		var city = this.core.get_city();
+		var resources = city.get_resources();
 		var _t = '';
 		var can_build_ships = this.core.get_city().is_building_built('shipyard');
 		if (can_build_ships !== true) {
@@ -527,7 +529,7 @@ city_builder.panel_advisor = function (params) {
 					'<div class="cost">' +
 					'<dl class="nomg">';
 			for (var res in city_builder.SHIP_TYPES[item].cost) {
-				_t += '<dt>' + city_builder.utils.nice_numbers(city_builder.SHIP_TYPES[item].cost[res]) + '</dt><dd><img class="tips" title="' + city_builder.RESOURCES[res].name + '" src="' + city_builder.ASSETS_URL + 'images/resources/' + res + '_small.png" /></dd>';
+				_t += '<dt>' + city_builder.utils.nice_numbers(city_builder.SHIP_TYPES[item].cost[res]) + '</dt><dd><img class="tips" title="' + resources[res].name + '" src="' + city_builder.ASSETS_URL + 'images/resources/' + res + '_small.png" /></dd>';
 			}
 			_t += '</dl>' +
 					'</div>' +

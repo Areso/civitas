@@ -112,7 +112,7 @@ city_builder.LEVELS = [
  * @constant
  * @type {String}
  */
-city_builder.VERSION = '0.1.0';
+city_builder.VERSION = '0.1.' + ((new Date()).getMonth() + 1) + '' + (new Date()).getDate() + '' + (new Date()).getFullYear();
 
 /**
  * Whether the application is in debug mode.

@@ -70,6 +70,7 @@ city_builder.panel_buildings = function (params) {
 		}
 		this.core.console_log('creating panel with id `' + this.id + '`');
 		var city = this.core.get_city();
+		var resources = city.get_resources();
 		$('.ui').append(city_builder.ui.generic_panel_template
 			.replace(/{id}/g, this.id)
 			.replace(/{title}/g, this.title));
@@ -144,7 +145,7 @@ city_builder.panel_buildings = function (params) {
 			$(el + ' .b-desc').html(building.description);
 			var _z = '<dl class="nomg">';
 			for (var y in building.cost) {
-				_z += '<dt>' + city_builder.utils.nice_numbers(building.cost[y]) + '</dt><dd><img class="tips" title="' + city_builder.RESOURCES[y].name + '" src="' + city_builder.ASSETS_URL + 'images/resources/' + y + '_small.png" /></dd>';
+				_z += '<dt>' + city_builder.utils.nice_numbers(building.cost[y]) + '</dt><dd><img class="tips" title="' + city_builder.utils.get_resource_name(y) + '" src="' + city_builder.ASSETS_URL + 'images/resources/' + y + '_small.png" /></dd>';
 			}
 			_z += '</dl>';
 			$(el + ' .b-cost').append(_z);
@@ -166,7 +167,7 @@ city_builder.panel_buildings = function (params) {
 			if (typeof building.chance !== 'undefined') {
 				_z = '<dl class="nomg">';
 				for (var chance in building.chance) {
-					_z += '<dt>' + building.chance[chance] * 100 + '%</dt><dd><img class="tips" title="' + city_builder.RESOURCES[chance].name + '" src="' + city_builder.ASSETS_URL + 'images/resources/' + chance + '_small.png" /></dd>';
+					_z += '<dt>' + building.chance[chance] * 100 + '%</dt><dd><img class="tips" title="' + city_builder.utils.get_resource_name(chance) + '" src="' + city_builder.ASSETS_URL + 'images/resources/' + chance + '_small.png" /></dd>';
 				}
 				_z += '</dl>';
 				$(el + ' .b-chance').append(_z);
@@ -179,7 +180,7 @@ city_builder.panel_buildings = function (params) {
 				if (typeof building.production !== 'undefined') {
 					_z = '<dl class="nomg">';
 					for (var y in building.production) {
-						_z += '<dt>' + building.production[y] + '</dt><dd><img class="tips" title="' + city_builder.RESOURCES[y].name + '" src="' + city_builder.ASSETS_URL + 'images/resources/' + y + '_small.png" /></dd>';
+						_z += '<dt>' + building.production[y] + '</dt><dd><img class="tips" title="' + city_builder.utils.get_resource_name(y) + '" src="' + city_builder.ASSETS_URL + 'images/resources/' + y + '_small.png" /></dd>';
 					}
 					_z += '</dl>';
 					$(el + ' .b-prod').append(_z);
@@ -188,7 +189,7 @@ city_builder.panel_buildings = function (params) {
 				if (typeof building.materials !== 'undefined') {
 					_z = '<dl class="nomg">';
 					for (var y in building.materials) {
-						_z += '<dt>' + building.materials[y] + '</dt><dd><img class="tips" title="' + city_builder.RESOURCES[y].name + '" src="' + city_builder.ASSETS_URL + 'images/resources/' + y + '_small.png" /></dd>';
+						_z += '<dt>' + building.materials[y] + '</dt><dd><img class="tips" title="' + city_builder.utils.get_resource_name(y) + '" src="' + city_builder.ASSETS_URL + 'images/resources/' + y + '_small.png" /></dd>';
 					}
 					_z += '</dl>';
 					$(el + ' .b-mats').append(_z);
@@ -199,7 +200,7 @@ city_builder.panel_buildings = function (params) {
 				if (typeof building.materials !== 'undefined') {
 					_z = '<dl class="nomg">';
 					for (var y in building.materials) {
-						_z += '<dt>' + building.materials[y] + '</dt><dd><img class="tips" title="' + city_builder.RESOURCES[y].name + '" src="' + city_builder.ASSETS_URL + 'images/resources/' + y + '_small.png" /></dd>';
+						_z += '<dt>' + building.materials[y] + '</dt><dd><img class="tips" title="' + city_builder.utils.get_resource_name(y) + '" src="' + city_builder.ASSETS_URL + 'images/resources/' + y + '_small.png" /></dd>';
 					}
 					_z += '</dl>';
 					$(el + ' .b-mats').append(_z);
@@ -216,7 +217,7 @@ city_builder.panel_buildings = function (params) {
 			} else if (typeof building.storage !== 'undefined') {
 				$('fieldset.taxes, fieldset.production, fieldset.materials').hide();
 				_z = '<dl class="nomg">' +
-						'<dt>' + building.storage + '</dt><dd><img src="' + city_builder.ASSETS_URL + 'images/resources/storage_small.png" /></dd>' +
+						'<dt>' + building.storage + '</dt><dd><img class="tips" title="' + city_builder.l('Storage Space') + '" src="' + city_builder.ASSETS_URL + 'images/resources/storage_small.png" /></dd>' +
 						'</dl>';
 				$(el + ' .b-store').append(_z);
 				$('fieldset.storage').show();

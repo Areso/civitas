@@ -120,8 +120,12 @@ city_builder.ui = {
 	},
 	
 	building_element: function (params) {
+		var building_image = params.type;
 		var description = '<br /><span class="smalldesc">' + params.data.description + '</span>';
-		var image = (typeof params.data.visible_upgrades === 'undefined' || params.data.visible_upgrades === false) ? params.type + '1' : params.type + params.data.level;
+		if (params.type.slice(0, -1) === 'house') {
+			var building_image = params.type.slice(0, -1);
+		}
+		var image = (typeof params.data.visible_upgrades === 'undefined' || params.data.visible_upgrades === false) ? building_image + '1' : building_image + params.data.level;
 		return '<div data-type="' + params.type + '" data-level="' + params.data.level + '" ' +
 				'style="background:transparent url(' + city_builder.ASSETS_URL + 'images/buildings/' + image + '.png) no-repeat;left:' + params.data.position.x + 'px;top:' + params.data.position.y + 'px" ' +
 				'title=\'<span class="buildinginfo">' + params.data.name + '</span> ' + description + '\' ' +
@@ -131,7 +135,7 @@ city_builder.ui = {
 	
 	resource_storage_el: function (resource, amount) {
 		return '<div class="storage-item item-' + resource + '">' +
-				'<span class="title">' + city_builder.RESOURCES[resource].name + '</span>' +
+				'<span class="title">' + city_builder.utils.get_resource_name(resource) + '</span>' +
 				'<img src="' + city_builder.ASSETS_URL + 'images/resources/' + resource + '.png" />' +
 				'<span class="amount">' + amount + '</amount>' +
 				'</div>';
@@ -203,6 +207,6 @@ city_builder.ui = {
 	},
 	
 	resource_small_img: function (resource) {
-		return '<img alt="' + city_builder.RESOURCES[resource].name + '" class="tips" title="' + city_builder.RESOURCES[resource].name + '" src="' + city_builder.ASSETS_URL + 'images/resources/' + resource + '_small.png" />';
+		return '<img alt="' + city_builder.utils.get_resource_name(resource) + '" class="tips" title="' + city_builder.utils.get_resource_name(resource) + '" src="' + city_builder.ASSETS_URL + 'images/resources/' + resource + '_small.png" />';
 	}
 };

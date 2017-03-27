@@ -207,7 +207,7 @@ city_builder.panel_trades = function (params) {
 		var resources = city.get_resources();
 		for (var item in resources) {
 			if (item !== 'fame' && item !== 'coins' && item !== 'prestige' && item !== 'espionage') {
-				out += '<option value="' + item + '"> ' + city_builder.RESOURCES[item].name + '</option>';
+				out += '<option value="' + item + '"> ' + city_builder.utils.get_resource_name(item) + '</option>';
 			}
 		}
 		$('.bm-materials').empty().append(out);
@@ -234,7 +234,9 @@ city_builder.panel_trades = function (params) {
 					'</tr>' +
 					'</thead>';
 		for (var z = 0; z < cities.length; z++) {
+			var city = cities[z];
 			var trades = cities[z].get_trades();
+			var resources = city.get_resources();
 			if (trades !== null) {
 				var imports = trades.imports;
 				for (var item in imports) {
@@ -316,7 +318,9 @@ city_builder.panel_trades = function (params) {
 					'</tr>' +
 					'</thead>';
 		for (var z = 0; z < cities.length; z++) {
+			var city = cities[z];
 			var trades = cities[z].get_trades();
+			var resources = city.get_resources();
 			if (trades !== null) {
 				var exports = trades.exports;
 				for (var item in exports) {
