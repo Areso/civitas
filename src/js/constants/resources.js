@@ -123,6 +123,11 @@ city_builder.RESOURCES = {
 		price: 43,
 		storage: 0
 	},
+	'donkeys': {
+		name: 'Donkeys',
+		price: 90,
+		storage: 0
+	},
 	'fish': {
 		name: 'Fish',
 		price: 16,
@@ -218,6 +223,11 @@ city_builder.RESOURCES = {
 		price: 55,
 		storage: 0
 	},
+	'mosaic': {
+		name: 'Mosaic',
+		price: 200,
+		storage: 0
+	},
 	'paper': {
 		name: 'Paper',
 		price: 70,
@@ -236,6 +246,11 @@ city_builder.RESOURCES = {
 	'quartz': {
 		name: 'Quartz',
 		price: 26,
+		storage: 0
+	},
+	'robes': {
+		name: 'Robes',
+		price: 220,
 		storage: 0
 	},
 	'ropes': {
@@ -258,9 +273,24 @@ city_builder.RESOURCES = {
 		price: 320,
 		storage: 0
 	},
+	'silver': {
+		name: 'Silver',
+		price: 300,
+		storage: 0
+	},
 	'spices': {
 		name: 'Spices',
 		price: 285,
+		storage: 0
+	},
+	'spyglasses': {
+		name: 'Spyglasses',
+		price: 280,
+		storage: 0
+	},
+	'statues': {
+		name: 'Statues',
+		price: 800,
 		storage: 0
 	},
 	'stones': {
@@ -276,6 +306,11 @@ city_builder.RESOURCES = {
 	'sugarcane': {
 		name: 'Sugarcane',
 		price: 120,
+		storage: 0
+	},
+	'sulphur': {
+		name: 'Sulphur',
+		price: 180,
 		storage: 0
 	},
 	'wax': {

@@ -83,7 +83,7 @@ city_builder.YEARLY_INFLUENCE_LOSS = 10;
  * @constant
  * @type {Number}
  */
-city_builder.AVATARS = 36;
+city_builder.AVATARS = 45;
 
 city_builder.TRADES_ADDITION = 10;
 
@@ -440,7 +440,10 @@ city_builder.NATION_TYPES = [
 	'chinese',
 	'indian',
 	'franks',
-	'russian'
+	'russian',
+	'nigerian',
+	'malinese',
+	'mongolian'
 ];
 
 /**
@@ -556,6 +559,29 @@ city_builder.NATION_TYPE_FRANKS = 13;
 city_builder.NATION_TYPE_RUSSIAN = 14;
 
 /**
+ * Nigerians
+ * 
+ * @constant
+ * @type {Number}
+ */
+city_builder.NATION_TYPE_NIGERIAN = 15;
+
+/**
+ * Malinese
+ * 
+ * @constant
+ * @type {Number}
+ */
+city_builder.NATION_TYPE_MALINESE = 16;
+
+/**
+ * Mongolian
+ * 
+ * @constant
+ * @type {Number}
+ */
+city_builder.NATION_TYPE_MONGOLIAN = 17;
+/**
  * List of the possible climate types.
  * 
  * @constant
@@ -618,7 +644,7 @@ city_builder.CLIMATE_TYPE_POLAR = 5;
  */
 city_builder.CITY_LOCATION_TEMPERATE = {
 	x: 530,
-	y: 300
+	y: 150
 };
 
 /**
@@ -629,7 +655,7 @@ city_builder.CITY_LOCATION_TEMPERATE = {
  */
 city_builder.CITY_LOCATION_TROPICAL = {
 	x: 45,
-	y: 400
+	y: 250
 };
 
 /**
@@ -640,7 +666,7 @@ city_builder.CITY_LOCATION_TROPICAL = {
  */
 city_builder.CITY_LOCATION_ARID = {
 	x: 340,
-	y: 380
+	y: 130
 };
 
 /**
@@ -651,7 +677,7 @@ city_builder.CITY_LOCATION_ARID = {
  */
 city_builder.CITY_LOCATION_CONTINENTAL = {
 	x: 540,
-	y: 300
+	y: 150
 };
 
 /**
@@ -662,7 +688,7 @@ city_builder.CITY_LOCATION_CONTINENTAL = {
  */
 city_builder.CITY_LOCATION_POLAR = {
 	x: 490,
-	y: 30
+	y: 10
 };
 
 /**
@@ -939,6 +965,54 @@ city_builder.MERCENARIES = [{
 		'Pikeman': 310
 	},
 	cost: 100000
+}, {
+	name: 'Army of the Western Garden',
+	description: 'The Army of the Western Garden is an army established during the reign of Emperor Ling in the Eastern Han Dynasty.',
+	handle: 'western',
+	icon: 27,
+	army: {
+		'Axeman': 290,
+		'Knight': 40,
+		'Bowman': 170,
+		'Pikeman': 300
+	},
+	cost: 90000
+}, {
+	name: 'Scholae Palatinae',
+	description: 'The Scholae Palatinae are an elite military guard unit, usually ascribed to the Roman Emperor Constantine the Great as a replacement for the equites singulares Augusti, the cavalry arm of the Praetorian Guard.',
+	handle: 'scholae',
+	icon: 26,
+	army: {
+		'Axeman': 10,
+		'Knight': 200,
+		'Bowman': 100,
+		'Pikeman': 210
+	},
+	cost: 290000
+}, {
+	name: 'Imperial Guards',
+	description: 'The Imperial Guards of the Tang Dynasty, also known as the Forbidden Troops were initially honor guards of the emperor and garrisons of the imperial capitals during the Tang`s dinasty formation in early 7th century.',
+	handle: 'forbidden',
+	icon: 25,
+	army: {
+		'Axeman': 290,
+		'Knight': 80,
+		'Bowman': 100,
+		'Pikeman': 210
+	},
+	cost: 130000
+}, {
+	name: 'Navy of the Order of Saint John',
+	description: 'The navy of the Order of Saint John, also known as the Maltese Navy, was the first navy of a chivalric order, established in the Middle Ages, around the late 12th century.',
+	handle: 'maltesenavy',
+	icon: 28,
+	navy: {
+		'Corsair': 19,
+		'Caravel': 14,
+		'Warship': 12,
+		'Ship of the Line': 10
+	},
+	cost: 1500000
 }];
 
 /**
@@ -948,23 +1022,6 @@ city_builder.MERCENARIES = [{
  * @constant
  */
 city_builder.SHIP_TYPES = {
-	'Corsair': {
-		id: city_builder.SHIP_TYPE_CORSAIR,
-		attack: 5,
-		defense: 5,
-		cost: {
-			coins: 1000,
-			wood: 200,
-			leather: 50,
-			iron: 50,
-			bread: 50,
-			meat: 50,
-			wine: 20,
-			clothes: 50,
-			ropes: 10,
-			cannons: 5
-		}
-	},
 	'Caravel': {
 		id: city_builder.SHIP_TYPE_CARAVEL,
 		attack: 10,
@@ -979,8 +1036,61 @@ city_builder.SHIP_TYPES = {
 			wine: 30,
 			clothes: 60,
 			ropes: 30,
+			cannons: 20
+		}
+	},
+	'Corsair': {
+		id: city_builder.SHIP_TYPE_CORSAIR,
+		attack: 5,
+		defense: 5,
+		cost: {
+			coins: 1000,
+			wood: 200,
+			leather: 50,
+			iron: 50,
+			bread: 50,
+			meat: 50,
+			wine: 20,
+			clothes: 50,
+			ropes: 10,
+			cannons: 5,
+			weapons: 10
+		}
+	},
+	'Frigate': {
+		id: city_builder.SHIP_TYPE_FRIGATE,
+		attack: 17,
+		defense: 8,
+		cost: {
+			coins: 3000,
+			wood: 400,
+			leather: 60,
+			iron: 80,
+			bread: 60,
+			meat: 60,
+			wine: 30,
+			clothes: 60,
+			ropes: 30,
 			cannons: 20,
 			weapons: 10
+		}
+	},
+	'Galleon': {
+		id: city_builder.SHIP_TYPE_GALLEON,
+		attack: 15,
+		defense: 15,
+		cost: {
+			coins: 5000,
+			wood: 600,
+			leather: 70,
+			iron: 120,
+			bread: 60,
+			meat: 80,
+			wine: 50,
+			clothes: 70,
+			ropes: 80,
+			cannons: 30,
+			weapons: 15
 		}
 	},
 	'Warship': {
@@ -1000,6 +1110,26 @@ city_builder.SHIP_TYPES = {
 			cannons: 50,
 			weapons: 20,
 			carpets: 10
+		}
+	},
+	'Ship of the Line': {
+		id: city_builder.SHIP_TYPE_SHIPOFTHELINE,
+		attack: 55,
+		defense: 50,
+		cost: {
+			coins: 15000,
+			wood: 2000,
+			coal: 500,
+			leather: 400,
+			iron: 1500,
+			bread: 200,
+			barrels: 100,
+			meat: 200,
+			wine: 200,
+			clothes: 200,
+			ropes: 100,
+			cannons: 100,
+			weapons: 50
 		}
 	}
 };
@@ -1027,6 +1157,30 @@ city_builder.SHIP_TYPE_CARAVEL = 1;
  * @type {Number}
  */
 city_builder.SHIP_TYPE_WARSHIP = 2;
+
+/**
+ * Galleon ship.
+ * 
+ * @constant
+ * @type {Number}
+ */
+city_builder.SHIP_TYPE_GALLEON = 3;
+
+/**
+ * Ship of the Line ship.
+ * 
+ * @constant
+ * @type {Number}
+ */
+city_builder.SHIP_TYPE_SHIPOFTHELINE = 4;
+
+/**
+ * Frigate ship.
+ * 
+ * @constant
+ * @type {Number}
+ */
+city_builder.SHIP_TYPE_FRIGATE = 5;
 
 /**
  * Buildings native to the tropical climate.
@@ -3108,6 +3262,7 @@ city_builder.CITIES = {
 	'Byblos': {
 		nationality: city_builder.NATION_TYPE_PHOENICIAN,
 		ruler: 'Cronus',
+		icon: 4,
 		avatar: 1,
 		climate: city_builder.CLIMATE_TYPE_TEMPERATE,
 		personality: city_builder.PERSONALITY_TYPE_DIPLOMAT,
@@ -3144,17 +3299,20 @@ city_builder.CITIES = {
 		navy: {
 			'Corsair': 4,
 			'Caravel': 2,
-			'Warship': 6
+			'Galleon': 2,
+			'Warship': 6,
+			'Ship of the Line': 1
 		},
 		location: {
 			x: 310,
-			y: 340
+			y: 190
 		}
 	},
 	'Carthage': {
 		nationality: city_builder.NATION_TYPE_CARTHAGINIAN,
 		ruler: 'Elisa',
 		avatar: 21,
+		icon: 4,
 		climate: city_builder.CLIMATE_TYPE_TROPICAL,
 		personality: city_builder.PERSONALITY_TYPE_DIPLOMAT,
 		level: 24,
@@ -3185,7 +3343,9 @@ city_builder.CITIES = {
 		navy: {
 			'Corsair': 6,
 			'Caravel': 4,
-			'Warship': 3
+			'Galleon': 2,
+			'Warship': 3,
+			'Ship of the Line': 4
 		},
 		army: {
 			'Militia': 40,
@@ -3197,13 +3357,51 @@ city_builder.CITIES = {
 		},
 		location: {
 			x: 170,
-			y: 320
+			y: 176
+		}
+	},
+	'Karakorum': {
+		nationality: city_builder.NATION_TYPE_MONGOLIAN,
+		ruler: 'Genghis Khan',
+		avatar: 45,
+		icon: 6,
+		climate: city_builder.CLIMATE_TYPE_TEMPERATE,
+		personality: city_builder.PERSONALITY_TYPE_WARLORD,
+		coins: 100000,
+		level: 35,
+		prestige: 1000,
+		trades: {
+			'imports': {
+				wheat: city_builder.GOODS_IMPORTANCE_VITAL,
+				wood: city_builder.GOODS_IMPORTANCE_HIGH,
+				sugar: city_builder.GOODS_IMPORTANCE_LOW,
+				sugarcane: city_builder.GOODS_IMPORTANCE_LOW,
+				clay: city_builder.GOODS_IMPORTANCE_VITAL
+			},
+			'exports': {
+				silver: city_builder.GOODS_IMPORTANCE_VITAL,
+				glasses: city_builder.GOODS_IMPORTANCE_LOW,
+				furcoats: city_builder.GOODS_IMPORTANCE_MEDIUM,
+				indigo: city_builder.GOODS_IMPORTANCE_LOW,
+				wheat: city_builder.GOODS_IMPORTANCE_LOW
+			}
+		},
+		army: {
+			'Militia': 1210,
+			'Axeman': 520,
+			'Crossbowman': 320,
+			'Pikeman': 300
+		},
+		location: {
+			x: 710,
+			y: 150
 		}
 	},
 	'Kyrene': {
 		nationality: city_builder.NATION_TYPE_GREEK,
 		ruler: 'Abdul',
 		avatar: 33,
+		icon: 5,
 		climate: city_builder.CLIMATE_TYPE_TROPICAL,
 		personality: city_builder.PERSONALITY_TYPE_WARLORD,
 		coins: 200000,
@@ -3231,25 +3429,20 @@ city_builder.CITIES = {
 		army: {
 			'Militia': 90,
 			'Axeman': 70,
-			'Knight': 0,
 			'Bowman': 50,
 			'Crossbowman': 30,
 			'Pikeman': 90
 		},
-		navy: {
-			'Corsair': 0,
-			'Caravel': 0,
-			'Warship': 0
-		},
 		location: {
 			x: 240,
-			y: 360
+			y: 210
 		}
 	},
 	'Menat Khufu': {
 		nationality: city_builder.NATION_TYPE_EGYPTIAN,
 		ruler: 'Khufu',
 		avatar: 34,
+		icon: 7,
 		climate: city_builder.CLIMATE_TYPE_ARID,
 		personality: city_builder.PERSONALITY_TYPE_DIPLOMAT,
 		coins: 200000,
@@ -3282,20 +3475,54 @@ city_builder.CITIES = {
 			'Crossbowman': 30,
 			'Pikeman': 50
 		},
-		navy: {
-			'Corsair': 0,
-			'Caravel': 0,
-			'Warship': 0
+		location: {
+			x: 280,
+			y: 250
+		}
+	},
+	'Niani': {
+		nationality: city_builder.NATION_TYPE_MALINESE,
+		ruler: 'Mansa Musa',
+		avatar: 30,
+		icon: 2,
+		climate: city_builder.CLIMATE_TYPE_TROPICAL,
+		personality: city_builder.PERSONALITY_TYPE_WARLORD,
+		coins: 200000,
+		level: 21,
+		prestige: 100,
+		trades: {
+			'imports': {
+				meat: city_builder.GOODS_IMPORTANCE_LOW,
+				milk: city_builder.GOODS_IMPORTANCE_LOW,
+				weapons: city_builder.GOODS_IMPORTANCE_LOW,
+				roses: city_builder.GOODS_IMPORTANCE_MEDIUM,
+				perfume: city_builder.GOODS_IMPORTANCE_LOW,
+				iron: city_builder.GOODS_IMPORTANCE_VITAL,
+				ironores: city_builder.GOODS_IMPORTANCE_LOW
+			},
+			'exports': {
+				brine: city_builder.GOODS_IMPORTANCE_MEDIUM,
+				clothes: city_builder.GOODS_IMPORTANCE_LOW,
+				glass: city_builder.GOODS_IMPORTANCE_HIGH,
+				wheat: city_builder.GOODS_IMPORTANCE_VITAL,
+				hides: city_builder.GOODS_IMPORTANCE_LOW,
+				paper: city_builder.GOODS_IMPORTANCE_LOW
+			}
+		},
+		army: {
+			'Militia': 200,
+			'Bowman': 200,
 		},
 		location: {
-			x: 290,
-			y: 400
+			x: 70,
+			y: 280
 		}
 	},
 	'Niniveh': {
 		nationality: city_builder.NATION_TYPE_ASSYRIAN,
 		ruler: 'Sennacherib',
-		avatar: 30,
+		avatar: 37,
+		icon: 4,
 		climate: city_builder.CLIMATE_TYPE_ARID,
 		personality: city_builder.PERSONALITY_TYPE_DIPLOMAT,
 		coins: 130000,
@@ -3324,20 +3551,16 @@ city_builder.CITIES = {
 			'Crossbowman': 10,
 			'Pikeman': 30
 		},
-		navy: {
-			'Corsair': 0,
-			'Caravel': 0,
-			'Warship': 0
-		},
 		location: {
 			x: 380,
-			y: 290
+			y: 130
 		}
 	},
 	'Novgorod': {
 		nationality: city_builder.NATION_TYPE_RUSSIAN,
 		ruler: 'Rurik',
 		avatar: 5,
+		icon: 5,
 		climate: city_builder.CLIMATE_TYPE_POLAR,
 		personality: city_builder.PERSONALITY_TYPE_WARLORD,
 		coins: 30000,
@@ -3353,6 +3576,7 @@ city_builder.CITIES = {
 				furcoats: city_builder.GOODS_IMPORTANCE_VITAL
 			},
 			'exports': {
+				statues: city_builder.GOODS_IMPORTANCE_VITAL,
 				wax: city_builder.GOODS_IMPORTANCE_LOW,
 				candles: city_builder.GOODS_IMPORTANCE_LOW,
 				salt: city_builder.GOODS_IMPORTANCE_MEDIUM
@@ -3366,20 +3590,16 @@ city_builder.CITIES = {
 			'Crossbowman': 10,
 			'Pikeman': 30
 		},
-		navy: {
-			'Corsair': 0,
-			'Caravel': 0,
-			'Warship': 0
-		},
 		location: {
 			x: 330,
-			y: 130
+			y: 10
 		}
 	},
 	'Rome': {
 		nationality: city_builder.NATION_TYPE_ROMAN,
 		ruler: 'Caesar',
 		avatar: 17,
+		icon: 4,
 		climate: city_builder.CLIMATE_TYPE_TEMPERATE,
 		personality: city_builder.PERSONALITY_TYPE_BALANCED,
 		coins: 330000,
@@ -3395,6 +3615,8 @@ city_builder.CITIES = {
 				silk: city_builder.GOODS_IMPORTANCE_MEDIUM
 			},
 			'exports': {
+				robes: city_builder.GOODS_IMPORTANCE_VITAL,
+				statues: city_builder.GOODS_IMPORTANCE_VITAL,
 				barrels: city_builder.GOODS_IMPORTANCE_MEDIUM,
 				brine: city_builder.GOODS_IMPORTANCE_LOW,
 				brass: city_builder.GOODS_IMPORTANCE_VITAL,
@@ -3407,8 +3629,7 @@ city_builder.CITIES = {
 				grapes: city_builder.GOODS_IMPORTANCE_HIGH,
 				hemp: city_builder.GOODS_IMPORTANCE_HIGH,
 				herbs: city_builder.GOODS_IMPORTANCE_HIGH,
-				quartz: city_builder.GOODS_IMPORTANCE_MEDIUM,
-				stones: 130
+				quartz: city_builder.GOODS_IMPORTANCE_MEDIUM
 			}
 		},
 		army: {
@@ -3419,20 +3640,16 @@ city_builder.CITIES = {
 			'Crossbowman': 210,
 			'Pikeman': 90
 		},
-		navy: {
-			'Corsair': 0,
-			'Caravel': 0,
-			'Warship': 0
-		},
 		location: {
 			x: 190,
-			y: 290
+			y: 140
 		}
 	},
 	'Sarmizegetusa': {
 		nationality: city_builder.NATION_TYPE_THRACIAN,
 		ruler: 'Deceballus',
 		avatar: 8,
+		icon: 7,
 		climate: city_builder.CLIMATE_TYPE_CONTINENTAL,
 		personality: city_builder.PERSONALITY_TYPE_WARLORD,
 		coins: 22000,
@@ -3459,20 +3676,16 @@ city_builder.CITIES = {
 			'Crossbowman': 20,
 			'Pikeman': 30
 		},
-		navy: {
-			'Corsair': 0,
-			'Caravel': 0,
-			'Warship': 0
-		},
 		location: {
 			x: 250,
-			y: 270
+			y: 110
 		}
 	},
 	'Sigiriya': {
 		nationality: city_builder.NATION_TYPE_INDIAN,
 		ruler: 'Kashyapa',
-		avatar: 9,
+		avatar: 40,
+		icon: 7,
 		climate: city_builder.CLIMATE_TYPE_TROPICAL,
 		personality: city_builder.PERSONALITY_TYPE_BALANCED,
 		coins: 180000,
@@ -3486,6 +3699,7 @@ city_builder.CITIES = {
 				leather: city_builder.GOODS_IMPORTANCE_LOW
 			},
 			'exports': {
+				spyglasses: city_builder.GOODS_IMPORTANCE_VITAL,
 				wax: city_builder.GOODS_IMPORTANCE_LOW,
 				candles: city_builder.GOODS_IMPORTANCE_LOW,
 				salt: city_builder.GOODS_IMPORTANCE_MEDIUM,
@@ -3503,17 +3717,19 @@ city_builder.CITIES = {
 		navy: {
 			'Corsair': 2,
 			'Caravel': 2,
+			'Galleon': 2,
 			'Warship': 2
 		},
 		location: {
 			x: 600,
-			y: 490
+			y: 340
 		}
 	},
 	'Selima Oasis': {
 		nationality: city_builder.NATION_TYPE_SUDANESE,
 		ruler: 'Pepi',
-		avatar: 10,
+		avatar: 38,
+		icon: 7,
 		climate: city_builder.CLIMATE_TYPE_TROPICAL,
 		personality: city_builder.PERSONALITY_TYPE_WARLORD,
 		coins: 80000,
@@ -3546,20 +3762,54 @@ city_builder.CITIES = {
 			'Crossbowman': 10,
 			'Pikeman': 30
 		},
-		navy: {
-			'Corsair': 0,
-			'Caravel': 0,
-			'Warship': 0
-		},
 		location: {
 			x: 300,
-			y: 450
+			y: 340
+		}
+	},
+	'Taruga': {
+		nationality: city_builder.NATION_TYPE_NIGERIAN,
+		ruler: 'Samun',
+		avatar: 30,
+		icon: 2,
+		climate: city_builder.CLIMATE_TYPE_TROPICAL,
+		personality: city_builder.PERSONALITY_TYPE_WARLORD,
+		coins: 20000,
+		level: 16,
+		prestige: 10,
+		trades: {
+			'imports': {
+				meat: city_builder.GOODS_IMPORTANCE_LOW,
+				milk: city_builder.GOODS_IMPORTANCE_LOW,
+				weapons: city_builder.GOODS_IMPORTANCE_LOW,
+				roses: city_builder.GOODS_IMPORTANCE_MEDIUM,
+				perfume: city_builder.GOODS_IMPORTANCE_LOW,
+				iron: city_builder.GOODS_IMPORTANCE_VITAL,
+				ironores: city_builder.GOODS_IMPORTANCE_LOW
+			},
+			'exports': {
+				brine: city_builder.GOODS_IMPORTANCE_MEDIUM,
+				clothes: city_builder.GOODS_IMPORTANCE_LOW,
+				glass: city_builder.GOODS_IMPORTANCE_HIGH,
+				wheat: city_builder.GOODS_IMPORTANCE_VITAL,
+				hides: city_builder.GOODS_IMPORTANCE_LOW,
+				paper: city_builder.GOODS_IMPORTANCE_LOW
+			}
+		},
+		army: {
+			'Militia': 120,
+			'Bowman': 32,
+		},
+		location: {
+			x: 190,
+			y: 310
 		}
 	},
 	'Thebes': {
 		nationality: city_builder.NATION_TYPE_EGYPTIAN,
 		ruler: 'Hatshepsut',
 		avatar: 36,
+		icon: 4,
 		climate: city_builder.CLIMATE_TYPE_TROPICAL,
 		personality: city_builder.PERSONALITY_TYPE_DIPLOMAT,
 		coins: 280000,
@@ -3592,20 +3842,16 @@ city_builder.CITIES = {
 			'Crossbowman': 10,
 			'Pikeman': 30
 		},
-		navy: {
-			'Corsair': 0,
-			'Caravel': 0,
-			'Warship': 0
-		},
 		location: {
-			x: 320,
-			y: 420
+			x: 330,
+			y: 300
 		}
 	},
 	'Toledo': {
 		nationality: city_builder.NATION_TYPE_SPANISH,
 		ruler: 'Juan Luiz',
 		avatar: 12,
+		icon: 5,
 		climate: city_builder.CLIMATE_TYPE_TEMPERATE,
 		personality: city_builder.PERSONALITY_TYPE_BALANCED,
 		coins: 110000,
@@ -3622,10 +3868,12 @@ city_builder.CITIES = {
 				ironores: city_builder.GOODS_IMPORTANCE_LOW
 			},
 			'exports': {
+				mosaic: city_builder.GOODS_IMPORTANCE_VITAL,
 				wine: city_builder.GOODS_IMPORTANCE_HIGH,
 				silk: city_builder.GOODS_IMPORTANCE_LOW,
 				wood: city_builder.GOODS_IMPORTANCE_MEDIUM,
-				cattle: city_builder.GOODS_IMPORTANCE_LOW
+				cattle: city_builder.GOODS_IMPORTANCE_LOW,
+				statues: city_builder.GOODS_IMPORTANCE_VITAL
 			}
 		},
 		army: {
@@ -3636,20 +3884,16 @@ city_builder.CITIES = {
 			'Crossbowman': 10,
 			'Pikeman': 30
 		},
-		navy: {
-			'Corsair': 0,
-			'Caravel': 0,
-			'Warship': 0
-		},
 		location: {
 			x: 90,
-			y: 300
+			y: 150
 		}
 	},
 	'Tournai': {
 		nationality: city_builder.NATION_TYPE_FRANKS,
 		ruler: 'Clovis',
-		avatar: 24,
+		avatar: 44,
+		icon: 5,
 		climate: city_builder.CLIMATE_TYPE_CONTINENTAL,
 		personality: city_builder.PERSONALITY_TYPE_WARLORD,
 		coins: 10000,
@@ -3666,6 +3910,7 @@ city_builder.CITIES = {
 				clay: city_builder.GOODS_IMPORTANCE_LOW
 			},
 			'exports': {
+				silver: city_builder.GOODS_IMPORTANCE_VITAL,
 				wax: city_builder.GOODS_IMPORTANCE_MEDIUM,
 				candles: city_builder.GOODS_IMPORTANCE_LOW,
 				salt: city_builder.GOODS_IMPORTANCE_VITAL,
@@ -3680,20 +3925,16 @@ city_builder.CITIES = {
 			'Crossbowman': 10,
 			'Pikeman': 30
 		},
-		navy: {
-			'Corsair': 0,
-			'Caravel': 0,
-			'Warship': 0
-		},
 		location: {
 			x: 130,
-			y: 230
+			y: 80
 		}
 	},
 	'Uruk': {
 		nationality: city_builder.NATION_TYPE_SUMERIAN,
 		ruler: 'Gilgamesh',
 		avatar: 14,
+		icon: 7,
 		climate: city_builder.CLIMATE_TYPE_TROPICAL,
 		personality: city_builder.PERSONALITY_TYPE_WARLORD,
 		coins: 80000,
@@ -3708,6 +3949,7 @@ city_builder.CITIES = {
 				clay: city_builder.GOODS_IMPORTANCE_VITAL
 			},
 			'exports': {
+				silver: city_builder.GOODS_IMPORTANCE_VITAL,
 				glasses: city_builder.GOODS_IMPORTANCE_LOW,
 				furcoats: city_builder.GOODS_IMPORTANCE_MEDIUM,
 				indigo: city_builder.GOODS_IMPORTANCE_LOW,
@@ -3722,20 +3964,54 @@ city_builder.CITIES = {
 			'Crossbowman': 10,
 			'Pikeman': 30
 		},
-		navy: {
-			'Corsair': 0,
-			'Caravel': 0,
-			'Warship': 0
-		},
 		location: {
 			x: 400,
-			y: 320
+			y: 170
+		}
+	},
+	'Xinjiang': {
+		nationality: city_builder.NATION_TYPE_CHINESE,
+		ruler: 'Gaozu',
+		avatar: 15,
+		icon: 7,
+		climate: city_builder.CLIMATE_TYPE_TEMPERATE,
+		personality: city_builder.PERSONALITY_TYPE_BALANCED,
+		coins: 240000,
+		level: 29,
+		prestige: 500,
+		trades: {
+			'imports': {
+				salt: city_builder.GOODS_IMPORTANCE_MEDIUM,
+				stones: city_builder.GOODS_IMPORTANCE_VITAL,
+				gems: city_builder.GOODS_IMPORTANCE_LOW,
+				pearls: city_builder.GOODS_IMPORTANCE_LOW
+			},
+			'exports': {
+				donkeys: city_builder.GOODS_IMPORTANCE_VITAL,
+				sulphur: city_builder.GOODS_IMPORTANCE_VITAL,
+				silk: city_builder.GOODS_IMPORTANCE_MEDIUM,
+				glass: city_builder.GOODS_IMPORTANCE_HIGH,
+				carpets: city_builder.GOODS_IMPORTANCE_LOW,
+				cannons: city_builder.GOODS_IMPORTANCE_LOW
+			}
+		},
+		army: {
+			'Militia': 80,
+			'Axeman': 40,
+			'Bowman': 10,
+			'Crossbowman': 30,
+			'Pikeman': 10
+		},
+		location: {
+			x: 600,
+			y: 200
 		}
 	},
 	'Yinxu': {
 		nationality: city_builder.NATION_TYPE_CHINESE,
 		ruler: 'Wu Ding',
 		avatar: 15,
+		icon: 7,
 		climate: city_builder.CLIMATE_TYPE_TEMPERATE,
 		personality: city_builder.PERSONALITY_TYPE_WARLORD,
 		coins: 240000,
@@ -3752,6 +4028,8 @@ city_builder.CITIES = {
 				pearls: city_builder.GOODS_IMPORTANCE_LOW
 			},
 			'exports': {
+				donkeys: city_builder.GOODS_IMPORTANCE_VITAL,
+				sulphur: city_builder.GOODS_IMPORTANCE_VITAL,
 				silk: city_builder.GOODS_IMPORTANCE_MEDIUM,
 				glass: city_builder.GOODS_IMPORTANCE_HIGH,
 				roses: city_builder.GOODS_IMPORTANCE_LOW,
@@ -3770,14 +4048,9 @@ city_builder.CITIES = {
 			'Crossbowman': 10,
 			'Pikeman': 30
 		},
-		navy: {
-			'Corsair': 0,
-			'Caravel': 0,
-			'Warship': 0
-		},
 		location: {
 			x: 760,
-			y: 340
+			y: 240
 		}
 	}
 };
@@ -4008,6 +4281,11 @@ city_builder.RESOURCES = {
 		price: 43,
 		storage: 0
 	},
+	'donkeys': {
+		name: 'Donkeys',
+		price: 90,
+		storage: 0
+	},
 	'fish': {
 		name: 'Fish',
 		price: 16,
@@ -4103,6 +4381,11 @@ city_builder.RESOURCES = {
 		price: 55,
 		storage: 0
 	},
+	'mosaic': {
+		name: 'Mosaic',
+		price: 200,
+		storage: 0
+	},
 	'paper': {
 		name: 'Paper',
 		price: 70,
@@ -4121,6 +4404,11 @@ city_builder.RESOURCES = {
 	'quartz': {
 		name: 'Quartz',
 		price: 26,
+		storage: 0
+	},
+	'robes': {
+		name: 'Robes',
+		price: 220,
 		storage: 0
 	},
 	'ropes': {
@@ -4143,9 +4431,24 @@ city_builder.RESOURCES = {
 		price: 320,
 		storage: 0
 	},
+	'silver': {
+		name: 'Silver',
+		price: 300,
+		storage: 0
+	},
 	'spices': {
 		name: 'Spices',
 		price: 285,
+		storage: 0
+	},
+	'spyglasses': {
+		name: 'Spyglasses',
+		price: 280,
+		storage: 0
+	},
+	'statues': {
+		name: 'Statues',
+		price: 800,
 		storage: 0
 	},
 	'stones': {
@@ -4161,6 +4464,11 @@ city_builder.RESOURCES = {
 	'sugarcane': {
 		name: 'Sugarcane',
 		price: 120,
+		storage: 0
+	},
+	'sulphur': {
+		name: 'Sulphur',
+		price: 180,
 		storage: 0
 	},
 	'wax': {
@@ -4207,6 +4515,7 @@ if (city_builder.DEBUG === true) {
 		nationality: city_builder.NATION_TYPE_ASSYRIAN,
 		ruler: 'Sandking',
 		avatar: 1,
+		icon: 2,
 		climate: city_builder.CLIMATE_TYPE_TEMPERATE,
 		personality: city_builder.PERSONALITY_TYPE_DIPLOMAT,
 		level: 30,
@@ -4251,7 +4560,7 @@ if (city_builder.DEBUG === true) {
 		},
 		location: {
 			x: 460,
-			y: 410
+			y: 260
 		}
 	};
 }
@@ -4652,11 +4961,11 @@ city_builder.ui = {
 	},
 	
 	city_worldmap_element: function (name) {
-		return '<div data-name="' + name + '" class="tips city" title="' + city_builder.l('City of') + ' ' + name + '" style="left:' + city_builder.CITIES[name].location.x + 'px;top:' + city_builder.CITIES[name].location.y + 'px"></div>';
+		return '<div data-name="' + name + '" class="tips city c' + city_builder.CITIES[name].icon + '" title="' + city_builder.l('City of') + ' ' + name + '" style="left:' + city_builder.CITIES[name].location.x + 'px;top:' + city_builder.CITIES[name].location.y + 'px"></div>';
 	},
 	
 	army_img: function (name) {
-		return '<img class="tips" title="' + name + '" src="' + city_builder.ASSETS_URL + 'images/armies/' + name.toLowerCase() + '_small.png" />';
+		return '<img class="tips" title="' + name + '" src="' + city_builder.ASSETS_URL + 'images/armies/' + name.toLowerCase().replace(/ /g,"_") + '_small.png" />';
 	},
 	
 	army_list: function (army, no_margin) {
@@ -4707,11 +5016,13 @@ city_builder.ui = {
 	
 	navy_list: function (army, no_margin) {
 		var out = '<dl' + ((typeof no_margin !== 'undefined' && no_margin === true) ? ' class="nomg"' : '') + '>';
+		var total = 0;
 		for (var soldier in army.navy) {
 			out += '<dt>' + army.navy[soldier] + '</dt>' +
 					'<dd>' + city_builder.ui.army_img(soldier) + '</dd>';
+			total += army.navy[soldier];
 		}
-		out += '<dt>' + city_builder.l('Total') + '</dt><dd>' + army.total + ' ' + city_builder.l('ships') + '.</dd>' +
+		out += '<dt>' + city_builder.l('Total') + '</dt><dd>' + (typeof army.total !== 'undefined' ? army.total : total) + ' ' + city_builder.l('ships') + '.</dd>' +
 				'</dl>';
 		return out;
 	},
@@ -4945,7 +5256,15 @@ city_builder.city = function(params) {
 	 * @private
 	 */
 	this.avatar = null;
-	
+
+	/**
+	 * The icon of this city.
+	 * 
+	 * @type {Number}
+	 * @private
+	 */
+	this.icon = null;
+
 	this.influence = {};
 	
 	/**
@@ -4975,6 +5294,7 @@ city_builder.city = function(params) {
 		this.climate = (typeof params.data.climate !== 'undefined') ? params.data.climate : city_builder.CLIMATE_TYPE_TEMPERATE;
 		this.ruler = (typeof params.data.ruler !== 'undefined') ? params.data.ruler : 0;
 		this.avatar = (typeof params.data.avatar !== 'undefined') ? params.data.avatar : 1;
+		this.icon = (typeof params.data.icon !== 'undefined') ? params.data.icon : 1;
 		this.reset_trades();
 		return this;
 	};
@@ -5277,6 +5597,7 @@ city_builder.city = function(params) {
 			climate: this.get_climate().id,
 			nationality: this.get_nationality().id,
 			avatar: this.get_avatar(),
+			icon: this.get_icon(),
 			influence: this.get_influence(),
 			army: this.get_army_total(),
 			navy: this.get_navy_total(),
@@ -5311,6 +5632,7 @@ city_builder.city = function(params) {
 		this.set_ruler(data.ruler);
 		this.set_level(data.level);
 		this.set_avatar(data.avatar);
+		this.set_icon(data.icon);
 		this.set_nationality(data.nationality);
 		this.set_climate(data.climate);
 		this.setup_army(true, data.army);
@@ -5831,11 +6153,10 @@ city_builder.city = function(params) {
 	 */
 	this.get_navy_total = function() {
 		var total = 0;
-		var total_navy = {
-			'Corsair': 0,
-			'Caravel': 0,
-			'Warship': 0
-		};
+		var total_navy = {};
+		for (var item in city_builder.SHIP_TYPES) {
+			total_navy[item] = 0;
+		}
 		for (var i = 0; i < this.navy.length; i++) {
 			var ship = this.navy[i].get_name();
 			for (var item in total_navy) {
@@ -5859,14 +6180,10 @@ city_builder.city = function(params) {
 	 */
 	this.get_army_total = function() {
 		var total = 0;
-		var total_army = {
-			'Militia': 0,
-			'Axeman': 0,
-			'Bowman': 0,
-			'Pikeman': 0,
-			'Crossbowman': 0,
-			'Knight': 0
-		};
+		var total_army = {};
+		for (var item in city_builder.SOLDIER_TYPES) {
+			total_army[item] = 0;
+		}
 		for (var i = 0; i < this.army.length; i++) {
 			var soldier = this.army[i].get_name();
 			for (var item in total_army) {
@@ -6668,6 +6985,28 @@ city_builder.city = function(params) {
 		return this.get_prestige().amount;
 	};
 	
+	/**
+	 * Get the icon of this city.
+	 * 
+	 * @public
+	 * @returns {Number}
+	 */
+	this.get_icon = function() {
+		return this.icon;
+	};
+	
+	/**
+	 * Set the icon of this city.
+	 * 
+	 * @public
+	 * @returns {city_builder.city}
+	 * @param {Number} value
+	 */
+	this.set_icon = function(value) {
+		this.icon = value;
+		return this;
+	};
+
 	/**
 	 * Get the avatar of the ruler of this city.
 	 * 
@@ -7924,7 +8263,9 @@ city_builder.panel_buildings = function (params) {
 		}
 		this.core.console_log('creating panel with id `' + this.id + '`');
 		var city = this.core.get_city();
-		$('.ui').append(city_builder.ui.generic_panel_template.replace(/{id}/g, this.id).replace(/{title}/g, this.title));
+		$('.ui').append(city_builder.ui.generic_panel_template
+			.replace(/{id}/g, this.id)
+			.replace(/{title}/g, this.title));
 		var _t = '<div class="left buildings">';
 		var available_buildings = city_builder['CITY_BUILDINGS_' + city.get_climate().name.toUpperCase()];
 		_t += '<div class="tabs">' +
@@ -7949,7 +8290,7 @@ city_builder.panel_buildings = function (params) {
 			_t += '</div>';
 		}
 		_t += '</div>' +
-				'</div><div class="right">' +
+			'</div><div class="right">' +
 				'<fieldset>' +
 				'<legend>' + city_builder.l('Description') + '</legend>' +
 				'<div class="b-desc"></div>' +
@@ -7983,7 +8324,8 @@ city_builder.panel_buildings = function (params) {
 				'<div class="b-req"></div>' +
 				'</fieldset>' +
 				'<div class="toolbar"></div>' +
-				'</div>';
+			'</div>';
+		$(el + ' .contents').append(_t);
 		$(el).on('click', '.building-item', function () {
 			$(el).addClass('expanded');
 			$(el + ' .building-item').removeClass('active');
@@ -8085,9 +8427,7 @@ city_builder.panel_buildings = function (params) {
 			});
 			$(el + ' .right').show();
 			return false;
-		});
-		$(el + ' .contents').append(_t);
-		$(el).on('click', '.btn.build', function () {
+		}).on('click', '.btn.build', function () {
 			var handle = $(this).data('handle');
 			if (city.build(handle) !== false) {
 				$(el + ' .building-item[data-handle=' + handle + ']').addClass('disabled');
@@ -8159,6 +8499,8 @@ city_builder.panel_storage = function (params) {
 	 */
 	this.title = city_builder.l('City Storage');
 
+	this.expanded = false;
+
 	/**
 	 * Object destructor.
 	 * 
@@ -8206,8 +8548,10 @@ city_builder.panel_storage = function (params) {
 			return false;
 		}).on('click', '.toggle-storage', function () {
 			if ($('.toggle-storage').html() === city_builder.l('Show Less Goods')) {
+				self.expanded = false;
 				$('.toggle-storage').html(city_builder.l('Show More Goods'));
 			} else {
+				self.expanded = true;
 				$('.toggle-storage').html(city_builder.l('Show Less Goods'));
 			}
 			$('.extra-storage').toggle();
@@ -8273,6 +8617,9 @@ city_builder.panel_storage = function (params) {
 			'<a class="btn iblock toggle-storage" href="#">' + city_builder.l('Show More Goods') + '</a>' +
 		'</div>';
 		$(el + ' .contents').empty().append(out);
+		if (this.expanded === true) {
+			$('.toggle-storage').trigger('click');
+		}
 		return this;
 	};
 	
@@ -8346,7 +8693,7 @@ city_builder.panel_city = function (params) {
 		}
 		this.core.console_log('creating panel with id `' + this.id + '`');
 		var trades = city.get_trades();
-		$('.ui').append(city_builder.ui.generic_panel_template.replace(/{id}/g, this.id).replace(/{title}/g, city.get_name()));
+		$('.ui').append(city_builder.ui.generic_panel_template.replace(/{id}/g, this.id).replace(/{title}/g, 'City of ' + city.get_name()));
 		$(el + ' .contents').append(city_builder.ui.tabs([city_builder.l('Info'), city_builder.l('Army'), city_builder.l('Navy'), city_builder.l('Imports'), city_builder.l('Exports')]));
 		$(el + ' #tab-info').append('' +
 				'<img class="avatar" src="' + city_builder.ASSETS_URL + 'images/avatars/avatar' + city.get_avatar() + '.png" />' +
@@ -8984,7 +9331,7 @@ city_builder.panel_world = function (params) {
 		var city = this.core.get_city();
 		$('.ui').append(city_builder.ui.worldmap_panel_template.replace(/{id}/g, this.id));
 		var loc = city_builder['CITY_LOCATION_' + city.get_climate().name.toUpperCase()];
-		var out = '<div data-name="yourcity" class="tips city your" title="' + city_builder.l('City of') + ' ' + city.get_name() + '" style="left:' + loc.x + 'px;top:' + loc.y + 'px"></div>';
+		var out = '<div data-name="yourcity" class="tips city c1" title="' + city_builder.l('City of') + ' ' + city.get_name() + '" style="left:' + loc.x + 'px;top:' + loc.y + 'px"></div>';
 		for (var item in city_builder.CITIES) {
 			out += city_builder.ui.city_worldmap_element(item);
 		}
@@ -9111,33 +9458,36 @@ city_builder.panel_advisor = function (params) {
 		var city = this.core.get_city();
 		var buildings = city.get_buildings();
 		var can_diplomacy = city.is_building_built('embassy');
-		$('.ui').append(city_builder.ui.generic_panel_template.replace(/{id}/g, this.id).replace(/{title}/g, this.title));
-		var _t = '<div class="tabs">' +
-				'<ul>' +
-					'<li><a href="#tab-info">' + city_builder.l('Info') + '</a></li>' +
-					'<li><a href="#tab-production">' + city_builder.l('Production') + '</a></li>' +
-					'<li><a href="#tab-housing">' + city_builder.l('Housing') + '</a></li>' +
-					'<li><a href="#tab-army">' + city_builder.l('Army') + '</a></li>' +
-					'<li><a href="#tab-navy">' + city_builder.l('Navy') + '</a></li>' +
-					'<li><a href="#tab-mercenary">' + city_builder.l('Mercenaries') + '</a></li>' +
-					'<li><a href="#tab-diplomacy">' + city_builder.l('Diplomacy') + '</a></li>' +
-				'</ul>' +
-				'<div id="tab-info">' +
-				'</div>' +
-				'<div id="tab-production">' +
-				'</div>' +
-				'<div id="tab-housing">' +
-				'</div>' +
-				'<div id="tab-army">' +
-				'</div>' +
-				'<div id="tab-navy">' +
-				'</div>' +
-				'<div id="tab-mercenary">' +
-				'</div>' +
-				'<div id="tab-diplomacy">' +
-				'</div>' +
-				'</div>';
-		$(el + ' .contents').append(_t);
+		var can_build_ships = city.is_building_built('shipyard');
+		var can_recruit_soldiers = city.is_building_built('camp') || city.is_building_built('castle');
+		$('.ui').append(city_builder.ui.generic_panel_template
+			.replace(/{id}/g, this.id)
+			.replace(/{title}/g, this.title));
+		$(el + ' .contents').append('<div class="tabs">' +
+			'<ul>' +
+				'<li><a href="#tab-info">' + city_builder.l('Info') + '</a></li>' +
+				'<li><a href="#tab-production">' + city_builder.l('Production') + '</a></li>' +
+				'<li><a href="#tab-housing">' + city_builder.l('Housing') + '</a></li>' +
+				'<li><a href="#tab-army">' + city_builder.l('Army') + '</a></li>' +
+				'<li><a href="#tab-navy">' + city_builder.l('Navy') + '</a></li>' +
+				'<li><a href="#tab-mercenary">' + city_builder.l('Mercenaries') + '</a></li>' +
+				'<li><a href="#tab-diplomacy">' + city_builder.l('Diplomacy') + '</a></li>' +
+			'</ul>' +
+			'<div id="tab-info">' +
+			'</div>' +
+			'<div id="tab-production">' +
+			'</div>' +
+			'<div id="tab-housing">' +
+			'</div>' +
+			'<div id="tab-army">' +
+			'</div>' +
+			'<div id="tab-navy">' +
+			'</div>' +
+			'<div id="tab-mercenary">' +
+			'</div>' +
+			'<div id="tab-diplomacy">' +
+			'</div>' +
+		'</div>');
 		this.refresh();
 		$(el).on('click', '.pact', function () {
 			if (can_diplomacy === true) {
@@ -9573,7 +9923,7 @@ city_builder.panel_advisor = function (params) {
 					'<dt>' + city_builder.l('Defense') + '</dt><dd>' + city_builder.SHIP_TYPES[item].defense + '</dd>' +
 					'</dl>' +
 					'</div>' +
-					'<img data-handle="' + item + '" title="' + city_builder.l('Recruit') + ' ' + item + '" class="tips recruit-ship" src="' + city_builder.ASSETS_URL + 'images/armies/' + item.toLowerCase() + '.png" />' +
+					'<img data-handle="' + item + '" title="' + city_builder.l('Recruit') + ' ' + item + '" class="tips recruit-ship" src="' + city_builder.ASSETS_URL + 'images/armies/' + item.toLowerCase().replace(/ /g,"_") + '.png" />' +
 					'</fieldset>';
 		}
 		_t += '</div>';
@@ -9657,10 +10007,11 @@ city_builder.panel_army = function (params) {
 		var army = params.data;
 		this.core.console_log('creating panel with id `' + this.id + '`');
 		$('.ui').append(city_builder.ui.generic_panel_template.replace(/{id}/g, this.id).replace(/{title}/g, army.name));
-		$(el + ' .contents').append(city_builder.ui.tabs(['Info', 'Soldiers']));
+		$(el + ' .contents').append(city_builder.ui.tabs(['Info', 'Soldiers', 'Ships']));
 		$(el + ' #tab-info').append('<img class="avatar" src="' + city_builder.ASSETS_URL + 'images/armies/' + army.icon + '.png" />' +
 				'<p>' + army.description + '</p>');
 		$(el + ' #tab-soldiers').append(city_builder.ui.army_list(army));
+		$(el + ' #tab-ships').append(city_builder.ui.navy_list(army));
 		$(el).on('click', '.close', function () {
 			self.destroy();
 			return false;
@@ -11418,7 +11769,7 @@ city_builder.game = function () {
 			title: undefined,
 			content: undefined,
 			timeout: 15000,
-			img: city_builder.ASSETS_URL + 'images/ui/icon1.png',
+			img: city_builder.ASSETS_URL + 'images/ui/icon_notification_1.png',
 			showTime: true,
 			error: false,
 			other: false
@@ -11448,11 +11799,11 @@ city_builder.game = function () {
 		hide.addClass("hide");
 		if (settings.error === true) {
 			notty.addClass('error');
-			settings.img = city_builder.ASSETS_URL + 'images/ui/icon2.png';
+			settings.img = city_builder.ASSETS_URL + 'images/ui/icon_notification_2.png';
 		}
 		if (settings.other === true) {
 			notty.addClass('other');
-			settings.img = city_builder.ASSETS_URL + 'images/ui/city.png';
+			settings.img = city_builder.ASSETS_URL + 'images/ui/icon_notification_1.png';
 		}
 		image = $("<div>", {
 			style: "background: url('" + settings.img + "')"
@@ -11615,7 +11966,7 @@ city_builder.game = function () {
 				core: this
 			});
 			//city._build(city_builder['CITY_BUILDINGS_' + city_builder.CLIMATE_TYPES[city_builder.CITIES[item].climate].toUpperCase()], true);
-			new_city._create_buildings(city_builder.BUILDINGS_ALL, true);
+			//new_city._create_buildings(city_builder.BUILDINGS_ALL, true);
 			new_city.setup_army(true);
 			new_city.setup_navy(true);
 			if (data !== null) {

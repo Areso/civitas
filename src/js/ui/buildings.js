@@ -70,7 +70,9 @@ city_builder.panel_buildings = function (params) {
 		}
 		this.core.console_log('creating panel with id `' + this.id + '`');
 		var city = this.core.get_city();
-		$('.ui').append(city_builder.ui.generic_panel_template.replace(/{id}/g, this.id).replace(/{title}/g, this.title));
+		$('.ui').append(city_builder.ui.generic_panel_template
+			.replace(/{id}/g, this.id)
+			.replace(/{title}/g, this.title));
 		var _t = '<div class="left buildings">';
 		var available_buildings = city_builder['CITY_BUILDINGS_' + city.get_climate().name.toUpperCase()];
 		_t += '<div class="tabs">' +
@@ -95,7 +97,7 @@ city_builder.panel_buildings = function (params) {
 			_t += '</div>';
 		}
 		_t += '</div>' +
-				'</div><div class="right">' +
+			'</div><div class="right">' +
 				'<fieldset>' +
 				'<legend>' + city_builder.l('Description') + '</legend>' +
 				'<div class="b-desc"></div>' +
@@ -129,7 +131,8 @@ city_builder.panel_buildings = function (params) {
 				'<div class="b-req"></div>' +
 				'</fieldset>' +
 				'<div class="toolbar"></div>' +
-				'</div>';
+			'</div>';
+		$(el + ' .contents').append(_t);
 		$(el).on('click', '.building-item', function () {
 			$(el).addClass('expanded');
 			$(el + ' .building-item').removeClass('active');
@@ -231,9 +234,7 @@ city_builder.panel_buildings = function (params) {
 			});
 			$(el + ' .right').show();
 			return false;
-		});
-		$(el + ' .contents').append(_t);
-		$(el).on('click', '.btn.build', function () {
+		}).on('click', '.btn.build', function () {
 			var handle = $(this).data('handle');
 			if (city.build(handle) !== false) {
 				$(el + ' .building-item[data-handle=' + handle + ']').addClass('disabled');

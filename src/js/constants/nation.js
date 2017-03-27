@@ -19,7 +19,10 @@ city_builder.NATION_TYPES = [
 	'chinese',
 	'indian',
 	'franks',
-	'russian'
+	'russian',
+	'nigerian',
+	'malinese',
+	'mongolian'
 ];
 
 /**
@@ -133,3 +136,27 @@ city_builder.NATION_TYPE_FRANKS = 13;
  * @type {Number}
  */
 city_builder.NATION_TYPE_RUSSIAN = 14;
+
+/**
+ * Nigerians
+ * 
+ * @constant
+ * @type {Number}
+ */
+city_builder.NATION_TYPE_NIGERIAN = 15;
+
+/**
+ * Malinese
+ * 
+ * @constant
+ * @type {Number}
+ */
+city_builder.NATION_TYPE_MALINESE = 16;
+
+/**
+ * Mongolian
+ * 
+ * @constant
+ * @type {Number}
+ */
+city_builder.NATION_TYPE_MONGOLIAN = 17;

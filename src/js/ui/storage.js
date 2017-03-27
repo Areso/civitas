@@ -29,6 +29,8 @@ city_builder.panel_storage = function (params) {
 	 */
 	this.title = city_builder.l('City Storage');
 
+	this.expanded = false;
+
 	/**
 	 * Object destructor.
 	 * 
@@ -76,8 +78,10 @@ city_builder.panel_storage = function (params) {
 			return false;
 		}).on('click', '.toggle-storage', function () {
 			if ($('.toggle-storage').html() === city_builder.l('Show Less Goods')) {
+				self.expanded = false;
 				$('.toggle-storage').html(city_builder.l('Show More Goods'));
 			} else {
+				self.expanded = true;
 				$('.toggle-storage').html(city_builder.l('Show Less Goods'));
 			}
 			$('.extra-storage').toggle();
@@ -143,6 +147,9 @@ city_builder.panel_storage = function (params) {
 			'<a class="btn iblock toggle-storage" href="#">' + city_builder.l('Show More Goods') + '</a>' +
 		'</div>';
 		$(el + ' .contents').empty().append(out);
+		if (this.expanded === true) {
+			$('.toggle-storage').trigger('click');
+		}
 		return this;
 	};
 	

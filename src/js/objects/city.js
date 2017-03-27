@@ -139,7 +139,15 @@ city_builder.city = function(params) {
 	 * @private
 	 */
 	this.avatar = null;
-	
+
+	/**
+	 * The icon of this city.
+	 * 
+	 * @type {Number}
+	 * @private
+	 */
+	this.icon = null;
+
 	this.influence = {};
 	
 	/**
@@ -169,6 +177,7 @@ city_builder.city = function(params) {
 		this.climate = (typeof params.data.climate !== 'undefined') ? params.data.climate : city_builder.CLIMATE_TYPE_TEMPERATE;
 		this.ruler = (typeof params.data.ruler !== 'undefined') ? params.data.ruler : 0;
 		this.avatar = (typeof params.data.avatar !== 'undefined') ? params.data.avatar : 1;
+		this.icon = (typeof params.data.icon !== 'undefined') ? params.data.icon : 1;
 		this.reset_trades();
 		return this;
 	};
@@ -471,6 +480,7 @@ city_builder.city = function(params) {
 			climate: this.get_climate().id,
 			nationality: this.get_nationality().id,
 			avatar: this.get_avatar(),
+			icon: this.get_icon(),
 			influence: this.get_influence(),
 			army: this.get_army_total(),
 			navy: this.get_navy_total(),
@@ -505,6 +515,7 @@ city_builder.city = function(params) {
 		this.set_ruler(data.ruler);
 		this.set_level(data.level);
 		this.set_avatar(data.avatar);
+		this.set_icon(data.icon);
 		this.set_nationality(data.nationality);
 		this.set_climate(data.climate);
 		this.setup_army(true, data.army);
@@ -1025,11 +1036,10 @@ city_builder.city = function(params) {
 	 */
 	this.get_navy_total = function() {
 		var total = 0;
-		var total_navy = {
-			'Corsair': 0,
-			'Caravel': 0,
-			'Warship': 0
-		};
+		var total_navy = {};
+		for (var item in city_builder.SHIP_TYPES) {
+			total_navy[item] = 0;
+		}
 		for (var i = 0; i < this.navy.length; i++) {
 			var ship = this.navy[i].get_name();
 			for (var item in total_navy) {
@@ -1053,14 +1063,10 @@ city_builder.city = function(params) {
 	 */
 	this.get_army_total = function() {
 		var total = 0;
-		var total_army = {
-			'Militia': 0,
-			'Axeman': 0,
-			'Bowman': 0,
-			'Pikeman': 0,
-			'Crossbowman': 0,
-			'Knight': 0
-		};
+		var total_army = {};
+		for (var item in city_builder.SOLDIER_TYPES) {
+			total_army[item] = 0;
+		}
 		for (var i = 0; i < this.army.length; i++) {
 			var soldier = this.army[i].get_name();
 			for (var item in total_army) {
@@ -1862,6 +1868,28 @@ city_builder.city = function(params) {
 		return this.get_prestige().amount;
 	};
 	
+	/**
+	 * Get the icon of this city.
+	 * 
+	 * @public
+	 * @returns {Number}
+	 */
+	this.get_icon = function() {
+		return this.icon;
+	};
+	
+	/**
+	 * Set the icon of this city.
+	 * 
+	 * @public
+	 * @returns {city_builder.city}
+	 * @param {Number} value
+	 */
+	this.set_icon = function(value) {
+		this.icon = value;
+		return this;
+	};
+
 	/**
 	 * Get the avatar of the ruler of this city.
 	 * 

@@ -234,4 +234,52 @@ city_builder.MERCENARIES = [{
 		'Pikeman': 310
 	},
 	cost: 100000
+}, {
+	name: 'Army of the Western Garden',
+	description: 'The Army of the Western Garden is an army established during the reign of Emperor Ling in the Eastern Han Dynasty.',
+	handle: 'western',
+	icon: 27,
+	army: {
+		'Axeman': 290,
+		'Knight': 40,
+		'Bowman': 170,
+		'Pikeman': 300
+	},
+	cost: 90000
+}, {
+	name: 'Scholae Palatinae',
+	description: 'The Scholae Palatinae are an elite military guard unit, usually ascribed to the Roman Emperor Constantine the Great as a replacement for the equites singulares Augusti, the cavalry arm of the Praetorian Guard.',
+	handle: 'scholae',
+	icon: 26,
+	army: {
+		'Axeman': 10,
+		'Knight': 200,
+		'Bowman': 100,
+		'Pikeman': 210
+	},
+	cost: 290000
+}, {
+	name: 'Imperial Guards',
+	description: 'The Imperial Guards of the Tang Dynasty, also known as the Forbidden Troops were initially honor guards of the emperor and garrisons of the imperial capitals during the Tang`s dinasty formation in early 7th century.',
+	handle: 'forbidden',
+	icon: 25,
+	army: {
+		'Axeman': 290,
+		'Knight': 80,
+		'Bowman': 100,
+		'Pikeman': 210
+	},
+	cost: 130000
+}, {
+	name: 'Navy of the Order of Saint John',
+	description: 'The navy of the Order of Saint John, also known as the Maltese Navy, was the first navy of a chivalric order, established in the Middle Ages, around the late 12th century.',
+	handle: 'maltesenavy',
+	icon: 28,
+	navy: {
+		'Corsair': 19,
+		'Caravel': 14,
+		'Warship': 12,
+		'Ship of the Line': 10
+	},
+	cost: 1500000
 }];

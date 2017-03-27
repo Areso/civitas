@@ -47,39 +47,39 @@
 }
 
 footer .do-trades {
-	background: transparent url(../images/ui/diplomacy.png) no-repeat;
+	background: transparent url(../images/ui/action_trades.png) no-repeat;
 }
 
 footer .do-storage {
-	background: transparent url(../images/ui/storage.png) no-repeat;
+	background: transparent url(../images/ui/action_storage.png) no-repeat;
 }
 
 footer .do-build {
-	background: transparent url(../images/ui/building.png) no-repeat;
+	background: transparent url(../images/ui/action_buildings.png) no-repeat;
 }
 
 footer .do-advisor {
-	background: transparent url(../images/ui/advisor.png) no-repeat;
+	background: transparent url(../images/ui/action_advisor.png) no-repeat;
 }
 
 footer .do-worldmap {
-	background: transparent url(../images/ui/worldmap.png) no-repeat;
+	background: transparent url(../images/ui/action_worldmap.png) no-repeat;
 }
 
 footer .do-rankings {
-	background: transparent url(../images/ui/rankings.png) no-repeat;
+	background: transparent url(../images/ui/action_rankings.png) no-repeat;
 }
 
 footer .do-options {
-	background: transparent url(../images/ui/options.png) no-repeat;
+	background: transparent url(../images/ui/action_options.png) no-repeat;
 }
 
 footer .do-restart {
-	background: transparent url(../images/ui/restart.png) no-repeat;
+	background: transparent url(../images/ui/action_restart.png) no-repeat;
 }
 
 footer .do-help {
-	background: transparent url(../images/ui/help.png) no-repeat;
+	background: transparent url(../images/ui/action_help.png) no-repeat;
 }
 
 .panel .footer .btn.start {
@@ -110,7 +110,7 @@ footer .do-help {
 
 .panel .worldmap {
 	width: 972px;
-	height: 657px;
+	height: 501px;
 	background: transparent url(../images/ui/worldmap.jpg) no-repeat;
 	position: relative;
 }
@@ -119,16 +119,35 @@ footer .do-help {
 	position: absolute;
 	width: 40px;
 	height: 40px;
-	background: transparent url(../images/ui/city.png) no-repeat;
 	cursor: pointer;
 }
 
-.panel .worldmap .city.your {
-	position: absolute;
-	width: 40px;
-	height: 40px;
-	background: transparent url(../images/ui/yourcity.png) no-repeat;
-	cursor: pointer;
+.panel .worldmap .city.c1 {
+	background: transparent url(../images/ui/city1.png) no-repeat;
+}
+
+.panel .worldmap .city.c2 {
+	background: transparent url(../images/ui/city2.png) no-repeat;
+}
+
+.panel .worldmap .city.c3 {
+	background: transparent url(../images/ui/city3.png) no-repeat;
+}
+
+.panel .worldmap .city.c4 {
+	background: transparent url(../images/ui/city4.png) no-repeat;
+}
+
+.panel .worldmap .city.c5 {
+	background: transparent url(../images/ui/city5.png) no-repeat;
+}
+
+.panel .worldmap .city.c6 {
+	background: transparent url(../images/ui/city6.png) no-repeat;
+}
+
+.panel .worldmap .city.c7 {
+	background: transparent url(../images/ui/city7.png) no-repeat;
 }
 
 .game {

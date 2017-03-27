@@ -820,7 +820,7 @@ city_builder.game = function () {
 			title: undefined,
 			content: undefined,
 			timeout: 15000,
-			img: city_builder.ASSETS_URL + 'images/ui/icon1.png',
+			img: city_builder.ASSETS_URL + 'images/ui/icon_notification_1.png',
 			showTime: true,
 			error: false,
 			other: false
@@ -850,11 +850,11 @@ city_builder.game = function () {
 		hide.addClass("hide");
 		if (settings.error === true) {
 			notty.addClass('error');
-			settings.img = city_builder.ASSETS_URL + 'images/ui/icon2.png';
+			settings.img = city_builder.ASSETS_URL + 'images/ui/icon_notification_2.png';
 		}
 		if (settings.other === true) {
 			notty.addClass('other');
-			settings.img = city_builder.ASSETS_URL + 'images/ui/city.png';
+			settings.img = city_builder.ASSETS_URL + 'images/ui/icon_notification_1.png';
 		}
 		image = $("<div>", {
 			style: "background: url('" + settings.img + "')"
@@ -1017,7 +1017,7 @@ city_builder.game = function () {
 				core: this
 			});
 			//city._build(city_builder['CITY_BUILDINGS_' + city_builder.CLIMATE_TYPES[city_builder.CITIES[item].climate].toUpperCase()], true);
-			new_city._create_buildings(city_builder.BUILDINGS_ALL, true);
+			//new_city._create_buildings(city_builder.BUILDINGS_ALL, true);
 			new_city.setup_army(true);
 			new_city.setup_navy(true);
 			if (data !== null) {

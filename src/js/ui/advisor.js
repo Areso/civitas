@@ -72,33 +72,36 @@ city_builder.panel_advisor = function (params) {
 		var city = this.core.get_city();
 		var buildings = city.get_buildings();
 		var can_diplomacy = city.is_building_built('embassy');
-		$('.ui').append(city_builder.ui.generic_panel_template.replace(/{id}/g, this.id).replace(/{title}/g, this.title));
-		var _t = '<div class="tabs">' +
-				'<ul>' +
-					'<li><a href="#tab-info">' + city_builder.l('Info') + '</a></li>' +
-					'<li><a href="#tab-production">' + city_builder.l('Production') + '</a></li>' +
-					'<li><a href="#tab-housing">' + city_builder.l('Housing') + '</a></li>' +
-					'<li><a href="#tab-army">' + city_builder.l('Army') + '</a></li>' +
-					'<li><a href="#tab-navy">' + city_builder.l('Navy') + '</a></li>' +
-					'<li><a href="#tab-mercenary">' + city_builder.l('Mercenaries') + '</a></li>' +
-					'<li><a href="#tab-diplomacy">' + city_builder.l('Diplomacy') + '</a></li>' +
-				'</ul>' +
-				'<div id="tab-info">' +
-				'</div>' +
-				'<div id="tab-production">' +
-				'</div>' +
-				'<div id="tab-housing">' +
-				'</div>' +
-				'<div id="tab-army">' +
-				'</div>' +
-				'<div id="tab-navy">' +
-				'</div>' +
-				'<div id="tab-mercenary">' +
-				'</div>' +
-				'<div id="tab-diplomacy">' +
-				'</div>' +
-				'</div>';
-		$(el + ' .contents').append(_t);
+		var can_build_ships = city.is_building_built('shipyard');
+		var can_recruit_soldiers = city.is_building_built('camp') || city.is_building_built('castle');
+		$('.ui').append(city_builder.ui.generic_panel_template
+			.replace(/{id}/g, this.id)
+			.replace(/{title}/g, this.title));
+		$(el + ' .contents').append('<div class="tabs">' +
+			'<ul>' +
+				'<li><a href="#tab-info">' + city_builder.l('Info') + '</a></li>' +
+				'<li><a href="#tab-production">' + city_builder.l('Production') + '</a></li>' +
+				'<li><a href="#tab-housing">' + city_builder.l('Housing') + '</a></li>' +
+				'<li><a href="#tab-army">' + city_builder.l('Army') + '</a></li>' +
+				'<li><a href="#tab-navy">' + city_builder.l('Navy') + '</a></li>' +
+				'<li><a href="#tab-mercenary">' + city_builder.l('Mercenaries') + '</a></li>' +
+				'<li><a href="#tab-diplomacy">' + city_builder.l('Diplomacy') + '</a></li>' +
+			'</ul>' +
+			'<div id="tab-info">' +
+			'</div>' +
+			'<div id="tab-production">' +
+			'</div>' +
+			'<div id="tab-housing">' +
+			'</div>' +
+			'<div id="tab-army">' +
+			'</div>' +
+			'<div id="tab-navy">' +
+			'</div>' +
+			'<div id="tab-mercenary">' +
+			'</div>' +
+			'<div id="tab-diplomacy">' +
+			'</div>' +
+		'</div>');
 		this.refresh();
 		$(el).on('click', '.pact', function () {
 			if (can_diplomacy === true) {
@@ -534,7 +537,7 @@ city_builder.panel_advisor = function (params) {
 					'<dt>' + city_builder.l('Defense') + '</dt><dd>' + city_builder.SHIP_TYPES[item].defense + '</dd>' +
 					'</dl>' +
 					'</div>' +
-					'<img data-handle="' + item + '" title="' + city_builder.l('Recruit') + ' ' + item + '" class="tips recruit-ship" src="' + city_builder.ASSETS_URL + 'images/armies/' + item.toLowerCase() + '.png" />' +
+					'<img data-handle="' + item + '" title="' + city_builder.l('Recruit') + ' ' + item + '" class="tips recruit-ship" src="' + city_builder.ASSETS_URL + 'images/armies/' + item.toLowerCase().replace(/ /g,"_") + '.png" />' +
 					'</fieldset>';
 		}
 		_t += '</div>';

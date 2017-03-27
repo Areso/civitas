@@ -9,6 +9,7 @@ if (city_builder.DEBUG === true) {
 		nationality: city_builder.NATION_TYPE_ASSYRIAN,
 		ruler: 'Sandking',
 		avatar: 1,
+		icon: 2,
 		climate: city_builder.CLIMATE_TYPE_TEMPERATE,
 		personality: city_builder.PERSONALITY_TYPE_DIPLOMAT,
 		level: 30,
@@ -53,7 +54,7 @@ if (city_builder.DEBUG === true) {
 		},
 		location: {
 			x: 460,
-			y: 410
+			y: 260
 		}
 	};
 }

@@ -53,11 +53,11 @@ city_builder.ui = {
 	},
 	
 	city_worldmap_element: function (name) {
-		return '<div data-name="' + name + '" class="tips city" title="' + city_builder.l('City of') + ' ' + name + '" style="left:' + city_builder.CITIES[name].location.x + 'px;top:' + city_builder.CITIES[name].location.y + 'px"></div>';
+		return '<div data-name="' + name + '" class="tips city c' + city_builder.CITIES[name].icon + '" title="' + city_builder.l('City of') + ' ' + name + '" style="left:' + city_builder.CITIES[name].location.x + 'px;top:' + city_builder.CITIES[name].location.y + 'px"></div>';
 	},
 	
 	army_img: function (name) {
-		return '<img class="tips" title="' + name + '" src="' + city_builder.ASSETS_URL + 'images/armies/' + name.toLowerCase() + '_small.png" />';
+		return '<img class="tips" title="' + name + '" src="' + city_builder.ASSETS_URL + 'images/armies/' + name.toLowerCase().replace(/ /g,"_") + '_small.png" />';
 	},
 	
 	army_list: function (army, no_margin) {
@@ -108,11 +108,13 @@ city_builder.ui = {
 	
 	navy_list: function (army, no_margin) {
 		var out = '<dl' + ((typeof no_margin !== 'undefined' && no_margin === true) ? ' class="nomg"' : '') + '>';
+		var total = 0;
 		for (var soldier in army.navy) {
 			out += '<dt>' + army.navy[soldier] + '</dt>' +
 					'<dd>' + city_builder.ui.army_img(soldier) + '</dd>';
+			total += army.navy[soldier];
 		}
-		out += '<dt>' + city_builder.l('Total') + '</dt><dd>' + army.total + ' ' + city_builder.l('ships') + '.</dd>' +
+		out += '<dt>' + city_builder.l('Total') + '</dt><dd>' + (typeof army.total !== 'undefined' ? army.total : total) + ' ' + city_builder.l('ships') + '.</dd>' +
 				'</dl>';
 		return out;
 	},

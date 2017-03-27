@@ -54,7 +54,7 @@ city_builder.YEARLY_INFLUENCE_LOSS = 10;
  * @constant
  * @type {Number}
  */
-city_builder.AVATARS = 36;
+city_builder.AVATARS = 45;
 
 city_builder.TRADES_ADDITION = 10;
 

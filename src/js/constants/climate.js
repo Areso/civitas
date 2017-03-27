@@ -61,7 +61,7 @@ city_builder.CLIMATE_TYPE_POLAR = 5;
  */
 city_builder.CITY_LOCATION_TEMPERATE = {
 	x: 530,
-	y: 300
+	y: 150
 };
 
 /**
@@ -72,7 +72,7 @@ city_builder.CITY_LOCATION_TEMPERATE = {
  */
 city_builder.CITY_LOCATION_TROPICAL = {
 	x: 45,
-	y: 400
+	y: 250
 };
 
 /**
@@ -83,7 +83,7 @@ city_builder.CITY_LOCATION_TROPICAL = {
  */
 city_builder.CITY_LOCATION_ARID = {
 	x: 340,
-	y: 380
+	y: 130
 };
 
 /**
@@ -94,7 +94,7 @@ city_builder.CITY_LOCATION_ARID = {
  */
 city_builder.CITY_LOCATION_CONTINENTAL = {
 	x: 540,
-	y: 300
+	y: 150
 };
 
 /**
@@ -105,5 +105,5 @@ city_builder.CITY_LOCATION_CONTINENTAL = {
  */
 city_builder.CITY_LOCATION_POLAR = {
 	x: 490,
-	y: 30
+	y: 10
 };

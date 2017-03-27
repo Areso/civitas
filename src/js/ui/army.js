@@ -64,10 +64,11 @@ city_builder.panel_army = function (params) {
 		var army = params.data;
 		this.core.console_log('creating panel with id `' + this.id + '`');
 		$('.ui').append(city_builder.ui.generic_panel_template.replace(/{id}/g, this.id).replace(/{title}/g, army.name));
-		$(el + ' .contents').append(city_builder.ui.tabs(['Info', 'Soldiers']));
+		$(el + ' .contents').append(city_builder.ui.tabs(['Info', 'Soldiers', 'Ships']));
 		$(el + ' #tab-info').append('<img class="avatar" src="' + city_builder.ASSETS_URL + 'images/armies/' + army.icon + '.png" />' +
 				'<p>' + army.description + '</p>');
 		$(el + ' #tab-soldiers').append(city_builder.ui.army_list(army));
+		$(el + ' #tab-ships').append(city_builder.ui.navy_list(army));
 		$(el).on('click', '.close', function () {
 			self.destroy();
 			return false;

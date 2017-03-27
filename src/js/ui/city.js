@@ -64,7 +64,7 @@ city_builder.panel_city = function (params) {
 		}
 		this.core.console_log('creating panel with id `' + this.id + '`');
 		var trades = city.get_trades();
-		$('.ui').append(city_builder.ui.generic_panel_template.replace(/{id}/g, this.id).replace(/{title}/g, city.get_name()));
+		$('.ui').append(city_builder.ui.generic_panel_template.replace(/{id}/g, this.id).replace(/{title}/g, 'City of ' + city.get_name()));
 		$(el + ' .contents').append(city_builder.ui.tabs([city_builder.l('Info'), city_builder.l('Army'), city_builder.l('Navy'), city_builder.l('Imports'), city_builder.l('Exports')]));
 		$(el + ' #tab-info').append('' +
 				'<img class="avatar" src="' + city_builder.ASSETS_URL + 'images/avatars/avatar' + city.get_avatar() + '.png" />' +
