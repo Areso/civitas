@@ -357,13 +357,18 @@ city_builder.city = function(params) {
 	 * @returns {Boolean}
 	 */
 	this.reset_trades = function() {
+		var trades = {
+			'imports': {},
+			'exports': {}
+		};
 		if (typeof city_builder.CITIES[this.get_name()] !== 'undefined') {
-			this.trades = city_builder.CITIES[this.get_name()].trades;
-			for (var goods_type in this.trades) {
-				for (var item in this.trades[goods_type]) {
-					this.trades[goods_type][item] = city_builder.utils.get_random_by_importance(this.trades[goods_type][item]);
+			var _trades = city_builder.CITIES[this.get_name()].trades;
+			for (var goods_type in _trades) {
+				for (var item in _trades[goods_type]) {
+					trades[goods_type][item] = city_builder.utils.get_random_by_importance(_trades[goods_type][item]);
 				}
 			}
+			this.trades = trades;
 			return true;
 		} else {
 			return false;

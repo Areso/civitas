@@ -34,7 +34,12 @@ city_builder.utils = {
 	 * @returns {Number}
 	 */
 	get_random_by_importance: function(importance) {
-		return city_builder.utils.get_up_number(Math.random() * importance) * 10 + 10;
+		return city_builder.utils.get_up_number(
+			city_builder.utils.get_random(
+				Math.floor(Math.random() * importance) * 10 + 10,
+				Math.floor(Math.random() * importance) * 10 + 20
+			)
+		);
 	},
 
 	/**
