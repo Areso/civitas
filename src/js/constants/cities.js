@@ -15,7 +15,8 @@ city_builder.CITIES = {
 		level: 25,
 		resources: {
 			'coins': 230000,
-			'prestige': 700
+			'prestige': 700,
+			'espionage': 400
 		},
 		trades: {
 			'imports': {
@@ -66,7 +67,8 @@ city_builder.CITIES = {
 		level: 50,
 		resources: {
 			'coins': 130000,
-			'prestige': 700
+			'prestige': 700,
+			'espionage': 1200
 		},
 		trades: {
 			'imports': {
@@ -120,7 +122,8 @@ city_builder.CITIES = {
 		level: 30,
 		resources: {
 			'coins': 100000,
-			'prestige': 1000
+			'prestige': 1000,
+			'espionage': 800
 		},
 		trades: {
 			'imports': {
@@ -159,7 +162,8 @@ city_builder.CITIES = {
 		level: 22,
 		resources: {
 			'coins': 200000,
-			'prestige': 500
+			'prestige': 500,
+			'espionage': 300
 		},
 		trades: {
 			'imports': {
@@ -202,7 +206,8 @@ city_builder.CITIES = {
 		level: 45,
 		resources: {
 			'coins': 200000,
-			'prestige': 800
+			'prestige': 800,
+			'espionage': 900
 		},
 		trades: {
 			'imports': {
@@ -246,7 +251,8 @@ city_builder.CITIES = {
 		level: 21,
 		resources: {
 			'coins': 200000,
-			'prestige': 100
+			'prestige': 100,
+			'espionage': 100
 		},
 		trades: {
 			'imports': {
@@ -286,7 +292,8 @@ city_builder.CITIES = {
 		level: 35,
 		resources: {
 			'coins': 130000,
-			'prestige': 780
+			'prestige': 780,
+			'espionage': 400
 		},
 		trades: {
 			'imports': {
@@ -326,7 +333,8 @@ city_builder.CITIES = {
 		level: 20,
 		resources: {
 			'coins': 30000,
-			'prestige': 200
+			'prestige': 200,
+			'espionage': 150
 		},
 		trades: {
 			'imports': {
@@ -367,7 +375,8 @@ city_builder.CITIES = {
 		level: 50,
 		resources: {
 			'coins': 330000,
-			'prestige': 900
+			'prestige': 900,
+			'espionage': 1900
 		},
 		trades: {
 			'imports': {
@@ -419,7 +428,8 @@ city_builder.CITIES = {
 		level: 18,
 		resources: {
 			'coins': 22000,
-			'prestige': 160
+			'prestige': 160,
+			'espionage': 500
 		},
 		trades: {
 			'imports': {
@@ -457,7 +467,8 @@ city_builder.CITIES = {
 		level: 22,
 		resources: {
 			'coins': 180000,
-			'prestige': 200
+			'prestige': 200,
+			'espionage': 450
 		},
 		trades: {
 			'imports': {
@@ -503,7 +514,8 @@ city_builder.CITIES = {
 		level: 18,
 		resources: {
 			'coins': 80000,
-			'prestige': 300
+			'prestige': 300,
+			'espionage': 300
 		},
 		trades: {
 			'imports': {
@@ -547,7 +559,8 @@ city_builder.CITIES = {
 		level: 16,
 		resources: {
 			'coins': 20000,
-			'prestige': 10
+			'prestige': 10,
+			'espionage': 50
 		},
 		trades: {
 			'imports': {
@@ -587,7 +600,8 @@ city_builder.CITIES = {
 		level: 38,
 		resources: {
 			'coins': 280000,
-			'prestige': 600
+			'prestige': 600,
+			'espionage': 580
 		},
 		trades: {
 			'imports': {
@@ -631,7 +645,8 @@ city_builder.CITIES = {
 		level: 21,
 		resources: {
 			'coins': 110000,
-			'prestige': 180
+			'prestige': 180,
+			'espionage': 200
 		},
 		trades: {
 			'imports': {
@@ -675,7 +690,8 @@ city_builder.CITIES = {
 		level: 22,
 		resources: {
 			'coins': 10000,
-			'prestige': 360
+			'prestige': 360,
+			'espionage': 500
 		},
 		trades: {
 			'imports': {
@@ -718,7 +734,8 @@ city_builder.CITIES = {
 		level: 26,
 		resources: {
 			'coins': 80000,
-			'prestige': 400
+			'prestige': 400,
+			'espionage': 500
 		},
 		trades: {
 			'imports': {
@@ -759,7 +776,8 @@ city_builder.CITIES = {
 		level: 29,
 		resources: {
 			'coins': 240000,
-			'prestige': 500
+			'prestige': 500,
+			'espionage': 800
 		},
 		trades: {
 			'imports': {
@@ -799,7 +817,8 @@ city_builder.CITIES = {
 		level: 22,
 		resources: {
 			'coins': 240000,
-			'prestige': 420
+			'prestige': 420,
+			'espionage': 700
 		},
 		trades: {
 			'imports': {

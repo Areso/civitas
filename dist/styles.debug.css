@@ -389,7 +389,6 @@ header .top-panel span {
 	margin-bottom: 10px;
 }
 .panel fieldset legend {
-	/*border: 1px solid #555; */
 	padding: 0 10px;
 }
 
@@ -1130,23 +1129,9 @@ table tr td a.disabled {
 	display: none;
 }
 
-table.normal tr td:nth-child(4) {
-	/*width: 10%;*/
-	/*text-align: right;*/
-}
-
 .rankings-list {
 	height: 300px;
 	overflow: auto;
-}
-
-table.normal tr td:nth-child(5) {
-	/*width: 20%;*/
-	/*text-align: right;*/
-}
-
-table tr td:last-child {
-	/*width: 28%;*/
 }
 
 table tr td.large {
@@ -1371,6 +1356,8 @@ a.disabled {
 	display: none;
 }
 
+/* Top panel with resources */
+
 .top-panel span.coins {
 	background: transparent url(../images/resources/coins_medium.png) no-repeat left center;
 }
@@ -1419,6 +1406,8 @@ a.disabled {
 	background: transparent url(../images/resources/cattle_medium.png) no-repeat left center;
 }
 
+/* Bottom panel with game actions */
+
 footer .do-trades {
 	background: transparent url(../images/ui/action_trades.png) no-repeat;
 }
@@ -1455,16 +1444,16 @@ footer .do-help {
 	background: transparent url(../images/ui/action_help.png) no-repeat;
 }
 
+.panel header .btn.close {
+	background: transparent url(../images/ui/close.png) no-repeat;
+}
+
 .panel .footer .btn.start {
 	background: transparent url(../images/ui/icon_start_production.png) no-repeat;
 }
 
 .panel .footer .btn.pause {
 	background: transparent url(../images/ui/icon_stop_production.png) no-repeat;
-}
-
-.panel header .btn.close {
-	background: transparent url(../images/ui/close.png) no-repeat;
 }
 
 .panel .footer .btn.demolish {

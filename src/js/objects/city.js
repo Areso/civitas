@@ -811,7 +811,17 @@ city_builder.city = function(params) {
 	 * @returns {Number}
 	 */
 	this.get_rank = function() {
-		return Math.floor(((this.get_fame() / this.get_level() / 1024) * this.get_prestige() * ((this.get_army_total().total > 0 ? this.get_army_total().total : 1)) / 128) / 32);
+		var level = this.get_level();
+		var half_level = Math.round(level / 2);
+		return Math.floor(
+			(
+				(this.get_fame() / half_level)
+				+ (this.get_prestige() / half_level)
+				+ (this.get_espionage() / half_level)
+				+ ((this.get_army_total().total > 0 ? this.get_army_total().total : 1) / half_level)
+				+ ((this.get_navy_total().total > 0 ? this.get_navy_total().total : 1) / (half_level / 2))
+			) / half_level
+		);
 	};
 	
 	/**
