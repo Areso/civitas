@@ -40,7 +40,7 @@ Screenshots
 License
 =======
 
-City Builder is written by sizeof(cat) <sizeofcat AT riseup DOT net> and released into the Public Domain.
+City Builder is written by sizeof(cat) <sizeofcat AT riseup DOT net> and distributed under the [MIT license](LICENSE).
 
 Contributing
 ============
@@ -50,7 +50,7 @@ Contributions are welcome!
 Source code
 ===========
 
-The application can be downloaded from GitHub.com by issueing:
+The application can be downloaded from GitHub.com:
 
 `git clone git@github.com/sizeofcat/city-builder.git`
 
