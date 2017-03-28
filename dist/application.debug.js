@@ -19,14 +19,6 @@ String.prototype.capitalize = function () {
     return this.charAt(0).toUpperCase() + this.slice(1);
 };
 
-function get_random(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
-function get_random_goods_by_importance(importance) {
-	return Math.floor(Math.random() * importance) * 10 + 10;
-}
-
 if (typeof city_builder === 'undefined')
 	var city_builder = {};
 
@@ -4551,6 +4543,30 @@ if (city_builder.DEBUG === true) {
  * Utils object.
  */
 city_builder.utils = {
+
+	/**
+	 * Return a random number between min and max.
+	 *
+	 * @public
+	 * @param {Number} min
+	 * @param {Number} max
+	 * @returns {Number}
+	 */
+	get_random: function(min, max) {
+	    return Math.floor(Math.random() * (max - min + 1)) + min;
+	},
+
+	/**
+	 * Return a random number based on importance.
+	 *
+	 * @public
+	 * @param {Number} importance
+	 * @returns {Number}
+	 */
+	get_random_by_importance: function(importance) {
+		return Math.floor(Math.random() * importance) * 10 + 10;
+	},
+
 	/**
 	 * Return the resource name by handle.
 	 *
@@ -5473,7 +5489,7 @@ city_builder.city = function(params) {
 			this.trades = city_builder.CITIES[this.get_name()].trades;
 			for (var goods_type in this.trades) {
 				for (var item in this.trades[goods_type]) {
-					this.trades[goods_type][item] = get_random_goods_by_importance(this.trades[goods_type][item]);
+					this.trades[goods_type][item] = city_builder.utils.get_random_by_importance(this.trades[goods_type][item]);
 				}
 			}
 			return true;
@@ -8606,7 +8622,9 @@ city_builder.panel_storage = function (params) {
 			this.destroy();
 		}
 		this.core.console_log('creating panel with id `' + this.id + '`');
-		$('.ui').append(city_builder.ui.generic_panel_template.replace(/{id}/g, this.id).replace(/{title}/g, this.title));
+		$('.ui').append(city_builder.ui.generic_panel_template
+			.replace(/{id}/g, this.id)
+			.replace(/{title}/g, this.title));
 		this.refresh();
 		$(el).on('click', '.close', function () {
 			self.destroy();
@@ -8758,7 +8776,9 @@ city_builder.panel_city = function (params) {
 		}
 		this.core.console_log('creating panel with id `' + this.id + '`');
 		var trades = city.get_trades();
-		$('.ui').append(city_builder.ui.generic_panel_template.replace(/{id}/g, this.id).replace(/{title}/g, 'City of ' + city.get_name()));
+		$('.ui').append(city_builder.ui.generic_panel_template
+			.replace(/{id}/g, this.id)
+			.replace(/{title}/g, 'City of ' + city.get_name()));
 		$(el + ' .contents').append(city_builder.ui.tabs([city_builder.l('Info'), city_builder.l('Army'), city_builder.l('Navy'), city_builder.l('Imports'), city_builder.l('Exports')]));
 		$(el + ' #tab-info').append('' +
 				'<img class="avatar" src="' + city_builder.ASSETS_URL + 'images/avatars/avatar' + city.get_avatar() + '.png" />' +
@@ -8901,7 +8921,8 @@ city_builder.panel_help = function (params) {
 			this.destroy();
 		}
 		this.core.console_log('creating panel with id `' + this.id + '`');
-		$('.ui').append(city_builder.ui.generic_panel_template.replace(/{id}/g, this.id));
+		$('.ui').append(city_builder.ui.generic_panel_template
+			.replace(/{id}/g, this.id));
 		var title = '';
 		switch (this.ctxt) {
 			case 'building':
@@ -9019,7 +9040,9 @@ city_builder.panel_rankings = function (params) {
 		}
 		this.core.console_log('creating panel with id `' + this.id + '`');
 		$(el).remove();
-		$('.ui').append(city_builder.ui.generic_panel_template.replace(/{id}/g, this.id).replace(/{title}/g, this.title));
+		$('.ui').append(city_builder.ui.generic_panel_template
+			.replace(/{id}/g, this.id)
+			.replace(/{title}/g, this.title));
 		this.refresh();
 		$(el).on('click', '.close', function () {
 			self.destroy();
@@ -9180,7 +9203,9 @@ city_builder.panel_send_goods = function (params) {
 		this.core.console_log('creating panel with id `' + this.id + '`');
 		var city = this.core.get_city();
 		var resources = city.get_resources();
-		$('.ui').append(city_builder.ui.generic_panel_template.replace(/{id}/g, this.id).replace(/{title}/g, this.title));
+		$('.ui').append(city_builder.ui.generic_panel_template
+			.replace(/{id}/g, this.id)
+			.replace(/{title}/g, this.title));
 		var out = '';
 		
 		$(el + ' .contents').empty().append(out);
@@ -9291,7 +9316,9 @@ city_builder.panel_declare_war = function (params) {
 		this.core.console_log('creating panel with id `' + this.id + '`');
 		var city = this.core.get_city();
 		var otherCity = params.data;
-		$('.ui').append(city_builder.ui.generic_panel_template.replace(/{id}/g, this.id).replace(/{title}/g, this.title));
+		$('.ui').append(city_builder.ui.generic_panel_template
+			.replace(/{id}/g, this.id)
+			.replace(/{title}/g, this.title));
 		var out = '';
 		
 		$(el + ' .contents').empty().append(out);
@@ -9394,7 +9421,8 @@ city_builder.panel_world = function (params) {
 		}
 		this.core.console_log('creating panel with id `' + this.id + '`');
 		var city = this.core.get_city();
-		$('.ui').append(city_builder.ui.worldmap_panel_template.replace(/{id}/g, this.id));
+		$('.ui').append(city_builder.ui.worldmap_panel_template
+			.replace(/{id}/g, this.id));
 		var loc = city_builder['CITY_LOCATION_' + city.get_climate().name.toUpperCase()];
 		var out = '<div data-name="yourcity" class="tips city c1" title="' + city_builder.l('City of') + ' ' + city.get_name() + '" style="left:' + loc.x + 'px;top:' + loc.y + 'px"></div>';
 		for (var item in city_builder.CITIES) {
@@ -10073,7 +10101,9 @@ city_builder.panel_army = function (params) {
 		}
 		var army = params.data;
 		this.core.console_log('creating panel with id `' + this.id + '`');
-		$('.ui').append(city_builder.ui.generic_panel_template.replace(/{id}/g, this.id).replace(/{title}/g, army.name));
+		$('.ui').append(city_builder.ui.generic_panel_template
+			.replace(/{id}/g, this.id)
+			.replace(/{title}/g, army.name));
 		$(el + ' .contents').append(city_builder.ui.tabs(['Info', 'Soldiers', 'Ships']));
 		$(el + ' #tab-info').append('<img class="avatar" src="' + city_builder.ASSETS_URL + 'images/armies/' + army.icon + '.png" />' +
 				'<p>' + army.description + '</p>');
@@ -10186,7 +10216,9 @@ city_builder.panel_trades = function (params) {
 		this.core.console_log('creating panel with id `' + this.id + '`');
 		var city = this.core.get_city();
 		var _t = '';
-		$('.ui').append(city_builder.ui.generic_panel_template.replace(/{id}/g, this.id).replace(/{title}/g, this.title));
+		$('.ui').append(city_builder.ui.generic_panel_template
+			.replace(/{id}/g, this.id)
+			.replace(/{title}/g, this.title));
 		_t += city_builder.ui.tabs([city_builder.l('Imports'), city_builder.l('Exports'), city_builder.l('Mercenaries'), city_builder.l('BlackMarket')]);
 		$(el + ' .contents').append(_t);
 		$(el + ' #tab-imports').append('<p>' + city_builder.l('Below is a list of goods that the other cities in the world are looking to buy. The goods replenish yearly, so plan accordingly.') + '</p><div class="contents"></div>');
@@ -10536,7 +10568,9 @@ city_builder.panel_settings = function (params) {
 			this.destroy();
 		}
 		this.core.console_log('creating panel with id `' + this.id + '`');
-		$('.ui').append(city_builder.ui.generic_panel_template.replace(/{id}/g, this.id).replace(/{title}/g, params.header));
+		$('.ui').append(city_builder.ui.generic_panel_template
+			.replace(/{id}/g, this.id)
+			.replace(/{title}/g, params.header));
 		$(el + ' .contents').append(city_builder.ui.tabs([city_builder.l('Sounds'), city_builder.l('UI')]));
 		$(el + ' #tab-sounds').append('<div>' +
 			'<a href="#" class="music-control ui-control ' + ((this.core.get_settings('music') === true) ? 'on' : 'off') + '">toggle music</a>' +
@@ -11676,7 +11710,7 @@ city_builder.game = function () {
 				buildings[i].process();
 			}
 		}
-		var ev = city_builder.EVENTS[get_random(0, city_builder.EVENTS.length - 1)];
+		var ev = city_builder.EVENTS[city_builder.utils.get_random(0, city_builder.EVENTS.length - 1)];
 		ev.core = this;
 		new city_builder.event(ev);
 		this.calculate_storage();

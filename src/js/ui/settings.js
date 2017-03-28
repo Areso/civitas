@@ -64,7 +64,9 @@ city_builder.panel_settings = function (params) {
 			this.destroy();
 		}
 		this.core.console_log('creating panel with id `' + this.id + '`');
-		$('.ui').append(city_builder.ui.generic_panel_template.replace(/{id}/g, this.id).replace(/{title}/g, params.header));
+		$('.ui').append(city_builder.ui.generic_panel_template
+			.replace(/{id}/g, this.id)
+			.replace(/{title}/g, params.header));
 		$(el + ' .contents').append(city_builder.ui.tabs([city_builder.l('Sounds'), city_builder.l('UI')]));
 		$(el + ' #tab-sounds').append('<div>' +
 			'<a href="#" class="music-control ui-control ' + ((this.core.get_settings('music') === true) ? 'on' : 'off') + '">toggle music</a>' +

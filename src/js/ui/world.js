@@ -63,7 +63,8 @@ city_builder.panel_world = function (params) {
 		}
 		this.core.console_log('creating panel with id `' + this.id + '`');
 		var city = this.core.get_city();
-		$('.ui').append(city_builder.ui.worldmap_panel_template.replace(/{id}/g, this.id));
+		$('.ui').append(city_builder.ui.worldmap_panel_template
+			.replace(/{id}/g, this.id));
 		var loc = city_builder['CITY_LOCATION_' + city.get_climate().name.toUpperCase()];
 		var out = '<div data-name="yourcity" class="tips city c1" title="' + city_builder.l('City of') + ' ' + city.get_name() + '" style="left:' + loc.x + 'px;top:' + loc.y + 'px"></div>';
 		for (var item in city_builder.CITIES) {

@@ -2,6 +2,30 @@
  * Utils object.
  */
 city_builder.utils = {
+
+	/**
+	 * Return a random number between min and max.
+	 *
+	 * @public
+	 * @param {Number} min
+	 * @param {Number} max
+	 * @returns {Number}
+	 */
+	get_random: function(min, max) {
+	    return Math.floor(Math.random() * (max - min + 1)) + min;
+	},
+
+	/**
+	 * Return a random number based on importance.
+	 *
+	 * @public
+	 * @param {Number} importance
+	 * @returns {Number}
+	 */
+	get_random_by_importance: function(importance) {
+		return Math.floor(Math.random() * importance) * 10 + 10;
+	},
+
 	/**
 	 * Return the resource name by handle.
 	 *

@@ -360,7 +360,7 @@ city_builder.city = function(params) {
 			this.trades = city_builder.CITIES[this.get_name()].trades;
 			for (var goods_type in this.trades) {
 				for (var item in this.trades[goods_type]) {
-					this.trades[goods_type][item] = get_random_goods_by_importance(this.trades[goods_type][item]);
+					this.trades[goods_type][item] = city_builder.utils.get_random_by_importance(this.trades[goods_type][item]);
 				}
 			}
 			return true;

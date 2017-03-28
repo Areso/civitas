@@ -656,7 +656,7 @@ city_builder.game = function () {
 				buildings[i].process();
 			}
 		}
-		var ev = city_builder.EVENTS[get_random(0, city_builder.EVENTS.length - 1)];
+		var ev = city_builder.EVENTS[city_builder.utils.get_random(0, city_builder.EVENTS.length - 1)];
 		ev.core = this;
 		new city_builder.event(ev);
 		this.calculate_storage();

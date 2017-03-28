@@ -85,7 +85,8 @@ city_builder.panel_help = function (params) {
 			this.destroy();
 		}
 		this.core.console_log('creating panel with id `' + this.id + '`');
-		$('.ui').append(city_builder.ui.generic_panel_template.replace(/{id}/g, this.id));
+		$('.ui').append(city_builder.ui.generic_panel_template
+			.replace(/{id}/g, this.id));
 		var title = '';
 		switch (this.ctxt) {
 			case 'building':

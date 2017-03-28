@@ -71,7 +71,9 @@ city_builder.panel_trades = function (params) {
 		this.core.console_log('creating panel with id `' + this.id + '`');
 		var city = this.core.get_city();
 		var _t = '';
-		$('.ui').append(city_builder.ui.generic_panel_template.replace(/{id}/g, this.id).replace(/{title}/g, this.title));
+		$('.ui').append(city_builder.ui.generic_panel_template
+			.replace(/{id}/g, this.id)
+			.replace(/{title}/g, this.title));
 		_t += city_builder.ui.tabs([city_builder.l('Imports'), city_builder.l('Exports'), city_builder.l('Mercenaries'), city_builder.l('BlackMarket')]);
 		$(el + ' .contents').append(_t);
 		$(el + ' #tab-imports').append('<p>' + city_builder.l('Below is a list of goods that the other cities in the world are looking to buy. The goods replenish yearly, so plan accordingly.') + '</p><div class="contents"></div>');

@@ -71,7 +71,9 @@ city_builder.panel_declare_war = function (params) {
 		this.core.console_log('creating panel with id `' + this.id + '`');
 		var city = this.core.get_city();
 		var otherCity = params.data;
-		$('.ui').append(city_builder.ui.generic_panel_template.replace(/{id}/g, this.id).replace(/{title}/g, this.title));
+		$('.ui').append(city_builder.ui.generic_panel_template
+			.replace(/{id}/g, this.id)
+			.replace(/{title}/g, this.title));
 		var out = '';
 		
 		$(el + ' .contents').empty().append(out);
