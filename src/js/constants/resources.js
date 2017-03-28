@@ -1,4 +1,3 @@
-
 /**
  * List of resources to start with in various difficulty modes.
  *
@@ -57,20 +56,16 @@ city_builder.RESOURCES_START = [{
  */
 city_builder.RESOURCES = {
 	'coins': {
-		name: 'Coins',
-		handle: 'coins'
+		name: 'Coins'
 	},
 	'fame': {
-		name: 'Fame',
-		handle: 'fame'
+		name: 'Fame'
 	},
 	'prestige': {
-		name: 'Prestige',
-		handle: 'prestige'
+		name: 'Prestige'
 	},
 	'espionage': {
-		name: 'Espionage',
-		handle: 'espionage'
+		name: 'Espionage'
 	},
 	'almonds': {
 		name: 'Almonds',

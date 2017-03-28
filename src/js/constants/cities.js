@@ -63,7 +63,7 @@ city_builder.CITIES = {
 		icon: 4,
 		climate: city_builder.CLIMATE_TYPE_TROPICAL,
 		personality: city_builder.PERSONALITY_TYPE_DIPLOMAT,
-		level: 24,
+		level: 50,
 		resources: {
 			'coins': 130000,
 			'prestige': 700
@@ -199,7 +199,7 @@ city_builder.CITIES = {
 		icon: 7,
 		climate: city_builder.CLIMATE_TYPE_ARID,
 		personality: city_builder.PERSONALITY_TYPE_DIPLOMAT,
-		level: 30,
+		level: 45,
 		resources: {
 			'coins': 200000,
 			'prestige': 800
@@ -283,7 +283,7 @@ city_builder.CITIES = {
 		icon: 4,
 		climate: city_builder.CLIMATE_TYPE_ARID,
 		personality: city_builder.PERSONALITY_TYPE_DIPLOMAT,
-		level: 30,
+		level: 35,
 		resources: {
 			'coins': 130000,
 			'prestige': 780
@@ -364,7 +364,7 @@ city_builder.CITIES = {
 		icon: 4,
 		climate: city_builder.CLIMATE_TYPE_TEMPERATE,
 		personality: city_builder.PERSONALITY_TYPE_BALANCED,
-		level: 30,
+		level: 50,
 		resources: {
 			'coins': 330000,
 			'prestige': 900
@@ -584,7 +584,7 @@ city_builder.CITIES = {
 		icon: 4,
 		climate: city_builder.CLIMATE_TYPE_TROPICAL,
 		personality: city_builder.PERSONALITY_TYPE_DIPLOMAT,
-		level: 30,
+		level: 38,
 		resources: {
 			'coins': 280000,
 			'prestige': 600

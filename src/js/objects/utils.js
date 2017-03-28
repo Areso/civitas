@@ -2,6 +2,13 @@
  * Utils object.
  */
 city_builder.utils = {
+	/**
+	 * Return the resource name by handle.
+	 *
+	 * @public
+	 * @param {String} handle
+	 * @returns {String}
+	 */
 	get_resource_name: function(handle) {
 		return city_builder.RESOURCES[handle].name;
 	},

@@ -55,6 +55,22 @@ city_builder.EVENT_EFFECT_LOSE_FAME = 5;
 city_builder.EVENT_EFFECT_GAIN_FAME = 6;
 
 /**
+ * Event responsable for losing espionage.
+ * 
+ * @type {Number}
+ * @constant
+ */
+city_builder.EVENT_EFFECT_LOSE_ESPIONAGE = 7;
+
+/**
+ * Event responsable for gaining espionage.
+ * 
+ * @type {Number}
+ * @constant
+ */
+city_builder.EVENT_EFFECT_GAIN_ESPIONAGE = 8;
+
+/**
  * List of all available in-game events.
  * 
  * @constant
@@ -96,5 +112,23 @@ city_builder.EVENTS = [{
 	effect: city_builder.EVENT_EFFECT_GAIN_FAME,
 	data: {
 		amount: 100,
+	}
+}, {
+	name: 'Spy Found',
+	handle: 'spyfound',
+	description: 'A spy from CITY was found hiding in your city, as a reward for finding him you gain AMOUNT espionage.',
+	chance: 0.010,
+	effect: city_builder.EVENT_EFFECT_GAIN_ESPIONAGE,
+	data: {
+		amount: 10,
+	}
+}, {
+	name: 'Discovery',
+	handle: 'spydiscovered',
+	description: 'One of your spies in CITY was discovered, CITY`s ruler is angry so you lose AMOUNT espionage.',
+	chance: 0.010,
+	effect: city_builder.EVENT_EFFECT_LOSE_ESPIONAGE,
+	data: {
+		amount: 10,
 	}
 }];

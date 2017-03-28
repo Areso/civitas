@@ -68,7 +68,7 @@ city_builder.ui = {
 					'<dd>' + city_builder.ui.army_img(soldier) + '</dd>';
 			total += army.army[soldier];
 		}
-		out += '<dt>' + city_builder.l('Total') + '</dt><dd>' + (typeof army.total !== 'undefined' ? army.total : total) + ' ' + city_builder.l('soldiers') + '.</dd>' +
+		out += '<dt>' + (typeof army.total !== 'undefined' ? army.total : total) + '</dt><dd>' + city_builder.l('Total') + '</dd>' +
 				'</dl>';
 		return out;
 	},
@@ -114,7 +114,7 @@ city_builder.ui = {
 					'<dd>' + city_builder.ui.army_img(soldier) + '</dd>';
 			total += army.navy[soldier];
 		}
-		out += '<dt>' + city_builder.l('Total') + '</dt><dd>' + (typeof army.total !== 'undefined' ? army.total : total) + ' ' + city_builder.l('ships') + '.</dd>' +
+		out += '<dt>' + (typeof army.total !== 'undefined' ? army.total : total) + '</dt><dd>' + city_builder.l('Total') + '</dd>' +
 				'</dl>';
 		return out;
 	},

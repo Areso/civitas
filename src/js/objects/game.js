@@ -500,7 +500,7 @@ city_builder.game = function () {
 		this.refresh_ui();
 		setInterval(function () {
 			self._do_daily();
-		}, 6000);
+		}, 12000);
 		$('.tips').tipsy({
 			gravity: $.fn.tipsy.autoNS,
 			html: true
@@ -612,6 +612,9 @@ city_builder.game = function () {
 			player: true,
 			core: this
 		});
+		var difficulty = this.get_difficulty();
+		my_city.setup_army(true, city_builder.ARMIES_START[difficulty - 1]);
+		my_city.setup_navy(true, city_builder.ARMIES_START[difficulty - 1]);
 		this.cities.push(my_city);
 		this.get_city()._create_buildings(city_builder.BUILDINGS_START);
 		return this;

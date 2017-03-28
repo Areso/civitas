@@ -59,7 +59,7 @@ city_builder.AUTOSTART_MUSIC = false;
  * @constant
  * @type {Number}
  */
-city_builder.MAX_CITY_LEVEL = 30;
+city_builder.MAX_CITY_LEVEL = 55;
 
 /**
  * URL to the game assets
@@ -132,7 +132,8 @@ city_builder.LEVELS = [
 	400000, 450000, 500000, 550000, 600000,
 	650000, 750000, 850000, 900000, 1000000,
 	1200000, 1400000, 1600000, 1800000, 2000000,
-	2200000, 2400000, 2600000, 2800000, 3000000
+	2200000, 2400000, 2600000, 2800000, 3000000,
+	3400000, 3800000, 4400000, 5000000, 6000000
 ];
 
 /**
@@ -244,116 +245,7 @@ city_builder.NOTIFICATION_MISSING_RESOURCES = 1;
  */
 city_builder.NOTIFICATION_PRODUCTION_PAUSED = 2;
 
-city_builder.lang = {
-	'World Market Trades': '',
-	'Imports': '',
-	'Exports': '',
-	'Mercenaries': '',
-	'BlackMarket': '',
-	'List goods on Black Market': '',
-	'list': '',
-	'Amount': '',
-	'Total price': '',
-	'select': '',
-	'Sell those goods': '',
-	'sell': '',
-	'View info on this mercenary army': '',
-	'Buy those goods': '',
-	'buy': '',
-	'Recruit this mercenary army': '',
-	'Below is a list of goods that the other cities in the world are looking to buy. The goods replenish yearly, so plan accordingly.': '',
-	'Below is a list of goods that the other cities in the world are looking to sell. The goods replenish yearly, so plan accordingly.': '',
-	'Below is a list of mercenary armies that are looking for hire. Mercenaries are available only for raiding and conquest missions, they do not join your city so they will not participate in defense.': '',
-	'% of the actual price). The goods will be taken immediately from your warehouses but you will receive the coins next month. Also, you get no prestige from Black Market trades.': '',
-	'The Black Market is a way to dump your excess materials when you`re in need of emptying your warehouses, but expect a steep price drop (you get ': '',
-	'Background Music': '',
-	'City of': '',
-	'City Storage': '',
-	'Total storage space': '',
-	'used': '',
-	'Info': '',
-	'Army': '',
-	'Navy': '',
-	'Ruler': '',
-	'Climate': '',
-	'Personality': '',
-	'Nationality': '',
-	'Level': '',
-	'Prestige': '',
-	'Influence': '',
-	'Below are the goods this city will be buying this year.': '',
-	'Below are the goods this city will be selling this year.': '',
-	'City Buildings': '',
-	'You already have this building.': '',
-	'You already constructed this building.': '',
-	'Build': '',
-	'Coins': '',
-	'Building': '',
-	'Description': '',
-	'Cost': '',
-	'Materials': '',
-	'Production': '',
-	'Chance of extra materials': '',
-	'Storage': '',
-	'Taxes': '',
-	'Requirements': '',
-	'Your City Advisor': '',
-	'Diplomacy': '',
-	'Current date': '',
-	'Your City Advisor recommends you to:': '',
-	'Current Army': '',
-	'Current Navy': '',
-	'You will need to construct a Military Camp or Castle before recruiting soldiers in your city.': '',
-	'You will need to construct a Shipyard before being able to construct ships in your city.': '',
-	'Your influence on': '',
-	'is too low to propose a pact.': '',
-	'You will need to construct an Embassy before being able to propose treaties and pacts to other cities.': '',
-	'View info about this city.': '',
-	'Propose a pact to this city`s ruler.': '',
-	'Send goods to this city.': '',
-	'Declare war to this city.': '',
-	'view': '',
-	'pact': '',
-	'send goods': '',
-	'Send Goods': '',
-	'Declare War': '',
-	'declare war': '',
-	'You have no mercenary armies hired for your city. Go to the World Market Trades and hire one.': '',
-	'raid': '',
-	'campaign': '',
-	'release': '',
-	'View info on this mercenary army.': '',
-	'Send this mercenary army on a raiding mission. Depending on the success of the mission, they will return with coins and/or resources.': '',
-	'Disband this mercenary army? They will be available for hire later when you need them.': '',
-	'Send this mercenary arm on a campaign towards a city. Depending on the success of the mission, they will return with prisoniers (future soldiers for your army), coins and/or resources. Winning a campaign will grant you fame and prestige.': '',
-	'Recruit': '',
-	'Mercenary armies are available to hire for a fixed price, they do not cost additional resources but they are only available for raiding and campaign missions, they do not participate in the defense of your city.': '',
-	'Also, keep in mind that once a mercenary army is hired, they are at your disposal until the end of the current year.': '',
-	'Attack': '',
-	'Defense': '',
-	'Close this panel': '',
-	'Demolish this building': '',
-	'Control (start/pause) production': '',
-	'World Map': '',
-	'Total': '',
-	'soldiers': '',
-	'ships': '',
-	'Tax': '',
-	'Produces': '',
-	'Uses': '',
-	'Requires': '',
-	'Storage Space': '',
-	'Costs': '',
-	'In-game music control': '',
-	'Start Production': '',
-	'Stop Production': '',
-	'baskets': '',
-	'Black Market': '',
-	'received': '',
-	'coins from the Black Market for selling goods.': '',
-	'Show More Goods': '',
-	'Show Less Goods': ''
-};
+city_builder.lang = {};
 
 /**
  * Game API version to connect to.
@@ -581,6 +473,7 @@ city_builder.NATION_TYPE_MALINESE = 16;
  * @type {Number}
  */
 city_builder.NATION_TYPE_MONGOLIAN = 17;
+
 /**
  * List of the possible climate types.
  * 
@@ -1013,6 +906,45 @@ city_builder.MERCENARIES = [{
 		'Ship of the Line': 10
 	},
 	cost: 1500000
+}];
+
+/**
+ * List of soldiers/ships to start with in various difficulty modes.
+ *
+ * @constant
+ * @type {Object}
+ */
+city_builder.ARMIES_START = [{
+		army: {
+			'Militia': 10,
+			'Axeman': 2,
+			'Bowman': 4
+		},
+		navy: {
+			'Corsair': 2,
+			'Caravel': 1
+		}
+	}, {
+		army: {
+			'Militia': 5,
+			'Axeman': 1,
+			'Bowman': 2
+		},
+		navy: {
+			'Corsair': 1,
+			'Caravel': 1
+		}
+	}, {
+		army: {
+			'Militia': 3,
+			'Bowman': 2
+		},
+		navy: {
+			'Corsair': 1
+		}
+	}, {
+		army: {},
+		navy: {}
 }];
 
 /**
@@ -3317,7 +3249,7 @@ city_builder.CITIES = {
 		icon: 4,
 		climate: city_builder.CLIMATE_TYPE_TROPICAL,
 		personality: city_builder.PERSONALITY_TYPE_DIPLOMAT,
-		level: 24,
+		level: 50,
 		resources: {
 			'coins': 130000,
 			'prestige': 700
@@ -3453,7 +3385,7 @@ city_builder.CITIES = {
 		icon: 7,
 		climate: city_builder.CLIMATE_TYPE_ARID,
 		personality: city_builder.PERSONALITY_TYPE_DIPLOMAT,
-		level: 30,
+		level: 45,
 		resources: {
 			'coins': 200000,
 			'prestige': 800
@@ -3537,7 +3469,7 @@ city_builder.CITIES = {
 		icon: 4,
 		climate: city_builder.CLIMATE_TYPE_ARID,
 		personality: city_builder.PERSONALITY_TYPE_DIPLOMAT,
-		level: 30,
+		level: 35,
 		resources: {
 			'coins': 130000,
 			'prestige': 780
@@ -3618,7 +3550,7 @@ city_builder.CITIES = {
 		icon: 4,
 		climate: city_builder.CLIMATE_TYPE_TEMPERATE,
 		personality: city_builder.PERSONALITY_TYPE_BALANCED,
-		level: 30,
+		level: 50,
 		resources: {
 			'coins': 330000,
 			'prestige': 900
@@ -3838,7 +3770,7 @@ city_builder.CITIES = {
 		icon: 4,
 		climate: city_builder.CLIMATE_TYPE_TROPICAL,
 		personality: city_builder.PERSONALITY_TYPE_DIPLOMAT,
-		level: 30,
+		level: 38,
 		resources: {
 			'coins': 280000,
 			'prestige': 600
@@ -4150,6 +4082,22 @@ city_builder.EVENT_EFFECT_LOSE_FAME = 5;
 city_builder.EVENT_EFFECT_GAIN_FAME = 6;
 
 /**
+ * Event responsable for losing espionage.
+ * 
+ * @type {Number}
+ * @constant
+ */
+city_builder.EVENT_EFFECT_LOSE_ESPIONAGE = 7;
+
+/**
+ * Event responsable for gaining espionage.
+ * 
+ * @type {Number}
+ * @constant
+ */
+city_builder.EVENT_EFFECT_GAIN_ESPIONAGE = 8;
+
+/**
  * List of all available in-game events.
  * 
  * @constant
@@ -4192,8 +4140,25 @@ city_builder.EVENTS = [{
 	data: {
 		amount: 100,
 	}
+}, {
+	name: 'Spy Found',
+	handle: 'spyfound',
+	description: 'A spy from CITY was found hiding in your city, as a reward for finding him you gain AMOUNT espionage.',
+	chance: 0.010,
+	effect: city_builder.EVENT_EFFECT_GAIN_ESPIONAGE,
+	data: {
+		amount: 10,
+	}
+}, {
+	name: 'Discovery',
+	handle: 'spydiscovered',
+	description: 'One of your spies in CITY was discovered, CITY`s ruler is angry so you lose AMOUNT espionage.',
+	chance: 0.010,
+	effect: city_builder.EVENT_EFFECT_LOSE_ESPIONAGE,
+	data: {
+		amount: 10,
+	}
 }];
-
 
 /**
  * List of resources to start with in various difficulty modes.
@@ -4253,20 +4218,16 @@ city_builder.RESOURCES_START = [{
  */
 city_builder.RESOURCES = {
 	'coins': {
-		name: 'Coins',
-		handle: 'coins'
+		name: 'Coins'
 	},
 	'fame': {
-		name: 'Fame',
-		handle: 'fame'
+		name: 'Fame'
 	},
 	'prestige': {
-		name: 'Prestige',
-		handle: 'prestige'
+		name: 'Prestige'
 	},
 	'espionage': {
-		name: 'Espionage',
-		handle: 'espionage'
+		name: 'Espionage'
 	},
 	'almonds': {
 		name: 'Almonds',
@@ -4590,6 +4551,13 @@ if (city_builder.DEBUG === true) {
  * Utils object.
  */
 city_builder.utils = {
+	/**
+	 * Return the resource name by handle.
+	 *
+	 * @public
+	 * @param {String} handle
+	 * @returns {String}
+	 */
 	get_resource_name: function(handle) {
 		return city_builder.RESOURCES[handle].name;
 	},
@@ -5000,7 +4968,7 @@ city_builder.ui = {
 					'<dd>' + city_builder.ui.army_img(soldier) + '</dd>';
 			total += army.army[soldier];
 		}
-		out += '<dt>' + city_builder.l('Total') + '</dt><dd>' + (typeof army.total !== 'undefined' ? army.total : total) + ' ' + city_builder.l('soldiers') + '.</dd>' +
+		out += '<dt>' + (typeof army.total !== 'undefined' ? army.total : total) + '</dt><dd>' + city_builder.l('Total') + '</dd>' +
 				'</dl>';
 		return out;
 	},
@@ -5046,7 +5014,7 @@ city_builder.ui = {
 					'<dd>' + city_builder.ui.army_img(soldier) + '</dd>';
 			total += army.navy[soldier];
 		}
-		out += '<dt>' + city_builder.l('Total') + '</dt><dd>' + (typeof army.total !== 'undefined' ? army.total : total) + ' ' + city_builder.l('ships') + '.</dd>' +
+		out += '<dt>' + (typeof army.total !== 'undefined' ? army.total : total) + '</dt><dd>' + city_builder.l('Total') + '</dd>' +
 				'</dl>';
 		return out;
 	},
@@ -7209,16 +7177,52 @@ city_builder.event = function (params) {
 	 */
 	this.core = null;
 
+	/**
+	 * Name of the event.
+	 *
+	 * @private
+	 * @type {String}
+	 */
 	this.name = null;
 
+	/**
+	 * Handle of the event.
+	 *
+	 * @private
+	 * @type {String}
+	 */
 	this.handle = null;
 
+	/**
+	 * Event's chance to occur.
+	 *
+	 * @private
+	 * @type {Number}
+	 */
 	this.chance = 0;
 
+	/**
+	 * Event's effect.
+	 *
+	 * @private
+	 * @type {Number}
+	 */
 	this.effect = null;
 	
+	/**
+	 * Description of the event.
+	 *
+	 * @private
+	 * @type {String}
+	 */
 	this.description = null;
 
+	/**
+	 * Event data.
+	 *
+	 * @private
+	 * @type {Object}
+	 */
 	this.data = null;
 
 	/**
@@ -7232,7 +7236,7 @@ city_builder.event = function (params) {
 		this.core = params.core;
 		this.name = params.name;
 		this.handle = params.handle;
-		this.chance = params.chance;
+		this.chance = (typeof params.chance !== 'undefined') ? params.chance : 0.001;
 		this.description = params.description;
 		this.data = params.data;
 		this.effect = params.effect;
@@ -7255,13 +7259,22 @@ city_builder.event = function (params) {
 		return false;
 	};
 
+	/**
+	 * Notify the player that this event occured.
+	 *
+	 * @public
+	 * @returns {city_builder.event}
+	 */
 	this.notify = function() {
 		this.core._notify({
 			title: 'Event occured: ' + this.name,
-			content: this.description.replace(/CITY/g, this.data.city).replace(/AMOUNT/g, this.data.amount),
+			content: this.description
+				.replace(/CITY/g, this.data.city)
+				.replace(/AMOUNT/g, this.data.amount),
 			timeout: false,
 			other: true
 		});
+		return this;
 	};
 	
 	/**
@@ -7290,6 +7303,12 @@ city_builder.event = function (params) {
 				break;
 			case city_builder.EVENT_EFFECT_LOSE_FAME:
 				this.core.get_city().dec_fame(this.data.amount);
+				break;
+			case city_builder.EVENT_EFFECT_GAIN_ESPIONAGE:
+				this.core.get_city().inc_espionage(this.data.amount);
+				break;
+			case city_builder.EVENT_EFFECT_LOSE_ESPIONAGE:
+				this.core.get_city().dec_espionage(this.data.amount);
 				break;
 			case city_builder.EVENT_EFFECT_DESTROY_BUILDING:
 				break;
@@ -8329,7 +8348,7 @@ city_builder.panel_buildings = function (params) {
 					var _i = city.is_building_built(building_data.handle);
 					_t += '<div data-handle="' + building_data.handle + '" class="building-item' + ((_i === true) ? ' disabled' : '') + '">' +
 							'<span class="title">' + building_data.name + '</span>' +
-							'<img class="building" src="' + city_builder.ASSETS_URL + 'images/buildings/' + building_data.handle + '1.png" />' +
+							'<img class="building" src="' + city_builder.ASSETS_URL + 'images/buildings/' + ((building_data.handle.slice(0, -1) === 'house') ? building_data.handle.slice(0, -1) : building_data.handle) + '1.png" />' +
 							'</div>';
 				}
 			}
@@ -11501,7 +11520,7 @@ city_builder.game = function () {
 		this.refresh_ui();
 		setInterval(function () {
 			self._do_daily();
-		}, 6000);
+		}, 12000);
 		$('.tips').tipsy({
 			gravity: $.fn.tipsy.autoNS,
 			html: true
@@ -11613,6 +11632,9 @@ city_builder.game = function () {
 			player: true,
 			core: this
 		});
+		var difficulty = this.get_difficulty();
+		my_city.setup_army(true, city_builder.ARMIES_START[difficulty - 1]);
+		my_city.setup_navy(true, city_builder.ARMIES_START[difficulty - 1]);
 		this.cities.push(my_city);
 		this.get_city()._create_buildings(city_builder.BUILDINGS_START);
 		return this;

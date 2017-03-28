@@ -91,7 +91,7 @@ city_builder.panel_buildings = function (params) {
 					var _i = city.is_building_built(building_data.handle);
 					_t += '<div data-handle="' + building_data.handle + '" class="building-item' + ((_i === true) ? ' disabled' : '') + '">' +
 							'<span class="title">' + building_data.name + '</span>' +
-							'<img class="building" src="' + city_builder.ASSETS_URL + 'images/buildings/' + building_data.handle + '1.png" />' +
+							'<img class="building" src="' + city_builder.ASSETS_URL + 'images/buildings/' + ((building_data.handle.slice(0, -1) === 'house') ? building_data.handle.slice(0, -1) : building_data.handle) + '1.png" />' +
 							'</div>';
 				}
 			}

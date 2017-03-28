@@ -283,3 +283,42 @@ city_builder.MERCENARIES = [{
 	},
 	cost: 1500000
 }];
+
+/**
+ * List of soldiers/ships to start with in various difficulty modes.
+ *
+ * @constant
+ * @type {Object}
+ */
+city_builder.ARMIES_START = [{
+		army: {
+			'Militia': 10,
+			'Axeman': 2,
+			'Bowman': 4
+		},
+		navy: {
+			'Corsair': 2,
+			'Caravel': 1
+		}
+	}, {
+		army: {
+			'Militia': 5,
+			'Axeman': 1,
+			'Bowman': 2
+		},
+		navy: {
+			'Corsair': 1,
+			'Caravel': 1
+		}
+	}, {
+		army: {
+			'Militia': 3,
+			'Bowman': 2
+		},
+		navy: {
+			'Corsair': 1
+		}
+	}, {
+		army: {},
+		navy: {}
+}];
