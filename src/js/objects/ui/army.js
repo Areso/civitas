@@ -2,15 +2,15 @@
  * Main Game army panel object.
  * 
  * @param {Object} params
- * @class {city_builder.controls.panel_army}
- * @returns {city_builder.controls.panel_army}
+ * @class {civitas.controls.panel_army}
+ * @returns {civitas.controls.panel_army}
  */
-city_builder.controls.panel_army = function (params) {
+civitas.controls.panel_army = function (params) {
 
 	/**
 	 * Reference to the core object.
 	 * 
-	 * @type {city_builder.game}
+	 * @type {civitas.game}
 	 */
 	this.core = null;
 
@@ -51,26 +51,26 @@ city_builder.controls.panel_army = function (params) {
 	 * Object constructor.
 	 * 
 	 * @private
-	 * @returns {city_builder.controls.panel_army}
+	 * @returns {civitas.controls.panel_army}
 	 * @param {Object} params
 	 */
 	this.__constructor = function (params) {
 		var self = this;
 		this.core = params.core;
 		var el = '#panel-' + this.id;
-		if (city_builder.ui.panel_exists(el)) {
+		if (civitas.ui.panel_exists(el)) {
 			this.destroy();
 		}
 		var army = params.data;
 		this.core.console_log('creating panel with id `' + this.id + '`');
-		$('.ui').append(city_builder.ui.generic_panel_template
+		$('.ui').append(civitas.ui.generic_panel_template
 			.replace(/{id}/g, this.id)
 			.replace(/{title}/g, army.name));
-		$(el + ' .contents').append(city_builder.ui.tabs(['Info', 'Soldiers', 'Ships']));
-		$(el + ' #tab-info').append('<img class="avatar" src="' + city_builder.ASSETS_URL + 'images/armies/' + army.icon + '.png" />' +
+		$(el + ' .contents').append(civitas.ui.tabs(['Info', 'Soldiers', 'Ships']));
+		$(el + ' #tab-info').append('<img class="avatar" src="' + civitas.ASSETS_URL + 'images/armies/' + army.icon + '.png" />' +
 				'<p>' + army.description + '</p>');
-		$(el + ' #tab-soldiers').append(city_builder.ui.army_list(army));
-		$(el + ' #tab-ships').append(city_builder.ui.navy_list(army));
+		$(el + ' #tab-soldiers').append(civitas.ui.army_list(army));
+		$(el + ' #tab-ships').append(civitas.ui.navy_list(army));
 		$(el).on('click', '.close', function () {
 			self.destroy();
 			return false;
@@ -95,7 +95,7 @@ city_builder.controls.panel_army = function (params) {
 	 * information on this panel.
 	 *
 	 * @public
-	 * @returns {city_builder.controls.panel_army}
+	 * @returns {civitas.controls.panel_army}
 	 */
 	this.refresh = function() {
 		return this;

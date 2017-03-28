@@ -2,10 +2,10 @@
  * Main Game city object.
  * 
  * @param {type} params
- * @class {city_builder.objects.city}
- * @returns {city_builder.objects.city}
+ * @class {civitas.objects.city}
+ * @returns {civitas.objects.city}
  */
-city_builder.objects.city = function(params) {
+civitas.objects.city = function(params) {
 	
 	/**
 	 * The name of this city.
@@ -27,7 +27,7 @@ city_builder.objects.city = function(params) {
 	 * Pointer to the game core.
 	 * 
 	 * @private
-	 * @type {city_builder.game}
+	 * @type {civitas.game}
 	 */
 	this.core = null;
 	
@@ -168,7 +168,7 @@ city_builder.objects.city = function(params) {
 	 * Object constructor.
 	 * 
 	 * @private
-	 * @returns {city_builder.objects.city}
+	 * @returns {civitas.objects.city}
 	 * @param {Object} params
 	 */
 	this.__constructor = function(params) {
@@ -178,9 +178,9 @@ city_builder.objects.city = function(params) {
 		this.player = (typeof params.player !== 'undefined') ? params.player : false;
 		this.level = (typeof params.data.level !== 'undefined') ? params.data.level : 1;
 		this.resources = this._build_resources(params);
-		this.personality = (typeof params.data.personality !== 'undefined') ? params.data.personality : city_builder.PERSONALITY_TYPE_BALANCED;
-		this.nationality = (typeof params.data.nationality !== 'undefined') ? params.data.nationality : city_builder.NATION_TYPE_ROMAN;
-		this.climate = (typeof params.data.climate !== 'undefined') ? params.data.climate : city_builder.CLIMATE_TYPE_TEMPERATE;
+		this.personality = (typeof params.data.personality !== 'undefined') ? params.data.personality : civitas.PERSONALITY_TYPE_BALANCED;
+		this.nationality = (typeof params.data.nationality !== 'undefined') ? params.data.nationality : civitas.NATION_TYPE_ROMAN;
+		this.climate = (typeof params.data.climate !== 'undefined') ? params.data.climate : civitas.CLIMATE_TYPE_TEMPERATE;
 		this.ruler = (typeof params.data.ruler !== 'undefined') ? params.data.ruler : 0;
 		this.avatar = (typeof params.data.avatar !== 'undefined') ? params.data.avatar : 1;
 		this.icon = (typeof params.data.icon !== 'undefined') ? params.data.icon : 1;
@@ -198,12 +198,12 @@ city_builder.objects.city = function(params) {
 	this._build_resources = function(params) {
 		var resources = {};
 		var difficulty = this.get_core().get_difficulty();
-		for (var item in city_builder.RESOURCES) {
+		for (var item in civitas.RESOURCES) {
 			if (this.player === true) {
-				if (typeof city_builder.RESOURCES_START[difficulty - 1][item] === 'undefined') {
+				if (typeof civitas.RESOURCES_START[difficulty - 1][item] === 'undefined') {
 					resources[item] = 0;
 				} else {
-					resources[item] = city_builder.RESOURCES_START[difficulty - 1][item];
+					resources[item] = civitas.RESOURCES_START[difficulty - 1][item];
 				}
 			} else {
 				if (typeof params.data.resources[item] !== 'undefined') {
@@ -211,7 +211,7 @@ city_builder.objects.city = function(params) {
 				} else {
 					resources[item] = 0;
 				}
-				resources.fame = city_builder.LEVELS[this.get_level()];
+				resources.fame = civitas.LEVELS[this.get_level()];
 			}
 		}
 		return resources;
@@ -221,7 +221,7 @@ city_builder.objects.city = function(params) {
 	 * Buy the specified goods from a city.
 	 * 
 	 * @public
-	 * @param {city_builder.objects.city|String} city
+	 * @param {civitas.objects.city|String} city
 	 * @param {String} resource
 	 * @param {Number} amount
 	 * @returns {Object|Boolean}
@@ -252,10 +252,10 @@ city_builder.objects.city = function(params) {
 				if (typeof amount === 'undefined') {
 					amount = trades.exports[item];
 				}
-				var discount = Math.ceil((city_builder.RESOURCES[item].price * city_builder.TRADES_ADDITION) / 100);
-				var price = city_builder.utils.calc_price_plus_discount(amount, item, discount);
-				var city_price = city_builder.utils.calc_price(amount, item);
-				var item_discount_price = Math.ceil(city_builder.RESOURCES[item].price + discount);
+				var discount = Math.ceil((civitas.RESOURCES[item].price * civitas.TRADES_ADDITION) / 100);
+				var price = civitas.utils.calc_price_plus_discount(amount, item, discount);
+				var city_price = civitas.utils.calc_price(amount, item);
+				var item_discount_price = Math.ceil(civitas.RESOURCES[item].price + discount);
 				if (!this.has_storage_space_for(amount)) {
 					return false;
 				}
@@ -269,14 +269,14 @@ city_builder.objects.city = function(params) {
 				this.raise_prestige();
 				this.inc_fame(50);
 				this.get_core().refresh_ui();
-				this.get_core().notify(this.get_name() + ' bought ' + amount + ' ' + city_builder.utils.get_resource_name(item) + ' from ' + city + ' for ' + item_discount_price + ' coins each, for a total of ' + price + ' coins.', 'Transaction done');
+				this.get_core().notify(this.get_name() + ' bought ' + amount + ' ' + civitas.utils.get_resource_name(item) + ' from ' + city + ' for ' + item_discount_price + ' coins each, for a total of ' + price + ' coins.', 'Transaction done');
 				this.get_core().refresh_panels();
 				return {
 					buyer: this.get_name(),
 					amount: amount,
-					goods: city_builder.utils.get_resource_name(item),
+					goods: civitas.utils.get_resource_name(item),
 					seller: city,
-					price: Math.round(city_builder.RESOURCES[item].price + discount),
+					price: Math.round(civitas.RESOURCES[item].price + discount),
 					totalPrice: price
 				};
 			}
@@ -326,7 +326,7 @@ city_builder.objects.city = function(params) {
 	this.has_coins = function(coins) {
 		var resources = this.get_resources();
 		if (this.get_coins() - coins < 0) {
-			this.get_core().error(this.get_name() + ' doesn`t have enough ' + city_builder.utils.get_resource_name('coins') + '.');
+			this.get_core().error(this.get_name() + ' doesn`t have enough ' + civitas.utils.get_resource_name('coins') + '.');
 			return false;
 		}
 		return true;
@@ -343,7 +343,7 @@ city_builder.objects.city = function(params) {
 	this.has_resources = function(resource, amount) {
 		var res = this.get_resources();
 		if ((res[resource] - amount) < 0) {
-			this.get_core().error(this.get_name() + ' does not have enough ' + city_builder.utils.get_resource_name(resource) + '.');
+			this.get_core().error(this.get_name() + ' does not have enough ' + civitas.utils.get_resource_name(resource) + '.');
 			return false;
 		}
 		return true;
@@ -361,11 +361,11 @@ city_builder.objects.city = function(params) {
 			'imports': {},
 			'exports': {}
 		};
-		if (typeof city_builder.CITIES[this.get_name()] !== 'undefined') {
-			var _trades = city_builder.CITIES[this.get_name()].trades;
+		if (typeof civitas.CITIES[this.get_name()] !== 'undefined') {
+			var _trades = civitas.CITIES[this.get_name()].trades;
 			for (var goods_type in _trades) {
 				for (var item in _trades[goods_type]) {
-					trades[goods_type][item] = city_builder.utils.get_random_by_importance(_trades[goods_type][item]);
+					trades[goods_type][item] = civitas.utils.get_random_by_importance(_trades[goods_type][item]);
 				}
 			}
 			this.trades = trades;
@@ -386,15 +386,15 @@ city_builder.objects.city = function(params) {
 	this.list_black_market = function(resource, amount) {
 		var resources = this.get_resources();
 		if (this.remove_resource(resource, amount)) {
-			var discount = Math.ceil((city_builder.RESOURCES[resource].price * city_builder.BLACK_MARKET_DISCOUNT) / 100);
-			var price = city_builder.utils.calc_price_minus_discount(amount, resource, discount);
+			var discount = Math.ceil((civitas.RESOURCES[resource].price * civitas.BLACK_MARKET_DISCOUNT) / 100);
+			var price = civitas.utils.calc_price_minus_discount(amount, resource, discount);
 			this.get_core().add_black_market(resource, amount, price);
 			this.get_core().refresh_ui();
-			this.get_core().notify(this.get_name() + ' placed ' + amount + ' ' + city_builder.utils.get_resource_name(resource) + ' on the Black Market and will receive ' + price + ' coins next month.', 'Goods listed');
+			this.get_core().notify(this.get_name() + ' placed ' + amount + ' ' + civitas.utils.get_resource_name(resource) + ' on the Black Market and will receive ' + price + ' coins next month.', 'Goods listed');
 			return {
 				seller: this.get_name(),
 				amount: amount,
-				goods: city_builder.utils.get_resource_name(resource),
+				goods: civitas.utils.get_resource_name(resource),
 				price: price,
 				discount: discount
 			};
@@ -406,7 +406,7 @@ city_builder.objects.city = function(params) {
 	 * Sell the specified goods to a city.
 	 * 
 	 * @public
-	 * @param {city_builder.objects.city|String} city
+	 * @param {civitas.objects.city|String} city
 	 * @param {String} resource
 	 * @param {Number} amount
 	 * @returns {Object|Boolean}
@@ -437,10 +437,10 @@ city_builder.objects.city = function(params) {
 				if (typeof amount === 'undefined') {
 					amount = trades.imports[item];
 				}
-				var discount = Math.ceil((city_builder.RESOURCES[item].price * city_builder.TRADES_DISCOUNT) / 100);
-				var price = city_builder.utils.calc_price_minus_discount(amount, item, discount);
-				var city_price = city_builder.utils.calc_price(amount, item);
-				var item_discount_price = Math.ceil(city_builder.RESOURCES[item].price - discount);
+				var discount = Math.ceil((civitas.RESOURCES[item].price * civitas.TRADES_DISCOUNT) / 100);
+				var price = civitas.utils.calc_price_minus_discount(amount, item, discount);
+				var city_price = civitas.utils.calc_price(amount, item);
+				var item_discount_price = Math.ceil(civitas.RESOURCES[item].price - discount);
 				if (!this.remove_resource(item, amount)) {
 					return false;
 				}
@@ -454,14 +454,14 @@ city_builder.objects.city = function(params) {
 				this.raise_prestige();
 				this.inc_fame(50);
 				this.get_core().refresh_ui();
-				this.get_core().notify(this.get_name() + ' sold ' + amount + ' ' + city_builder.utils.get_resource_name(item) + ' to ' + city + ' for ' + item_discount_price + ' coins each, for a total of ' + price + ' coins.', 'Transaction done');
+				this.get_core().notify(this.get_name() + ' sold ' + amount + ' ' + civitas.utils.get_resource_name(item) + ' to ' + city + ' for ' + item_discount_price + ' coins each, for a total of ' + price + ' coins.', 'Transaction done');
 				this.get_core().refresh_panels();
 				return {
 					seller: this.get_name(),
 					amount: amount,
-					goods: city_builder.utils.get_resource_name(item),
+					goods: civitas.utils.get_resource_name(item),
 					buyer: city,
-					price: Math.round(city_builder.RESOURCES[item].price - discount),
+					price: Math.round(civitas.RESOURCES[item].price - discount),
 					totalPrice: price
 				};
 			}
@@ -474,7 +474,7 @@ city_builder.objects.city = function(params) {
 	 * Remove a specified amount of a resource from the trade exports of a city.
 	 * 
 	 * @public
-	 * @param {city_builder.objects.city} city
+	 * @param {civitas.objects.city} city
 	 * @param {String} item
 	 * @param {Number} amount
 	 * @returns {Boolean}
@@ -488,7 +488,7 @@ city_builder.objects.city = function(params) {
 	 * Remove a specified amount of a resource from the trade imports of a city.
 	 * 
 	 * @public
-	 * @param {city_builder.objects.city} city
+	 * @param {civitas.objects.city} city
 	 * @param {String} item
 	 * @param {Number} amount
 	 * @returns {Boolean}
@@ -532,7 +532,7 @@ city_builder.objects.city = function(params) {
 			settings: this.get_core().get_settings()
 		};
 		if (to_local_storage === true) {
-			localStorage.setItem('city_builder.data', window.btoa(JSON.stringify(data)));
+			localStorage.setItem('civitas.data', window.btoa(JSON.stringify(data)));
 		}
 		return data;
 	};
@@ -542,7 +542,7 @@ city_builder.objects.city = function(params) {
 	 * 
 	 * @public
 	 * @param {Object} data
-	 * @returns {city_builder.objects.city}
+	 * @returns {civitas.objects.city}
 	 */
 	this.import_data = function(data) {
 		this.set_name(data.name);
@@ -588,7 +588,7 @@ city_builder.objects.city = function(params) {
 	 * 
 	 * @public
 	 * @param {String} value
-	 * @returns {city_builder.objects.city}
+	 * @returns {civitas.objects.city}
 	 */
 	this.set_name = function(value) {
 		this.name = value;
@@ -599,7 +599,7 @@ city_builder.objects.city = function(params) {
 	 * Return a pointer to the game core.
 	 * 
 	 * @public
-	 * @returns {city_builder.game}
+	 * @returns {civitas.game}
 	 */
 	this.get_core = function() {
 		return this.core;
@@ -609,7 +609,7 @@ city_builder.objects.city = function(params) {
 	 * Raise the level of this city.
 	 * 
 	 * @public
-	 * @returns {city_builder.objects.city}
+	 * @returns {civitas.objects.city}
 	 */
 	this.level_up = function() {
 		this.level++;
@@ -623,7 +623,7 @@ city_builder.objects.city = function(params) {
 	 * 
 	 * @public
 	 * @param {String} value
-	 * @returns {city_builder.objects.city}
+	 * @returns {civitas.objects.city}
 	 */
 	this.rename = function(value) {
 		this.name = value;
@@ -707,7 +707,7 @@ city_builder.objects.city = function(params) {
 	 * @public
 	 * @param {String|Object} building_type
 	 * @param {Boolean} hidden
-	 * @returns {city_builder.objects.building|Boolean}
+	 * @returns {civitas.objects.building|Boolean}
 	 */
 	this._create_buildings = function(building_type, hidden) {
 		hidden = (typeof hidden !== 'undefined') && hidden === true ? true : false;
@@ -715,13 +715,13 @@ city_builder.objects.city = function(params) {
 			for (var i = 0; i < building_type.length; i++) {
 				var handle = typeof building_type[i].handle !== 'undefined' ? building_type[i].handle : building_type[i];
 				var level = typeof building_type[i].level !== 'undefined' ? building_type[i].level : 1;
-				var _b = city_builder.BUILDINGS.findIndexM(handle);
+				var _b = civitas.BUILDINGS.findIndexM(handle);
 				if (_b !== false) {
-					var _c = city_builder.BUILDINGS[_b];
+					var _c = civitas.BUILDINGS[_b];
 					if (level > 1) {
 						_c.level = level;
 					}
-					var _building = new city_builder.objects.building({
+					var _building = new civitas.objects.building({
 						city: this,
 						type: handle,
 						data: _c,
@@ -737,13 +737,13 @@ city_builder.objects.city = function(params) {
 		} else {
 			var handle = typeof building_type.handle !== 'undefined' ? building_type.handle : building_type;
 			var level = typeof building_type.level !== 'undefined' ? building_type.level : 1;
-			var _b = city_builder.BUILDINGS.findIndexM(handle);
+			var _b = civitas.BUILDINGS.findIndexM(handle);
 			if (_b !== false) {
-				var _c = city_builder.BUILDINGS[_b];
+				var _c = civitas.BUILDINGS[_b];
 				if (level > 1) {
 					_c.level = level;
 				}
-				var _building = new city_builder.objects.building({
+				var _building = new civitas.objects.building({
 					city: this,
 					type: handle,
 					data: _c,
@@ -764,13 +764,13 @@ city_builder.objects.city = function(params) {
 	 * 
 	 * @public
 	 * @param {String} building_type
-	 * @returns {city_builder.objects.building|Boolean}
+	 * @returns {civitas.objects.building|Boolean}
 	 */
 	this.build = function(building_type) {
-		var _b = city_builder.BUILDINGS.findIndexM(building_type);
+		var _b = civitas.BUILDINGS.findIndexM(building_type);
 		var resources = this.get_resources();
 		if (_b !== false) {
-			var _c = city_builder.BUILDINGS[_b];
+			var _c = civitas.BUILDINGS[_b];
 			if ((typeof _c.requires.city_level !== 'undefined') && (this.level < _c.requires.city_level)) {
 				this.get_core().error('Your city level is too low to construct this building.');
 				return false;
@@ -791,7 +791,7 @@ city_builder.objects.city = function(params) {
 					}
 				}
 			}
-			var _building = new city_builder.objects.building({
+			var _building = new civitas.objects.building({
 				city: this,
 				type: building_type,
 				data: _c
@@ -840,7 +840,7 @@ city_builder.objects.city = function(params) {
 	 * 
 	 * @public
 	 * @param {String} handle
-	 * @returns {city_builder.objects.building|Boolean}
+	 * @returns {civitas.objects.building|Boolean}
 	 */
 	this.get_building_by_handle = function(handle) {
 		var buildings = this.get_buildings();
@@ -858,7 +858,7 @@ city_builder.objects.city = function(params) {
 	 * @public
 	 * @TODO
 	 * @param {Number} id
-	 * @returns {city_builder.objects.city}
+	 * @returns {civitas.objects.city}
 	 */
 	this.demolish = function(id) {
 		if (typeof id === 'number') {
@@ -969,7 +969,7 @@ city_builder.objects.city = function(params) {
 	 * 
 	 * @public
 	 * @param {Object} value
-	 * @returns {city_builder.objects.city}
+	 * @returns {civitas.objects.city}
 	 */
 	this.set_fame = function(value) {
 		this.resources.fame = value;
@@ -981,7 +981,7 @@ city_builder.objects.city = function(params) {
 	 * 
 	 * @public
 	 * @param {Object} value
-	 * @returns {city_builder.objects.city}
+	 * @returns {civitas.objects.city}
 	 */
 	this.set_coins = function(value) {
 		this.resources.coins = value;
@@ -1061,7 +1061,7 @@ city_builder.objects.city = function(params) {
 	this.get_navy_total = function() {
 		var total = 0;
 		var total_navy = {};
-		for (var item in city_builder.SHIP_TYPES) {
+		for (var item in civitas.SHIP_TYPES) {
 			total_navy[item] = 0;
 		}
 		for (var i = 0; i < this.navy.length; i++) {
@@ -1088,7 +1088,7 @@ city_builder.objects.city = function(params) {
 	this.get_army_total = function() {
 		var total = 0;
 		var total_army = {};
-		for (var item in city_builder.SOLDIER_TYPES) {
+		for (var item in civitas.SOLDIER_TYPES) {
 			total_army[item] = 0;
 		}
 		for (var i = 0; i < this.army.length; i++) {
@@ -1115,7 +1115,7 @@ city_builder.objects.city = function(params) {
 	this.get_mercenary_total = function() {
 		var total = 0;
 		var total_army = {};
-		for (var item in city_builder.SOLDIER_TYPES) {
+		for (var item in civitas.SOLDIER_TYPES) {
 			total_army[item] = 0;
 		}
 		for (var i = 0; i < this.mercenary.length; i++) {
@@ -1225,7 +1225,7 @@ city_builder.objects.city = function(params) {
 		for (var item in this.resources) {
 			if (item !== 'coins' && item !== 'fame' && item !== 'prestige' && item !== 'espionage') {
 				if (resources[item] > 1000) {
-					advices.push('You seem to have a surplus of ' + city_builder.utils.get_resource_name(item) + '. You can sell some and get coins instead.');
+					advices.push('You seem to have a surplus of ' + civitas.utils.get_resource_name(item) + '. You can sell some and get coins instead.');
 				}
 			}
 		}
@@ -1240,9 +1240,9 @@ city_builder.objects.city = function(params) {
 	 * @returns {Boolean}
 	 */
 	this.recruit_mercenary_army = function(name) {
-		for (var i = 0; i < city_builder.MERCENARIES.length; i++) {
-			if (name === city_builder.MERCENARIES[i].handle) {
-				var price = city_builder.MERCENARIES[i].cost;
+		for (var i = 0; i < civitas.MERCENARIES.length; i++) {
+			if (name === civitas.MERCENARIES[i].handle) {
+				var price = civitas.MERCENARIES[i].cost;
 				if (this.dec_coins(price) === false) {
 					return false;
 				}
@@ -1251,16 +1251,16 @@ city_builder.objects.city = function(params) {
 					handle: name,
 					army: []
 				};
-				for (var item in city_builder.MERCENARIES[i].army) {
-					var soldier = city_builder.SOLDIER_TYPES[item];
-					var _soldier = new city_builder.objects.soldier({
+				for (var item in civitas.MERCENARIES[i].army) {
+					var soldier = civitas.SOLDIER_TYPES[item];
+					var _soldier = new civitas.objects.soldier({
 						name: item,
 						data: soldier
 					});
 					army.army.push(_soldier);
 				}
 				this.mercenary.push(army);
-				this.get_core().notify('The mercenaries of the ' + city_builder.MERCENARIES[i].name + ' are now available for skirmish missions for the duration of one year.', 'Mercenaries recruited.');
+				this.get_core().notify('The mercenaries of the ' + civitas.MERCENARIES[i].name + ' are now available for skirmish missions for the duration of one year.', 'Mercenaries recruited.');
 				this.get_core().refresh_ui();
 				this.get_core().refresh_panels();
 				this.get_core().save();
@@ -1278,13 +1278,13 @@ city_builder.objects.city = function(params) {
 	 * @returns {Boolean}
 	 */
 	this.recruit_ship = function(ship_name) {
-		for (var item in city_builder.SHIP_TYPES) {
+		for (var item in civitas.SHIP_TYPES) {
 			if (ship_name === item) {
-				var ship = city_builder.SHIP_TYPES[item];
+				var ship = civitas.SHIP_TYPES[item];
 				if (!this.remove_resources(ship.cost)) {
 					return false;
 				}
-				var _ship = new city_builder.objects.ship({
+				var _ship = new civitas.objects.ship({
 					name: item,
 					data: ship
 				});
@@ -1307,13 +1307,13 @@ city_builder.objects.city = function(params) {
 	 * @returns {Boolean}
 	 */
 	this.recruit_soldier = function(soldier_name) {
-		for (var item in city_builder.SOLDIER_TYPES) {
+		for (var item in civitas.SOLDIER_TYPES) {
 			if (soldier_name === item) {
-				var soldier = city_builder.SOLDIER_TYPES[item];
+				var soldier = civitas.SOLDIER_TYPES[item];
 				if (!this.remove_resources(soldier.cost)) {
 					return false;
 				}
-				var _soldier = new city_builder.objects.soldier({
+				var _soldier = new civitas.objects.soldier({
 					name: item,
 					data: soldier
 				});
@@ -1333,13 +1333,13 @@ city_builder.objects.city = function(params) {
 	 * 
 	 * @public
 	 * @param {String} ship_name
-	 * @returns {city_builder.objects.city}
+	 * @returns {civitas.objects.city}
 	 */
 	this._recruit_ship = function(ship_name) {
-		for (var item in city_builder.SHIP_TYPES) {
+		for (var item in civitas.SHIP_TYPES) {
 			if (ship_name === item) {
-				var ship = city_builder.SHIP_TYPES[item];
-				var _ship = new city_builder.objects.ship({
+				var ship = civitas.SHIP_TYPES[item];
+				var _ship = new civitas.objects.ship({
 					name: item,
 					data: ship
 				});
@@ -1354,13 +1354,13 @@ city_builder.objects.city = function(params) {
 	 * 
 	 * @public
 	 * @param {String} soldier_name
-	 * @returns {city_builder.objects.city}
+	 * @returns {civitas.objects.city}
 	 */
 	this._recruit_soldier = function(soldier_name) {
-		for (var item in city_builder.SOLDIER_TYPES) {
+		for (var item in civitas.SOLDIER_TYPES) {
 			if (soldier_name === item) {
-				var soldier = city_builder.SOLDIER_TYPES[item];
-				var _soldier = new city_builder.objects.soldier({
+				var soldier = civitas.SOLDIER_TYPES[item];
+				var _soldier = new civitas.objects.soldier({
 					name: item,
 					data: soldier
 				});
@@ -1433,7 +1433,7 @@ city_builder.objects.city = function(params) {
 	 * 
 	 * @public
 	 * @param {Number} value
-	 * @returns {city_builder.objects.city}
+	 * @returns {civitas.objects.city}
 	 */
 	this.set_mercenary = function(value) {
 		this.mercenary = value;
@@ -1445,7 +1445,7 @@ city_builder.objects.city = function(params) {
 	 * 
 	 * @public
 	 * @param {Number} value
-	 * @returns {city_builder.objects.city}
+	 * @returns {civitas.objects.city}
 	 */
 	this.set_navy = function(value) {
 		this.navy = value;
@@ -1457,7 +1457,7 @@ city_builder.objects.city = function(params) {
 	 * 
 	 * @public
 	 * @param {Number} value
-	 * @returns {city_builder.objects.city}
+	 * @returns {civitas.objects.city}
 	 */
 	this.set_army = function(value) {
 		this.army = value;
@@ -1479,7 +1479,7 @@ city_builder.objects.city = function(params) {
 	 * 
 	 * @public
 	 * @param {Object} value
-	 * @returns {city_builder.objects.city}
+	 * @returns {civitas.objects.city}
 	 */
 	this.set_resources = function(value) {
 		this.resources = value;
@@ -1501,7 +1501,7 @@ city_builder.objects.city = function(params) {
 	 * 
 	 * @public
 	 * @param {String} value
-	 * @returns {city_builder.objects.city}
+	 * @returns {civitas.objects.city}
 	 */
 	this.set_ruler = function(value) {
 		this.ruler = value;
@@ -1513,7 +1513,7 @@ city_builder.objects.city = function(params) {
 	 * 
 	 * @public
 	 * @param {Number} value
-	 * @returns {city_builder.objects.city}
+	 * @returns {civitas.objects.city}
 	 */
 	this.set_level = function(value) {
 		this.level = value;
@@ -1545,7 +1545,7 @@ city_builder.objects.city = function(params) {
 	 * 
 	 * @public
 	 * @param {Object} value
-	 * @returns {city_builder.objects.city}
+	 * @returns {civitas.objects.city}
 	 */
 	this.set_trades = function(value) {
 		this.trades = value;
@@ -1561,7 +1561,7 @@ city_builder.objects.city = function(params) {
 	this.get_personality = function() {
 		return {
 			id: this.personality,
-			name: city_builder.PERSONALITY_TYPES[this.personality]
+			name: civitas.PERSONALITY_TYPES[this.personality]
 		};
 	};
 	
@@ -1569,7 +1569,7 @@ city_builder.objects.city = function(params) {
 	 * Release all the mercenary armies.
 	 * 
 	 * @public
-	 * @returns {city_builder.objects.city}
+	 * @returns {civitas.objects.city}
 	 */
 	this.release_mercenaries = function() {
 		this.mercenary = [];
@@ -1583,7 +1583,7 @@ city_builder.objects.city = function(params) {
 	 * @public
 	 * @param {Boolean} hidden
 	 * @param {Object} data
-	 * @returns {city_builder.objects.city}
+	 * @returns {civitas.objects.city}
 	 */
 	this.setup_navy = function(hidden, data) {
 		if (typeof data === 'undefined') {
@@ -1618,7 +1618,7 @@ city_builder.objects.city = function(params) {
 	 * @public
 	 * @param {Boolean} hidden
 	 * @param {Object} data
-	 * @returns {city_builder.objects.city}
+	 * @returns {civitas.objects.city}
 	 */
 	this.setup_army = function(hidden, data) {
 		if (typeof data === 'undefined') {
@@ -1656,7 +1656,7 @@ city_builder.objects.city = function(params) {
 	this.get_climate = function() {
 		return {
 			id: this.climate,
-			name: city_builder.CLIMATE_TYPES[this.climate]
+			name: civitas.CLIMATE_TYPES[this.climate]
 		};
 	};
 	
@@ -1669,7 +1669,7 @@ city_builder.objects.city = function(params) {
 	this.get_nationality = function() {
 		return {
 			id: this.nationality,
-			name: city_builder.NATION_TYPES[this.nationality]
+			name: civitas.NATION_TYPES[this.nationality]
 		};
 	};
 	
@@ -1758,7 +1758,7 @@ city_builder.objects.city = function(params) {
 	/**
 	 * Reset the espionage of this city to 1.
 	 * 
-	 * @returns {city_builder.objects.city}
+	 * @returns {civitas.objects.city}
 	 * @public
 	 */
 	this.reset_espionage = function() {
@@ -1770,7 +1770,7 @@ city_builder.objects.city = function(params) {
 	/**
 	 * Reset the prestige of this city to 1.
 	 * 
-	 * @returns {city_builder.objects.city}
+	 * @returns {civitas.objects.city}
 	 * @public
 	 */
 	this.reset_prestige = function() {
@@ -1783,7 +1783,7 @@ city_builder.objects.city = function(params) {
 	 * Set the espionage of this city.
 	 * 
 	 * @public
-	 * @returns {city_builder.objects.city}
+	 * @returns {civitas.objects.city}
 	 * @param {Number} value
 	 */
 	this.set_espionage = function(value) {
@@ -1796,7 +1796,7 @@ city_builder.objects.city = function(params) {
 	 * Set the prestige of this city.
 	 * 
 	 * @public
-	 * @returns {city_builder.objects.city}
+	 * @returns {civitas.objects.city}
 	 * @param {Number} value
 	 */
 	this.set_prestige = function(value) {
@@ -1887,7 +1887,7 @@ city_builder.objects.city = function(params) {
 	 * Set the icon of this city.
 	 * 
 	 * @public
-	 * @returns {city_builder.objects.city}
+	 * @returns {civitas.objects.city}
 	 * @param {Number} value
 	 */
 	this.set_icon = function(value) {
@@ -1909,7 +1909,7 @@ city_builder.objects.city = function(params) {
 	 * Set the avatar of the ruler of this city.
 	 * 
 	 * @public
-	 * @returns {city_builder.objects.city}
+	 * @returns {civitas.objects.city}
 	 * @param {Number} value
 	 */
 	this.set_avatar = function(value) {
@@ -1972,7 +1972,7 @@ city_builder.objects.city = function(params) {
 	 * Set the influence of this city.
 	 * 
 	 * @public
-	 * @returns {city_builder.objects.city}
+	 * @returns {civitas.objects.city}
 	 * @param {Object} value
 	 */
 	this.set_influence = function(value) {
@@ -1984,7 +1984,7 @@ city_builder.objects.city = function(params) {
 	 * Set the climate of this city.
 	 * 
 	 * @public
-	 * @returns {city_builder.objects.city}
+	 * @returns {civitas.objects.city}
 	 * @param {Number} value
 	 */
 	this.set_climate = function(value) {
@@ -1996,7 +1996,7 @@ city_builder.objects.city = function(params) {
 	 * Set the nationality of this city.
 	 * 
 	 * @public
-	 * @returns {city_builder.objects.city}
+	 * @returns {civitas.objects.city}
 	 * @param {Number} value
 	 */
 	this.set_nationality = function(value) {
@@ -2008,8 +2008,8 @@ city_builder.objects.city = function(params) {
 	 * Propose a pact to the specified city.
 	 *
 	 * @public
-	 * @returns {city_builder.objects.city}
-	 * @param {city_builder.objects.city}
+	 * @returns {civitas.objects.city}
+	 * @param {civitas.objects.city}
 	 */
 	this.propose_pact = function(city) {
 		// TODO
@@ -2020,8 +2020,8 @@ city_builder.objects.city = function(params) {
 	 * Assign a spy to the specified city.
 	 *
 	 * @public
-	 * @returns {city_builder.objects.city}
-	 * @param {city_builder.objects.city}
+	 * @returns {civitas.objects.city}
+	 * @param {civitas.objects.city}
 	 */
 	this.assign_spy = function(city) {
 		// TODO

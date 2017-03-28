@@ -4,7 +4,7 @@
  * @constant
  * @type {Array}
  */
-city_builder.CLIMATE_TYPES = [
+civitas.CLIMATE_TYPES = [
 	'none',
 	'temperate',
 	'tropical',
@@ -19,7 +19,7 @@ city_builder.CLIMATE_TYPES = [
  * @constant
  * @type {Number}
  */
-city_builder.CLIMATE_TYPE_TEMPERATE = 1;
+civitas.CLIMATE_TYPE_TEMPERATE = 1;
 
 /**
  * Tropical climate, favoring farms and exotic goods.
@@ -27,7 +27,7 @@ city_builder.CLIMATE_TYPE_TEMPERATE = 1;
  * @constant
  * @type {Number}
  */
-city_builder.CLIMATE_TYPE_TROPICAL = 2;
+civitas.CLIMATE_TYPE_TROPICAL = 2;
 
 /**
  * Arid climate, favoring ore mines.
@@ -35,7 +35,7 @@ city_builder.CLIMATE_TYPE_TROPICAL = 2;
  * @constant
  * @type {Number}
  */
-city_builder.CLIMATE_TYPE_ARID = 3;
+civitas.CLIMATE_TYPE_ARID = 3;
 
 /**
  * Continental climate, no sea access.
@@ -43,7 +43,7 @@ city_builder.CLIMATE_TYPE_ARID = 3;
  * @constant
  * @type {Number}
  */
-city_builder.CLIMATE_TYPE_CONTINENTAL = 4;
+civitas.CLIMATE_TYPE_CONTINENTAL = 4;
 
 /**
  * Polar climate, very extreme.
@@ -51,7 +51,7 @@ city_builder.CLIMATE_TYPE_CONTINENTAL = 4;
  * @constant
  * @type {Number}
  */
-city_builder.CLIMATE_TYPE_POLAR = 5;
+civitas.CLIMATE_TYPE_POLAR = 5;
 
 /**
  * Worldmap position of city when the climate is temperate.
@@ -59,7 +59,7 @@ city_builder.CLIMATE_TYPE_POLAR = 5;
  * @constant
  * @type {Object}
  */
-city_builder.CITY_LOCATION_TEMPERATE = {
+civitas.CITY_LOCATION_TEMPERATE = {
 	x: 530,
 	y: 150
 };
@@ -70,7 +70,7 @@ city_builder.CITY_LOCATION_TEMPERATE = {
  * @constant
  * @type {Object}
  */
-city_builder.CITY_LOCATION_TROPICAL = {
+civitas.CITY_LOCATION_TROPICAL = {
 	x: 45,
 	y: 250
 };
@@ -81,7 +81,7 @@ city_builder.CITY_LOCATION_TROPICAL = {
  * @constant
  * @type {Object}
  */
-city_builder.CITY_LOCATION_ARID = {
+civitas.CITY_LOCATION_ARID = {
 	x: 340,
 	y: 130
 };
@@ -92,7 +92,7 @@ city_builder.CITY_LOCATION_ARID = {
  * @constant
  * @type {Object}
  */
-city_builder.CITY_LOCATION_CONTINENTAL = {
+civitas.CITY_LOCATION_CONTINENTAL = {
 	x: 540,
 	y: 150
 };
@@ -103,7 +103,7 @@ city_builder.CITY_LOCATION_CONTINENTAL = {
  * @constant
  * @type {Object}
  */
-city_builder.CITY_LOCATION_POLAR = {
+civitas.CITY_LOCATION_POLAR = {
 	x: 490,
 	y: 10
 };

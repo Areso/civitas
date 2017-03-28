@@ -3,7 +3,7 @@
 Description
 ===========
 
-City Builder is a city-building engine/game written in Javascript with the help of the jQuery library.
+Civitas is an empire-building game written in Javascript with the help of the jQuery library.
 
 Features
 ========
@@ -44,7 +44,7 @@ Screenshots
 License
 =======
 
-City Builder is written by sizeof(cat) <sizeofcat AT riseup DOT net> and distributed under the [MIT license](LICENSE).
+Civitas is written by sizeof(cat) <sizeofcat AT riseup DOT net> and distributed under the [MIT license](LICENSE).
 
 Contributing
 ============
@@ -60,9 +60,9 @@ Always sign your commits and make sure you read the [coding style](CODING-STYLE.
 Source code
 ===========
 
-City Builder has ~12137 lines of code, give or take and can be [downloaded from GitHub.com](https://github.com/sizeofcat/city-builder/archive/master.zip) or by using git to clone the repository:
+Civitas has ~12137 lines of code, give or take and can be [downloaded from GitHub.com](https://github.com/sizeofcat/civitas/archive/master.zip) or by using git to clone the repository:
 
-`git clone git@github.com/sizeofcat/city-builder.git`
+`git clone git@github.com/sizeofcat/civitas.git`
 
 Dependencies
 ============

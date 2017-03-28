@@ -2,15 +2,15 @@
  * Send goods to another city panel object.
  * 
  * @param {Object} params
- * @class {city_builder.controls.panel_send_goods}
- * @returns {city_builder.controls.panel_send_goods}
+ * @class {civitas.controls.panel_send_goods}
+ * @returns {civitas.controls.panel_send_goods}
  */
-city_builder.controls.panel_send_goods = function (params) {
+civitas.controls.panel_send_goods = function (params) {
 	
 	/**
 	 * Reference to the core object.
 	 * 
-	 * @type {city_builder.game}
+	 * @type {civitas.game}
 	 */
 	this.core = null;
 
@@ -27,7 +27,7 @@ city_builder.controls.panel_send_goods = function (params) {
 	 * 
 	 * @type {String}
 	 */
-	this.title = city_builder.l('Send Goods');
+	this.title = civitas.l('Send Goods');
 
 	/**
 	 * Object destructor.
@@ -58,20 +58,20 @@ city_builder.controls.panel_send_goods = function (params) {
 	 * Object constructor.
 	 * 
 	 * @private
-	 * @returns {city_builder.controls.panel_send_goods}
+	 * @returns {civitas.controls.panel_send_goods}
 	 * @param {Object} params
 	 */
 	this.__constructor = function (params) {
 		this.core = params.core;
 		var self = this;
 		var el = '#panel-' + this.id;
-		if (city_builder.ui.panel_exists(el)) {
+		if (civitas.ui.panel_exists(el)) {
 			this.destroy();
 		}
 		this.core.console_log('creating panel with id `' + this.id + '`');
 		var city = this.core.get_city();
 		var resources = city.get_resources();
-		$('.ui').append(city_builder.ui.generic_panel_template
+		$('.ui').append(civitas.ui.generic_panel_template
 			.replace(/{id}/g, this.id)
 			.replace(/{title}/g, this.title));
 		var out = '';
@@ -101,7 +101,7 @@ city_builder.controls.panel_send_goods = function (params) {
 	 * information on this panel.
 	 *
 	 * @public
-	 * @returns {city_builder.controls.panel_send_goods}
+	 * @returns {civitas.controls.panel_send_goods}
 	 */
 	this.refresh = function() {
 		return this;

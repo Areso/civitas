@@ -2,15 +2,15 @@
  * Game jailer (enforcing security) object.
  * 
  * @param {Object} params
- * @class {city_builder.modules.jailer}
- * @returns {city_builder.modules.jailer}
+ * @class {civitas.modules.jailer}
+ * @returns {civitas.modules.jailer}
  */
-city_builder.modules.jailer = function (params) {
+civitas.modules.jailer = function (params) {
 
 	/**
 	 * Reference to the core object.
 	 * 
-	 * @type {city_builder.game}
+	 * @type {civitas.game}
 	 */
 	this.core = null;
 
@@ -25,7 +25,7 @@ city_builder.modules.jailer = function (params) {
 	 * Object constructor.
 	 * 
 	 * @private
-	 * @returns {city_builder.modules.jailer}
+	 * @returns {civitas.modules.jailer}
 	 * @param {Object} params
 	 */
 	this.__constructor = function (params) {

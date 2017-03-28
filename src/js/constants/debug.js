@@ -3,14 +3,14 @@
  * goodies, nice trades and a cool alliance.
  * Throw in some coins too.
  */
-if (city_builder.DEBUG === true) {
-	city_builder.CITIES['Sandbox'] = {
-		nationality: city_builder.NATION_TYPE_ASSYRIAN,
+if (civitas.DEBUG === true) {
+	civitas.CITIES['Sandbox'] = {
+		nationality: civitas.NATION_TYPE_ASSYRIAN,
 		ruler: 'Sandking',
 		avatar: 1,
 		icon: 2,
-		climate: city_builder.CLIMATE_TYPE_TEMPERATE,
-		personality: city_builder.PERSONALITY_TYPE_DIPLOMAT,
+		climate: civitas.CLIMATE_TYPE_TEMPERATE,
+		personality: civitas.PERSONALITY_TYPE_DIPLOMAT,
 		level: 30,
 		resources: {
 			'coins': 1000000,
@@ -18,26 +18,26 @@ if (city_builder.DEBUG === true) {
 		},
 		trades: {
 			'imports': {
-				gold: city_builder.GOODS_IMPORTANCE_VITAL,
-				goldores: city_builder.GOODS_IMPORTANCE_VITAL,
-				weapons: city_builder.GOODS_IMPORTANCE_VITAL,
-				weapons: city_builder.GOODS_IMPORTANCE_VITAL,
-				milk: city_builder.GOODS_IMPORTANCE_VITAL,
-				gems: city_builder.GOODS_IMPORTANCE_VITAL,
-				pearls: city_builder.GOODS_IMPORTANCE_VITAL
+				gold: civitas.GOODS_IMPORTANCE_VITAL,
+				goldores: civitas.GOODS_IMPORTANCE_VITAL,
+				weapons: civitas.GOODS_IMPORTANCE_VITAL,
+				weapons: civitas.GOODS_IMPORTANCE_VITAL,
+				milk: civitas.GOODS_IMPORTANCE_VITAL,
+				gems: civitas.GOODS_IMPORTANCE_VITAL,
+				pearls: civitas.GOODS_IMPORTANCE_VITAL
 			},
 			'exports': {
-				stones: city_builder.GOODS_IMPORTANCE_VITAL,
-				wood: city_builder.GOODS_IMPORTANCE_VITAL,
-				ironores: city_builder.GOODS_IMPORTANCE_VITAL,
-				goldores: city_builder.GOODS_IMPORTANCE_VITAL,
-				copper: city_builder.GOODS_IMPORTANCE_VITAL,
-				clay: city_builder.GOODS_IMPORTANCE_VITAL,
-				iron: city_builder.GOODS_IMPORTANCE_VITAL,
-				gold: city_builder.GOODS_IMPORTANCE_VITAL,
-				meat: city_builder.GOODS_IMPORTANCE_VITAL,
-				bread: city_builder.GOODS_IMPORTANCE_VITAL,
-				coal: city_builder.GOODS_IMPORTANCE_VITAL
+				stones: civitas.GOODS_IMPORTANCE_VITAL,
+				wood: civitas.GOODS_IMPORTANCE_VITAL,
+				ironores: civitas.GOODS_IMPORTANCE_VITAL,
+				goldores: civitas.GOODS_IMPORTANCE_VITAL,
+				copper: civitas.GOODS_IMPORTANCE_VITAL,
+				clay: civitas.GOODS_IMPORTANCE_VITAL,
+				iron: civitas.GOODS_IMPORTANCE_VITAL,
+				gold: civitas.GOODS_IMPORTANCE_VITAL,
+				meat: civitas.GOODS_IMPORTANCE_VITAL,
+				bread: civitas.GOODS_IMPORTANCE_VITAL,
+				coal: civitas.GOODS_IMPORTANCE_VITAL
 			}
 		},
 		army: {

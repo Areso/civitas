@@ -2,15 +2,15 @@
  * Main Game storage panel object.
  * 
  * @param {Object} params
- * @class {city_builder.controls.panel_rankings}
- * @returns {city_builder.controls.panel_rankings}
+ * @class {civitas.controls.panel_rankings}
+ * @returns {civitas.controls.panel_rankings}
  */
-city_builder.controls.panel_rankings = function (params) {
+civitas.controls.panel_rankings = function (params) {
 	
 	/**
 	 * Reference to the core object.
 	 * 
-	 * @type {city_builder.game}
+	 * @type {civitas.game}
 	 */
 	this.core = null;
 
@@ -27,7 +27,7 @@ city_builder.controls.panel_rankings = function (params) {
 	 * 
 	 * @type {String}
 	 */
-	this.title = city_builder.l('Rankings');
+	this.title = civitas.l('Rankings');
 
 	/**
 	 * Object destructor.
@@ -58,19 +58,19 @@ city_builder.controls.panel_rankings = function (params) {
 	 * Object constructor.
 	 * 
 	 * @private
-	 * @returns {city_builder.controls.panel_rankings}
+	 * @returns {civitas.controls.panel_rankings}
 	 * @param {Object} params
 	 */
 	this.__constructor = function (params) {
 		this.core = params.core;
 		var self = this;
 		var el = '#panel-' + this.id;
-		if (city_builder.ui.panel_exists(el)) {
+		if (civitas.ui.panel_exists(el)) {
 			this.destroy();
 		}
 		this.core.console_log('creating panel with id `' + this.id + '`');
 		$(el).remove();
-		$('.ui').append(city_builder.ui.generic_panel_template
+		$('.ui').append(civitas.ui.generic_panel_template
 			.replace(/{id}/g, this.id)
 			.replace(/{title}/g, this.title));
 		this.refresh();
@@ -98,12 +98,12 @@ city_builder.controls.panel_rankings = function (params) {
 	 * information on this panel.
 	 *
 	 * @public
-	 * @returns {city_builder.controls.panel_rankings}
+	 * @returns {civitas.controls.panel_rankings}
 	 */
 	this.refresh = function() {
 		var el = '#panel-' + this.id;
 		var ranking_list = [];
-		for (var item in city_builder.CITIES) {
+		for (var item in civitas.CITIES) {
 			ranking_list.push({
 				name: item,
 				score: this.get_ranking(item)
@@ -126,8 +126,8 @@ city_builder.controls.panel_rankings = function (params) {
 		});
 		var out = '<div class="rankings-list">' +
 			'<dl>' +
-			'<dt>' + city_builder.l('City') + '</dt>' + 
-			'<dd>' + city_builder.l('Score') + '</dd>' +
+			'<dt>' + civitas.l('City') + '</dt>' + 
+			'<dd>' + civitas.l('Score') + '</dd>' +
 			'</dl>';
 		for (var i = 0; i < ranking_list.length; i++) {
 			out += '<dt>' + ranking_list[i].name + '</dt><dd>' + ranking_list[i].score + '</dd>';

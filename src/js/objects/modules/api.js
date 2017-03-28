@@ -2,15 +2,15 @@
  * Main Game API object.
  * 
  * @param {Object} params
- * @class {city_builder.modules.api}
- * @returns {city_builder.modules.api}
+ * @class {civitas.modules.api}
+ * @returns {civitas.modules.api}
  */
-city_builder.modules.api = function (params) {
+civitas.modules.api = function (params) {
 
 	/**
 	 * Reference to the core object.
 	 * 
-	 * @type {city_builder.game}
+	 * @type {civitas.game}
 	 */
 	this.core = null;
 
@@ -26,7 +26,7 @@ city_builder.modules.api = function (params) {
 	 * Sign in a visitor using the specified data.
 	 * 
 	 * @param {Object} data
-	 * @returns {city_builder.modules.api}
+	 * @returns {civitas.modules.api}
 	 */
 	this.login = function (data) {
 		return this.request({
@@ -48,7 +48,7 @@ city_builder.modules.api = function (params) {
 	/**
 	 * Sign out the currently logged in user.
 	 * 
-	 * @returns {city_builder.modules.api}
+	 * @returns {civitas.modules.api}
 	 */
 	this.logout = function () {
 		return this.request({
@@ -59,7 +59,7 @@ city_builder.modules.api = function (params) {
 	/**
 	 * Get information about the application and API version.
 	 *
-	 * @returns {city_builder.modules.api}
+	 * @returns {civitas.modules.api}
 	 */
 	this.api_version = function() {
 		return this.request({
@@ -70,7 +70,7 @@ city_builder.modules.api = function (params) {
 	/**
 	 * Get information about the currently logged in user's city.
 	 *
-	 * @returns {city_builder.modules.api}
+	 * @returns {civitas.modules.api}
 	 */
 	this.city_info = function() {
 		return this.request({
@@ -81,7 +81,7 @@ city_builder.modules.api = function (params) {
 	/**
 	 * Perform a heartbeat request and get data about it.
 	 *
-	 * @returns {city_builder.modules.api}
+	 * @returns {civitas.modules.api}
 	 */
 	this.heartbeat = function() {
 		return this.request({
@@ -93,7 +93,7 @@ city_builder.modules.api = function (params) {
 	 * Register a visitor using the specified data.
 	 * 
 	 * @param {Object} data
-	 * @returns {city_builder.modules.api}
+	 * @returns {civitas.modules.api}
 	 */
 	this.register = function (data) {
 		return this.request({
@@ -106,7 +106,7 @@ city_builder.modules.api = function (params) {
 	 * Export the specified data to the API endpoint.
 	 * 
 	 * @param {Object} data
-	 * @returns {city_builder.modules.api}
+	 * @returns {civitas.modules.api}
 	 */
 	this.do_export = function (data) {
 		return this.request({
@@ -119,7 +119,7 @@ city_builder.modules.api = function (params) {
 	 * Import the specified data from the API endpoint.
 	 * 
 	 * @param {Object} data
-	 * @returns {city_builder.modules.api}
+	 * @returns {civitas.modules.api}
 	 */
 	this.do_import = function (data) {
 		return this.request({
@@ -132,7 +132,7 @@ city_builder.modules.api = function (params) {
 	 * Internal function for performing an API AJAX request.
 	 * 
 	 * @param {Object} data
-	 * @returns {city_builder.modules.api}
+	 * @returns {civitas.modules.api}
 	 */
 	this._request = function (data) {
 		$.ajax({
@@ -143,7 +143,7 @@ city_builder.modules.api = function (params) {
 			},
 			crossDomain: true,
 			data: data.data,
-			url: city_builder.API_VERSION_URL + data.url,
+			url: civitas.API_VERSION_URL + data.url,
 			async: (typeof data.async === 'undefined' || data.async == true) ? true : false,
 			success: data.success instanceof Function ? data.success : function () {
 				// TODO
@@ -159,7 +159,7 @@ city_builder.modules.api = function (params) {
 	 * Object constructor.
 	 * 
 	 * @private
-	 * @returns {city_builder.modules.api}
+	 * @returns {civitas.modules.api}
 	 * @param {Object} params
 	 */
 	this.__constructor = function (params) {

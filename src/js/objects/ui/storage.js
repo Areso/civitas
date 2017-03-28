@@ -2,15 +2,15 @@
  * Main Game storage panel object.
  * 
  * @param {Object} params
- * @class {city_builder.controls.panel_storage}
- * @returns {city_builder.controls.panel_storage}
+ * @class {civitas.controls.panel_storage}
+ * @returns {civitas.controls.panel_storage}
  */
-city_builder.controls.panel_storage = function (params) {
+civitas.controls.panel_storage = function (params) {
 	
 	/**
 	 * Reference to the core object.
 	 * 
-	 * @type {city_builder.game}
+	 * @type {civitas.game}
 	 */
 	this.core = null;
 
@@ -27,7 +27,7 @@ city_builder.controls.panel_storage = function (params) {
 	 * 
 	 * @type {String}
 	 */
-	this.title = city_builder.l('City Storage');
+	this.title = civitas.l('City Storage');
 
 	this.expanded = false;
 
@@ -60,18 +60,18 @@ city_builder.controls.panel_storage = function (params) {
 	 * Object constructor.
 	 * 
 	 * @private
-	 * @returns {city_builder.controls.panel_storage}
+	 * @returns {civitas.controls.panel_storage}
 	 * @param {Object} params
 	 */
 	this.__constructor = function (params) {
 		this.core = params.core;
 		var self = this;
 		var el = '#panel-' + this.id;
-		if (city_builder.ui.panel_exists(el)) {
+		if (civitas.ui.panel_exists(el)) {
 			this.destroy();
 		}
 		this.core.console_log('creating panel with id `' + this.id + '`');
-		$('.ui').append(city_builder.ui.generic_panel_template
+		$('.ui').append(civitas.ui.generic_panel_template
 			.replace(/{id}/g, this.id)
 			.replace(/{title}/g, this.title));
 		this.refresh();
@@ -79,12 +79,12 @@ city_builder.controls.panel_storage = function (params) {
 			self.destroy();
 			return false;
 		}).on('click', '.toggle-storage', function () {
-			if ($('.toggle-storage').html() === city_builder.l('Show Less Goods')) {
+			if ($('.toggle-storage').html() === civitas.l('Show Less Goods')) {
 				self.expanded = false;
-				$('.toggle-storage').html(city_builder.l('Show More Goods'));
+				$('.toggle-storage').html(civitas.l('Show More Goods'));
 			} else {
 				self.expanded = true;
-				$('.toggle-storage').html(city_builder.l('Show Less Goods'));
+				$('.toggle-storage').html(civitas.l('Show Less Goods'));
 			}
 			$('.extra-storage').toggle();
 			return false;
@@ -119,7 +119,7 @@ city_builder.controls.panel_storage = function (params) {
 	 * information on this panel.
 	 *
 	 * @public
-	 * @returns {city_builder.controls.panel_storage}
+	 * @returns {civitas.controls.panel_storage}
 	 */
 	this.refresh = function() {
 		var city = this.core.get_city();
@@ -131,10 +131,10 @@ city_builder.controls.panel_storage = function (params) {
 		var extra_storage = '';
 		for (var resource in resources) {
 			if (resource !== 'fame' && resource !== 'prestige' && resource !== 'espionage') {
-				if ($.inArray(resource, city_builder.MAIN_RESOURCES) !== -1) {
-					main_storage += city_builder.ui.resource_storage_el(resource, resources[resource]);
+				if ($.inArray(resource, civitas.MAIN_RESOURCES) !== -1) {
+					main_storage += civitas.ui.resource_storage_el(resource, resources[resource]);
 				} else {
-					extra_storage += city_builder.ui.resource_storage_el(resource, resources[resource]);
+					extra_storage += civitas.ui.resource_storage_el(resource, resources[resource]);
 				}
 			}
 		}
@@ -144,9 +144,9 @@ city_builder.controls.panel_storage = function (params) {
 		out += extra_storage;
 		out += '</div>';
 		out += '<div class="clearfix"></div>' +
-				'<p>' + city_builder.l('Total storage space') + ': ' + storage_space.all + ', ' + city_builder.l('used') + ': ' + storage_space.occupied + '</p>' +
+				'<p>' + civitas.l('Total storage space') + ': ' + storage_space.all + ', ' + civitas.l('used') + ': ' + storage_space.occupied + '</p>' +
 		'<div class="toolbar">' +
-			'<a class="btn iblock toggle-storage" href="#">' + city_builder.l('Show More Goods') + '</a>' +
+			'<a class="btn iblock toggle-storage" href="#">' + civitas.l('Show More Goods') + '</a>' +
 		'</div>';
 		$(el + ' .contents').empty().append(out);
 		if (this.expanded === true) {

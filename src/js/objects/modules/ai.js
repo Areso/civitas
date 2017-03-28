@@ -2,15 +2,15 @@
  * Main Game AI (Artificial Intelligence) object.
  * 
  * @param {Object} params
- * @class {city_builder.modules.ai}
- * @returns {city_builder.modules.ai}
+ * @class {civitas.modules.ai}
+ * @returns {civitas.modules.ai}
  */
-city_builder.modules.ai = function (params) {
+civitas.modules.ai = function (params) {
 
 	/**
 	 * Reference to the core object.
 	 * 
-	 * @type {city_builder.game}
+	 * @type {civitas.game}
 	 */
 	this.core = null;
 
@@ -18,7 +18,7 @@ city_builder.modules.ai = function (params) {
 	 * Object constructor.
 	 * 
 	 * @private
-	 * @returns {city_builder.modules.ai}
+	 * @returns {civitas.modules.ai}
 	 * @param {Object} params
 	 */
 	this.__constructor = function (params) {

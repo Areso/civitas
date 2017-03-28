@@ -1,7 +1,7 @@
 /**
  * Utils object.
  */
-city_builder.utils = {
+civitas.utils = {
 
 	/**
 	 * Round the number to nearest 10.
@@ -34,8 +34,8 @@ city_builder.utils = {
 	 * @returns {Number}
 	 */
 	get_random_by_importance: function(importance) {
-		return city_builder.utils.get_up_number(
-			city_builder.utils.get_random(
+		return civitas.utils.get_up_number(
+			civitas.utils.get_random(
 				Math.floor(Math.random() * importance) * 10 + 10,
 				Math.floor(Math.random() * importance) * 10 + 20
 			)
@@ -50,7 +50,7 @@ city_builder.utils = {
 	 * @returns {String}
 	 */
 	get_resource_name: function(handle) {
-		return city_builder.RESOURCES[handle].name;
+		return civitas.RESOURCES[handle].name;
 	},
 
 	/**
@@ -63,7 +63,7 @@ city_builder.utils = {
 	 * @public
 	 */
 	calc_price_minus_discount: function (amount, resource, discount) {
-		return Math.ceil(Math.ceil(city_builder.RESOURCES[resource].price - discount) * amount);
+		return Math.ceil(Math.ceil(civitas.RESOURCES[resource].price - discount) * amount);
 	},
 		
 	/**
@@ -75,7 +75,7 @@ city_builder.utils = {
 	 * @public
 	 */
 	calc_price: function (amount, resource) {
-		return Math.ceil(amount * (city_builder.RESOURCES[resource].price));
+		return Math.ceil(amount * (civitas.RESOURCES[resource].price));
 	},
 
 	/**
@@ -88,7 +88,7 @@ city_builder.utils = {
 	 * @public
 	 */
 	calc_price_plus_discount: function (amount, resource, discount) {
-		return Math.ceil(Math.ceil(city_builder.RESOURCES[resource].price + discount) * amount);
+		return Math.ceil(Math.ceil(civitas.RESOURCES[resource].price + discount) * amount);
 	},
 	
 	/**

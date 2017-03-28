@@ -1,1 +1,1 @@
-city_builder.lang = {};
+civitas.lang = {};

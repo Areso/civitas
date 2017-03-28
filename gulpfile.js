@@ -125,6 +125,10 @@ gulp.task('cleanup_js', function() {
     ]);
 });
 
+gulp.task('minify', ['app_minify', 'lib_minify', 'css_minify'], function() {
+	return true;
+});
+
 gulp.task('deploy', ['cleanup_deploy'], function() {
 	return true;
 });
@@ -134,15 +138,12 @@ gulp.task('cleanup_deploy', function() {
 });
 
 gulp.task('watch', function () {
-	gulp.watch("src/**/*.js", ['build_js']);
-	gulp.watch("src/**/*.css", ['build_css']);
+	gulp.watch("src/**/*.js", ['app']);
+	gulp.watch("src/**/*.css", ['css']);
+	gulp.watch("vendor/**/*.js", ['lib']);
 	gulp.watch("images/**/*.*", ['deploy']);
 });
 
-gulp.task('build_js', ['app_minify', 'lib_minify']);
-
-gulp.task('build_css', ['css_minify']);
-
-gulp.task('build', ['build_css', 'build_js', 'deploy']);
+gulp.task('build', ['css', 'app', 'lib', 'deploy']);
 
 gulp.task('default', ['watch', 'build']);

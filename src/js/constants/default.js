@@ -1,20 +1,20 @@
 /*
  * Check for undefined stuff.
  */
-if (typeof city_builder === 'undefined') {
-	var city_builder = {};
+if (typeof civitas === 'undefined') {
+	var civitas = {};
 }
 
-if (typeof city_builder.objects === 'undefined') {
-	city_builder.objects = {};
+if (typeof civitas.objects === 'undefined') {
+	civitas.objects = {};
 }
 
-if (typeof city_builder.controls === 'undefined') {
-	city_builder.controls = {};
+if (typeof civitas.controls === 'undefined') {
+	civitas.controls = {};
 }
 
-if (typeof city_builder.modules === 'undefined') {
-	city_builder.modules = {};
+if (typeof civitas.modules === 'undefined') {
+	civitas.modules = {};
 }
 
 /**
@@ -23,9 +23,9 @@ if (typeof city_builder.modules === 'undefined') {
  * @param {String} value
  * @returns {String}
  */
-city_builder.l = function (value) {
-	if (typeof city_builder.lang[value] !== 'undefined' && city_builder.lang[value] !== '') {
-		return city_builder.lang[value];
+civitas.l = function (value) {
+	if (typeof civitas.lang[value] !== 'undefined' && civitas.lang[value] !== '') {
+		return civitas.lang[value];
 	} else {
 		return value;
 	}
@@ -37,7 +37,7 @@ city_builder.l = function (value) {
  * @constant
  * @type {Boolean}
  */
-city_builder.AUTOSTART_MUSIC = false;
+civitas.AUTOSTART_MUSIC = false;
 
 /**
  * Max level a city can have.
@@ -45,7 +45,7 @@ city_builder.AUTOSTART_MUSIC = false;
  * @constant
  * @type {Number}
  */
-city_builder.MAX_CITY_LEVEL = 55;
+civitas.MAX_CITY_LEVEL = 55;
 
 /**
  * URL to the game assets
@@ -53,7 +53,7 @@ city_builder.MAX_CITY_LEVEL = 55;
  * @constant
  * @type {String}
  */
-city_builder.ASSETS_URL = './';
+civitas.ASSETS_URL = './';
 
 /**
  * Amount of influence your city loses each year.
@@ -61,7 +61,7 @@ city_builder.ASSETS_URL = './';
  * @constant
  * @type {Number}
  */
-city_builder.YEARLY_INFLUENCE_LOSS = 10;
+civitas.YEARLY_INFLUENCE_LOSS = 10;
 
 /**
  * Number of city ruler avatars available to choose.
@@ -69,11 +69,11 @@ city_builder.YEARLY_INFLUENCE_LOSS = 10;
  * @constant
  * @type {Number}
  */
-city_builder.AVATARS = 45;
+civitas.AVATARS = 45;
 
-city_builder.TRADES_ADDITION = 10;
+civitas.TRADES_ADDITION = 10;
 
-city_builder.TRADES_DISCOUNT = 20;
+civitas.TRADES_DISCOUNT = 20;
 
 /**
  * The black market discount.
@@ -81,7 +81,7 @@ city_builder.TRADES_DISCOUNT = 20;
  * @constant
  * @type {Number}
  */
-city_builder.BLACK_MARKET_DISCOUNT = 80;
+civitas.BLACK_MARKET_DISCOUNT = 80;
 
 /**
  * The resources that will be shown on the toolbar.
@@ -89,7 +89,7 @@ city_builder.BLACK_MARKET_DISCOUNT = 80;
  * @constant
  * @type {Array}
  */
-city_builder.TOOLBAR_RESOURCES = [
+civitas.TOOLBAR_RESOURCES = [
 	'coins',
 	'wood',
 	'stones',
@@ -108,7 +108,7 @@ city_builder.TOOLBAR_RESOURCES = [
  * @constant
  * @type {Array}
  */
-city_builder.LEVELS = [
+civitas.LEVELS = [
 	0, 100, 500, 1000, 2000,
 	3500, 5000, 7000, 10000, 13000,
 	16000, 20000, 25000, 29000, 35000,
@@ -128,7 +128,7 @@ city_builder.LEVELS = [
  * @constant
  * @type {String}
  */
-city_builder.VERSION = '0.1.' + ((new Date()).getMonth() + 1) + '' + (new Date()).getDate() + '' + (new Date()).getFullYear();
+civitas.VERSION = '0.1.' + ((new Date()).getMonth() + 1) + '' + (new Date()).getDate() + '' + (new Date()).getFullYear();
 
 /**
  * Whether the application is in debug mode.
@@ -137,7 +137,7 @@ city_builder.VERSION = '0.1.' + ((new Date()).getMonth() + 1) + '' + (new Date()
  * @constant
  * @type {Boolean}
  */
-city_builder.DEBUG = true;
+civitas.DEBUG = true;
 
 /**
  * Browser localStorage key to store game data into.
@@ -145,7 +145,7 @@ city_builder.DEBUG = true;
  * @constant
  * @type {String}
  */
-city_builder.STORAGE_KEY = 'city_builder';
+civitas.STORAGE_KEY = 'civitas';
 
 /**
  * Goods importance, vital means at most 500 stacks of goods will be up for importing
@@ -154,7 +154,7 @@ city_builder.STORAGE_KEY = 'city_builder';
  * @constant
  * @type {Number}
  */
-city_builder.GOODS_IMPORTANCE_VITAL = 50;
+civitas.GOODS_IMPORTANCE_VITAL = 50;
 
 /**
  * Goods importance, high means at most 300 stacks of goods will be up for importing
@@ -163,7 +163,7 @@ city_builder.GOODS_IMPORTANCE_VITAL = 50;
  * @constant
  * @type {Number}
  */
-city_builder.GOODS_IMPORTANCE_HIGH = 30;
+civitas.GOODS_IMPORTANCE_HIGH = 30;
 
 /**
  * Goods importance, medium means at most 200 stacks of goods will be up for importing
@@ -172,7 +172,7 @@ city_builder.GOODS_IMPORTANCE_HIGH = 30;
  * @constant
  * @type {Number}
  */
-city_builder.GOODS_IMPORTANCE_MEDIUM = 20;
+civitas.GOODS_IMPORTANCE_MEDIUM = 20;
 
 /**
  * Goods importance, low means at most 100 stacks of goods will be up for importing
@@ -181,7 +181,7 @@ city_builder.GOODS_IMPORTANCE_MEDIUM = 20;
  * @constant
  * @type {Number}
  */
-city_builder.GOODS_IMPORTANCE_LOW = 10;
+civitas.GOODS_IMPORTANCE_LOW = 10;
 
 /**
  * Difficulty level of the game is easy.
@@ -189,7 +189,7 @@ city_builder.GOODS_IMPORTANCE_LOW = 10;
  * @constant
  * @type {Number}
  */
-city_builder.DIFFICULTY_LEVEL_EASY = 1;
+civitas.DIFFICULTY_LEVEL_EASY = 1;
 
 /**
  * Difficulty level of the game is medium.
@@ -197,7 +197,7 @@ city_builder.DIFFICULTY_LEVEL_EASY = 1;
  * @constant
  * @type {Number}
  */
-city_builder.DIFFICULTY_LEVEL_MEDIUM = 2;
+civitas.DIFFICULTY_LEVEL_MEDIUM = 2;
 
 /**
  * Difficulty level of the game is hard.
@@ -205,7 +205,7 @@ city_builder.DIFFICULTY_LEVEL_MEDIUM = 2;
  * @constant
  * @type {Number}
  */
-city_builder.DIFFICULTY_LEVEL_HARD = 3;
+civitas.DIFFICULTY_LEVEL_HARD = 3;
 
 /**
  * Difficulty level of the game is hardcore.
@@ -213,7 +213,7 @@ city_builder.DIFFICULTY_LEVEL_HARD = 3;
  * @constant
  * @type {Number}
  */
-city_builder.DIFFICULTY_LEVEL_HARDCORE = 4;
+civitas.DIFFICULTY_LEVEL_HARDCORE = 4;
 
 /**
  * When a building is notifying the player it's out of resources (the building, not the player).
@@ -221,7 +221,7 @@ city_builder.DIFFICULTY_LEVEL_HARDCORE = 4;
  * @constant
  * @type {Number}
  */
-city_builder.NOTIFICATION_MISSING_RESOURCES = 1;
+civitas.NOTIFICATION_MISSING_RESOURCES = 1;
 
 /**
  * When a building is notifying the player its production is paused manually by the player.
@@ -229,4 +229,4 @@ city_builder.NOTIFICATION_MISSING_RESOURCES = 1;
  * @constant
  * @type {Number}
  */
-city_builder.NOTIFICATION_PRODUCTION_PAUSED = 2;
+civitas.NOTIFICATION_PRODUCTION_PAUSED = 2;

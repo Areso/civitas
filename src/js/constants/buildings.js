@@ -4,7 +4,7 @@
  * @constant
  * @type {Array}
  */
-city_builder.CITY_BUILDINGS_TROPICAL = [
+civitas.CITY_BUILDINGS_TROPICAL = [
 
 	/* Municipal */
 	'marketplace', 'warehouse', 'tradingpost', 'church', 'monastery', 'camp', 'castle',
@@ -44,7 +44,7 @@ city_builder.CITY_BUILDINGS_TROPICAL = [
  * @constant
  * @type {Array}
  */
-city_builder.CITY_BUILDINGS_POLAR = [
+civitas.CITY_BUILDINGS_POLAR = [
 
 	/* Municipal */
 	'marketplace', 'warehouse', 'tradingpost', 'church', 'monastery', 'camp', 'castle',
@@ -77,7 +77,7 @@ city_builder.CITY_BUILDINGS_POLAR = [
  * @constant
  * @type {Array}
  */
-city_builder.CITY_BUILDINGS_ARID = [
+civitas.CITY_BUILDINGS_ARID = [
 
 	/* Municipal */
 	'marketplace', 'warehouse', 'tradingpost', 'church', 'monastery', 'camp', 'castle',
@@ -113,7 +113,7 @@ city_builder.CITY_BUILDINGS_ARID = [
  * @constant
  * @type {Array}
  */
-city_builder.CITY_BUILDINGS_CONTINENTAL = [
+civitas.CITY_BUILDINGS_CONTINENTAL = [
 
 	/* Municipal */
 	'marketplace', 'warehouse', 'tradingpost', 'church', 'monastery', 'camp', 'castle',
@@ -152,7 +152,7 @@ city_builder.CITY_BUILDINGS_CONTINENTAL = [
  * @constant
  * @type {Array}
  */
-city_builder.CITY_BUILDINGS_TEMPERATE = [
+civitas.CITY_BUILDINGS_TEMPERATE = [
 
 	/* Municipal */
 	'marketplace', 'warehouse', 'tradingpost', 'church', 'monastery', 'camp', 'castle',
@@ -191,7 +191,7 @@ city_builder.CITY_BUILDINGS_TEMPERATE = [
  * @constant
  * @type {Array}
  */
-city_builder.BUILDINGS_START = [
+civitas.BUILDINGS_START = [
 	{
 		handle: 'marketplace',
 		level: 1
@@ -216,7 +216,7 @@ city_builder.BUILDINGS_START = [
  * @constant
  * @type {Array}
  */
-city_builder.BUILDINGS_ALL = [
+civitas.BUILDINGS_ALL = [
 	'marketplace', 'lumberjack', 'camp', 'warehouse', 'mill', 'castle', 'stone',
 	'ironmine', 'trapper', 'almondsfarm', 'almondsfield',
 	'shipyard', 'pigfarm', 'cattlefarm', 'pigfield', 'cattlefield', 'house1', 'house2',
@@ -240,7 +240,7 @@ city_builder.BUILDINGS_ALL = [
  * @constant
  * @type {Object}
  */
-city_builder.BUILDINGS_CATEGORIES = {
+civitas.BUILDINGS_CATEGORIES = {
 	'Municipal': [
 		'church',
 		'embassy',
@@ -337,7 +337,7 @@ city_builder.BUILDINGS_CATEGORIES = {
  * @constant
  * @type {Array}
  */
-city_builder.BUILDINGS = [{
+civitas.BUILDINGS = [{
 		name: 'Marketplace',
 		handle: 'marketplace',
 		description: 'The marketplace is the main building of your city and provides a place ' +

@@ -2,15 +2,15 @@
  * Main Game history object.
  * 
  * @param {Object} params
- * @class {city_builder.modules.history}
- * @returns {city_builder.modules.history}
+ * @class {civitas.modules.history}
+ * @returns {civitas.modules.history}
  */
-city_builder.modules.history = function (params) {
+civitas.modules.history = function (params) {
 
 	/**
 	 * Reference to the core object.
 	 * 
-	 * @type {city_builder.game}
+	 * @type {civitas.game}
 	 */
 	this.core = null;
 
@@ -18,7 +18,7 @@ city_builder.modules.history = function (params) {
 	 * Object constructor.
 	 * 
 	 * @private
-	 * @returns {city_builder.modules.history}
+	 * @returns {civitas.modules.history}
 	 * @param {Object} params
 	 */
 	this.__constructor = function (params) {

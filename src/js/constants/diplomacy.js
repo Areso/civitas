@@ -4,7 +4,7 @@
  * @constant
  * @type {Number}
  */
-city_builder.DIPLOMACY_TRUCE = 1;
+civitas.DIPLOMACY_TRUCE = 1;
 
 /**
  * At war, no trades possible.
@@ -12,7 +12,7 @@ city_builder.DIPLOMACY_TRUCE = 1;
  * @constant
  * @type {Number}
  */
-city_builder.DIPLOMACY_WAR = 2;
+civitas.DIPLOMACY_WAR = 2;
 
 /**
  * In a pact, can declare war, can trade.
@@ -20,7 +20,7 @@ city_builder.DIPLOMACY_WAR = 2;
  * @constant
  * @type {Number}
  */
-city_builder.DIPLOMACY_PACT = 3;
+civitas.DIPLOMACY_PACT = 3;
 
 /**
  * In an alliance, cannot declare war, can trade with discounts, can share armies.
@@ -28,7 +28,7 @@ city_builder.DIPLOMACY_PACT = 3;
  * @constant
  * @type {Number}
  */
-city_builder.DIPLOMACY_ALLIANCE = 4;
+civitas.DIPLOMACY_ALLIANCE = 4;
 
 /**
  * A cease fire means a temporary peace.
@@ -36,4 +36,4 @@ city_builder.DIPLOMACY_ALLIANCE = 4;
  * @constant
  * @type {Number}
  */
-city_builder.DIPLOMACY_CEASE_FIRE = 5;
+civitas.DIPLOMACY_CEASE_FIRE = 5;

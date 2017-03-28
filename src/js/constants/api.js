@@ -4,7 +4,7 @@
  * @constant
  * @type {String}
  */
-city_builder.API_VERSION = '0.2.0';
+civitas.API_VERSION = '0.2.0';
 
 /**
  * URL of the main Game API entry point.
@@ -12,7 +12,7 @@ city_builder.API_VERSION = '0.2.0';
  * @constant
  * @type {String}
  */
-city_builder.API_ENTRY_POINT = 'http://city-builder.dev/api/';
+civitas.API_ENTRY_POINT = 'http://civitas.dev/api/';
 
 /**
  * Main Game API entry point + the API version
@@ -20,4 +20,4 @@ city_builder.API_ENTRY_POINT = 'http://city-builder.dev/api/';
  * @constant
  * @type {String}
  */
-city_builder.API_VERSION_URL = city_builder.API_ENTRY_POINT + city_builder.API_VERSION + '/';
+civitas.API_VERSION_URL = civitas.API_ENTRY_POINT + civitas.API_VERSION + '/';

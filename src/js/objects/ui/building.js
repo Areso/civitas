@@ -2,15 +2,15 @@
  * Main Game building panel object.
  * 
  * @param {Object} params
- * @class {city_builder.controls.panel_building}
- * @returns {city_builder.controls.panel_building}
+ * @class {civitas.controls.panel_building}
+ * @returns {civitas.controls.panel_building}
  */
-city_builder.controls.panel_building = function (params) {
+civitas.controls.panel_building = function (params) {
 
 	/**
 	 * Reference to the core object.
 	 * 
-	 * @type {city_builder.game}
+	 * @type {civitas.game}
 	 */
 	this.core = null;
 
@@ -58,7 +58,7 @@ city_builder.controls.panel_building = function (params) {
 	 * Object constructor.
 	 * 
 	 * @private
-	 * @returns {city_builder.controls.panel_building}
+	 * @returns {civitas.controls.panel_building}
 	 * @param {Object} params
 	 */
 	this.__constructor = function (params) {
@@ -66,13 +66,13 @@ city_builder.controls.panel_building = function (params) {
 		this.core = params.core;
 		this.params_data = params.data;
 		var el = '#panel-' + this.id;
-		if (city_builder.ui.panel_exists(el)) {
+		if (civitas.ui.panel_exists(el)) {
 			this.destroy();
 		}
 		this.core.console_log('creating panel with id `' + this.id + '`');
 		var _c = this.core.get_city().get_building_by_handle(params.data.handle);
 		var level = _c.get_level();
-		$('.ui').append(city_builder.ui.building_panel_template
+		$('.ui').append(civitas.ui.building_panel_template
 			.replace(/{id}/g, this.id)
 			.replace(/{building}/g, params.data.handle)
 			.replace(/{context}/g, 'building'));
@@ -147,19 +147,19 @@ city_builder.controls.panel_building = function (params) {
 	 * information on this panel.
 	 *
 	 * @public
-	 * @returns {city_builder.controls.panel_building}
+	 * @returns {civitas.controls.panel_building}
 	 */
 	this.refresh = function() {
 		var _c = this.core.get_city().get_building_by_handle(params.data.handle);
 		var level = _c.get_level();
 		var _t = '<p class="smalldesc">' + this.params_data.description + '</p>' +
 			'<dl>' +
-				city_builder.ui.cost_panel(this.params_data.cost) +
-				city_builder.ui.materials_panel(this.params_data.materials) +
-				city_builder.ui.production_panel(this.params_data.production, level) +
-				city_builder.ui.requires_panel(this.params_data.requires) +
-				city_builder.ui.tax_panel(this.params_data.tax, level) +
-				city_builder.ui.storage_panel(this.params_data.storage, level) +
+				civitas.ui.cost_panel(this.params_data.cost) +
+				civitas.ui.materials_panel(this.params_data.materials) +
+				civitas.ui.production_panel(this.params_data.production, level) +
+				civitas.ui.requires_panel(this.params_data.requires) +
+				civitas.ui.tax_panel(this.params_data.tax, level) +
+				civitas.ui.storage_panel(this.params_data.storage, level) +
 			'</dl>';
 		$('#panel-' + this.id + ' .contents').empty().append(_t);
 		return this;

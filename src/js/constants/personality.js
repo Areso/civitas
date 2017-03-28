@@ -4,7 +4,7 @@
  * @constant
  * @type {Array}
  */
-city_builder.PERSONALITY_TYPES = [
+civitas.PERSONALITY_TYPES = [
     'none',
     'balanced',
     'diplomat',
@@ -18,7 +18,7 @@ city_builder.PERSONALITY_TYPES = [
  * @constant
  * @type {Number}
  */
-city_builder.PERSONALITY_TYPE_BALANCED = 1;
+civitas.PERSONALITY_TYPE_BALANCED = 1;
 
 /**
  * The ruler will always consider diplomacy before going to war.
@@ -26,7 +26,7 @@ city_builder.PERSONALITY_TYPE_BALANCED = 1;
  * @constant
  * @type {Number}
  */
-city_builder.PERSONALITY_TYPE_DIPLOMAT = 2;
+civitas.PERSONALITY_TYPE_DIPLOMAT = 2;
 
 /**
  * If you upset this ruler, he will go to war with you.
@@ -34,4 +34,4 @@ city_builder.PERSONALITY_TYPE_DIPLOMAT = 2;
  * @constant
  * @type {Number}
  */
-city_builder.PERSONALITY_TYPE_WARLORD = 3;
+civitas.PERSONALITY_TYPE_WARLORD = 3;

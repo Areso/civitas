@@ -2,15 +2,15 @@
  * Main Game trades panel object.
  * 
  * @param {Object} params
- * @class {city_builder.controls.panel_trades}
- * @returns {city_builder.controls.panel_trades}
+ * @class {civitas.controls.panel_trades}
+ * @returns {civitas.controls.panel_trades}
  */
-city_builder.controls.panel_trades = function (params) {
+civitas.controls.panel_trades = function (params) {
 
 	/**
 	 * Reference to the core object.
 	 * 
-	 * @type {city_builder.game}
+	 * @type {civitas.game}
 	 */
 	this.core = null;
 
@@ -27,7 +27,7 @@ city_builder.controls.panel_trades = function (params) {
 	 * 
 	 * @type {String}
 	 */
-	this.title = city_builder.l('World Market Trades');
+	this.title = civitas.l('World Market Trades');
 
 	/**
 	 * Object destructor.
@@ -58,28 +58,28 @@ city_builder.controls.panel_trades = function (params) {
 	 * Object constructor.
 	 * 
 	 * @private
-	 * @returns {city_builder.controls.panel_trades}
+	 * @returns {civitas.controls.panel_trades}
 	 * @param {Object} params
 	 */
 	this.__constructor = function (params) {
 		this.core = params.core;
 		var el = '#panel-' + this.id;
 		var self = this;
-		if (city_builder.ui.panel_exists(el)) {
+		if (civitas.ui.panel_exists(el)) {
 			this.destroy();
 		}
 		this.core.console_log('creating panel with id `' + this.id + '`');
 		var city = this.core.get_city();
 		var _t = '';
-		$('.ui').append(city_builder.ui.generic_panel_template
+		$('.ui').append(civitas.ui.generic_panel_template
 			.replace(/{id}/g, this.id)
 			.replace(/{title}/g, this.title));
-		_t += city_builder.ui.tabs([city_builder.l('Imports'), city_builder.l('Exports'), city_builder.l('Mercenaries'), city_builder.l('BlackMarket')]);
+		_t += civitas.ui.tabs([civitas.l('Imports'), civitas.l('Exports'), civitas.l('Mercenaries'), civitas.l('BlackMarket')]);
 		$(el + ' .contents').append(_t);
-		$(el + ' #tab-imports').append('<p>' + city_builder.l('Below is a list of goods that the other cities in the world are looking to buy. The goods replenish yearly, so plan accordingly.') + '</p><div class="contents"></div>');
-		$(el + ' #tab-exports').append('<p>' + city_builder.l('Below is a list of goods that the other cities in the world are looking to sell. The goods replenish yearly, so plan accordingly.') + '</p><div class="contents"></div>');
-		$(el + ' #tab-mercenaries').append('<p>' + city_builder.l('Below is a list of mercenary armies that are looking for hire. Mercenaries are available only for raiding and conquest missions, they do not join your city so they will not participate in defense.') + '</p><div class="contents"></div>');
-		$(el + ' #tab-blackmarket').append('<p>' + city_builder.l('The Black Market is a way to dump your excess materials when you`re in need of emptying your warehouses, but expect a steep price drop (you get ') + (100 - city_builder.BLACK_MARKET_DISCOUNT) + city_builder.l('% of the actual price). The goods will be taken immediately from your warehouses but you will receive the coins next month. Also, you get no prestige from Black Market trades.') + '</p><div class="contents"></div>');
+		$(el + ' #tab-imports').append('<p>' + civitas.l('Below is a list of goods that the other cities in the world are looking to buy. The goods replenish yearly, so plan accordingly.') + '</p><div class="contents"></div>');
+		$(el + ' #tab-exports').append('<p>' + civitas.l('Below is a list of goods that the other cities in the world are looking to sell. The goods replenish yearly, so plan accordingly.') + '</p><div class="contents"></div>');
+		$(el + ' #tab-mercenaries').append('<p>' + civitas.l('Below is a list of mercenary armies that are looking for hire. Mercenaries are available only for raiding and conquest missions, they do not join your city so they will not participate in defense.') + '</p><div class="contents"></div>');
+		$(el + ' #tab-blackmarket').append('<p>' + civitas.l('The Black Market is a way to dump your excess materials when you`re in need of emptying your warehouses, but expect a steep price drop (you get ') + (100 - civitas.BLACK_MARKET_DISCOUNT) + civitas.l('% of the actual price). The goods will be taken immediately from your warehouses but you will receive the coins next month. Also, you get no prestige from Black Market trades.') + '</p><div class="contents"></div>');
 		this.refresh();
 		$(el).on('click', '.buy:not(.disabled)', function () {
 			var handle = $(this).data('city');
@@ -112,8 +112,8 @@ city_builder.controls.panel_trades = function (params) {
 			return false;
 		}).on('click', '.view-army:not(.disabled)', function () {
 			var army = $(this).data('id');
-			var army_data = city_builder.MERCENARIES[army];
-			self.core.open_panel(new city_builder.controls.panel_army({
+			var army_data = civitas.MERCENARIES[army];
+			self.core.open_panel(new civitas.controls.panel_army({
 				core: self.core,
 				data: army_data
 			}));
@@ -142,7 +142,7 @@ city_builder.controls.panel_trades = function (params) {
 	 * information on this panel.
 	 *
 	 * @public
-	 * @returns {city_builder.controls.panel_trades}
+	 * @returns {civitas.controls.panel_trades}
 	 */
 	this.refresh = function() {
 		this._refresh_imports();
@@ -155,7 +155,7 @@ city_builder.controls.panel_trades = function (params) {
 	/**
 	 * Internal function for building the Black Market panel.
 	 * 
-	 * @returns {city_builder.controls.panel_trades}
+	 * @returns {civitas.controls.panel_trades}
 	 * @private
 	 */
 	this._build_black_market = function () {
@@ -164,8 +164,8 @@ city_builder.controls.panel_trades = function (params) {
 		out += '<thead>' +
 				'<tr>' +
 				'<td><select class="bm-materials"></select></td>' +
-				'<td><input type="text" placeholder="' + city_builder.l('amount') + '" class="bm-quantity" /></td>' +
-				'<td><a title="' + city_builder.l('List goods on Black Market') + '" class="tips bmarket" href="#">' + city_builder.l('list') + '</a></td>' +
+				'<td><input type="text" placeholder="' + civitas.l('amount') + '" class="bm-quantity" /></td>' +
+				'<td><a title="' + civitas.l('List goods on Black Market') + '" class="tips bmarket" href="#">' + civitas.l('list') + '</a></td>' +
 				'</tr>' +
 				'</thead>';
 		out += '<tbody>' +
@@ -180,7 +180,7 @@ city_builder.controls.panel_trades = function (params) {
 	/**
 	 * Internal function for refreshing the Black Market panel.
 	 * 
-	 * @returns {city_builder.controls.panel_trades}
+	 * @returns {civitas.controls.panel_trades}
 	 * @private
 	 */
 	this._refresh_black_market = function () {
@@ -188,8 +188,8 @@ city_builder.controls.panel_trades = function (params) {
 		var bm = this.core.get_black_market();
 		for (var item in bm) {
 			out += '<tr>' +
-					'<td>' + city_builder.l('Amount') + ': ' + bm[item].amount + city_builder.ui.resource_small_img(item) + '</td>' +
-					'<td>' + city_builder.l('Total price') + ': ' + bm[item].price + city_builder.ui.resource_small_img('coins') + '</td>' +
+					'<td>' + civitas.l('Amount') + ': ' + bm[item].amount + civitas.ui.resource_small_img(item) + '</td>' +
+					'<td>' + civitas.l('Total price') + ': ' + bm[item].price + civitas.ui.resource_small_img('coins') + '</td>' +
 					'<td>&nbsp;</td>' +
 					'</tr>';
 		}
@@ -200,16 +200,16 @@ city_builder.controls.panel_trades = function (params) {
 	/**
 	 * Internal function for refreshing the Black Market resources dropbox.
 	 * 
-	 * @returns {city_builder.controls.panel_trades}
+	 * @returns {civitas.controls.panel_trades}
 	 * @private
 	 */
 	this._refresh_black_market_materials = function () {
-		var out = '<option value="0">-- ' + city_builder.l('select') + ' --</option>';
+		var out = '<option value="0">-- ' + civitas.l('select') + ' --</option>';
 		var city = this.core.get_city();
 		var resources = city.get_resources();
 		for (var item in resources) {
 			if (item !== 'fame' && item !== 'coins' && item !== 'prestige' && item !== 'espionage') {
-				out += '<option value="' + item + '"> ' + city_builder.utils.get_resource_name(item) + '</option>';
+				out += '<option value="' + item + '"> ' + civitas.utils.get_resource_name(item) + '</option>';
 			}
 		}
 		$('.bm-materials').empty().append(out);
@@ -219,7 +219,7 @@ city_builder.controls.panel_trades = function (params) {
 	/**
 	 * Internal function for refreshing the Imports panel.
 	 * 
-	 * @returns {city_builder.controls.panel_trades}
+	 * @returns {civitas.controls.panel_trades}
 	 * @private
 	 */
 	this._refresh_imports = function () {
@@ -228,12 +228,12 @@ city_builder.controls.panel_trades = function (params) {
 					'<thead>' +
 					'<tr>' +
 						'<td>City</td>' +
-						'<td class="center">' + city_builder.l('Goods') + '</td>' +
-						'<td class="center">' + city_builder.l('Amount') + '</td>' +
-						'<td class="center">' + city_builder.l('Price') + '</td>' +
-						'<td class="center">' + city_builder.l('Discount') + '</td>' +
-						'<td class="center">' + city_builder.l('City Price') + '</td>' +
-						'<td class="center">' + city_builder.l('Total price') + '</td>' +
+						'<td class="center">' + civitas.l('Goods') + '</td>' +
+						'<td class="center">' + civitas.l('Amount') + '</td>' +
+						'<td class="center">' + civitas.l('Price') + '</td>' +
+						'<td class="center">' + civitas.l('Discount') + '</td>' +
+						'<td class="center">' + civitas.l('City Price') + '</td>' +
+						'<td class="center">' + civitas.l('Total price') + '</td>' +
 						'<td></td>' +
 					'</tr>' +
 					'</thead>';
@@ -244,17 +244,17 @@ city_builder.controls.panel_trades = function (params) {
 			if (trades !== null) {
 				var imports = trades.imports;
 				for (var item in imports) {
-					var discount = Math.ceil((city_builder.RESOURCES[item].price * city_builder.TRADES_DISCOUNT) / 100);
-					var discount_price = Math.ceil(city_builder.RESOURCES[item].price - discount);
+					var discount = Math.ceil((civitas.RESOURCES[item].price * civitas.TRADES_DISCOUNT) / 100);
+					var discount_price = Math.ceil(civitas.RESOURCES[item].price - discount);
 					out += '<tr>' +
 							'<td>' + cities[z].get_name() + '</td>' +
-							'<td class="center">' + city_builder.ui.resource_small_img(item) + '</td>' +
+							'<td class="center">' + civitas.ui.resource_small_img(item) + '</td>' +
 							'<td class="center">' + imports[item] + '</td>' +
-							'<td class="center">' + city_builder.RESOURCES[item].price + city_builder.ui.resource_small_img('coins') + '</td>' +
-							'<td class="center">' + discount + city_builder.ui.resource_small_img('coins') + '</td>' +
-							'<td class="center">' + discount_price + city_builder.ui.resource_small_img('coins') + '</td>' +
-							'<td class="center">' + Math.ceil(discount_price * imports[item]) + city_builder.ui.resource_small_img('coins') + '</td>' +
-							'<td class="center"><a title="' + city_builder.l('Sell those goods') + '" data-resource="' + item + '" data-city="' + cities[z].get_name() + '" class="tips sell' + (imports[item] === 0 ? ' disabled' : '') + '" href="#">' + city_builder.l('sell') + '</a></td>' +
+							'<td class="center">' + civitas.RESOURCES[item].price + civitas.ui.resource_small_img('coins') + '</td>' +
+							'<td class="center">' + discount + civitas.ui.resource_small_img('coins') + '</td>' +
+							'<td class="center">' + discount_price + civitas.ui.resource_small_img('coins') + '</td>' +
+							'<td class="center">' + Math.ceil(discount_price * imports[item]) + civitas.ui.resource_small_img('coins') + '</td>' +
+							'<td class="center"><a title="' + civitas.l('Sell those goods') + '" data-resource="' + item + '" data-city="' + cities[z].get_name() + '" class="tips sell' + (imports[item] === 0 ? ' disabled' : '') + '" href="#">' + civitas.l('sell') + '</a></td>' +
 							'</tr>';
 				}
 			}
@@ -262,12 +262,12 @@ city_builder.controls.panel_trades = function (params) {
 		out += '<tfoot>' +
 					'<tr>' +
 						'<td>City</td>' +
-						'<td class="center">' + city_builder.l('Goods') + '</td>' +
-						'<td class="center">' + city_builder.l('Amount') + '</td>' +
-						'<td class="center">' + city_builder.l('Price') + '</td>' +
-						'<td class="center">' + city_builder.l('Discount') + '</td>' +
-						'<td class="center">' + city_builder.l('City Price') + '</td>' +
-						'<td class="center">' + city_builder.l('Total price') + '</td>' +
+						'<td class="center">' + civitas.l('Goods') + '</td>' +
+						'<td class="center">' + civitas.l('Amount') + '</td>' +
+						'<td class="center">' + civitas.l('Price') + '</td>' +
+						'<td class="center">' + civitas.l('Discount') + '</td>' +
+						'<td class="center">' + civitas.l('City Price') + '</td>' +
+						'<td class="center">' + civitas.l('Total price') + '</td>' +
 						'<td></td>' +
 					'</tr>' +
 				'</tfoot>' +
@@ -279,26 +279,26 @@ city_builder.controls.panel_trades = function (params) {
 	/**
 	 * Internal function for refreshing the Mercenaries panel.
 	 * 
-	 * @returns {city_builder.controls.panel_trades}
+	 * @returns {civitas.controls.panel_trades}
 	 * @private
 	 */
 	this._refresh_mercenaries = function () {
 		var out = '<table class="mercenaries">';
-		for (var i = 0; i < city_builder.MERCENARIES.length; i++) {
+		for (var i = 0; i < civitas.MERCENARIES.length; i++) {
 			out += '<tr>' +
 					'<td class="icon">' +
-						'<img src="' + city_builder.ASSETS_URL + 'images/armies/' + city_builder.MERCENARIES[i].icon + '.png" />' +
+						'<img src="' + civitas.ASSETS_URL + 'images/armies/' + civitas.MERCENARIES[i].icon + '.png" />' +
 					'</td>' +
 					'<td>' +
-						'<p class="title">' + city_builder.MERCENARIES[i].name + '</p>' +
-						'<p class="description">' + city_builder.MERCENARIES[i].description + '</p>' +
+						'<p class="title">' + civitas.MERCENARIES[i].name + '</p>' +
+						'<p class="description">' + civitas.MERCENARIES[i].description + '</p>' +
 					'</td>' +
 					'<td>' + 
-						city_builder.utils.nice_numbers(city_builder.MERCENARIES[i].cost) + city_builder.ui.resource_small_img('coins') + 
+						civitas.utils.nice_numbers(civitas.MERCENARIES[i].cost) + civitas.ui.resource_small_img('coins') + 
 					'</td>' +
 					'<td class="medium">' +
-						'<a title="' + city_builder.l('View info on this mercenary army') + '" data-id="' + i + '" class="tips view-army" href="#">view</a> ' +
-						city_builder.ui.panel_btn('recruit', city_builder.l('Recruit this mercenary army'), city_builder.MERCENARIES[i].handle, 'recruit', this.core.get_city().is_mercenary_recruited(city_builder.MERCENARIES[i].handle)) +
+						'<a title="' + civitas.l('View info on this mercenary army') + '" data-id="' + i + '" class="tips view-army" href="#">view</a> ' +
+						civitas.ui.panel_btn('recruit', civitas.l('Recruit this mercenary army'), civitas.MERCENARIES[i].handle, 'recruit', this.core.get_city().is_mercenary_recruited(civitas.MERCENARIES[i].handle)) +
 					'</td>' +
 				'</tr>';
 		}
@@ -310,7 +310,7 @@ city_builder.controls.panel_trades = function (params) {
 	/**
 	 * Internal function for refreshing the Exports panel.
 	 * 
-	 * @returns {city_builder.controls.panel_trades}
+	 * @returns {civitas.controls.panel_trades}
 	 * @private
 	 */
 	this._refresh_exports = function () {
@@ -319,12 +319,12 @@ city_builder.controls.panel_trades = function (params) {
 					'<thead>' +
 					'<tr>' +
 						'<td>City</td>' +
-						'<td class="center">' + city_builder.l('Goods') + '</td>' +
-						'<td class="center">' + city_builder.l('Amount') + '</td>' +
-						'<td class="center">' + city_builder.l('Price') + '</td>' +
-						'<td class="center">' + city_builder.l('Tax') + '</td>' +
-						'<td class="center">' + city_builder.l('City Price') + '</td>' +
-						'<td class="center">' + city_builder.l('Total price') + '</td>' +
+						'<td class="center">' + civitas.l('Goods') + '</td>' +
+						'<td class="center">' + civitas.l('Amount') + '</td>' +
+						'<td class="center">' + civitas.l('Price') + '</td>' +
+						'<td class="center">' + civitas.l('Tax') + '</td>' +
+						'<td class="center">' + civitas.l('City Price') + '</td>' +
+						'<td class="center">' + civitas.l('Total price') + '</td>' +
 						'<td></td>' +
 					'</tr>' +
 					'</thead>';
@@ -335,17 +335,17 @@ city_builder.controls.panel_trades = function (params) {
 			if (trades !== null) {
 				var exports = trades.exports;
 				for (var item in exports) {
-					var discount = Math.ceil((city_builder.RESOURCES[item].price * city_builder.TRADES_ADDITION) / 100);
-					var discount_price = Math.ceil(city_builder.RESOURCES[item].price + discount);
+					var discount = Math.ceil((civitas.RESOURCES[item].price * civitas.TRADES_ADDITION) / 100);
+					var discount_price = Math.ceil(civitas.RESOURCES[item].price + discount);
 					out += '<tr>' +
 							'<td>' + cities[z].get_name() + '</td>' +
-							'<td class="center">' + city_builder.ui.resource_small_img(item) + '</td>' +
+							'<td class="center">' + civitas.ui.resource_small_img(item) + '</td>' +
 							'<td class="center">' + exports[item] + '</td>' +
-							'<td class="center">' + city_builder.RESOURCES[item].price + city_builder.ui.resource_small_img('coins') + '</td>' +
-							'<td class="center">' + discount + city_builder.ui.resource_small_img('coins') + '</td>' +
-							'<td class="center">' + discount_price + city_builder.ui.resource_small_img('coins') + '</td>' +
-							'<td class="center">' + Math.ceil(discount_price * exports[item]) + city_builder.ui.resource_small_img('coins') + '</td>' +
-							'<td class="center"><a title="' + city_builder.l('Buy those goods') + '" data-resource="' + item + '" data-city="' + cities[z].get_name() + '" class="tips buy' + (exports[item] === 0 ? ' disabled' : '') + '" href="#">' + city_builder.l('buy') + '</a></td>' +
+							'<td class="center">' + civitas.RESOURCES[item].price + civitas.ui.resource_small_img('coins') + '</td>' +
+							'<td class="center">' + discount + civitas.ui.resource_small_img('coins') + '</td>' +
+							'<td class="center">' + discount_price + civitas.ui.resource_small_img('coins') + '</td>' +
+							'<td class="center">' + Math.ceil(discount_price * exports[item]) + civitas.ui.resource_small_img('coins') + '</td>' +
+							'<td class="center"><a title="' + civitas.l('Buy those goods') + '" data-resource="' + item + '" data-city="' + cities[z].get_name() + '" class="tips buy' + (exports[item] === 0 ? ' disabled' : '') + '" href="#">' + civitas.l('buy') + '</a></td>' +
 							'</tr>';
 				}
 			}
@@ -353,12 +353,12 @@ city_builder.controls.panel_trades = function (params) {
 		out += '<tfoot>' +
 					'<tr>' +
 						'<td>City</td>' +
-						'<td class="center">' + city_builder.l('Goods') + '</td>' +
-						'<td class="center">' + city_builder.l('Amount') + '</td>' +
-						'<td class="center">' + city_builder.l('Price') + '</td>' +
-						'<td class="center">' + city_builder.l('Tax') + '</td>' +
-						'<td class="center">' + city_builder.l('City Price') + '</td>' +
-						'<td class="center">' + city_builder.l('Total price') + '</td>' +
+						'<td class="center">' + civitas.l('Goods') + '</td>' +
+						'<td class="center">' + civitas.l('Amount') + '</td>' +
+						'<td class="center">' + civitas.l('Price') + '</td>' +
+						'<td class="center">' + civitas.l('Tax') + '</td>' +
+						'<td class="center">' + civitas.l('City Price') + '</td>' +
+						'<td class="center">' + civitas.l('Total price') + '</td>' +
 						'<td></td>' +
 					'</tr>' +
 				'</tfoot>' +

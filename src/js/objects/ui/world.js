@@ -2,15 +2,15 @@
  * Main Game world panel object.
  * 
  * @param {Object} params
- * @class {city_builder.controls.panel_world}
- * @returns {city_builder.controls.panel_world}
+ * @class {civitas.controls.panel_world}
+ * @returns {civitas.controls.panel_world}
  */
-city_builder.controls.panel_world = function (params) {
+civitas.controls.panel_world = function (params) {
 
 	/**
 	 * Reference to the core object.
 	 * 
-	 * @type {city_builder.game}
+	 * @type {civitas.game}
 	 */
 	this.core = null;
 
@@ -51,24 +51,24 @@ city_builder.controls.panel_world = function (params) {
 	 * Object constructor.
 	 * 
 	 * @private
-	 * @returns {city_builder.controls.panel_world}
+	 * @returns {civitas.controls.panel_world}
 	 * @param {Object} params
 	 */
 	this.__constructor = function (params) {
 		var self = this;
 		this.core = params.core;
 		var el = '#panel-' + this.id;
-		if (city_builder.ui.panel_exists(el)) {
+		if (civitas.ui.panel_exists(el)) {
 			this.destroy();
 		}
 		this.core.console_log('creating panel with id `' + this.id + '`');
 		var city = this.core.get_city();
-		$('.ui').append(city_builder.ui.worldmap_panel_template
+		$('.ui').append(civitas.ui.worldmap_panel_template
 			.replace(/{id}/g, this.id));
-		var loc = city_builder['CITY_LOCATION_' + city.get_climate().name.toUpperCase()];
-		var out = '<div data-name="yourcity" class="tips city c1" title="' + city_builder.l('City of') + ' ' + city.get_name() + '" style="left:' + loc.x + 'px;top:' + loc.y + 'px"></div>';
-		for (var item in city_builder.CITIES) {
-			out += city_builder.ui.city_worldmap_element(item);
+		var loc = civitas['CITY_LOCATION_' + city.get_climate().name.toUpperCase()];
+		var out = '<div data-name="yourcity" class="tips city c1" title="' + civitas.l('City of') + ' ' + city.get_name() + '" style="left:' + loc.x + 'px;top:' + loc.y + 'px"></div>';
+		for (var item in civitas.CITIES) {
+			out += civitas.ui.city_worldmap_element(item);
 		}
 		$(el + ' .contents .worldmap').empty().append(out);
 		$(el).on('click', '.close', function () {
@@ -81,12 +81,12 @@ city_builder.controls.panel_world = function (params) {
 		}).on('click', '.city', function () {
 			var city_name = $(this).data('name');
 			if (city_name === 'yourcity') {
-				self.core.open_panel(new city_builder.controls.panel_advisor({
+				self.core.open_panel(new civitas.controls.panel_advisor({
 					core: self.core
 				}));
 			} else {
 				var _city = self.core.get_city(city_name);
-				self.core.open_panel(new city_builder.controls.panel_city({
+				self.core.open_panel(new civitas.controls.panel_city({
 					core: self.core,
 					data: _city
 				}));
@@ -109,7 +109,7 @@ city_builder.controls.panel_world = function (params) {
 	 * information on this panel.
 	 *
 	 * @public
-	 * @returns {city_builder.controls.panel_world}
+	 * @returns {civitas.controls.panel_world}
 	 */
 	this.refresh = function() {
 		return this;

@@ -2,15 +2,15 @@
  * Declare war to another city panel object.
  * 
  * @param {Object} params
- * @class {city_builder.controls.panel_declare_war}
- * @returns {city_builder.controls.panel_declare_war}
+ * @class {civitas.controls.panel_declare_war}
+ * @returns {civitas.controls.panel_declare_war}
  */
-city_builder.controls.panel_declare_war = function (params) {
+civitas.controls.panel_declare_war = function (params) {
 	
 	/**
 	 * Reference to the core object.
 	 * 
-	 * @type {city_builder.game}
+	 * @type {civitas.game}
 	 */
 	this.core = null;
 
@@ -27,7 +27,7 @@ city_builder.controls.panel_declare_war = function (params) {
 	 * 
 	 * @type {String}
 	 */
-	this.title = city_builder.l('Declare War');
+	this.title = civitas.l('Declare War');
 
 	/**
 	 * Object destructor.
@@ -58,20 +58,20 @@ city_builder.controls.panel_declare_war = function (params) {
 	 * Object constructor.
 	 * 
 	 * @private
-	 * @returns {city_builder.controls.panel_declare_war}
+	 * @returns {civitas.controls.panel_declare_war}
 	 * @param {Object} params
 	 */
 	this.__constructor = function (params) {
 		this.core = params.core;
 		var self = this;
 		var el = '#panel-' + this.id;
-		if (city_builder.ui.panel_exists(el)) {
+		if (civitas.ui.panel_exists(el)) {
 			this.destroy();
 		}
 		this.core.console_log('creating panel with id `' + this.id + '`');
 		var city = this.core.get_city();
 		var otherCity = params.data;
-		$('.ui').append(city_builder.ui.generic_panel_template
+		$('.ui').append(civitas.ui.generic_panel_template
 			.replace(/{id}/g, this.id)
 			.replace(/{title}/g, this.title));
 		var out = '';
@@ -101,7 +101,7 @@ city_builder.controls.panel_declare_war = function (params) {
 	 * information on this panel.
 	 *
 	 * @public
-	 * @returns {city_builder.controls.panel_declare_war}
+	 * @returns {civitas.controls.panel_declare_war}
 	 */
 	this.refresh = function() {
 		return this;

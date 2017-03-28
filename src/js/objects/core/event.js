@@ -2,15 +2,15 @@
  * Main Game event object.
  * 
  * @param {Object} params
- * @class {city_builder.objects.event}
- * @returns {city_builder.objects.event}
+ * @class {civitas.objects.event}
+ * @returns {civitas.objects.event}
  */
-city_builder.objects.event = function (params) {
+civitas.objects.event = function (params) {
 
 	/**
 	 * Reference to the core object.
 	 * 
-	 * @type {city_builder.game}
+	 * @type {civitas.game}
 	 */
 	this.core = null;
 
@@ -66,7 +66,7 @@ city_builder.objects.event = function (params) {
 	 * Object constructor.
 	 * 
 	 * @private
-	 * @returns {city_builder.objects.event}
+	 * @returns {civitas.objects.event}
 	 * @param {Object} params
 	 */
 	this.__constructor = function (params) {
@@ -100,7 +100,7 @@ city_builder.objects.event = function (params) {
 	 * Notify the player that this event occured.
 	 *
 	 * @public
-	 * @returns {city_builder.objects.event}
+	 * @returns {civitas.objects.event}
 	 */
 	this.notify = function() {
 		this.core._notify({
@@ -118,36 +118,36 @@ city_builder.objects.event = function (params) {
 	 * Internal function for processing the event data.
 	 * 
 	 * @private
-	 * @returns {city_builder.objects.event}
+	 * @returns {civitas.objects.event}
 	 */
 	this._process = function () {
 		this.notify();
 		switch (this.effect) {
-			case city_builder.EVENT_EFFECT_LOSE_COINS:
+			case civitas.EVENT_EFFECT_LOSE_COINS:
 				this.core.get_city().dec_coins(this.data.amount);
 				break;
-			case city_builder.EVENT_EFFECT_GAIN_COINS:
+			case civitas.EVENT_EFFECT_GAIN_COINS:
 				this.core.get_city().inc_coins(this.data.amount);
 				break;
-			case city_builder.EVENT_EFFECT_RAISE_INFLUENCE:
+			case civitas.EVENT_EFFECT_RAISE_INFLUENCE:
 				this.core.get_city().raise_influence(this.core.get_city(this.data.city), this.data.amount);
 				break;
-			case city_builder.EVENT_EFFECT_LOWER_INFLUENCE:
+			case civitas.EVENT_EFFECT_LOWER_INFLUENCE:
 				this.core.get_city().lower_influence(this.core.get_city(this.data.city), this.data.amount);
 				break;
-			case city_builder.EVENT_EFFECT_GAIN_FAME:
+			case civitas.EVENT_EFFECT_GAIN_FAME:
 				this.core.get_city().inc_fame(this.data.amount);
 				break;
-			case city_builder.EVENT_EFFECT_LOSE_FAME:
+			case civitas.EVENT_EFFECT_LOSE_FAME:
 				this.core.get_city().dec_fame(this.data.amount);
 				break;
-			case city_builder.EVENT_EFFECT_GAIN_ESPIONAGE:
+			case civitas.EVENT_EFFECT_GAIN_ESPIONAGE:
 				this.core.get_city().inc_espionage(this.data.amount);
 				break;
-			case city_builder.EVENT_EFFECT_LOSE_ESPIONAGE:
+			case civitas.EVENT_EFFECT_LOSE_ESPIONAGE:
 				this.core.get_city().dec_espionage(this.data.amount);
 				break;
-			case city_builder.EVENT_EFFECT_DESTROY_BUILDING:
+			case civitas.EVENT_EFFECT_DESTROY_BUILDING:
 				break;
 		}
 		return this;

@@ -2,15 +2,15 @@
  * Main Game settings panel object.
  * 
  * @param {Object} params
- * @class {city_builder.controls.panel_settings}
- * @returns {city_builder.controls.panel_settings}
+ * @class {civitas.controls.panel_settings}
+ * @returns {civitas.controls.panel_settings}
  */
-city_builder.controls.panel_settings = function (params) {
+civitas.controls.panel_settings = function (params) {
 
 	/**
 	 * Reference to the core object.
 	 * 
-	 * @type {city_builder.game}
+	 * @type {civitas.game}
 	 */
 	this.core = null;
 
@@ -51,7 +51,7 @@ city_builder.controls.panel_settings = function (params) {
 	 * Object constructor.
 	 * 
 	 * @private
-	 * @returns {city_builder.controls.panel_settings}
+	 * @returns {civitas.controls.panel_settings}
 	 * @param {Object} params
 	 */
 	this.__constructor = function (params) {
@@ -60,14 +60,14 @@ city_builder.controls.panel_settings = function (params) {
 		this.id = params.id;
 		var self = this;
 		var el = '#panel-' + this.id;
-		if (city_builder.ui.panel_exists(el)) {
+		if (civitas.ui.panel_exists(el)) {
 			this.destroy();
 		}
 		this.core.console_log('creating panel with id `' + this.id + '`');
-		$('.ui').append(city_builder.ui.generic_panel_template
+		$('.ui').append(civitas.ui.generic_panel_template
 			.replace(/{id}/g, this.id)
 			.replace(/{title}/g, params.header));
-		$(el + ' .contents').append(city_builder.ui.tabs([city_builder.l('Sounds'), city_builder.l('UI')]));
+		$(el + ' .contents').append(civitas.ui.tabs([civitas.l('Sounds'), civitas.l('UI')]));
 		$(el + ' #tab-sounds').append('<div>' +
 			'<a href="#" class="music-control ui-control ' + ((this.core.get_settings('music') === true) ? 'on' : 'off') + '">toggle music</a>' +
 			'<input class="music-volume" type="range" min="0" max="1" step="0.1" ' + ((this.core.get_settings('music') !== true) ? 'disabled' : '') + ' />' +
@@ -123,7 +123,7 @@ city_builder.controls.panel_settings = function (params) {
 	 * information on this panel.
 	 *
 	 * @public
-	 * @returns {city_builder.controls.panel_settings}
+	 * @returns {civitas.controls.panel_settings}
 	 */
 	this.refresh = function() {
 		return this;

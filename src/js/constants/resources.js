@@ -4,7 +4,7 @@
  * @constant
  * @type {Object}
  */
-city_builder.RESOURCES_START = [{
+civitas.RESOURCES_START = [{
 		'coins': 50000,
 		'fame': 10,
 		'prestige': 1,
@@ -54,7 +54,7 @@ city_builder.RESOURCES_START = [{
  * @constant
  * @type {Object}
  */
-city_builder.RESOURCES = {
+civitas.RESOURCES = {
 	'coins': {
 		name: 'Coins'
 	},
@@ -317,7 +317,7 @@ city_builder.RESOURCES = {
 	}
 };
 
-city_builder.MAIN_RESOURCES = [
+civitas.MAIN_RESOURCES = [
 	'coins', 'bread', 'brass', 'cannons', 'cattle', 'cider', 'clay', 'clothes', 'coal', 'copper',
 	'fish', 'flour', 'furs', 'herbs', 'hides', 'iron', 'ironores', 'meat', 'milk', 'salt',
 	'stones', 'weapons', 'wheat', 'wood'

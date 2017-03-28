@@ -1,7 +1,7 @@
 {
-  "name": "city-builder",
+  "name": "civitas",
   "version": "0.1",
-  "description": "City Builder is a city-building game written in Javascript with the help of the jQuery library.",
+  "description": "Civitas is an empire-building game written in Javascript with the help of the jQuery library.",
   "main": "index.html",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -9,6 +9,8 @@
   "keywords": [
     "game",
     "strategy",
+    "civitas",
+    "empire",
     "city-builder",
     "city-building",
     "simulator"
@@ -26,7 +28,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:sizeofcat/city-builder.git"
+    "url": "git@github.com:sizeofcat/civitas.git"
   },
   "dependencies": {
     "del": "^2.2.2",

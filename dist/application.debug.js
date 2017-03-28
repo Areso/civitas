@@ -1,5 +1,5 @@
 /*!
- * City-builder HTML5 engine/game
+ * Civitas empire-building game.
  *
  * @author sizeof(cat) <sizeofcat AT riseup.net>
  * @version 0.1.3292017
@@ -22,20 +22,20 @@ String.prototype.capitalize = function () {
 /*
  * Check for undefined stuff.
  */
-if (typeof city_builder === 'undefined') {
-	var city_builder = {};
+if (typeof civitas === 'undefined') {
+	var civitas = {};
 }
 
-if (typeof city_builder.objects === 'undefined') {
-	city_builder.objects = {};
+if (typeof civitas.objects === 'undefined') {
+	civitas.objects = {};
 }
 
-if (typeof city_builder.controls === 'undefined') {
-	city_builder.controls = {};
+if (typeof civitas.controls === 'undefined') {
+	civitas.controls = {};
 }
 
-if (typeof city_builder.modules === 'undefined') {
-	city_builder.modules = {};
+if (typeof civitas.modules === 'undefined') {
+	civitas.modules = {};
 }
 
 /**
@@ -44,9 +44,9 @@ if (typeof city_builder.modules === 'undefined') {
  * @param {String} value
  * @returns {String}
  */
-city_builder.l = function (value) {
-	if (typeof city_builder.lang[value] !== 'undefined' && city_builder.lang[value] !== '') {
-		return city_builder.lang[value];
+civitas.l = function (value) {
+	if (typeof civitas.lang[value] !== 'undefined' && civitas.lang[value] !== '') {
+		return civitas.lang[value];
 	} else {
 		return value;
 	}
@@ -58,7 +58,7 @@ city_builder.l = function (value) {
  * @constant
  * @type {Boolean}
  */
-city_builder.AUTOSTART_MUSIC = false;
+civitas.AUTOSTART_MUSIC = false;
 
 /**
  * Max level a city can have.
@@ -66,7 +66,7 @@ city_builder.AUTOSTART_MUSIC = false;
  * @constant
  * @type {Number}
  */
-city_builder.MAX_CITY_LEVEL = 55;
+civitas.MAX_CITY_LEVEL = 55;
 
 /**
  * URL to the game assets
@@ -74,7 +74,7 @@ city_builder.MAX_CITY_LEVEL = 55;
  * @constant
  * @type {String}
  */
-city_builder.ASSETS_URL = './';
+civitas.ASSETS_URL = './';
 
 /**
  * Amount of influence your city loses each year.
@@ -82,7 +82,7 @@ city_builder.ASSETS_URL = './';
  * @constant
  * @type {Number}
  */
-city_builder.YEARLY_INFLUENCE_LOSS = 10;
+civitas.YEARLY_INFLUENCE_LOSS = 10;
 
 /**
  * Number of city ruler avatars available to choose.
@@ -90,11 +90,11 @@ city_builder.YEARLY_INFLUENCE_LOSS = 10;
  * @constant
  * @type {Number}
  */
-city_builder.AVATARS = 45;
+civitas.AVATARS = 45;
 
-city_builder.TRADES_ADDITION = 10;
+civitas.TRADES_ADDITION = 10;
 
-city_builder.TRADES_DISCOUNT = 20;
+civitas.TRADES_DISCOUNT = 20;
 
 /**
  * The black market discount.
@@ -102,7 +102,7 @@ city_builder.TRADES_DISCOUNT = 20;
  * @constant
  * @type {Number}
  */
-city_builder.BLACK_MARKET_DISCOUNT = 80;
+civitas.BLACK_MARKET_DISCOUNT = 80;
 
 /**
  * The resources that will be shown on the toolbar.
@@ -110,7 +110,7 @@ city_builder.BLACK_MARKET_DISCOUNT = 80;
  * @constant
  * @type {Array}
  */
-city_builder.TOOLBAR_RESOURCES = [
+civitas.TOOLBAR_RESOURCES = [
 	'coins',
 	'wood',
 	'stones',
@@ -129,7 +129,7 @@ city_builder.TOOLBAR_RESOURCES = [
  * @constant
  * @type {Array}
  */
-city_builder.LEVELS = [
+civitas.LEVELS = [
 	0, 100, 500, 1000, 2000,
 	3500, 5000, 7000, 10000, 13000,
 	16000, 20000, 25000, 29000, 35000,
@@ -149,7 +149,7 @@ city_builder.LEVELS = [
  * @constant
  * @type {String}
  */
-city_builder.VERSION = '0.1.' + ((new Date()).getMonth() + 1) + '' + (new Date()).getDate() + '' + (new Date()).getFullYear();
+civitas.VERSION = '0.1.' + ((new Date()).getMonth() + 1) + '' + (new Date()).getDate() + '' + (new Date()).getFullYear();
 
 /**
  * Whether the application is in debug mode.
@@ -158,7 +158,7 @@ city_builder.VERSION = '0.1.' + ((new Date()).getMonth() + 1) + '' + (new Date()
  * @constant
  * @type {Boolean}
  */
-city_builder.DEBUG = true;
+civitas.DEBUG = true;
 
 /**
  * Browser localStorage key to store game data into.
@@ -166,7 +166,7 @@ city_builder.DEBUG = true;
  * @constant
  * @type {String}
  */
-city_builder.STORAGE_KEY = 'city_builder';
+civitas.STORAGE_KEY = 'civitas';
 
 /**
  * Goods importance, vital means at most 500 stacks of goods will be up for importing
@@ -175,7 +175,7 @@ city_builder.STORAGE_KEY = 'city_builder';
  * @constant
  * @type {Number}
  */
-city_builder.GOODS_IMPORTANCE_VITAL = 50;
+civitas.GOODS_IMPORTANCE_VITAL = 50;
 
 /**
  * Goods importance, high means at most 300 stacks of goods will be up for importing
@@ -184,7 +184,7 @@ city_builder.GOODS_IMPORTANCE_VITAL = 50;
  * @constant
  * @type {Number}
  */
-city_builder.GOODS_IMPORTANCE_HIGH = 30;
+civitas.GOODS_IMPORTANCE_HIGH = 30;
 
 /**
  * Goods importance, medium means at most 200 stacks of goods will be up for importing
@@ -193,7 +193,7 @@ city_builder.GOODS_IMPORTANCE_HIGH = 30;
  * @constant
  * @type {Number}
  */
-city_builder.GOODS_IMPORTANCE_MEDIUM = 20;
+civitas.GOODS_IMPORTANCE_MEDIUM = 20;
 
 /**
  * Goods importance, low means at most 100 stacks of goods will be up for importing
@@ -202,7 +202,7 @@ city_builder.GOODS_IMPORTANCE_MEDIUM = 20;
  * @constant
  * @type {Number}
  */
-city_builder.GOODS_IMPORTANCE_LOW = 10;
+civitas.GOODS_IMPORTANCE_LOW = 10;
 
 /**
  * Difficulty level of the game is easy.
@@ -210,7 +210,7 @@ city_builder.GOODS_IMPORTANCE_LOW = 10;
  * @constant
  * @type {Number}
  */
-city_builder.DIFFICULTY_LEVEL_EASY = 1;
+civitas.DIFFICULTY_LEVEL_EASY = 1;
 
 /**
  * Difficulty level of the game is medium.
@@ -218,7 +218,7 @@ city_builder.DIFFICULTY_LEVEL_EASY = 1;
  * @constant
  * @type {Number}
  */
-city_builder.DIFFICULTY_LEVEL_MEDIUM = 2;
+civitas.DIFFICULTY_LEVEL_MEDIUM = 2;
 
 /**
  * Difficulty level of the game is hard.
@@ -226,7 +226,7 @@ city_builder.DIFFICULTY_LEVEL_MEDIUM = 2;
  * @constant
  * @type {Number}
  */
-city_builder.DIFFICULTY_LEVEL_HARD = 3;
+civitas.DIFFICULTY_LEVEL_HARD = 3;
 
 /**
  * Difficulty level of the game is hardcore.
@@ -234,7 +234,7 @@ city_builder.DIFFICULTY_LEVEL_HARD = 3;
  * @constant
  * @type {Number}
  */
-city_builder.DIFFICULTY_LEVEL_HARDCORE = 4;
+civitas.DIFFICULTY_LEVEL_HARDCORE = 4;
 
 /**
  * When a building is notifying the player it's out of resources (the building, not the player).
@@ -242,7 +242,7 @@ city_builder.DIFFICULTY_LEVEL_HARDCORE = 4;
  * @constant
  * @type {Number}
  */
-city_builder.NOTIFICATION_MISSING_RESOURCES = 1;
+civitas.NOTIFICATION_MISSING_RESOURCES = 1;
 
 /**
  * When a building is notifying the player its production is paused manually by the player.
@@ -250,9 +250,9 @@ city_builder.NOTIFICATION_MISSING_RESOURCES = 1;
  * @constant
  * @type {Number}
  */
-city_builder.NOTIFICATION_PRODUCTION_PAUSED = 2;
+civitas.NOTIFICATION_PRODUCTION_PAUSED = 2;
 
-city_builder.lang = {};
+civitas.lang = {};
 
 /**
  * Game API version to connect to.
@@ -260,7 +260,7 @@ city_builder.lang = {};
  * @constant
  * @type {String}
  */
-city_builder.API_VERSION = '0.2.0';
+civitas.API_VERSION = '0.2.0';
 
 /**
  * URL of the main Game API entry point.
@@ -268,7 +268,7 @@ city_builder.API_VERSION = '0.2.0';
  * @constant
  * @type {String}
  */
-city_builder.API_ENTRY_POINT = 'http://city-builder.dev/api/';
+civitas.API_ENTRY_POINT = 'http://civitas.dev/api/';
 
 /**
  * Main Game API entry point + the API version
@@ -276,7 +276,7 @@ city_builder.API_ENTRY_POINT = 'http://city-builder.dev/api/';
  * @constant
  * @type {String}
  */
-city_builder.API_VERSION_URL = city_builder.API_ENTRY_POINT + city_builder.API_VERSION + '/';
+civitas.API_VERSION_URL = civitas.API_ENTRY_POINT + civitas.API_VERSION + '/';
 
 /**
  * Just met, temporary trucem can declare war, can trade.
@@ -284,7 +284,7 @@ city_builder.API_VERSION_URL = city_builder.API_ENTRY_POINT + city_builder.API_V
  * @constant
  * @type {Number}
  */
-city_builder.DIPLOMACY_TRUCE = 1;
+civitas.DIPLOMACY_TRUCE = 1;
 
 /**
  * At war, no trades possible.
@@ -292,7 +292,7 @@ city_builder.DIPLOMACY_TRUCE = 1;
  * @constant
  * @type {Number}
  */
-city_builder.DIPLOMACY_WAR = 2;
+civitas.DIPLOMACY_WAR = 2;
 
 /**
  * In a pact, can declare war, can trade.
@@ -300,7 +300,7 @@ city_builder.DIPLOMACY_WAR = 2;
  * @constant
  * @type {Number}
  */
-city_builder.DIPLOMACY_PACT = 3;
+civitas.DIPLOMACY_PACT = 3;
 
 /**
  * In an alliance, cannot declare war, can trade with discounts, can share armies.
@@ -308,7 +308,7 @@ city_builder.DIPLOMACY_PACT = 3;
  * @constant
  * @type {Number}
  */
-city_builder.DIPLOMACY_ALLIANCE = 4;
+civitas.DIPLOMACY_ALLIANCE = 4;
 
 /**
  * A cease fire means a temporary peace.
@@ -316,7 +316,7 @@ city_builder.DIPLOMACY_ALLIANCE = 4;
  * @constant
  * @type {Number}
  */
-city_builder.DIPLOMACY_CEASE_FIRE = 5;
+civitas.DIPLOMACY_CEASE_FIRE = 5;
 
 /**
  * List of the possible nation types.
@@ -324,7 +324,7 @@ city_builder.DIPLOMACY_CEASE_FIRE = 5;
  * @constant
  * @type {Array}
  */
-city_builder.NATION_TYPES = [
+civitas.NATION_TYPES = [
 	'none',
 	'phoenician',
 	'carthaginian',
@@ -351,7 +351,7 @@ city_builder.NATION_TYPES = [
  * @constant
  * @type {Number}
  */
-city_builder.NATION_TYPE_PHOENICIAN = 1;
+civitas.NATION_TYPE_PHOENICIAN = 1;
 
 /**
  * Carthaginans
@@ -359,7 +359,7 @@ city_builder.NATION_TYPE_PHOENICIAN = 1;
  * @constant
  * @type {Number}
  */
-city_builder.NATION_TYPE_CARTHAGINIAN = 2;
+civitas.NATION_TYPE_CARTHAGINIAN = 2;
 
 /**
  * Greeks
@@ -367,7 +367,7 @@ city_builder.NATION_TYPE_CARTHAGINIAN = 2;
  * @constant
  * @type {Number}
  */
-city_builder.NATION_TYPE_GREEK = 3;
+civitas.NATION_TYPE_GREEK = 3;
 
 /**
  * Egyptians
@@ -375,7 +375,7 @@ city_builder.NATION_TYPE_GREEK = 3;
  * @constant
  * @type {Number}
  */
-city_builder.NATION_TYPE_EGYPTIAN = 4;
+civitas.NATION_TYPE_EGYPTIAN = 4;
 
 /**
  * Assyrians
@@ -383,7 +383,7 @@ city_builder.NATION_TYPE_EGYPTIAN = 4;
  * @constant
  * @type {Number}
  */
-city_builder.NATION_TYPE_ASSYRIAN = 5;
+civitas.NATION_TYPE_ASSYRIAN = 5;
 
 /**
  * Romans
@@ -391,7 +391,7 @@ city_builder.NATION_TYPE_ASSYRIAN = 5;
  * @constant
  * @type {Number}
  */
-city_builder.NATION_TYPE_ROMAN = 6;
+civitas.NATION_TYPE_ROMAN = 6;
 
 /**
  * Thracians
@@ -399,7 +399,7 @@ city_builder.NATION_TYPE_ROMAN = 6;
  * @constant
  * @type {Number}
  */
-city_builder.NATION_TYPE_THRACIAN = 7;
+civitas.NATION_TYPE_THRACIAN = 7;
 
 /**
  * Sudanese
@@ -407,7 +407,7 @@ city_builder.NATION_TYPE_THRACIAN = 7;
  * @constant
  * @type {Number}
  */
-city_builder.NATION_TYPE_SUDANESE = 8;
+civitas.NATION_TYPE_SUDANESE = 8;
 
 /**
  * Spanish
@@ -415,7 +415,7 @@ city_builder.NATION_TYPE_SUDANESE = 8;
  * @constant
  * @type {Number}
  */
-city_builder.NATION_TYPE_SPANISH = 9;
+civitas.NATION_TYPE_SPANISH = 9;
 
 /**
  * Sumerians
@@ -423,7 +423,7 @@ city_builder.NATION_TYPE_SPANISH = 9;
  * @constant
  * @type {Number}
  */
-city_builder.NATION_TYPE_SUMERIAN = 10;
+civitas.NATION_TYPE_SUMERIAN = 10;
 
 /**
  * Chinese
@@ -431,7 +431,7 @@ city_builder.NATION_TYPE_SUMERIAN = 10;
  * @constant
  * @type {Number}
  */
-city_builder.NATION_TYPE_CHINESE = 11;
+civitas.NATION_TYPE_CHINESE = 11;
 
 /**
  * Indian
@@ -439,7 +439,7 @@ city_builder.NATION_TYPE_CHINESE = 11;
  * @constant
  * @type {Number}
  */
-city_builder.NATION_TYPE_INDIAN = 12;
+civitas.NATION_TYPE_INDIAN = 12;
 
 /**
  * Franks
@@ -447,7 +447,7 @@ city_builder.NATION_TYPE_INDIAN = 12;
  * @constant
  * @type {Number}
  */
-city_builder.NATION_TYPE_FRANKS = 13;
+civitas.NATION_TYPE_FRANKS = 13;
 
 /**
  * Russians
@@ -455,7 +455,7 @@ city_builder.NATION_TYPE_FRANKS = 13;
  * @constant
  * @type {Number}
  */
-city_builder.NATION_TYPE_RUSSIAN = 14;
+civitas.NATION_TYPE_RUSSIAN = 14;
 
 /**
  * Nigerians
@@ -463,7 +463,7 @@ city_builder.NATION_TYPE_RUSSIAN = 14;
  * @constant
  * @type {Number}
  */
-city_builder.NATION_TYPE_NIGERIAN = 15;
+civitas.NATION_TYPE_NIGERIAN = 15;
 
 /**
  * Malinese
@@ -471,7 +471,7 @@ city_builder.NATION_TYPE_NIGERIAN = 15;
  * @constant
  * @type {Number}
  */
-city_builder.NATION_TYPE_MALINESE = 16;
+civitas.NATION_TYPE_MALINESE = 16;
 
 /**
  * Mongolian
@@ -479,7 +479,7 @@ city_builder.NATION_TYPE_MALINESE = 16;
  * @constant
  * @type {Number}
  */
-city_builder.NATION_TYPE_MONGOLIAN = 17;
+civitas.NATION_TYPE_MONGOLIAN = 17;
 
 /**
  * List of the possible climate types.
@@ -487,7 +487,7 @@ city_builder.NATION_TYPE_MONGOLIAN = 17;
  * @constant
  * @type {Array}
  */
-city_builder.CLIMATE_TYPES = [
+civitas.CLIMATE_TYPES = [
 	'none',
 	'temperate',
 	'tropical',
@@ -502,7 +502,7 @@ city_builder.CLIMATE_TYPES = [
  * @constant
  * @type {Number}
  */
-city_builder.CLIMATE_TYPE_TEMPERATE = 1;
+civitas.CLIMATE_TYPE_TEMPERATE = 1;
 
 /**
  * Tropical climate, favoring farms and exotic goods.
@@ -510,7 +510,7 @@ city_builder.CLIMATE_TYPE_TEMPERATE = 1;
  * @constant
  * @type {Number}
  */
-city_builder.CLIMATE_TYPE_TROPICAL = 2;
+civitas.CLIMATE_TYPE_TROPICAL = 2;
 
 /**
  * Arid climate, favoring ore mines.
@@ -518,7 +518,7 @@ city_builder.CLIMATE_TYPE_TROPICAL = 2;
  * @constant
  * @type {Number}
  */
-city_builder.CLIMATE_TYPE_ARID = 3;
+civitas.CLIMATE_TYPE_ARID = 3;
 
 /**
  * Continental climate, no sea access.
@@ -526,7 +526,7 @@ city_builder.CLIMATE_TYPE_ARID = 3;
  * @constant
  * @type {Number}
  */
-city_builder.CLIMATE_TYPE_CONTINENTAL = 4;
+civitas.CLIMATE_TYPE_CONTINENTAL = 4;
 
 /**
  * Polar climate, very extreme.
@@ -534,7 +534,7 @@ city_builder.CLIMATE_TYPE_CONTINENTAL = 4;
  * @constant
  * @type {Number}
  */
-city_builder.CLIMATE_TYPE_POLAR = 5;
+civitas.CLIMATE_TYPE_POLAR = 5;
 
 /**
  * Worldmap position of city when the climate is temperate.
@@ -542,7 +542,7 @@ city_builder.CLIMATE_TYPE_POLAR = 5;
  * @constant
  * @type {Object}
  */
-city_builder.CITY_LOCATION_TEMPERATE = {
+civitas.CITY_LOCATION_TEMPERATE = {
 	x: 530,
 	y: 150
 };
@@ -553,7 +553,7 @@ city_builder.CITY_LOCATION_TEMPERATE = {
  * @constant
  * @type {Object}
  */
-city_builder.CITY_LOCATION_TROPICAL = {
+civitas.CITY_LOCATION_TROPICAL = {
 	x: 45,
 	y: 250
 };
@@ -564,7 +564,7 @@ city_builder.CITY_LOCATION_TROPICAL = {
  * @constant
  * @type {Object}
  */
-city_builder.CITY_LOCATION_ARID = {
+civitas.CITY_LOCATION_ARID = {
 	x: 340,
 	y: 130
 };
@@ -575,7 +575,7 @@ city_builder.CITY_LOCATION_ARID = {
  * @constant
  * @type {Object}
  */
-city_builder.CITY_LOCATION_CONTINENTAL = {
+civitas.CITY_LOCATION_CONTINENTAL = {
 	x: 540,
 	y: 150
 };
@@ -586,7 +586,7 @@ city_builder.CITY_LOCATION_CONTINENTAL = {
  * @constant
  * @type {Object}
  */
-city_builder.CITY_LOCATION_POLAR = {
+civitas.CITY_LOCATION_POLAR = {
 	x: 490,
 	y: 10
 };
@@ -597,7 +597,7 @@ city_builder.CITY_LOCATION_POLAR = {
  * @constant
  * @type {Array}
  */
-city_builder.PERSONALITY_TYPES = [
+civitas.PERSONALITY_TYPES = [
     'none',
     'balanced',
     'diplomat',
@@ -611,7 +611,7 @@ city_builder.PERSONALITY_TYPES = [
  * @constant
  * @type {Number}
  */
-city_builder.PERSONALITY_TYPE_BALANCED = 1;
+civitas.PERSONALITY_TYPE_BALANCED = 1;
 
 /**
  * The ruler will always consider diplomacy before going to war.
@@ -619,7 +619,7 @@ city_builder.PERSONALITY_TYPE_BALANCED = 1;
  * @constant
  * @type {Number}
  */
-city_builder.PERSONALITY_TYPE_DIPLOMAT = 2;
+civitas.PERSONALITY_TYPE_DIPLOMAT = 2;
 
 /**
  * If you upset this ruler, he will go to war with you.
@@ -627,7 +627,7 @@ city_builder.PERSONALITY_TYPE_DIPLOMAT = 2;
  * @constant
  * @type {Number}
  */
-city_builder.PERSONALITY_TYPE_WARLORD = 3;
+civitas.PERSONALITY_TYPE_WARLORD = 3;
 
 /**
  * List of soldier types, their attributes and cost.
@@ -635,9 +635,9 @@ city_builder.PERSONALITY_TYPE_WARLORD = 3;
  * @type {Object}
  * @constant
  */
-city_builder.SOLDIER_TYPES = {
+civitas.SOLDIER_TYPES = {
 	'Militia': {
-		id: city_builder.SOLDIER_TYPE_MILITIA,
+		id: civitas.SOLDIER_TYPE_MILITIA,
 		attack: 2,
 		defense: 1,
 		cost: {
@@ -648,7 +648,7 @@ city_builder.SOLDIER_TYPES = {
 		}
 	},
 	'Axeman': {
-		id: city_builder.SOLDIER_TYPE_AXEMAN,
+		id: civitas.SOLDIER_TYPE_AXEMAN,
 		attack: 3,
 		defense: 2,
 		cost: {
@@ -659,7 +659,7 @@ city_builder.SOLDIER_TYPES = {
 		}
 	},
 	'Bowman': {
-		id: city_builder.SOLDIER_TYPE_BOWMAN,
+		id: civitas.SOLDIER_TYPE_BOWMAN,
 		attack: 6,
 		defense: 1,
 		cost: {
@@ -670,7 +670,7 @@ city_builder.SOLDIER_TYPES = {
 		}
 	},
 	'Pikeman': {
-		id: city_builder.SOLDIER_TYPE_PIKEMAN,
+		id: civitas.SOLDIER_TYPE_PIKEMAN,
 		attack: 5,
 		defense: 4,
 		cost: {
@@ -684,7 +684,7 @@ city_builder.SOLDIER_TYPES = {
 		}
 	},
 	'Crossbowman': {
-		id: city_builder.SOLDIER_TYPE_CROSSBOWMAN,
+		id: civitas.SOLDIER_TYPE_CROSSBOWMAN,
 		attack: 7,
 		defense: 2,
 		cost: {
@@ -698,7 +698,7 @@ city_builder.SOLDIER_TYPES = {
 		}
 	},
 	'Knight': {
-		id: city_builder.SOLDIER_TYPE_KNIGHT,
+		id: civitas.SOLDIER_TYPE_KNIGHT,
 		attack: 6,
 		defense: 9,
 		cost: {
@@ -719,7 +719,7 @@ city_builder.SOLDIER_TYPES = {
  * @constant
  * @type {Number}
  */
-city_builder.SOLDIER_TYPE_MILITIA = 0;
+civitas.SOLDIER_TYPE_MILITIA = 0;
 
 /**
  * Axemen
@@ -727,7 +727,7 @@ city_builder.SOLDIER_TYPE_MILITIA = 0;
  * @constant
  * @type {Number}
  */
-city_builder.SOLDIER_TYPE_AXEMAN = 1;
+civitas.SOLDIER_TYPE_AXEMAN = 1;
 
 /**
  * Knights
@@ -735,7 +735,7 @@ city_builder.SOLDIER_TYPE_AXEMAN = 1;
  * @constant
  * @type {Number}
  */
-city_builder.SOLDIER_TYPE_KNIGHT = 2;
+civitas.SOLDIER_TYPE_KNIGHT = 2;
 
 /**
  * Bowmen
@@ -743,7 +743,7 @@ city_builder.SOLDIER_TYPE_KNIGHT = 2;
  * @constant
  * @type {Number}
  */
-city_builder.SOLDIER_TYPE_BOWMAN = 3;
+civitas.SOLDIER_TYPE_BOWMAN = 3;
 
 /**
  * Crossbowmen
@@ -751,7 +751,7 @@ city_builder.SOLDIER_TYPE_BOWMAN = 3;
  * @constant
  * @type {Number}
  */
-city_builder.SOLDIER_TYPE_CROSSBOWMAN = 4;
+civitas.SOLDIER_TYPE_CROSSBOWMAN = 4;
 
 /**
  * Pikemen
@@ -759,7 +759,7 @@ city_builder.SOLDIER_TYPE_CROSSBOWMAN = 4;
  * @constant
  * @type {Number}
  */
-city_builder.SOLDIER_TYPE_PIKEMAN = 5;
+civitas.SOLDIER_TYPE_PIKEMAN = 5;
 
 /**
  * List of mercenary armies available for hire.
@@ -767,7 +767,7 @@ city_builder.SOLDIER_TYPE_PIKEMAN = 5;
  * @constant
  * @type {Object}
  */
-city_builder.MERCENARIES = [{
+civitas.MERCENARIES = [{
 	name: 'Legio I Adiutrix',
 	description: 'Legio prima Adiutrix (First Auxiliary legion) is a Roman legion.',
 	handle: 'legio1',
@@ -921,7 +921,7 @@ city_builder.MERCENARIES = [{
  * @constant
  * @type {Object}
  */
-city_builder.ARMIES_START = [{
+civitas.ARMIES_START = [{
 		army: {
 			'Militia': 10,
 			'Axeman': 2,
@@ -960,9 +960,9 @@ city_builder.ARMIES_START = [{
  * @type {Object}
  * @constant
  */
-city_builder.SHIP_TYPES = {
+civitas.SHIP_TYPES = {
 	'Caravel': {
-		id: city_builder.SHIP_TYPE_CARAVEL,
+		id: civitas.SHIP_TYPE_CARAVEL,
 		attack: 10,
 		defense: 10,
 		cost: {
@@ -979,7 +979,7 @@ city_builder.SHIP_TYPES = {
 		}
 	},
 	'Corsair': {
-		id: city_builder.SHIP_TYPE_CORSAIR,
+		id: civitas.SHIP_TYPE_CORSAIR,
 		attack: 5,
 		defense: 5,
 		cost: {
@@ -997,7 +997,7 @@ city_builder.SHIP_TYPES = {
 		}
 	},
 	'Frigate': {
-		id: city_builder.SHIP_TYPE_FRIGATE,
+		id: civitas.SHIP_TYPE_FRIGATE,
 		attack: 17,
 		defense: 8,
 		cost: {
@@ -1015,7 +1015,7 @@ city_builder.SHIP_TYPES = {
 		}
 	},
 	'Galleon': {
-		id: city_builder.SHIP_TYPE_GALLEON,
+		id: civitas.SHIP_TYPE_GALLEON,
 		attack: 15,
 		defense: 15,
 		cost: {
@@ -1033,7 +1033,7 @@ city_builder.SHIP_TYPES = {
 		}
 	},
 	'Warship': {
-		id: city_builder.SHIP_TYPE_WARSHIP,
+		id: civitas.SHIP_TYPE_WARSHIP,
 		attack: 35,
 		defense: 30,
 		cost: {
@@ -1052,7 +1052,7 @@ city_builder.SHIP_TYPES = {
 		}
 	},
 	'Ship of the Line': {
-		id: city_builder.SHIP_TYPE_SHIPOFTHELINE,
+		id: civitas.SHIP_TYPE_SHIPOFTHELINE,
 		attack: 55,
 		defense: 50,
 		cost: {
@@ -1079,7 +1079,7 @@ city_builder.SHIP_TYPES = {
  * @constant
  * @type {Number}
  */
-city_builder.SHIP_TYPE_CORSAIR = 0;
+civitas.SHIP_TYPE_CORSAIR = 0;
 
 /**
  * Caravel ship.
@@ -1087,7 +1087,7 @@ city_builder.SHIP_TYPE_CORSAIR = 0;
  * @constant
  * @type {Number}
  */
-city_builder.SHIP_TYPE_CARAVEL = 1;
+civitas.SHIP_TYPE_CARAVEL = 1;
 
 /**
  * Warship ship.
@@ -1095,7 +1095,7 @@ city_builder.SHIP_TYPE_CARAVEL = 1;
  * @constant
  * @type {Number}
  */
-city_builder.SHIP_TYPE_WARSHIP = 2;
+civitas.SHIP_TYPE_WARSHIP = 2;
 
 /**
  * Galleon ship.
@@ -1103,7 +1103,7 @@ city_builder.SHIP_TYPE_WARSHIP = 2;
  * @constant
  * @type {Number}
  */
-city_builder.SHIP_TYPE_GALLEON = 3;
+civitas.SHIP_TYPE_GALLEON = 3;
 
 /**
  * Ship of the Line ship.
@@ -1111,7 +1111,7 @@ city_builder.SHIP_TYPE_GALLEON = 3;
  * @constant
  * @type {Number}
  */
-city_builder.SHIP_TYPE_SHIPOFTHELINE = 4;
+civitas.SHIP_TYPE_SHIPOFTHELINE = 4;
 
 /**
  * Frigate ship.
@@ -1119,7 +1119,7 @@ city_builder.SHIP_TYPE_SHIPOFTHELINE = 4;
  * @constant
  * @type {Number}
  */
-city_builder.SHIP_TYPE_FRIGATE = 5;
+civitas.SHIP_TYPE_FRIGATE = 5;
 
 /**
  * Buildings native to the tropical climate.
@@ -1127,7 +1127,7 @@ city_builder.SHIP_TYPE_FRIGATE = 5;
  * @constant
  * @type {Array}
  */
-city_builder.CITY_BUILDINGS_TROPICAL = [
+civitas.CITY_BUILDINGS_TROPICAL = [
 
 	/* Municipal */
 	'marketplace', 'warehouse', 'tradingpost', 'church', 'monastery', 'camp', 'castle',
@@ -1167,7 +1167,7 @@ city_builder.CITY_BUILDINGS_TROPICAL = [
  * @constant
  * @type {Array}
  */
-city_builder.CITY_BUILDINGS_POLAR = [
+civitas.CITY_BUILDINGS_POLAR = [
 
 	/* Municipal */
 	'marketplace', 'warehouse', 'tradingpost', 'church', 'monastery', 'camp', 'castle',
@@ -1200,7 +1200,7 @@ city_builder.CITY_BUILDINGS_POLAR = [
  * @constant
  * @type {Array}
  */
-city_builder.CITY_BUILDINGS_ARID = [
+civitas.CITY_BUILDINGS_ARID = [
 
 	/* Municipal */
 	'marketplace', 'warehouse', 'tradingpost', 'church', 'monastery', 'camp', 'castle',
@@ -1236,7 +1236,7 @@ city_builder.CITY_BUILDINGS_ARID = [
  * @constant
  * @type {Array}
  */
-city_builder.CITY_BUILDINGS_CONTINENTAL = [
+civitas.CITY_BUILDINGS_CONTINENTAL = [
 
 	/* Municipal */
 	'marketplace', 'warehouse', 'tradingpost', 'church', 'monastery', 'camp', 'castle',
@@ -1275,7 +1275,7 @@ city_builder.CITY_BUILDINGS_CONTINENTAL = [
  * @constant
  * @type {Array}
  */
-city_builder.CITY_BUILDINGS_TEMPERATE = [
+civitas.CITY_BUILDINGS_TEMPERATE = [
 
 	/* Municipal */
 	'marketplace', 'warehouse', 'tradingpost', 'church', 'monastery', 'camp', 'castle',
@@ -1314,7 +1314,7 @@ city_builder.CITY_BUILDINGS_TEMPERATE = [
  * @constant
  * @type {Array}
  */
-city_builder.BUILDINGS_START = [
+civitas.BUILDINGS_START = [
 	{
 		handle: 'marketplace',
 		level: 1
@@ -1339,7 +1339,7 @@ city_builder.BUILDINGS_START = [
  * @constant
  * @type {Array}
  */
-city_builder.BUILDINGS_ALL = [
+civitas.BUILDINGS_ALL = [
 	'marketplace', 'lumberjack', 'camp', 'warehouse', 'mill', 'castle', 'stone',
 	'ironmine', 'trapper', 'almondsfarm', 'almondsfield',
 	'shipyard', 'pigfarm', 'cattlefarm', 'pigfield', 'cattlefield', 'house1', 'house2',
@@ -1363,7 +1363,7 @@ city_builder.BUILDINGS_ALL = [
  * @constant
  * @type {Object}
  */
-city_builder.BUILDINGS_CATEGORIES = {
+civitas.BUILDINGS_CATEGORIES = {
 	'Municipal': [
 		'church',
 		'embassy',
@@ -1460,7 +1460,7 @@ city_builder.BUILDINGS_CATEGORIES = {
  * @constant
  * @type {Array}
  */
-city_builder.BUILDINGS = [{
+civitas.BUILDINGS = [{
 		name: 'Marketplace',
 		handle: 'marketplace',
 		description: 'The marketplace is the main building of your city and provides a place ' +
@@ -3197,14 +3197,14 @@ city_builder.BUILDINGS = [{
  * @constant
  * @type {Object}
  */
-city_builder.CITIES = {
+civitas.CITIES = {
 	'Byblos': {
-		nationality: city_builder.NATION_TYPE_PHOENICIAN,
+		nationality: civitas.NATION_TYPE_PHOENICIAN,
 		ruler: 'Cronus',
 		icon: 4,
 		avatar: 1,
-		climate: city_builder.CLIMATE_TYPE_TEMPERATE,
-		personality: city_builder.PERSONALITY_TYPE_DIPLOMAT,
+		climate: civitas.CLIMATE_TYPE_TEMPERATE,
+		personality: civitas.PERSONALITY_TYPE_DIPLOMAT,
 		level: 25,
 		resources: {
 			'coins': 230000,
@@ -3213,21 +3213,21 @@ city_builder.CITIES = {
 		},
 		trades: {
 			'imports': {
-				gold: city_builder.GOODS_IMPORTANCE_MEDIUM,
-				milk: city_builder.GOODS_IMPORTANCE_HIGH,
-				goldores: city_builder.GOODS_IMPORTANCE_LOW,
-				weapons: city_builder.GOODS_IMPORTANCE_LOW,
-				quartz: city_builder.GOODS_IMPORTANCE_LOW,
-				roses: city_builder.GOODS_IMPORTANCE_MEDIUM,
-				wine: city_builder.GOODS_IMPORTANCE_VITAL,
-				clay: city_builder.GOODS_IMPORTANCE_VITAL,
-				fish: city_builder.GOODS_IMPORTANCE_MEDIUM
+				gold: civitas.GOODS_IMPORTANCE_MEDIUM,
+				milk: civitas.GOODS_IMPORTANCE_HIGH,
+				goldores: civitas.GOODS_IMPORTANCE_LOW,
+				weapons: civitas.GOODS_IMPORTANCE_LOW,
+				quartz: civitas.GOODS_IMPORTANCE_LOW,
+				roses: civitas.GOODS_IMPORTANCE_MEDIUM,
+				wine: civitas.GOODS_IMPORTANCE_VITAL,
+				clay: civitas.GOODS_IMPORTANCE_VITAL,
+				fish: civitas.GOODS_IMPORTANCE_MEDIUM
 			},
 			'exports': {
-				hemp: city_builder.GOODS_IMPORTANCE_VITAL,
-				indigo: city_builder.GOODS_IMPORTANCE_LOW,
-				paper: city_builder.GOODS_IMPORTANCE_HIGH,
-				stones: city_builder.GOODS_IMPORTANCE_LOW
+				hemp: civitas.GOODS_IMPORTANCE_VITAL,
+				indigo: civitas.GOODS_IMPORTANCE_LOW,
+				paper: civitas.GOODS_IMPORTANCE_HIGH,
+				stones: civitas.GOODS_IMPORTANCE_LOW
 			}
 		},
 		army: {
@@ -3251,12 +3251,12 @@ city_builder.CITIES = {
 		}
 	},
 	'Carthage': {
-		nationality: city_builder.NATION_TYPE_CARTHAGINIAN,
+		nationality: civitas.NATION_TYPE_CARTHAGINIAN,
 		ruler: 'Elisa',
 		avatar: 21,
 		icon: 4,
-		climate: city_builder.CLIMATE_TYPE_TROPICAL,
-		personality: city_builder.PERSONALITY_TYPE_DIPLOMAT,
+		climate: civitas.CLIMATE_TYPE_TROPICAL,
+		personality: civitas.PERSONALITY_TYPE_DIPLOMAT,
 		level: 50,
 		resources: {
 			'coins': 130000,
@@ -3265,24 +3265,24 @@ city_builder.CITIES = {
 		},
 		trades: {
 			'imports': {
-				wax: city_builder.GOODS_IMPORTANCE_LOW,
-				sugar: city_builder.GOODS_IMPORTANCE_VITAL,
-				sugarcane: city_builder.GOODS_IMPORTANCE_MEDIUM,
-				glasses: city_builder.GOODS_IMPORTANCE_LOW,
-				fish: city_builder.GOODS_IMPORTANCE_HIGH,
-				candles: city_builder.GOODS_IMPORTANCE_LOW,
-				bread: city_builder.GOODS_IMPORTANCE_VITAL,
-				pearls: city_builder.GOODS_IMPORTANCE_LOW,
-				salt: city_builder.GOODS_IMPORTANCE_LOW
+				wax: civitas.GOODS_IMPORTANCE_LOW,
+				sugar: civitas.GOODS_IMPORTANCE_VITAL,
+				sugarcane: civitas.GOODS_IMPORTANCE_MEDIUM,
+				glasses: civitas.GOODS_IMPORTANCE_LOW,
+				fish: civitas.GOODS_IMPORTANCE_HIGH,
+				candles: civitas.GOODS_IMPORTANCE_LOW,
+				bread: civitas.GOODS_IMPORTANCE_VITAL,
+				pearls: civitas.GOODS_IMPORTANCE_LOW,
+				salt: civitas.GOODS_IMPORTANCE_LOW
 			},
 			'exports': {
-				leather: city_builder.GOODS_IMPORTANCE_MEDIUM,
-				indigo: city_builder.GOODS_IMPORTANCE_LOW,
-				flour: city_builder.GOODS_IMPORTANCE_VITAL,
-				glass: city_builder.GOODS_IMPORTANCE_MEDIUM,
-				coal: city_builder.GOODS_IMPORTANCE_LOW,
-				fish: city_builder.GOODS_IMPORTANCE_HIGH,
-				wood: city_builder.GOODS_IMPORTANCE_VITAL
+				leather: civitas.GOODS_IMPORTANCE_MEDIUM,
+				indigo: civitas.GOODS_IMPORTANCE_LOW,
+				flour: civitas.GOODS_IMPORTANCE_VITAL,
+				glass: civitas.GOODS_IMPORTANCE_MEDIUM,
+				coal: civitas.GOODS_IMPORTANCE_LOW,
+				fish: civitas.GOODS_IMPORTANCE_HIGH,
+				wood: civitas.GOODS_IMPORTANCE_VITAL
 			}
 		},
 		navy: {
@@ -3306,12 +3306,12 @@ city_builder.CITIES = {
 		}
 	},
 	'Karakorum': {
-		nationality: city_builder.NATION_TYPE_MONGOLIAN,
+		nationality: civitas.NATION_TYPE_MONGOLIAN,
 		ruler: 'Genghis Khan',
 		avatar: 45,
 		icon: 6,
-		climate: city_builder.CLIMATE_TYPE_TEMPERATE,
-		personality: city_builder.PERSONALITY_TYPE_WARLORD,
+		climate: civitas.CLIMATE_TYPE_TEMPERATE,
+		personality: civitas.PERSONALITY_TYPE_WARLORD,
 		level: 30,
 		resources: {
 			'coins': 100000,
@@ -3320,18 +3320,18 @@ city_builder.CITIES = {
 		},
 		trades: {
 			'imports': {
-				wheat: city_builder.GOODS_IMPORTANCE_VITAL,
-				wood: city_builder.GOODS_IMPORTANCE_HIGH,
-				sugar: city_builder.GOODS_IMPORTANCE_LOW,
-				sugarcane: city_builder.GOODS_IMPORTANCE_LOW,
-				clay: city_builder.GOODS_IMPORTANCE_VITAL
+				wheat: civitas.GOODS_IMPORTANCE_VITAL,
+				wood: civitas.GOODS_IMPORTANCE_HIGH,
+				sugar: civitas.GOODS_IMPORTANCE_LOW,
+				sugarcane: civitas.GOODS_IMPORTANCE_LOW,
+				clay: civitas.GOODS_IMPORTANCE_VITAL
 			},
 			'exports': {
-				silver: city_builder.GOODS_IMPORTANCE_VITAL,
-				glasses: city_builder.GOODS_IMPORTANCE_LOW,
-				furcoats: city_builder.GOODS_IMPORTANCE_MEDIUM,
-				indigo: city_builder.GOODS_IMPORTANCE_LOW,
-				wheat: city_builder.GOODS_IMPORTANCE_LOW
+				silver: civitas.GOODS_IMPORTANCE_VITAL,
+				glasses: civitas.GOODS_IMPORTANCE_LOW,
+				furcoats: civitas.GOODS_IMPORTANCE_MEDIUM,
+				indigo: civitas.GOODS_IMPORTANCE_LOW,
+				wheat: civitas.GOODS_IMPORTANCE_LOW
 			}
 		},
 		army: {
@@ -3346,12 +3346,12 @@ city_builder.CITIES = {
 		}
 	},
 	'Kyrene': {
-		nationality: city_builder.NATION_TYPE_GREEK,
+		nationality: civitas.NATION_TYPE_GREEK,
 		ruler: 'Abdul',
 		avatar: 33,
 		icon: 5,
-		climate: city_builder.CLIMATE_TYPE_TROPICAL,
-		personality: city_builder.PERSONALITY_TYPE_WARLORD,
+		climate: civitas.CLIMATE_TYPE_TROPICAL,
+		personality: civitas.PERSONALITY_TYPE_WARLORD,
 		level: 22,
 		resources: {
 			'coins': 200000,
@@ -3360,21 +3360,21 @@ city_builder.CITIES = {
 		},
 		trades: {
 			'imports': {
-				flour: city_builder.GOODS_IMPORTANCE_LOW,
-				milk: city_builder.GOODS_IMPORTANCE_VITAL,
-				brass: city_builder.GOODS_IMPORTANCE_LOW,
-				furs: city_builder.GOODS_IMPORTANCE_LOW,
-				fish: city_builder.GOODS_IMPORTANCE_VITAL,
-				cider: city_builder.GOODS_IMPORTANCE_LOW,
-				silk: city_builder.GOODS_IMPORTANCE_HIGH,
-				cattle: city_builder.GOODS_IMPORTANCE_MEDIUM,
-				wheat: city_builder.GOODS_IMPORTANCE_VITAL
+				flour: civitas.GOODS_IMPORTANCE_LOW,
+				milk: civitas.GOODS_IMPORTANCE_VITAL,
+				brass: civitas.GOODS_IMPORTANCE_LOW,
+				furs: civitas.GOODS_IMPORTANCE_LOW,
+				fish: civitas.GOODS_IMPORTANCE_VITAL,
+				cider: civitas.GOODS_IMPORTANCE_LOW,
+				silk: civitas.GOODS_IMPORTANCE_HIGH,
+				cattle: civitas.GOODS_IMPORTANCE_MEDIUM,
+				wheat: civitas.GOODS_IMPORTANCE_VITAL
 			},
 			'exports': {
-				clothes: city_builder.GOODS_IMPORTANCE_VITAL,
-				fish: city_builder.GOODS_IMPORTANCE_LOW,
-				coffeebeans: city_builder.GOODS_IMPORTANCE_HIGH,
-				silk: city_builder.GOODS_IMPORTANCE_LOW
+				clothes: civitas.GOODS_IMPORTANCE_VITAL,
+				fish: civitas.GOODS_IMPORTANCE_LOW,
+				coffeebeans: civitas.GOODS_IMPORTANCE_HIGH,
+				silk: civitas.GOODS_IMPORTANCE_LOW
 			}
 		},
 		army: {
@@ -3390,12 +3390,12 @@ city_builder.CITIES = {
 		}
 	},
 	'Menat Khufu': {
-		nationality: city_builder.NATION_TYPE_EGYPTIAN,
+		nationality: civitas.NATION_TYPE_EGYPTIAN,
 		ruler: 'Khufu',
 		avatar: 34,
 		icon: 7,
-		climate: city_builder.CLIMATE_TYPE_ARID,
-		personality: city_builder.PERSONALITY_TYPE_DIPLOMAT,
+		climate: civitas.CLIMATE_TYPE_ARID,
+		personality: civitas.PERSONALITY_TYPE_DIPLOMAT,
 		level: 45,
 		resources: {
 			'coins': 200000,
@@ -3404,21 +3404,21 @@ city_builder.CITIES = {
 		},
 		trades: {
 			'imports': {
-				barrels: city_builder.GOODS_IMPORTANCE_LOW,
-				books: city_builder.GOODS_IMPORTANCE_LOW,
-				paper: city_builder.GOODS_IMPORTANCE_LOW,
-				coal: city_builder.GOODS_IMPORTANCE_VITAL,
-				copper: city_builder.GOODS_IMPORTANCE_MEDIUM,
-				indigo: city_builder.GOODS_IMPORTANCE_HIGH
+				barrels: civitas.GOODS_IMPORTANCE_LOW,
+				books: civitas.GOODS_IMPORTANCE_LOW,
+				paper: civitas.GOODS_IMPORTANCE_LOW,
+				coal: civitas.GOODS_IMPORTANCE_VITAL,
+				copper: civitas.GOODS_IMPORTANCE_MEDIUM,
+				indigo: civitas.GOODS_IMPORTANCE_HIGH
 			},
 			'exports': {
-				coal: city_builder.GOODS_IMPORTANCE_VITAL,
-				ironores: city_builder.GOODS_IMPORTANCE_LOW,
-				copper: city_builder.GOODS_IMPORTANCE_MEDIUM,
-				goldores: city_builder.GOODS_IMPORTANCE_LOW,
-				iron: city_builder.GOODS_IMPORTANCE_LOW,
-				gold: city_builder.GOODS_IMPORTANCE_VITAL,
-				brass: city_builder.GOODS_IMPORTANCE_LOW
+				coal: civitas.GOODS_IMPORTANCE_VITAL,
+				ironores: civitas.GOODS_IMPORTANCE_LOW,
+				copper: civitas.GOODS_IMPORTANCE_MEDIUM,
+				goldores: civitas.GOODS_IMPORTANCE_LOW,
+				iron: civitas.GOODS_IMPORTANCE_LOW,
+				gold: civitas.GOODS_IMPORTANCE_VITAL,
+				brass: civitas.GOODS_IMPORTANCE_LOW
 			}
 		},
 		army: {
@@ -3435,12 +3435,12 @@ city_builder.CITIES = {
 		}
 	},
 	'Niani': {
-		nationality: city_builder.NATION_TYPE_MALINESE,
+		nationality: civitas.NATION_TYPE_MALINESE,
 		ruler: 'Mansa Musa',
 		avatar: 30,
 		icon: 2,
-		climate: city_builder.CLIMATE_TYPE_TROPICAL,
-		personality: city_builder.PERSONALITY_TYPE_WARLORD,
+		climate: civitas.CLIMATE_TYPE_TROPICAL,
+		personality: civitas.PERSONALITY_TYPE_WARLORD,
 		level: 21,
 		resources: {
 			'coins': 200000,
@@ -3449,21 +3449,21 @@ city_builder.CITIES = {
 		},
 		trades: {
 			'imports': {
-				meat: city_builder.GOODS_IMPORTANCE_LOW,
-				milk: city_builder.GOODS_IMPORTANCE_LOW,
-				weapons: city_builder.GOODS_IMPORTANCE_LOW,
-				roses: city_builder.GOODS_IMPORTANCE_MEDIUM,
-				perfume: city_builder.GOODS_IMPORTANCE_LOW,
-				iron: city_builder.GOODS_IMPORTANCE_VITAL,
-				ironores: city_builder.GOODS_IMPORTANCE_LOW
+				meat: civitas.GOODS_IMPORTANCE_LOW,
+				milk: civitas.GOODS_IMPORTANCE_LOW,
+				weapons: civitas.GOODS_IMPORTANCE_LOW,
+				roses: civitas.GOODS_IMPORTANCE_MEDIUM,
+				perfume: civitas.GOODS_IMPORTANCE_LOW,
+				iron: civitas.GOODS_IMPORTANCE_VITAL,
+				ironores: civitas.GOODS_IMPORTANCE_LOW
 			},
 			'exports': {
-				brine: city_builder.GOODS_IMPORTANCE_MEDIUM,
-				clothes: city_builder.GOODS_IMPORTANCE_LOW,
-				glass: city_builder.GOODS_IMPORTANCE_HIGH,
-				wheat: city_builder.GOODS_IMPORTANCE_VITAL,
-				hides: city_builder.GOODS_IMPORTANCE_LOW,
-				paper: city_builder.GOODS_IMPORTANCE_LOW
+				brine: civitas.GOODS_IMPORTANCE_MEDIUM,
+				clothes: civitas.GOODS_IMPORTANCE_LOW,
+				glass: civitas.GOODS_IMPORTANCE_HIGH,
+				wheat: civitas.GOODS_IMPORTANCE_VITAL,
+				hides: civitas.GOODS_IMPORTANCE_LOW,
+				paper: civitas.GOODS_IMPORTANCE_LOW
 			}
 		},
 		army: {
@@ -3476,12 +3476,12 @@ city_builder.CITIES = {
 		}
 	},
 	'Niniveh': {
-		nationality: city_builder.NATION_TYPE_ASSYRIAN,
+		nationality: civitas.NATION_TYPE_ASSYRIAN,
 		ruler: 'Sennacherib',
 		avatar: 37,
 		icon: 4,
-		climate: city_builder.CLIMATE_TYPE_ARID,
-		personality: city_builder.PERSONALITY_TYPE_DIPLOMAT,
+		climate: civitas.CLIMATE_TYPE_ARID,
+		personality: civitas.PERSONALITY_TYPE_DIPLOMAT,
 		level: 35,
 		resources: {
 			'coins': 130000,
@@ -3490,17 +3490,17 @@ city_builder.CITIES = {
 		},
 		trades: {
 			'imports': {
-				silk: city_builder.GOODS_IMPORTANCE_LOW,
-				clothes: city_builder.GOODS_IMPORTANCE_HIGH,
-				leather: city_builder.GOODS_IMPORTANCE_LOW,
-				meat: city_builder.GOODS_IMPORTANCE_MEDIUM
+				silk: civitas.GOODS_IMPORTANCE_LOW,
+				clothes: civitas.GOODS_IMPORTANCE_HIGH,
+				leather: civitas.GOODS_IMPORTANCE_LOW,
+				meat: civitas.GOODS_IMPORTANCE_MEDIUM
 			},
 			'exports': {
-				gold: city_builder.GOODS_IMPORTANCE_LOW,
-				iron: city_builder.GOODS_IMPORTANCE_VITAL,
-				ironores: city_builder.GOODS_IMPORTANCE_MEDIUM,
-				copper: city_builder.GOODS_IMPORTANCE_HIGH,
-				coal: city_builder.GOODS_IMPORTANCE_LOW
+				gold: civitas.GOODS_IMPORTANCE_LOW,
+				iron: civitas.GOODS_IMPORTANCE_VITAL,
+				ironores: civitas.GOODS_IMPORTANCE_MEDIUM,
+				copper: civitas.GOODS_IMPORTANCE_HIGH,
+				coal: civitas.GOODS_IMPORTANCE_LOW
 			}
 		},
 		army: {
@@ -3517,12 +3517,12 @@ city_builder.CITIES = {
 		}
 	},
 	'Novgorod': {
-		nationality: city_builder.NATION_TYPE_RUSSIAN,
+		nationality: civitas.NATION_TYPE_RUSSIAN,
 		ruler: 'Rurik',
 		avatar: 5,
 		icon: 5,
-		climate: city_builder.CLIMATE_TYPE_POLAR,
-		personality: city_builder.PERSONALITY_TYPE_WARLORD,
+		climate: civitas.CLIMATE_TYPE_POLAR,
+		personality: civitas.PERSONALITY_TYPE_WARLORD,
 		level: 20,
 		resources: {
 			'coins': 30000,
@@ -3531,18 +3531,18 @@ city_builder.CITIES = {
 		},
 		trades: {
 			'imports': {
-				furs: city_builder.GOODS_IMPORTANCE_LOW,
-				hides: city_builder.GOODS_IMPORTANCE_LOW,
-				milk: city_builder.GOODS_IMPORTANCE_MEDIUM,
-				leather: city_builder.GOODS_IMPORTANCE_LOW,
-				fish: city_builder.GOODS_IMPORTANCE_VITAL,
-				furcoats: city_builder.GOODS_IMPORTANCE_VITAL
+				furs: civitas.GOODS_IMPORTANCE_LOW,
+				hides: civitas.GOODS_IMPORTANCE_LOW,
+				milk: civitas.GOODS_IMPORTANCE_MEDIUM,
+				leather: civitas.GOODS_IMPORTANCE_LOW,
+				fish: civitas.GOODS_IMPORTANCE_VITAL,
+				furcoats: civitas.GOODS_IMPORTANCE_VITAL
 			},
 			'exports': {
-				statues: city_builder.GOODS_IMPORTANCE_VITAL,
-				wax: city_builder.GOODS_IMPORTANCE_LOW,
-				candles: city_builder.GOODS_IMPORTANCE_LOW,
-				salt: city_builder.GOODS_IMPORTANCE_MEDIUM
+				statues: civitas.GOODS_IMPORTANCE_VITAL,
+				wax: civitas.GOODS_IMPORTANCE_LOW,
+				candles: civitas.GOODS_IMPORTANCE_LOW,
+				salt: civitas.GOODS_IMPORTANCE_MEDIUM
 			}
 		},
 		army: {
@@ -3559,12 +3559,12 @@ city_builder.CITIES = {
 		}
 	},
 	'Rome': {
-		nationality: city_builder.NATION_TYPE_ROMAN,
+		nationality: civitas.NATION_TYPE_ROMAN,
 		ruler: 'Caesar',
 		avatar: 17,
 		icon: 4,
-		climate: city_builder.CLIMATE_TYPE_TEMPERATE,
-		personality: city_builder.PERSONALITY_TYPE_BALANCED,
+		climate: civitas.CLIMATE_TYPE_TEMPERATE,
+		personality: civitas.PERSONALITY_TYPE_BALANCED,
 		level: 50,
 		resources: {
 			'coins': 330000,
@@ -3573,29 +3573,29 @@ city_builder.CITIES = {
 		},
 		trades: {
 			'imports': {
-				perfume: city_builder.GOODS_IMPORTANCE_MEDIUM,
-				coffee: city_builder.GOODS_IMPORTANCE_LOW,
-				cider: city_builder.GOODS_IMPORTANCE_LOW,
-				wine: city_builder.GOODS_IMPORTANCE_LOW,
-				beer: city_builder.GOODS_IMPORTANCE_LOW,
-				silk: city_builder.GOODS_IMPORTANCE_MEDIUM
+				perfume: civitas.GOODS_IMPORTANCE_MEDIUM,
+				coffee: civitas.GOODS_IMPORTANCE_LOW,
+				cider: civitas.GOODS_IMPORTANCE_LOW,
+				wine: civitas.GOODS_IMPORTANCE_LOW,
+				beer: civitas.GOODS_IMPORTANCE_LOW,
+				silk: civitas.GOODS_IMPORTANCE_MEDIUM
 			},
 			'exports': {
-				robes: city_builder.GOODS_IMPORTANCE_VITAL,
-				statues: city_builder.GOODS_IMPORTANCE_VITAL,
-				barrels: city_builder.GOODS_IMPORTANCE_MEDIUM,
-				brine: city_builder.GOODS_IMPORTANCE_LOW,
-				brass: city_builder.GOODS_IMPORTANCE_VITAL,
-				candlesticks: city_builder.GOODS_IMPORTANCE_LOW,
-				cattle: city_builder.GOODS_IMPORTANCE_VITAL,
-				glass: city_builder.GOODS_IMPORTANCE_MEDIUM,
-				gold: city_builder.GOODS_IMPORTANCE_MEDIUM,
-				wheat: city_builder.GOODS_IMPORTANCE_MEDIUM,
-				iron: city_builder.GOODS_IMPORTANCE_LOW,
-				grapes: city_builder.GOODS_IMPORTANCE_HIGH,
-				hemp: city_builder.GOODS_IMPORTANCE_HIGH,
-				herbs: city_builder.GOODS_IMPORTANCE_HIGH,
-				quartz: city_builder.GOODS_IMPORTANCE_MEDIUM
+				robes: civitas.GOODS_IMPORTANCE_VITAL,
+				statues: civitas.GOODS_IMPORTANCE_VITAL,
+				barrels: civitas.GOODS_IMPORTANCE_MEDIUM,
+				brine: civitas.GOODS_IMPORTANCE_LOW,
+				brass: civitas.GOODS_IMPORTANCE_VITAL,
+				candlesticks: civitas.GOODS_IMPORTANCE_LOW,
+				cattle: civitas.GOODS_IMPORTANCE_VITAL,
+				glass: civitas.GOODS_IMPORTANCE_MEDIUM,
+				gold: civitas.GOODS_IMPORTANCE_MEDIUM,
+				wheat: civitas.GOODS_IMPORTANCE_MEDIUM,
+				iron: civitas.GOODS_IMPORTANCE_LOW,
+				grapes: civitas.GOODS_IMPORTANCE_HIGH,
+				hemp: civitas.GOODS_IMPORTANCE_HIGH,
+				herbs: civitas.GOODS_IMPORTANCE_HIGH,
+				quartz: civitas.GOODS_IMPORTANCE_MEDIUM
 			}
 		},
 		army: {
@@ -3612,12 +3612,12 @@ city_builder.CITIES = {
 		}
 	},
 	'Sarmizegetusa': {
-		nationality: city_builder.NATION_TYPE_THRACIAN,
+		nationality: civitas.NATION_TYPE_THRACIAN,
 		ruler: 'Deceballus',
 		avatar: 8,
 		icon: 7,
-		climate: city_builder.CLIMATE_TYPE_CONTINENTAL,
-		personality: city_builder.PERSONALITY_TYPE_WARLORD,
+		climate: civitas.CLIMATE_TYPE_CONTINENTAL,
+		personality: civitas.PERSONALITY_TYPE_WARLORD,
 		level: 18,
 		resources: {
 			'coins': 22000,
@@ -3626,15 +3626,15 @@ city_builder.CITIES = {
 		},
 		trades: {
 			'imports': {
-				flour: city_builder.GOODS_IMPORTANCE_LOW,
-				bread: city_builder.GOODS_IMPORTANCE_LOW,
-				brass: city_builder.GOODS_IMPORTANCE_MEDIUM,
-				coal: city_builder.GOODS_IMPORTANCE_VITAL
+				flour: civitas.GOODS_IMPORTANCE_LOW,
+				bread: civitas.GOODS_IMPORTANCE_LOW,
+				brass: civitas.GOODS_IMPORTANCE_MEDIUM,
+				coal: civitas.GOODS_IMPORTANCE_VITAL
 			},
 			'exports': {
-				wood: city_builder.GOODS_IMPORTANCE_LOW,
-				stones: city_builder.GOODS_IMPORTANCE_VITAL,
-				wine: city_builder.GOODS_IMPORTANCE_MEDIUM
+				wood: civitas.GOODS_IMPORTANCE_LOW,
+				stones: civitas.GOODS_IMPORTANCE_VITAL,
+				wine: civitas.GOODS_IMPORTANCE_MEDIUM
 			}
 		},
 		army: {
@@ -3651,12 +3651,12 @@ city_builder.CITIES = {
 		}
 	},
 	'Sigiriya': {
-		nationality: city_builder.NATION_TYPE_INDIAN,
+		nationality: civitas.NATION_TYPE_INDIAN,
 		ruler: 'Kashyapa',
 		avatar: 40,
 		icon: 7,
-		climate: city_builder.CLIMATE_TYPE_TROPICAL,
-		personality: city_builder.PERSONALITY_TYPE_BALANCED,
+		climate: civitas.CLIMATE_TYPE_TROPICAL,
+		personality: civitas.PERSONALITY_TYPE_BALANCED,
 		level: 22,
 		resources: {
 			'coins': 180000,
@@ -3665,17 +3665,17 @@ city_builder.CITIES = {
 		},
 		trades: {
 			'imports': {
-				furs: city_builder.GOODS_IMPORTANCE_LOW,
-				hides: city_builder.GOODS_IMPORTANCE_MEDIUM,
-				milk: city_builder.GOODS_IMPORTANCE_LOW,
-				leather: city_builder.GOODS_IMPORTANCE_LOW
+				furs: civitas.GOODS_IMPORTANCE_LOW,
+				hides: civitas.GOODS_IMPORTANCE_MEDIUM,
+				milk: civitas.GOODS_IMPORTANCE_LOW,
+				leather: civitas.GOODS_IMPORTANCE_LOW
 			},
 			'exports': {
-				spyglasses: city_builder.GOODS_IMPORTANCE_VITAL,
-				wax: city_builder.GOODS_IMPORTANCE_LOW,
-				candles: city_builder.GOODS_IMPORTANCE_LOW,
-				salt: city_builder.GOODS_IMPORTANCE_MEDIUM,
-				sugarcane: city_builder.GOODS_IMPORTANCE_HIGH
+				spyglasses: civitas.GOODS_IMPORTANCE_VITAL,
+				wax: civitas.GOODS_IMPORTANCE_LOW,
+				candles: civitas.GOODS_IMPORTANCE_LOW,
+				salt: civitas.GOODS_IMPORTANCE_MEDIUM,
+				sugarcane: civitas.GOODS_IMPORTANCE_HIGH
 			}
 		},
 		army: {
@@ -3698,12 +3698,12 @@ city_builder.CITIES = {
 		}
 	},
 	'Selima Oasis': {
-		nationality: city_builder.NATION_TYPE_SUDANESE,
+		nationality: civitas.NATION_TYPE_SUDANESE,
 		ruler: 'Pepi',
 		avatar: 38,
 		icon: 7,
-		climate: city_builder.CLIMATE_TYPE_TROPICAL,
-		personality: city_builder.PERSONALITY_TYPE_WARLORD,
+		climate: civitas.CLIMATE_TYPE_TROPICAL,
+		personality: civitas.PERSONALITY_TYPE_WARLORD,
 		level: 18,
 		resources: {
 			'coins': 80000,
@@ -3712,21 +3712,21 @@ city_builder.CITIES = {
 		},
 		trades: {
 			'imports': {
-				cider: city_builder.GOODS_IMPORTANCE_LOW,
-				ropes: city_builder.GOODS_IMPORTANCE_LOW,
-				wax: city_builder.GOODS_IMPORTANCE_MEDIUM,
-				sugar: city_builder.GOODS_IMPORTANCE_LOW,
-				wood: city_builder.GOODS_IMPORTANCE_VITAL,
-				stones: city_builder.GOODS_IMPORTANCE_VITAL
+				cider: civitas.GOODS_IMPORTANCE_LOW,
+				ropes: civitas.GOODS_IMPORTANCE_LOW,
+				wax: civitas.GOODS_IMPORTANCE_MEDIUM,
+				sugar: civitas.GOODS_IMPORTANCE_LOW,
+				wood: civitas.GOODS_IMPORTANCE_VITAL,
+				stones: civitas.GOODS_IMPORTANCE_VITAL
 			},
 			'exports': {
-				almonds: city_builder.GOODS_IMPORTANCE_LOW,
-				roses: city_builder.GOODS_IMPORTANCE_HIGH,
-				grapes: city_builder.GOODS_IMPORTANCE_LOW,
-				hemp: city_builder.GOODS_IMPORTANCE_LOW,
-				coffeebeans: city_builder.GOODS_IMPORTANCE_LOW,
-				coffee: city_builder.GOODS_IMPORTANCE_LOW,
-				spices: city_builder.GOODS_IMPORTANCE_MEDIUM
+				almonds: civitas.GOODS_IMPORTANCE_LOW,
+				roses: civitas.GOODS_IMPORTANCE_HIGH,
+				grapes: civitas.GOODS_IMPORTANCE_LOW,
+				hemp: civitas.GOODS_IMPORTANCE_LOW,
+				coffeebeans: civitas.GOODS_IMPORTANCE_LOW,
+				coffee: civitas.GOODS_IMPORTANCE_LOW,
+				spices: civitas.GOODS_IMPORTANCE_MEDIUM
 			}
 		},
 		army: {
@@ -3743,12 +3743,12 @@ city_builder.CITIES = {
 		}
 	},
 	'Taruga': {
-		nationality: city_builder.NATION_TYPE_NIGERIAN,
+		nationality: civitas.NATION_TYPE_NIGERIAN,
 		ruler: 'Samun',
 		avatar: 30,
 		icon: 2,
-		climate: city_builder.CLIMATE_TYPE_TROPICAL,
-		personality: city_builder.PERSONALITY_TYPE_WARLORD,
+		climate: civitas.CLIMATE_TYPE_TROPICAL,
+		personality: civitas.PERSONALITY_TYPE_WARLORD,
 		level: 16,
 		resources: {
 			'coins': 20000,
@@ -3757,21 +3757,21 @@ city_builder.CITIES = {
 		},
 		trades: {
 			'imports': {
-				meat: city_builder.GOODS_IMPORTANCE_LOW,
-				milk: city_builder.GOODS_IMPORTANCE_LOW,
-				weapons: city_builder.GOODS_IMPORTANCE_LOW,
-				roses: city_builder.GOODS_IMPORTANCE_MEDIUM,
-				perfume: city_builder.GOODS_IMPORTANCE_LOW,
-				iron: city_builder.GOODS_IMPORTANCE_VITAL,
-				ironores: city_builder.GOODS_IMPORTANCE_LOW
+				meat: civitas.GOODS_IMPORTANCE_LOW,
+				milk: civitas.GOODS_IMPORTANCE_LOW,
+				weapons: civitas.GOODS_IMPORTANCE_LOW,
+				roses: civitas.GOODS_IMPORTANCE_MEDIUM,
+				perfume: civitas.GOODS_IMPORTANCE_LOW,
+				iron: civitas.GOODS_IMPORTANCE_VITAL,
+				ironores: civitas.GOODS_IMPORTANCE_LOW
 			},
 			'exports': {
-				brine: city_builder.GOODS_IMPORTANCE_MEDIUM,
-				clothes: city_builder.GOODS_IMPORTANCE_LOW,
-				glass: city_builder.GOODS_IMPORTANCE_HIGH,
-				wheat: city_builder.GOODS_IMPORTANCE_VITAL,
-				hides: city_builder.GOODS_IMPORTANCE_LOW,
-				paper: city_builder.GOODS_IMPORTANCE_LOW
+				brine: civitas.GOODS_IMPORTANCE_MEDIUM,
+				clothes: civitas.GOODS_IMPORTANCE_LOW,
+				glass: civitas.GOODS_IMPORTANCE_HIGH,
+				wheat: civitas.GOODS_IMPORTANCE_VITAL,
+				hides: civitas.GOODS_IMPORTANCE_LOW,
+				paper: civitas.GOODS_IMPORTANCE_LOW
 			}
 		},
 		army: {
@@ -3784,12 +3784,12 @@ city_builder.CITIES = {
 		}
 	},
 	'Thebes': {
-		nationality: city_builder.NATION_TYPE_EGYPTIAN,
+		nationality: civitas.NATION_TYPE_EGYPTIAN,
 		ruler: 'Hatshepsut',
 		avatar: 36,
 		icon: 4,
-		climate: city_builder.CLIMATE_TYPE_TROPICAL,
-		personality: city_builder.PERSONALITY_TYPE_DIPLOMAT,
+		climate: civitas.CLIMATE_TYPE_TROPICAL,
+		personality: civitas.PERSONALITY_TYPE_DIPLOMAT,
 		level: 38,
 		resources: {
 			'coins': 280000,
@@ -3798,21 +3798,21 @@ city_builder.CITIES = {
 		},
 		trades: {
 			'imports': {
-				meat: city_builder.GOODS_IMPORTANCE_LOW,
-				milk: city_builder.GOODS_IMPORTANCE_LOW,
-				weapons: city_builder.GOODS_IMPORTANCE_LOW,
-				roses: city_builder.GOODS_IMPORTANCE_MEDIUM,
-				perfume: city_builder.GOODS_IMPORTANCE_LOW,
-				iron: city_builder.GOODS_IMPORTANCE_VITAL,
-				ironores: city_builder.GOODS_IMPORTANCE_LOW
+				meat: civitas.GOODS_IMPORTANCE_LOW,
+				milk: civitas.GOODS_IMPORTANCE_LOW,
+				weapons: civitas.GOODS_IMPORTANCE_LOW,
+				roses: civitas.GOODS_IMPORTANCE_MEDIUM,
+				perfume: civitas.GOODS_IMPORTANCE_LOW,
+				iron: civitas.GOODS_IMPORTANCE_VITAL,
+				ironores: civitas.GOODS_IMPORTANCE_LOW
 			},
 			'exports': {
-				brine: city_builder.GOODS_IMPORTANCE_MEDIUM,
-				clothes: city_builder.GOODS_IMPORTANCE_LOW,
-				glass: city_builder.GOODS_IMPORTANCE_HIGH,
-				wheat: city_builder.GOODS_IMPORTANCE_VITAL,
-				hides: city_builder.GOODS_IMPORTANCE_LOW,
-				paper: city_builder.GOODS_IMPORTANCE_LOW
+				brine: civitas.GOODS_IMPORTANCE_MEDIUM,
+				clothes: civitas.GOODS_IMPORTANCE_LOW,
+				glass: civitas.GOODS_IMPORTANCE_HIGH,
+				wheat: civitas.GOODS_IMPORTANCE_VITAL,
+				hides: civitas.GOODS_IMPORTANCE_LOW,
+				paper: civitas.GOODS_IMPORTANCE_LOW
 			}
 		},
 		army: {
@@ -3829,12 +3829,12 @@ city_builder.CITIES = {
 		}
 	},
 	'Toledo': {
-		nationality: city_builder.NATION_TYPE_SPANISH,
+		nationality: civitas.NATION_TYPE_SPANISH,
 		ruler: 'Juan Luiz',
 		avatar: 12,
 		icon: 5,
-		climate: city_builder.CLIMATE_TYPE_TEMPERATE,
-		personality: city_builder.PERSONALITY_TYPE_BALANCED,
+		climate: civitas.CLIMATE_TYPE_TEMPERATE,
+		personality: civitas.PERSONALITY_TYPE_BALANCED,
 		level: 21,
 		resources: {
 			'coins': 110000,
@@ -3843,21 +3843,21 @@ city_builder.CITIES = {
 		},
 		trades: {
 			'imports': {
-				meat: city_builder.GOODS_IMPORTANCE_LOW,
-				iron: city_builder.GOODS_IMPORTANCE_HIGH,
-				brass: city_builder.GOODS_IMPORTANCE_LOW,
-				cider: city_builder.GOODS_IMPORTANCE_LOW,
-				grapes: city_builder.GOODS_IMPORTANCE_LOW,
-				coal: city_builder.GOODS_IMPORTANCE_MEDIUM,
-				ironores: city_builder.GOODS_IMPORTANCE_LOW
+				meat: civitas.GOODS_IMPORTANCE_LOW,
+				iron: civitas.GOODS_IMPORTANCE_HIGH,
+				brass: civitas.GOODS_IMPORTANCE_LOW,
+				cider: civitas.GOODS_IMPORTANCE_LOW,
+				grapes: civitas.GOODS_IMPORTANCE_LOW,
+				coal: civitas.GOODS_IMPORTANCE_MEDIUM,
+				ironores: civitas.GOODS_IMPORTANCE_LOW
 			},
 			'exports': {
-				mosaic: city_builder.GOODS_IMPORTANCE_VITAL,
-				wine: city_builder.GOODS_IMPORTANCE_HIGH,
-				silk: city_builder.GOODS_IMPORTANCE_LOW,
-				wood: city_builder.GOODS_IMPORTANCE_MEDIUM,
-				cattle: city_builder.GOODS_IMPORTANCE_LOW,
-				statues: city_builder.GOODS_IMPORTANCE_VITAL
+				mosaic: civitas.GOODS_IMPORTANCE_VITAL,
+				wine: civitas.GOODS_IMPORTANCE_HIGH,
+				silk: civitas.GOODS_IMPORTANCE_LOW,
+				wood: civitas.GOODS_IMPORTANCE_MEDIUM,
+				cattle: civitas.GOODS_IMPORTANCE_LOW,
+				statues: civitas.GOODS_IMPORTANCE_VITAL
 			}
 		},
 		army: {
@@ -3874,12 +3874,12 @@ city_builder.CITIES = {
 		}
 	},
 	'Tournai': {
-		nationality: city_builder.NATION_TYPE_FRANKS,
+		nationality: civitas.NATION_TYPE_FRANKS,
 		ruler: 'Clovis',
 		avatar: 44,
 		icon: 5,
-		climate: city_builder.CLIMATE_TYPE_CONTINENTAL,
-		personality: city_builder.PERSONALITY_TYPE_WARLORD,
+		climate: civitas.CLIMATE_TYPE_CONTINENTAL,
+		personality: civitas.PERSONALITY_TYPE_WARLORD,
 		level: 22,
 		resources: {
 			'coins': 10000,
@@ -3888,20 +3888,20 @@ city_builder.CITIES = {
 		},
 		trades: {
 			'imports': {
-				furs: city_builder.GOODS_IMPORTANCE_LOW,
-				hides: city_builder.GOODS_IMPORTANCE_VITAL,
-				milk: city_builder.GOODS_IMPORTANCE_MEDIUM,
-				gems: city_builder.GOODS_IMPORTANCE_LOW,
-				brass: city_builder.GOODS_IMPORTANCE_VITAL,
-				wheat: city_builder.GOODS_IMPORTANCE_HIGH,
-				clay: city_builder.GOODS_IMPORTANCE_LOW
+				furs: civitas.GOODS_IMPORTANCE_LOW,
+				hides: civitas.GOODS_IMPORTANCE_VITAL,
+				milk: civitas.GOODS_IMPORTANCE_MEDIUM,
+				gems: civitas.GOODS_IMPORTANCE_LOW,
+				brass: civitas.GOODS_IMPORTANCE_VITAL,
+				wheat: civitas.GOODS_IMPORTANCE_HIGH,
+				clay: civitas.GOODS_IMPORTANCE_LOW
 			},
 			'exports': {
-				silver: city_builder.GOODS_IMPORTANCE_VITAL,
-				wax: city_builder.GOODS_IMPORTANCE_MEDIUM,
-				candles: city_builder.GOODS_IMPORTANCE_LOW,
-				salt: city_builder.GOODS_IMPORTANCE_VITAL,
-				pearls: city_builder.GOODS_IMPORTANCE_MEDIUM
+				silver: civitas.GOODS_IMPORTANCE_VITAL,
+				wax: civitas.GOODS_IMPORTANCE_MEDIUM,
+				candles: civitas.GOODS_IMPORTANCE_LOW,
+				salt: civitas.GOODS_IMPORTANCE_VITAL,
+				pearls: civitas.GOODS_IMPORTANCE_MEDIUM
 			}
 		},
 		army: {
@@ -3918,12 +3918,12 @@ city_builder.CITIES = {
 		}
 	},
 	'Uruk': {
-		nationality: city_builder.NATION_TYPE_SUMERIAN,
+		nationality: civitas.NATION_TYPE_SUMERIAN,
 		ruler: 'Gilgamesh',
 		avatar: 14,
 		icon: 7,
-		climate: city_builder.CLIMATE_TYPE_TROPICAL,
-		personality: city_builder.PERSONALITY_TYPE_WARLORD,
+		climate: civitas.CLIMATE_TYPE_TROPICAL,
+		personality: civitas.PERSONALITY_TYPE_WARLORD,
 		level: 26,
 		resources: {
 			'coins': 80000,
@@ -3932,18 +3932,18 @@ city_builder.CITIES = {
 		},
 		trades: {
 			'imports': {
-				wheat: city_builder.GOODS_IMPORTANCE_VITAL,
-				wood: city_builder.GOODS_IMPORTANCE_HIGH,
-				sugar: city_builder.GOODS_IMPORTANCE_LOW,
-				sugarcane: city_builder.GOODS_IMPORTANCE_LOW,
-				clay: city_builder.GOODS_IMPORTANCE_VITAL
+				wheat: civitas.GOODS_IMPORTANCE_VITAL,
+				wood: civitas.GOODS_IMPORTANCE_HIGH,
+				sugar: civitas.GOODS_IMPORTANCE_LOW,
+				sugarcane: civitas.GOODS_IMPORTANCE_LOW,
+				clay: civitas.GOODS_IMPORTANCE_VITAL
 			},
 			'exports': {
-				silver: city_builder.GOODS_IMPORTANCE_VITAL,
-				glasses: city_builder.GOODS_IMPORTANCE_LOW,
-				furcoats: city_builder.GOODS_IMPORTANCE_MEDIUM,
-				indigo: city_builder.GOODS_IMPORTANCE_LOW,
-				wheat: city_builder.GOODS_IMPORTANCE_LOW
+				silver: civitas.GOODS_IMPORTANCE_VITAL,
+				glasses: civitas.GOODS_IMPORTANCE_LOW,
+				furcoats: civitas.GOODS_IMPORTANCE_MEDIUM,
+				indigo: civitas.GOODS_IMPORTANCE_LOW,
+				wheat: civitas.GOODS_IMPORTANCE_LOW
 			}
 		},
 		army: {
@@ -3960,12 +3960,12 @@ city_builder.CITIES = {
 		}
 	},
 	'Xinjiang': {
-		nationality: city_builder.NATION_TYPE_CHINESE,
+		nationality: civitas.NATION_TYPE_CHINESE,
 		ruler: 'Gaozu',
 		avatar: 15,
 		icon: 7,
-		climate: city_builder.CLIMATE_TYPE_TEMPERATE,
-		personality: city_builder.PERSONALITY_TYPE_BALANCED,
+		climate: civitas.CLIMATE_TYPE_TEMPERATE,
+		personality: civitas.PERSONALITY_TYPE_BALANCED,
 		level: 29,
 		resources: {
 			'coins': 240000,
@@ -3974,18 +3974,18 @@ city_builder.CITIES = {
 		},
 		trades: {
 			'imports': {
-				salt: city_builder.GOODS_IMPORTANCE_MEDIUM,
-				stones: city_builder.GOODS_IMPORTANCE_VITAL,
-				gems: city_builder.GOODS_IMPORTANCE_LOW,
-				pearls: city_builder.GOODS_IMPORTANCE_LOW
+				salt: civitas.GOODS_IMPORTANCE_MEDIUM,
+				stones: civitas.GOODS_IMPORTANCE_VITAL,
+				gems: civitas.GOODS_IMPORTANCE_LOW,
+				pearls: civitas.GOODS_IMPORTANCE_LOW
 			},
 			'exports': {
-				donkeys: city_builder.GOODS_IMPORTANCE_VITAL,
-				sulphur: city_builder.GOODS_IMPORTANCE_VITAL,
-				silk: city_builder.GOODS_IMPORTANCE_MEDIUM,
-				glass: city_builder.GOODS_IMPORTANCE_HIGH,
-				carpets: city_builder.GOODS_IMPORTANCE_LOW,
-				cannons: city_builder.GOODS_IMPORTANCE_LOW
+				donkeys: civitas.GOODS_IMPORTANCE_VITAL,
+				sulphur: civitas.GOODS_IMPORTANCE_VITAL,
+				silk: civitas.GOODS_IMPORTANCE_MEDIUM,
+				glass: civitas.GOODS_IMPORTANCE_HIGH,
+				carpets: civitas.GOODS_IMPORTANCE_LOW,
+				cannons: civitas.GOODS_IMPORTANCE_LOW
 			}
 		},
 		army: {
@@ -4001,12 +4001,12 @@ city_builder.CITIES = {
 		}
 	},
 	'Yinxu': {
-		nationality: city_builder.NATION_TYPE_CHINESE,
+		nationality: civitas.NATION_TYPE_CHINESE,
 		ruler: 'Wu Ding',
 		avatar: 15,
 		icon: 7,
-		climate: city_builder.CLIMATE_TYPE_TEMPERATE,
-		personality: city_builder.PERSONALITY_TYPE_WARLORD,
+		climate: civitas.CLIMATE_TYPE_TEMPERATE,
+		personality: civitas.PERSONALITY_TYPE_WARLORD,
 		level: 22,
 		resources: {
 			'coins': 240000,
@@ -4015,25 +4015,25 @@ city_builder.CITIES = {
 		},
 		trades: {
 			'imports': {
-				gold: city_builder.GOODS_IMPORTANCE_LOW,
-				goldores: city_builder.GOODS_IMPORTANCE_LOW,
-				weapons: city_builder.GOODS_IMPORTANCE_LOW,
-				salt: city_builder.GOODS_IMPORTANCE_MEDIUM,
-				stones: city_builder.GOODS_IMPORTANCE_VITAL,
-				gems: city_builder.GOODS_IMPORTANCE_LOW,
-				pearls: city_builder.GOODS_IMPORTANCE_LOW
+				gold: civitas.GOODS_IMPORTANCE_LOW,
+				goldores: civitas.GOODS_IMPORTANCE_LOW,
+				weapons: civitas.GOODS_IMPORTANCE_LOW,
+				salt: civitas.GOODS_IMPORTANCE_MEDIUM,
+				stones: civitas.GOODS_IMPORTANCE_VITAL,
+				gems: civitas.GOODS_IMPORTANCE_LOW,
+				pearls: civitas.GOODS_IMPORTANCE_LOW
 			},
 			'exports': {
-				donkeys: city_builder.GOODS_IMPORTANCE_VITAL,
-				sulphur: city_builder.GOODS_IMPORTANCE_VITAL,
-				silk: city_builder.GOODS_IMPORTANCE_MEDIUM,
-				glass: city_builder.GOODS_IMPORTANCE_HIGH,
-				roses: city_builder.GOODS_IMPORTANCE_LOW,
-				cattle: city_builder.GOODS_IMPORTANCE_LOW,
-				bread: city_builder.GOODS_IMPORTANCE_LOW,
-				meat: city_builder.GOODS_IMPORTANCE_MEDIUM,
-				carpets: city_builder.GOODS_IMPORTANCE_LOW,
-				cannons: city_builder.GOODS_IMPORTANCE_LOW
+				donkeys: civitas.GOODS_IMPORTANCE_VITAL,
+				sulphur: civitas.GOODS_IMPORTANCE_VITAL,
+				silk: civitas.GOODS_IMPORTANCE_MEDIUM,
+				glass: civitas.GOODS_IMPORTANCE_HIGH,
+				roses: civitas.GOODS_IMPORTANCE_LOW,
+				cattle: civitas.GOODS_IMPORTANCE_LOW,
+				bread: civitas.GOODS_IMPORTANCE_LOW,
+				meat: civitas.GOODS_IMPORTANCE_MEDIUM,
+				carpets: civitas.GOODS_IMPORTANCE_LOW,
+				cannons: civitas.GOODS_IMPORTANCE_LOW
 			}
 		},
 		army: {
@@ -4057,7 +4057,7 @@ city_builder.CITIES = {
  * @type {Number}
  * @constant
  */
-city_builder.EVENT_EFFECT_DESTROY_BUILDING = 0;
+civitas.EVENT_EFFECT_DESTROY_BUILDING = 0;
 
 /**
  * Event responsable for losing coins.
@@ -4065,7 +4065,7 @@ city_builder.EVENT_EFFECT_DESTROY_BUILDING = 0;
  * @type {Number}
  * @constant
  */
-city_builder.EVENT_EFFECT_LOSE_COINS = 1;
+civitas.EVENT_EFFECT_LOSE_COINS = 1;
 
 /**
  * Event responsable for gaining coins.
@@ -4073,7 +4073,7 @@ city_builder.EVENT_EFFECT_LOSE_COINS = 1;
  * @type {Number}
  * @constant
  */
-city_builder.EVENT_EFFECT_GAIN_COINS = 2;
+civitas.EVENT_EFFECT_GAIN_COINS = 2;
 
 /**
  * Event responsable for raising the influence with another city.
@@ -4081,7 +4081,7 @@ city_builder.EVENT_EFFECT_GAIN_COINS = 2;
  * @constant
  * @type {Number}
  */
-city_builder.EVENT_EFFECT_RAISE_INFLUENCE = 3;
+civitas.EVENT_EFFECT_RAISE_INFLUENCE = 3;
 
 /**
  * Event responsable for lowering the influence with another city.
@@ -4089,7 +4089,7 @@ city_builder.EVENT_EFFECT_RAISE_INFLUENCE = 3;
  * @constant
  * @type {Number}
  */
-city_builder.EVENT_EFFECT_LOWER_INFLUENCE = 4;
+civitas.EVENT_EFFECT_LOWER_INFLUENCE = 4;
 
 /**
  * Event responsable for losing fame.
@@ -4097,7 +4097,7 @@ city_builder.EVENT_EFFECT_LOWER_INFLUENCE = 4;
  * @type {Number}
  * @constant
  */
-city_builder.EVENT_EFFECT_LOSE_FAME = 5;
+civitas.EVENT_EFFECT_LOSE_FAME = 5;
 
 /**
  * Event responsable for gaining fame.
@@ -4105,7 +4105,7 @@ city_builder.EVENT_EFFECT_LOSE_FAME = 5;
  * @type {Number}
  * @constant
  */
-city_builder.EVENT_EFFECT_GAIN_FAME = 6;
+civitas.EVENT_EFFECT_GAIN_FAME = 6;
 
 /**
  * Event responsable for losing espionage.
@@ -4113,7 +4113,7 @@ city_builder.EVENT_EFFECT_GAIN_FAME = 6;
  * @type {Number}
  * @constant
  */
-city_builder.EVENT_EFFECT_LOSE_ESPIONAGE = 7;
+civitas.EVENT_EFFECT_LOSE_ESPIONAGE = 7;
 
 /**
  * Event responsable for gaining espionage.
@@ -4121,7 +4121,7 @@ city_builder.EVENT_EFFECT_LOSE_ESPIONAGE = 7;
  * @type {Number}
  * @constant
  */
-city_builder.EVENT_EFFECT_GAIN_ESPIONAGE = 8;
+civitas.EVENT_EFFECT_GAIN_ESPIONAGE = 8;
 
 /**
  * List of all available in-game events.
@@ -4129,12 +4129,12 @@ city_builder.EVENT_EFFECT_GAIN_ESPIONAGE = 8;
  * @constant
  * @type {Array}
  */
-city_builder.EVENTS = [{
+civitas.EVENTS = [{
 	name: 'Great earthquake',
 	handle: 'earthquake1',
 	description: '',
 	chance: 0.0001,
-	effect: city_builder.EVENT_EFFECT_DESTROY_BUILDING,
+	effect: civitas.EVENT_EFFECT_DESTROY_BUILDING,
 	data: {
 		amount: 1
 	}
@@ -4143,7 +4143,7 @@ city_builder.EVENTS = [{
 	handle: 'marriage',
 	description: 'A marriage was arranged between a member of your family and the royal family of CITY. This raises your influence on CITY. Good job!',
 	chance: 0.001,
-	effect: city_builder.EVENT_EFFECT_RAISE_INFLUENCE,
+	effect: civitas.EVENT_EFFECT_RAISE_INFLUENCE,
 	data: {
 		amount: 50,
 		city: 'Rome'
@@ -4153,7 +4153,7 @@ city_builder.EVENTS = [{
 	handle: 'raiders',
 	description: 'A band of raiders attacked the outskirts of your city. Repairing the affected buildings costed AMOUNT coins.',
 	chance: 0.001,
-	effect: city_builder.EVENT_EFFECT_LOSE_COINS,
+	effect: civitas.EVENT_EFFECT_LOSE_COINS,
 	data: {
 		amount: 1000
 	}
@@ -4162,7 +4162,7 @@ city_builder.EVENTS = [{
 	handle: 'discovery',
 	description: 'The engineers in your city made a great discovery which made your city more famous, thus gaining AMOUNT fame.',
 	chance: 0.008,
-	effect: city_builder.EVENT_EFFECT_GAIN_FAME,
+	effect: civitas.EVENT_EFFECT_GAIN_FAME,
 	data: {
 		amount: 100,
 	}
@@ -4171,7 +4171,7 @@ city_builder.EVENTS = [{
 	handle: 'spyfound',
 	description: 'A spy from CITY was found hiding in your city, as a reward for finding him you gain AMOUNT espionage.',
 	chance: 0.010,
-	effect: city_builder.EVENT_EFFECT_GAIN_ESPIONAGE,
+	effect: civitas.EVENT_EFFECT_GAIN_ESPIONAGE,
 	data: {
 		amount: 10,
 	}
@@ -4180,7 +4180,7 @@ city_builder.EVENTS = [{
 	handle: 'spydiscovered',
 	description: 'One of your spies in CITY was discovered, CITY`s ruler is angry so you lose AMOUNT espionage.',
 	chance: 0.010,
-	effect: city_builder.EVENT_EFFECT_LOSE_ESPIONAGE,
+	effect: civitas.EVENT_EFFECT_LOSE_ESPIONAGE,
 	data: {
 		amount: 10,
 	}
@@ -4192,7 +4192,7 @@ city_builder.EVENTS = [{
  * @constant
  * @type {Object}
  */
-city_builder.RESOURCES_START = [{
+civitas.RESOURCES_START = [{
 		'coins': 50000,
 		'fame': 10,
 		'prestige': 1,
@@ -4242,7 +4242,7 @@ city_builder.RESOURCES_START = [{
  * @constant
  * @type {Object}
  */
-city_builder.RESOURCES = {
+civitas.RESOURCES = {
 	'coins': {
 		name: 'Coins'
 	},
@@ -4505,7 +4505,7 @@ city_builder.RESOURCES = {
 	}
 };
 
-city_builder.MAIN_RESOURCES = [
+civitas.MAIN_RESOURCES = [
 	'coins', 'bread', 'brass', 'cannons', 'cattle', 'cider', 'clay', 'clothes', 'coal', 'copper',
 	'fish', 'flour', 'furs', 'herbs', 'hides', 'iron', 'ironores', 'meat', 'milk', 'salt',
 	'stones', 'weapons', 'wheat', 'wood'
@@ -4516,14 +4516,14 @@ city_builder.MAIN_RESOURCES = [
  * goodies, nice trades and a cool alliance.
  * Throw in some coins too.
  */
-if (city_builder.DEBUG === true) {
-	city_builder.CITIES['Sandbox'] = {
-		nationality: city_builder.NATION_TYPE_ASSYRIAN,
+if (civitas.DEBUG === true) {
+	civitas.CITIES['Sandbox'] = {
+		nationality: civitas.NATION_TYPE_ASSYRIAN,
 		ruler: 'Sandking',
 		avatar: 1,
 		icon: 2,
-		climate: city_builder.CLIMATE_TYPE_TEMPERATE,
-		personality: city_builder.PERSONALITY_TYPE_DIPLOMAT,
+		climate: civitas.CLIMATE_TYPE_TEMPERATE,
+		personality: civitas.PERSONALITY_TYPE_DIPLOMAT,
 		level: 30,
 		resources: {
 			'coins': 1000000,
@@ -4531,26 +4531,26 @@ if (city_builder.DEBUG === true) {
 		},
 		trades: {
 			'imports': {
-				gold: city_builder.GOODS_IMPORTANCE_VITAL,
-				goldores: city_builder.GOODS_IMPORTANCE_VITAL,
-				weapons: city_builder.GOODS_IMPORTANCE_VITAL,
-				weapons: city_builder.GOODS_IMPORTANCE_VITAL,
-				milk: city_builder.GOODS_IMPORTANCE_VITAL,
-				gems: city_builder.GOODS_IMPORTANCE_VITAL,
-				pearls: city_builder.GOODS_IMPORTANCE_VITAL
+				gold: civitas.GOODS_IMPORTANCE_VITAL,
+				goldores: civitas.GOODS_IMPORTANCE_VITAL,
+				weapons: civitas.GOODS_IMPORTANCE_VITAL,
+				weapons: civitas.GOODS_IMPORTANCE_VITAL,
+				milk: civitas.GOODS_IMPORTANCE_VITAL,
+				gems: civitas.GOODS_IMPORTANCE_VITAL,
+				pearls: civitas.GOODS_IMPORTANCE_VITAL
 			},
 			'exports': {
-				stones: city_builder.GOODS_IMPORTANCE_VITAL,
-				wood: city_builder.GOODS_IMPORTANCE_VITAL,
-				ironores: city_builder.GOODS_IMPORTANCE_VITAL,
-				goldores: city_builder.GOODS_IMPORTANCE_VITAL,
-				copper: city_builder.GOODS_IMPORTANCE_VITAL,
-				clay: city_builder.GOODS_IMPORTANCE_VITAL,
-				iron: city_builder.GOODS_IMPORTANCE_VITAL,
-				gold: city_builder.GOODS_IMPORTANCE_VITAL,
-				meat: city_builder.GOODS_IMPORTANCE_VITAL,
-				bread: city_builder.GOODS_IMPORTANCE_VITAL,
-				coal: city_builder.GOODS_IMPORTANCE_VITAL
+				stones: civitas.GOODS_IMPORTANCE_VITAL,
+				wood: civitas.GOODS_IMPORTANCE_VITAL,
+				ironores: civitas.GOODS_IMPORTANCE_VITAL,
+				goldores: civitas.GOODS_IMPORTANCE_VITAL,
+				copper: civitas.GOODS_IMPORTANCE_VITAL,
+				clay: civitas.GOODS_IMPORTANCE_VITAL,
+				iron: civitas.GOODS_IMPORTANCE_VITAL,
+				gold: civitas.GOODS_IMPORTANCE_VITAL,
+				meat: civitas.GOODS_IMPORTANCE_VITAL,
+				bread: civitas.GOODS_IMPORTANCE_VITAL,
+				coal: civitas.GOODS_IMPORTANCE_VITAL
 			}
 		},
 		army: {
@@ -4576,7 +4576,7 @@ if (city_builder.DEBUG === true) {
 /**
  * Utils object.
  */
-city_builder.utils = {
+civitas.utils = {
 
 	/**
 	 * Round the number to nearest 10.
@@ -4609,8 +4609,8 @@ city_builder.utils = {
 	 * @returns {Number}
 	 */
 	get_random_by_importance: function(importance) {
-		return city_builder.utils.get_up_number(
-			city_builder.utils.get_random(
+		return civitas.utils.get_up_number(
+			civitas.utils.get_random(
 				Math.floor(Math.random() * importance) * 10 + 10,
 				Math.floor(Math.random() * importance) * 10 + 20
 			)
@@ -4625,7 +4625,7 @@ city_builder.utils = {
 	 * @returns {String}
 	 */
 	get_resource_name: function(handle) {
-		return city_builder.RESOURCES[handle].name;
+		return civitas.RESOURCES[handle].name;
 	},
 
 	/**
@@ -4638,7 +4638,7 @@ city_builder.utils = {
 	 * @public
 	 */
 	calc_price_minus_discount: function (amount, resource, discount) {
-		return Math.ceil(Math.ceil(city_builder.RESOURCES[resource].price - discount) * amount);
+		return Math.ceil(Math.ceil(civitas.RESOURCES[resource].price - discount) * amount);
 	},
 		
 	/**
@@ -4650,7 +4650,7 @@ city_builder.utils = {
 	 * @public
 	 */
 	calc_price: function (amount, resource) {
-		return Math.ceil(amount * (city_builder.RESOURCES[resource].price));
+		return Math.ceil(amount * (civitas.RESOURCES[resource].price));
 	},
 
 	/**
@@ -4663,7 +4663,7 @@ city_builder.utils = {
 	 * @public
 	 */
 	calc_price_plus_discount: function (amount, resource, discount) {
-		return Math.ceil(Math.ceil(city_builder.RESOURCES[resource].price + discount) * amount);
+		return Math.ceil(Math.ceil(civitas.RESOURCES[resource].price + discount) * amount);
 	},
 	
 	/**
@@ -4704,15 +4704,15 @@ city_builder.utils = {
  * Main Game AI (Artificial Intelligence) object.
  * 
  * @param {Object} params
- * @class {city_builder.modules.ai}
- * @returns {city_builder.modules.ai}
+ * @class {civitas.modules.ai}
+ * @returns {civitas.modules.ai}
  */
-city_builder.modules.ai = function (params) {
+civitas.modules.ai = function (params) {
 
 	/**
 	 * Reference to the core object.
 	 * 
-	 * @type {city_builder.game}
+	 * @type {civitas.game}
 	 */
 	this.core = null;
 
@@ -4720,7 +4720,7 @@ city_builder.modules.ai = function (params) {
 	 * Object constructor.
 	 * 
 	 * @private
-	 * @returns {city_builder.modules.ai}
+	 * @returns {civitas.modules.ai}
 	 * @param {Object} params
 	 */
 	this.__constructor = function (params) {
@@ -4736,15 +4736,15 @@ city_builder.modules.ai = function (params) {
  * Main Game API object.
  * 
  * @param {Object} params
- * @class {city_builder.modules.api}
- * @returns {city_builder.modules.api}
+ * @class {civitas.modules.api}
+ * @returns {civitas.modules.api}
  */
-city_builder.modules.api = function (params) {
+civitas.modules.api = function (params) {
 
 	/**
 	 * Reference to the core object.
 	 * 
-	 * @type {city_builder.game}
+	 * @type {civitas.game}
 	 */
 	this.core = null;
 
@@ -4760,7 +4760,7 @@ city_builder.modules.api = function (params) {
 	 * Sign in a visitor using the specified data.
 	 * 
 	 * @param {Object} data
-	 * @returns {city_builder.modules.api}
+	 * @returns {civitas.modules.api}
 	 */
 	this.login = function (data) {
 		return this.request({
@@ -4782,7 +4782,7 @@ city_builder.modules.api = function (params) {
 	/**
 	 * Sign out the currently logged in user.
 	 * 
-	 * @returns {city_builder.modules.api}
+	 * @returns {civitas.modules.api}
 	 */
 	this.logout = function () {
 		return this.request({
@@ -4793,7 +4793,7 @@ city_builder.modules.api = function (params) {
 	/**
 	 * Get information about the application and API version.
 	 *
-	 * @returns {city_builder.modules.api}
+	 * @returns {civitas.modules.api}
 	 */
 	this.api_version = function() {
 		return this.request({
@@ -4804,7 +4804,7 @@ city_builder.modules.api = function (params) {
 	/**
 	 * Get information about the currently logged in user's city.
 	 *
-	 * @returns {city_builder.modules.api}
+	 * @returns {civitas.modules.api}
 	 */
 	this.city_info = function() {
 		return this.request({
@@ -4815,7 +4815,7 @@ city_builder.modules.api = function (params) {
 	/**
 	 * Perform a heartbeat request and get data about it.
 	 *
-	 * @returns {city_builder.modules.api}
+	 * @returns {civitas.modules.api}
 	 */
 	this.heartbeat = function() {
 		return this.request({
@@ -4827,7 +4827,7 @@ city_builder.modules.api = function (params) {
 	 * Register a visitor using the specified data.
 	 * 
 	 * @param {Object} data
-	 * @returns {city_builder.modules.api}
+	 * @returns {civitas.modules.api}
 	 */
 	this.register = function (data) {
 		return this.request({
@@ -4840,7 +4840,7 @@ city_builder.modules.api = function (params) {
 	 * Export the specified data to the API endpoint.
 	 * 
 	 * @param {Object} data
-	 * @returns {city_builder.modules.api}
+	 * @returns {civitas.modules.api}
 	 */
 	this.do_export = function (data) {
 		return this.request({
@@ -4853,7 +4853,7 @@ city_builder.modules.api = function (params) {
 	 * Import the specified data from the API endpoint.
 	 * 
 	 * @param {Object} data
-	 * @returns {city_builder.modules.api}
+	 * @returns {civitas.modules.api}
 	 */
 	this.do_import = function (data) {
 		return this.request({
@@ -4866,7 +4866,7 @@ city_builder.modules.api = function (params) {
 	 * Internal function for performing an API AJAX request.
 	 * 
 	 * @param {Object} data
-	 * @returns {city_builder.modules.api}
+	 * @returns {civitas.modules.api}
 	 */
 	this._request = function (data) {
 		$.ajax({
@@ -4877,7 +4877,7 @@ city_builder.modules.api = function (params) {
 			},
 			crossDomain: true,
 			data: data.data,
-			url: city_builder.API_VERSION_URL + data.url,
+			url: civitas.API_VERSION_URL + data.url,
 			async: (typeof data.async === 'undefined' || data.async == true) ? true : false,
 			success: data.success instanceof Function ? data.success : function () {
 				// TODO
@@ -4893,7 +4893,7 @@ city_builder.modules.api = function (params) {
 	 * Object constructor.
 	 * 
 	 * @private
-	 * @returns {city_builder.modules.api}
+	 * @returns {civitas.modules.api}
 	 * @param {Object} params
 	 */
 	this.__constructor = function (params) {
@@ -4909,15 +4909,15 @@ city_builder.modules.api = function (params) {
  * Game jailer (enforcing security) object.
  * 
  * @param {Object} params
- * @class {city_builder.modules.jailer}
- * @returns {city_builder.modules.jailer}
+ * @class {civitas.modules.jailer}
+ * @returns {civitas.modules.jailer}
  */
-city_builder.modules.jailer = function (params) {
+civitas.modules.jailer = function (params) {
 
 	/**
 	 * Reference to the core object.
 	 * 
-	 * @type {city_builder.game}
+	 * @type {civitas.game}
 	 */
 	this.core = null;
 
@@ -4932,7 +4932,7 @@ city_builder.modules.jailer = function (params) {
 	 * Object constructor.
 	 * 
 	 * @private
-	 * @returns {city_builder.modules.jailer}
+	 * @returns {civitas.modules.jailer}
 	 * @param {Object} params
 	 */
 	this.__constructor = function (params) {
@@ -4968,15 +4968,15 @@ city_builder.modules.jailer = function (params) {
  * Main Game history object.
  * 
  * @param {Object} params
- * @class {city_builder.modules.history}
- * @returns {city_builder.modules.history}
+ * @class {civitas.modules.history}
+ * @returns {civitas.modules.history}
  */
-city_builder.modules.history = function (params) {
+civitas.modules.history = function (params) {
 
 	/**
 	 * Reference to the core object.
 	 * 
-	 * @type {city_builder.game}
+	 * @type {civitas.game}
 	 */
 	this.core = null;
 
@@ -4984,7 +4984,7 @@ city_builder.modules.history = function (params) {
 	 * Object constructor.
 	 * 
 	 * @private
-	 * @returns {city_builder.modules.history}
+	 * @returns {civitas.modules.history}
 	 * @param {Object} params
 	 */
 	this.__constructor = function (params) {
@@ -5000,26 +5000,26 @@ city_builder.modules.history = function (params) {
 /**
  * Main Game UI interface.
  */
-city_builder.ui = {
+civitas.ui = {
 	
 	building_panel_template: '<div id="panel-{id}" class="panel pb">' +
 			'<header>' +
 				'<span class="title"></span>' +
-				'<a class="tips close btn" title="' + city_builder.l('Close this panel') + '"></a>' +
+				'<a class="tips close btn" title="' + civitas.l('Close this panel') + '"></a>' +
 			'</header>' +
 			'<div class="contents"></div>' +
 			'<foooter class="footer">' +
-				'<a class="tips demolish btn" title="' + city_builder.l('Demolish this building') + '"></a>' +
-				'<a class="tips pause start btn" title="' + city_builder.l('Control (start/pause) production') + '"></a>' +
-				'<a class="tips upgrade btn" title="' + city_builder.l('Upgrade building') + '"></a>' +
-				'<a class="tips help btn" data-ctxt="{context}" data-term="{building}" title="' + city_builder.l('Info about this building') + '"></a>' +
+				'<a class="tips demolish btn" title="' + civitas.l('Demolish this building') + '"></a>' +
+				'<a class="tips pause start btn" title="' + civitas.l('Control (start/pause) production') + '"></a>' +
+				'<a class="tips upgrade btn" title="' + civitas.l('Upgrade building') + '"></a>' +
+				'<a class="tips help btn" data-ctxt="{context}" data-term="{building}" title="' + civitas.l('Info about this building') + '"></a>' +
 			'</footer>' +
 		'</div>',
 	
 	worldmap_panel_template: '<div id="panel-{id}" class="panel">' +
 			'<header>' +
-				'<span class="title">' + city_builder.l('World Map') + '</span>' +
-				'<a class="tips btn close" title="' + city_builder.l('Close this panel') + '"></a>' +
+				'<span class="title">' + civitas.l('World Map') + '</span>' +
+				'<a class="tips btn close" title="' + civitas.l('Close this panel') + '"></a>' +
 			'</header>' +
 			'<div class="contents"><div class="worldmap"></div></div>' +
 		'</div>',
@@ -5027,7 +5027,7 @@ city_builder.ui = {
 	generic_panel_template: '<div id="panel-{id}" class="panel">' +
 			'<header>' +
 			'<span class="title">{title}</span>' +
-			'<a class="tips btn close" title="' + city_builder.l('Close this panel') + '"></a>' +
+			'<a class="tips btn close" title="' + civitas.l('Close this panel') + '"></a>' +
 			'</header>' +
 			'<div class="contents"></div>' +
 			'</div>',
@@ -5043,20 +5043,20 @@ city_builder.ui = {
 	cost_panel: function (costs) {
 		var out = '';
 		if (typeof costs !== 'undefined') {
-			out += '<dt>' + city_builder.l('Cost') + '</dt>';
+			out += '<dt>' + civitas.l('Cost') + '</dt>';
 			for (var item in costs) {
-				out += '<dd>' + city_builder.utils.nice_numbers(costs[item]) + city_builder.ui.resource_small_img(item) + '</dd>';
+				out += '<dd>' + civitas.utils.nice_numbers(costs[item]) + civitas.ui.resource_small_img(item) + '</dd>';
 			}
 		}
 		return out;
 	},
 	
 	city_worldmap_element: function (name) {
-		return '<div data-name="' + name + '" class="tips city c' + city_builder.CITIES[name].icon + '" title="' + city_builder.l('City of') + ' ' + name + '" style="left:' + city_builder.CITIES[name].location.x + 'px;top:' + city_builder.CITIES[name].location.y + 'px"></div>';
+		return '<div data-name="' + name + '" class="tips city c' + civitas.CITIES[name].icon + '" title="' + civitas.l('City of') + ' ' + name + '" style="left:' + civitas.CITIES[name].location.x + 'px;top:' + civitas.CITIES[name].location.y + 'px"></div>';
 	},
 	
 	army_img: function (name) {
-		return '<img class="tips" title="' + name + '" src="' + city_builder.ASSETS_URL + 'images/armies/' + name.toLowerCase().replace(/ /g,"_") + '_small.png" />';
+		return '<img class="tips" title="' + name + '" src="' + civitas.ASSETS_URL + 'images/armies/' + name.toLowerCase().replace(/ /g,"_") + '_small.png" />';
 	},
 	
 	army_list: function (army, no_margin) {
@@ -5064,10 +5064,10 @@ city_builder.ui = {
 		var total = 0;
 		for (var soldier in army.army) {
 			out += '<dt>' + army.army[soldier] + '</dt>' +
-					'<dd>' + city_builder.ui.army_img(soldier) + '</dd>';
+					'<dd>' + civitas.ui.army_img(soldier) + '</dd>';
 			total += army.army[soldier];
 		}
-		out += '<dt>' + (typeof army.total !== 'undefined' ? army.total : total) + '</dt><dd>' + city_builder.l('Total') + '</dd>' +
+		out += '<dt>' + (typeof army.total !== 'undefined' ? army.total : total) + '</dt><dd>' + civitas.l('Total') + '</dd>' +
 				'</dl>';
 		return out;
 	},
@@ -5098,7 +5098,7 @@ city_builder.ui = {
 			var trade = trades[mode];
 			for (var item in trade) {
 				out += '<dt>' + trade[item] + '</dt>' +
-						'<dd>' + city_builder.ui.resource_small_img(item) + '</dd>';
+						'<dd>' + civitas.ui.resource_small_img(item) + '</dd>';
 			}
 			out += '</dl>';
 		}
@@ -5110,10 +5110,10 @@ city_builder.ui = {
 		var total = 0;
 		for (var soldier in army.navy) {
 			out += '<dt>' + army.navy[soldier] + '</dt>' +
-					'<dd>' + city_builder.ui.army_img(soldier) + '</dd>';
+					'<dd>' + civitas.ui.army_img(soldier) + '</dd>';
 			total += army.navy[soldier];
 		}
-		out += '<dt>' + (typeof army.total !== 'undefined' ? army.total : total) + '</dt><dd>' + city_builder.l('Total') + '</dd>' +
+		out += '<dt>' + (typeof army.total !== 'undefined' ? army.total : total) + '</dt><dd>' + civitas.l('Total') + '</dd>' +
 				'</dl>';
 		return out;
 	},
@@ -5126,7 +5126,7 @@ city_builder.ui = {
 		}
 		var image = (typeof params.data.visible_upgrades === 'undefined' || params.data.visible_upgrades === false) ? building_image + '1' : building_image + params.data.level;
 		return '<div data-type="' + params.type + '" data-level="' + params.data.level + '" ' +
-				'style="background:transparent url(' + city_builder.ASSETS_URL + 'images/buildings/' + image + '.png) no-repeat;left:' + params.data.position.x + 'px;top:' + params.data.position.y + 'px" ' +
+				'style="background:transparent url(' + civitas.ASSETS_URL + 'images/buildings/' + image + '.png) no-repeat;left:' + params.data.position.x + 'px;top:' + params.data.position.y + 'px" ' +
 				'title=\'<span class="buildinginfo">' + params.data.name + '</span> ' + description + '\' ' +
 				'id="building-' + params.data.handle + '"' +
 				'class="tips slots building"></div>';
@@ -5134,8 +5134,8 @@ city_builder.ui = {
 	
 	resource_storage_el: function (resource, amount) {
 		return '<div class="storage-item item-' + resource + '">' +
-				'<span class="title">' + city_builder.utils.get_resource_name(resource) + '</span>' +
-				'<img src="' + city_builder.ASSETS_URL + 'images/resources/' + resource + '.png" />' +
+				'<span class="title">' + civitas.utils.get_resource_name(resource) + '</span>' +
+				'<img src="' + civitas.ASSETS_URL + 'images/resources/' + resource + '.png" />' +
 				'<span class="amount">' + amount + '</amount>' +
 				'</div>';
 	},
@@ -5158,9 +5158,9 @@ city_builder.ui = {
 	materials_panel: function (materials) {
 		var out = '';
 		if (typeof materials !== 'undefined') {
-			out += '<dt>' + city_builder.l('Uses') + '</dt>';
+			out += '<dt>' + civitas.l('Uses') + '</dt>';
 			for (var item in materials) {
-				out += '<dd>' + materials[item] + city_builder.ui.resource_small_img(item) + '</dd>';
+				out += '<dd>' + materials[item] + civitas.ui.resource_small_img(item) + '</dd>';
 			}
 		}
 		return out;
@@ -5169,9 +5169,9 @@ city_builder.ui = {
 	production_panel: function (materials, level) {
 		var out = '';
 		if (typeof materials !== 'undefined') {
-			out += '<dt>' + city_builder.l('Produces') + '</dt>';
+			out += '<dt>' + civitas.l('Produces') + '</dt>';
 			for (var item in materials) {
-				out += '<dd>' + (level * materials[item]) + city_builder.ui.resource_small_img(item) + '</dd>';
+				out += '<dd>' + (level * materials[item]) + civitas.ui.resource_small_img(item) + '</dd>';
 			}
 		}
 		return out;
@@ -5180,8 +5180,8 @@ city_builder.ui = {
 	requires_panel: function (requires) {
 		var out = '';
 		if (typeof requires.buildings !== 'undefined') {
-			out += '<dt>' + city_builder.l('Requires') + '</dt>';
-			var b = city_builder.BUILDINGS[city_builder.BUILDINGS.findIndexM(requires.buildings)];
+			out += '<dt>' + civitas.l('Requires') + '</dt>';
+			var b = civitas.BUILDINGS[civitas.BUILDINGS.findIndexM(requires.buildings)];
 			out += '<dd>' + b.name + '</span>';
 		}
 		return out;
@@ -5190,8 +5190,8 @@ city_builder.ui = {
 	tax_panel: function (tax, level) {
 		var out = '';
 		if (typeof tax !== 'undefined') {
-			out += '<dt>' + city_builder.l('Tax') + '</dt>';
-			out += '<dd>' + (level * tax) + city_builder.ui.resource_small_img('coins') + '</dd>';
+			out += '<dt>' + civitas.l('Tax') + '</dt>';
+			out += '<dd>' + (level * tax) + civitas.ui.resource_small_img('coins') + '</dd>';
 		}
 		return out;
 	},
@@ -5199,14 +5199,14 @@ city_builder.ui = {
 	storage_panel: function (storage, level) {
 		var out = '';
 		if (typeof storage !== 'undefined') {
-			out += '<dt>' + city_builder.l('Storage') + '</dt>';
-			out += '<dd>' + (level * storage) + '<img alt="Storage space" class="tips" title="' + city_builder.l('Storage Space') + '" src="' + city_builder.ASSETS_URL + 'images/resources/storage_small.png" /></dd>';
+			out += '<dt>' + civitas.l('Storage') + '</dt>';
+			out += '<dd>' + (level * storage) + '<img alt="Storage space" class="tips" title="' + civitas.l('Storage Space') + '" src="' + civitas.ASSETS_URL + 'images/resources/storage_small.png" /></dd>';
 		}
 		return out;
 	},
 	
 	resource_small_img: function (resource) {
-		return '<img alt="' + city_builder.utils.get_resource_name(resource) + '" class="tips" title="' + city_builder.utils.get_resource_name(resource) + '" src="' + city_builder.ASSETS_URL + 'images/resources/' + resource + '_small.png" />';
+		return '<img alt="' + civitas.utils.get_resource_name(resource) + '" class="tips" title="' + civitas.utils.get_resource_name(resource) + '" src="' + civitas.ASSETS_URL + 'images/resources/' + resource + '_small.png" />';
 	}
 };
 
@@ -5214,10 +5214,10 @@ city_builder.ui = {
  * Main Game city object.
  * 
  * @param {type} params
- * @class {city_builder.objects.city}
- * @returns {city_builder.objects.city}
+ * @class {civitas.objects.city}
+ * @returns {civitas.objects.city}
  */
-city_builder.objects.city = function(params) {
+civitas.objects.city = function(params) {
 	
 	/**
 	 * The name of this city.
@@ -5239,7 +5239,7 @@ city_builder.objects.city = function(params) {
 	 * Pointer to the game core.
 	 * 
 	 * @private
-	 * @type {city_builder.game}
+	 * @type {civitas.game}
 	 */
 	this.core = null;
 	
@@ -5380,7 +5380,7 @@ city_builder.objects.city = function(params) {
 	 * Object constructor.
 	 * 
 	 * @private
-	 * @returns {city_builder.objects.city}
+	 * @returns {civitas.objects.city}
 	 * @param {Object} params
 	 */
 	this.__constructor = function(params) {
@@ -5390,9 +5390,9 @@ city_builder.objects.city = function(params) {
 		this.player = (typeof params.player !== 'undefined') ? params.player : false;
 		this.level = (typeof params.data.level !== 'undefined') ? params.data.level : 1;
 		this.resources = this._build_resources(params);
-		this.personality = (typeof params.data.personality !== 'undefined') ? params.data.personality : city_builder.PERSONALITY_TYPE_BALANCED;
-		this.nationality = (typeof params.data.nationality !== 'undefined') ? params.data.nationality : city_builder.NATION_TYPE_ROMAN;
-		this.climate = (typeof params.data.climate !== 'undefined') ? params.data.climate : city_builder.CLIMATE_TYPE_TEMPERATE;
+		this.personality = (typeof params.data.personality !== 'undefined') ? params.data.personality : civitas.PERSONALITY_TYPE_BALANCED;
+		this.nationality = (typeof params.data.nationality !== 'undefined') ? params.data.nationality : civitas.NATION_TYPE_ROMAN;
+		this.climate = (typeof params.data.climate !== 'undefined') ? params.data.climate : civitas.CLIMATE_TYPE_TEMPERATE;
 		this.ruler = (typeof params.data.ruler !== 'undefined') ? params.data.ruler : 0;
 		this.avatar = (typeof params.data.avatar !== 'undefined') ? params.data.avatar : 1;
 		this.icon = (typeof params.data.icon !== 'undefined') ? params.data.icon : 1;
@@ -5410,12 +5410,12 @@ city_builder.objects.city = function(params) {
 	this._build_resources = function(params) {
 		var resources = {};
 		var difficulty = this.get_core().get_difficulty();
-		for (var item in city_builder.RESOURCES) {
+		for (var item in civitas.RESOURCES) {
 			if (this.player === true) {
-				if (typeof city_builder.RESOURCES_START[difficulty - 1][item] === 'undefined') {
+				if (typeof civitas.RESOURCES_START[difficulty - 1][item] === 'undefined') {
 					resources[item] = 0;
 				} else {
-					resources[item] = city_builder.RESOURCES_START[difficulty - 1][item];
+					resources[item] = civitas.RESOURCES_START[difficulty - 1][item];
 				}
 			} else {
 				if (typeof params.data.resources[item] !== 'undefined') {
@@ -5423,7 +5423,7 @@ city_builder.objects.city = function(params) {
 				} else {
 					resources[item] = 0;
 				}
-				resources.fame = city_builder.LEVELS[this.get_level()];
+				resources.fame = civitas.LEVELS[this.get_level()];
 			}
 		}
 		return resources;
@@ -5433,7 +5433,7 @@ city_builder.objects.city = function(params) {
 	 * Buy the specified goods from a city.
 	 * 
 	 * @public
-	 * @param {city_builder.objects.city|String} city
+	 * @param {civitas.objects.city|String} city
 	 * @param {String} resource
 	 * @param {Number} amount
 	 * @returns {Object|Boolean}
@@ -5464,10 +5464,10 @@ city_builder.objects.city = function(params) {
 				if (typeof amount === 'undefined') {
 					amount = trades.exports[item];
 				}
-				var discount = Math.ceil((city_builder.RESOURCES[item].price * city_builder.TRADES_ADDITION) / 100);
-				var price = city_builder.utils.calc_price_plus_discount(amount, item, discount);
-				var city_price = city_builder.utils.calc_price(amount, item);
-				var item_discount_price = Math.ceil(city_builder.RESOURCES[item].price + discount);
+				var discount = Math.ceil((civitas.RESOURCES[item].price * civitas.TRADES_ADDITION) / 100);
+				var price = civitas.utils.calc_price_plus_discount(amount, item, discount);
+				var city_price = civitas.utils.calc_price(amount, item);
+				var item_discount_price = Math.ceil(civitas.RESOURCES[item].price + discount);
 				if (!this.has_storage_space_for(amount)) {
 					return false;
 				}
@@ -5481,14 +5481,14 @@ city_builder.objects.city = function(params) {
 				this.raise_prestige();
 				this.inc_fame(50);
 				this.get_core().refresh_ui();
-				this.get_core().notify(this.get_name() + ' bought ' + amount + ' ' + city_builder.utils.get_resource_name(item) + ' from ' + city + ' for ' + item_discount_price + ' coins each, for a total of ' + price + ' coins.', 'Transaction done');
+				this.get_core().notify(this.get_name() + ' bought ' + amount + ' ' + civitas.utils.get_resource_name(item) + ' from ' + city + ' for ' + item_discount_price + ' coins each, for a total of ' + price + ' coins.', 'Transaction done');
 				this.get_core().refresh_panels();
 				return {
 					buyer: this.get_name(),
 					amount: amount,
-					goods: city_builder.utils.get_resource_name(item),
+					goods: civitas.utils.get_resource_name(item),
 					seller: city,
-					price: Math.round(city_builder.RESOURCES[item].price + discount),
+					price: Math.round(civitas.RESOURCES[item].price + discount),
 					totalPrice: price
 				};
 			}
@@ -5538,7 +5538,7 @@ city_builder.objects.city = function(params) {
 	this.has_coins = function(coins) {
 		var resources = this.get_resources();
 		if (this.get_coins() - coins < 0) {
-			this.get_core().error(this.get_name() + ' doesn`t have enough ' + city_builder.utils.get_resource_name('coins') + '.');
+			this.get_core().error(this.get_name() + ' doesn`t have enough ' + civitas.utils.get_resource_name('coins') + '.');
 			return false;
 		}
 		return true;
@@ -5555,7 +5555,7 @@ city_builder.objects.city = function(params) {
 	this.has_resources = function(resource, amount) {
 		var res = this.get_resources();
 		if ((res[resource] - amount) < 0) {
-			this.get_core().error(this.get_name() + ' does not have enough ' + city_builder.utils.get_resource_name(resource) + '.');
+			this.get_core().error(this.get_name() + ' does not have enough ' + civitas.utils.get_resource_name(resource) + '.');
 			return false;
 		}
 		return true;
@@ -5573,11 +5573,11 @@ city_builder.objects.city = function(params) {
 			'imports': {},
 			'exports': {}
 		};
-		if (typeof city_builder.CITIES[this.get_name()] !== 'undefined') {
-			var _trades = city_builder.CITIES[this.get_name()].trades;
+		if (typeof civitas.CITIES[this.get_name()] !== 'undefined') {
+			var _trades = civitas.CITIES[this.get_name()].trades;
 			for (var goods_type in _trades) {
 				for (var item in _trades[goods_type]) {
-					trades[goods_type][item] = city_builder.utils.get_random_by_importance(_trades[goods_type][item]);
+					trades[goods_type][item] = civitas.utils.get_random_by_importance(_trades[goods_type][item]);
 				}
 			}
 			this.trades = trades;
@@ -5598,15 +5598,15 @@ city_builder.objects.city = function(params) {
 	this.list_black_market = function(resource, amount) {
 		var resources = this.get_resources();
 		if (this.remove_resource(resource, amount)) {
-			var discount = Math.ceil((city_builder.RESOURCES[resource].price * city_builder.BLACK_MARKET_DISCOUNT) / 100);
-			var price = city_builder.utils.calc_price_minus_discount(amount, resource, discount);
+			var discount = Math.ceil((civitas.RESOURCES[resource].price * civitas.BLACK_MARKET_DISCOUNT) / 100);
+			var price = civitas.utils.calc_price_minus_discount(amount, resource, discount);
 			this.get_core().add_black_market(resource, amount, price);
 			this.get_core().refresh_ui();
-			this.get_core().notify(this.get_name() + ' placed ' + amount + ' ' + city_builder.utils.get_resource_name(resource) + ' on the Black Market and will receive ' + price + ' coins next month.', 'Goods listed');
+			this.get_core().notify(this.get_name() + ' placed ' + amount + ' ' + civitas.utils.get_resource_name(resource) + ' on the Black Market and will receive ' + price + ' coins next month.', 'Goods listed');
 			return {
 				seller: this.get_name(),
 				amount: amount,
-				goods: city_builder.utils.get_resource_name(resource),
+				goods: civitas.utils.get_resource_name(resource),
 				price: price,
 				discount: discount
 			};
@@ -5618,7 +5618,7 @@ city_builder.objects.city = function(params) {
 	 * Sell the specified goods to a city.
 	 * 
 	 * @public
-	 * @param {city_builder.objects.city|String} city
+	 * @param {civitas.objects.city|String} city
 	 * @param {String} resource
 	 * @param {Number} amount
 	 * @returns {Object|Boolean}
@@ -5649,10 +5649,10 @@ city_builder.objects.city = function(params) {
 				if (typeof amount === 'undefined') {
 					amount = trades.imports[item];
 				}
-				var discount = Math.ceil((city_builder.RESOURCES[item].price * city_builder.TRADES_DISCOUNT) / 100);
-				var price = city_builder.utils.calc_price_minus_discount(amount, item, discount);
-				var city_price = city_builder.utils.calc_price(amount, item);
-				var item_discount_price = Math.ceil(city_builder.RESOURCES[item].price - discount);
+				var discount = Math.ceil((civitas.RESOURCES[item].price * civitas.TRADES_DISCOUNT) / 100);
+				var price = civitas.utils.calc_price_minus_discount(amount, item, discount);
+				var city_price = civitas.utils.calc_price(amount, item);
+				var item_discount_price = Math.ceil(civitas.RESOURCES[item].price - discount);
 				if (!this.remove_resource(item, amount)) {
 					return false;
 				}
@@ -5666,14 +5666,14 @@ city_builder.objects.city = function(params) {
 				this.raise_prestige();
 				this.inc_fame(50);
 				this.get_core().refresh_ui();
-				this.get_core().notify(this.get_name() + ' sold ' + amount + ' ' + city_builder.utils.get_resource_name(item) + ' to ' + city + ' for ' + item_discount_price + ' coins each, for a total of ' + price + ' coins.', 'Transaction done');
+				this.get_core().notify(this.get_name() + ' sold ' + amount + ' ' + civitas.utils.get_resource_name(item) + ' to ' + city + ' for ' + item_discount_price + ' coins each, for a total of ' + price + ' coins.', 'Transaction done');
 				this.get_core().refresh_panels();
 				return {
 					seller: this.get_name(),
 					amount: amount,
-					goods: city_builder.utils.get_resource_name(item),
+					goods: civitas.utils.get_resource_name(item),
 					buyer: city,
-					price: Math.round(city_builder.RESOURCES[item].price - discount),
+					price: Math.round(civitas.RESOURCES[item].price - discount),
 					totalPrice: price
 				};
 			}
@@ -5686,7 +5686,7 @@ city_builder.objects.city = function(params) {
 	 * Remove a specified amount of a resource from the trade exports of a city.
 	 * 
 	 * @public
-	 * @param {city_builder.objects.city} city
+	 * @param {civitas.objects.city} city
 	 * @param {String} item
 	 * @param {Number} amount
 	 * @returns {Boolean}
@@ -5700,7 +5700,7 @@ city_builder.objects.city = function(params) {
 	 * Remove a specified amount of a resource from the trade imports of a city.
 	 * 
 	 * @public
-	 * @param {city_builder.objects.city} city
+	 * @param {civitas.objects.city} city
 	 * @param {String} item
 	 * @param {Number} amount
 	 * @returns {Boolean}
@@ -5744,7 +5744,7 @@ city_builder.objects.city = function(params) {
 			settings: this.get_core().get_settings()
 		};
 		if (to_local_storage === true) {
-			localStorage.setItem('city_builder.data', window.btoa(JSON.stringify(data)));
+			localStorage.setItem('civitas.data', window.btoa(JSON.stringify(data)));
 		}
 		return data;
 	};
@@ -5754,7 +5754,7 @@ city_builder.objects.city = function(params) {
 	 * 
 	 * @public
 	 * @param {Object} data
-	 * @returns {city_builder.objects.city}
+	 * @returns {civitas.objects.city}
 	 */
 	this.import_data = function(data) {
 		this.set_name(data.name);
@@ -5800,7 +5800,7 @@ city_builder.objects.city = function(params) {
 	 * 
 	 * @public
 	 * @param {String} value
-	 * @returns {city_builder.objects.city}
+	 * @returns {civitas.objects.city}
 	 */
 	this.set_name = function(value) {
 		this.name = value;
@@ -5811,7 +5811,7 @@ city_builder.objects.city = function(params) {
 	 * Return a pointer to the game core.
 	 * 
 	 * @public
-	 * @returns {city_builder.game}
+	 * @returns {civitas.game}
 	 */
 	this.get_core = function() {
 		return this.core;
@@ -5821,7 +5821,7 @@ city_builder.objects.city = function(params) {
 	 * Raise the level of this city.
 	 * 
 	 * @public
-	 * @returns {city_builder.objects.city}
+	 * @returns {civitas.objects.city}
 	 */
 	this.level_up = function() {
 		this.level++;
@@ -5835,7 +5835,7 @@ city_builder.objects.city = function(params) {
 	 * 
 	 * @public
 	 * @param {String} value
-	 * @returns {city_builder.objects.city}
+	 * @returns {civitas.objects.city}
 	 */
 	this.rename = function(value) {
 		this.name = value;
@@ -5919,7 +5919,7 @@ city_builder.objects.city = function(params) {
 	 * @public
 	 * @param {String|Object} building_type
 	 * @param {Boolean} hidden
-	 * @returns {city_builder.objects.building|Boolean}
+	 * @returns {civitas.objects.building|Boolean}
 	 */
 	this._create_buildings = function(building_type, hidden) {
 		hidden = (typeof hidden !== 'undefined') && hidden === true ? true : false;
@@ -5927,13 +5927,13 @@ city_builder.objects.city = function(params) {
 			for (var i = 0; i < building_type.length; i++) {
 				var handle = typeof building_type[i].handle !== 'undefined' ? building_type[i].handle : building_type[i];
 				var level = typeof building_type[i].level !== 'undefined' ? building_type[i].level : 1;
-				var _b = city_builder.BUILDINGS.findIndexM(handle);
+				var _b = civitas.BUILDINGS.findIndexM(handle);
 				if (_b !== false) {
-					var _c = city_builder.BUILDINGS[_b];
+					var _c = civitas.BUILDINGS[_b];
 					if (level > 1) {
 						_c.level = level;
 					}
-					var _building = new city_builder.objects.building({
+					var _building = new civitas.objects.building({
 						city: this,
 						type: handle,
 						data: _c,
@@ -5949,13 +5949,13 @@ city_builder.objects.city = function(params) {
 		} else {
 			var handle = typeof building_type.handle !== 'undefined' ? building_type.handle : building_type;
 			var level = typeof building_type.level !== 'undefined' ? building_type.level : 1;
-			var _b = city_builder.BUILDINGS.findIndexM(handle);
+			var _b = civitas.BUILDINGS.findIndexM(handle);
 			if (_b !== false) {
-				var _c = city_builder.BUILDINGS[_b];
+				var _c = civitas.BUILDINGS[_b];
 				if (level > 1) {
 					_c.level = level;
 				}
-				var _building = new city_builder.objects.building({
+				var _building = new civitas.objects.building({
 					city: this,
 					type: handle,
 					data: _c,
@@ -5976,13 +5976,13 @@ city_builder.objects.city = function(params) {
 	 * 
 	 * @public
 	 * @param {String} building_type
-	 * @returns {city_builder.objects.building|Boolean}
+	 * @returns {civitas.objects.building|Boolean}
 	 */
 	this.build = function(building_type) {
-		var _b = city_builder.BUILDINGS.findIndexM(building_type);
+		var _b = civitas.BUILDINGS.findIndexM(building_type);
 		var resources = this.get_resources();
 		if (_b !== false) {
-			var _c = city_builder.BUILDINGS[_b];
+			var _c = civitas.BUILDINGS[_b];
 			if ((typeof _c.requires.city_level !== 'undefined') && (this.level < _c.requires.city_level)) {
 				this.get_core().error('Your city level is too low to construct this building.');
 				return false;
@@ -6003,7 +6003,7 @@ city_builder.objects.city = function(params) {
 					}
 				}
 			}
-			var _building = new city_builder.objects.building({
+			var _building = new civitas.objects.building({
 				city: this,
 				type: building_type,
 				data: _c
@@ -6052,7 +6052,7 @@ city_builder.objects.city = function(params) {
 	 * 
 	 * @public
 	 * @param {String} handle
-	 * @returns {city_builder.objects.building|Boolean}
+	 * @returns {civitas.objects.building|Boolean}
 	 */
 	this.get_building_by_handle = function(handle) {
 		var buildings = this.get_buildings();
@@ -6070,7 +6070,7 @@ city_builder.objects.city = function(params) {
 	 * @public
 	 * @TODO
 	 * @param {Number} id
-	 * @returns {city_builder.objects.city}
+	 * @returns {civitas.objects.city}
 	 */
 	this.demolish = function(id) {
 		if (typeof id === 'number') {
@@ -6181,7 +6181,7 @@ city_builder.objects.city = function(params) {
 	 * 
 	 * @public
 	 * @param {Object} value
-	 * @returns {city_builder.objects.city}
+	 * @returns {civitas.objects.city}
 	 */
 	this.set_fame = function(value) {
 		this.resources.fame = value;
@@ -6193,7 +6193,7 @@ city_builder.objects.city = function(params) {
 	 * 
 	 * @public
 	 * @param {Object} value
-	 * @returns {city_builder.objects.city}
+	 * @returns {civitas.objects.city}
 	 */
 	this.set_coins = function(value) {
 		this.resources.coins = value;
@@ -6273,7 +6273,7 @@ city_builder.objects.city = function(params) {
 	this.get_navy_total = function() {
 		var total = 0;
 		var total_navy = {};
-		for (var item in city_builder.SHIP_TYPES) {
+		for (var item in civitas.SHIP_TYPES) {
 			total_navy[item] = 0;
 		}
 		for (var i = 0; i < this.navy.length; i++) {
@@ -6300,7 +6300,7 @@ city_builder.objects.city = function(params) {
 	this.get_army_total = function() {
 		var total = 0;
 		var total_army = {};
-		for (var item in city_builder.SOLDIER_TYPES) {
+		for (var item in civitas.SOLDIER_TYPES) {
 			total_army[item] = 0;
 		}
 		for (var i = 0; i < this.army.length; i++) {
@@ -6327,7 +6327,7 @@ city_builder.objects.city = function(params) {
 	this.get_mercenary_total = function() {
 		var total = 0;
 		var total_army = {};
-		for (var item in city_builder.SOLDIER_TYPES) {
+		for (var item in civitas.SOLDIER_TYPES) {
 			total_army[item] = 0;
 		}
 		for (var i = 0; i < this.mercenary.length; i++) {
@@ -6437,7 +6437,7 @@ city_builder.objects.city = function(params) {
 		for (var item in this.resources) {
 			if (item !== 'coins' && item !== 'fame' && item !== 'prestige' && item !== 'espionage') {
 				if (resources[item] > 1000) {
-					advices.push('You seem to have a surplus of ' + city_builder.utils.get_resource_name(item) + '. You can sell some and get coins instead.');
+					advices.push('You seem to have a surplus of ' + civitas.utils.get_resource_name(item) + '. You can sell some and get coins instead.');
 				}
 			}
 		}
@@ -6452,9 +6452,9 @@ city_builder.objects.city = function(params) {
 	 * @returns {Boolean}
 	 */
 	this.recruit_mercenary_army = function(name) {
-		for (var i = 0; i < city_builder.MERCENARIES.length; i++) {
-			if (name === city_builder.MERCENARIES[i].handle) {
-				var price = city_builder.MERCENARIES[i].cost;
+		for (var i = 0; i < civitas.MERCENARIES.length; i++) {
+			if (name === civitas.MERCENARIES[i].handle) {
+				var price = civitas.MERCENARIES[i].cost;
 				if (this.dec_coins(price) === false) {
 					return false;
 				}
@@ -6463,16 +6463,16 @@ city_builder.objects.city = function(params) {
 					handle: name,
 					army: []
 				};
-				for (var item in city_builder.MERCENARIES[i].army) {
-					var soldier = city_builder.SOLDIER_TYPES[item];
-					var _soldier = new city_builder.objects.soldier({
+				for (var item in civitas.MERCENARIES[i].army) {
+					var soldier = civitas.SOLDIER_TYPES[item];
+					var _soldier = new civitas.objects.soldier({
 						name: item,
 						data: soldier
 					});
 					army.army.push(_soldier);
 				}
 				this.mercenary.push(army);
-				this.get_core().notify('The mercenaries of the ' + city_builder.MERCENARIES[i].name + ' are now available for skirmish missions for the duration of one year.', 'Mercenaries recruited.');
+				this.get_core().notify('The mercenaries of the ' + civitas.MERCENARIES[i].name + ' are now available for skirmish missions for the duration of one year.', 'Mercenaries recruited.');
 				this.get_core().refresh_ui();
 				this.get_core().refresh_panels();
 				this.get_core().save();
@@ -6490,13 +6490,13 @@ city_builder.objects.city = function(params) {
 	 * @returns {Boolean}
 	 */
 	this.recruit_ship = function(ship_name) {
-		for (var item in city_builder.SHIP_TYPES) {
+		for (var item in civitas.SHIP_TYPES) {
 			if (ship_name === item) {
-				var ship = city_builder.SHIP_TYPES[item];
+				var ship = civitas.SHIP_TYPES[item];
 				if (!this.remove_resources(ship.cost)) {
 					return false;
 				}
-				var _ship = new city_builder.objects.ship({
+				var _ship = new civitas.objects.ship({
 					name: item,
 					data: ship
 				});
@@ -6519,13 +6519,13 @@ city_builder.objects.city = function(params) {
 	 * @returns {Boolean}
 	 */
 	this.recruit_soldier = function(soldier_name) {
-		for (var item in city_builder.SOLDIER_TYPES) {
+		for (var item in civitas.SOLDIER_TYPES) {
 			if (soldier_name === item) {
-				var soldier = city_builder.SOLDIER_TYPES[item];
+				var soldier = civitas.SOLDIER_TYPES[item];
 				if (!this.remove_resources(soldier.cost)) {
 					return false;
 				}
-				var _soldier = new city_builder.objects.soldier({
+				var _soldier = new civitas.objects.soldier({
 					name: item,
 					data: soldier
 				});
@@ -6545,13 +6545,13 @@ city_builder.objects.city = function(params) {
 	 * 
 	 * @public
 	 * @param {String} ship_name
-	 * @returns {city_builder.objects.city}
+	 * @returns {civitas.objects.city}
 	 */
 	this._recruit_ship = function(ship_name) {
-		for (var item in city_builder.SHIP_TYPES) {
+		for (var item in civitas.SHIP_TYPES) {
 			if (ship_name === item) {
-				var ship = city_builder.SHIP_TYPES[item];
-				var _ship = new city_builder.objects.ship({
+				var ship = civitas.SHIP_TYPES[item];
+				var _ship = new civitas.objects.ship({
 					name: item,
 					data: ship
 				});
@@ -6566,13 +6566,13 @@ city_builder.objects.city = function(params) {
 	 * 
 	 * @public
 	 * @param {String} soldier_name
-	 * @returns {city_builder.objects.city}
+	 * @returns {civitas.objects.city}
 	 */
 	this._recruit_soldier = function(soldier_name) {
-		for (var item in city_builder.SOLDIER_TYPES) {
+		for (var item in civitas.SOLDIER_TYPES) {
 			if (soldier_name === item) {
-				var soldier = city_builder.SOLDIER_TYPES[item];
-				var _soldier = new city_builder.objects.soldier({
+				var soldier = civitas.SOLDIER_TYPES[item];
+				var _soldier = new civitas.objects.soldier({
 					name: item,
 					data: soldier
 				});
@@ -6645,7 +6645,7 @@ city_builder.objects.city = function(params) {
 	 * 
 	 * @public
 	 * @param {Number} value
-	 * @returns {city_builder.objects.city}
+	 * @returns {civitas.objects.city}
 	 */
 	this.set_mercenary = function(value) {
 		this.mercenary = value;
@@ -6657,7 +6657,7 @@ city_builder.objects.city = function(params) {
 	 * 
 	 * @public
 	 * @param {Number} value
-	 * @returns {city_builder.objects.city}
+	 * @returns {civitas.objects.city}
 	 */
 	this.set_navy = function(value) {
 		this.navy = value;
@@ -6669,7 +6669,7 @@ city_builder.objects.city = function(params) {
 	 * 
 	 * @public
 	 * @param {Number} value
-	 * @returns {city_builder.objects.city}
+	 * @returns {civitas.objects.city}
 	 */
 	this.set_army = function(value) {
 		this.army = value;
@@ -6691,7 +6691,7 @@ city_builder.objects.city = function(params) {
 	 * 
 	 * @public
 	 * @param {Object} value
-	 * @returns {city_builder.objects.city}
+	 * @returns {civitas.objects.city}
 	 */
 	this.set_resources = function(value) {
 		this.resources = value;
@@ -6713,7 +6713,7 @@ city_builder.objects.city = function(params) {
 	 * 
 	 * @public
 	 * @param {String} value
-	 * @returns {city_builder.objects.city}
+	 * @returns {civitas.objects.city}
 	 */
 	this.set_ruler = function(value) {
 		this.ruler = value;
@@ -6725,7 +6725,7 @@ city_builder.objects.city = function(params) {
 	 * 
 	 * @public
 	 * @param {Number} value
-	 * @returns {city_builder.objects.city}
+	 * @returns {civitas.objects.city}
 	 */
 	this.set_level = function(value) {
 		this.level = value;
@@ -6757,7 +6757,7 @@ city_builder.objects.city = function(params) {
 	 * 
 	 * @public
 	 * @param {Object} value
-	 * @returns {city_builder.objects.city}
+	 * @returns {civitas.objects.city}
 	 */
 	this.set_trades = function(value) {
 		this.trades = value;
@@ -6773,7 +6773,7 @@ city_builder.objects.city = function(params) {
 	this.get_personality = function() {
 		return {
 			id: this.personality,
-			name: city_builder.PERSONALITY_TYPES[this.personality]
+			name: civitas.PERSONALITY_TYPES[this.personality]
 		};
 	};
 	
@@ -6781,7 +6781,7 @@ city_builder.objects.city = function(params) {
 	 * Release all the mercenary armies.
 	 * 
 	 * @public
-	 * @returns {city_builder.objects.city}
+	 * @returns {civitas.objects.city}
 	 */
 	this.release_mercenaries = function() {
 		this.mercenary = [];
@@ -6795,7 +6795,7 @@ city_builder.objects.city = function(params) {
 	 * @public
 	 * @param {Boolean} hidden
 	 * @param {Object} data
-	 * @returns {city_builder.objects.city}
+	 * @returns {civitas.objects.city}
 	 */
 	this.setup_navy = function(hidden, data) {
 		if (typeof data === 'undefined') {
@@ -6830,7 +6830,7 @@ city_builder.objects.city = function(params) {
 	 * @public
 	 * @param {Boolean} hidden
 	 * @param {Object} data
-	 * @returns {city_builder.objects.city}
+	 * @returns {civitas.objects.city}
 	 */
 	this.setup_army = function(hidden, data) {
 		if (typeof data === 'undefined') {
@@ -6868,7 +6868,7 @@ city_builder.objects.city = function(params) {
 	this.get_climate = function() {
 		return {
 			id: this.climate,
-			name: city_builder.CLIMATE_TYPES[this.climate]
+			name: civitas.CLIMATE_TYPES[this.climate]
 		};
 	};
 	
@@ -6881,7 +6881,7 @@ city_builder.objects.city = function(params) {
 	this.get_nationality = function() {
 		return {
 			id: this.nationality,
-			name: city_builder.NATION_TYPES[this.nationality]
+			name: civitas.NATION_TYPES[this.nationality]
 		};
 	};
 	
@@ -6970,7 +6970,7 @@ city_builder.objects.city = function(params) {
 	/**
 	 * Reset the espionage of this city to 1.
 	 * 
-	 * @returns {city_builder.objects.city}
+	 * @returns {civitas.objects.city}
 	 * @public
 	 */
 	this.reset_espionage = function() {
@@ -6982,7 +6982,7 @@ city_builder.objects.city = function(params) {
 	/**
 	 * Reset the prestige of this city to 1.
 	 * 
-	 * @returns {city_builder.objects.city}
+	 * @returns {civitas.objects.city}
 	 * @public
 	 */
 	this.reset_prestige = function() {
@@ -6995,7 +6995,7 @@ city_builder.objects.city = function(params) {
 	 * Set the espionage of this city.
 	 * 
 	 * @public
-	 * @returns {city_builder.objects.city}
+	 * @returns {civitas.objects.city}
 	 * @param {Number} value
 	 */
 	this.set_espionage = function(value) {
@@ -7008,7 +7008,7 @@ city_builder.objects.city = function(params) {
 	 * Set the prestige of this city.
 	 * 
 	 * @public
-	 * @returns {city_builder.objects.city}
+	 * @returns {civitas.objects.city}
 	 * @param {Number} value
 	 */
 	this.set_prestige = function(value) {
@@ -7099,7 +7099,7 @@ city_builder.objects.city = function(params) {
 	 * Set the icon of this city.
 	 * 
 	 * @public
-	 * @returns {city_builder.objects.city}
+	 * @returns {civitas.objects.city}
 	 * @param {Number} value
 	 */
 	this.set_icon = function(value) {
@@ -7121,7 +7121,7 @@ city_builder.objects.city = function(params) {
 	 * Set the avatar of the ruler of this city.
 	 * 
 	 * @public
-	 * @returns {city_builder.objects.city}
+	 * @returns {civitas.objects.city}
 	 * @param {Number} value
 	 */
 	this.set_avatar = function(value) {
@@ -7184,7 +7184,7 @@ city_builder.objects.city = function(params) {
 	 * Set the influence of this city.
 	 * 
 	 * @public
-	 * @returns {city_builder.objects.city}
+	 * @returns {civitas.objects.city}
 	 * @param {Object} value
 	 */
 	this.set_influence = function(value) {
@@ -7196,7 +7196,7 @@ city_builder.objects.city = function(params) {
 	 * Set the climate of this city.
 	 * 
 	 * @public
-	 * @returns {city_builder.objects.city}
+	 * @returns {civitas.objects.city}
 	 * @param {Number} value
 	 */
 	this.set_climate = function(value) {
@@ -7208,7 +7208,7 @@ city_builder.objects.city = function(params) {
 	 * Set the nationality of this city.
 	 * 
 	 * @public
-	 * @returns {city_builder.objects.city}
+	 * @returns {civitas.objects.city}
 	 * @param {Number} value
 	 */
 	this.set_nationality = function(value) {
@@ -7220,8 +7220,8 @@ city_builder.objects.city = function(params) {
 	 * Propose a pact to the specified city.
 	 *
 	 * @public
-	 * @returns {city_builder.objects.city}
-	 * @param {city_builder.objects.city}
+	 * @returns {civitas.objects.city}
+	 * @param {civitas.objects.city}
 	 */
 	this.propose_pact = function(city) {
 		// TODO
@@ -7232,8 +7232,8 @@ city_builder.objects.city = function(params) {
 	 * Assign a spy to the specified city.
 	 *
 	 * @public
-	 * @returns {city_builder.objects.city}
-	 * @param {city_builder.objects.city}
+	 * @returns {civitas.objects.city}
+	 * @param {civitas.objects.city}
 	 */
 	this.assign_spy = function(city) {
 		// TODO
@@ -7248,15 +7248,15 @@ city_builder.objects.city = function(params) {
  * Main Game event object.
  * 
  * @param {Object} params
- * @class {city_builder.objects.event}
- * @returns {city_builder.objects.event}
+ * @class {civitas.objects.event}
+ * @returns {civitas.objects.event}
  */
-city_builder.objects.event = function (params) {
+civitas.objects.event = function (params) {
 
 	/**
 	 * Reference to the core object.
 	 * 
-	 * @type {city_builder.game}
+	 * @type {civitas.game}
 	 */
 	this.core = null;
 
@@ -7312,7 +7312,7 @@ city_builder.objects.event = function (params) {
 	 * Object constructor.
 	 * 
 	 * @private
-	 * @returns {city_builder.objects.event}
+	 * @returns {civitas.objects.event}
 	 * @param {Object} params
 	 */
 	this.__constructor = function (params) {
@@ -7346,7 +7346,7 @@ city_builder.objects.event = function (params) {
 	 * Notify the player that this event occured.
 	 *
 	 * @public
-	 * @returns {city_builder.objects.event}
+	 * @returns {civitas.objects.event}
 	 */
 	this.notify = function() {
 		this.core._notify({
@@ -7364,36 +7364,36 @@ city_builder.objects.event = function (params) {
 	 * Internal function for processing the event data.
 	 * 
 	 * @private
-	 * @returns {city_builder.objects.event}
+	 * @returns {civitas.objects.event}
 	 */
 	this._process = function () {
 		this.notify();
 		switch (this.effect) {
-			case city_builder.EVENT_EFFECT_LOSE_COINS:
+			case civitas.EVENT_EFFECT_LOSE_COINS:
 				this.core.get_city().dec_coins(this.data.amount);
 				break;
-			case city_builder.EVENT_EFFECT_GAIN_COINS:
+			case civitas.EVENT_EFFECT_GAIN_COINS:
 				this.core.get_city().inc_coins(this.data.amount);
 				break;
-			case city_builder.EVENT_EFFECT_RAISE_INFLUENCE:
+			case civitas.EVENT_EFFECT_RAISE_INFLUENCE:
 				this.core.get_city().raise_influence(this.core.get_city(this.data.city), this.data.amount);
 				break;
-			case city_builder.EVENT_EFFECT_LOWER_INFLUENCE:
+			case civitas.EVENT_EFFECT_LOWER_INFLUENCE:
 				this.core.get_city().lower_influence(this.core.get_city(this.data.city), this.data.amount);
 				break;
-			case city_builder.EVENT_EFFECT_GAIN_FAME:
+			case civitas.EVENT_EFFECT_GAIN_FAME:
 				this.core.get_city().inc_fame(this.data.amount);
 				break;
-			case city_builder.EVENT_EFFECT_LOSE_FAME:
+			case civitas.EVENT_EFFECT_LOSE_FAME:
 				this.core.get_city().dec_fame(this.data.amount);
 				break;
-			case city_builder.EVENT_EFFECT_GAIN_ESPIONAGE:
+			case civitas.EVENT_EFFECT_GAIN_ESPIONAGE:
 				this.core.get_city().inc_espionage(this.data.amount);
 				break;
-			case city_builder.EVENT_EFFECT_LOSE_ESPIONAGE:
+			case civitas.EVENT_EFFECT_LOSE_ESPIONAGE:
 				this.core.get_city().dec_espionage(this.data.amount);
 				break;
-			case city_builder.EVENT_EFFECT_DESTROY_BUILDING:
+			case civitas.EVENT_EFFECT_DESTROY_BUILDING:
 				break;
 		}
 		return this;
@@ -7407,10 +7407,10 @@ city_builder.objects.event = function (params) {
  * Main Game building object.
  * 
  * @param {Object} params
- * @class {city_builder.objects.building}
- * @returns {city_builder.objects.building}
+ * @class {civitas.objects.building}
+ * @returns {civitas.objects.building}
  */
-city_builder.objects.building = function(params) {
+civitas.objects.building = function(params) {
 	
 	/**
 	 * The level of this building.
@@ -7423,7 +7423,7 @@ city_builder.objects.building = function(params) {
 	/**
 	 * Pointer to the city this building is located in.
 	 * 
-	 * @type {city_builder.objects.city}
+	 * @type {civitas.objects.city}
 	 * @private
 	 */
 	this.city = null;
@@ -7496,7 +7496,7 @@ city_builder.objects.building = function(params) {
 	 * Object constructor.
 	 * 
 	 * @private
-	 * @returns {city_builder.objects.building}
+	 * @returns {civitas.objects.building}
 	 * @param {Object} params
 	 */
 	this.__constructor = function(params) {
@@ -7512,8 +7512,8 @@ city_builder.objects.building = function(params) {
 		this.handle = params.data.handle;
 		$('#building-' + this.handle).empty();
 		if (params.hidden !== true) {
-			$('section.game').append(city_builder.ui.building_element(params)).on('click', '#building-' + params.data.handle, function() {
-				self.get_core().open_panel(new city_builder.controls.panel_building({
+			$('section.game').append(civitas.ui.building_element(params)).on('click', '#building-' + params.data.handle, function() {
+				self.get_core().open_panel(new civitas.controls.panel_building({
 					core: self.get_core(),
 					header: params.data.name,
 					data: params.data
@@ -7550,9 +7550,9 @@ city_builder.objects.building = function(params) {
 		var city = this.get_city();
 		var resources = city.get_resources();
 		var next_level = this.get_level() + 1;
-		var _b = city_builder.BUILDINGS.findIndexM(this.get_type());
+		var _b = civitas.BUILDINGS.findIndexM(this.get_type());
 		if (_b !== false) {
-			var _c = city_builder.BUILDINGS[_b];
+			var _c = civitas.BUILDINGS[_b];
 			if (this.is_upgradable() === true) {
 				var bl_id = city.buildings_list.findIndexM(this.get_type());
 				if (bl_id !== false) {
@@ -7672,7 +7672,7 @@ city_builder.objects.building = function(params) {
 			this.working = false;
 			this.problems = true;
 			this.get_core().refresh_panels();
-			this.notify(city_builder.NOTIFICATION_PRODUCTION_PAUSED);
+			this.notify(civitas.NOTIFICATION_PRODUCTION_PAUSED);
 			return true;
 		} else {
 			return false;
@@ -7712,7 +7712,7 @@ city_builder.objects.building = function(params) {
 				if (mats[i] !== 'coins') {
 					if (res[mats[i]] - mat[mats[i]] < 0) {
 						this.get_core().log(this.get_name() + ' doesn`t have enough ' + mats[i] + '.', true);
-						this.notify(city_builder.NOTIFICATION_MISSING_RESOURCES);
+						this.notify(civitas.NOTIFICATION_MISSING_RESOURCES);
 						this.problems = true;
 						return false;
 					}
@@ -7721,7 +7721,7 @@ city_builder.objects.building = function(params) {
 		} else {
 			if (res[mats] - mat[mats] < 0) {
 				this.get_core().log(this.get_name() + ' doesn`t have enough ' + mats + '.', true);
-				this.notify(city_builder.NOTIFICATION_MISSING_RESOURCES);
+				this.notify(civitas.NOTIFICATION_MISSING_RESOURCES);
 				this.problems = true;
 				return false;
 			}
@@ -7734,7 +7734,7 @@ city_builder.objects.building = function(params) {
 	 * 
 	 * @public
 	 * @param {String|Array} material
-	 * @returns {city_builder.objects.building}
+	 * @returns {civitas.objects.building}
 	 */
 	this.use_material = function(material) {
 		var building = this.get_building_data();
@@ -7758,7 +7758,7 @@ city_builder.objects.building = function(params) {
 	 * @returns {Object}
 	 */
 	this.get_building_data = function() {
-		return city_builder.BUILDINGS[city_builder.BUILDINGS.findIndexM(this.type)];
+		return civitas.BUILDINGS[civitas.BUILDINGS.findIndexM(this.type)];
 	};
 	
 	/**
@@ -7786,7 +7786,7 @@ city_builder.objects.building = function(params) {
 	 * 
 	 * @public
 	 * @param {String|Array} material
-	 * @returns {city_builder.objects.building}
+	 * @returns {civitas.objects.building}
 	 */
 	this.produce_material = function(material) {
 		var city = this.get_city();
@@ -7805,7 +7805,7 @@ city_builder.objects.building = function(params) {
 						for (var item in building.chance) {
 							var rnd = Math.random();
 							if (rnd < building.chance[item]) {
-								this.get_core().log(this.get_name() + ' procced extra ' + city_builder.utils.get_resource_name(item) + '.');
+								this.get_core().log(this.get_name() + ' procced extra ' + civitas.utils.get_resource_name(item) + '.');
 								this.get_city().add_to_storage(item, 1);
 							}
 						}
@@ -7824,7 +7824,7 @@ city_builder.objects.building = function(params) {
 					for (var item in building.chance) {
 						var rnd = Math.random();
 						if (rnd < building.chance[item]) {
-							this.get_core().log(this.get_name() + ' procced extra ' + city_builder.utils.get_resource_name(item) + '.');
+							this.get_core().log(this.get_name() + ' procced extra ' + civitas.utils.get_resource_name(item) + '.');
 							this.get_city().add_to_storage(item, 1);
 						}
 					}
@@ -7839,7 +7839,7 @@ city_builder.objects.building = function(params) {
 	 * Process the materials and use the required ones.
 	 * 
 	 * @public
-	 * @returns {city_builder.objects.building}
+	 * @returns {civitas.objects.building}
 	 * @param {String|Array} mats_production
 	 * @param {String|Array} mats_use
 	 */
@@ -7912,7 +7912,7 @@ city_builder.objects.building = function(params) {
 	 * Calculate if the house has the required food and processes the tax.
 	 * 
 	 * @public
-	 * @returns {city_builder.objects.building}
+	 * @returns {civitas.objects.building}
 	 */
 	this.process_tax = function() {
 		var _m = [];
@@ -7947,18 +7947,18 @@ city_builder.objects.building = function(params) {
 				for (var i = 0; i < required.length; i++) {
 					if (!this.get_city().is_building_built(required[i])) {
 						good = false;
-						var req = city_builder.BUILDINGS[city_builder.BUILDINGS.findIndexM(required[i])];
+						var req = civitas.BUILDINGS[civitas.BUILDINGS.findIndexM(required[i])];
 						this.get_core().log(this.get_name() + ' doesn`t have the required buildings: ' + req.name + '.', true);
-						this.notify(city_builder.NOTIFICATION_MISSING_RESOURCES);
+						this.notify(civitas.NOTIFICATION_MISSING_RESOURCES);
 						this.problems = true;
 					}
 				}
 			} else {
 				if (!this.get_city().is_building_built(required)) {
 					good = false;
-					var req = city_builder.BUILDINGS[city_builder.BUILDINGS.findIndexM(required)];
+					var req = civitas.BUILDINGS[civitas.BUILDINGS.findIndexM(required)];
 					this.get_core().log(this.get_name() + ' doesn`t have the required buildings: ' + req.name + '.', true);
-					this.notify(city_builder.NOTIFICATION_MISSING_RESOURCES);
+					this.notify(civitas.NOTIFICATION_MISSING_RESOURCES);
 					this.problems = true;
 				}
 			}
@@ -7970,7 +7970,7 @@ city_builder.objects.building = function(params) {
 	 * Internal function for further processing of the production chain.
 	 * 
 	 * @private
-	 * @returns {city_builder.objects.building}
+	 * @returns {civitas.objects.building}
 	 */
 	this._process = function() {
 		var _p = [];
@@ -8009,7 +8009,7 @@ city_builder.objects.building = function(params) {
 				}
 			} else {
 				this.get_core().log(this.get_name() + ' production is stopped.');
-				this.notify(city_builder.NOTIFICATION_PRODUCTION_PAUSED);
+				this.notify(civitas.NOTIFICATION_PRODUCTION_PAUSED);
 				this.problems = true;
 			}
 		}
@@ -8033,7 +8033,7 @@ city_builder.objects.building = function(params) {
 	 * Main threading method for the building, this does the actual processing each turn.
 	 * 
 	 * @public
-	 * @returns {city_builder.objects.building}
+	 * @returns {civitas.objects.building}
 	 */
 	this.process = function() {
 		var building = this.get_building_data();
@@ -8076,7 +8076,7 @@ city_builder.objects.building = function(params) {
 	 * Get the city this building is located into
 	 * 
 	 * @public
-	 * @returns {city_builder.objects.city}
+	 * @returns {civitas.objects.city}
 	 */
 	this.get_city = function() {
 		return this.city;
@@ -8086,7 +8086,7 @@ city_builder.objects.building = function(params) {
 	 * Get a pointer to the game core
 	 * 
 	 * @public
-	 * @returns {city_builder.game}
+	 * @returns {civitas.game}
 	 */
 	this.get_core = function() {
 		return this.get_city().get_core();
@@ -8147,15 +8147,15 @@ city_builder.objects.building = function(params) {
 	 *
 	 * @public
 	 * @param {Number} notification_type
-	 * @returns {city_builder.objects.building}
+	 * @returns {civitas.objects.building}
 	 */
 	this.notify = function(notification_type) {
 		var handle = $('#building-' + this.get_handle());
 		switch (notification_type) {
-			case city_builder.NOTIFICATION_PRODUCTION_PAUSED:
+			case civitas.NOTIFICATION_PRODUCTION_PAUSED:
 				handle.empty().append('<span class="notification paused"></span>');
 				break;
-			case city_builder.NOTIFICATION_MISSING_RESOURCES:
+			case civitas.NOTIFICATION_MISSING_RESOURCES:
 			default:
 				handle.empty().append('<span class="notification error"></span>');
 				break;
@@ -8171,15 +8171,15 @@ city_builder.objects.building = function(params) {
  * Main Game soldier object.
  * 
  * @param {Object} params
- * @class {city_builder.objects.soldier}
- * @returns {city_builder.objects.soldier}
+ * @class {civitas.objects.soldier}
+ * @returns {civitas.objects.soldier}
  */
-city_builder.objects.soldier = function (params) {
+civitas.objects.soldier = function (params) {
 
 	/**
 	 * Pointer to the city this sodier is located in.
 	 * 
-	 * @type {city_builder.objects.city}
+	 * @type {civitas.objects.city}
 	 * @private
 	 */
 	this.city = null;
@@ -8240,7 +8240,7 @@ city_builder.objects.soldier = function (params) {
 	 * Object constructor.
 	 * 
 	 * @private
-	 * @returns {city_builder.objects.soldier}
+	 * @returns {civitas.objects.soldier}
 	 * @param {Object} params
 	 */
 	this.__constructor = function (params) {
@@ -8286,7 +8286,7 @@ city_builder.objects.soldier = function (params) {
 	 * Get the city this soldier is located into.
 	 * 
 	 * @public
-	 * @returns {city_builder.objects.city}
+	 * @returns {civitas.objects.city}
 	 */
 	this.get_city = function () {
 		return this.city;
@@ -8306,7 +8306,7 @@ city_builder.objects.soldier = function (params) {
 	 * Get a pointer to the game core.
 	 * 
 	 * @public
-	 * @returns {city_builder.game}
+	 * @returns {civitas.game}
 	 */
 	this.get_core = function () {
 		return this.get_city().get_core();
@@ -8320,15 +8320,15 @@ city_builder.objects.soldier = function (params) {
  * Main Game ship object.
  * 
  * @param {Object} params
- * @class {city_builder.objects.ship}
- * @returns {city_builder.objects.ship}
+ * @class {civitas.objects.ship}
+ * @returns {civitas.objects.ship}
  */
-city_builder.objects.ship = function (params) {
+civitas.objects.ship = function (params) {
 
 	/**
 	 * Pointer to the city this ship is located in.
 	 * 
-	 * @type {city_builder.objects.city}
+	 * @type {civitas.objects.city}
 	 * @private
 	 */
 	this.city = null;
@@ -8389,7 +8389,7 @@ city_builder.objects.ship = function (params) {
 	 * Object constructor.
 	 * 
 	 * @private
-	 * @returns {city_builder.objects.ship}
+	 * @returns {civitas.objects.ship}
 	 * @param {Object} params
 	 */
 	this.__constructor = function (params) {
@@ -8435,7 +8435,7 @@ city_builder.objects.ship = function (params) {
 	 * Get the city this ship is located into.
 	 * 
 	 * @public
-	 * @returns {city_builder.objects.city}
+	 * @returns {civitas.objects.city}
 	 */
 	this.get_city = function () {
 		return this.city;
@@ -8455,7 +8455,7 @@ city_builder.objects.ship = function (params) {
 	 * Get a pointer to the game core.
 	 * 
 	 * @public
-	 * @returns {city_builder.game}
+	 * @returns {civitas.game}
 	 */
 	this.get_core = function () {
 		return this.get_city().get_core();
@@ -8469,15 +8469,15 @@ city_builder.objects.ship = function (params) {
  * Main Game army object.
  * 
  * @param {Object} params
- * @class {city_builder.objects.army}
- * @returns {city_builder.objects.army}
+ * @class {civitas.objects.army}
+ * @returns {civitas.objects.army}
  */
-city_builder.objects.army = function (params) {
+civitas.objects.army = function (params) {
 
 	/**
 	 * Pointer to the city this army is located in.
 	 * 
-	 * @type {city_builder.objects.city}
+	 * @type {civitas.objects.city}
 	 * @private
 	 */
 	this.city = null;
@@ -8538,7 +8538,7 @@ city_builder.objects.army = function (params) {
 	 * Object constructor.
 	 * 
 	 * @private
-	 * @returns {city_builder.objects.army}
+	 * @returns {civitas.objects.army}
 	 * @param {Object} params
 	 */
 	this.__constructor = function (params) {
@@ -8552,7 +8552,7 @@ city_builder.objects.army = function (params) {
 	 * Get the city this army is located into.
 	 * 
 	 * @public
-	 * @returns {city_builder.objects.city}
+	 * @returns {civitas.objects.city}
 	 */
 	this.get_city = function () {
 		return this.city;
@@ -8572,7 +8572,7 @@ city_builder.objects.army = function (params) {
 	 * Get a pointer to the game core.
 	 * 
 	 * @public
-	 * @returns {city_builder.game}
+	 * @returns {civitas.game}
 	 */
 	this.get_core = function () {
 		return this.get_city().get_core();
@@ -8586,15 +8586,15 @@ city_builder.objects.army = function (params) {
  * Main Game building panel object.
  * 
  * @param {Object} params
- * @class {city_builder.controls.panel_building}
- * @returns {city_builder.controls.panel_building}
+ * @class {civitas.controls.panel_building}
+ * @returns {civitas.controls.panel_building}
  */
-city_builder.controls.panel_building = function (params) {
+civitas.controls.panel_building = function (params) {
 
 	/**
 	 * Reference to the core object.
 	 * 
-	 * @type {city_builder.game}
+	 * @type {civitas.game}
 	 */
 	this.core = null;
 
@@ -8642,7 +8642,7 @@ city_builder.controls.panel_building = function (params) {
 	 * Object constructor.
 	 * 
 	 * @private
-	 * @returns {city_builder.controls.panel_building}
+	 * @returns {civitas.controls.panel_building}
 	 * @param {Object} params
 	 */
 	this.__constructor = function (params) {
@@ -8650,13 +8650,13 @@ city_builder.controls.panel_building = function (params) {
 		this.core = params.core;
 		this.params_data = params.data;
 		var el = '#panel-' + this.id;
-		if (city_builder.ui.panel_exists(el)) {
+		if (civitas.ui.panel_exists(el)) {
 			this.destroy();
 		}
 		this.core.console_log('creating panel with id `' + this.id + '`');
 		var _c = this.core.get_city().get_building_by_handle(params.data.handle);
 		var level = _c.get_level();
-		$('.ui').append(city_builder.ui.building_panel_template
+		$('.ui').append(civitas.ui.building_panel_template
 			.replace(/{id}/g, this.id)
 			.replace(/{building}/g, params.data.handle)
 			.replace(/{context}/g, 'building'));
@@ -8731,19 +8731,19 @@ city_builder.controls.panel_building = function (params) {
 	 * information on this panel.
 	 *
 	 * @public
-	 * @returns {city_builder.controls.panel_building}
+	 * @returns {civitas.controls.panel_building}
 	 */
 	this.refresh = function() {
 		var _c = this.core.get_city().get_building_by_handle(params.data.handle);
 		var level = _c.get_level();
 		var _t = '<p class="smalldesc">' + this.params_data.description + '</p>' +
 			'<dl>' +
-				city_builder.ui.cost_panel(this.params_data.cost) +
-				city_builder.ui.materials_panel(this.params_data.materials) +
-				city_builder.ui.production_panel(this.params_data.production, level) +
-				city_builder.ui.requires_panel(this.params_data.requires) +
-				city_builder.ui.tax_panel(this.params_data.tax, level) +
-				city_builder.ui.storage_panel(this.params_data.storage, level) +
+				civitas.ui.cost_panel(this.params_data.cost) +
+				civitas.ui.materials_panel(this.params_data.materials) +
+				civitas.ui.production_panel(this.params_data.production, level) +
+				civitas.ui.requires_panel(this.params_data.requires) +
+				civitas.ui.tax_panel(this.params_data.tax, level) +
+				civitas.ui.storage_panel(this.params_data.storage, level) +
 			'</dl>';
 		$('#panel-' + this.id + ' .contents').empty().append(_t);
 		return this;
@@ -8757,15 +8757,15 @@ city_builder.controls.panel_building = function (params) {
  * Main Game buildings panel object.
  * 
  * @param {Object} params
- * @class {city_builder.controls.panel_buildings}
- * @returns {city_builder.controls.panel_buildings}
+ * @class {civitas.controls.panel_buildings}
+ * @returns {civitas.controls.panel_buildings}
  */
-city_builder.controls.panel_buildings = function (params) {
+civitas.controls.panel_buildings = function (params) {
 
 	/**
 	 * Reference to the core object.
 	 * 
-	 * @type {city_builder.game}
+	 * @type {civitas.game}
 	 */
 	this.core = null;
 	
@@ -8782,7 +8782,7 @@ city_builder.controls.panel_buildings = function (params) {
 	 * 
 	 * @type {String}
 	 */
-	this.title = city_builder.l('City Buildings');
+	this.title = civitas.l('City Buildings');
 
 	/**
 	 * Object destructor.
@@ -8813,40 +8813,40 @@ city_builder.controls.panel_buildings = function (params) {
 	 * Object constructor.
 	 * 
 	 * @private
-	 * @returns {city_builder.controls.panel_buildings}
+	 * @returns {civitas.controls.panel_buildings}
 	 * @param {Object} params
 	 */
 	this.__constructor = function (params) {
 		this.core = params.core;
 		var self = this;
 		var el = '#panel-' + this.id;
-		if (city_builder.ui.panel_exists(el)) {
+		if (civitas.ui.panel_exists(el)) {
 			this.destroy();
 		}
 		this.core.console_log('creating panel with id `' + this.id + '`');
 		var city = this.core.get_city();
 		var resources = city.get_resources();
-		$('.ui').append(city_builder.ui.generic_panel_template
+		$('.ui').append(civitas.ui.generic_panel_template
 			.replace(/{id}/g, this.id)
 			.replace(/{title}/g, this.title));
 		var _t = '<div class="left buildings">';
-		var available_buildings = city_builder['CITY_BUILDINGS_' + city.get_climate().name.toUpperCase()];
+		var available_buildings = civitas['CITY_BUILDINGS_' + city.get_climate().name.toUpperCase()];
 		_t += '<div class="tabs">' +
 				'<ul>';
-		for (var category in city_builder.BUILDINGS_CATEGORIES) {
+		for (var category in civitas.BUILDINGS_CATEGORIES) {
 			_t += '<li><a href="#tab-' + category.toLowerCase() + '">' + category + '</a></li>';
 		}
 		_t += '</ul>';
-		for (var category in city_builder.BUILDINGS_CATEGORIES) {
+		for (var category in civitas.BUILDINGS_CATEGORIES) {
 			_t += '<div id="tab-' + category.toLowerCase() + '" class="bldg-tabs">';
-			for (var i = 0; i < city_builder.BUILDINGS_CATEGORIES[category].length; i++) {
-				var building = city_builder.BUILDINGS_CATEGORIES[category][i];
+			for (var i = 0; i < civitas.BUILDINGS_CATEGORIES[category].length; i++) {
+				var building = civitas.BUILDINGS_CATEGORIES[category][i];
 				if ($.inArray(building, available_buildings) !== -1) {
-					var building_data = city_builder.BUILDINGS[city_builder.BUILDINGS.findIndexM(building)];
+					var building_data = civitas.BUILDINGS[civitas.BUILDINGS.findIndexM(building)];
 					var _i = city.is_building_built(building_data.handle);
 					_t += '<div data-handle="' + building_data.handle + '" class="building-item' + ((_i === true) ? ' disabled' : '') + '">' +
 							'<span class="title">' + building_data.name + '</span>' +
-							'<img class="building" src="' + city_builder.ASSETS_URL + 'images/buildings/' + ((building_data.handle.slice(0, -1) === 'house') ? building_data.handle.slice(0, -1) : building_data.handle) + '1.png" />' +
+							'<img class="building" src="' + civitas.ASSETS_URL + 'images/buildings/' + ((building_data.handle.slice(0, -1) === 'house') ? building_data.handle.slice(0, -1) : building_data.handle) + '1.png" />' +
 							'</div>';
 				}
 			}
@@ -8855,35 +8855,35 @@ city_builder.controls.panel_buildings = function (params) {
 		_t += '</div>' +
 			'</div><div class="right">' +
 				'<fieldset>' +
-				'<legend>' + city_builder.l('Description') + '</legend>' +
+				'<legend>' + civitas.l('Description') + '</legend>' +
 				'<div class="b-desc"></div>' +
 				'</fieldset>' +
 				'<fieldset>' +
-				'<legend>' + city_builder.l('Cost') + '</legend>' +
+				'<legend>' + civitas.l('Cost') + '</legend>' +
 				'<div class="b-cost"></div>' +
 				'</fieldset>' +
 				'<fieldset class="materials">' +
-				'<legend>' + city_builder.l('Materials') + '</legend>' +
+				'<legend>' + civitas.l('Materials') + '</legend>' +
 				'<div class="b-mats"></div>' +
 				'</fieldset>' +
 				'<fieldset class="production">' +
-				'<legend>' + city_builder.l('Production') + '</legend>' +
+				'<legend>' + civitas.l('Production') + '</legend>' +
 				'<div class="b-prod"></div>' +
 				'</fieldset>' +
 				'<fieldset class="extra">' +
-				'<legend>' + city_builder.l('Chance of extra materials') + '</legend>' +
+				'<legend>' + civitas.l('Chance of extra materials') + '</legend>' +
 				'<div class="b-chance"></div>' +
 				'</fieldset>' +
 				'<fieldset class="storage">' +
-				'<legend>' + city_builder.l('Storage') + '</legend>' +
+				'<legend>' + civitas.l('Storage') + '</legend>' +
 				'<div class="b-store"></div>' +
 				'</fieldset>' +
 				'<fieldset class="taxes">' +
-				'<legend>' + city_builder.l('Taxes') + '</legend>' +
+				'<legend>' + civitas.l('Taxes') + '</legend>' +
 				'<div class="b-tax"></div>' +
 				'</fieldset>' +
 				'<fieldset>' +
-				'<legend>' + city_builder.l('Requirements') + '</legend>' +
+				'<legend>' + civitas.l('Requirements') + '</legend>' +
 				'<div class="b-req"></div>' +
 				'</fieldset>' +
 				'<div class="toolbar"></div>' +
@@ -8895,12 +8895,12 @@ city_builder.controls.panel_buildings = function (params) {
 			$(this).addClass('active');
 			$(el + ' .b-chance, ' + el + ' .b-tax, ' + el + ' .b-store, ' + el + ' .b-req, ' + el + ' .b-cost, ' + el + ' .b-name, ' + el + ' .b-desc, ' + el + ' .b-mats, ' + el + ' .b-prod, ' + el + ' .toolbar').empty();
 			var handle = $(this).data('handle');
-			var building = city_builder.BUILDINGS[city_builder.BUILDINGS.findIndexM(handle)];
+			var building = civitas.BUILDINGS[civitas.BUILDINGS.findIndexM(handle)];
 			$(el + ' header .title').html(self.title + ' - ' + building.name);
 			$(el + ' .b-desc').html(building.description);
 			var _z = '<dl class="nomg">';
 			for (var y in building.cost) {
-				_z += '<dt>' + city_builder.utils.nice_numbers(building.cost[y]) + '</dt><dd><img class="tips" title="' + city_builder.utils.get_resource_name(y) + '" src="' + city_builder.ASSETS_URL + 'images/resources/' + y + '_small.png" /></dd>';
+				_z += '<dt>' + civitas.utils.nice_numbers(building.cost[y]) + '</dt><dd><img class="tips" title="' + civitas.utils.get_resource_name(y) + '" src="' + civitas.ASSETS_URL + 'images/resources/' + y + '_small.png" /></dd>';
 			}
 			_z += '</dl>';
 			$(el + ' .b-cost').append(_z);
@@ -8909,10 +8909,10 @@ city_builder.controls.panel_buildings = function (params) {
 				if (typeof building.requires.buildings !== 'undefined') {
 					if (typeof building.requires.buildings === 'object') {
 						for (var i = 0; i < building.requires.buildings.length; i++) {
-							_z += '<dt>' + city_builder.l('Building') + '</dt><dd>' + self.core.get_building_config_data(building.requires.buildings[i]).name + '</dd>';
+							_z += '<dt>' + civitas.l('Building') + '</dt><dd>' + self.core.get_building_config_data(building.requires.buildings[i]).name + '</dd>';
 						}
 					} else {
-						_z += '<dt>' + city_builder.l('Building') + '</dt><dd>' + self.core.get_building_config_data(building.requires.buildings).name + '</dd>';
+						_z += '<dt>' + civitas.l('Building') + '</dt><dd>' + self.core.get_building_config_data(building.requires.buildings).name + '</dd>';
 					}
 				}
 				_z += '<dt>City level</dt><dd>' + building.requires.city_level + '</dd>' +
@@ -8922,7 +8922,7 @@ city_builder.controls.panel_buildings = function (params) {
 			if (typeof building.chance !== 'undefined') {
 				_z = '<dl class="nomg">';
 				for (var chance in building.chance) {
-					_z += '<dt>' + building.chance[chance] * 100 + '%</dt><dd><img class="tips" title="' + city_builder.utils.get_resource_name(chance) + '" src="' + city_builder.ASSETS_URL + 'images/resources/' + chance + '_small.png" /></dd>';
+					_z += '<dt>' + building.chance[chance] * 100 + '%</dt><dd><img class="tips" title="' + civitas.utils.get_resource_name(chance) + '" src="' + civitas.ASSETS_URL + 'images/resources/' + chance + '_small.png" /></dd>';
 				}
 				_z += '</dl>';
 				$(el + ' .b-chance').append(_z);
@@ -8935,7 +8935,7 @@ city_builder.controls.panel_buildings = function (params) {
 				if (typeof building.production !== 'undefined') {
 					_z = '<dl class="nomg">';
 					for (var y in building.production) {
-						_z += '<dt>' + building.production[y] + '</dt><dd><img class="tips" title="' + city_builder.utils.get_resource_name(y) + '" src="' + city_builder.ASSETS_URL + 'images/resources/' + y + '_small.png" /></dd>';
+						_z += '<dt>' + building.production[y] + '</dt><dd><img class="tips" title="' + civitas.utils.get_resource_name(y) + '" src="' + civitas.ASSETS_URL + 'images/resources/' + y + '_small.png" /></dd>';
 					}
 					_z += '</dl>';
 					$(el + ' .b-prod').append(_z);
@@ -8944,7 +8944,7 @@ city_builder.controls.panel_buildings = function (params) {
 				if (typeof building.materials !== 'undefined') {
 					_z = '<dl class="nomg">';
 					for (var y in building.materials) {
-						_z += '<dt>' + building.materials[y] + '</dt><dd><img class="tips" title="' + city_builder.utils.get_resource_name(y) + '" src="' + city_builder.ASSETS_URL + 'images/resources/' + y + '_small.png" /></dd>';
+						_z += '<dt>' + building.materials[y] + '</dt><dd><img class="tips" title="' + civitas.utils.get_resource_name(y) + '" src="' + civitas.ASSETS_URL + 'images/resources/' + y + '_small.png" /></dd>';
 					}
 					_z += '</dl>';
 					$(el + ' .b-mats').append(_z);
@@ -8955,7 +8955,7 @@ city_builder.controls.panel_buildings = function (params) {
 				if (typeof building.materials !== 'undefined') {
 					_z = '<dl class="nomg">';
 					for (var y in building.materials) {
-						_z += '<dt>' + building.materials[y] + '</dt><dd><img class="tips" title="' + city_builder.utils.get_resource_name(y) + '" src="' + city_builder.ASSETS_URL + 'images/resources/' + y + '_small.png" /></dd>';
+						_z += '<dt>' + building.materials[y] + '</dt><dd><img class="tips" title="' + civitas.utils.get_resource_name(y) + '" src="' + civitas.ASSETS_URL + 'images/resources/' + y + '_small.png" /></dd>';
 					}
 					_z += '</dl>';
 					$(el + ' .b-mats').append(_z);
@@ -8964,7 +8964,7 @@ city_builder.controls.panel_buildings = function (params) {
 				if (typeof building.tax !== 'undefined') {
 					_z = '<dl class="nomg">' +
 							'<dt>Tax</dt>' +
-							'<dd>' + building.tax + '<img class="tips" title="' + city_builder.l('Coins') + '" src="' + city_builder.ASSETS_URL + 'images/resources/coins_small.png" /></dd>' +
+							'<dd>' + building.tax + '<img class="tips" title="' + civitas.l('Coins') + '" src="' + civitas.ASSETS_URL + 'images/resources/coins_small.png" /></dd>' +
 							'</dl>';
 					$(el + ' .b-tax').append(_z);
 					$('fieldset.taxes').show();
@@ -8972,7 +8972,7 @@ city_builder.controls.panel_buildings = function (params) {
 			} else if (typeof building.storage !== 'undefined') {
 				$('fieldset.taxes, fieldset.production, fieldset.materials').hide();
 				_z = '<dl class="nomg">' +
-						'<dt>' + building.storage + '</dt><dd><img class="tips" title="' + city_builder.l('Storage Space') + '" src="' + city_builder.ASSETS_URL + 'images/resources/storage_small.png" /></dd>' +
+						'<dt>' + building.storage + '</dt><dd><img class="tips" title="' + civitas.l('Storage Space') + '" src="' + civitas.ASSETS_URL + 'images/resources/storage_small.png" /></dd>' +
 						'</dl>';
 				$(el + ' .b-store').append(_z);
 				$('fieldset.storage').show();
@@ -8981,9 +8981,9 @@ city_builder.controls.panel_buildings = function (params) {
 			}
 			var _i = city.is_building_built(building.handle);
 			if (_i !== true) {
-				$(el + ' .toolbar').append('<a href="#" class="btn build" data-handle="' + building.handle + '">' + city_builder.l('Build') + '</a>');
+				$(el + ' .toolbar').append('<a href="#" class="btn build" data-handle="' + building.handle + '">' + civitas.l('Build') + '</a>');
 			} else {
-				$(el + ' .toolbar').append(city_builder.l('You already constructed this building.'));
+				$(el + ' .toolbar').append(civitas.l('You already constructed this building.'));
 			}
 			$(el + ' .tips').tipsy({
 				gravity: 's'
@@ -8994,7 +8994,7 @@ city_builder.controls.panel_buildings = function (params) {
 			var handle = $(this).data('handle');
 			if (city.build(handle) !== false) {
 				$(el + ' .building-item[data-handle=' + handle + ']').addClass('disabled');
-				$(el + ' .toolbar').empty().append(city_builder.l('You already have this building.'));
+				$(el + ' .toolbar').empty().append(civitas.l('You already have this building.'));
 			}
 			return false;
 		}).on('click', '.close', function () {
@@ -9021,7 +9021,7 @@ city_builder.controls.panel_buildings = function (params) {
 	 * information on this panel.
 	 *
 	 * @public
-	 * @returns {city_builder.controls.panel_building}
+	 * @returns {civitas.controls.panel_building}
 	 */
 	this.refresh = function() {
 		return this;
@@ -9035,15 +9035,15 @@ city_builder.controls.panel_buildings = function (params) {
  * Main Game storage panel object.
  * 
  * @param {Object} params
- * @class {city_builder.controls.panel_storage}
- * @returns {city_builder.controls.panel_storage}
+ * @class {civitas.controls.panel_storage}
+ * @returns {civitas.controls.panel_storage}
  */
-city_builder.controls.panel_storage = function (params) {
+civitas.controls.panel_storage = function (params) {
 	
 	/**
 	 * Reference to the core object.
 	 * 
-	 * @type {city_builder.game}
+	 * @type {civitas.game}
 	 */
 	this.core = null;
 
@@ -9060,7 +9060,7 @@ city_builder.controls.panel_storage = function (params) {
 	 * 
 	 * @type {String}
 	 */
-	this.title = city_builder.l('City Storage');
+	this.title = civitas.l('City Storage');
 
 	this.expanded = false;
 
@@ -9093,18 +9093,18 @@ city_builder.controls.panel_storage = function (params) {
 	 * Object constructor.
 	 * 
 	 * @private
-	 * @returns {city_builder.controls.panel_storage}
+	 * @returns {civitas.controls.panel_storage}
 	 * @param {Object} params
 	 */
 	this.__constructor = function (params) {
 		this.core = params.core;
 		var self = this;
 		var el = '#panel-' + this.id;
-		if (city_builder.ui.panel_exists(el)) {
+		if (civitas.ui.panel_exists(el)) {
 			this.destroy();
 		}
 		this.core.console_log('creating panel with id `' + this.id + '`');
-		$('.ui').append(city_builder.ui.generic_panel_template
+		$('.ui').append(civitas.ui.generic_panel_template
 			.replace(/{id}/g, this.id)
 			.replace(/{title}/g, this.title));
 		this.refresh();
@@ -9112,12 +9112,12 @@ city_builder.controls.panel_storage = function (params) {
 			self.destroy();
 			return false;
 		}).on('click', '.toggle-storage', function () {
-			if ($('.toggle-storage').html() === city_builder.l('Show Less Goods')) {
+			if ($('.toggle-storage').html() === civitas.l('Show Less Goods')) {
 				self.expanded = false;
-				$('.toggle-storage').html(city_builder.l('Show More Goods'));
+				$('.toggle-storage').html(civitas.l('Show More Goods'));
 			} else {
 				self.expanded = true;
-				$('.toggle-storage').html(city_builder.l('Show Less Goods'));
+				$('.toggle-storage').html(civitas.l('Show Less Goods'));
 			}
 			$('.extra-storage').toggle();
 			return false;
@@ -9152,7 +9152,7 @@ city_builder.controls.panel_storage = function (params) {
 	 * information on this panel.
 	 *
 	 * @public
-	 * @returns {city_builder.controls.panel_storage}
+	 * @returns {civitas.controls.panel_storage}
 	 */
 	this.refresh = function() {
 		var city = this.core.get_city();
@@ -9164,10 +9164,10 @@ city_builder.controls.panel_storage = function (params) {
 		var extra_storage = '';
 		for (var resource in resources) {
 			if (resource !== 'fame' && resource !== 'prestige' && resource !== 'espionage') {
-				if ($.inArray(resource, city_builder.MAIN_RESOURCES) !== -1) {
-					main_storage += city_builder.ui.resource_storage_el(resource, resources[resource]);
+				if ($.inArray(resource, civitas.MAIN_RESOURCES) !== -1) {
+					main_storage += civitas.ui.resource_storage_el(resource, resources[resource]);
 				} else {
-					extra_storage += city_builder.ui.resource_storage_el(resource, resources[resource]);
+					extra_storage += civitas.ui.resource_storage_el(resource, resources[resource]);
 				}
 			}
 		}
@@ -9177,9 +9177,9 @@ city_builder.controls.panel_storage = function (params) {
 		out += extra_storage;
 		out += '</div>';
 		out += '<div class="clearfix"></div>' +
-				'<p>' + city_builder.l('Total storage space') + ': ' + storage_space.all + ', ' + city_builder.l('used') + ': ' + storage_space.occupied + '</p>' +
+				'<p>' + civitas.l('Total storage space') + ': ' + storage_space.all + ', ' + civitas.l('used') + ': ' + storage_space.occupied + '</p>' +
 		'<div class="toolbar">' +
-			'<a class="btn iblock toggle-storage" href="#">' + city_builder.l('Show More Goods') + '</a>' +
+			'<a class="btn iblock toggle-storage" href="#">' + civitas.l('Show More Goods') + '</a>' +
 		'</div>';
 		$(el + ' .contents').empty().append(out);
 		if (this.expanded === true) {
@@ -9196,15 +9196,15 @@ city_builder.controls.panel_storage = function (params) {
  * Main Game storage panel object.
  * 
  * @param {Object} params
- * @class {city_builder.controls.panel_city}
- * @returns {city_builder.controls.panel_city}
+ * @class {civitas.controls.panel_city}
+ * @returns {civitas.controls.panel_city}
  */
-city_builder.controls.panel_city = function (params) {
+civitas.controls.panel_city = function (params) {
 
 	/**
 	 * Reference to the core object.
 	 * 
-	 * @type {city_builder.game}
+	 * @type {civitas.game}
 	 */
 	this.core = null;
 
@@ -9245,7 +9245,7 @@ city_builder.controls.panel_city = function (params) {
 	 * Object constructor.
 	 * 
 	 * @private
-	 * @returns {city_builder.controls.panel_city}
+	 * @returns {civitas.controls.panel_city}
 	 * @param {Object} params
 	 */
 	this.__constructor = function (params) {
@@ -9253,35 +9253,35 @@ city_builder.controls.panel_city = function (params) {
 		this.core = params.core;
 		var el = '#panel-' + this.id;
 		var city = params.data;
-		if (city_builder.ui.panel_exists(el)) {
+		if (civitas.ui.panel_exists(el)) {
 			this.destroy();
 		}
 		this.core.console_log('creating panel with id `' + this.id + '`');
 		var trades = city.get_trades();
-		$('.ui').append(city_builder.ui.generic_panel_template
+		$('.ui').append(civitas.ui.generic_panel_template
 			.replace(/{id}/g, this.id)
 			.replace(/{title}/g, 'City of ' + city.get_name()));
-		$(el + ' .contents').append(city_builder.ui.tabs([city_builder.l('Info'), city_builder.l('Army'), city_builder.l('Navy'), city_builder.l('Imports'), city_builder.l('Exports')]));
+		$(el + ' .contents').append(civitas.ui.tabs([civitas.l('Info'), civitas.l('Army'), civitas.l('Navy'), civitas.l('Imports'), civitas.l('Exports')]));
 		$(el + ' #tab-info').append('' +
-				'<img class="avatar" src="' + city_builder.ASSETS_URL + 'images/avatars/avatar' + city.get_avatar() + '.png" />' +
+				'<img class="avatar" src="' + civitas.ASSETS_URL + 'images/avatars/avatar' + city.get_avatar() + '.png" />' +
 				'<dl>' +
-				'<dt>' + city_builder.l('Ruler') + '</dt><dd>' + city.get_ruler() + '</dd>' +
-				'<dt>' + city_builder.l('Climate') + '</dt><dd>' + city.get_climate().name.capitalize() + '</dd>' +
-				'<dt>' + city_builder.l('Personality') + '</dt><dd>' + city.get_personality().name.capitalize() + '</dd>' +
-				'<dt>' + city_builder.l('Nationality') + '</dt><dd>' + city.get_nationality().name.capitalize() + '</dd>' +
-				'<dt>' + city_builder.l('Level') + '</dt><dd>' + city.get_level() + '</dd>' +
-				'<dt>' + city_builder.l('Prestige') + '</dt><dd>' + city.get_prestige() + '</dd>' +
-				'<dt>' + city_builder.l('Coins') + '</dt><dd>' + city_builder.utils.nice_numbers(city.get_coins()) + '</dd>' +
-				'<dt>' + city_builder.l('Influence') + '</dt><dd>' + this.core.get_city().get_influence_with_city(city.get_name()) + '</dd>' +
+				'<dt>' + civitas.l('Ruler') + '</dt><dd>' + city.get_ruler() + '</dd>' +
+				'<dt>' + civitas.l('Climate') + '</dt><dd>' + city.get_climate().name.capitalize() + '</dd>' +
+				'<dt>' + civitas.l('Personality') + '</dt><dd>' + city.get_personality().name.capitalize() + '</dd>' +
+				'<dt>' + civitas.l('Nationality') + '</dt><dd>' + city.get_nationality().name.capitalize() + '</dd>' +
+				'<dt>' + civitas.l('Level') + '</dt><dd>' + city.get_level() + '</dd>' +
+				'<dt>' + civitas.l('Prestige') + '</dt><dd>' + city.get_prestige() + '</dd>' +
+				'<dt>' + civitas.l('Coins') + '</dt><dd>' + civitas.utils.nice_numbers(city.get_coins()) + '</dd>' +
+				'<dt>' + civitas.l('Influence') + '</dt><dd>' + this.core.get_city().get_influence_with_city(city.get_name()) + '</dd>' +
 				'</dl>');
-		$(el + ' #tab-army').append(city_builder.ui.army_list(city.get_army_total()));
-		$(el + ' #tab-navy').append(city_builder.ui.navy_list(city.get_navy_total()));
+		$(el + ' #tab-army').append(civitas.ui.army_list(city.get_army_total()));
+		$(el + ' #tab-navy').append(civitas.ui.navy_list(city.get_navy_total()));
 		$(el + ' #tab-imports').append('' +
-				'<p>' + city_builder.l('Below are the goods this city will be buying this year.') + '</p>' +
-				city_builder.ui.trades_list(trades, 'imports'));
+				'<p>' + civitas.l('Below are the goods this city will be buying this year.') + '</p>' +
+				civitas.ui.trades_list(trades, 'imports'));
 		$(el + ' #tab-exports').append('' +
-				'<p>' + city_builder.l('Below are the goods this city will be selling this year.') + '</p>' +
-				city_builder.ui.trades_list(trades, 'exports'));
+				'<p>' + civitas.l('Below are the goods this city will be selling this year.') + '</p>' +
+				civitas.ui.trades_list(trades, 'exports'));
 		$(el).on('click', '.close', function () {
 			self.destroy();
 			return false;
@@ -9306,7 +9306,7 @@ city_builder.controls.panel_city = function (params) {
 	 * information on this panel.
 	 *
 	 * @public
-	 * @returns {city_builder.controls.panel_city}
+	 * @returns {civitas.controls.panel_city}
 	 */
 	this.refresh = function() {
 		return this;
@@ -9320,15 +9320,15 @@ city_builder.controls.panel_city = function (params) {
  * Main Game help panel object.
  * 
  * @param {Object} params
- * @class {city_builder.controls.panel_help}
- * @returns {city_builder.controls.panel_help}
+ * @class {civitas.controls.panel_help}
+ * @returns {civitas.controls.panel_help}
  */
-city_builder.controls.panel_help = function (params) {
+civitas.controls.panel_help = function (params) {
 
 	/**
 	 * Reference to the core object.
 	 * 
-	 * @type {city_builder.game}
+	 * @type {civitas.game}
 	 */
 	this.core = null;
 
@@ -9359,7 +9359,7 @@ city_builder.controls.panel_help = function (params) {
 	 * 
 	 * @type {String}
 	 */
-	this.title = city_builder.l('Help');
+	this.title = civitas.l('Help');
 
 	/**
 	 * Object destructor.
@@ -9390,7 +9390,7 @@ city_builder.controls.panel_help = function (params) {
 	 * Object constructor.
 	 * 
 	 * @private
-	 * @returns {city_builder.controls.panel_help}
+	 * @returns {civitas.controls.panel_help}
 	 * @param {Object} params
 	 */
 	this.__constructor = function (params) {
@@ -9399,11 +9399,11 @@ city_builder.controls.panel_help = function (params) {
 		this.context = params.context;
 		var el = '#panel-' + this.id;
 		var self = this;
-		if (city_builder.ui.panel_exists(el)) {
+		if (civitas.ui.panel_exists(el)) {
 			this.destroy();
 		}
 		this.core.console_log('creating panel with id `' + this.id + '`');
-		$('.ui').append(city_builder.ui.generic_panel_template
+		$('.ui').append(civitas.ui.generic_panel_template
 			.replace(/{id}/g, this.id));
 		var title = '';
 		switch (this.context) {
@@ -9412,7 +9412,7 @@ city_builder.controls.panel_help = function (params) {
 				title = data.get_name();
 				break;
 		}
-		$(el + ' header .title').html(title !== '' ? city_builder.l('Help about ') + title : city_builder.l('Help'));
+		$(el + ' header .title').html(title !== '' ? civitas.l('Help about ') + title : civitas.l('Help'));
 		var _t = '';
 		
 		$(el + ' .contents').append(_t);
@@ -9440,7 +9440,7 @@ city_builder.controls.panel_help = function (params) {
 	 * information on this panel.
 	 *
 	 * @public
-	 * @returns {city_builder.controls.panel_help}
+	 * @returns {civitas.controls.panel_help}
 	 */
 	this.refresh = function() {
 		return this;
@@ -9454,15 +9454,15 @@ city_builder.controls.panel_help = function (params) {
  * Main Game storage panel object.
  * 
  * @param {Object} params
- * @class {city_builder.controls.panel_rankings}
- * @returns {city_builder.controls.panel_rankings}
+ * @class {civitas.controls.panel_rankings}
+ * @returns {civitas.controls.panel_rankings}
  */
-city_builder.controls.panel_rankings = function (params) {
+civitas.controls.panel_rankings = function (params) {
 	
 	/**
 	 * Reference to the core object.
 	 * 
-	 * @type {city_builder.game}
+	 * @type {civitas.game}
 	 */
 	this.core = null;
 
@@ -9479,7 +9479,7 @@ city_builder.controls.panel_rankings = function (params) {
 	 * 
 	 * @type {String}
 	 */
-	this.title = city_builder.l('Rankings');
+	this.title = civitas.l('Rankings');
 
 	/**
 	 * Object destructor.
@@ -9510,19 +9510,19 @@ city_builder.controls.panel_rankings = function (params) {
 	 * Object constructor.
 	 * 
 	 * @private
-	 * @returns {city_builder.controls.panel_rankings}
+	 * @returns {civitas.controls.panel_rankings}
 	 * @param {Object} params
 	 */
 	this.__constructor = function (params) {
 		this.core = params.core;
 		var self = this;
 		var el = '#panel-' + this.id;
-		if (city_builder.ui.panel_exists(el)) {
+		if (civitas.ui.panel_exists(el)) {
 			this.destroy();
 		}
 		this.core.console_log('creating panel with id `' + this.id + '`');
 		$(el).remove();
-		$('.ui').append(city_builder.ui.generic_panel_template
+		$('.ui').append(civitas.ui.generic_panel_template
 			.replace(/{id}/g, this.id)
 			.replace(/{title}/g, this.title));
 		this.refresh();
@@ -9550,12 +9550,12 @@ city_builder.controls.panel_rankings = function (params) {
 	 * information on this panel.
 	 *
 	 * @public
-	 * @returns {city_builder.controls.panel_rankings}
+	 * @returns {civitas.controls.panel_rankings}
 	 */
 	this.refresh = function() {
 		var el = '#panel-' + this.id;
 		var ranking_list = [];
-		for (var item in city_builder.CITIES) {
+		for (var item in civitas.CITIES) {
 			ranking_list.push({
 				name: item,
 				score: this.get_ranking(item)
@@ -9578,8 +9578,8 @@ city_builder.controls.panel_rankings = function (params) {
 		});
 		var out = '<div class="rankings-list">' +
 			'<dl>' +
-			'<dt>' + city_builder.l('City') + '</dt>' + 
-			'<dd>' + city_builder.l('Score') + '</dd>' +
+			'<dt>' + civitas.l('City') + '</dt>' + 
+			'<dd>' + civitas.l('Score') + '</dd>' +
 			'</dl>';
 		for (var i = 0; i < ranking_list.length; i++) {
 			out += '<dt>' + ranking_list[i].name + '</dt><dd>' + ranking_list[i].score + '</dd>';
@@ -9616,15 +9616,15 @@ city_builder.controls.panel_rankings = function (params) {
  * Send goods to another city panel object.
  * 
  * @param {Object} params
- * @class {city_builder.controls.panel_send_goods}
- * @returns {city_builder.controls.panel_send_goods}
+ * @class {civitas.controls.panel_send_goods}
+ * @returns {civitas.controls.panel_send_goods}
  */
-city_builder.controls.panel_send_goods = function (params) {
+civitas.controls.panel_send_goods = function (params) {
 	
 	/**
 	 * Reference to the core object.
 	 * 
-	 * @type {city_builder.game}
+	 * @type {civitas.game}
 	 */
 	this.core = null;
 
@@ -9641,7 +9641,7 @@ city_builder.controls.panel_send_goods = function (params) {
 	 * 
 	 * @type {String}
 	 */
-	this.title = city_builder.l('Send Goods');
+	this.title = civitas.l('Send Goods');
 
 	/**
 	 * Object destructor.
@@ -9672,20 +9672,20 @@ city_builder.controls.panel_send_goods = function (params) {
 	 * Object constructor.
 	 * 
 	 * @private
-	 * @returns {city_builder.controls.panel_send_goods}
+	 * @returns {civitas.controls.panel_send_goods}
 	 * @param {Object} params
 	 */
 	this.__constructor = function (params) {
 		this.core = params.core;
 		var self = this;
 		var el = '#panel-' + this.id;
-		if (city_builder.ui.panel_exists(el)) {
+		if (civitas.ui.panel_exists(el)) {
 			this.destroy();
 		}
 		this.core.console_log('creating panel with id `' + this.id + '`');
 		var city = this.core.get_city();
 		var resources = city.get_resources();
-		$('.ui').append(city_builder.ui.generic_panel_template
+		$('.ui').append(civitas.ui.generic_panel_template
 			.replace(/{id}/g, this.id)
 			.replace(/{title}/g, this.title));
 		var out = '';
@@ -9715,7 +9715,7 @@ city_builder.controls.panel_send_goods = function (params) {
 	 * information on this panel.
 	 *
 	 * @public
-	 * @returns {city_builder.controls.panel_send_goods}
+	 * @returns {civitas.controls.panel_send_goods}
 	 */
 	this.refresh = function() {
 		return this;
@@ -9729,15 +9729,15 @@ city_builder.controls.panel_send_goods = function (params) {
  * Declare war to another city panel object.
  * 
  * @param {Object} params
- * @class {city_builder.controls.panel_declare_war}
- * @returns {city_builder.controls.panel_declare_war}
+ * @class {civitas.controls.panel_declare_war}
+ * @returns {civitas.controls.panel_declare_war}
  */
-city_builder.controls.panel_declare_war = function (params) {
+civitas.controls.panel_declare_war = function (params) {
 	
 	/**
 	 * Reference to the core object.
 	 * 
-	 * @type {city_builder.game}
+	 * @type {civitas.game}
 	 */
 	this.core = null;
 
@@ -9754,7 +9754,7 @@ city_builder.controls.panel_declare_war = function (params) {
 	 * 
 	 * @type {String}
 	 */
-	this.title = city_builder.l('Declare War');
+	this.title = civitas.l('Declare War');
 
 	/**
 	 * Object destructor.
@@ -9785,20 +9785,20 @@ city_builder.controls.panel_declare_war = function (params) {
 	 * Object constructor.
 	 * 
 	 * @private
-	 * @returns {city_builder.controls.panel_declare_war}
+	 * @returns {civitas.controls.panel_declare_war}
 	 * @param {Object} params
 	 */
 	this.__constructor = function (params) {
 		this.core = params.core;
 		var self = this;
 		var el = '#panel-' + this.id;
-		if (city_builder.ui.panel_exists(el)) {
+		if (civitas.ui.panel_exists(el)) {
 			this.destroy();
 		}
 		this.core.console_log('creating panel with id `' + this.id + '`');
 		var city = this.core.get_city();
 		var otherCity = params.data;
-		$('.ui').append(city_builder.ui.generic_panel_template
+		$('.ui').append(civitas.ui.generic_panel_template
 			.replace(/{id}/g, this.id)
 			.replace(/{title}/g, this.title));
 		var out = '';
@@ -9828,7 +9828,7 @@ city_builder.controls.panel_declare_war = function (params) {
 	 * information on this panel.
 	 *
 	 * @public
-	 * @returns {city_builder.controls.panel_declare_war}
+	 * @returns {civitas.controls.panel_declare_war}
 	 */
 	this.refresh = function() {
 		return this;
@@ -9842,15 +9842,15 @@ city_builder.controls.panel_declare_war = function (params) {
  * Main Game world panel object.
  * 
  * @param {Object} params
- * @class {city_builder.controls.panel_world}
- * @returns {city_builder.controls.panel_world}
+ * @class {civitas.controls.panel_world}
+ * @returns {civitas.controls.panel_world}
  */
-city_builder.controls.panel_world = function (params) {
+civitas.controls.panel_world = function (params) {
 
 	/**
 	 * Reference to the core object.
 	 * 
-	 * @type {city_builder.game}
+	 * @type {civitas.game}
 	 */
 	this.core = null;
 
@@ -9891,24 +9891,24 @@ city_builder.controls.panel_world = function (params) {
 	 * Object constructor.
 	 * 
 	 * @private
-	 * @returns {city_builder.controls.panel_world}
+	 * @returns {civitas.controls.panel_world}
 	 * @param {Object} params
 	 */
 	this.__constructor = function (params) {
 		var self = this;
 		this.core = params.core;
 		var el = '#panel-' + this.id;
-		if (city_builder.ui.panel_exists(el)) {
+		if (civitas.ui.panel_exists(el)) {
 			this.destroy();
 		}
 		this.core.console_log('creating panel with id `' + this.id + '`');
 		var city = this.core.get_city();
-		$('.ui').append(city_builder.ui.worldmap_panel_template
+		$('.ui').append(civitas.ui.worldmap_panel_template
 			.replace(/{id}/g, this.id));
-		var loc = city_builder['CITY_LOCATION_' + city.get_climate().name.toUpperCase()];
-		var out = '<div data-name="yourcity" class="tips city c1" title="' + city_builder.l('City of') + ' ' + city.get_name() + '" style="left:' + loc.x + 'px;top:' + loc.y + 'px"></div>';
-		for (var item in city_builder.CITIES) {
-			out += city_builder.ui.city_worldmap_element(item);
+		var loc = civitas['CITY_LOCATION_' + city.get_climate().name.toUpperCase()];
+		var out = '<div data-name="yourcity" class="tips city c1" title="' + civitas.l('City of') + ' ' + city.get_name() + '" style="left:' + loc.x + 'px;top:' + loc.y + 'px"></div>';
+		for (var item in civitas.CITIES) {
+			out += civitas.ui.city_worldmap_element(item);
 		}
 		$(el + ' .contents .worldmap').empty().append(out);
 		$(el).on('click', '.close', function () {
@@ -9921,12 +9921,12 @@ city_builder.controls.panel_world = function (params) {
 		}).on('click', '.city', function () {
 			var city_name = $(this).data('name');
 			if (city_name === 'yourcity') {
-				self.core.open_panel(new city_builder.controls.panel_advisor({
+				self.core.open_panel(new civitas.controls.panel_advisor({
 					core: self.core
 				}));
 			} else {
 				var _city = self.core.get_city(city_name);
-				self.core.open_panel(new city_builder.controls.panel_city({
+				self.core.open_panel(new civitas.controls.panel_city({
 					core: self.core,
 					data: _city
 				}));
@@ -9949,7 +9949,7 @@ city_builder.controls.panel_world = function (params) {
 	 * information on this panel.
 	 *
 	 * @public
-	 * @returns {city_builder.controls.panel_world}
+	 * @returns {civitas.controls.panel_world}
 	 */
 	this.refresh = function() {
 		return this;
@@ -9963,15 +9963,15 @@ city_builder.controls.panel_world = function (params) {
  * Main Game city advisor panel object.
  * 
  * @param {Object} params
- * @class {city_builder.controls.panel_advisor}
- * @returns {city_builder.controls.panel_advisor}
+ * @class {civitas.controls.panel_advisor}
+ * @returns {civitas.controls.panel_advisor}
  */
-city_builder.controls.panel_advisor = function (params) {
+civitas.controls.panel_advisor = function (params) {
 
 	/**
 	 * Reference to the core object.
 	 * 
-	 * @type {city_builder.game}
+	 * @type {civitas.game}
 	 */
 	this.core = null;
 
@@ -9988,7 +9988,7 @@ city_builder.controls.panel_advisor = function (params) {
 	 * 
 	 * @type {String}
 	 */
-	this.title = city_builder.l('Your City Advisor');
+	this.title = civitas.l('Your City Advisor');
 
 	/**
 	 * Object destructor.
@@ -10019,14 +10019,14 @@ city_builder.controls.panel_advisor = function (params) {
 	 * Object constructor.
 	 * 
 	 * @private
-	 * @returns {city_builder.controls.panel_advisor}
+	 * @returns {civitas.controls.panel_advisor}
 	 * @param {Object} params
 	 */
 	this.__constructor = function (params) {
 		this.core = params.core;
 		var el = '#panel-' + this.id;
 		var self = this;
-		if (city_builder.ui.panel_exists(el)) {
+		if (civitas.ui.panel_exists(el)) {
 			this.destroy();
 		}
 		this.core.console_log('creating panel with id `' + this.id + '`');
@@ -10035,18 +10035,18 @@ city_builder.controls.panel_advisor = function (params) {
 		var can_diplomacy = city.is_building_built('embassy');
 		var can_build_ships = city.is_building_built('shipyard');
 		var can_recruit_soldiers = city.is_building_built('camp') || city.is_building_built('castle');
-		$('.ui').append(city_builder.ui.generic_panel_template
+		$('.ui').append(civitas.ui.generic_panel_template
 			.replace(/{id}/g, this.id)
 			.replace(/{title}/g, this.title));
 		$(el + ' .contents').append('<div class="tabs">' +
 			'<ul>' +
-				'<li><a href="#tab-info">' + city_builder.l('Info') + '</a></li>' +
-				'<li><a href="#tab-production">' + city_builder.l('Production') + '</a></li>' +
-				'<li><a href="#tab-housing">' + city_builder.l('Housing') + '</a></li>' +
-				'<li><a href="#tab-army">' + city_builder.l('Army') + '</a></li>' +
-				'<li><a href="#tab-navy">' + city_builder.l('Navy') + '</a></li>' +
-				'<li><a href="#tab-mercenary">' + city_builder.l('Mercenaries') + '</a></li>' +
-				'<li><a href="#tab-diplomacy">' + city_builder.l('Diplomacy') + '</a></li>' +
+				'<li><a href="#tab-info">' + civitas.l('Info') + '</a></li>' +
+				'<li><a href="#tab-production">' + civitas.l('Production') + '</a></li>' +
+				'<li><a href="#tab-housing">' + civitas.l('Housing') + '</a></li>' +
+				'<li><a href="#tab-army">' + civitas.l('Army') + '</a></li>' +
+				'<li><a href="#tab-navy">' + civitas.l('Navy') + '</a></li>' +
+				'<li><a href="#tab-mercenary">' + civitas.l('Mercenaries') + '</a></li>' +
+				'<li><a href="#tab-diplomacy">' + civitas.l('Diplomacy') + '</a></li>' +
 			'</ul>' +
 			'<div id="tab-info">' +
 			'</div>' +
@@ -10077,72 +10077,72 @@ city_builder.controls.panel_advisor = function (params) {
 					*/
 
 				} else {
-					self.core.error(city_builder.l('Your influence on') + ' ' + city + ' ' + city_builder.l('is too low to propose a pact.'));
+					self.core.error(civitas.l('Your influence on') + ' ' + city + ' ' + civitas.l('is too low to propose a pact.'));
 				}
 			} else {
-				self.core.error(city_builder.l('You will need to construct an Embassy before being able to propose treaties and pacts to other cities.'));
+				self.core.error(civitas.l('You will need to construct an Embassy before being able to propose treaties and pacts to other cities.'));
 			}
 			return false;
 		}).on('click', '.spy', function () {
 			if (can_diplomacy === true) {
 				var city = $(this).data('name');
-				self.core.error(city_builder.l('Not implemented yet.'));
+				self.core.error(civitas.l('Not implemented yet.'));
 				/*
 				if (self.core.get_city().assign_spy(city) === true) {
 					// TODO
 				}
 				*/
 			} else {
-				self.core.error(city_builder.l('You will need to construct an Embassy before being able to assign spies to other cities.'));
+				self.core.error(civitas.l('You will need to construct an Embassy before being able to assign spies to other cities.'));
 			}
 			return false;
 		}).on('click', '.recruit-ship', function () {
 			if (can_build_ships === true) {
 				var ship = $(this).data('handle');
-				self.core.error(city_builder.l('Not implemented yet.'));
+				self.core.error(civitas.l('Not implemented yet.'));
 				/*
 				if (self.core.get_city().recruit_ship(ship) === true) {
 					self._refresh_navy();
 				}
 				*/
 			} else {
-				self.core.error(city_builder.l('You will need to construct a Shipyard before being able to construct ships in your city.'));
+				self.core.error(civitas.l('You will need to construct a Shipyard before being able to construct ships in your city.'));
 			}
 			return false;
 		}).on('click', '.declare-war', function () {
 			if (can_diplomacy === true) {
 				var name = $(this).data('name');
 				var _city = self.core.get_city(name);
-				self.core.error(city_builder.l('Not implemented yet.'));
+				self.core.error(civitas.l('Not implemented yet.'));
 				/*
-				self.core.open_panel(new city_builder.controls.panel_declare_war({
+				self.core.open_panel(new civitas.controls.panel_declare_war({
 					core: self.core,
 					data: _city
 				}));
 				*/
 			} else {
-				self.core.error(city_builder.l('You will need to construct an Embassy before being able to declare war to other cities.'));
+				self.core.error(civitas.l('You will need to construct an Embassy before being able to declare war to other cities.'));
 			}
 			return false;
 		}).on('click', '.send-goods', function () {
 			if (can_diplomacy === true) {
 				var name = $(this).data('name');
 				var _city = self.core.get_city(name);
-				self.core.error(city_builder.l('Not implemented yet.'));
+				self.core.error(civitas.l('Not implemented yet.'));
 				/*
-				self.core.open_panel(new city_builder.controls.panel_send_goods({
+				self.core.open_panel(new civitas.controls.panel_send_goods({
 					core: self.core,
 					data: _city
 				}));
 				*/
 			} else {
-				self.core.error(city_builder.l('You will need to construct an Embassy before being able to send goods to other cities.'));
+				self.core.error(civitas.l('You will need to construct an Embassy before being able to send goods to other cities.'));
 			}
 			return false;
 		}).on('click', '.view-city', function () {
 			var name = $(this).data('name');
 			var _city = self.core.get_city(name);
-			self.core.open_panel(new city_builder.controls.panel_city({
+			self.core.open_panel(new civitas.controls.panel_city({
 				core: self.core,
 				data: _city
 			}));
@@ -10154,30 +10154,30 @@ city_builder.controls.panel_advisor = function (params) {
 					self._refresh_army();
 				}
 			} else {
-				self.core.error(city_builder.l('You will need to construct a Military Camp or Castle before recruiting soldiers in your city.'));
+				self.core.error(civitas.l('You will need to construct a Military Camp or Castle before recruiting soldiers in your city.'));
 			}
 			return false;
 		}).on('click', '.view-merc', function () {
 			var _army = $(this).data('id');
-			var data = city_builder.MERCENARIES[_army];
-			self.core.open_panel(new city_builder.controls.panel_army({
+			var data = civitas.MERCENARIES[_army];
+			self.core.open_panel(new civitas.controls.panel_army({
 				core: self.core,
 				data: data
 			}));
 			return false;
 		}).on('click', '.raid-merc', function () {
 			var _army = $(this).data('id');
-			var data = city_builder.MERCENARIES[_army];
+			var data = civitas.MERCENARIES[_army];
 			self.core.error('Not implemented yet.');
 			return false;
 		}).on('click', '.campaign-merc', function () {
 			var _army = $(this).data('id');
-			var data = city_builder.MERCENARIES[_army];
+			var data = civitas.MERCENARIES[_army];
 			self.core.error('Not implemented yet.');
 			return false;
 		}).on('click', '.disband-merc', function () {
 			var _army = $(this).data('id');
-			var data = city_builder.MERCENARIES[_army];
+			var data = civitas.MERCENARIES[_army];
 			self.core.error('Not implemented yet.');
 			return false;
 		}).on('click', '.close', function () {
@@ -10204,7 +10204,7 @@ city_builder.controls.panel_advisor = function (params) {
 	 * information on this panel.
 	 *
 	 * @public
-	 * @returns {city_builder.controls.panel_advisor}
+	 * @returns {civitas.controls.panel_advisor}
 	 */
 	this.refresh = function() {
 		this._refresh_info();
@@ -10219,28 +10219,28 @@ city_builder.controls.panel_advisor = function (params) {
 
 	this._refresh_mercenaries = function() {
 		var city = this.core.get_city();
-		var _t = '<p>' + city_builder.l('Mercenary armies are available to hire for a fixed price, they do not cost additional resources but they are only available for raiding and campaign missions, they do not participate in the defense of your city.') + '</p>' +
-				'<p>' + city_builder.l('Also, keep in mind that once a mercenary army is hired, they are at your disposal until the end of the current year.') + '</p>' +
+		var _t = '<p>' + civitas.l('Mercenary armies are available to hire for a fixed price, they do not cost additional resources but they are only available for raiding and campaign missions, they do not participate in the defense of your city.') + '</p>' +
+				'<p>' + civitas.l('Also, keep in mind that once a mercenary army is hired, they are at your disposal until the end of the current year.') + '</p>' +
 				'<div class="hired-mercenaries-list">';
 		if (city.mercenary.length > 0) {
 			_t += '<table class="normal">';
 			for (var i = 0; i < city.mercenary.length; i++) {
-				var armyData = city_builder.MERCENARIES[city.mercenary[i].id];
+				var armyData = civitas.MERCENARIES[city.mercenary[i].id];
 				_t += '<tr>' +
-						'<td class="icon"><img src="' + city_builder.ASSETS_URL + 'images/armies/' + armyData.icon + '.png" /></td>' +
+						'<td class="icon"><img src="' + civitas.ASSETS_URL + 'images/armies/' + armyData.icon + '.png" /></td>' +
 						'<td><p class="title">' + armyData.name + '</p><p class="description">' + armyData.description + '</p></td>' +
 						'<td class="large">' +
-						'<a title="' + city_builder.l('View info on this mercenary army.') + '" data-id="' + city.mercenary[i].id + '" class="tips view-merc" href="#">' + city_builder.l('view') + '</a> ' +
-						'<a title="' + city_builder.l('Send this mercenary army on a raiding mission. Depending on the success of the mission, they will return with coins and/or resources.') + '" data-id="' + i + '" class="tips raid-merc" href="#">' + city_builder.l('raid') + '</a> ' +
-						'<a title="' + city_builder.l('Send this mercenary arm on a campaign towards a city. Depending on the success of the mission, they will return with prisoniers (future soldiers for your army), coins and/or resources. Winning a campaign will grant you fame and prestige.') + '" data-id="' + i + '" class="tips campaign-merc" href="#">' + city_builder.l('campaign') + '</a> ' +
-						'<a title="' + city_builder.l('Disband this mercenary army? They will be available for hire later when you need them.') + '" data-id="' + i + '" class="tips disband-merc" href="#">' + city_builder.l('release') + '</a>' +
+						'<a title="' + civitas.l('View info on this mercenary army.') + '" data-id="' + city.mercenary[i].id + '" class="tips view-merc" href="#">' + civitas.l('view') + '</a> ' +
+						'<a title="' + civitas.l('Send this mercenary army on a raiding mission. Depending on the success of the mission, they will return with coins and/or resources.') + '" data-id="' + i + '" class="tips raid-merc" href="#">' + civitas.l('raid') + '</a> ' +
+						'<a title="' + civitas.l('Send this mercenary arm on a campaign towards a city. Depending on the success of the mission, they will return with prisoniers (future soldiers for your army), coins and/or resources. Winning a campaign will grant you fame and prestige.') + '" data-id="' + i + '" class="tips campaign-merc" href="#">' + civitas.l('campaign') + '</a> ' +
+						'<a title="' + civitas.l('Disband this mercenary army? They will be available for hire later when you need them.') + '" data-id="' + i + '" class="tips disband-merc" href="#">' + civitas.l('release') + '</a>' +
 						'</td>' +
 						'</tr>';
 
 			}
 			_t += '</table>';
 		} else {
-			_t += '<p>' + city_builder.l('You have no mercenary armies hired for your city. Go to the World Market Trades and hire one.') + '</p>';
+			_t += '<p>' + civitas.l('You have no mercenary armies hired for your city. Go to the World Market Trades and hire one.') + '</p>';
 		}
 		_t += '</div>';
 		$('#tab-mercenary').empty().append(_t);
@@ -10252,18 +10252,18 @@ city_builder.controls.panel_advisor = function (params) {
 		var _t = '';
 		var can_diplomacy = this.core.get_city().is_building_built('embassy');
 		if (can_diplomacy !== true) {
-			_t += '<p>' + city_builder.l('You will need to construct an Embassy before being able to propose treaties and pacts to other cities.') + '</p>';
+			_t += '<p>' + civitas.l('You will need to construct an Embassy before being able to propose treaties and pacts to other cities.') + '</p>';
 		}
 		var cities = this.core.get_cities();
 		_t += '<div class="cities-list">' +
 				'<table class="normal">';
 		for (var i = 1; i < cities.length; i++) {
 			_t += '<tr>' +
-					'<td class="icon"><img src="' + city_builder.ASSETS_URL + 'images/avatars/avatar' + cities[i].get_avatar() + '.png" /></td>' +
+					'<td class="icon"><img src="' + civitas.ASSETS_URL + 'images/avatars/avatar' + cities[i].get_avatar() + '.png" /></td>' +
 					'<td>' +
 					'<p>' +
 						'<span class="title">' + cities[i].get_name() + '</span> ' +
-						'<span class="description">' + city_builder.l('Leader') + ': ' + cities[i].get_ruler() + ' ' + city_builder.l('Personality') + ': ' + cities[i].get_personality().name + '</span>' +
+						'<span class="description">' + civitas.l('Leader') + ': ' + cities[i].get_ruler() + ' ' + civitas.l('Personality') + ': ' + cities[i].get_personality().name + '</span>' +
 					'</p>';
 			var influence = this.core.get_city().get_influence();
 			influence = influence[cities[i].get_name()];
@@ -10280,11 +10280,11 @@ city_builder.controls.panel_advisor = function (params) {
 			_t += '<div class="progress"><span style="width:' + influence + '%" class="bar' + _e + '"></span></div>';
 			_t += '</td>' +
 					'<td class="large">' +
-					'<a data-name="' + cities[i].get_name() + '" title="' + city_builder.l('View info about this city.') + '" class="tips view-city" href="#">' + city_builder.l('view') + '</a> ' +
-					'<a data-name="' + cities[i].get_name() + '" title="' + city_builder.l('Send a spy to this city.') + '" data-id="' + i + '" class="tips spy" href="#">' + city_builder.l('spy') + '</a> ' +
-					'<a data-name="' + cities[i].get_name() + '" title="' + city_builder.l('Propose a pact to this city`s ruler.') + '" class="tips pact" href="#">' + city_builder.l('pact') + '</a> ' +
-					'<a data-name="' + cities[i].get_name() + '" title="' + city_builder.l('Send goods to this city.') + '" data-id="' + i + '" class="tips send-goods" href="#">' + city_builder.l('send') + '</a> ' +
-					'<a data-name="' + cities[i].get_name() + '" title="' + city_builder.l('Declare war to this city.') + '" data-id="' + i + '" class="tips declare-war" href="#">' + city_builder.l('war') + '</a>' +
+					'<a data-name="' + cities[i].get_name() + '" title="' + civitas.l('View info about this city.') + '" class="tips view-city" href="#">' + civitas.l('view') + '</a> ' +
+					'<a data-name="' + cities[i].get_name() + '" title="' + civitas.l('Send a spy to this city.') + '" data-id="' + i + '" class="tips spy" href="#">' + civitas.l('spy') + '</a> ' +
+					'<a data-name="' + cities[i].get_name() + '" title="' + civitas.l('Propose a pact to this city`s ruler.') + '" class="tips pact" href="#">' + civitas.l('pact') + '</a> ' +
+					'<a data-name="' + cities[i].get_name() + '" title="' + civitas.l('Send goods to this city.') + '" data-id="' + i + '" class="tips send-goods" href="#">' + civitas.l('send') + '</a> ' +
+					'<a data-name="' + cities[i].get_name() + '" title="' + civitas.l('Declare war to this city.') + '" data-id="' + i + '" class="tips declare-war" href="#">' + civitas.l('war') + '</a>' +
 					'</td>' +
 					'</tr>';
 
@@ -10297,20 +10297,20 @@ city_builder.controls.panel_advisor = function (params) {
 
 	this._refresh_info = function() {
 		var city = this.core.get_city();
-		var _t = '<img class="avatar" src="' + city_builder.ASSETS_URL + 'images/avatars/avatar' + city.get_avatar() + '.png" />' +
+		var _t = '<img class="avatar" src="' + civitas.ASSETS_URL + 'images/avatars/avatar' + city.get_avatar() + '.png" />' +
 				'<dl>' +
-				'<dt>' + city_builder.l('Current date') + '</dt><dd class="citydate">' + this.core.get_date() + '</dd>' +
-				'<dt>' + city_builder.l('Ruler') + '</dt><dd>' + city.get_ruler() + '</dd>' +
-				'<dt>' + city_builder.l('Climate') + '</dt><dd>' + city.get_climate().name.capitalize() + '</dd>' +
-				'<dt>' + city_builder.l('Personality') + '</dt><dd>' + city.get_personality().name.capitalize() + '</dd>' +
-				'<dt>' + city_builder.l('Nationality') + '</dt><dd>' + city.get_nationality().name.capitalize() + '</dd>' +
-				'<dt>' + city_builder.l('Level') + '</dt><dd class="citylevel">' + city.get_level() + '</dd>' +
-				'<dt>' + city_builder.l('Prestige') + '</dt><dd class="cityprestige">' + city.get_prestige() + '</dd>' +
-				'<dt>' + city_builder.l('Espionage') + '</dt><dd class="cityespionage">' + city.get_espionage() + '</dd>' +
+				'<dt>' + civitas.l('Current date') + '</dt><dd class="citydate">' + this.core.get_date() + '</dd>' +
+				'<dt>' + civitas.l('Ruler') + '</dt><dd>' + city.get_ruler() + '</dd>' +
+				'<dt>' + civitas.l('Climate') + '</dt><dd>' + city.get_climate().name.capitalize() + '</dd>' +
+				'<dt>' + civitas.l('Personality') + '</dt><dd>' + city.get_personality().name.capitalize() + '</dd>' +
+				'<dt>' + civitas.l('Nationality') + '</dt><dd>' + city.get_nationality().name.capitalize() + '</dd>' +
+				'<dt>' + civitas.l('Level') + '</dt><dd class="citylevel">' + city.get_level() + '</dd>' +
+				'<dt>' + civitas.l('Prestige') + '</dt><dd class="cityprestige">' + city.get_prestige() + '</dd>' +
+				'<dt>' + civitas.l('Espionage') + '</dt><dd class="cityespionage">' + city.get_espionage() + '</dd>' +
 				'</dl>';
 		var advices = city.call_advisor();
 		if (advices.length > 0) {
-			_t += '<p>' + city_builder.l('Your City Advisor recommends you to:') + '</p>' +
+			_t += '<p>' + civitas.l('Your City Advisor recommends you to:') + '</p>' +
 					'<ul class="advices">';
 			for (var z = 0; z < advices.length; z++) {
 				_t += '<li>' + advices[z] + '</li>';
@@ -10328,9 +10328,9 @@ city_builder.controls.panel_advisor = function (params) {
 					'<thead>' +
 					'<tr>' +
 						'<td></td>' +
-						'<td class="center">' + city_builder.l('Level') + '</td>' +
-						'<td>' + city_builder.l('Tax') + '</td>' +
-						'<td>' + city_builder.l('Materials') + '</td>' +
+						'<td class="center">' + civitas.l('Level') + '</td>' +
+						'<td>' + civitas.l('Tax') + '</td>' +
+						'<td>' + civitas.l('Materials') + '</td>' +
 					'</tr>' +
 					'</thead>';
 		var total_tax = 0;
@@ -10343,13 +10343,13 @@ city_builder.controls.panel_advisor = function (params) {
 					'<td>';
 					if (building_data.tax) {
 						total_tax += buildings[l].get_level() * building_data.tax;
-						_t += ' +' + buildings[l].get_level() * building_data.tax + ' ' + city_builder.ui.resource_small_img('coins');
+						_t += ' +' + buildings[l].get_level() * building_data.tax + ' ' + civitas.ui.resource_small_img('coins');
 					}
 				_t += '</td>' +
 					'<td>';
 					if (building_data.materials) {
 						for (var item in building_data.materials) {
-							_t += ' -' + building_data.materials[item] + ' ' + city_builder.ui.resource_small_img(item);
+							_t += ' -' + building_data.materials[item] + ' ' + civitas.ui.resource_small_img(item);
 						}
 					}
 				_t += '</td>' +
@@ -10360,7 +10360,7 @@ city_builder.controls.panel_advisor = function (params) {
 							'<tr>' +
 								'<td></td>' +
 								'<td></td>' +
-								'<td>' + city_builder.l('Tax income') + ': ' + total_tax + ' ' + city_builder.ui.resource_small_img('coins') + '</td>' +
+								'<td>' + civitas.l('Tax income') + ': ' + total_tax + ' ' + civitas.ui.resource_small_img('coins') + '</td>' +
 								'<td></td>' +
 							'</tr>' +
 						'</tfoot>' +
@@ -10376,10 +10376,10 @@ city_builder.controls.panel_advisor = function (params) {
 					'<thead>' +
 					'<tr>' +
 						'<td></td>' +
-						'<td class="center">' + city_builder.l('Level') + '</td>' +
-						'<td>' + city_builder.l('Production') + '</td>' +
-						'<td>' + city_builder.l('Materials') + '</td>' +
-						'<td class="center">' + city_builder.l('Stopped') + '</td>' +
+						'<td class="center">' + civitas.l('Level') + '</td>' +
+						'<td>' + civitas.l('Production') + '</td>' +
+						'<td>' + civitas.l('Materials') + '</td>' +
+						'<td class="center">' + civitas.l('Stopped') + '</td>' +
 					'</tr>' +
 					'</thead>';
 		for (var l = 0; l < buildings.length; l++) {
@@ -10391,28 +10391,28 @@ city_builder.controls.panel_advisor = function (params) {
 					'<td>';
 					if (building_data.production) {
 						for (var item in building_data.production) {
-							_t += ' +' + buildings[l].get_level() * building_data.production[item] + ' ' + city_builder.ui.resource_small_img(item);
+							_t += ' +' + buildings[l].get_level() * building_data.production[item] + ' ' + civitas.ui.resource_small_img(item);
 						}
 					}
 				_t += '</td>' +
 					'<td>';
 					if (building_data.materials) {
 						for (var item in building_data.materials) {
-							_t += ' -' + building_data.materials[item] + ' ' + city_builder.ui.resource_small_img(item);
+							_t += ' -' + building_data.materials[item] + ' ' + civitas.ui.resource_small_img(item);
 						}
 					}
 				_t += '</td>' +
-					'<td class="center">' + ((buildings[l].is_producing() === true) ? city_builder.l('no') : city_builder.l('yes')) + '</td>' +
+					'<td class="center">' + ((buildings[l].is_producing() === true) ? civitas.l('no') : civitas.l('yes')) + '</td>' +
 				'</tr>';
 			}
 		}
 		_t += '<tfoot>' +
 					'<tr>' +
 						'<td></td>' +
-						'<td class="center">' + city_builder.l('Level') + '</td>' +
-						'<td>' + city_builder.l('Production') + '</td>' +
-						'<td>' + city_builder.l('Materials') + '</td>' +
-						'<td class="center">' + city_builder.l('Stopped') + '</td>' +
+						'<td class="center">' + civitas.l('Level') + '</td>' +
+						'<td>' + civitas.l('Production') + '</td>' +
+						'<td>' + civitas.l('Materials') + '</td>' +
+						'<td class="center">' + civitas.l('Stopped') + '</td>' +
 					'</tr>' +
 				'</tfoot>' +
 			'</table>';
@@ -10424,7 +10424,7 @@ city_builder.controls.panel_advisor = function (params) {
 	 * Internal function for refreshing the Army tab.
 	 * 
 	 * @private
-	 * @returns {city_builder.controls.panel_advisor}
+	 * @returns {civitas.controls.panel_advisor}
 	 */
 	this._refresh_army = function () {
 		var city = this.core.get_city();
@@ -10432,36 +10432,36 @@ city_builder.controls.panel_advisor = function (params) {
 		var _t = '';
 		var can_recruit_soldiers = this.core.get_city().is_building_built('camp') || this.core.get_city().is_building_built('castle');
 		if (can_recruit_soldiers !== true) {
-			_t += '<p>' + city_builder.l('You will need to construct a Military Camp or Castle before being able to recruit soldiers in your city.') + '</p>';
+			_t += '<p>' + civitas.l('You will need to construct a Military Camp or Castle before being able to recruit soldiers in your city.') + '</p>';
 		}
 		_t += '<div class="army-list">' +
 				'</div>' +
 				'<div class="army-recruiter">';
-		for (var item in city_builder.SOLDIER_TYPES) {
+		for (var item in civitas.SOLDIER_TYPES) {
 			_t += '<fieldset>' +
 					'<legend>' + item + '</legend>' +
 					'<div class="cost">' +
 					'<dl class="nomg">';
-			for (var res in city_builder.SOLDIER_TYPES[item].cost) {
-				_t += '<dt>' + city_builder.utils.nice_numbers(city_builder.SOLDIER_TYPES[item].cost[res]) + '</dt><dd><img class="tips" title="' + resources[res].name + '" src="' + city_builder.ASSETS_URL + 'images/resources/' + res + '_small.png" /></dd>';
+			for (var res in civitas.SOLDIER_TYPES[item].cost) {
+				_t += '<dt>' + civitas.utils.nice_numbers(civitas.SOLDIER_TYPES[item].cost[res]) + '</dt><dd><img class="tips" title="' + resources[res].name + '" src="' + civitas.ASSETS_URL + 'images/resources/' + res + '_small.png" /></dd>';
 			}
 			_t += '</dl>' +
 					'</div>' +
 					'<div class="info">' +
 					'<dl class="nomg">' +
-					'<dt>Attack</dt><dd>' + city_builder.SOLDIER_TYPES[item].attack + '</dd>' +
-					'<dt>Defense</dt><dd>' + city_builder.SOLDIER_TYPES[item].defense + '</dd>' +
+					'<dt>Attack</dt><dd>' + civitas.SOLDIER_TYPES[item].attack + '</dd>' +
+					'<dt>Defense</dt><dd>' + civitas.SOLDIER_TYPES[item].defense + '</dd>' +
 					'</dl>' +
 					'</div>' +
-					'<img data-handle="' + item + '" title="' + city_builder.l('Recruit') + ' ' + item + '" class="tips recruit-soldier" src="' + city_builder.ASSETS_URL + 'images/armies/' + item.toLowerCase() + '.png" />' +
+					'<img data-handle="' + item + '" title="' + civitas.l('Recruit') + ' ' + item + '" class="tips recruit-soldier" src="' + civitas.ASSETS_URL + 'images/armies/' + item.toLowerCase() + '.png" />' +
 					'</fieldset>';
 		}
 		_t += '</div>';
 		$('#tab-army').empty().append(_t);
 		var el = '#panel-' + this.id;
 		var _tt = '<fieldset>' +
-				'<legend>' + city_builder.l('Current Army') + '</legend>' +
-				city_builder.ui.army_list(city.get_army_total(), true) +
+				'<legend>' + civitas.l('Current Army') + '</legend>' +
+				civitas.ui.army_list(city.get_army_total(), true) +
 				'</fieldset>';
 		$(el + ' .army-list').empty().append(_tt);
 		return this;
@@ -10471,7 +10471,7 @@ city_builder.controls.panel_advisor = function (params) {
 	 * Internal function for refreshing the Navy tab.
 	 * 
 	 * @private
-	 * @returns {city_builder.controls.panel_advisor}
+	 * @returns {civitas.controls.panel_advisor}
 	 */
 	this._refresh_navy = function () {
 		var city = this.core.get_city();
@@ -10479,36 +10479,36 @@ city_builder.controls.panel_advisor = function (params) {
 		var _t = '';
 		var can_build_ships = this.core.get_city().is_building_built('shipyard');
 		if (can_build_ships !== true) {
-			_t += '<p>' + city_builder.l('You will need to construct a Shipyard before being able to construct ships in your city.') + '</p>';
+			_t += '<p>' + civitas.l('You will need to construct a Shipyard before being able to construct ships in your city.') + '</p>';
 		}
 		_t += '<div class="navy-list">' +
 				'</div>' +
 				'<div class="navy-recruiter">';
-		for (var item in city_builder.SHIP_TYPES) {
+		for (var item in civitas.SHIP_TYPES) {
 			_t += '<fieldset>' +
 					'<legend>' + item + '</legend>' +
 					'<div class="cost">' +
 					'<dl class="nomg">';
-			for (var res in city_builder.SHIP_TYPES[item].cost) {
-				_t += '<dt>' + city_builder.utils.nice_numbers(city_builder.SHIP_TYPES[item].cost[res]) + '</dt><dd><img class="tips" title="' + resources[res].name + '" src="' + city_builder.ASSETS_URL + 'images/resources/' + res + '_small.png" /></dd>';
+			for (var res in civitas.SHIP_TYPES[item].cost) {
+				_t += '<dt>' + civitas.utils.nice_numbers(civitas.SHIP_TYPES[item].cost[res]) + '</dt><dd><img class="tips" title="' + resources[res].name + '" src="' + civitas.ASSETS_URL + 'images/resources/' + res + '_small.png" /></dd>';
 			}
 			_t += '</dl>' +
 					'</div>' +
 					'<div class="info">' +
 					'<dl class="nomg">' +
-					'<dt>' + city_builder.l('Attack') + '</dt><dd>' + city_builder.SHIP_TYPES[item].attack + '</dd>' +
-					'<dt>' + city_builder.l('Defense') + '</dt><dd>' + city_builder.SHIP_TYPES[item].defense + '</dd>' +
+					'<dt>' + civitas.l('Attack') + '</dt><dd>' + civitas.SHIP_TYPES[item].attack + '</dd>' +
+					'<dt>' + civitas.l('Defense') + '</dt><dd>' + civitas.SHIP_TYPES[item].defense + '</dd>' +
 					'</dl>' +
 					'</div>' +
-					'<img data-handle="' + item + '" title="' + city_builder.l('Recruit') + ' ' + item + '" class="tips recruit-ship" src="' + city_builder.ASSETS_URL + 'images/armies/' + item.toLowerCase().replace(/ /g,"_") + '.png" />' +
+					'<img data-handle="' + item + '" title="' + civitas.l('Recruit') + ' ' + item + '" class="tips recruit-ship" src="' + civitas.ASSETS_URL + 'images/armies/' + item.toLowerCase().replace(/ /g,"_") + '.png" />' +
 					'</fieldset>';
 		}
 		_t += '</div>';
 		$('#tab-navy').empty().append(_t);
 		var el = '#panel-' + this.id;
 		var _tt = '<fieldset>' +
-				'<legend>' + city_builder.l('Current Navy') + '</legend>' +
-				city_builder.ui.navy_list(city.get_navy_total(), true) +
+				'<legend>' + civitas.l('Current Navy') + '</legend>' +
+				civitas.ui.navy_list(city.get_navy_total(), true) +
 				'</fieldset>';
 		$(el + ' .navy-list').empty().append(_tt);
 		return this;
@@ -10522,15 +10522,15 @@ city_builder.controls.panel_advisor = function (params) {
  * Main Game army panel object.
  * 
  * @param {Object} params
- * @class {city_builder.controls.panel_army}
- * @returns {city_builder.controls.panel_army}
+ * @class {civitas.controls.panel_army}
+ * @returns {civitas.controls.panel_army}
  */
-city_builder.controls.panel_army = function (params) {
+civitas.controls.panel_army = function (params) {
 
 	/**
 	 * Reference to the core object.
 	 * 
-	 * @type {city_builder.game}
+	 * @type {civitas.game}
 	 */
 	this.core = null;
 
@@ -10571,26 +10571,26 @@ city_builder.controls.panel_army = function (params) {
 	 * Object constructor.
 	 * 
 	 * @private
-	 * @returns {city_builder.controls.panel_army}
+	 * @returns {civitas.controls.panel_army}
 	 * @param {Object} params
 	 */
 	this.__constructor = function (params) {
 		var self = this;
 		this.core = params.core;
 		var el = '#panel-' + this.id;
-		if (city_builder.ui.panel_exists(el)) {
+		if (civitas.ui.panel_exists(el)) {
 			this.destroy();
 		}
 		var army = params.data;
 		this.core.console_log('creating panel with id `' + this.id + '`');
-		$('.ui').append(city_builder.ui.generic_panel_template
+		$('.ui').append(civitas.ui.generic_panel_template
 			.replace(/{id}/g, this.id)
 			.replace(/{title}/g, army.name));
-		$(el + ' .contents').append(city_builder.ui.tabs(['Info', 'Soldiers', 'Ships']));
-		$(el + ' #tab-info').append('<img class="avatar" src="' + city_builder.ASSETS_URL + 'images/armies/' + army.icon + '.png" />' +
+		$(el + ' .contents').append(civitas.ui.tabs(['Info', 'Soldiers', 'Ships']));
+		$(el + ' #tab-info').append('<img class="avatar" src="' + civitas.ASSETS_URL + 'images/armies/' + army.icon + '.png" />' +
 				'<p>' + army.description + '</p>');
-		$(el + ' #tab-soldiers').append(city_builder.ui.army_list(army));
-		$(el + ' #tab-ships').append(city_builder.ui.navy_list(army));
+		$(el + ' #tab-soldiers').append(civitas.ui.army_list(army));
+		$(el + ' #tab-ships').append(civitas.ui.navy_list(army));
 		$(el).on('click', '.close', function () {
 			self.destroy();
 			return false;
@@ -10615,7 +10615,7 @@ city_builder.controls.panel_army = function (params) {
 	 * information on this panel.
 	 *
 	 * @public
-	 * @returns {city_builder.controls.panel_army}
+	 * @returns {civitas.controls.panel_army}
 	 */
 	this.refresh = function() {
 		return this;
@@ -10629,15 +10629,15 @@ city_builder.controls.panel_army = function (params) {
  * Main Game trades panel object.
  * 
  * @param {Object} params
- * @class {city_builder.controls.panel_trades}
- * @returns {city_builder.controls.panel_trades}
+ * @class {civitas.controls.panel_trades}
+ * @returns {civitas.controls.panel_trades}
  */
-city_builder.controls.panel_trades = function (params) {
+civitas.controls.panel_trades = function (params) {
 
 	/**
 	 * Reference to the core object.
 	 * 
-	 * @type {city_builder.game}
+	 * @type {civitas.game}
 	 */
 	this.core = null;
 
@@ -10654,7 +10654,7 @@ city_builder.controls.panel_trades = function (params) {
 	 * 
 	 * @type {String}
 	 */
-	this.title = city_builder.l('World Market Trades');
+	this.title = civitas.l('World Market Trades');
 
 	/**
 	 * Object destructor.
@@ -10685,28 +10685,28 @@ city_builder.controls.panel_trades = function (params) {
 	 * Object constructor.
 	 * 
 	 * @private
-	 * @returns {city_builder.controls.panel_trades}
+	 * @returns {civitas.controls.panel_trades}
 	 * @param {Object} params
 	 */
 	this.__constructor = function (params) {
 		this.core = params.core;
 		var el = '#panel-' + this.id;
 		var self = this;
-		if (city_builder.ui.panel_exists(el)) {
+		if (civitas.ui.panel_exists(el)) {
 			this.destroy();
 		}
 		this.core.console_log('creating panel with id `' + this.id + '`');
 		var city = this.core.get_city();
 		var _t = '';
-		$('.ui').append(city_builder.ui.generic_panel_template
+		$('.ui').append(civitas.ui.generic_panel_template
 			.replace(/{id}/g, this.id)
 			.replace(/{title}/g, this.title));
-		_t += city_builder.ui.tabs([city_builder.l('Imports'), city_builder.l('Exports'), city_builder.l('Mercenaries'), city_builder.l('BlackMarket')]);
+		_t += civitas.ui.tabs([civitas.l('Imports'), civitas.l('Exports'), civitas.l('Mercenaries'), civitas.l('BlackMarket')]);
 		$(el + ' .contents').append(_t);
-		$(el + ' #tab-imports').append('<p>' + city_builder.l('Below is a list of goods that the other cities in the world are looking to buy. The goods replenish yearly, so plan accordingly.') + '</p><div class="contents"></div>');
-		$(el + ' #tab-exports').append('<p>' + city_builder.l('Below is a list of goods that the other cities in the world are looking to sell. The goods replenish yearly, so plan accordingly.') + '</p><div class="contents"></div>');
-		$(el + ' #tab-mercenaries').append('<p>' + city_builder.l('Below is a list of mercenary armies that are looking for hire. Mercenaries are available only for raiding and conquest missions, they do not join your city so they will not participate in defense.') + '</p><div class="contents"></div>');
-		$(el + ' #tab-blackmarket').append('<p>' + city_builder.l('The Black Market is a way to dump your excess materials when you`re in need of emptying your warehouses, but expect a steep price drop (you get ') + (100 - city_builder.BLACK_MARKET_DISCOUNT) + city_builder.l('% of the actual price). The goods will be taken immediately from your warehouses but you will receive the coins next month. Also, you get no prestige from Black Market trades.') + '</p><div class="contents"></div>');
+		$(el + ' #tab-imports').append('<p>' + civitas.l('Below is a list of goods that the other cities in the world are looking to buy. The goods replenish yearly, so plan accordingly.') + '</p><div class="contents"></div>');
+		$(el + ' #tab-exports').append('<p>' + civitas.l('Below is a list of goods that the other cities in the world are looking to sell. The goods replenish yearly, so plan accordingly.') + '</p><div class="contents"></div>');
+		$(el + ' #tab-mercenaries').append('<p>' + civitas.l('Below is a list of mercenary armies that are looking for hire. Mercenaries are available only for raiding and conquest missions, they do not join your city so they will not participate in defense.') + '</p><div class="contents"></div>');
+		$(el + ' #tab-blackmarket').append('<p>' + civitas.l('The Black Market is a way to dump your excess materials when you`re in need of emptying your warehouses, but expect a steep price drop (you get ') + (100 - civitas.BLACK_MARKET_DISCOUNT) + civitas.l('% of the actual price). The goods will be taken immediately from your warehouses but you will receive the coins next month. Also, you get no prestige from Black Market trades.') + '</p><div class="contents"></div>');
 		this.refresh();
 		$(el).on('click', '.buy:not(.disabled)', function () {
 			var handle = $(this).data('city');
@@ -10739,8 +10739,8 @@ city_builder.controls.panel_trades = function (params) {
 			return false;
 		}).on('click', '.view-army:not(.disabled)', function () {
 			var army = $(this).data('id');
-			var army_data = city_builder.MERCENARIES[army];
-			self.core.open_panel(new city_builder.controls.panel_army({
+			var army_data = civitas.MERCENARIES[army];
+			self.core.open_panel(new civitas.controls.panel_army({
 				core: self.core,
 				data: army_data
 			}));
@@ -10769,7 +10769,7 @@ city_builder.controls.panel_trades = function (params) {
 	 * information on this panel.
 	 *
 	 * @public
-	 * @returns {city_builder.controls.panel_trades}
+	 * @returns {civitas.controls.panel_trades}
 	 */
 	this.refresh = function() {
 		this._refresh_imports();
@@ -10782,7 +10782,7 @@ city_builder.controls.panel_trades = function (params) {
 	/**
 	 * Internal function for building the Black Market panel.
 	 * 
-	 * @returns {city_builder.controls.panel_trades}
+	 * @returns {civitas.controls.panel_trades}
 	 * @private
 	 */
 	this._build_black_market = function () {
@@ -10791,8 +10791,8 @@ city_builder.controls.panel_trades = function (params) {
 		out += '<thead>' +
 				'<tr>' +
 				'<td><select class="bm-materials"></select></td>' +
-				'<td><input type="text" placeholder="' + city_builder.l('amount') + '" class="bm-quantity" /></td>' +
-				'<td><a title="' + city_builder.l('List goods on Black Market') + '" class="tips bmarket" href="#">' + city_builder.l('list') + '</a></td>' +
+				'<td><input type="text" placeholder="' + civitas.l('amount') + '" class="bm-quantity" /></td>' +
+				'<td><a title="' + civitas.l('List goods on Black Market') + '" class="tips bmarket" href="#">' + civitas.l('list') + '</a></td>' +
 				'</tr>' +
 				'</thead>';
 		out += '<tbody>' +
@@ -10807,7 +10807,7 @@ city_builder.controls.panel_trades = function (params) {
 	/**
 	 * Internal function for refreshing the Black Market panel.
 	 * 
-	 * @returns {city_builder.controls.panel_trades}
+	 * @returns {civitas.controls.panel_trades}
 	 * @private
 	 */
 	this._refresh_black_market = function () {
@@ -10815,8 +10815,8 @@ city_builder.controls.panel_trades = function (params) {
 		var bm = this.core.get_black_market();
 		for (var item in bm) {
 			out += '<tr>' +
-					'<td>' + city_builder.l('Amount') + ': ' + bm[item].amount + city_builder.ui.resource_small_img(item) + '</td>' +
-					'<td>' + city_builder.l('Total price') + ': ' + bm[item].price + city_builder.ui.resource_small_img('coins') + '</td>' +
+					'<td>' + civitas.l('Amount') + ': ' + bm[item].amount + civitas.ui.resource_small_img(item) + '</td>' +
+					'<td>' + civitas.l('Total price') + ': ' + bm[item].price + civitas.ui.resource_small_img('coins') + '</td>' +
 					'<td>&nbsp;</td>' +
 					'</tr>';
 		}
@@ -10827,16 +10827,16 @@ city_builder.controls.panel_trades = function (params) {
 	/**
 	 * Internal function for refreshing the Black Market resources dropbox.
 	 * 
-	 * @returns {city_builder.controls.panel_trades}
+	 * @returns {civitas.controls.panel_trades}
 	 * @private
 	 */
 	this._refresh_black_market_materials = function () {
-		var out = '<option value="0">-- ' + city_builder.l('select') + ' --</option>';
+		var out = '<option value="0">-- ' + civitas.l('select') + ' --</option>';
 		var city = this.core.get_city();
 		var resources = city.get_resources();
 		for (var item in resources) {
 			if (item !== 'fame' && item !== 'coins' && item !== 'prestige' && item !== 'espionage') {
-				out += '<option value="' + item + '"> ' + city_builder.utils.get_resource_name(item) + '</option>';
+				out += '<option value="' + item + '"> ' + civitas.utils.get_resource_name(item) + '</option>';
 			}
 		}
 		$('.bm-materials').empty().append(out);
@@ -10846,7 +10846,7 @@ city_builder.controls.panel_trades = function (params) {
 	/**
 	 * Internal function for refreshing the Imports panel.
 	 * 
-	 * @returns {city_builder.controls.panel_trades}
+	 * @returns {civitas.controls.panel_trades}
 	 * @private
 	 */
 	this._refresh_imports = function () {
@@ -10855,12 +10855,12 @@ city_builder.controls.panel_trades = function (params) {
 					'<thead>' +
 					'<tr>' +
 						'<td>City</td>' +
-						'<td class="center">' + city_builder.l('Goods') + '</td>' +
-						'<td class="center">' + city_builder.l('Amount') + '</td>' +
-						'<td class="center">' + city_builder.l('Price') + '</td>' +
-						'<td class="center">' + city_builder.l('Discount') + '</td>' +
-						'<td class="center">' + city_builder.l('City Price') + '</td>' +
-						'<td class="center">' + city_builder.l('Total price') + '</td>' +
+						'<td class="center">' + civitas.l('Goods') + '</td>' +
+						'<td class="center">' + civitas.l('Amount') + '</td>' +
+						'<td class="center">' + civitas.l('Price') + '</td>' +
+						'<td class="center">' + civitas.l('Discount') + '</td>' +
+						'<td class="center">' + civitas.l('City Price') + '</td>' +
+						'<td class="center">' + civitas.l('Total price') + '</td>' +
 						'<td></td>' +
 					'</tr>' +
 					'</thead>';
@@ -10871,17 +10871,17 @@ city_builder.controls.panel_trades = function (params) {
 			if (trades !== null) {
 				var imports = trades.imports;
 				for (var item in imports) {
-					var discount = Math.ceil((city_builder.RESOURCES[item].price * city_builder.TRADES_DISCOUNT) / 100);
-					var discount_price = Math.ceil(city_builder.RESOURCES[item].price - discount);
+					var discount = Math.ceil((civitas.RESOURCES[item].price * civitas.TRADES_DISCOUNT) / 100);
+					var discount_price = Math.ceil(civitas.RESOURCES[item].price - discount);
 					out += '<tr>' +
 							'<td>' + cities[z].get_name() + '</td>' +
-							'<td class="center">' + city_builder.ui.resource_small_img(item) + '</td>' +
+							'<td class="center">' + civitas.ui.resource_small_img(item) + '</td>' +
 							'<td class="center">' + imports[item] + '</td>' +
-							'<td class="center">' + city_builder.RESOURCES[item].price + city_builder.ui.resource_small_img('coins') + '</td>' +
-							'<td class="center">' + discount + city_builder.ui.resource_small_img('coins') + '</td>' +
-							'<td class="center">' + discount_price + city_builder.ui.resource_small_img('coins') + '</td>' +
-							'<td class="center">' + Math.ceil(discount_price * imports[item]) + city_builder.ui.resource_small_img('coins') + '</td>' +
-							'<td class="center"><a title="' + city_builder.l('Sell those goods') + '" data-resource="' + item + '" data-city="' + cities[z].get_name() + '" class="tips sell' + (imports[item] === 0 ? ' disabled' : '') + '" href="#">' + city_builder.l('sell') + '</a></td>' +
+							'<td class="center">' + civitas.RESOURCES[item].price + civitas.ui.resource_small_img('coins') + '</td>' +
+							'<td class="center">' + discount + civitas.ui.resource_small_img('coins') + '</td>' +
+							'<td class="center">' + discount_price + civitas.ui.resource_small_img('coins') + '</td>' +
+							'<td class="center">' + Math.ceil(discount_price * imports[item]) + civitas.ui.resource_small_img('coins') + '</td>' +
+							'<td class="center"><a title="' + civitas.l('Sell those goods') + '" data-resource="' + item + '" data-city="' + cities[z].get_name() + '" class="tips sell' + (imports[item] === 0 ? ' disabled' : '') + '" href="#">' + civitas.l('sell') + '</a></td>' +
 							'</tr>';
 				}
 			}
@@ -10889,12 +10889,12 @@ city_builder.controls.panel_trades = function (params) {
 		out += '<tfoot>' +
 					'<tr>' +
 						'<td>City</td>' +
-						'<td class="center">' + city_builder.l('Goods') + '</td>' +
-						'<td class="center">' + city_builder.l('Amount') + '</td>' +
-						'<td class="center">' + city_builder.l('Price') + '</td>' +
-						'<td class="center">' + city_builder.l('Discount') + '</td>' +
-						'<td class="center">' + city_builder.l('City Price') + '</td>' +
-						'<td class="center">' + city_builder.l('Total price') + '</td>' +
+						'<td class="center">' + civitas.l('Goods') + '</td>' +
+						'<td class="center">' + civitas.l('Amount') + '</td>' +
+						'<td class="center">' + civitas.l('Price') + '</td>' +
+						'<td class="center">' + civitas.l('Discount') + '</td>' +
+						'<td class="center">' + civitas.l('City Price') + '</td>' +
+						'<td class="center">' + civitas.l('Total price') + '</td>' +
 						'<td></td>' +
 					'</tr>' +
 				'</tfoot>' +
@@ -10906,26 +10906,26 @@ city_builder.controls.panel_trades = function (params) {
 	/**
 	 * Internal function for refreshing the Mercenaries panel.
 	 * 
-	 * @returns {city_builder.controls.panel_trades}
+	 * @returns {civitas.controls.panel_trades}
 	 * @private
 	 */
 	this._refresh_mercenaries = function () {
 		var out = '<table class="mercenaries">';
-		for (var i = 0; i < city_builder.MERCENARIES.length; i++) {
+		for (var i = 0; i < civitas.MERCENARIES.length; i++) {
 			out += '<tr>' +
 					'<td class="icon">' +
-						'<img src="' + city_builder.ASSETS_URL + 'images/armies/' + city_builder.MERCENARIES[i].icon + '.png" />' +
+						'<img src="' + civitas.ASSETS_URL + 'images/armies/' + civitas.MERCENARIES[i].icon + '.png" />' +
 					'</td>' +
 					'<td>' +
-						'<p class="title">' + city_builder.MERCENARIES[i].name + '</p>' +
-						'<p class="description">' + city_builder.MERCENARIES[i].description + '</p>' +
+						'<p class="title">' + civitas.MERCENARIES[i].name + '</p>' +
+						'<p class="description">' + civitas.MERCENARIES[i].description + '</p>' +
 					'</td>' +
 					'<td>' + 
-						city_builder.utils.nice_numbers(city_builder.MERCENARIES[i].cost) + city_builder.ui.resource_small_img('coins') + 
+						civitas.utils.nice_numbers(civitas.MERCENARIES[i].cost) + civitas.ui.resource_small_img('coins') + 
 					'</td>' +
 					'<td class="medium">' +
-						'<a title="' + city_builder.l('View info on this mercenary army') + '" data-id="' + i + '" class="tips view-army" href="#">view</a> ' +
-						city_builder.ui.panel_btn('recruit', city_builder.l('Recruit this mercenary army'), city_builder.MERCENARIES[i].handle, 'recruit', this.core.get_city().is_mercenary_recruited(city_builder.MERCENARIES[i].handle)) +
+						'<a title="' + civitas.l('View info on this mercenary army') + '" data-id="' + i + '" class="tips view-army" href="#">view</a> ' +
+						civitas.ui.panel_btn('recruit', civitas.l('Recruit this mercenary army'), civitas.MERCENARIES[i].handle, 'recruit', this.core.get_city().is_mercenary_recruited(civitas.MERCENARIES[i].handle)) +
 					'</td>' +
 				'</tr>';
 		}
@@ -10937,7 +10937,7 @@ city_builder.controls.panel_trades = function (params) {
 	/**
 	 * Internal function for refreshing the Exports panel.
 	 * 
-	 * @returns {city_builder.controls.panel_trades}
+	 * @returns {civitas.controls.panel_trades}
 	 * @private
 	 */
 	this._refresh_exports = function () {
@@ -10946,12 +10946,12 @@ city_builder.controls.panel_trades = function (params) {
 					'<thead>' +
 					'<tr>' +
 						'<td>City</td>' +
-						'<td class="center">' + city_builder.l('Goods') + '</td>' +
-						'<td class="center">' + city_builder.l('Amount') + '</td>' +
-						'<td class="center">' + city_builder.l('Price') + '</td>' +
-						'<td class="center">' + city_builder.l('Tax') + '</td>' +
-						'<td class="center">' + city_builder.l('City Price') + '</td>' +
-						'<td class="center">' + city_builder.l('Total price') + '</td>' +
+						'<td class="center">' + civitas.l('Goods') + '</td>' +
+						'<td class="center">' + civitas.l('Amount') + '</td>' +
+						'<td class="center">' + civitas.l('Price') + '</td>' +
+						'<td class="center">' + civitas.l('Tax') + '</td>' +
+						'<td class="center">' + civitas.l('City Price') + '</td>' +
+						'<td class="center">' + civitas.l('Total price') + '</td>' +
 						'<td></td>' +
 					'</tr>' +
 					'</thead>';
@@ -10962,17 +10962,17 @@ city_builder.controls.panel_trades = function (params) {
 			if (trades !== null) {
 				var exports = trades.exports;
 				for (var item in exports) {
-					var discount = Math.ceil((city_builder.RESOURCES[item].price * city_builder.TRADES_ADDITION) / 100);
-					var discount_price = Math.ceil(city_builder.RESOURCES[item].price + discount);
+					var discount = Math.ceil((civitas.RESOURCES[item].price * civitas.TRADES_ADDITION) / 100);
+					var discount_price = Math.ceil(civitas.RESOURCES[item].price + discount);
 					out += '<tr>' +
 							'<td>' + cities[z].get_name() + '</td>' +
-							'<td class="center">' + city_builder.ui.resource_small_img(item) + '</td>' +
+							'<td class="center">' + civitas.ui.resource_small_img(item) + '</td>' +
 							'<td class="center">' + exports[item] + '</td>' +
-							'<td class="center">' + city_builder.RESOURCES[item].price + city_builder.ui.resource_small_img('coins') + '</td>' +
-							'<td class="center">' + discount + city_builder.ui.resource_small_img('coins') + '</td>' +
-							'<td class="center">' + discount_price + city_builder.ui.resource_small_img('coins') + '</td>' +
-							'<td class="center">' + Math.ceil(discount_price * exports[item]) + city_builder.ui.resource_small_img('coins') + '</td>' +
-							'<td class="center"><a title="' + city_builder.l('Buy those goods') + '" data-resource="' + item + '" data-city="' + cities[z].get_name() + '" class="tips buy' + (exports[item] === 0 ? ' disabled' : '') + '" href="#">' + city_builder.l('buy') + '</a></td>' +
+							'<td class="center">' + civitas.RESOURCES[item].price + civitas.ui.resource_small_img('coins') + '</td>' +
+							'<td class="center">' + discount + civitas.ui.resource_small_img('coins') + '</td>' +
+							'<td class="center">' + discount_price + civitas.ui.resource_small_img('coins') + '</td>' +
+							'<td class="center">' + Math.ceil(discount_price * exports[item]) + civitas.ui.resource_small_img('coins') + '</td>' +
+							'<td class="center"><a title="' + civitas.l('Buy those goods') + '" data-resource="' + item + '" data-city="' + cities[z].get_name() + '" class="tips buy' + (exports[item] === 0 ? ' disabled' : '') + '" href="#">' + civitas.l('buy') + '</a></td>' +
 							'</tr>';
 				}
 			}
@@ -10980,12 +10980,12 @@ city_builder.controls.panel_trades = function (params) {
 		out += '<tfoot>' +
 					'<tr>' +
 						'<td>City</td>' +
-						'<td class="center">' + city_builder.l('Goods') + '</td>' +
-						'<td class="center">' + city_builder.l('Amount') + '</td>' +
-						'<td class="center">' + city_builder.l('Price') + '</td>' +
-						'<td class="center">' + city_builder.l('Tax') + '</td>' +
-						'<td class="center">' + city_builder.l('City Price') + '</td>' +
-						'<td class="center">' + city_builder.l('Total price') + '</td>' +
+						'<td class="center">' + civitas.l('Goods') + '</td>' +
+						'<td class="center">' + civitas.l('Amount') + '</td>' +
+						'<td class="center">' + civitas.l('Price') + '</td>' +
+						'<td class="center">' + civitas.l('Tax') + '</td>' +
+						'<td class="center">' + civitas.l('City Price') + '</td>' +
+						'<td class="center">' + civitas.l('Total price') + '</td>' +
 						'<td></td>' +
 					'</tr>' +
 				'</tfoot>' +
@@ -11002,15 +11002,15 @@ city_builder.controls.panel_trades = function (params) {
  * Main Game settings panel object.
  * 
  * @param {Object} params
- * @class {city_builder.controls.panel_settings}
- * @returns {city_builder.controls.panel_settings}
+ * @class {civitas.controls.panel_settings}
+ * @returns {civitas.controls.panel_settings}
  */
-city_builder.controls.panel_settings = function (params) {
+civitas.controls.panel_settings = function (params) {
 
 	/**
 	 * Reference to the core object.
 	 * 
-	 * @type {city_builder.game}
+	 * @type {civitas.game}
 	 */
 	this.core = null;
 
@@ -11051,7 +11051,7 @@ city_builder.controls.panel_settings = function (params) {
 	 * Object constructor.
 	 * 
 	 * @private
-	 * @returns {city_builder.controls.panel_settings}
+	 * @returns {civitas.controls.panel_settings}
 	 * @param {Object} params
 	 */
 	this.__constructor = function (params) {
@@ -11060,14 +11060,14 @@ city_builder.controls.panel_settings = function (params) {
 		this.id = params.id;
 		var self = this;
 		var el = '#panel-' + this.id;
-		if (city_builder.ui.panel_exists(el)) {
+		if (civitas.ui.panel_exists(el)) {
 			this.destroy();
 		}
 		this.core.console_log('creating panel with id `' + this.id + '`');
-		$('.ui').append(city_builder.ui.generic_panel_template
+		$('.ui').append(civitas.ui.generic_panel_template
 			.replace(/{id}/g, this.id)
 			.replace(/{title}/g, params.header));
-		$(el + ' .contents').append(city_builder.ui.tabs([city_builder.l('Sounds'), city_builder.l('UI')]));
+		$(el + ' .contents').append(civitas.ui.tabs([civitas.l('Sounds'), civitas.l('UI')]));
 		$(el + ' #tab-sounds').append('<div>' +
 			'<a href="#" class="music-control ui-control ' + ((this.core.get_settings('music') === true) ? 'on' : 'off') + '">toggle music</a>' +
 			'<input class="music-volume" type="range" min="0" max="1" step="0.1" ' + ((this.core.get_settings('music') !== true) ? 'disabled' : '') + ' />' +
@@ -11123,7 +11123,7 @@ city_builder.controls.panel_settings = function (params) {
 	 * information on this panel.
 	 *
 	 * @public
-	 * @returns {city_builder.controls.panel_settings}
+	 * @returns {civitas.controls.panel_settings}
 	 */
 	this.refresh = function() {
 		return this;
@@ -11136,10 +11136,10 @@ city_builder.controls.panel_settings = function (params) {
 /**
  * Main Game core object.
  * 
- * @class {city_builder.game}
- * @returns {city_builder.game}
+ * @class {civitas.game}
+ * @returns {civitas.game}
  */
-city_builder.game = function () {
+civitas.game = function () {
 
 	/**
 	 * List of all the cities in the game.
@@ -11200,7 +11200,7 @@ city_builder.game = function () {
 	/**
 	 * Pointer to an instance of the game API object.
 	 * 
-	 * @type {city_builder.api}
+	 * @type {civitas.api}
 	 * @public
 	 */
 	this.api = null;
@@ -11208,7 +11208,7 @@ city_builder.game = function () {
 	/**
 	 * Pointer to an instance of the game Jailer object.
 	 * 
-	 * @type {city_builder.jailer}
+	 * @type {civitas.jailer}
 	 * @public
 	 */
 	this.jailer = null;
@@ -11227,7 +11227,7 @@ city_builder.game = function () {
 	/**
 	 * Pointer to an instance of the game history.
 	 *
-	 * @type {city_builder.history}
+	 * @type {civitas.history}
 	 * @public
 	 */
 	this.history = null;
@@ -11238,7 +11238,7 @@ city_builder.game = function () {
 	 * @type {Number}
 	 * @private
 	 */
-	this.difficulty = city_builder.DIFFICULTY_LEVEL_EASY;
+	this.difficulty = civitas.DIFFICULTY_LEVEL_EASY;
 
 	/**
 	 * Array containing the list of all open panels.
@@ -11252,16 +11252,16 @@ city_builder.game = function () {
 	 * Object constructor.
 	 * 
 	 * @private
-	 * @returns {city_builder.game}
+	 * @returns {civitas.game}
 	 */
 	this.__constructor = function () {
 		var clicked = false;
 		var clickY, clickX;
 		var self = this;
-		this.history = new city_builder.modules.history({
+		this.history = new civitas.modules.history({
 			core: this
 		});
-		this.jailer = new city_builder.modules.jailer({
+		this.jailer = new civitas.modules.jailer({
 			core: this
 		});
 		this.setup_audio();
@@ -11286,54 +11286,54 @@ city_builder.game = function () {
 		};
 		this._setup_start_ui();
 		this._setup_toolbar();
-		if (localStorage.getItem('city_builder.data') !== null) {
+		if (localStorage.getItem('civitas.data') !== null) {
 			this.start_game();
 		}
 		$('.toolbar').on('click', '.do-options', function () {
-			self.open_panel(new city_builder.controls.panel_settings({
+			self.open_panel(new civitas.controls.panel_settings({
 				core: self,
 				id: 'settings',
 				header: 'Game Settings'
 			}));
 			return false;
 		}).on('click', '.do-worldmap', function () {
-			self.open_panel(city_builder.controls.panel_world({
+			self.open_panel(civitas.controls.panel_world({
 				core: self
 			}));
 			return false;
 		}).on('click', '.do-restart', function () {
 			if (confirm('Are you sure you want to restart the game? You wll lose all progress!') === true) {
-				localStorage.removeItem(city_builder.STORAGE_KEY + '.data');
+				localStorage.removeItem(civitas.STORAGE_KEY + '.data');
 				document.location.reload();
 			}
 			return false;
 		}).on('click', '.do-help', function () {
-			self.open_panel(new city_builder.controls.panel_help({
+			self.open_panel(new civitas.controls.panel_help({
 				core: self
 			}));
 			return false;
 		}).on('click', '.do-trades', function () {
-			self.open_panel(new city_builder.controls.panel_trades({
+			self.open_panel(new civitas.controls.panel_trades({
 				core: self
 			}));
 			return false;
 		}).on('click', '.do-rankings', function () {
-			self.open_panel(new city_builder.controls.panel_rankings({
+			self.open_panel(new civitas.controls.panel_rankings({
 				core: self
 			}));
 			return false;
 		}).on('click', '.do-advisor', function () {
-			self.open_panel(new city_builder.controls.panel_advisor({
+			self.open_panel(new civitas.controls.panel_advisor({
 				core: self
 			}));
 			return false;
 		}).on('click', '.do-storage', function () {
-			self.open_panel(new city_builder.controls.panel_storage({
+			self.open_panel(new civitas.controls.panel_storage({
 				core: self
 			}));
 			return false;
 		}).on('click', '.do-build', function () {
-			self.open_panel(new city_builder.controls.panel_buildings({
+			self.open_panel(new civitas.controls.panel_buildings({
 				core: self
 			}));
 			return false;
@@ -11343,7 +11343,7 @@ city_builder.game = function () {
 		}).on('click', '.up', function () {
 			$('.console .contents').scrollTo('-=97px', 500);
 		});
-		this.api = new city_builder.modules.api({
+		this.api = new civitas.modules.api({
 			core: this
 		});
 		return this;
@@ -11352,9 +11352,9 @@ city_builder.game = function () {
 	/**
 	 * Open the UI panel.
 	 *
-	 * @param {city_builder.panel} panel
+	 * @param {civitas.panel} panel
 	 * @public
-	 * @returns {city_builder.game}
+	 * @returns {civitas.game}
 	 */
 	this.open_panel = function(panel) {
 		this.panels.push(panel);
@@ -11366,7 +11366,7 @@ city_builder.game = function () {
 	 *
 	 * @public
 	 * @param {String} id
-	 * @returns {city_builder.game}
+	 * @returns {civitas.game}
 	 */
 	this.close_panel = function(id) {
 		var panels = this.get_panels();
@@ -11381,7 +11381,7 @@ city_builder.game = function () {
 	/**
 	 * Return a pointer to the API object.
 	 * 
-	 * @returns {city_builder.api}
+	 * @returns {civitas.api}
 	 * @public
 	 */
 	this.get_api = function() {
@@ -11392,7 +11392,7 @@ city_builder.game = function () {
 	 * Return a pointer to the Jailer object.
 	 * 
 	 * @public
-	 * @returns {city_builder.jailer}
+	 * @returns {civitas.jailer}
 	 */
 	this.get_jailer = function() {
 		return this.jailer;
@@ -11423,10 +11423,10 @@ city_builder.game = function () {
 	 * @param {String} key
 	 * @param {Mixed} value
 	 * @public
-	 * @returns {city_builder.game}
+	 * @returns {civitas.game}
 	 */
 	this.set_storage_data = function (key, value) {
-		localStorage.setItem(city_builder.STORAGE_KEY + '.' + key, value);
+		localStorage.setItem(civitas.STORAGE_KEY + '.' + key, value);
 		return this;
 	};
 
@@ -11438,7 +11438,7 @@ city_builder.game = function () {
 	 * @returns {Mixed}
 	 */
 	this.get_storage_data = function (key) {
-		return localStorage.getItem(city_builder.STORAGE_KEY + '.' + key);
+		return localStorage.getItem(civitas.STORAGE_KEY + '.' + key);
 	};
 
 	/**
@@ -11447,7 +11447,7 @@ city_builder.game = function () {
 	 * @param {String} key
 	 * @param {Mixed} value
 	 * @public
-	 * @returns {city_builder.game}
+	 * @returns {civitas.game}
 	 */
 	this.set_settings = function (key, value) {
 		if (typeof value === 'undefined') {
@@ -11464,7 +11464,7 @@ city_builder.game = function () {
 	 * @param {String} key
 	 * @param {Mixed} value
 	 * @public
-	 * @returns {city_builder.game}
+	 * @returns {civitas.game}
 	 */
 	this.set_settings_music = function(value) {
 		if (value === true) {
@@ -11482,7 +11482,7 @@ city_builder.game = function () {
 	 * @param {String} key
 	 * @param {Mixed} value
 	 * @public
-	 * @returns {city_builder.game}
+	 * @returns {civitas.game}
 	 */
 	this.set_settings_console = function(value) {
 		if (value === true) {
@@ -11499,7 +11499,7 @@ city_builder.game = function () {
 	 * 
 	 * @param {String} key
 	 * @public
-	 * @returns {city_builder.game.settings}
+	 * @returns {civitas.game.settings}
 	 */
 	this.get_settings = function (key) {
 		if (typeof key === 'undefined') {
@@ -11513,7 +11513,7 @@ city_builder.game = function () {
 	 * Reset the Black Market goods.
 	 * 
 	 * @public
-	 * @returns {city_builder.game}
+	 * @returns {civitas.game}
 	 */
 	this.reset_black_market = function () {
 		var total = 0;
@@ -11525,7 +11525,7 @@ city_builder.game = function () {
 		this.refresh_ui();
 		$('#tab-blackmarket > .contents > table > tbody').empty();
 		if (total > 0) {
-			this.notify(this.get_city().get_name() + ' ' + city_builder.l('received') + ' ' + total + ' ' + city_builder.l('coins from the Black Market for selling goods.'), city_builder.l('Black Market'));
+			this.notify(this.get_city().get_name() + ' ' + civitas.l('received') + ' ' + total + ' ' + civitas.l('coins from the Black Market for selling goods.'), civitas.l('Black Market'));
 		}
 		return this;
 	};
@@ -11545,7 +11545,7 @@ city_builder.game = function () {
 	 * 
 	 * @public
 	 * @param {Object} value
-	 * @returns {city_builder.game}
+	 * @returns {civitas.game}
 	 */
 	this.set_black_market = function (value) {
 		if (typeof value !== 'undefined') {
@@ -11560,19 +11560,19 @@ city_builder.game = function () {
 	 * Setup the start screen UI.
 	 * 
 	 * @private
-	 * @returns {city_builder.game}
+	 * @returns {civitas.game}
 	 */
 	this._setup_start_ui = function () {
 		var self = this;
 		var avatar = 1;
-		for (var i = 1; i < city_builder.CLIMATE_TYPES.length; i++) {
-			$('.start .climate').append('<option value="' + city_builder['CLIMATE_TYPE_' + city_builder.CLIMATE_TYPES[i].toUpperCase()] + '">' + city_builder.CLIMATE_TYPES[i].capitalize() + '</option>');
+		for (var i = 1; i < civitas.CLIMATE_TYPES.length; i++) {
+			$('.start .climate').append('<option value="' + civitas['CLIMATE_TYPE_' + civitas.CLIMATE_TYPES[i].toUpperCase()] + '">' + civitas.CLIMATE_TYPES[i].capitalize() + '</option>');
 		}
-		for (var i = 1; i < city_builder.NATION_TYPES.length; i++) {
-			$('.start .nation').append('<option value="' + city_builder['NATION_TYPE_' + city_builder.NATION_TYPES[i].toUpperCase()] + '">' + city_builder.NATION_TYPES[i].capitalize() + '</option>');
+		for (var i = 1; i < civitas.NATION_TYPES.length; i++) {
+			$('.start .nation').append('<option value="' + civitas['NATION_TYPE_' + civitas.NATION_TYPES[i].toUpperCase()] + '">' + civitas.NATION_TYPES[i].capitalize() + '</option>');
 		}
-		for (var i = 1; i <= city_builder.AVATARS; i++) {
-			$('.start .avatar-select').append('<img src="' + city_builder.ASSETS_URL + 'images/avatars/avatar' + i + '.png" />');
+		for (var i = 1; i <= civitas.AVATARS; i++) {
+			$('.start .avatar-select').append('<img src="' + civitas.ASSETS_URL + 'images/avatars/avatar' + i + '.png" />');
 		}
 		$('.start').on('click', '.do-start', function () {
 			var name = $('.start .name').val();
@@ -11591,7 +11591,7 @@ city_builder.game = function () {
 			self.start_game(name, cityname, nation, climate, avatar, difficulty);
 			return false;
 		}).on('click', '.down', function () {
-			if (avatar < city_builder.AVATARS) {
+			if (avatar < civitas.AVATARS) {
 				avatar = avatar + 1;
 			}
 			$('.start .avatar-select').scrollTo('+=64px', 500);
@@ -11607,7 +11607,7 @@ city_builder.game = function () {
 	/**
 	 * Start the game.
 	 * 
-	 * @returns {city_builder.game}
+	 * @returns {civitas.game}
 	 * @public
 	 * @param {String} name
 	 * @param {String} cityname
@@ -11620,7 +11620,7 @@ city_builder.game = function () {
 		var self = this;
 		var data = null;
 		this.difficulty = parseInt(difficulty);
-		if (localStorage.getItem('city_builder.data') !== null) {
+		if (localStorage.getItem('civitas.data') !== null) {
 			data = this._load_main_city();
 		} else {
 			this._setup_main_city(name, cityname, nation, climate, avatar);
@@ -11630,7 +11630,7 @@ city_builder.game = function () {
 		$('section.start').remove();
 		$('header .cityname').html(this.get_city().get_name());
 		$('header .cityavatar').css({
-			'background-image': 'url(' + city_builder.ASSETS_URL + 'images/avatars/avatar' + this.get_city().get_avatar() + '.png)'
+			'background-image': 'url(' + civitas.ASSETS_URL + 'images/avatars/avatar' + this.get_city().get_avatar() + '.png)'
 		});
 		this.refresh_ui();
 		setInterval(function () {
@@ -11648,7 +11648,7 @@ city_builder.game = function () {
 	 * 
 	 * @public
 	 * @param {Object} data
-	 * @returns {city_builder.game}
+	 * @returns {civitas.game}
 	 */
 	this.set_date_time = function (data) {
 		this.day = data.day;
@@ -11662,12 +11662,12 @@ city_builder.game = function () {
 	 * Setup the audio part of the game.
 	 * 
 	 * @public
-	 * @returns {city_builder.game}
+	 * @returns {civitas.game}
 	 */
 	this.setup_audio = function () {
 		this.music = $('#music').get(0);
 		this.music.volume = 0.2;
-		if (city_builder.AUTOSTART_MUSIC === true) {
+		if (civitas.AUTOSTART_MUSIC === true) {
 			this.music.play();
 		}
 		return this;
@@ -11678,7 +11678,7 @@ city_builder.game = function () {
 	 * 
 	 * @public
 	 * @param {String} name
-	 * @returns {city_builder.city}
+	 * @returns {civitas.city}
 	 */
 	this.get_city = function (name) {
 		if (typeof name !== 'undefined' && typeof name === 'string') {
@@ -11702,15 +11702,15 @@ city_builder.game = function () {
 	 * @returns {Object}
 	 */
 	this._load_main_city = function () {
-		var data = JSON.parse(window.atob(localStorage.getItem('city_builder.data')));
+		var data = JSON.parse(window.atob(localStorage.getItem('civitas.data')));
 		this.set_difficulty(data.difficulty);
-		var my_city = new city_builder.objects.city({
+		var my_city = new civitas.objects.city({
 			name: data.name,
 			data: {
 				nationality: data.nationality,
 				ruler: data.ruler,
 				climate: data.climate,
-				personality: city_builder.PERSONALITY_TYPE_BALANCED,
+				personality: civitas.PERSONALITY_TYPE_BALANCED,
 				avatar: data.avatar,
 				level: data.level
 			},
@@ -11732,26 +11732,26 @@ city_builder.game = function () {
 	 * @param {Number} nation
 	 * @param {Number} climate
 	 * @param {Number} avatar
-	 * @returns {city_builder.game}
+	 * @returns {civitas.game}
 	 */
 	this._setup_main_city = function (name, cityname, nation, climate, avatar) {
-		var my_city = new city_builder.objects.city({
+		var my_city = new civitas.objects.city({
 			name: cityname,
 			data: {
 				nationality: nation,
 				ruler: name,
 				climate: climate,
-				personality: city_builder.PERSONALITY_TYPE_BALANCED,
+				personality: civitas.PERSONALITY_TYPE_BALANCED,
 				avatar: avatar
 			},
 			player: true,
 			core: this
 		});
 		var difficulty = this.get_difficulty();
-		my_city.setup_army(true, city_builder.ARMIES_START[difficulty - 1]);
-		my_city.setup_navy(true, city_builder.ARMIES_START[difficulty - 1]);
+		my_city.setup_army(true, civitas.ARMIES_START[difficulty - 1]);
+		my_city.setup_navy(true, civitas.ARMIES_START[difficulty - 1]);
 		this.cities.push(my_city);
-		this.get_city()._create_buildings(city_builder.BUILDINGS_START);
+		this.get_city()._create_buildings(civitas.BUILDINGS_START);
 		return this;
 	};
 
@@ -11764,11 +11764,11 @@ city_builder.game = function () {
 	 */
 	this.get_building_config_data = function (handle) {
 		if (typeof handle === 'string') {
-			return city_builder.BUILDINGS[city_builder.BUILDINGS.findIndexM(handle)];
+			return civitas.BUILDINGS[civitas.BUILDINGS.findIndexM(handle)];
 		} else if (typeof handle === 'number') {
-			for (var i = 0; i < city_builder.BUILDINGS.length; i++) {
-				if (city_builder.BUILDINGS[i].handle === handle) {
-					return city_builder.BUILDINGS[i];
+			for (var i = 0; i < civitas.BUILDINGS.length; i++) {
+				if (civitas.BUILDINGS[i].handle === handle) {
+					return civitas.BUILDINGS[i];
 				}
 			}
 		} else {
@@ -11780,12 +11780,12 @@ city_builder.game = function () {
 	 * Check if any events occured on this day.
 	 *
 	 * @public
-	 * @returns {city_builder.game}
+	 * @returns {civitas.game}
 	 */
 	this.check_for_events = function() {
-		var _event = city_builder.EVENTS[city_builder.utils.get_random(0, city_builder.EVENTS.length - 1)];
+		var _event = civitas.EVENTS[civitas.utils.get_random(0, civitas.EVENTS.length - 1)];
 		_event.core = this;
-		new city_builder.objects.event(_event);
+		new civitas.objects.event(_event);
 		return this;
 	};
 
@@ -11793,7 +11793,7 @@ city_builder.game = function () {
 	 * Process all buildings for materials, costs, etc.
 	 *
 	 * @public
-	 * @returns {city_builder.game}
+	 * @returns {civitas.game}
 	 */
 	this.process_all_buildings = function() {
 		var buildings = this.get_city().get_buildings();
@@ -11809,7 +11809,7 @@ city_builder.game = function () {
 	 * Method that gets called each 'day'.
 	 * 
 	 * @private
-	 * @returns {city_builder.game}
+	 * @returns {civitas.game}
 	 */
 	this._do_daily = function () {
 		this.day++;
@@ -11836,7 +11836,7 @@ city_builder.game = function () {
 	 * Force refresh of the UI panels open.
 	 *
 	 * @public
-	 * @returns {city_builder.game}
+	 * @returns {civitas.game}
 	 */
 	this.refresh_panels = function() {
 		var panels = this.get_panels();
@@ -11851,7 +11851,7 @@ city_builder.game = function () {
 	 * Save the game data.
 	 * 
 	 * @public
-	 * @returns {city_builder.game}
+	 * @returns {civitas.game}
 	 */
 	this.save = function () {
 		this.get_city().export_data(true);
@@ -11864,10 +11864,10 @@ city_builder.game = function () {
 	 * @public
 	 * @param {String} context
 	 * @param {String} term
-	 * @returns {city_builder_game} 
+	 * @returns {civitas_game} 
 	 */
 	this.help = function(context, term) {
-		this.open_panel(city_builder.controls.panel_help({
+		this.open_panel(civitas.controls.panel_help({
 			core: this,
 			context: context,
 			term: term
@@ -11879,7 +11879,7 @@ city_builder.game = function () {
 	 * Method that gets called each 'month'.
 	 * 
 	 * @private
-	 * @returns {city_builder.game}
+	 * @returns {civitas.game}
 	 */
 	this._do_monthly = function () {
 		this.day_of_month = 1;
@@ -11892,13 +11892,13 @@ city_builder.game = function () {
 	 * Method that gets called each 'year'.
 	 * 
 	 * @private
-	 * @returns {city_builder.game}
+	 * @returns {civitas.game}
 	 */
 	this._do_yearly = function () {
 		var cities = this.get_cities();
 		for (var i = 1; i < cities.length; i++) {
 			cities[i].reset_trades();
-			this.get_city().lower_influence(cities[i].get_name(), city_builder.YEARLY_INFLUENCE_LOSS);
+			this.get_city().lower_influence(cities[i].get_name(), civitas.YEARLY_INFLUENCE_LOSS);
 		}
 		this.get_city().release_mercenaries();
 		this.year++;
@@ -11911,11 +11911,11 @@ city_builder.game = function () {
 	 * @public
 	 * @param {String} message
 	 * @param {Boolean} error
-	 * @returns {city_builder.game}
+	 * @returns {civitas.game}
 	 */
 	this.log = function (message, error) {
 		if (typeof message !== 'undefined') {
-			$('.ui .console .contents').prepend('<div' + ((typeof error !== 'undefined' && error === true) ? ' class="error"' : '') + '>' + '<span>' + city_builder.utils.get_now() + '</span> - ' + message + '</div>');
+			$('.ui .console .contents').prepend('<div' + ((typeof error !== 'undefined' && error === true) ? ' class="error"' : '') + '>' + '<span>' + civitas.utils.get_now() + '</span> - ' + message + '</div>');
 		} else {
 			$('.ui .console .contents').prepend('<div class="separator"></div>');
 		}
@@ -11928,10 +11928,10 @@ city_builder.game = function () {
 	 * @param {String} message
 	 * @param {Boolean} error
 	 * @public
-	 * @returns {city_builder.game}
+	 * @returns {civitas.game}
 	 */
 	this.console_log = function (message, error) {
-		if (city_builder.DEBUG === true) {
+		if (civitas.DEBUG === true) {
 			console.log((typeof error === true ? 'APP error: ' : 'APP message: ') + message);
 		}
 		return this;
@@ -11954,7 +11954,7 @@ city_builder.game = function () {
 	 * @param {String} message
 	 * @param {String} title
 	 * @param {Number} timeout
-	 * @returns {city_builder.game}
+	 * @returns {civitas.game}
 	 */
 	this.notify = function (message, title, timeout) {
 		this._notify({
@@ -11970,7 +11970,7 @@ city_builder.game = function () {
 	 * Internal function for performing an UI notification.
 	 * 
 	 * @param {type} settings
-	 * @returns {city_builder.game}
+	 * @returns {civitas.game}
 	 * @private
 	 */
 	this._notify = function (settings) {
@@ -11979,7 +11979,7 @@ city_builder.game = function () {
 			title: undefined,
 			content: undefined,
 			timeout: 15000,
-			img: city_builder.ASSETS_URL + 'images/ui/icon_notification_1.png',
+			img: civitas.ASSETS_URL + 'images/ui/icon_notification_1.png',
 			showTime: true,
 			error: false,
 			other: false
@@ -12009,11 +12009,11 @@ city_builder.game = function () {
 		hide.addClass("hide");
 		if (settings.error === true) {
 			notty.addClass('error');
-			settings.img = city_builder.ASSETS_URL + 'images/ui/icon_notification_2.png';
+			settings.img = civitas.ASSETS_URL + 'images/ui/icon_notification_2.png';
 		}
 		if (settings.other === true) {
 			notty.addClass('other');
-			settings.img = city_builder.ASSETS_URL + 'images/ui/icon_notification_1.png';
+			settings.img = civitas.ASSETS_URL + 'images/ui/icon_notification_1.png';
 		}
 		image = $("<div>", {
 			style: "background: url('" + settings.img + "')"
@@ -12089,7 +12089,7 @@ city_builder.game = function () {
 	 * @param {String} message
 	 * @param {String} title
 	 * @param {Boolean} no_console
-	 * @returns {city_builder.game}
+	 * @returns {civitas.game}
 	 */
 	this.error = function (message, title, no_console) {
 		this._notify({
@@ -12123,16 +12123,16 @@ city_builder.game = function () {
 	 * Refresh the resources toolbar.
 	 *
 	 * @public
-	 * @returns {city_builder.game}
+	 * @returns {civitas.game}
 	 */
 	this.refresh_toolbar = function() {
 		var city = this.get_city();
 		var resources = city.get_resources();
-		for (var i = 0; i < city_builder.TOOLBAR_RESOURCES.length; i++) {
-			var resource = city_builder.TOOLBAR_RESOURCES[i];
+		for (var i = 0; i < civitas.TOOLBAR_RESOURCES.length; i++) {
+			var resource = civitas.TOOLBAR_RESOURCES[i];
 			var el = $('.top-panel .' + resource);
 			if (typeof resources[resource] !== 'undefined') {
-				el.attr('title', resources[resource] + ' ' + city_builder.utils.get_resource_name(resource));
+				el.attr('title', resources[resource] + ' ' + civitas.utils.get_resource_name(resource));
 			}
 		}
 		return this;
@@ -12142,18 +12142,18 @@ city_builder.game = function () {
 	 * Refresh all the UI information after a property change.
 	 * 
 	 * @public
-	 * @returns {city_builder.game}
+	 * @returns {civitas.game}
 	 */
 	this.refresh_ui = function () {
 		var city = this.get_city();
 		var storage_space = city.get_storage_space();
-		var needed = city_builder.LEVELS[city.get_level()];
+		var needed = civitas.LEVELS[city.get_level()];
 		$('.citylevel').html(city.get_level());
 		$('.cityprestige').html(city.get_prestige());
 		this.refresh_toolbar();
 		if (city.get_fame() >= needed) {
 			city.level_up();
-			needed = city_builder.LEVELS[city.get_level()];
+			needed = civitas.LEVELS[city.get_level()];
 		}
 		$('header .cityfame > span').css({
 			width: Math.floor((city.get_fame() * 100) / needed) + '%'
@@ -12179,20 +12179,20 @@ city_builder.game = function () {
 	 * 
 	 * @public
 	 * @param {Object} data
-	 * @returns {city_builder.game}
+	 * @returns {civitas.game}
 	 */
 	this.setup_neighbours = function (data) {
 		var new_city = null;
-		for (var item in city_builder.CITIES) {
-			new_city = new city_builder.objects.city({
+		for (var item in civitas.CITIES) {
+			new_city = new civitas.objects.city({
 				name: item,
-				data: city_builder.CITIES[item],
+				data: civitas.CITIES[item],
 				player: false,
 				core: this
 			});
 			var climate = new_city.get_climate();
 			var climate_buildings = 'CITY_BUILDINGS_' + climate.name.toUpperCase();
-			new_city._create_buildings(city_builder[climate_buildings], true);
+			new_city._create_buildings(civitas[climate_buildings], true);
 			new_city.setup_army(true);
 			new_city.setup_navy(true);
 			if (data !== null) {
@@ -12225,12 +12225,12 @@ city_builder.game = function () {
 	 * Setup the top bar with the resources.
 	 * 
 	 * @private
-	 * @returns {city_builder.game}
+	 * @returns {civitas.game}
 	 */
 	this._setup_toolbar = function () {
 		var _t = '';
-		for (var i = 0; i < city_builder.TOOLBAR_RESOURCES.length; i++) {
-			_t += '<span class="' + city_builder.TOOLBAR_RESOURCES[i] + '"></span>';
+		for (var i = 0; i < civitas.TOOLBAR_RESOURCES.length; i++) {
+			_t += '<span class="' + civitas.TOOLBAR_RESOURCES[i] + '"></span>';
 		}
 		$('.top-panel').empty().append(_t);
 		return this;
@@ -12243,7 +12243,7 @@ city_builder.game = function () {
 	 * @returns {String}
 	 */
 	this.get_version = function() {
-		return city_builder.VERSION;
+		return civitas.VERSION;
 	};
 	
 	/**
@@ -12282,5 +12282,5 @@ city_builder.game = function () {
 };
 
 $(document).ready(function () {
-	new city_builder.game();
+	new civitas.game();
 });

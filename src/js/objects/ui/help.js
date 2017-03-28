@@ -2,15 +2,15 @@
  * Main Game help panel object.
  * 
  * @param {Object} params
- * @class {city_builder.controls.panel_help}
- * @returns {city_builder.controls.panel_help}
+ * @class {civitas.controls.panel_help}
+ * @returns {civitas.controls.panel_help}
  */
-city_builder.controls.panel_help = function (params) {
+civitas.controls.panel_help = function (params) {
 
 	/**
 	 * Reference to the core object.
 	 * 
-	 * @type {city_builder.game}
+	 * @type {civitas.game}
 	 */
 	this.core = null;
 
@@ -41,7 +41,7 @@ city_builder.controls.panel_help = function (params) {
 	 * 
 	 * @type {String}
 	 */
-	this.title = city_builder.l('Help');
+	this.title = civitas.l('Help');
 
 	/**
 	 * Object destructor.
@@ -72,7 +72,7 @@ city_builder.controls.panel_help = function (params) {
 	 * Object constructor.
 	 * 
 	 * @private
-	 * @returns {city_builder.controls.panel_help}
+	 * @returns {civitas.controls.panel_help}
 	 * @param {Object} params
 	 */
 	this.__constructor = function (params) {
@@ -81,11 +81,11 @@ city_builder.controls.panel_help = function (params) {
 		this.context = params.context;
 		var el = '#panel-' + this.id;
 		var self = this;
-		if (city_builder.ui.panel_exists(el)) {
+		if (civitas.ui.panel_exists(el)) {
 			this.destroy();
 		}
 		this.core.console_log('creating panel with id `' + this.id + '`');
-		$('.ui').append(city_builder.ui.generic_panel_template
+		$('.ui').append(civitas.ui.generic_panel_template
 			.replace(/{id}/g, this.id));
 		var title = '';
 		switch (this.context) {
@@ -94,7 +94,7 @@ city_builder.controls.panel_help = function (params) {
 				title = data.get_name();
 				break;
 		}
-		$(el + ' header .title').html(title !== '' ? city_builder.l('Help about ') + title : city_builder.l('Help'));
+		$(el + ' header .title').html(title !== '' ? civitas.l('Help about ') + title : civitas.l('Help'));
 		var _t = '';
 		
 		$(el + ' .contents').append(_t);
@@ -122,7 +122,7 @@ city_builder.controls.panel_help = function (params) {
 	 * information on this panel.
 	 *
 	 * @public
-	 * @returns {city_builder.controls.panel_help}
+	 * @returns {civitas.controls.panel_help}
 	 */
 	this.refresh = function() {
 		return this;

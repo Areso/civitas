@@ -4,9 +4,9 @@
  * @type {Object}
  * @constant
  */
-city_builder.SHIP_TYPES = {
+civitas.SHIP_TYPES = {
 	'Caravel': {
-		id: city_builder.SHIP_TYPE_CARAVEL,
+		id: civitas.SHIP_TYPE_CARAVEL,
 		attack: 10,
 		defense: 10,
 		cost: {
@@ -23,7 +23,7 @@ city_builder.SHIP_TYPES = {
 		}
 	},
 	'Corsair': {
-		id: city_builder.SHIP_TYPE_CORSAIR,
+		id: civitas.SHIP_TYPE_CORSAIR,
 		attack: 5,
 		defense: 5,
 		cost: {
@@ -41,7 +41,7 @@ city_builder.SHIP_TYPES = {
 		}
 	},
 	'Frigate': {
-		id: city_builder.SHIP_TYPE_FRIGATE,
+		id: civitas.SHIP_TYPE_FRIGATE,
 		attack: 17,
 		defense: 8,
 		cost: {
@@ -59,7 +59,7 @@ city_builder.SHIP_TYPES = {
 		}
 	},
 	'Galleon': {
-		id: city_builder.SHIP_TYPE_GALLEON,
+		id: civitas.SHIP_TYPE_GALLEON,
 		attack: 15,
 		defense: 15,
 		cost: {
@@ -77,7 +77,7 @@ city_builder.SHIP_TYPES = {
 		}
 	},
 	'Warship': {
-		id: city_builder.SHIP_TYPE_WARSHIP,
+		id: civitas.SHIP_TYPE_WARSHIP,
 		attack: 35,
 		defense: 30,
 		cost: {
@@ -96,7 +96,7 @@ city_builder.SHIP_TYPES = {
 		}
 	},
 	'Ship of the Line': {
-		id: city_builder.SHIP_TYPE_SHIPOFTHELINE,
+		id: civitas.SHIP_TYPE_SHIPOFTHELINE,
 		attack: 55,
 		defense: 50,
 		cost: {
@@ -123,7 +123,7 @@ city_builder.SHIP_TYPES = {
  * @constant
  * @type {Number}
  */
-city_builder.SHIP_TYPE_CORSAIR = 0;
+civitas.SHIP_TYPE_CORSAIR = 0;
 
 /**
  * Caravel ship.
@@ -131,7 +131,7 @@ city_builder.SHIP_TYPE_CORSAIR = 0;
  * @constant
  * @type {Number}
  */
-city_builder.SHIP_TYPE_CARAVEL = 1;
+civitas.SHIP_TYPE_CARAVEL = 1;
 
 /**
  * Warship ship.
@@ -139,7 +139,7 @@ city_builder.SHIP_TYPE_CARAVEL = 1;
  * @constant
  * @type {Number}
  */
-city_builder.SHIP_TYPE_WARSHIP = 2;
+civitas.SHIP_TYPE_WARSHIP = 2;
 
 /**
  * Galleon ship.
@@ -147,7 +147,7 @@ city_builder.SHIP_TYPE_WARSHIP = 2;
  * @constant
  * @type {Number}
  */
-city_builder.SHIP_TYPE_GALLEON = 3;
+civitas.SHIP_TYPE_GALLEON = 3;
 
 /**
  * Ship of the Line ship.
@@ -155,7 +155,7 @@ city_builder.SHIP_TYPE_GALLEON = 3;
  * @constant
  * @type {Number}
  */
-city_builder.SHIP_TYPE_SHIPOFTHELINE = 4;
+civitas.SHIP_TYPE_SHIPOFTHELINE = 4;
 
 /**
  * Frigate ship.
@@ -163,4 +163,4 @@ city_builder.SHIP_TYPE_SHIPOFTHELINE = 4;
  * @constant
  * @type {Number}
  */
-city_builder.SHIP_TYPE_FRIGATE = 5;
+civitas.SHIP_TYPE_FRIGATE = 5;

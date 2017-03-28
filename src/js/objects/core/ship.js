@@ -2,15 +2,15 @@
  * Main Game ship object.
  * 
  * @param {Object} params
- * @class {city_builder.objects.ship}
- * @returns {city_builder.objects.ship}
+ * @class {civitas.objects.ship}
+ * @returns {civitas.objects.ship}
  */
-city_builder.objects.ship = function (params) {
+civitas.objects.ship = function (params) {
 
 	/**
 	 * Pointer to the city this ship is located in.
 	 * 
-	 * @type {city_builder.objects.city}
+	 * @type {civitas.objects.city}
 	 * @private
 	 */
 	this.city = null;
@@ -71,7 +71,7 @@ city_builder.objects.ship = function (params) {
 	 * Object constructor.
 	 * 
 	 * @private
-	 * @returns {city_builder.objects.ship}
+	 * @returns {civitas.objects.ship}
 	 * @param {Object} params
 	 */
 	this.__constructor = function (params) {
@@ -117,7 +117,7 @@ city_builder.objects.ship = function (params) {
 	 * Get the city this ship is located into.
 	 * 
 	 * @public
-	 * @returns {city_builder.objects.city}
+	 * @returns {civitas.objects.city}
 	 */
 	this.get_city = function () {
 		return this.city;
@@ -137,7 +137,7 @@ city_builder.objects.ship = function (params) {
 	 * Get a pointer to the game core.
 	 * 
 	 * @public
-	 * @returns {city_builder.game}
+	 * @returns {civitas.game}
 	 */
 	this.get_core = function () {
 		return this.get_city().get_core();

@@ -1,26 +1,26 @@
 /**
  * Main Game UI interface.
  */
-city_builder.ui = {
+civitas.ui = {
 	
 	building_panel_template: '<div id="panel-{id}" class="panel pb">' +
 			'<header>' +
 				'<span class="title"></span>' +
-				'<a class="tips close btn" title="' + city_builder.l('Close this panel') + '"></a>' +
+				'<a class="tips close btn" title="' + civitas.l('Close this panel') + '"></a>' +
 			'</header>' +
 			'<div class="contents"></div>' +
 			'<foooter class="footer">' +
-				'<a class="tips demolish btn" title="' + city_builder.l('Demolish this building') + '"></a>' +
-				'<a class="tips pause start btn" title="' + city_builder.l('Control (start/pause) production') + '"></a>' +
-				'<a class="tips upgrade btn" title="' + city_builder.l('Upgrade building') + '"></a>' +
-				'<a class="tips help btn" data-ctxt="{context}" data-term="{building}" title="' + city_builder.l('Info about this building') + '"></a>' +
+				'<a class="tips demolish btn" title="' + civitas.l('Demolish this building') + '"></a>' +
+				'<a class="tips pause start btn" title="' + civitas.l('Control (start/pause) production') + '"></a>' +
+				'<a class="tips upgrade btn" title="' + civitas.l('Upgrade building') + '"></a>' +
+				'<a class="tips help btn" data-ctxt="{context}" data-term="{building}" title="' + civitas.l('Info about this building') + '"></a>' +
 			'</footer>' +
 		'</div>',
 	
 	worldmap_panel_template: '<div id="panel-{id}" class="panel">' +
 			'<header>' +
-				'<span class="title">' + city_builder.l('World Map') + '</span>' +
-				'<a class="tips btn close" title="' + city_builder.l('Close this panel') + '"></a>' +
+				'<span class="title">' + civitas.l('World Map') + '</span>' +
+				'<a class="tips btn close" title="' + civitas.l('Close this panel') + '"></a>' +
 			'</header>' +
 			'<div class="contents"><div class="worldmap"></div></div>' +
 		'</div>',
@@ -28,7 +28,7 @@ city_builder.ui = {
 	generic_panel_template: '<div id="panel-{id}" class="panel">' +
 			'<header>' +
 			'<span class="title">{title}</span>' +
-			'<a class="tips btn close" title="' + city_builder.l('Close this panel') + '"></a>' +
+			'<a class="tips btn close" title="' + civitas.l('Close this panel') + '"></a>' +
 			'</header>' +
 			'<div class="contents"></div>' +
 			'</div>',
@@ -44,20 +44,20 @@ city_builder.ui = {
 	cost_panel: function (costs) {
 		var out = '';
 		if (typeof costs !== 'undefined') {
-			out += '<dt>' + city_builder.l('Cost') + '</dt>';
+			out += '<dt>' + civitas.l('Cost') + '</dt>';
 			for (var item in costs) {
-				out += '<dd>' + city_builder.utils.nice_numbers(costs[item]) + city_builder.ui.resource_small_img(item) + '</dd>';
+				out += '<dd>' + civitas.utils.nice_numbers(costs[item]) + civitas.ui.resource_small_img(item) + '</dd>';
 			}
 		}
 		return out;
 	},
 	
 	city_worldmap_element: function (name) {
-		return '<div data-name="' + name + '" class="tips city c' + city_builder.CITIES[name].icon + '" title="' + city_builder.l('City of') + ' ' + name + '" style="left:' + city_builder.CITIES[name].location.x + 'px;top:' + city_builder.CITIES[name].location.y + 'px"></div>';
+		return '<div data-name="' + name + '" class="tips city c' + civitas.CITIES[name].icon + '" title="' + civitas.l('City of') + ' ' + name + '" style="left:' + civitas.CITIES[name].location.x + 'px;top:' + civitas.CITIES[name].location.y + 'px"></div>';
 	},
 	
 	army_img: function (name) {
-		return '<img class="tips" title="' + name + '" src="' + city_builder.ASSETS_URL + 'images/armies/' + name.toLowerCase().replace(/ /g,"_") + '_small.png" />';
+		return '<img class="tips" title="' + name + '" src="' + civitas.ASSETS_URL + 'images/armies/' + name.toLowerCase().replace(/ /g,"_") + '_small.png" />';
 	},
 	
 	army_list: function (army, no_margin) {
@@ -65,10 +65,10 @@ city_builder.ui = {
 		var total = 0;
 		for (var soldier in army.army) {
 			out += '<dt>' + army.army[soldier] + '</dt>' +
-					'<dd>' + city_builder.ui.army_img(soldier) + '</dd>';
+					'<dd>' + civitas.ui.army_img(soldier) + '</dd>';
 			total += army.army[soldier];
 		}
-		out += '<dt>' + (typeof army.total !== 'undefined' ? army.total : total) + '</dt><dd>' + city_builder.l('Total') + '</dd>' +
+		out += '<dt>' + (typeof army.total !== 'undefined' ? army.total : total) + '</dt><dd>' + civitas.l('Total') + '</dd>' +
 				'</dl>';
 		return out;
 	},
@@ -99,7 +99,7 @@ city_builder.ui = {
 			var trade = trades[mode];
 			for (var item in trade) {
 				out += '<dt>' + trade[item] + '</dt>' +
-						'<dd>' + city_builder.ui.resource_small_img(item) + '</dd>';
+						'<dd>' + civitas.ui.resource_small_img(item) + '</dd>';
 			}
 			out += '</dl>';
 		}
@@ -111,10 +111,10 @@ city_builder.ui = {
 		var total = 0;
 		for (var soldier in army.navy) {
 			out += '<dt>' + army.navy[soldier] + '</dt>' +
-					'<dd>' + city_builder.ui.army_img(soldier) + '</dd>';
+					'<dd>' + civitas.ui.army_img(soldier) + '</dd>';
 			total += army.navy[soldier];
 		}
-		out += '<dt>' + (typeof army.total !== 'undefined' ? army.total : total) + '</dt><dd>' + city_builder.l('Total') + '</dd>' +
+		out += '<dt>' + (typeof army.total !== 'undefined' ? army.total : total) + '</dt><dd>' + civitas.l('Total') + '</dd>' +
 				'</dl>';
 		return out;
 	},
@@ -127,7 +127,7 @@ city_builder.ui = {
 		}
 		var image = (typeof params.data.visible_upgrades === 'undefined' || params.data.visible_upgrades === false) ? building_image + '1' : building_image + params.data.level;
 		return '<div data-type="' + params.type + '" data-level="' + params.data.level + '" ' +
-				'style="background:transparent url(' + city_builder.ASSETS_URL + 'images/buildings/' + image + '.png) no-repeat;left:' + params.data.position.x + 'px;top:' + params.data.position.y + 'px" ' +
+				'style="background:transparent url(' + civitas.ASSETS_URL + 'images/buildings/' + image + '.png) no-repeat;left:' + params.data.position.x + 'px;top:' + params.data.position.y + 'px" ' +
 				'title=\'<span class="buildinginfo">' + params.data.name + '</span> ' + description + '\' ' +
 				'id="building-' + params.data.handle + '"' +
 				'class="tips slots building"></div>';
@@ -135,8 +135,8 @@ city_builder.ui = {
 	
 	resource_storage_el: function (resource, amount) {
 		return '<div class="storage-item item-' + resource + '">' +
-				'<span class="title">' + city_builder.utils.get_resource_name(resource) + '</span>' +
-				'<img src="' + city_builder.ASSETS_URL + 'images/resources/' + resource + '.png" />' +
+				'<span class="title">' + civitas.utils.get_resource_name(resource) + '</span>' +
+				'<img src="' + civitas.ASSETS_URL + 'images/resources/' + resource + '.png" />' +
 				'<span class="amount">' + amount + '</amount>' +
 				'</div>';
 	},
@@ -159,9 +159,9 @@ city_builder.ui = {
 	materials_panel: function (materials) {
 		var out = '';
 		if (typeof materials !== 'undefined') {
-			out += '<dt>' + city_builder.l('Uses') + '</dt>';
+			out += '<dt>' + civitas.l('Uses') + '</dt>';
 			for (var item in materials) {
-				out += '<dd>' + materials[item] + city_builder.ui.resource_small_img(item) + '</dd>';
+				out += '<dd>' + materials[item] + civitas.ui.resource_small_img(item) + '</dd>';
 			}
 		}
 		return out;
@@ -170,9 +170,9 @@ city_builder.ui = {
 	production_panel: function (materials, level) {
 		var out = '';
 		if (typeof materials !== 'undefined') {
-			out += '<dt>' + city_builder.l('Produces') + '</dt>';
+			out += '<dt>' + civitas.l('Produces') + '</dt>';
 			for (var item in materials) {
-				out += '<dd>' + (level * materials[item]) + city_builder.ui.resource_small_img(item) + '</dd>';
+				out += '<dd>' + (level * materials[item]) + civitas.ui.resource_small_img(item) + '</dd>';
 			}
 		}
 		return out;
@@ -181,8 +181,8 @@ city_builder.ui = {
 	requires_panel: function (requires) {
 		var out = '';
 		if (typeof requires.buildings !== 'undefined') {
-			out += '<dt>' + city_builder.l('Requires') + '</dt>';
-			var b = city_builder.BUILDINGS[city_builder.BUILDINGS.findIndexM(requires.buildings)];
+			out += '<dt>' + civitas.l('Requires') + '</dt>';
+			var b = civitas.BUILDINGS[civitas.BUILDINGS.findIndexM(requires.buildings)];
 			out += '<dd>' + b.name + '</span>';
 		}
 		return out;
@@ -191,8 +191,8 @@ city_builder.ui = {
 	tax_panel: function (tax, level) {
 		var out = '';
 		if (typeof tax !== 'undefined') {
-			out += '<dt>' + city_builder.l('Tax') + '</dt>';
-			out += '<dd>' + (level * tax) + city_builder.ui.resource_small_img('coins') + '</dd>';
+			out += '<dt>' + civitas.l('Tax') + '</dt>';
+			out += '<dd>' + (level * tax) + civitas.ui.resource_small_img('coins') + '</dd>';
 		}
 		return out;
 	},
@@ -200,13 +200,13 @@ city_builder.ui = {
 	storage_panel: function (storage, level) {
 		var out = '';
 		if (typeof storage !== 'undefined') {
-			out += '<dt>' + city_builder.l('Storage') + '</dt>';
-			out += '<dd>' + (level * storage) + '<img alt="Storage space" class="tips" title="' + city_builder.l('Storage Space') + '" src="' + city_builder.ASSETS_URL + 'images/resources/storage_small.png" /></dd>';
+			out += '<dt>' + civitas.l('Storage') + '</dt>';
+			out += '<dd>' + (level * storage) + '<img alt="Storage space" class="tips" title="' + civitas.l('Storage Space') + '" src="' + civitas.ASSETS_URL + 'images/resources/storage_small.png" /></dd>';
 		}
 		return out;
 	},
 	
 	resource_small_img: function (resource) {
-		return '<img alt="' + city_builder.utils.get_resource_name(resource) + '" class="tips" title="' + city_builder.utils.get_resource_name(resource) + '" src="' + city_builder.ASSETS_URL + 'images/resources/' + resource + '_small.png" />';
+		return '<img alt="' + civitas.utils.get_resource_name(resource) + '" class="tips" title="' + civitas.utils.get_resource_name(resource) + '" src="' + civitas.ASSETS_URL + 'images/resources/' + resource + '_small.png" />';
 	}
 };

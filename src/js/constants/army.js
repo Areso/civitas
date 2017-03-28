@@ -4,9 +4,9 @@
  * @type {Object}
  * @constant
  */
-city_builder.SOLDIER_TYPES = {
+civitas.SOLDIER_TYPES = {
 	'Militia': {
-		id: city_builder.SOLDIER_TYPE_MILITIA,
+		id: civitas.SOLDIER_TYPE_MILITIA,
 		attack: 2,
 		defense: 1,
 		cost: {
@@ -17,7 +17,7 @@ city_builder.SOLDIER_TYPES = {
 		}
 	},
 	'Axeman': {
-		id: city_builder.SOLDIER_TYPE_AXEMAN,
+		id: civitas.SOLDIER_TYPE_AXEMAN,
 		attack: 3,
 		defense: 2,
 		cost: {
@@ -28,7 +28,7 @@ city_builder.SOLDIER_TYPES = {
 		}
 	},
 	'Bowman': {
-		id: city_builder.SOLDIER_TYPE_BOWMAN,
+		id: civitas.SOLDIER_TYPE_BOWMAN,
 		attack: 6,
 		defense: 1,
 		cost: {
@@ -39,7 +39,7 @@ city_builder.SOLDIER_TYPES = {
 		}
 	},
 	'Pikeman': {
-		id: city_builder.SOLDIER_TYPE_PIKEMAN,
+		id: civitas.SOLDIER_TYPE_PIKEMAN,
 		attack: 5,
 		defense: 4,
 		cost: {
@@ -53,7 +53,7 @@ city_builder.SOLDIER_TYPES = {
 		}
 	},
 	'Crossbowman': {
-		id: city_builder.SOLDIER_TYPE_CROSSBOWMAN,
+		id: civitas.SOLDIER_TYPE_CROSSBOWMAN,
 		attack: 7,
 		defense: 2,
 		cost: {
@@ -67,7 +67,7 @@ city_builder.SOLDIER_TYPES = {
 		}
 	},
 	'Knight': {
-		id: city_builder.SOLDIER_TYPE_KNIGHT,
+		id: civitas.SOLDIER_TYPE_KNIGHT,
 		attack: 6,
 		defense: 9,
 		cost: {
@@ -88,7 +88,7 @@ city_builder.SOLDIER_TYPES = {
  * @constant
  * @type {Number}
  */
-city_builder.SOLDIER_TYPE_MILITIA = 0;
+civitas.SOLDIER_TYPE_MILITIA = 0;
 
 /**
  * Axemen
@@ -96,7 +96,7 @@ city_builder.SOLDIER_TYPE_MILITIA = 0;
  * @constant
  * @type {Number}
  */
-city_builder.SOLDIER_TYPE_AXEMAN = 1;
+civitas.SOLDIER_TYPE_AXEMAN = 1;
 
 /**
  * Knights
@@ -104,7 +104,7 @@ city_builder.SOLDIER_TYPE_AXEMAN = 1;
  * @constant
  * @type {Number}
  */
-city_builder.SOLDIER_TYPE_KNIGHT = 2;
+civitas.SOLDIER_TYPE_KNIGHT = 2;
 
 /**
  * Bowmen
@@ -112,7 +112,7 @@ city_builder.SOLDIER_TYPE_KNIGHT = 2;
  * @constant
  * @type {Number}
  */
-city_builder.SOLDIER_TYPE_BOWMAN = 3;
+civitas.SOLDIER_TYPE_BOWMAN = 3;
 
 /**
  * Crossbowmen
@@ -120,7 +120,7 @@ city_builder.SOLDIER_TYPE_BOWMAN = 3;
  * @constant
  * @type {Number}
  */
-city_builder.SOLDIER_TYPE_CROSSBOWMAN = 4;
+civitas.SOLDIER_TYPE_CROSSBOWMAN = 4;
 
 /**
  * Pikemen
@@ -128,7 +128,7 @@ city_builder.SOLDIER_TYPE_CROSSBOWMAN = 4;
  * @constant
  * @type {Number}
  */
-city_builder.SOLDIER_TYPE_PIKEMAN = 5;
+civitas.SOLDIER_TYPE_PIKEMAN = 5;
 
 /**
  * List of mercenary armies available for hire.
@@ -136,7 +136,7 @@ city_builder.SOLDIER_TYPE_PIKEMAN = 5;
  * @constant
  * @type {Object}
  */
-city_builder.MERCENARIES = [{
+civitas.MERCENARIES = [{
 	name: 'Legio I Adiutrix',
 	description: 'Legio prima Adiutrix (First Auxiliary legion) is a Roman legion.',
 	handle: 'legio1',
@@ -290,7 +290,7 @@ city_builder.MERCENARIES = [{
  * @constant
  * @type {Object}
  */
-city_builder.ARMIES_START = [{
+civitas.ARMIES_START = [{
 		army: {
 			'Militia': 10,
 			'Axeman': 2,

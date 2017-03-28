@@ -2,10 +2,10 @@
  * Main Game building object.
  * 
  * @param {Object} params
- * @class {city_builder.objects.building}
- * @returns {city_builder.objects.building}
+ * @class {civitas.objects.building}
+ * @returns {civitas.objects.building}
  */
-city_builder.objects.building = function(params) {
+civitas.objects.building = function(params) {
 	
 	/**
 	 * The level of this building.
@@ -18,7 +18,7 @@ city_builder.objects.building = function(params) {
 	/**
 	 * Pointer to the city this building is located in.
 	 * 
-	 * @type {city_builder.objects.city}
+	 * @type {civitas.objects.city}
 	 * @private
 	 */
 	this.city = null;
@@ -91,7 +91,7 @@ city_builder.objects.building = function(params) {
 	 * Object constructor.
 	 * 
 	 * @private
-	 * @returns {city_builder.objects.building}
+	 * @returns {civitas.objects.building}
 	 * @param {Object} params
 	 */
 	this.__constructor = function(params) {
@@ -107,8 +107,8 @@ city_builder.objects.building = function(params) {
 		this.handle = params.data.handle;
 		$('#building-' + this.handle).empty();
 		if (params.hidden !== true) {
-			$('section.game').append(city_builder.ui.building_element(params)).on('click', '#building-' + params.data.handle, function() {
-				self.get_core().open_panel(new city_builder.controls.panel_building({
+			$('section.game').append(civitas.ui.building_element(params)).on('click', '#building-' + params.data.handle, function() {
+				self.get_core().open_panel(new civitas.controls.panel_building({
 					core: self.get_core(),
 					header: params.data.name,
 					data: params.data
@@ -145,9 +145,9 @@ city_builder.objects.building = function(params) {
 		var city = this.get_city();
 		var resources = city.get_resources();
 		var next_level = this.get_level() + 1;
-		var _b = city_builder.BUILDINGS.findIndexM(this.get_type());
+		var _b = civitas.BUILDINGS.findIndexM(this.get_type());
 		if (_b !== false) {
-			var _c = city_builder.BUILDINGS[_b];
+			var _c = civitas.BUILDINGS[_b];
 			if (this.is_upgradable() === true) {
 				var bl_id = city.buildings_list.findIndexM(this.get_type());
 				if (bl_id !== false) {
@@ -267,7 +267,7 @@ city_builder.objects.building = function(params) {
 			this.working = false;
 			this.problems = true;
 			this.get_core().refresh_panels();
-			this.notify(city_builder.NOTIFICATION_PRODUCTION_PAUSED);
+			this.notify(civitas.NOTIFICATION_PRODUCTION_PAUSED);
 			return true;
 		} else {
 			return false;
@@ -307,7 +307,7 @@ city_builder.objects.building = function(params) {
 				if (mats[i] !== 'coins') {
 					if (res[mats[i]] - mat[mats[i]] < 0) {
 						this.get_core().log(this.get_name() + ' doesn`t have enough ' + mats[i] + '.', true);
-						this.notify(city_builder.NOTIFICATION_MISSING_RESOURCES);
+						this.notify(civitas.NOTIFICATION_MISSING_RESOURCES);
 						this.problems = true;
 						return false;
 					}
@@ -316,7 +316,7 @@ city_builder.objects.building = function(params) {
 		} else {
 			if (res[mats] - mat[mats] < 0) {
 				this.get_core().log(this.get_name() + ' doesn`t have enough ' + mats + '.', true);
-				this.notify(city_builder.NOTIFICATION_MISSING_RESOURCES);
+				this.notify(civitas.NOTIFICATION_MISSING_RESOURCES);
 				this.problems = true;
 				return false;
 			}
@@ -329,7 +329,7 @@ city_builder.objects.building = function(params) {
 	 * 
 	 * @public
 	 * @param {String|Array} material
-	 * @returns {city_builder.objects.building}
+	 * @returns {civitas.objects.building}
 	 */
 	this.use_material = function(material) {
 		var building = this.get_building_data();
@@ -353,7 +353,7 @@ city_builder.objects.building = function(params) {
 	 * @returns {Object}
 	 */
 	this.get_building_data = function() {
-		return city_builder.BUILDINGS[city_builder.BUILDINGS.findIndexM(this.type)];
+		return civitas.BUILDINGS[civitas.BUILDINGS.findIndexM(this.type)];
 	};
 	
 	/**
@@ -381,7 +381,7 @@ city_builder.objects.building = function(params) {
 	 * 
 	 * @public
 	 * @param {String|Array} material
-	 * @returns {city_builder.objects.building}
+	 * @returns {civitas.objects.building}
 	 */
 	this.produce_material = function(material) {
 		var city = this.get_city();
@@ -400,7 +400,7 @@ city_builder.objects.building = function(params) {
 						for (var item in building.chance) {
 							var rnd = Math.random();
 							if (rnd < building.chance[item]) {
-								this.get_core().log(this.get_name() + ' procced extra ' + city_builder.utils.get_resource_name(item) + '.');
+								this.get_core().log(this.get_name() + ' procced extra ' + civitas.utils.get_resource_name(item) + '.');
 								this.get_city().add_to_storage(item, 1);
 							}
 						}
@@ -419,7 +419,7 @@ city_builder.objects.building = function(params) {
 					for (var item in building.chance) {
 						var rnd = Math.random();
 						if (rnd < building.chance[item]) {
-							this.get_core().log(this.get_name() + ' procced extra ' + city_builder.utils.get_resource_name(item) + '.');
+							this.get_core().log(this.get_name() + ' procced extra ' + civitas.utils.get_resource_name(item) + '.');
 							this.get_city().add_to_storage(item, 1);
 						}
 					}
@@ -434,7 +434,7 @@ city_builder.objects.building = function(params) {
 	 * Process the materials and use the required ones.
 	 * 
 	 * @public
-	 * @returns {city_builder.objects.building}
+	 * @returns {civitas.objects.building}
 	 * @param {String|Array} mats_production
 	 * @param {String|Array} mats_use
 	 */
@@ -507,7 +507,7 @@ city_builder.objects.building = function(params) {
 	 * Calculate if the house has the required food and processes the tax.
 	 * 
 	 * @public
-	 * @returns {city_builder.objects.building}
+	 * @returns {civitas.objects.building}
 	 */
 	this.process_tax = function() {
 		var _m = [];
@@ -542,18 +542,18 @@ city_builder.objects.building = function(params) {
 				for (var i = 0; i < required.length; i++) {
 					if (!this.get_city().is_building_built(required[i])) {
 						good = false;
-						var req = city_builder.BUILDINGS[city_builder.BUILDINGS.findIndexM(required[i])];
+						var req = civitas.BUILDINGS[civitas.BUILDINGS.findIndexM(required[i])];
 						this.get_core().log(this.get_name() + ' doesn`t have the required buildings: ' + req.name + '.', true);
-						this.notify(city_builder.NOTIFICATION_MISSING_RESOURCES);
+						this.notify(civitas.NOTIFICATION_MISSING_RESOURCES);
 						this.problems = true;
 					}
 				}
 			} else {
 				if (!this.get_city().is_building_built(required)) {
 					good = false;
-					var req = city_builder.BUILDINGS[city_builder.BUILDINGS.findIndexM(required)];
+					var req = civitas.BUILDINGS[civitas.BUILDINGS.findIndexM(required)];
 					this.get_core().log(this.get_name() + ' doesn`t have the required buildings: ' + req.name + '.', true);
-					this.notify(city_builder.NOTIFICATION_MISSING_RESOURCES);
+					this.notify(civitas.NOTIFICATION_MISSING_RESOURCES);
 					this.problems = true;
 				}
 			}
@@ -565,7 +565,7 @@ city_builder.objects.building = function(params) {
 	 * Internal function for further processing of the production chain.
 	 * 
 	 * @private
-	 * @returns {city_builder.objects.building}
+	 * @returns {civitas.objects.building}
 	 */
 	this._process = function() {
 		var _p = [];
@@ -604,7 +604,7 @@ city_builder.objects.building = function(params) {
 				}
 			} else {
 				this.get_core().log(this.get_name() + ' production is stopped.');
-				this.notify(city_builder.NOTIFICATION_PRODUCTION_PAUSED);
+				this.notify(civitas.NOTIFICATION_PRODUCTION_PAUSED);
 				this.problems = true;
 			}
 		}
@@ -628,7 +628,7 @@ city_builder.objects.building = function(params) {
 	 * Main threading method for the building, this does the actual processing each turn.
 	 * 
 	 * @public
-	 * @returns {city_builder.objects.building}
+	 * @returns {civitas.objects.building}
 	 */
 	this.process = function() {
 		var building = this.get_building_data();
@@ -671,7 +671,7 @@ city_builder.objects.building = function(params) {
 	 * Get the city this building is located into
 	 * 
 	 * @public
-	 * @returns {city_builder.objects.city}
+	 * @returns {civitas.objects.city}
 	 */
 	this.get_city = function() {
 		return this.city;
@@ -681,7 +681,7 @@ city_builder.objects.building = function(params) {
 	 * Get a pointer to the game core
 	 * 
 	 * @public
-	 * @returns {city_builder.game}
+	 * @returns {civitas.game}
 	 */
 	this.get_core = function() {
 		return this.get_city().get_core();
@@ -742,15 +742,15 @@ city_builder.objects.building = function(params) {
 	 *
 	 * @public
 	 * @param {Number} notification_type
-	 * @returns {city_builder.objects.building}
+	 * @returns {civitas.objects.building}
 	 */
 	this.notify = function(notification_type) {
 		var handle = $('#building-' + this.get_handle());
 		switch (notification_type) {
-			case city_builder.NOTIFICATION_PRODUCTION_PAUSED:
+			case civitas.NOTIFICATION_PRODUCTION_PAUSED:
 				handle.empty().append('<span class="notification paused"></span>');
 				break;
-			case city_builder.NOTIFICATION_MISSING_RESOURCES:
+			case civitas.NOTIFICATION_MISSING_RESOURCES:
 			default:
 				handle.empty().append('<span class="notification error"></span>');
 				break;

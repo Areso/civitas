@@ -4,14 +4,14 @@
  * @constant
  * @type {Object}
  */
-city_builder.CITIES = {
+civitas.CITIES = {
 	'Byblos': {
-		nationality: city_builder.NATION_TYPE_PHOENICIAN,
+		nationality: civitas.NATION_TYPE_PHOENICIAN,
 		ruler: 'Cronus',
 		icon: 4,
 		avatar: 1,
-		climate: city_builder.CLIMATE_TYPE_TEMPERATE,
-		personality: city_builder.PERSONALITY_TYPE_DIPLOMAT,
+		climate: civitas.CLIMATE_TYPE_TEMPERATE,
+		personality: civitas.PERSONALITY_TYPE_DIPLOMAT,
 		level: 25,
 		resources: {
 			'coins': 230000,
@@ -20,21 +20,21 @@ city_builder.CITIES = {
 		},
 		trades: {
 			'imports': {
-				gold: city_builder.GOODS_IMPORTANCE_MEDIUM,
-				milk: city_builder.GOODS_IMPORTANCE_HIGH,
-				goldores: city_builder.GOODS_IMPORTANCE_LOW,
-				weapons: city_builder.GOODS_IMPORTANCE_LOW,
-				quartz: city_builder.GOODS_IMPORTANCE_LOW,
-				roses: city_builder.GOODS_IMPORTANCE_MEDIUM,
-				wine: city_builder.GOODS_IMPORTANCE_VITAL,
-				clay: city_builder.GOODS_IMPORTANCE_VITAL,
-				fish: city_builder.GOODS_IMPORTANCE_MEDIUM
+				gold: civitas.GOODS_IMPORTANCE_MEDIUM,
+				milk: civitas.GOODS_IMPORTANCE_HIGH,
+				goldores: civitas.GOODS_IMPORTANCE_LOW,
+				weapons: civitas.GOODS_IMPORTANCE_LOW,
+				quartz: civitas.GOODS_IMPORTANCE_LOW,
+				roses: civitas.GOODS_IMPORTANCE_MEDIUM,
+				wine: civitas.GOODS_IMPORTANCE_VITAL,
+				clay: civitas.GOODS_IMPORTANCE_VITAL,
+				fish: civitas.GOODS_IMPORTANCE_MEDIUM
 			},
 			'exports': {
-				hemp: city_builder.GOODS_IMPORTANCE_VITAL,
-				indigo: city_builder.GOODS_IMPORTANCE_LOW,
-				paper: city_builder.GOODS_IMPORTANCE_HIGH,
-				stones: city_builder.GOODS_IMPORTANCE_LOW
+				hemp: civitas.GOODS_IMPORTANCE_VITAL,
+				indigo: civitas.GOODS_IMPORTANCE_LOW,
+				paper: civitas.GOODS_IMPORTANCE_HIGH,
+				stones: civitas.GOODS_IMPORTANCE_LOW
 			}
 		},
 		army: {
@@ -58,12 +58,12 @@ city_builder.CITIES = {
 		}
 	},
 	'Carthage': {
-		nationality: city_builder.NATION_TYPE_CARTHAGINIAN,
+		nationality: civitas.NATION_TYPE_CARTHAGINIAN,
 		ruler: 'Elisa',
 		avatar: 21,
 		icon: 4,
-		climate: city_builder.CLIMATE_TYPE_TROPICAL,
-		personality: city_builder.PERSONALITY_TYPE_DIPLOMAT,
+		climate: civitas.CLIMATE_TYPE_TROPICAL,
+		personality: civitas.PERSONALITY_TYPE_DIPLOMAT,
 		level: 50,
 		resources: {
 			'coins': 130000,
@@ -72,24 +72,24 @@ city_builder.CITIES = {
 		},
 		trades: {
 			'imports': {
-				wax: city_builder.GOODS_IMPORTANCE_LOW,
-				sugar: city_builder.GOODS_IMPORTANCE_VITAL,
-				sugarcane: city_builder.GOODS_IMPORTANCE_MEDIUM,
-				glasses: city_builder.GOODS_IMPORTANCE_LOW,
-				fish: city_builder.GOODS_IMPORTANCE_HIGH,
-				candles: city_builder.GOODS_IMPORTANCE_LOW,
-				bread: city_builder.GOODS_IMPORTANCE_VITAL,
-				pearls: city_builder.GOODS_IMPORTANCE_LOW,
-				salt: city_builder.GOODS_IMPORTANCE_LOW
+				wax: civitas.GOODS_IMPORTANCE_LOW,
+				sugar: civitas.GOODS_IMPORTANCE_VITAL,
+				sugarcane: civitas.GOODS_IMPORTANCE_MEDIUM,
+				glasses: civitas.GOODS_IMPORTANCE_LOW,
+				fish: civitas.GOODS_IMPORTANCE_HIGH,
+				candles: civitas.GOODS_IMPORTANCE_LOW,
+				bread: civitas.GOODS_IMPORTANCE_VITAL,
+				pearls: civitas.GOODS_IMPORTANCE_LOW,
+				salt: civitas.GOODS_IMPORTANCE_LOW
 			},
 			'exports': {
-				leather: city_builder.GOODS_IMPORTANCE_MEDIUM,
-				indigo: city_builder.GOODS_IMPORTANCE_LOW,
-				flour: city_builder.GOODS_IMPORTANCE_VITAL,
-				glass: city_builder.GOODS_IMPORTANCE_MEDIUM,
-				coal: city_builder.GOODS_IMPORTANCE_LOW,
-				fish: city_builder.GOODS_IMPORTANCE_HIGH,
-				wood: city_builder.GOODS_IMPORTANCE_VITAL
+				leather: civitas.GOODS_IMPORTANCE_MEDIUM,
+				indigo: civitas.GOODS_IMPORTANCE_LOW,
+				flour: civitas.GOODS_IMPORTANCE_VITAL,
+				glass: civitas.GOODS_IMPORTANCE_MEDIUM,
+				coal: civitas.GOODS_IMPORTANCE_LOW,
+				fish: civitas.GOODS_IMPORTANCE_HIGH,
+				wood: civitas.GOODS_IMPORTANCE_VITAL
 			}
 		},
 		navy: {
@@ -113,12 +113,12 @@ city_builder.CITIES = {
 		}
 	},
 	'Karakorum': {
-		nationality: city_builder.NATION_TYPE_MONGOLIAN,
+		nationality: civitas.NATION_TYPE_MONGOLIAN,
 		ruler: 'Genghis Khan',
 		avatar: 45,
 		icon: 6,
-		climate: city_builder.CLIMATE_TYPE_TEMPERATE,
-		personality: city_builder.PERSONALITY_TYPE_WARLORD,
+		climate: civitas.CLIMATE_TYPE_TEMPERATE,
+		personality: civitas.PERSONALITY_TYPE_WARLORD,
 		level: 30,
 		resources: {
 			'coins': 100000,
@@ -127,18 +127,18 @@ city_builder.CITIES = {
 		},
 		trades: {
 			'imports': {
-				wheat: city_builder.GOODS_IMPORTANCE_VITAL,
-				wood: city_builder.GOODS_IMPORTANCE_HIGH,
-				sugar: city_builder.GOODS_IMPORTANCE_LOW,
-				sugarcane: city_builder.GOODS_IMPORTANCE_LOW,
-				clay: city_builder.GOODS_IMPORTANCE_VITAL
+				wheat: civitas.GOODS_IMPORTANCE_VITAL,
+				wood: civitas.GOODS_IMPORTANCE_HIGH,
+				sugar: civitas.GOODS_IMPORTANCE_LOW,
+				sugarcane: civitas.GOODS_IMPORTANCE_LOW,
+				clay: civitas.GOODS_IMPORTANCE_VITAL
 			},
 			'exports': {
-				silver: city_builder.GOODS_IMPORTANCE_VITAL,
-				glasses: city_builder.GOODS_IMPORTANCE_LOW,
-				furcoats: city_builder.GOODS_IMPORTANCE_MEDIUM,
-				indigo: city_builder.GOODS_IMPORTANCE_LOW,
-				wheat: city_builder.GOODS_IMPORTANCE_LOW
+				silver: civitas.GOODS_IMPORTANCE_VITAL,
+				glasses: civitas.GOODS_IMPORTANCE_LOW,
+				furcoats: civitas.GOODS_IMPORTANCE_MEDIUM,
+				indigo: civitas.GOODS_IMPORTANCE_LOW,
+				wheat: civitas.GOODS_IMPORTANCE_LOW
 			}
 		},
 		army: {
@@ -153,12 +153,12 @@ city_builder.CITIES = {
 		}
 	},
 	'Kyrene': {
-		nationality: city_builder.NATION_TYPE_GREEK,
+		nationality: civitas.NATION_TYPE_GREEK,
 		ruler: 'Abdul',
 		avatar: 33,
 		icon: 5,
-		climate: city_builder.CLIMATE_TYPE_TROPICAL,
-		personality: city_builder.PERSONALITY_TYPE_WARLORD,
+		climate: civitas.CLIMATE_TYPE_TROPICAL,
+		personality: civitas.PERSONALITY_TYPE_WARLORD,
 		level: 22,
 		resources: {
 			'coins': 200000,
@@ -167,21 +167,21 @@ city_builder.CITIES = {
 		},
 		trades: {
 			'imports': {
-				flour: city_builder.GOODS_IMPORTANCE_LOW,
-				milk: city_builder.GOODS_IMPORTANCE_VITAL,
-				brass: city_builder.GOODS_IMPORTANCE_LOW,
-				furs: city_builder.GOODS_IMPORTANCE_LOW,
-				fish: city_builder.GOODS_IMPORTANCE_VITAL,
-				cider: city_builder.GOODS_IMPORTANCE_LOW,
-				silk: city_builder.GOODS_IMPORTANCE_HIGH,
-				cattle: city_builder.GOODS_IMPORTANCE_MEDIUM,
-				wheat: city_builder.GOODS_IMPORTANCE_VITAL
+				flour: civitas.GOODS_IMPORTANCE_LOW,
+				milk: civitas.GOODS_IMPORTANCE_VITAL,
+				brass: civitas.GOODS_IMPORTANCE_LOW,
+				furs: civitas.GOODS_IMPORTANCE_LOW,
+				fish: civitas.GOODS_IMPORTANCE_VITAL,
+				cider: civitas.GOODS_IMPORTANCE_LOW,
+				silk: civitas.GOODS_IMPORTANCE_HIGH,
+				cattle: civitas.GOODS_IMPORTANCE_MEDIUM,
+				wheat: civitas.GOODS_IMPORTANCE_VITAL
 			},
 			'exports': {
-				clothes: city_builder.GOODS_IMPORTANCE_VITAL,
-				fish: city_builder.GOODS_IMPORTANCE_LOW,
-				coffeebeans: city_builder.GOODS_IMPORTANCE_HIGH,
-				silk: city_builder.GOODS_IMPORTANCE_LOW
+				clothes: civitas.GOODS_IMPORTANCE_VITAL,
+				fish: civitas.GOODS_IMPORTANCE_LOW,
+				coffeebeans: civitas.GOODS_IMPORTANCE_HIGH,
+				silk: civitas.GOODS_IMPORTANCE_LOW
 			}
 		},
 		army: {
@@ -197,12 +197,12 @@ city_builder.CITIES = {
 		}
 	},
 	'Menat Khufu': {
-		nationality: city_builder.NATION_TYPE_EGYPTIAN,
+		nationality: civitas.NATION_TYPE_EGYPTIAN,
 		ruler: 'Khufu',
 		avatar: 34,
 		icon: 7,
-		climate: city_builder.CLIMATE_TYPE_ARID,
-		personality: city_builder.PERSONALITY_TYPE_DIPLOMAT,
+		climate: civitas.CLIMATE_TYPE_ARID,
+		personality: civitas.PERSONALITY_TYPE_DIPLOMAT,
 		level: 45,
 		resources: {
 			'coins': 200000,
@@ -211,21 +211,21 @@ city_builder.CITIES = {
 		},
 		trades: {
 			'imports': {
-				barrels: city_builder.GOODS_IMPORTANCE_LOW,
-				books: city_builder.GOODS_IMPORTANCE_LOW,
-				paper: city_builder.GOODS_IMPORTANCE_LOW,
-				coal: city_builder.GOODS_IMPORTANCE_VITAL,
-				copper: city_builder.GOODS_IMPORTANCE_MEDIUM,
-				indigo: city_builder.GOODS_IMPORTANCE_HIGH
+				barrels: civitas.GOODS_IMPORTANCE_LOW,
+				books: civitas.GOODS_IMPORTANCE_LOW,
+				paper: civitas.GOODS_IMPORTANCE_LOW,
+				coal: civitas.GOODS_IMPORTANCE_VITAL,
+				copper: civitas.GOODS_IMPORTANCE_MEDIUM,
+				indigo: civitas.GOODS_IMPORTANCE_HIGH
 			},
 			'exports': {
-				coal: city_builder.GOODS_IMPORTANCE_VITAL,
-				ironores: city_builder.GOODS_IMPORTANCE_LOW,
-				copper: city_builder.GOODS_IMPORTANCE_MEDIUM,
-				goldores: city_builder.GOODS_IMPORTANCE_LOW,
-				iron: city_builder.GOODS_IMPORTANCE_LOW,
-				gold: city_builder.GOODS_IMPORTANCE_VITAL,
-				brass: city_builder.GOODS_IMPORTANCE_LOW
+				coal: civitas.GOODS_IMPORTANCE_VITAL,
+				ironores: civitas.GOODS_IMPORTANCE_LOW,
+				copper: civitas.GOODS_IMPORTANCE_MEDIUM,
+				goldores: civitas.GOODS_IMPORTANCE_LOW,
+				iron: civitas.GOODS_IMPORTANCE_LOW,
+				gold: civitas.GOODS_IMPORTANCE_VITAL,
+				brass: civitas.GOODS_IMPORTANCE_LOW
 			}
 		},
 		army: {
@@ -242,12 +242,12 @@ city_builder.CITIES = {
 		}
 	},
 	'Niani': {
-		nationality: city_builder.NATION_TYPE_MALINESE,
+		nationality: civitas.NATION_TYPE_MALINESE,
 		ruler: 'Mansa Musa',
 		avatar: 30,
 		icon: 2,
-		climate: city_builder.CLIMATE_TYPE_TROPICAL,
-		personality: city_builder.PERSONALITY_TYPE_WARLORD,
+		climate: civitas.CLIMATE_TYPE_TROPICAL,
+		personality: civitas.PERSONALITY_TYPE_WARLORD,
 		level: 21,
 		resources: {
 			'coins': 200000,
@@ -256,21 +256,21 @@ city_builder.CITIES = {
 		},
 		trades: {
 			'imports': {
-				meat: city_builder.GOODS_IMPORTANCE_LOW,
-				milk: city_builder.GOODS_IMPORTANCE_LOW,
-				weapons: city_builder.GOODS_IMPORTANCE_LOW,
-				roses: city_builder.GOODS_IMPORTANCE_MEDIUM,
-				perfume: city_builder.GOODS_IMPORTANCE_LOW,
-				iron: city_builder.GOODS_IMPORTANCE_VITAL,
-				ironores: city_builder.GOODS_IMPORTANCE_LOW
+				meat: civitas.GOODS_IMPORTANCE_LOW,
+				milk: civitas.GOODS_IMPORTANCE_LOW,
+				weapons: civitas.GOODS_IMPORTANCE_LOW,
+				roses: civitas.GOODS_IMPORTANCE_MEDIUM,
+				perfume: civitas.GOODS_IMPORTANCE_LOW,
+				iron: civitas.GOODS_IMPORTANCE_VITAL,
+				ironores: civitas.GOODS_IMPORTANCE_LOW
 			},
 			'exports': {
-				brine: city_builder.GOODS_IMPORTANCE_MEDIUM,
-				clothes: city_builder.GOODS_IMPORTANCE_LOW,
-				glass: city_builder.GOODS_IMPORTANCE_HIGH,
-				wheat: city_builder.GOODS_IMPORTANCE_VITAL,
-				hides: city_builder.GOODS_IMPORTANCE_LOW,
-				paper: city_builder.GOODS_IMPORTANCE_LOW
+				brine: civitas.GOODS_IMPORTANCE_MEDIUM,
+				clothes: civitas.GOODS_IMPORTANCE_LOW,
+				glass: civitas.GOODS_IMPORTANCE_HIGH,
+				wheat: civitas.GOODS_IMPORTANCE_VITAL,
+				hides: civitas.GOODS_IMPORTANCE_LOW,
+				paper: civitas.GOODS_IMPORTANCE_LOW
 			}
 		},
 		army: {
@@ -283,12 +283,12 @@ city_builder.CITIES = {
 		}
 	},
 	'Niniveh': {
-		nationality: city_builder.NATION_TYPE_ASSYRIAN,
+		nationality: civitas.NATION_TYPE_ASSYRIAN,
 		ruler: 'Sennacherib',
 		avatar: 37,
 		icon: 4,
-		climate: city_builder.CLIMATE_TYPE_ARID,
-		personality: city_builder.PERSONALITY_TYPE_DIPLOMAT,
+		climate: civitas.CLIMATE_TYPE_ARID,
+		personality: civitas.PERSONALITY_TYPE_DIPLOMAT,
 		level: 35,
 		resources: {
 			'coins': 130000,
@@ -297,17 +297,17 @@ city_builder.CITIES = {
 		},
 		trades: {
 			'imports': {
-				silk: city_builder.GOODS_IMPORTANCE_LOW,
-				clothes: city_builder.GOODS_IMPORTANCE_HIGH,
-				leather: city_builder.GOODS_IMPORTANCE_LOW,
-				meat: city_builder.GOODS_IMPORTANCE_MEDIUM
+				silk: civitas.GOODS_IMPORTANCE_LOW,
+				clothes: civitas.GOODS_IMPORTANCE_HIGH,
+				leather: civitas.GOODS_IMPORTANCE_LOW,
+				meat: civitas.GOODS_IMPORTANCE_MEDIUM
 			},
 			'exports': {
-				gold: city_builder.GOODS_IMPORTANCE_LOW,
-				iron: city_builder.GOODS_IMPORTANCE_VITAL,
-				ironores: city_builder.GOODS_IMPORTANCE_MEDIUM,
-				copper: city_builder.GOODS_IMPORTANCE_HIGH,
-				coal: city_builder.GOODS_IMPORTANCE_LOW
+				gold: civitas.GOODS_IMPORTANCE_LOW,
+				iron: civitas.GOODS_IMPORTANCE_VITAL,
+				ironores: civitas.GOODS_IMPORTANCE_MEDIUM,
+				copper: civitas.GOODS_IMPORTANCE_HIGH,
+				coal: civitas.GOODS_IMPORTANCE_LOW
 			}
 		},
 		army: {
@@ -324,12 +324,12 @@ city_builder.CITIES = {
 		}
 	},
 	'Novgorod': {
-		nationality: city_builder.NATION_TYPE_RUSSIAN,
+		nationality: civitas.NATION_TYPE_RUSSIAN,
 		ruler: 'Rurik',
 		avatar: 5,
 		icon: 5,
-		climate: city_builder.CLIMATE_TYPE_POLAR,
-		personality: city_builder.PERSONALITY_TYPE_WARLORD,
+		climate: civitas.CLIMATE_TYPE_POLAR,
+		personality: civitas.PERSONALITY_TYPE_WARLORD,
 		level: 20,
 		resources: {
 			'coins': 30000,
@@ -338,18 +338,18 @@ city_builder.CITIES = {
 		},
 		trades: {
 			'imports': {
-				furs: city_builder.GOODS_IMPORTANCE_LOW,
-				hides: city_builder.GOODS_IMPORTANCE_LOW,
-				milk: city_builder.GOODS_IMPORTANCE_MEDIUM,
-				leather: city_builder.GOODS_IMPORTANCE_LOW,
-				fish: city_builder.GOODS_IMPORTANCE_VITAL,
-				furcoats: city_builder.GOODS_IMPORTANCE_VITAL
+				furs: civitas.GOODS_IMPORTANCE_LOW,
+				hides: civitas.GOODS_IMPORTANCE_LOW,
+				milk: civitas.GOODS_IMPORTANCE_MEDIUM,
+				leather: civitas.GOODS_IMPORTANCE_LOW,
+				fish: civitas.GOODS_IMPORTANCE_VITAL,
+				furcoats: civitas.GOODS_IMPORTANCE_VITAL
 			},
 			'exports': {
-				statues: city_builder.GOODS_IMPORTANCE_VITAL,
-				wax: city_builder.GOODS_IMPORTANCE_LOW,
-				candles: city_builder.GOODS_IMPORTANCE_LOW,
-				salt: city_builder.GOODS_IMPORTANCE_MEDIUM
+				statues: civitas.GOODS_IMPORTANCE_VITAL,
+				wax: civitas.GOODS_IMPORTANCE_LOW,
+				candles: civitas.GOODS_IMPORTANCE_LOW,
+				salt: civitas.GOODS_IMPORTANCE_MEDIUM
 			}
 		},
 		army: {
@@ -366,12 +366,12 @@ city_builder.CITIES = {
 		}
 	},
 	'Rome': {
-		nationality: city_builder.NATION_TYPE_ROMAN,
+		nationality: civitas.NATION_TYPE_ROMAN,
 		ruler: 'Caesar',
 		avatar: 17,
 		icon: 4,
-		climate: city_builder.CLIMATE_TYPE_TEMPERATE,
-		personality: city_builder.PERSONALITY_TYPE_BALANCED,
+		climate: civitas.CLIMATE_TYPE_TEMPERATE,
+		personality: civitas.PERSONALITY_TYPE_BALANCED,
 		level: 50,
 		resources: {
 			'coins': 330000,
@@ -380,29 +380,29 @@ city_builder.CITIES = {
 		},
 		trades: {
 			'imports': {
-				perfume: city_builder.GOODS_IMPORTANCE_MEDIUM,
-				coffee: city_builder.GOODS_IMPORTANCE_LOW,
-				cider: city_builder.GOODS_IMPORTANCE_LOW,
-				wine: city_builder.GOODS_IMPORTANCE_LOW,
-				beer: city_builder.GOODS_IMPORTANCE_LOW,
-				silk: city_builder.GOODS_IMPORTANCE_MEDIUM
+				perfume: civitas.GOODS_IMPORTANCE_MEDIUM,
+				coffee: civitas.GOODS_IMPORTANCE_LOW,
+				cider: civitas.GOODS_IMPORTANCE_LOW,
+				wine: civitas.GOODS_IMPORTANCE_LOW,
+				beer: civitas.GOODS_IMPORTANCE_LOW,
+				silk: civitas.GOODS_IMPORTANCE_MEDIUM
 			},
 			'exports': {
-				robes: city_builder.GOODS_IMPORTANCE_VITAL,
-				statues: city_builder.GOODS_IMPORTANCE_VITAL,
-				barrels: city_builder.GOODS_IMPORTANCE_MEDIUM,
-				brine: city_builder.GOODS_IMPORTANCE_LOW,
-				brass: city_builder.GOODS_IMPORTANCE_VITAL,
-				candlesticks: city_builder.GOODS_IMPORTANCE_LOW,
-				cattle: city_builder.GOODS_IMPORTANCE_VITAL,
-				glass: city_builder.GOODS_IMPORTANCE_MEDIUM,
-				gold: city_builder.GOODS_IMPORTANCE_MEDIUM,
-				wheat: city_builder.GOODS_IMPORTANCE_MEDIUM,
-				iron: city_builder.GOODS_IMPORTANCE_LOW,
-				grapes: city_builder.GOODS_IMPORTANCE_HIGH,
-				hemp: city_builder.GOODS_IMPORTANCE_HIGH,
-				herbs: city_builder.GOODS_IMPORTANCE_HIGH,
-				quartz: city_builder.GOODS_IMPORTANCE_MEDIUM
+				robes: civitas.GOODS_IMPORTANCE_VITAL,
+				statues: civitas.GOODS_IMPORTANCE_VITAL,
+				barrels: civitas.GOODS_IMPORTANCE_MEDIUM,
+				brine: civitas.GOODS_IMPORTANCE_LOW,
+				brass: civitas.GOODS_IMPORTANCE_VITAL,
+				candlesticks: civitas.GOODS_IMPORTANCE_LOW,
+				cattle: civitas.GOODS_IMPORTANCE_VITAL,
+				glass: civitas.GOODS_IMPORTANCE_MEDIUM,
+				gold: civitas.GOODS_IMPORTANCE_MEDIUM,
+				wheat: civitas.GOODS_IMPORTANCE_MEDIUM,
+				iron: civitas.GOODS_IMPORTANCE_LOW,
+				grapes: civitas.GOODS_IMPORTANCE_HIGH,
+				hemp: civitas.GOODS_IMPORTANCE_HIGH,
+				herbs: civitas.GOODS_IMPORTANCE_HIGH,
+				quartz: civitas.GOODS_IMPORTANCE_MEDIUM
 			}
 		},
 		army: {
@@ -419,12 +419,12 @@ city_builder.CITIES = {
 		}
 	},
 	'Sarmizegetusa': {
-		nationality: city_builder.NATION_TYPE_THRACIAN,
+		nationality: civitas.NATION_TYPE_THRACIAN,
 		ruler: 'Deceballus',
 		avatar: 8,
 		icon: 7,
-		climate: city_builder.CLIMATE_TYPE_CONTINENTAL,
-		personality: city_builder.PERSONALITY_TYPE_WARLORD,
+		climate: civitas.CLIMATE_TYPE_CONTINENTAL,
+		personality: civitas.PERSONALITY_TYPE_WARLORD,
 		level: 18,
 		resources: {
 			'coins': 22000,
@@ -433,15 +433,15 @@ city_builder.CITIES = {
 		},
 		trades: {
 			'imports': {
-				flour: city_builder.GOODS_IMPORTANCE_LOW,
-				bread: city_builder.GOODS_IMPORTANCE_LOW,
-				brass: city_builder.GOODS_IMPORTANCE_MEDIUM,
-				coal: city_builder.GOODS_IMPORTANCE_VITAL
+				flour: civitas.GOODS_IMPORTANCE_LOW,
+				bread: civitas.GOODS_IMPORTANCE_LOW,
+				brass: civitas.GOODS_IMPORTANCE_MEDIUM,
+				coal: civitas.GOODS_IMPORTANCE_VITAL
 			},
 			'exports': {
-				wood: city_builder.GOODS_IMPORTANCE_LOW,
-				stones: city_builder.GOODS_IMPORTANCE_VITAL,
-				wine: city_builder.GOODS_IMPORTANCE_MEDIUM
+				wood: civitas.GOODS_IMPORTANCE_LOW,
+				stones: civitas.GOODS_IMPORTANCE_VITAL,
+				wine: civitas.GOODS_IMPORTANCE_MEDIUM
 			}
 		},
 		army: {
@@ -458,12 +458,12 @@ city_builder.CITIES = {
 		}
 	},
 	'Sigiriya': {
-		nationality: city_builder.NATION_TYPE_INDIAN,
+		nationality: civitas.NATION_TYPE_INDIAN,
 		ruler: 'Kashyapa',
 		avatar: 40,
 		icon: 7,
-		climate: city_builder.CLIMATE_TYPE_TROPICAL,
-		personality: city_builder.PERSONALITY_TYPE_BALANCED,
+		climate: civitas.CLIMATE_TYPE_TROPICAL,
+		personality: civitas.PERSONALITY_TYPE_BALANCED,
 		level: 22,
 		resources: {
 			'coins': 180000,
@@ -472,17 +472,17 @@ city_builder.CITIES = {
 		},
 		trades: {
 			'imports': {
-				furs: city_builder.GOODS_IMPORTANCE_LOW,
-				hides: city_builder.GOODS_IMPORTANCE_MEDIUM,
-				milk: city_builder.GOODS_IMPORTANCE_LOW,
-				leather: city_builder.GOODS_IMPORTANCE_LOW
+				furs: civitas.GOODS_IMPORTANCE_LOW,
+				hides: civitas.GOODS_IMPORTANCE_MEDIUM,
+				milk: civitas.GOODS_IMPORTANCE_LOW,
+				leather: civitas.GOODS_IMPORTANCE_LOW
 			},
 			'exports': {
-				spyglasses: city_builder.GOODS_IMPORTANCE_VITAL,
-				wax: city_builder.GOODS_IMPORTANCE_LOW,
-				candles: city_builder.GOODS_IMPORTANCE_LOW,
-				salt: city_builder.GOODS_IMPORTANCE_MEDIUM,
-				sugarcane: city_builder.GOODS_IMPORTANCE_HIGH
+				spyglasses: civitas.GOODS_IMPORTANCE_VITAL,
+				wax: civitas.GOODS_IMPORTANCE_LOW,
+				candles: civitas.GOODS_IMPORTANCE_LOW,
+				salt: civitas.GOODS_IMPORTANCE_MEDIUM,
+				sugarcane: civitas.GOODS_IMPORTANCE_HIGH
 			}
 		},
 		army: {
@@ -505,12 +505,12 @@ city_builder.CITIES = {
 		}
 	},
 	'Selima Oasis': {
-		nationality: city_builder.NATION_TYPE_SUDANESE,
+		nationality: civitas.NATION_TYPE_SUDANESE,
 		ruler: 'Pepi',
 		avatar: 38,
 		icon: 7,
-		climate: city_builder.CLIMATE_TYPE_TROPICAL,
-		personality: city_builder.PERSONALITY_TYPE_WARLORD,
+		climate: civitas.CLIMATE_TYPE_TROPICAL,
+		personality: civitas.PERSONALITY_TYPE_WARLORD,
 		level: 18,
 		resources: {
 			'coins': 80000,
@@ -519,21 +519,21 @@ city_builder.CITIES = {
 		},
 		trades: {
 			'imports': {
-				cider: city_builder.GOODS_IMPORTANCE_LOW,
-				ropes: city_builder.GOODS_IMPORTANCE_LOW,
-				wax: city_builder.GOODS_IMPORTANCE_MEDIUM,
-				sugar: city_builder.GOODS_IMPORTANCE_LOW,
-				wood: city_builder.GOODS_IMPORTANCE_VITAL,
-				stones: city_builder.GOODS_IMPORTANCE_VITAL
+				cider: civitas.GOODS_IMPORTANCE_LOW,
+				ropes: civitas.GOODS_IMPORTANCE_LOW,
+				wax: civitas.GOODS_IMPORTANCE_MEDIUM,
+				sugar: civitas.GOODS_IMPORTANCE_LOW,
+				wood: civitas.GOODS_IMPORTANCE_VITAL,
+				stones: civitas.GOODS_IMPORTANCE_VITAL
 			},
 			'exports': {
-				almonds: city_builder.GOODS_IMPORTANCE_LOW,
-				roses: city_builder.GOODS_IMPORTANCE_HIGH,
-				grapes: city_builder.GOODS_IMPORTANCE_LOW,
-				hemp: city_builder.GOODS_IMPORTANCE_LOW,
-				coffeebeans: city_builder.GOODS_IMPORTANCE_LOW,
-				coffee: city_builder.GOODS_IMPORTANCE_LOW,
-				spices: city_builder.GOODS_IMPORTANCE_MEDIUM
+				almonds: civitas.GOODS_IMPORTANCE_LOW,
+				roses: civitas.GOODS_IMPORTANCE_HIGH,
+				grapes: civitas.GOODS_IMPORTANCE_LOW,
+				hemp: civitas.GOODS_IMPORTANCE_LOW,
+				coffeebeans: civitas.GOODS_IMPORTANCE_LOW,
+				coffee: civitas.GOODS_IMPORTANCE_LOW,
+				spices: civitas.GOODS_IMPORTANCE_MEDIUM
 			}
 		},
 		army: {
@@ -550,12 +550,12 @@ city_builder.CITIES = {
 		}
 	},
 	'Taruga': {
-		nationality: city_builder.NATION_TYPE_NIGERIAN,
+		nationality: civitas.NATION_TYPE_NIGERIAN,
 		ruler: 'Samun',
 		avatar: 30,
 		icon: 2,
-		climate: city_builder.CLIMATE_TYPE_TROPICAL,
-		personality: city_builder.PERSONALITY_TYPE_WARLORD,
+		climate: civitas.CLIMATE_TYPE_TROPICAL,
+		personality: civitas.PERSONALITY_TYPE_WARLORD,
 		level: 16,
 		resources: {
 			'coins': 20000,
@@ -564,21 +564,21 @@ city_builder.CITIES = {
 		},
 		trades: {
 			'imports': {
-				meat: city_builder.GOODS_IMPORTANCE_LOW,
-				milk: city_builder.GOODS_IMPORTANCE_LOW,
-				weapons: city_builder.GOODS_IMPORTANCE_LOW,
-				roses: city_builder.GOODS_IMPORTANCE_MEDIUM,
-				perfume: city_builder.GOODS_IMPORTANCE_LOW,
-				iron: city_builder.GOODS_IMPORTANCE_VITAL,
-				ironores: city_builder.GOODS_IMPORTANCE_LOW
+				meat: civitas.GOODS_IMPORTANCE_LOW,
+				milk: civitas.GOODS_IMPORTANCE_LOW,
+				weapons: civitas.GOODS_IMPORTANCE_LOW,
+				roses: civitas.GOODS_IMPORTANCE_MEDIUM,
+				perfume: civitas.GOODS_IMPORTANCE_LOW,
+				iron: civitas.GOODS_IMPORTANCE_VITAL,
+				ironores: civitas.GOODS_IMPORTANCE_LOW
 			},
 			'exports': {
-				brine: city_builder.GOODS_IMPORTANCE_MEDIUM,
-				clothes: city_builder.GOODS_IMPORTANCE_LOW,
-				glass: city_builder.GOODS_IMPORTANCE_HIGH,
-				wheat: city_builder.GOODS_IMPORTANCE_VITAL,
-				hides: city_builder.GOODS_IMPORTANCE_LOW,
-				paper: city_builder.GOODS_IMPORTANCE_LOW
+				brine: civitas.GOODS_IMPORTANCE_MEDIUM,
+				clothes: civitas.GOODS_IMPORTANCE_LOW,
+				glass: civitas.GOODS_IMPORTANCE_HIGH,
+				wheat: civitas.GOODS_IMPORTANCE_VITAL,
+				hides: civitas.GOODS_IMPORTANCE_LOW,
+				paper: civitas.GOODS_IMPORTANCE_LOW
 			}
 		},
 		army: {
@@ -591,12 +591,12 @@ city_builder.CITIES = {
 		}
 	},
 	'Thebes': {
-		nationality: city_builder.NATION_TYPE_EGYPTIAN,
+		nationality: civitas.NATION_TYPE_EGYPTIAN,
 		ruler: 'Hatshepsut',
 		avatar: 36,
 		icon: 4,
-		climate: city_builder.CLIMATE_TYPE_TROPICAL,
-		personality: city_builder.PERSONALITY_TYPE_DIPLOMAT,
+		climate: civitas.CLIMATE_TYPE_TROPICAL,
+		personality: civitas.PERSONALITY_TYPE_DIPLOMAT,
 		level: 38,
 		resources: {
 			'coins': 280000,
@@ -605,21 +605,21 @@ city_builder.CITIES = {
 		},
 		trades: {
 			'imports': {
-				meat: city_builder.GOODS_IMPORTANCE_LOW,
-				milk: city_builder.GOODS_IMPORTANCE_LOW,
-				weapons: city_builder.GOODS_IMPORTANCE_LOW,
-				roses: city_builder.GOODS_IMPORTANCE_MEDIUM,
-				perfume: city_builder.GOODS_IMPORTANCE_LOW,
-				iron: city_builder.GOODS_IMPORTANCE_VITAL,
-				ironores: city_builder.GOODS_IMPORTANCE_LOW
+				meat: civitas.GOODS_IMPORTANCE_LOW,
+				milk: civitas.GOODS_IMPORTANCE_LOW,
+				weapons: civitas.GOODS_IMPORTANCE_LOW,
+				roses: civitas.GOODS_IMPORTANCE_MEDIUM,
+				perfume: civitas.GOODS_IMPORTANCE_LOW,
+				iron: civitas.GOODS_IMPORTANCE_VITAL,
+				ironores: civitas.GOODS_IMPORTANCE_LOW
 			},
 			'exports': {
-				brine: city_builder.GOODS_IMPORTANCE_MEDIUM,
-				clothes: city_builder.GOODS_IMPORTANCE_LOW,
-				glass: city_builder.GOODS_IMPORTANCE_HIGH,
-				wheat: city_builder.GOODS_IMPORTANCE_VITAL,
-				hides: city_builder.GOODS_IMPORTANCE_LOW,
-				paper: city_builder.GOODS_IMPORTANCE_LOW
+				brine: civitas.GOODS_IMPORTANCE_MEDIUM,
+				clothes: civitas.GOODS_IMPORTANCE_LOW,
+				glass: civitas.GOODS_IMPORTANCE_HIGH,
+				wheat: civitas.GOODS_IMPORTANCE_VITAL,
+				hides: civitas.GOODS_IMPORTANCE_LOW,
+				paper: civitas.GOODS_IMPORTANCE_LOW
 			}
 		},
 		army: {
@@ -636,12 +636,12 @@ city_builder.CITIES = {
 		}
 	},
 	'Toledo': {
-		nationality: city_builder.NATION_TYPE_SPANISH,
+		nationality: civitas.NATION_TYPE_SPANISH,
 		ruler: 'Juan Luiz',
 		avatar: 12,
 		icon: 5,
-		climate: city_builder.CLIMATE_TYPE_TEMPERATE,
-		personality: city_builder.PERSONALITY_TYPE_BALANCED,
+		climate: civitas.CLIMATE_TYPE_TEMPERATE,
+		personality: civitas.PERSONALITY_TYPE_BALANCED,
 		level: 21,
 		resources: {
 			'coins': 110000,
@@ -650,21 +650,21 @@ city_builder.CITIES = {
 		},
 		trades: {
 			'imports': {
-				meat: city_builder.GOODS_IMPORTANCE_LOW,
-				iron: city_builder.GOODS_IMPORTANCE_HIGH,
-				brass: city_builder.GOODS_IMPORTANCE_LOW,
-				cider: city_builder.GOODS_IMPORTANCE_LOW,
-				grapes: city_builder.GOODS_IMPORTANCE_LOW,
-				coal: city_builder.GOODS_IMPORTANCE_MEDIUM,
-				ironores: city_builder.GOODS_IMPORTANCE_LOW
+				meat: civitas.GOODS_IMPORTANCE_LOW,
+				iron: civitas.GOODS_IMPORTANCE_HIGH,
+				brass: civitas.GOODS_IMPORTANCE_LOW,
+				cider: civitas.GOODS_IMPORTANCE_LOW,
+				grapes: civitas.GOODS_IMPORTANCE_LOW,
+				coal: civitas.GOODS_IMPORTANCE_MEDIUM,
+				ironores: civitas.GOODS_IMPORTANCE_LOW
 			},
 			'exports': {
-				mosaic: city_builder.GOODS_IMPORTANCE_VITAL,
-				wine: city_builder.GOODS_IMPORTANCE_HIGH,
-				silk: city_builder.GOODS_IMPORTANCE_LOW,
-				wood: city_builder.GOODS_IMPORTANCE_MEDIUM,
-				cattle: city_builder.GOODS_IMPORTANCE_LOW,
-				statues: city_builder.GOODS_IMPORTANCE_VITAL
+				mosaic: civitas.GOODS_IMPORTANCE_VITAL,
+				wine: civitas.GOODS_IMPORTANCE_HIGH,
+				silk: civitas.GOODS_IMPORTANCE_LOW,
+				wood: civitas.GOODS_IMPORTANCE_MEDIUM,
+				cattle: civitas.GOODS_IMPORTANCE_LOW,
+				statues: civitas.GOODS_IMPORTANCE_VITAL
 			}
 		},
 		army: {
@@ -681,12 +681,12 @@ city_builder.CITIES = {
 		}
 	},
 	'Tournai': {
-		nationality: city_builder.NATION_TYPE_FRANKS,
+		nationality: civitas.NATION_TYPE_FRANKS,
 		ruler: 'Clovis',
 		avatar: 44,
 		icon: 5,
-		climate: city_builder.CLIMATE_TYPE_CONTINENTAL,
-		personality: city_builder.PERSONALITY_TYPE_WARLORD,
+		climate: civitas.CLIMATE_TYPE_CONTINENTAL,
+		personality: civitas.PERSONALITY_TYPE_WARLORD,
 		level: 22,
 		resources: {
 			'coins': 10000,
@@ -695,20 +695,20 @@ city_builder.CITIES = {
 		},
 		trades: {
 			'imports': {
-				furs: city_builder.GOODS_IMPORTANCE_LOW,
-				hides: city_builder.GOODS_IMPORTANCE_VITAL,
-				milk: city_builder.GOODS_IMPORTANCE_MEDIUM,
-				gems: city_builder.GOODS_IMPORTANCE_LOW,
-				brass: city_builder.GOODS_IMPORTANCE_VITAL,
-				wheat: city_builder.GOODS_IMPORTANCE_HIGH,
-				clay: city_builder.GOODS_IMPORTANCE_LOW
+				furs: civitas.GOODS_IMPORTANCE_LOW,
+				hides: civitas.GOODS_IMPORTANCE_VITAL,
+				milk: civitas.GOODS_IMPORTANCE_MEDIUM,
+				gems: civitas.GOODS_IMPORTANCE_LOW,
+				brass: civitas.GOODS_IMPORTANCE_VITAL,
+				wheat: civitas.GOODS_IMPORTANCE_HIGH,
+				clay: civitas.GOODS_IMPORTANCE_LOW
 			},
 			'exports': {
-				silver: city_builder.GOODS_IMPORTANCE_VITAL,
-				wax: city_builder.GOODS_IMPORTANCE_MEDIUM,
-				candles: city_builder.GOODS_IMPORTANCE_LOW,
-				salt: city_builder.GOODS_IMPORTANCE_VITAL,
-				pearls: city_builder.GOODS_IMPORTANCE_MEDIUM
+				silver: civitas.GOODS_IMPORTANCE_VITAL,
+				wax: civitas.GOODS_IMPORTANCE_MEDIUM,
+				candles: civitas.GOODS_IMPORTANCE_LOW,
+				salt: civitas.GOODS_IMPORTANCE_VITAL,
+				pearls: civitas.GOODS_IMPORTANCE_MEDIUM
 			}
 		},
 		army: {
@@ -725,12 +725,12 @@ city_builder.CITIES = {
 		}
 	},
 	'Uruk': {
-		nationality: city_builder.NATION_TYPE_SUMERIAN,
+		nationality: civitas.NATION_TYPE_SUMERIAN,
 		ruler: 'Gilgamesh',
 		avatar: 14,
 		icon: 7,
-		climate: city_builder.CLIMATE_TYPE_TROPICAL,
-		personality: city_builder.PERSONALITY_TYPE_WARLORD,
+		climate: civitas.CLIMATE_TYPE_TROPICAL,
+		personality: civitas.PERSONALITY_TYPE_WARLORD,
 		level: 26,
 		resources: {
 			'coins': 80000,
@@ -739,18 +739,18 @@ city_builder.CITIES = {
 		},
 		trades: {
 			'imports': {
-				wheat: city_builder.GOODS_IMPORTANCE_VITAL,
-				wood: city_builder.GOODS_IMPORTANCE_HIGH,
-				sugar: city_builder.GOODS_IMPORTANCE_LOW,
-				sugarcane: city_builder.GOODS_IMPORTANCE_LOW,
-				clay: city_builder.GOODS_IMPORTANCE_VITAL
+				wheat: civitas.GOODS_IMPORTANCE_VITAL,
+				wood: civitas.GOODS_IMPORTANCE_HIGH,
+				sugar: civitas.GOODS_IMPORTANCE_LOW,
+				sugarcane: civitas.GOODS_IMPORTANCE_LOW,
+				clay: civitas.GOODS_IMPORTANCE_VITAL
 			},
 			'exports': {
-				silver: city_builder.GOODS_IMPORTANCE_VITAL,
-				glasses: city_builder.GOODS_IMPORTANCE_LOW,
-				furcoats: city_builder.GOODS_IMPORTANCE_MEDIUM,
-				indigo: city_builder.GOODS_IMPORTANCE_LOW,
-				wheat: city_builder.GOODS_IMPORTANCE_LOW
+				silver: civitas.GOODS_IMPORTANCE_VITAL,
+				glasses: civitas.GOODS_IMPORTANCE_LOW,
+				furcoats: civitas.GOODS_IMPORTANCE_MEDIUM,
+				indigo: civitas.GOODS_IMPORTANCE_LOW,
+				wheat: civitas.GOODS_IMPORTANCE_LOW
 			}
 		},
 		army: {
@@ -767,12 +767,12 @@ city_builder.CITIES = {
 		}
 	},
 	'Xinjiang': {
-		nationality: city_builder.NATION_TYPE_CHINESE,
+		nationality: civitas.NATION_TYPE_CHINESE,
 		ruler: 'Gaozu',
 		avatar: 15,
 		icon: 7,
-		climate: city_builder.CLIMATE_TYPE_TEMPERATE,
-		personality: city_builder.PERSONALITY_TYPE_BALANCED,
+		climate: civitas.CLIMATE_TYPE_TEMPERATE,
+		personality: civitas.PERSONALITY_TYPE_BALANCED,
 		level: 29,
 		resources: {
 			'coins': 240000,
@@ -781,18 +781,18 @@ city_builder.CITIES = {
 		},
 		trades: {
 			'imports': {
-				salt: city_builder.GOODS_IMPORTANCE_MEDIUM,
-				stones: city_builder.GOODS_IMPORTANCE_VITAL,
-				gems: city_builder.GOODS_IMPORTANCE_LOW,
-				pearls: city_builder.GOODS_IMPORTANCE_LOW
+				salt: civitas.GOODS_IMPORTANCE_MEDIUM,
+				stones: civitas.GOODS_IMPORTANCE_VITAL,
+				gems: civitas.GOODS_IMPORTANCE_LOW,
+				pearls: civitas.GOODS_IMPORTANCE_LOW
 			},
 			'exports': {
-				donkeys: city_builder.GOODS_IMPORTANCE_VITAL,
-				sulphur: city_builder.GOODS_IMPORTANCE_VITAL,
-				silk: city_builder.GOODS_IMPORTANCE_MEDIUM,
-				glass: city_builder.GOODS_IMPORTANCE_HIGH,
-				carpets: city_builder.GOODS_IMPORTANCE_LOW,
-				cannons: city_builder.GOODS_IMPORTANCE_LOW
+				donkeys: civitas.GOODS_IMPORTANCE_VITAL,
+				sulphur: civitas.GOODS_IMPORTANCE_VITAL,
+				silk: civitas.GOODS_IMPORTANCE_MEDIUM,
+				glass: civitas.GOODS_IMPORTANCE_HIGH,
+				carpets: civitas.GOODS_IMPORTANCE_LOW,
+				cannons: civitas.GOODS_IMPORTANCE_LOW
 			}
 		},
 		army: {
@@ -808,12 +808,12 @@ city_builder.CITIES = {
 		}
 	},
 	'Yinxu': {
-		nationality: city_builder.NATION_TYPE_CHINESE,
+		nationality: civitas.NATION_TYPE_CHINESE,
 		ruler: 'Wu Ding',
 		avatar: 15,
 		icon: 7,
-		climate: city_builder.CLIMATE_TYPE_TEMPERATE,
-		personality: city_builder.PERSONALITY_TYPE_WARLORD,
+		climate: civitas.CLIMATE_TYPE_TEMPERATE,
+		personality: civitas.PERSONALITY_TYPE_WARLORD,
 		level: 22,
 		resources: {
 			'coins': 240000,
@@ -822,25 +822,25 @@ city_builder.CITIES = {
 		},
 		trades: {
 			'imports': {
-				gold: city_builder.GOODS_IMPORTANCE_LOW,
-				goldores: city_builder.GOODS_IMPORTANCE_LOW,
-				weapons: city_builder.GOODS_IMPORTANCE_LOW,
-				salt: city_builder.GOODS_IMPORTANCE_MEDIUM,
-				stones: city_builder.GOODS_IMPORTANCE_VITAL,
-				gems: city_builder.GOODS_IMPORTANCE_LOW,
-				pearls: city_builder.GOODS_IMPORTANCE_LOW
+				gold: civitas.GOODS_IMPORTANCE_LOW,
+				goldores: civitas.GOODS_IMPORTANCE_LOW,
+				weapons: civitas.GOODS_IMPORTANCE_LOW,
+				salt: civitas.GOODS_IMPORTANCE_MEDIUM,
+				stones: civitas.GOODS_IMPORTANCE_VITAL,
+				gems: civitas.GOODS_IMPORTANCE_LOW,
+				pearls: civitas.GOODS_IMPORTANCE_LOW
 			},
 			'exports': {
-				donkeys: city_builder.GOODS_IMPORTANCE_VITAL,
-				sulphur: city_builder.GOODS_IMPORTANCE_VITAL,
-				silk: city_builder.GOODS_IMPORTANCE_MEDIUM,
-				glass: city_builder.GOODS_IMPORTANCE_HIGH,
-				roses: city_builder.GOODS_IMPORTANCE_LOW,
-				cattle: city_builder.GOODS_IMPORTANCE_LOW,
-				bread: city_builder.GOODS_IMPORTANCE_LOW,
-				meat: city_builder.GOODS_IMPORTANCE_MEDIUM,
-				carpets: city_builder.GOODS_IMPORTANCE_LOW,
-				cannons: city_builder.GOODS_IMPORTANCE_LOW
+				donkeys: civitas.GOODS_IMPORTANCE_VITAL,
+				sulphur: civitas.GOODS_IMPORTANCE_VITAL,
+				silk: civitas.GOODS_IMPORTANCE_MEDIUM,
+				glass: civitas.GOODS_IMPORTANCE_HIGH,
+				roses: civitas.GOODS_IMPORTANCE_LOW,
+				cattle: civitas.GOODS_IMPORTANCE_LOW,
+				bread: civitas.GOODS_IMPORTANCE_LOW,
+				meat: civitas.GOODS_IMPORTANCE_MEDIUM,
+				carpets: civitas.GOODS_IMPORTANCE_LOW,
+				cannons: civitas.GOODS_IMPORTANCE_LOW
 			}
 		},
 		army: {
