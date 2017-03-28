@@ -5,7 +5,7 @@
  * @class {city_builder.city}
  * @returns {city_builder.city}
  */
-city_builder.city = function(params) {
+city_builder.objects.city = function(params) {
 	
 	/**
 	 * The name of this city.
@@ -721,7 +721,7 @@ city_builder.city = function(params) {
 					if (level > 1) {
 						_c.level = level;
 					}
-					var _building = new city_builder.building({
+					var _building = new city_builder.objects.building({
 						city: this,
 						type: handle,
 						data: _c,
@@ -743,7 +743,7 @@ city_builder.city = function(params) {
 				if (level > 1) {
 					_c.level = level;
 				}
-				var _building = new city_builder.building({
+				var _building = new city_builder.objects.building({
 					city: this,
 					type: handle,
 					data: _c,
@@ -791,7 +791,7 @@ city_builder.city = function(params) {
 					}
 				}
 			}
-			var _building = new city_builder.building({
+			var _building = new city_builder.objects.building({
 				city: this,
 				type: building_type,
 				data: _c
@@ -1253,7 +1253,7 @@ city_builder.city = function(params) {
 				};
 				for (var item in city_builder.MERCENARIES[i].army) {
 					var soldier = city_builder.SOLDIER_TYPES[item];
-					var _soldier = new city_builder.soldier({
+					var _soldier = new city_builder.objects.soldier({
 						name: item,
 						data: soldier
 					});
@@ -1284,7 +1284,7 @@ city_builder.city = function(params) {
 				if (!this.remove_resources(ship.cost)) {
 					return false;
 				}
-				var _ship = new city_builder.ship({
+				var _ship = new city_builder.objects.ship({
 					name: item,
 					data: ship
 				});
@@ -1313,7 +1313,7 @@ city_builder.city = function(params) {
 				if (!this.remove_resources(soldier.cost)) {
 					return false;
 				}
-				var _soldier = new city_builder.soldier({
+				var _soldier = new city_builder.objects.soldier({
 					name: item,
 					data: soldier
 				});
@@ -1339,7 +1339,7 @@ city_builder.city = function(params) {
 		for (var item in city_builder.SHIP_TYPES) {
 			if (ship_name === item) {
 				var ship = city_builder.SHIP_TYPES[item];
-				var _ship = new city_builder.ship({
+				var _ship = new city_builder.objects.ship({
 					name: item,
 					data: ship
 				});
@@ -1360,7 +1360,7 @@ city_builder.city = function(params) {
 		for (var item in city_builder.SOLDIER_TYPES) {
 			if (soldier_name === item) {
 				var soldier = city_builder.SOLDIER_TYPES[item];
-				var _soldier = new city_builder.soldier({
+				var _soldier = new city_builder.objects.soldier({
 					name: item,
 					data: soldier
 				});

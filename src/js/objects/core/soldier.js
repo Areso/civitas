@@ -5,7 +5,7 @@
  * @class {city_builder.soldier}
  * @returns {city_builder.soldier}
  */
-city_builder.soldier = function (params) {
+city_builder.objects.soldier = function (params) {
 
 	/**
 	 * Pointer to the city this sodier is located in.

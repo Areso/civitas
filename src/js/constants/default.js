@@ -2,6 +2,10 @@ if (typeof city_builder === 'undefined') {
 	var city_builder = {};
 }
 
+if (typeof city_builder.objects === 'undefined') {
+	city_builder.objects = {};
+}
+
 if (typeof city_builder.controls === 'undefined') {
 	city_builder.controls = {};
 }

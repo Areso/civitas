@@ -569,7 +569,7 @@ city_builder.game = function () {
 	this._load_main_city = function () {
 		var data = JSON.parse(window.atob(localStorage.getItem('city_builder.data')));
 		this.set_difficulty(data.difficulty);
-		var my_city = new city_builder.city({
+		var my_city = new city_builder.objects.city({
 			name: data.name,
 			data: {
 				nationality: data.nationality,
@@ -600,7 +600,7 @@ city_builder.game = function () {
 	 * @returns {city_builder.game}
 	 */
 	this._setup_main_city = function (name, cityname, nation, climate, avatar) {
-		var my_city = new city_builder.city({
+		var my_city = new city_builder.objects.city({
 			name: cityname,
 			data: {
 				nationality: nation,
@@ -650,7 +650,7 @@ city_builder.game = function () {
 	this.check_for_events = function() {
 		var _event = city_builder.EVENTS[city_builder.utils.get_random(0, city_builder.EVENTS.length - 1)];
 		_event.core = this;
-		new city_builder.event(_event);
+		new city_builder.objects.event(_event);
 		return this;
 	};
 
@@ -1049,7 +1049,7 @@ city_builder.game = function () {
 	this.setup_neighbours = function (data) {
 		var new_city = null;
 		for (var item in city_builder.CITIES) {
-			new_city = new city_builder.city({
+			new_city = new city_builder.objects.city({
 				name: item,
 				data: city_builder.CITIES[item],
 				player: false,

@@ -23,6 +23,10 @@ if (typeof city_builder === 'undefined') {
 	var city_builder = {};
 }
 
+if (typeof city_builder.objects === 'undefined') {
+	city_builder.objects = {};
+}
+
 if (typeof city_builder.controls === 'undefined') {
 	city_builder.controls = {};
 }
@@ -5211,7 +5215,7 @@ city_builder.ui = {
  * @class {city_builder.city}
  * @returns {city_builder.city}
  */
-city_builder.city = function(params) {
+city_builder.objects.city = function(params) {
 	
 	/**
 	 * The name of this city.
@@ -5927,7 +5931,7 @@ city_builder.city = function(params) {
 					if (level > 1) {
 						_c.level = level;
 					}
-					var _building = new city_builder.building({
+					var _building = new city_builder.objects.building({
 						city: this,
 						type: handle,
 						data: _c,
@@ -5949,7 +5953,7 @@ city_builder.city = function(params) {
 				if (level > 1) {
 					_c.level = level;
 				}
-				var _building = new city_builder.building({
+				var _building = new city_builder.objects.building({
 					city: this,
 					type: handle,
 					data: _c,
@@ -5997,7 +6001,7 @@ city_builder.city = function(params) {
 					}
 				}
 			}
-			var _building = new city_builder.building({
+			var _building = new city_builder.objects.building({
 				city: this,
 				type: building_type,
 				data: _c
@@ -6459,7 +6463,7 @@ city_builder.city = function(params) {
 				};
 				for (var item in city_builder.MERCENARIES[i].army) {
 					var soldier = city_builder.SOLDIER_TYPES[item];
-					var _soldier = new city_builder.soldier({
+					var _soldier = new city_builder.objects.soldier({
 						name: item,
 						data: soldier
 					});
@@ -6490,7 +6494,7 @@ city_builder.city = function(params) {
 				if (!this.remove_resources(ship.cost)) {
 					return false;
 				}
-				var _ship = new city_builder.ship({
+				var _ship = new city_builder.objects.ship({
 					name: item,
 					data: ship
 				});
@@ -6519,7 +6523,7 @@ city_builder.city = function(params) {
 				if (!this.remove_resources(soldier.cost)) {
 					return false;
 				}
-				var _soldier = new city_builder.soldier({
+				var _soldier = new city_builder.objects.soldier({
 					name: item,
 					data: soldier
 				});
@@ -6545,7 +6549,7 @@ city_builder.city = function(params) {
 		for (var item in city_builder.SHIP_TYPES) {
 			if (ship_name === item) {
 				var ship = city_builder.SHIP_TYPES[item];
-				var _ship = new city_builder.ship({
+				var _ship = new city_builder.objects.ship({
 					name: item,
 					data: ship
 				});
@@ -6566,7 +6570,7 @@ city_builder.city = function(params) {
 		for (var item in city_builder.SOLDIER_TYPES) {
 			if (soldier_name === item) {
 				var soldier = city_builder.SOLDIER_TYPES[item];
-				var _soldier = new city_builder.soldier({
+				var _soldier = new city_builder.objects.soldier({
 					name: item,
 					data: soldier
 				});
@@ -7245,7 +7249,7 @@ city_builder.city = function(params) {
  * @class {city_builder.event}
  * @returns {city_builder.event}
  */
-city_builder.event = function (params) {
+city_builder.objects.event = function (params) {
 
 	/**
 	 * Reference to the core object.
@@ -7404,7 +7408,7 @@ city_builder.event = function (params) {
  * @class {city_builder.building}
  * @returns {city_builder.building}
  */
-city_builder.building = function(params) {
+city_builder.objects.building = function(params) {
 	
 	/**
 	 * The level of this building.
@@ -8168,7 +8172,7 @@ city_builder.building = function(params) {
  * @class {city_builder.soldier}
  * @returns {city_builder.soldier}
  */
-city_builder.soldier = function (params) {
+city_builder.objects.soldier = function (params) {
 
 	/**
 	 * Pointer to the city this sodier is located in.
@@ -8317,7 +8321,7 @@ city_builder.soldier = function (params) {
  * @class {city_builder.ship}
  * @returns {city_builder.ship}
  */
-city_builder.ship = function (params) {
+city_builder.objects.ship = function (params) {
 
 	/**
 	 * Pointer to the city this ship is located in.
@@ -8466,7 +8470,7 @@ city_builder.ship = function (params) {
  * @class {city_builder.army}
  * @returns {city_builder.army}
  */
-city_builder.army = function (params) {
+city_builder.objects.army = function (params) {
 
 	/**
 	 * Pointer to the city this army is located in.
@@ -10734,7 +10738,7 @@ city_builder.controls.panel_trades = function (params) {
 		}).on('click', '.view-army:not(.disabled)', function () {
 			var army = $(this).data('id');
 			var army_data = city_builder.MERCENARIES[army];
-			self.core.open_panel(new city_builder.panel_army({
+			self.core.open_panel(new city_builder.controls.panel_army({
 				core: self.core,
 				data: army_data
 			}));
@@ -11698,7 +11702,7 @@ city_builder.game = function () {
 	this._load_main_city = function () {
 		var data = JSON.parse(window.atob(localStorage.getItem('city_builder.data')));
 		this.set_difficulty(data.difficulty);
-		var my_city = new city_builder.city({
+		var my_city = new city_builder.objects.city({
 			name: data.name,
 			data: {
 				nationality: data.nationality,
@@ -11729,7 +11733,7 @@ city_builder.game = function () {
 	 * @returns {city_builder.game}
 	 */
 	this._setup_main_city = function (name, cityname, nation, climate, avatar) {
-		var my_city = new city_builder.city({
+		var my_city = new city_builder.objects.city({
 			name: cityname,
 			data: {
 				nationality: nation,
@@ -11779,7 +11783,7 @@ city_builder.game = function () {
 	this.check_for_events = function() {
 		var _event = city_builder.EVENTS[city_builder.utils.get_random(0, city_builder.EVENTS.length - 1)];
 		_event.core = this;
-		new city_builder.event(_event);
+		new city_builder.objects.event(_event);
 		return this;
 	};
 
@@ -12178,7 +12182,7 @@ city_builder.game = function () {
 	this.setup_neighbours = function (data) {
 		var new_city = null;
 		for (var item in city_builder.CITIES) {
-			new_city = new city_builder.city({
+			new_city = new city_builder.objects.city({
 				name: item,
 				data: city_builder.CITIES[item],
 				player: false,

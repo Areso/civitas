@@ -113,7 +113,7 @@ city_builder.controls.panel_trades = function (params) {
 		}).on('click', '.view-army:not(.disabled)', function () {
 			var army = $(this).data('id');
 			var army_data = city_builder.MERCENARIES[army];
-			self.core.open_panel(new city_builder.panel_army({
+			self.core.open_panel(new city_builder.controls.panel_army({
 				core: self.core,
 				data: army_data
 			}));

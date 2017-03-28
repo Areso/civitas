@@ -5,7 +5,7 @@
  * @class {city_builder.building}
  * @returns {city_builder.building}
  */
-city_builder.building = function(params) {
+city_builder.objects.building = function(params) {
 	
 	/**
 	 * The level of this building.

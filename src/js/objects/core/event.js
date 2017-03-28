@@ -5,7 +5,7 @@
  * @class {city_builder.event}
  * @returns {city_builder.event}
  */
-city_builder.event = function (params) {
+city_builder.objects.event = function (params) {
 
 	/**
 	 * Reference to the core object.

@@ -5,7 +5,7 @@
  * @class {city_builder.ship}
  * @returns {city_builder.ship}
  */
-city_builder.ship = function (params) {
+city_builder.objects.ship = function (params) {
 
 	/**
 	 * Pointer to the city this ship is located in.
