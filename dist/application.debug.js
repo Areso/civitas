@@ -11807,7 +11807,7 @@ city_builder.game = function () {
 		if (this.day_of_month > 30) {
 			this._do_monthly();
 		}
-		if (this.day >= 360) {
+		if (this.day >= 361) {
 			this._do_yearly();
 			this.day = 1;
 			this.month = 1;
