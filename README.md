@@ -45,12 +45,18 @@ City Builder is written by sizeof(cat) <sizeofcat AT riseup DOT net> and distrib
 Contributing
 ============
 
-Contributions are welcome!
+Pull requests are always welcome!
+
+I am always thrilled to receive pull requests, and do my best to process them as fast as possible. Not sure if that typo is worth a pull request? Do it! I will probably appreciate it.
+
+If your pull request is not accepted on the first try, don't be discouraged! If there's a problem with the implementation, hopefully you received feedback on what to improve.
+
+Always sign your commits!
 
 Source code
 ===========
 
-The application can be downloaded from GitHub.com:
+City Builder has ~12137 lines of code, give or take and can be [downloaded from GitHub.com](https://github.com/sizeofcat/city-builder/archive/master.zip) or by using git to clone the repository:
 
 `git clone git@github.com/sizeofcat/city-builder.git`
 
