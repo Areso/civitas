@@ -5,7 +5,7 @@
  * @class {city_builder.panel_world}
  * @returns {city_builder.panel_world}
  */
-city_builder.panel_world = function (params) {
+city_builder.controls.panel_world = function (params) {
 
 	/**
 	 * Reference to the core object.
@@ -81,12 +81,12 @@ city_builder.panel_world = function (params) {
 		}).on('click', '.city', function () {
 			var city_name = $(this).data('name');
 			if (city_name === 'yourcity') {
-				self.core.open_panel(new city_builder.panel_advisor({
+				self.core.open_panel(new city_builder.controls.panel_advisor({
 					core: self.core
 				}));
 			} else {
 				var _city = self.core.get_city(city_name);
-				self.core.open_panel(new city_builder.panel_city({
+				self.core.open_panel(new city_builder.controls.panel_city({
 					core: self.core,
 					data: _city
 				}));

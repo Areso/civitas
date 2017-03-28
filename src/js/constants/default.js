@@ -1,5 +1,14 @@
-if (typeof city_builder === 'undefined')
+if (typeof city_builder === 'undefined') {
 	var city_builder = {};
+}
+
+if (typeof city_builder.controls === 'undefined') {
+	city_builder.controls = {};
+}
+
+if (typeof city_builder.modules === 'undefined') {
+	city_builder.modules = {};
+}
 
 /**
  * i8n function.

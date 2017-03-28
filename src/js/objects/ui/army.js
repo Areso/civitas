@@ -1,12 +1,12 @@
 /**
- * Send goods to another city panel object.
+ * Main Game army panel object.
  * 
  * @param {type} params
- * @class {city_builder.panel_send_goods}
- * @returns {city_builder.panel_send_goods}
+ * @class {city_builder.panel_army}
+ * @returns {city_builder.panel_army}
  */
-city_builder.panel_send_goods = function (params) {
-	
+city_builder.controls.panel_army = function (params) {
+
 	/**
 	 * Reference to the core object.
 	 * 
@@ -20,14 +20,7 @@ city_builder.panel_send_goods = function (params) {
 	 * @type {String}
 	 * @constant
 	 */
-	this.id = 'sendgoods';
-
-	/**
-	 * Localized title of the panel.
-	 * 
-	 * @type {String}
-	 */
-	this.title = city_builder.l('Send Goods');
+	this.id = 'army';
 
 	/**
 	 * Object destructor.
@@ -62,21 +55,22 @@ city_builder.panel_send_goods = function (params) {
 	 * @param {Object} params
 	 */
 	this.__constructor = function (params) {
-		this.core = params.core;
 		var self = this;
+		this.core = params.core;
 		var el = '#panel-' + this.id;
 		if (city_builder.ui.panel_exists(el)) {
 			this.destroy();
 		}
+		var army = params.data;
 		this.core.console_log('creating panel with id `' + this.id + '`');
-		var city = this.core.get_city();
-		var resources = city.get_resources();
 		$('.ui').append(city_builder.ui.generic_panel_template
 			.replace(/{id}/g, this.id)
-			.replace(/{title}/g, this.title));
-		var out = '';
-		
-		$(el + ' .contents').empty().append(out);
+			.replace(/{title}/g, army.name));
+		$(el + ' .contents').append(city_builder.ui.tabs(['Info', 'Soldiers', 'Ships']));
+		$(el + ' #tab-info').append('<img class="avatar" src="' + city_builder.ASSETS_URL + 'images/armies/' + army.icon + '.png" />' +
+				'<p>' + army.description + '</p>');
+		$(el + ' #tab-soldiers').append(city_builder.ui.army_list(army));
+		$(el + ' #tab-ships').append(city_builder.ui.navy_list(army));
 		$(el).on('click', '.close', function () {
 			self.destroy();
 			return false;
@@ -101,12 +95,12 @@ city_builder.panel_send_goods = function (params) {
 	 * information on this panel.
 	 *
 	 * @public
-	 * @returns {city_builder.panel_building}
+	 * @returns {city_builder.panel_army}
 	 */
 	this.refresh = function() {
 		return this;
 	};
-	
+
 	// Fire up the constructor
 	return this.__constructor(params);
 };

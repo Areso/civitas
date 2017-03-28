@@ -123,10 +123,10 @@ city_builder.game = function () {
 		var clicked = false;
 		var clickY, clickX;
 		var self = this;
-		this.history = new city_builder.history({
+		this.history = new city_builder.modules.history({
 			core: this
 		});
-		this.jailer = new city_builder.jailer({
+		this.jailer = new city_builder.modules.jailer({
 			core: this
 		});
 		this.setup_audio();
@@ -155,14 +155,14 @@ city_builder.game = function () {
 			this.start_game();
 		}
 		$('.toolbar').on('click', '.do-options', function () {
-			self.open_panel(new city_builder.panel_settings({
+			self.open_panel(new city_builder.controls.panel_settings({
 				core: self,
 				id: 'settings',
 				header: 'Game Settings'
 			}));
 			return false;
 		}).on('click', '.do-worldmap', function () {
-			self.open_panel(city_builder.panel_world({
+			self.open_panel(city_builder.controls.panel_world({
 				core: self
 			}));
 			return false;
@@ -173,32 +173,32 @@ city_builder.game = function () {
 			}
 			return false;
 		}).on('click', '.do-help', function () {
-			self.open_panel(new city_builder.panel_help({
+			self.open_panel(new city_builder.controls.panel_help({
 				core: self
 			}));
 			return false;
 		}).on('click', '.do-trades', function () {
-			self.open_panel(new city_builder.panel_trades({
+			self.open_panel(new city_builder.controls.panel_trades({
 				core: self
 			}));
 			return false;
 		}).on('click', '.do-rankings', function () {
-			self.open_panel(new city_builder.panel_rankings({
+			self.open_panel(new city_builder.controls.panel_rankings({
 				core: self
 			}));
 			return false;
 		}).on('click', '.do-advisor', function () {
-			self.open_panel(new city_builder.panel_advisor({
+			self.open_panel(new city_builder.controls.panel_advisor({
 				core: self
 			}));
 			return false;
 		}).on('click', '.do-storage', function () {
-			self.open_panel(new city_builder.panel_storage({
+			self.open_panel(new city_builder.controls.panel_storage({
 				core: self
 			}));
 			return false;
 		}).on('click', '.do-build', function () {
-			self.open_panel(new city_builder.panel_buildings({
+			self.open_panel(new city_builder.controls.panel_buildings({
 				core: self
 			}));
 			return false;
@@ -208,7 +208,7 @@ city_builder.game = function () {
 		}).on('click', '.up', function () {
 			$('.console .contents').scrollTo('-=97px', 500);
 		});
-		this.api = new city_builder.api({
+		this.api = new city_builder.modules.api({
 			core: this
 		});
 		return this;
@@ -732,7 +732,7 @@ city_builder.game = function () {
 	 * @returns {city_builder_game} 
 	 */
 	this.help = function(context, term) {
-		this.open_panel(city_builder.panel_help({
+		this.open_panel(city_builder.controls.panel_help({
 			core: this,
 			context: context,
 			term: term

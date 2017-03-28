@@ -108,7 +108,7 @@ city_builder.building = function(params) {
 		$('#building-' + this.handle).empty();
 		if (params.hidden !== true) {
 			$('section.game').append(city_builder.ui.building_element(params)).on('click', '#building-' + params.data.handle, function() {
-				self.get_core().open_panel(new city_builder.panel_building({
+				self.get_core().open_panel(new city_builder.controls.panel_building({
 					core: self.get_core(),
 					header: params.data.name,
 					data: params.data

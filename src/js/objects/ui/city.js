@@ -5,7 +5,7 @@
  * @class {city_builder.panel_city}
  * @returns {city_builder.panel_city}
  */
-city_builder.panel_city = function (params) {
+city_builder.controls.panel_city = function (params) {
 
 	/**
 	 * Reference to the core object.

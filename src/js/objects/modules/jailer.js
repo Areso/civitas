@@ -5,7 +5,7 @@
  * @class {city_builder.jailer}
  * @returns {city_builder.__constructor}
  */
-city_builder.jailer = function (params) {
+city_builder.modules.jailer = function (params) {
 
 	/**
 	 * Reference to the core object.

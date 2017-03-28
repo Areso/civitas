@@ -5,7 +5,7 @@
  * @class {city_builder.panel_advisor}
  * @returns {city_builder.panel_advisor}
  */
-city_builder.panel_advisor = function (params) {
+city_builder.controls.panel_advisor = function (params) {
 
 	/**
 	 * Reference to the core object.
@@ -154,7 +154,7 @@ city_builder.panel_advisor = function (params) {
 				var _city = self.core.get_city(name);
 				self.core.error('Not implemented yet.');
 				/*
-				self.core.open_panel(new city_builder.panel_declare_war({
+				self.core.open_panel(new city_builder.controls.panel_declare_war({
 					core: self.core,
 					data: _city
 				}));
@@ -169,7 +169,7 @@ city_builder.panel_advisor = function (params) {
 				var _city = self.core.get_city(name);
 				self.core.error('Not implemented yet.');
 				/*
-				self.core.open_panel(new city_builder.panel_send_goods({
+				self.core.open_panel(new city_builder.controls.panel_send_goods({
 					core: self.core,
 					data: _city
 				}));
@@ -181,7 +181,7 @@ city_builder.panel_advisor = function (params) {
 		}).on('click', '.view-city', function () {
 			var name = $(this).data('name');
 			var _city = self.core.get_city(name);
-			self.core.open_panel(new city_builder.panel_city({
+			self.core.open_panel(new city_builder.controls.panel_city({
 				core: self.core,
 				data: _city
 			}));
@@ -199,7 +199,7 @@ city_builder.panel_advisor = function (params) {
 		}).on('click', '.view-merc', function () {
 			var _army = $(this).data('id');
 			var data = city_builder.MERCENARIES[_army];
-			self.core.open_panel(new city_builder.panel_army({
+			self.core.open_panel(new city_builder.controls.panel_army({
 				core: self.core,
 				data: data
 			}));
@@ -463,7 +463,7 @@ city_builder.panel_advisor = function (params) {
 	 * Internal function for refreshing the Army tab.
 	 * 
 	 * @private
-	 * @returns {city_builder.panelAdvisor}
+	 * @returns {city_builder.panel_advisor}
 	 */
 	this._refresh_army = function () {
 		var city = this.core.get_city();
@@ -510,7 +510,7 @@ city_builder.panel_advisor = function (params) {
 	 * Internal function for refreshing the Navy tab.
 	 * 
 	 * @private
-	 * @returns {city_builder.panelAdvisor}
+	 * @returns {city_builder.panel_advisor}
 	 */
 	this._refresh_navy = function () {
 		var city = this.core.get_city();

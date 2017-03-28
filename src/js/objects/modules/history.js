@@ -5,7 +5,7 @@
  * @class {city_builder.history}
  * @returns {city_builder.history}
  */
-city_builder.history = function (params) {
+city_builder.modules.history = function (params) {
 
 	/**
 	 * Reference to the core object.

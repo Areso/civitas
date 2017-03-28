@@ -5,7 +5,7 @@
  * @class {city_builder.api}
  * @returns {city_builder.__constructor}
  */
-city_builder.api = function (params) {
+city_builder.modules.api = function (params) {
 
 	/**
 	 * Reference to the core object.

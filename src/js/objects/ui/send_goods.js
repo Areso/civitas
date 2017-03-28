@@ -1,12 +1,12 @@
 /**
- * Main Game settings panel object.
+ * Send goods to another city panel object.
  * 
  * @param {type} params
- * @class {city_builder.panel_settings}
- * @returns {city_builder.panel_settings}
+ * @class {city_builder.panel_send_goods}
+ * @returns {city_builder.panel_send_goods}
  */
-city_builder.panel_settings = function (params) {
-
+city_builder.controls.panel_send_goods = function (params) {
+	
 	/**
 	 * Reference to the core object.
 	 * 
@@ -20,7 +20,14 @@ city_builder.panel_settings = function (params) {
 	 * @type {String}
 	 * @constant
 	 */
-	this.id = null;
+	this.id = 'sendgoods';
+
+	/**
+	 * Localized title of the panel.
+	 * 
+	 * @type {String}
+	 */
+	this.title = city_builder.l('Send Goods');
 
 	/**
 	 * Object destructor.
@@ -55,51 +62,22 @@ city_builder.panel_settings = function (params) {
 	 * @param {Object} params
 	 */
 	this.__constructor = function (params) {
-		$('.panel.pw').remove();
 		this.core = params.core;
-		this.id = params.id;
 		var self = this;
 		var el = '#panel-' + this.id;
 		if (city_builder.ui.panel_exists(el)) {
 			this.destroy();
 		}
 		this.core.console_log('creating panel with id `' + this.id + '`');
+		var city = this.core.get_city();
+		var resources = city.get_resources();
 		$('.ui').append(city_builder.ui.generic_panel_template
 			.replace(/{id}/g, this.id)
-			.replace(/{title}/g, params.header));
-		$(el + ' .contents').append(city_builder.ui.tabs([city_builder.l('Sounds'), city_builder.l('UI')]));
-		$(el + ' #tab-sounds').append('<div>' +
-			'<a href="#" class="music-control ui-control ' + ((this.core.get_settings('music') === true) ? 'on' : 'off') + '">toggle music</a>' +
-			'<input class="music-volume" type="range" min="0" max="1" step="0.1" ' + ((this.core.get_settings('music') !== true) ? 'disabled' : '') + ' />' +
-			'</div>');
-		$(el + ' #tab-ui').append('<div>' +
-			'<a href="#" class="console-control ui-control ' + ((this.core.get_settings('console') === true) ? 'on' : 'off') + '">toggle console</a>' +
-			'</div>');
-		$(el).on('click', '.music-control', function () {
-			if ($(this).hasClass('on')) {
-				$(this).removeClass('on').addClass('off');
-				$('.music-volume').attr('disabled', true);
-				self.core.set_settings_music(true);
-			} else {
-				$(this).removeClass('off').addClass('on');
-				$('.music-volume').attr('disabled', false);
-				self.core.set_settings_music(false);
-			}
-			return false;
-		}).on('click', '.console-control', function () {
-			if ($(this).hasClass('on')) {
-				$(this).removeClass('on').addClass('off');
-				self.core.set_settings_console(false);
-			} else {
-				$(this).removeClass('off').addClass('on');
-				self.core.set_settings_console(true);
-			}
-			return false;
-		}).on('change', '.music-volume', function () {
-			var value = $(this).val();
-			self.core.music.volume = value;
-			return false;
-		}).on('click', '.close', function () {
+			.replace(/{title}/g, this.title));
+		var out = '';
+		
+		$(el + ' .contents').empty().append(out);
+		$(el).on('click', '.close', function () {
 			self.destroy();
 			return false;
 		}).draggable({
