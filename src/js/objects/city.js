@@ -198,23 +198,21 @@ city_builder.city = function(params) {
 	this._build_resources = function(params) {
 		var resources = {};
 		var difficulty = this.get_core().get_difficulty();
-		if (this.player === true) {
-			for (var item in city_builder.RESOURCES) {
+		for (var item in city_builder.RESOURCES) {
+			if (this.player === true) {
 				if (typeof city_builder.RESOURCES_START[difficulty - 1][item] === 'undefined') {
 					resources[item] = 0;
 				} else {
 					resources[item] = city_builder.RESOURCES_START[difficulty - 1][item];
 				}
-			}
-		} else {
-			for (var item in city_builder.RESOURCES) {
+			} else {
 				if (typeof params.data.resources[item] !== 'undefined') {
 					resources[item] = params.data.resources[item];
 				} else {
 					resources[item] = 0;
 				}
+				resources.fame = city_builder.LEVELS[this.get_level()];
 			}
-			resources.fame = city_builder.LEVELS[this.get_level()];
 		}
 		return resources;
 	};

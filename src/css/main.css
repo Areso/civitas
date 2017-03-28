@@ -383,7 +383,6 @@ header .top-panel span {
 	margin-bottom: 10px;
 }
 .panel fieldset legend {
-	/*border: 1px solid #555; */
 	padding: 0 10px;
 }
 
@@ -1124,23 +1123,9 @@ table tr td a.disabled {
 	display: none;
 }
 
-table.normal tr td:nth-child(4) {
-	/*width: 10%;*/
-	/*text-align: right;*/
-}
-
 .rankings-list {
 	height: 300px;
 	overflow: auto;
-}
-
-table.normal tr td:nth-child(5) {
-	/*width: 20%;*/
-	/*text-align: right;*/
-}
-
-table tr td:last-child {
-	/*width: 28%;*/
 }
 
 table tr td.large {
