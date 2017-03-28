@@ -14,8 +14,10 @@ Features
 - Armies, ships, wars, treaties.
 - Fame system that allows your city to level up via trades, conquers and special buildings.
 - Prestige system that affects diplomacy.
+- Each city in the game world is linked via a influence system that needs to be maintained for diplomacy to work.
 - Random events that can change your diplomacy status with the other cities, give you coins or
 random resources.
+- Espionage, subvert cities, destroy buildings, sabotage.
 
 Missing
 =======
