@@ -5767,7 +5767,6 @@ city_builder.city = function(params) {
 	 */
 	this.level_up = function() {
 		this.level++;
-		//this.resources.fame = this.resources.fame + city_builder.LEVELS[this.get_level() - 1];
 		$('.citylevel').html(this.get_level());
 		this.get_core().notify('The city of ' + this.get_name() + ' is now level ' + this.get_level() + '.');
 		return this;
@@ -5957,6 +5956,7 @@ city_builder.city = function(params) {
 				level: 1
 			});
 			this.get_core().refresh_ui();
+			this.get_core().refresh_panels();
 			this.get_core().save();
 			this.get_core().notify('New building constructed: ' + _building.get_name());
 			$('.tips').tipsy({
@@ -6268,14 +6268,10 @@ city_builder.city = function(params) {
 	 */
 	this.get_mercenary_total = function() {
 		var total = 0;
-		var total_army = {
-			'Militia': 0,
-			'Axeman': 0,
-			'Bowman': 0,
-			'Pikeman': 0,
-			'Crossbowman': 0,
-			'Knight': 0
-		};
+		var total_army = {};
+		for (var item in city_builder.SOLDIER_TYPES) {
+			total_army[item] = 0;
+		}
 		for (var i = 0; i < this.mercenary.length; i++) {
 			var soldier = this.mercenary[i].get_name();
 			for (var item in total_army) {
@@ -6352,8 +6348,8 @@ city_builder.city = function(params) {
 	 */
 	this.call_advisor = function() {
 		var resources = this.get_resources();
+		var storage = this.get_storage_space();
 		var advices = [];
-		var resources = this.get_resources();
 		if (this.army.length === 0) {
 			advices.push('You have no army, this is an open invitation for attack.');
 		}
@@ -6366,7 +6362,6 @@ city_builder.city = function(params) {
 		if (this.army.length < 3 && this.army.length > 0) {
 			advices.push('You have a small navy, try to construct some more ships.');
 		}
-		var storage = this.get_storage_space();
 		if (storage.occupied >= storage.all) {
 			advices.push('You have no storage space to store your new goods and they will be lost. Sell some goods or build a warehouse.');
 		} else if ((storage.all - storage.occupied) < 100) {
@@ -6421,6 +6416,7 @@ city_builder.city = function(params) {
 				this.mercenary.push(army);
 				this.get_core().notify('The mercenaries of the ' + city_builder.MERCENARIES[i].name + ' are now available for skirmish missions for the duration of one year.', 'Mercenaries recruited.');
 				this.get_core().refresh_ui();
+				this.get_core().refresh_panels();
 				this.get_core().save();
 				return true;
 			}
@@ -6448,6 +6444,7 @@ city_builder.city = function(params) {
 				});
 				this.navy.push(_ship);
 				this.get_core().refresh_ui();
+				this.get_core().refresh_panels();
 				this.get_core().notify('A new ' + ship_name + ' ship has been constructed.', 'New ship');
 				this.get_core().save();
 				return true;
@@ -6476,6 +6473,8 @@ city_builder.city = function(params) {
 				});
 				this.army.push(_soldier);
 				this.get_core().refresh_ui();
+				this.get_core().refresh_panels();
+				this.get_core().notify('A new ' + soldier_name + ' has been recruited.', 'New soldier');
 				this.get_core().save();
 				return true;
 			}
@@ -8913,7 +8912,7 @@ city_builder.panel_help = function (params) {
 	 *
 	 * @type {String}
 	 */
-	this.ctxt = null;
+	this.context = null;
 
 	/**
 	 * Localized title of the panel.
@@ -8957,7 +8956,7 @@ city_builder.panel_help = function (params) {
 	this.__constructor = function (params) {
 		this.core = params.core;
 		this.term = params.term;
-		this.ctxt = params.ctxt;
+		this.context = params.context;
 		var el = '#panel-' + this.id;
 		var self = this;
 		if (city_builder.ui.panel_exists(el)) {
@@ -8967,7 +8966,7 @@ city_builder.panel_help = function (params) {
 		$('.ui').append(city_builder.ui.generic_panel_template
 			.replace(/{id}/g, this.id));
 		var title = '';
-		switch (this.ctxt) {
+		switch (this.context) {
 			case 'building':
 				var data = this.core.get_city().get_building_by_handle(this.term);
 				title = data.get_name();
@@ -11672,7 +11671,7 @@ city_builder.game = function () {
 	};
 
 	/**
-	 * Load the main city data from the browser localstorage.
+	 * Load the main city data from the browser localStorage.
 	 * 
 	 * @private
 	 * @returns {Object}
@@ -11753,6 +11752,35 @@ city_builder.game = function () {
 	};
 
 	/**
+	 * Check if any events occured on this day.
+	 *
+	 * @public
+	 * @returns {city_builder.game}
+	 */
+	this.check_for_events = function() {
+		var _event = city_builder.EVENTS[city_builder.utils.get_random(0, city_builder.EVENTS.length - 1)];
+		_event.core = this;
+		new city_builder.event(_event);
+		return this;
+	};
+
+	/**
+	 * Process all buildings for materials, costs, etc.
+	 *
+	 * @public
+	 * @returns {city_builder.game}
+	 */
+	this.process_all_buildings = function() {
+		var buildings = this.get_city().get_buildings();
+		for (var i = 0; i < buildings.length; i++) {
+			if (typeof buildings[i] !== 'undefined') {
+				buildings[i].process();
+			}
+		}
+		return this;
+	};
+
+	/**
 	 * Method that gets called each 'day'.
 	 * 
 	 * @private
@@ -11761,16 +11789,9 @@ city_builder.game = function () {
 	this._do_daily = function () {
 		this.day++;
 		this.log('day ' + this.day_of_month + ' month ' + this.month + ' year ' + this.year);
-		var buildings = this.get_city().get_buildings();
-		for (var i = 0; i < buildings.length; i++) {
-			if (typeof buildings[i] !== 'undefined') {
-				buildings[i].process();
-			}
-		}
-		var ev = city_builder.EVENTS[city_builder.utils.get_random(0, city_builder.EVENTS.length - 1)];
-		ev.core = this;
-		new city_builder.event(ev);
-		this.calculate_storage();
+		this.process_all_buildings();
+		this.check_for_events();
+		this.calc_storage();
 		this.refresh_ui();
 		this.day_of_month++;
 		if (this.day_of_month > 30) {
@@ -11816,14 +11837,14 @@ city_builder.game = function () {
 	 * Open the help panel with the specified context and term.
 	 *
 	 * @public
-	 * @param {String} ctxt
+	 * @param {String} context
 	 * @param {String} term
 	 * @returns {city_builder_game} 
 	 */
-	this.help = function(ctxt, term) {
+	this.help = function(context, term) {
 		this.open_panel(city_builder.panel_help({
 			core: this,
-			ctxt: ctxt,
+			context: context,
 			term: term
 		}));
 		return this;
@@ -12063,7 +12084,7 @@ city_builder.game = function () {
 	 * @public
 	 * @returns {Object}
 	 */
-	this.calculate_storage = function () {
+	this.calc_storage = function () {
 		var storage = this.get_city().get_storage_space();
 		if (storage.occupied >= storage.all) {
 			this.error('You ran out of storage space and all goods produced will be lost. Upgrade your warehouse or marketplace.', 'No storage space');

@@ -561,7 +561,7 @@ city_builder.game = function () {
 	};
 
 	/**
-	 * Load the main city data from the browser localstorage.
+	 * Load the main city data from the browser localStorage.
 	 * 
 	 * @private
 	 * @returns {Object}
@@ -642,6 +642,35 @@ city_builder.game = function () {
 	};
 
 	/**
+	 * Check if any events occured on this day.
+	 *
+	 * @public
+	 * @returns {city_builder.game}
+	 */
+	this.check_for_events = function() {
+		var _event = city_builder.EVENTS[city_builder.utils.get_random(0, city_builder.EVENTS.length - 1)];
+		_event.core = this;
+		new city_builder.event(_event);
+		return this;
+	};
+
+	/**
+	 * Process all buildings for materials, costs, etc.
+	 *
+	 * @public
+	 * @returns {city_builder.game}
+	 */
+	this.process_all_buildings = function() {
+		var buildings = this.get_city().get_buildings();
+		for (var i = 0; i < buildings.length; i++) {
+			if (typeof buildings[i] !== 'undefined') {
+				buildings[i].process();
+			}
+		}
+		return this;
+	};
+
+	/**
 	 * Method that gets called each 'day'.
 	 * 
 	 * @private
@@ -650,16 +679,9 @@ city_builder.game = function () {
 	this._do_daily = function () {
 		this.day++;
 		this.log('day ' + this.day_of_month + ' month ' + this.month + ' year ' + this.year);
-		var buildings = this.get_city().get_buildings();
-		for (var i = 0; i < buildings.length; i++) {
-			if (typeof buildings[i] !== 'undefined') {
-				buildings[i].process();
-			}
-		}
-		var ev = city_builder.EVENTS[city_builder.utils.get_random(0, city_builder.EVENTS.length - 1)];
-		ev.core = this;
-		new city_builder.event(ev);
-		this.calculate_storage();
+		this.process_all_buildings();
+		this.check_for_events();
+		this.calc_storage();
 		this.refresh_ui();
 		this.day_of_month++;
 		if (this.day_of_month > 30) {
@@ -705,14 +727,14 @@ city_builder.game = function () {
 	 * Open the help panel with the specified context and term.
 	 *
 	 * @public
-	 * @param {String} ctxt
+	 * @param {String} context
 	 * @param {String} term
 	 * @returns {city_builder_game} 
 	 */
-	this.help = function(ctxt, term) {
+	this.help = function(context, term) {
 		this.open_panel(city_builder.panel_help({
 			core: this,
-			ctxt: ctxt,
+			context: context,
 			term: term
 		}));
 		return this;
@@ -952,7 +974,7 @@ city_builder.game = function () {
 	 * @public
 	 * @returns {Object}
 	 */
-	this.calculate_storage = function () {
+	this.calc_storage = function () {
 		var storage = this.get_city().get_storage_space();
 		if (storage.occupied >= storage.all) {
 			this.error('You ran out of storage space and all goods produced will be lost. Upgrade your warehouse or marketplace.', 'No storage space');

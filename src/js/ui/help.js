@@ -34,7 +34,7 @@ city_builder.panel_help = function (params) {
 	 *
 	 * @type {String}
 	 */
-	this.ctxt = null;
+	this.context = null;
 
 	/**
 	 * Localized title of the panel.
@@ -78,7 +78,7 @@ city_builder.panel_help = function (params) {
 	this.__constructor = function (params) {
 		this.core = params.core;
 		this.term = params.term;
-		this.ctxt = params.ctxt;
+		this.context = params.context;
 		var el = '#panel-' + this.id;
 		var self = this;
 		if (city_builder.ui.panel_exists(el)) {
@@ -88,7 +88,7 @@ city_builder.panel_help = function (params) {
 		$('.ui').append(city_builder.ui.generic_panel_template
 			.replace(/{id}/g, this.id));
 		var title = '';
-		switch (this.ctxt) {
+		switch (this.context) {
 			case 'building':
 				var data = this.core.get_city().get_building_by_handle(this.term);
 				title = data.get_name();
