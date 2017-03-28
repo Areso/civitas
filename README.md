@@ -18,14 +18,16 @@ Features
 - Random events that can change your diplomacy status with the other cities, give you coins or
 random resources.
 - Espionage, subvert cities, destroy buildings, sabotage.
+- Ranking screen, where cities get ranked according to their status in the world.
 
 Missing
 =======
 
 - (NOT STARTED) Server component, no actual data is saved externally, only in your browser's localStorage.
-- (IN PROGRESS) Ranking screen, where cities get ranked according to their status in the world.
+- (IN PROGRESS) Jailer component that assures game data integrity (no cheating).
 - (NOT STARTED) Any player interaction since no data is transmitted to the server component.
 - (IN PROGRESS) Declare war, treaties, much of diplomacy.
+- (IN PROGRESS) Artificial Intelligence (AI) for computer-controlled cities.
 - And many others. Stay tuned though.
 
 Screenshots
