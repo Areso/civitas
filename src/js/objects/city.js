@@ -252,21 +252,24 @@ city_builder.city = function(params) {
 				if (typeof amount === 'undefined') {
 					amount = trades.exports[item];
 				}
-				var discount = (city_builder.RESOURCES[item].price * city_builder.TRADES_ADDITION) / 100;
+				var discount = Math.ceil((city_builder.RESOURCES[item].price * city_builder.TRADES_ADDITION) / 100);
 				var price = city_builder.utils.calc_price_plus_discount(amount, item, discount);
+				var city_price = city_builder.utils.calc_price(amount, item);
+				var item_discount_price = Math.ceil(city_builder.RESOURCES[item].price + discount);
 				if (!this.has_storage_space_for(amount)) {
 					return false;
 				}
 				if (this.dec_coins(price) === false) {
 					return false;
 				}
+				_city.inc_coins(city_price);
 				this.add_to_storage(item, amount);
 				this.remove_from_exports(_city, item, amount);
 				this.raise_influence(city, 2);
 				this.raise_prestige();
 				this.inc_fame(50);
 				this.get_core().refresh_ui();
-				this.get_core().notify(this.get_name() + ' bought ' + amount + ' ' + city_builder.utils.get_resource_name(item) + ' from ' + city + ' for ' + (city_builder.RESOURCES[item].price + discount) + ' coins each, for a total of ' + price + ' coins.', 'Transaction done');
+				this.get_core().notify(this.get_name() + ' bought ' + amount + ' ' + city_builder.utils.get_resource_name(item) + ' from ' + city + ' for ' + item_discount_price + ' coins each, for a total of ' + price + ' coins.', 'Transaction done');
 				this.get_core().refresh_panels();
 				return {
 					buyer: this.get_name(),
@@ -378,7 +381,7 @@ city_builder.city = function(params) {
 	this.list_black_market = function(resource, amount) {
 		var resources = this.get_resources();
 		if (this.remove_resource(resource, amount)) {
-			var discount = (city_builder.RESOURCES[resource].price * city_builder.BLACK_MARKET_DISCOUNT) / 100;
+			var discount = Math.ceil((city_builder.RESOURCES[resource].price * city_builder.BLACK_MARKET_DISCOUNT) / 100);
 			var price = city_builder.utils.calc_price_minus_discount(amount, resource, discount);
 			this.get_core().add_black_market(resource, amount, price);
 			this.get_core().refresh_ui();
@@ -429,13 +432,15 @@ city_builder.city = function(params) {
 				if (typeof amount === 'undefined') {
 					amount = trades.imports[item];
 				}
-				var discount = (city_builder.RESOURCES[item].price * city_builder.TRADES_DISCOUNT) / 100;
-				var price = city_builder.utils.calc_price_plus_discount(amount, item, discount);
+				var discount = Math.ceil((city_builder.RESOURCES[item].price * city_builder.TRADES_DISCOUNT) / 100);
+				var price = city_builder.utils.calc_price_minus_discount(amount, item, discount);
+				var city_price = city_builder.utils.calc_price(amount, item);
+				var item_discount_price = Math.ceil(city_builder.RESOURCES[item].price - discount);
 				if (!this.remove_resource(item, amount)) {
 					return false;
 				}
 				this.inc_coins(price);
-				if (!_city.dec_coins(city_builder.utils.calc_price(amount, item))) {
+				if (!_city.dec_coins(city_price)) {
 					this.get_core().error(city + ' does not have enough coins.');
 					return false;
 				}
@@ -444,7 +449,7 @@ city_builder.city = function(params) {
 				this.raise_prestige();
 				this.inc_fame(50);
 				this.get_core().refresh_ui();
-				this.get_core().notify(this.get_name() + ' sold ' + amount + ' ' + city_builder.utils.get_resource_name(item) + ' to ' + city + ' for ' + (city_builder.RESOURCES[item].price - discount) + ' coins each, for a total of ' + price + ' coins.', 'Transaction done');
+				this.get_core().notify(this.get_name() + ' sold ' + amount + ' ' + city_builder.utils.get_resource_name(item) + ' to ' + city + ' for ' + item_discount_price + ' coins each, for a total of ' + price + ' coins.', 'Transaction done');
 				this.get_core().refresh_panels();
 				return {
 					seller: this.get_name(),

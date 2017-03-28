@@ -4,6 +4,17 @@
 city_builder.utils = {
 
 	/**
+	 * Round the number to nearest 10.
+	 *
+	 * @public
+	 * @param {Number} value
+	 * @returns {Number}
+	 */
+	get_up_number: function(value) {
+		return Math.floor(value / 10) * 10;
+	},
+	
+	/**
 	 * Return a random number between min and max.
 	 *
 	 * @public
@@ -23,7 +34,7 @@ city_builder.utils = {
 	 * @returns {Number}
 	 */
 	get_random_by_importance: function(importance) {
-		return Math.floor(Math.random() * importance) * 10 + 10;
+		return city_builder.utils.get_up_number(Math.random() * importance) * 10 + 10;
 	},
 
 	/**
@@ -47,7 +58,7 @@ city_builder.utils = {
 	 * @public
 	 */
 	calc_price_minus_discount: function (amount, resource, discount) {
-		return Math.round(amount * (city_builder.RESOURCES[resource].price - discount));
+		return Math.ceil(Math.ceil(city_builder.RESOURCES[resource].price - discount) * amount);
 	},
 		
 	/**
@@ -59,7 +70,7 @@ city_builder.utils = {
 	 * @public
 	 */
 	calc_price: function (amount, resource) {
-		return Math.round(amount * (city_builder.RESOURCES[resource].price));
+		return Math.ceil(amount * (city_builder.RESOURCES[resource].price));
 	},
 
 	/**
@@ -72,7 +83,7 @@ city_builder.utils = {
 	 * @public
 	 */
 	calc_price_plus_discount: function (amount, resource, discount) {
-		return Math.round(amount * (city_builder.RESOURCES[resource].price + discount));
+		return Math.ceil(Math.ceil(city_builder.RESOURCES[resource].price + discount) * amount);
 	},
 	
 	/**

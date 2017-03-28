@@ -228,10 +228,12 @@ city_builder.panel_trades = function (params) {
 					'<thead>' +
 					'<tr>' +
 						'<td>City</td>' +
-						'<td>Goods</td>' +
-						'<td>Amount</td>' +
-						'<td>Price/item</td>' +
-						'<td>Total price</td>' +
+						'<td class="center">Goods</td>' +
+						'<td class="center">Amount</td>' +
+						'<td class="center">Price</td>' +
+						'<td class="center">Discount</td>' +
+						'<td class="center">City Price</td>' +
+						'<td class="center">Total price</td>' +
 						'<td></td>' +
 					'</tr>' +
 					'</thead>';
@@ -242,13 +244,16 @@ city_builder.panel_trades = function (params) {
 			if (trades !== null) {
 				var imports = trades.imports;
 				for (var item in imports) {
-					var discount = (city_builder.RESOURCES[item].price * city_builder.TRADES_DISCOUNT) / 100;
+					var discount = Math.ceil((city_builder.RESOURCES[item].price * city_builder.TRADES_DISCOUNT) / 100);
+					var discount_price = Math.ceil(city_builder.RESOURCES[item].price - discount);
 					out += '<tr>' +
 							'<td>' + cities[z].get_name() + '</td>' +
-							'<td>' + city_builder.ui.resource_small_img(item) + '</td>' +
-							'<td>' + imports[item] + '</td>' +
-							'<td>' + Math.round(city_builder.RESOURCES[item].price - discount) + city_builder.ui.resource_small_img('coins') + '</td>' +
-							'<td>' + Math.round((city_builder.RESOURCES[item].price - discount) * imports[item]) + city_builder.ui.resource_small_img('coins') + '</td>' +
+							'<td class="center">' + city_builder.ui.resource_small_img(item) + '</td>' +
+							'<td class="center">' + imports[item] + '</td>' +
+							'<td class="center">' + city_builder.RESOURCES[item].price + city_builder.ui.resource_small_img('coins') + '</td>' +
+							'<td class="center">' + discount + city_builder.ui.resource_small_img('coins') + '</td>' +
+							'<td class="center">' + discount_price + city_builder.ui.resource_small_img('coins') + '</td>' +
+							'<td class="center">' + Math.ceil(discount_price * imports[item]) + city_builder.ui.resource_small_img('coins') + '</td>' +
 							'<td class="center"><a title="' + city_builder.l('Sell those goods') + '" data-resource="' + item + '" data-city="' + cities[z].get_name() + '" class="tips sell' + (imports[item] === 0 ? ' disabled' : '') + '" href="#">' + city_builder.l('sell') + '</a></td>' +
 							'</tr>';
 				}
@@ -257,10 +262,12 @@ city_builder.panel_trades = function (params) {
 		out += '<tfoot>' +
 					'<tr>' +
 						'<td>City</td>' +
-						'<td>Goods</td>' +
-						'<td>Amount</td>' +
-						'<td>Price/item</td>' +
-						'<td>Total price</td>' +
+						'<td class="center">Goods</td>' +
+						'<td class="center">Amount</td>' +
+						'<td class="center">Price</td>' +
+						'<td class="center">Discount</td>' +
+						'<td class="center">City Price</td>' +
+						'<td class="center">Total price</td>' +
 						'<td></td>' +
 					'</tr>' +
 				'</tfoot>' +
@@ -312,10 +319,12 @@ city_builder.panel_trades = function (params) {
 					'<thead>' +
 					'<tr>' +
 						'<td>City</td>' +
-						'<td>Goods</td>' +
-						'<td>Amount</td>' +
-						'<td>Price/item</td>' +
-						'<td>Total price</td>' +
+						'<td class="center">Goods</td>' +
+						'<td class="center">Amount</td>' +
+						'<td class="center">Price</td>' +
+						'<td class="center">Tax</td>' +
+						'<td class="center">City Price</td>' +
+						'<td class="center">Total price</td>' +
 						'<td></td>' +
 					'</tr>' +
 					'</thead>';
@@ -326,13 +335,16 @@ city_builder.panel_trades = function (params) {
 			if (trades !== null) {
 				var exports = trades.exports;
 				for (var item in exports) {
-					var discount = (city_builder.RESOURCES[item].price * city_builder.TRADES_ADDITION) / 100;
+					var discount = Math.ceil((city_builder.RESOURCES[item].price * city_builder.TRADES_ADDITION) / 100);
+					var discount_price = Math.ceil(city_builder.RESOURCES[item].price + discount);
 					out += '<tr>' +
 							'<td>' + cities[z].get_name() + '</td>' +
-							'<td>' + city_builder.ui.resource_small_img(item) + '</td>' +
-							'<td>' + exports[item] + '</td>' +
-							'<td>' + Math.round(city_builder.RESOURCES[item].price + discount) + city_builder.ui.resource_small_img('coins') + '</td>' +
-							'<td>' + Math.round((city_builder.RESOURCES[item].price + discount) * exports[item]) + city_builder.ui.resource_small_img('coins') + '</td>' +
+							'<td class="center">' + city_builder.ui.resource_small_img(item) + '</td>' +
+							'<td class="center">' + exports[item] + '</td>' +
+							'<td class="center">' + city_builder.RESOURCES[item].price + city_builder.ui.resource_small_img('coins') + '</td>' +
+							'<td class="center">' + discount + city_builder.ui.resource_small_img('coins') + '</td>' +
+							'<td class="center">' + discount_price + city_builder.ui.resource_small_img('coins') + '</td>' +
+							'<td class="center">' + Math.ceil(discount_price * exports[item]) + city_builder.ui.resource_small_img('coins') + '</td>' +
 							'<td class="center"><a title="' + city_builder.l('Buy those goods') + '" data-resource="' + item + '" data-city="' + cities[z].get_name() + '" class="tips buy' + (exports[item] === 0 ? ' disabled' : '') + '" href="#">' + city_builder.l('buy') + '</a></td>' +
 							'</tr>';
 				}
@@ -341,10 +353,12 @@ city_builder.panel_trades = function (params) {
 		out += '<tfoot>' +
 					'<tr>' +
 						'<td>City</td>' +
-						'<td>Goods</td>' +
-						'<td>Amount</td>' +
-						'<td>Price/item</td>' +
-						'<td>Total price</td>' +
+						'<td class="center">Goods</td>' +
+						'<td class="center">Amount</td>' +
+						'<td class="center">Price</td>' +
+						'<td class="center">Tax</td>' +
+						'<td class="center">City Price</td>' +
+						'<td class="center">Total price</td>' +
 						'<td></td>' +
 					'</tr>' +
 				'</tfoot>' +
