@@ -51,7 +51,7 @@ I am always thrilled to receive pull requests, and do my best to process them as
 
 If your pull request is not accepted on the first try, don't be discouraged! If there's a problem with the implementation, hopefully you received feedback on what to improve.
 
-Always sign your commits!
+Always sign your commits and make sure you read the [coding style](CODING-STYLE.md).
 
 Source code
 ===========
