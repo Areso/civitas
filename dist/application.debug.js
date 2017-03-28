@@ -19,6 +19,9 @@ String.prototype.capitalize = function () {
     return this.charAt(0).toUpperCase() + this.slice(1);
 };
 
+/*
+ * Check for undefined stuff.
+ */
 if (typeof city_builder === 'undefined') {
 	var city_builder = {};
 }
@@ -42,8 +45,7 @@ if (typeof city_builder.modules === 'undefined') {
  * @returns {String}
  */
 city_builder.l = function (value) {
-	if (typeof city_builder.lang[value] !== 'undefined' &&
-		city_builder.lang[value] !== '') {
+	if (typeof city_builder.lang[value] !== 'undefined' && city_builder.lang[value] !== '') {
 		return city_builder.lang[value];
 	} else {
 		return value;
@@ -4701,9 +4703,9 @@ city_builder.utils = {
 /**
  * Main Game AI (Artificial Intelligence) object.
  * 
- * @param {type} params
- * @class {city_builder.ai}
- * @returns {city_builder.__constructor}
+ * @param {Object} params
+ * @class {city_builder.modules.ai}
+ * @returns {city_builder.modules.ai}
  */
 city_builder.modules.ai = function (params) {
 
@@ -4718,7 +4720,7 @@ city_builder.modules.ai = function (params) {
 	 * Object constructor.
 	 * 
 	 * @private
-	 * @returns {city_builder.ai}
+	 * @returns {city_builder.modules.ai}
 	 * @param {Object} params
 	 */
 	this.__constructor = function (params) {
@@ -4733,9 +4735,9 @@ city_builder.modules.ai = function (params) {
 /**
  * Main Game API object.
  * 
- * @param {type} params
- * @class {city_builder.api}
- * @returns {city_builder.__constructor}
+ * @param {Object} params
+ * @class {city_builder.modules.api}
+ * @returns {city_builder.modules.api}
  */
 city_builder.modules.api = function (params) {
 
@@ -4758,7 +4760,7 @@ city_builder.modules.api = function (params) {
 	 * Sign in a visitor using the specified data.
 	 * 
 	 * @param {Object} data
-	 * @returns {city_builder.api@call;request}
+	 * @returns {city_builder.modules.api}
 	 */
 	this.login = function (data) {
 		return this.request({
@@ -4780,7 +4782,7 @@ city_builder.modules.api = function (params) {
 	/**
 	 * Sign out the currently logged in user.
 	 * 
-	 * @returns {city_builder.api@call;request}
+	 * @returns {city_builder.modules.api}
 	 */
 	this.logout = function () {
 		return this.request({
@@ -4791,7 +4793,7 @@ city_builder.modules.api = function (params) {
 	/**
 	 * Get information about the application and API version.
 	 *
-	 * @returns {city_builder.api@call;request}
+	 * @returns {city_builder.modules.api}
 	 */
 	this.api_version = function() {
 		return this.request({
@@ -4802,7 +4804,7 @@ city_builder.modules.api = function (params) {
 	/**
 	 * Get information about the currently logged in user's city.
 	 *
-	 * @returns {city_builder.api@call;request}
+	 * @returns {city_builder.modules.api}
 	 */
 	this.city_info = function() {
 		return this.request({
@@ -4813,7 +4815,7 @@ city_builder.modules.api = function (params) {
 	/**
 	 * Perform a heartbeat request and get data about it.
 	 *
-	 * @returns {city_builder.api@call;request}
+	 * @returns {city_builder.modules.api}
 	 */
 	this.heartbeat = function() {
 		return this.request({
@@ -4825,7 +4827,7 @@ city_builder.modules.api = function (params) {
 	 * Register a visitor using the specified data.
 	 * 
 	 * @param {Object} data
-	 * @returns {city_builder.api@call;request}
+	 * @returns {city_builder.modules.api}
 	 */
 	this.register = function (data) {
 		return this.request({
@@ -4838,7 +4840,7 @@ city_builder.modules.api = function (params) {
 	 * Export the specified data to the API endpoint.
 	 * 
 	 * @param {Object} data
-	 * @returns {city_builder.api@call;request}
+	 * @returns {city_builder.modules.api}
 	 */
 	this.do_export = function (data) {
 		return this.request({
@@ -4851,7 +4853,7 @@ city_builder.modules.api = function (params) {
 	 * Import the specified data from the API endpoint.
 	 * 
 	 * @param {Object} data
-	 * @returns {city_builder.api@call;request}
+	 * @returns {city_builder.modules.api}
 	 */
 	this.do_import = function (data) {
 		return this.request({
@@ -4864,7 +4866,7 @@ city_builder.modules.api = function (params) {
 	 * Internal function for performing an API AJAX request.
 	 * 
 	 * @param {Object} data
-	 * @returns {city_builder.api}
+	 * @returns {city_builder.modules.api}
 	 */
 	this._request = function (data) {
 		$.ajax({
@@ -4891,7 +4893,7 @@ city_builder.modules.api = function (params) {
 	 * Object constructor.
 	 * 
 	 * @private
-	 * @returns {city_builder.api}
+	 * @returns {city_builder.modules.api}
 	 * @param {Object} params
 	 */
 	this.__constructor = function (params) {
@@ -4906,9 +4908,9 @@ city_builder.modules.api = function (params) {
 /**
  * Game jailer (enforcing security) object.
  * 
- * @param {type} params
- * @class {city_builder.jailer}
- * @returns {city_builder.__constructor}
+ * @param {Object} params
+ * @class {city_builder.modules.jailer}
+ * @returns {city_builder.modules.jailer}
  */
 city_builder.modules.jailer = function (params) {
 
@@ -4930,7 +4932,7 @@ city_builder.modules.jailer = function (params) {
 	 * Object constructor.
 	 * 
 	 * @private
-	 * @returns {city_builder.jailer}
+	 * @returns {city_builder.modules.jailer}
 	 * @param {Object} params
 	 */
 	this.__constructor = function (params) {
@@ -4965,9 +4967,9 @@ city_builder.modules.jailer = function (params) {
 /**
  * Main Game history object.
  * 
- * @param {type} params
- * @class {city_builder.history}
- * @returns {city_builder.history}
+ * @param {Object} params
+ * @class {city_builder.modules.history}
+ * @returns {city_builder.modules.history}
  */
 city_builder.modules.history = function (params) {
 
@@ -4982,7 +4984,7 @@ city_builder.modules.history = function (params) {
 	 * Object constructor.
 	 * 
 	 * @private
-	 * @returns {city_builder.history}
+	 * @returns {city_builder.modules.history}
 	 * @param {Object} params
 	 */
 	this.__constructor = function (params) {
@@ -5212,8 +5214,8 @@ city_builder.ui = {
  * Main Game city object.
  * 
  * @param {type} params
- * @class {city_builder.city}
- * @returns {city_builder.city}
+ * @class {city_builder.objects.city}
+ * @returns {city_builder.objects.city}
  */
 city_builder.objects.city = function(params) {
 	
@@ -5378,7 +5380,7 @@ city_builder.objects.city = function(params) {
 	 * Object constructor.
 	 * 
 	 * @private
-	 * @returns {city_builder.city}
+	 * @returns {city_builder.objects.city}
 	 * @param {Object} params
 	 */
 	this.__constructor = function(params) {
@@ -5431,7 +5433,7 @@ city_builder.objects.city = function(params) {
 	 * Buy the specified goods from a city.
 	 * 
 	 * @public
-	 * @param {Object|String} city
+	 * @param {city_builder.objects.city|String} city
 	 * @param {String} resource
 	 * @param {Number} amount
 	 * @returns {Object|Boolean}
@@ -5616,7 +5618,7 @@ city_builder.objects.city = function(params) {
 	 * Sell the specified goods to a city.
 	 * 
 	 * @public
-	 * @param {Object|String} city
+	 * @param {city_builder.objects.city|String} city
 	 * @param {String} resource
 	 * @param {Number} amount
 	 * @returns {Object|Boolean}
@@ -5684,7 +5686,7 @@ city_builder.objects.city = function(params) {
 	 * Remove a specified amount of a resource from the trade exports of a city.
 	 * 
 	 * @public
-	 * @param {city_builder.city} city
+	 * @param {city_builder.objects.city} city
 	 * @param {String} item
 	 * @param {Number} amount
 	 * @returns {Boolean}
@@ -5698,7 +5700,7 @@ city_builder.objects.city = function(params) {
 	 * Remove a specified amount of a resource from the trade imports of a city.
 	 * 
 	 * @public
-	 * @param {city_builder.city} city
+	 * @param {city_builder.objects.city} city
 	 * @param {String} item
 	 * @param {Number} amount
 	 * @returns {Boolean}
@@ -5752,7 +5754,7 @@ city_builder.objects.city = function(params) {
 	 * 
 	 * @public
 	 * @param {Object} data
-	 * @returns {city_builder.city}
+	 * @returns {city_builder.objects.city}
 	 */
 	this.import_data = function(data) {
 		this.set_name(data.name);
@@ -5798,7 +5800,7 @@ city_builder.objects.city = function(params) {
 	 * 
 	 * @public
 	 * @param {String} value
-	 * @returns {city_builder.city}
+	 * @returns {city_builder.objects.city}
 	 */
 	this.set_name = function(value) {
 		this.name = value;
@@ -5809,7 +5811,7 @@ city_builder.objects.city = function(params) {
 	 * Return a pointer to the game core.
 	 * 
 	 * @public
-	 * @returns {city_builder.core}
+	 * @returns {city_builder.game}
 	 */
 	this.get_core = function() {
 		return this.core;
@@ -5819,7 +5821,7 @@ city_builder.objects.city = function(params) {
 	 * Raise the level of this city.
 	 * 
 	 * @public
-	 * @returns {city_builder.city}
+	 * @returns {city_builder.objects.city}
 	 */
 	this.level_up = function() {
 		this.level++;
@@ -5833,7 +5835,7 @@ city_builder.objects.city = function(params) {
 	 * 
 	 * @public
 	 * @param {String} value
-	 * @returns {city_builder.city}
+	 * @returns {city_builder.objects.city}
 	 */
 	this.rename = function(value) {
 		this.name = value;
@@ -5917,7 +5919,7 @@ city_builder.objects.city = function(params) {
 	 * @public
 	 * @param {String|Object} building_type
 	 * @param {Boolean} hidden
-	 * @returns {city_builder.building|Boolean}
+	 * @returns {city_builder.objects.building|Boolean}
 	 */
 	this._create_buildings = function(building_type, hidden) {
 		hidden = (typeof hidden !== 'undefined') && hidden === true ? true : false;
@@ -5974,7 +5976,7 @@ city_builder.objects.city = function(params) {
 	 * 
 	 * @public
 	 * @param {String} building_type
-	 * @returns {city_builder.building|Boolean}
+	 * @returns {city_builder.objects.building|Boolean}
 	 */
 	this.build = function(building_type) {
 		var _b = city_builder.BUILDINGS.findIndexM(building_type);
@@ -6050,7 +6052,7 @@ city_builder.objects.city = function(params) {
 	 * 
 	 * @public
 	 * @param {String} handle
-	 * @returns {city_builder.building|Boolean}
+	 * @returns {city_builder.objects.building|Boolean}
 	 */
 	this.get_building_by_handle = function(handle) {
 		var buildings = this.get_buildings();
@@ -6068,7 +6070,7 @@ city_builder.objects.city = function(params) {
 	 * @public
 	 * @TODO
 	 * @param {Number} id
-	 * @returns {city_builder.city}
+	 * @returns {city_builder.objects.city}
 	 */
 	this.demolish = function(id) {
 		if (typeof id === 'number') {
@@ -6179,7 +6181,7 @@ city_builder.objects.city = function(params) {
 	 * 
 	 * @public
 	 * @param {Object} value
-	 * @returns {city_builder.city}
+	 * @returns {city_builder.objects.city}
 	 */
 	this.set_fame = function(value) {
 		this.resources.fame = value;
@@ -6191,7 +6193,7 @@ city_builder.objects.city = function(params) {
 	 * 
 	 * @public
 	 * @param {Object} value
-	 * @returns {city_builder.city}
+	 * @returns {city_builder.objects.city}
 	 */
 	this.set_coins = function(value) {
 		this.resources.coins = value;
@@ -6543,7 +6545,7 @@ city_builder.objects.city = function(params) {
 	 * 
 	 * @public
 	 * @param {String} ship_name
-	 * @returns {city_builder.city}
+	 * @returns {city_builder.objects.city}
 	 */
 	this._recruit_ship = function(ship_name) {
 		for (var item in city_builder.SHIP_TYPES) {
@@ -6564,7 +6566,7 @@ city_builder.objects.city = function(params) {
 	 * 
 	 * @public
 	 * @param {String} soldier_name
-	 * @returns {city_builder.city}
+	 * @returns {city_builder.objects.city}
 	 */
 	this._recruit_soldier = function(soldier_name) {
 		for (var item in city_builder.SOLDIER_TYPES) {
@@ -6643,7 +6645,7 @@ city_builder.objects.city = function(params) {
 	 * 
 	 * @public
 	 * @param {Number} value
-	 * @returns {city_builder.city}
+	 * @returns {city_builder.objects.city}
 	 */
 	this.set_mercenary = function(value) {
 		this.mercenary = value;
@@ -6655,7 +6657,7 @@ city_builder.objects.city = function(params) {
 	 * 
 	 * @public
 	 * @param {Number} value
-	 * @returns {city_builder.city}
+	 * @returns {city_builder.objects.city}
 	 */
 	this.set_navy = function(value) {
 		this.navy = value;
@@ -6667,7 +6669,7 @@ city_builder.objects.city = function(params) {
 	 * 
 	 * @public
 	 * @param {Number} value
-	 * @returns {city_builder.city}
+	 * @returns {city_builder.objects.city}
 	 */
 	this.set_army = function(value) {
 		this.army = value;
@@ -6689,7 +6691,7 @@ city_builder.objects.city = function(params) {
 	 * 
 	 * @public
 	 * @param {Object} value
-	 * @returns {city_builder.city}
+	 * @returns {city_builder.objects.city}
 	 */
 	this.set_resources = function(value) {
 		this.resources = value;
@@ -6711,7 +6713,7 @@ city_builder.objects.city = function(params) {
 	 * 
 	 * @public
 	 * @param {String} value
-	 * @returns {city_builder.city}
+	 * @returns {city_builder.objects.city}
 	 */
 	this.set_ruler = function(value) {
 		this.ruler = value;
@@ -6723,7 +6725,7 @@ city_builder.objects.city = function(params) {
 	 * 
 	 * @public
 	 * @param {Number} value
-	 * @returns {city_builder.city}
+	 * @returns {city_builder.objects.city}
 	 */
 	this.set_level = function(value) {
 		this.level = value;
@@ -6755,7 +6757,7 @@ city_builder.objects.city = function(params) {
 	 * 
 	 * @public
 	 * @param {Object} value
-	 * @returns {city_builder.city}
+	 * @returns {city_builder.objects.city}
 	 */
 	this.set_trades = function(value) {
 		this.trades = value;
@@ -6779,7 +6781,7 @@ city_builder.objects.city = function(params) {
 	 * Release all the mercenary armies.
 	 * 
 	 * @public
-	 * @returns {city_builder.city}
+	 * @returns {city_builder.objects.city}
 	 */
 	this.release_mercenaries = function() {
 		this.mercenary = [];
@@ -6793,7 +6795,7 @@ city_builder.objects.city = function(params) {
 	 * @public
 	 * @param {Boolean} hidden
 	 * @param {Object} data
-	 * @returns {city_builder.city}
+	 * @returns {city_builder.objects.city}
 	 */
 	this.setup_navy = function(hidden, data) {
 		if (typeof data === 'undefined') {
@@ -6828,7 +6830,7 @@ city_builder.objects.city = function(params) {
 	 * @public
 	 * @param {Boolean} hidden
 	 * @param {Object} data
-	 * @returns {city_builder.city}
+	 * @returns {city_builder.objects.city}
 	 */
 	this.setup_army = function(hidden, data) {
 		if (typeof data === 'undefined') {
@@ -6968,7 +6970,7 @@ city_builder.objects.city = function(params) {
 	/**
 	 * Reset the espionage of this city to 1.
 	 * 
-	 * @returns {city_builder.city}
+	 * @returns {city_builder.objects.city}
 	 * @public
 	 */
 	this.reset_espionage = function() {
@@ -6980,7 +6982,7 @@ city_builder.objects.city = function(params) {
 	/**
 	 * Reset the prestige of this city to 1.
 	 * 
-	 * @returns {city_builder.city}
+	 * @returns {city_builder.objects.city}
 	 * @public
 	 */
 	this.reset_prestige = function() {
@@ -6993,7 +6995,7 @@ city_builder.objects.city = function(params) {
 	 * Set the espionage of this city.
 	 * 
 	 * @public
-	 * @returns {city_builder.city}
+	 * @returns {city_builder.objects.city}
 	 * @param {Number} value
 	 */
 	this.set_espionage = function(value) {
@@ -7006,7 +7008,7 @@ city_builder.objects.city = function(params) {
 	 * Set the prestige of this city.
 	 * 
 	 * @public
-	 * @returns {city_builder.city}
+	 * @returns {city_builder.objects.city}
 	 * @param {Number} value
 	 */
 	this.set_prestige = function(value) {
@@ -7097,7 +7099,7 @@ city_builder.objects.city = function(params) {
 	 * Set the icon of this city.
 	 * 
 	 * @public
-	 * @returns {city_builder.city}
+	 * @returns {city_builder.objects.city}
 	 * @param {Number} value
 	 */
 	this.set_icon = function(value) {
@@ -7119,7 +7121,7 @@ city_builder.objects.city = function(params) {
 	 * Set the avatar of the ruler of this city.
 	 * 
 	 * @public
-	 * @returns {city_builder.city}
+	 * @returns {city_builder.objects.city}
 	 * @param {Number} value
 	 */
 	this.set_avatar = function(value) {
@@ -7146,7 +7148,7 @@ city_builder.objects.city = function(params) {
 	 * Increase the influence of this city.
 	 * 
 	 * @public
-	 * @param {String}} city
+	 * @param {String} city
 	 * @param {Number} value
 	 * @returns {Number}
 	 */
@@ -7182,7 +7184,7 @@ city_builder.objects.city = function(params) {
 	 * Set the influence of this city.
 	 * 
 	 * @public
-	 * @returns {city_builder.city}
+	 * @returns {city_builder.objects.city}
 	 * @param {Object} value
 	 */
 	this.set_influence = function(value) {
@@ -7194,7 +7196,7 @@ city_builder.objects.city = function(params) {
 	 * Set the climate of this city.
 	 * 
 	 * @public
-	 * @returns {city_builder.city}
+	 * @returns {city_builder.objects.city}
 	 * @param {Number} value
 	 */
 	this.set_climate = function(value) {
@@ -7206,7 +7208,7 @@ city_builder.objects.city = function(params) {
 	 * Set the nationality of this city.
 	 * 
 	 * @public
-	 * @returns {city_builder.city}
+	 * @returns {city_builder.objects.city}
 	 * @param {Number} value
 	 */
 	this.set_nationality = function(value) {
@@ -7218,8 +7220,8 @@ city_builder.objects.city = function(params) {
 	 * Propose a pact to the specified city.
 	 *
 	 * @public
-	 * @returns {city_builder.city}
-	 * @param {city_builder.city}
+	 * @returns {city_builder.objects.city}
+	 * @param {city_builder.objects.city}
 	 */
 	this.propose_pact = function(city) {
 		// TODO
@@ -7230,8 +7232,8 @@ city_builder.objects.city = function(params) {
 	 * Assign a spy to the specified city.
 	 *
 	 * @public
-	 * @returns {city_builder.city}
-	 * @param {city_builder.city}
+	 * @returns {city_builder.objects.city}
+	 * @param {city_builder.objects.city}
 	 */
 	this.assign_spy = function(city) {
 		// TODO
@@ -7245,9 +7247,9 @@ city_builder.objects.city = function(params) {
 /**
  * Main Game event object.
  * 
- * @param {type} params
- * @class {city_builder.event}
- * @returns {city_builder.event}
+ * @param {Object} params
+ * @class {city_builder.objects.event}
+ * @returns {city_builder.objects.event}
  */
 city_builder.objects.event = function (params) {
 
@@ -7310,7 +7312,7 @@ city_builder.objects.event = function (params) {
 	 * Object constructor.
 	 * 
 	 * @private
-	 * @returns {city_builder.event}
+	 * @returns {city_builder.objects.event}
 	 * @param {Object} params
 	 */
 	this.__constructor = function (params) {
@@ -7344,7 +7346,7 @@ city_builder.objects.event = function (params) {
 	 * Notify the player that this event occured.
 	 *
 	 * @public
-	 * @returns {city_builder.event}
+	 * @returns {city_builder.objects.event}
 	 */
 	this.notify = function() {
 		this.core._notify({
@@ -7362,7 +7364,7 @@ city_builder.objects.event = function (params) {
 	 * Internal function for processing the event data.
 	 * 
 	 * @private
-	 * @returns {city_builder.event}
+	 * @returns {city_builder.objects.event}
 	 */
 	this._process = function () {
 		this.notify();
@@ -7404,9 +7406,9 @@ city_builder.objects.event = function (params) {
 /**
  * Main Game building object.
  * 
- * @param {type} params
- * @class {city_builder.building}
- * @returns {city_builder.building}
+ * @param {Object} params
+ * @class {city_builder.objects.building}
+ * @returns {city_builder.objects.building}
  */
 city_builder.objects.building = function(params) {
 	
@@ -7421,7 +7423,7 @@ city_builder.objects.building = function(params) {
 	/**
 	 * Pointer to the city this building is located in.
 	 * 
-	 * @type {city_builder.city}
+	 * @type {city_builder.objects.city}
 	 * @private
 	 */
 	this.city = null;
@@ -7494,7 +7496,7 @@ city_builder.objects.building = function(params) {
 	 * Object constructor.
 	 * 
 	 * @private
-	 * @returns {city_builder.building}
+	 * @returns {city_builder.objects.building}
 	 * @param {Object} params
 	 */
 	this.__constructor = function(params) {
@@ -7732,7 +7734,7 @@ city_builder.objects.building = function(params) {
 	 * 
 	 * @public
 	 * @param {String|Array} material
-	 * @returns {city_builder.building}
+	 * @returns {city_builder.objects.building}
 	 */
 	this.use_material = function(material) {
 		var building = this.get_building_data();
@@ -7784,7 +7786,7 @@ city_builder.objects.building = function(params) {
 	 * 
 	 * @public
 	 * @param {String|Array} material
-	 * @returns {city_builder.building}
+	 * @returns {city_builder.objects.building}
 	 */
 	this.produce_material = function(material) {
 		var city = this.get_city();
@@ -7837,9 +7839,9 @@ city_builder.objects.building = function(params) {
 	 * Process the materials and use the required ones.
 	 * 
 	 * @public
-	 * @returns {city_builder.building}
-	 * @param {String|Array} matsProduction
-	 * @param {String|Array} matsUse
+	 * @returns {city_builder.objects.building}
+	 * @param {String|Array} mats_production
+	 * @param {String|Array} mats_use
 	 */
 	this.process_mats = function(mats_production, mats_use) {
 		if (typeof mats_use !== 'undefined') {
@@ -7910,7 +7912,7 @@ city_builder.objects.building = function(params) {
 	 * Calculate if the house has the required food and processes the tax.
 	 * 
 	 * @public
-	 * @returns {city_builder.building}
+	 * @returns {city_builder.objects.building}
 	 */
 	this.process_tax = function() {
 		var _m = [];
@@ -7968,7 +7970,7 @@ city_builder.objects.building = function(params) {
 	 * Internal function for further processing of the production chain.
 	 * 
 	 * @private
-	 * @returns {city_builder.building}
+	 * @returns {city_builder.objects.building}
 	 */
 	this._process = function() {
 		var _p = [];
@@ -8031,7 +8033,7 @@ city_builder.objects.building = function(params) {
 	 * Main threading method for the building, this does the actual processing each turn.
 	 * 
 	 * @public
-	 * @returns {city_builder.building}
+	 * @returns {city_builder.objects.building}
 	 */
 	this.process = function() {
 		var building = this.get_building_data();
@@ -8074,7 +8076,7 @@ city_builder.objects.building = function(params) {
 	 * Get the city this building is located into
 	 * 
 	 * @public
-	 * @returns {city_builder.city}
+	 * @returns {city_builder.objects.city}
 	 */
 	this.get_city = function() {
 		return this.city;
@@ -8145,7 +8147,7 @@ city_builder.objects.building = function(params) {
 	 *
 	 * @public
 	 * @param {Number} notification_type
-	 * @returns {city_builder.building}
+	 * @returns {city_builder.objects.building}
 	 */
 	this.notify = function(notification_type) {
 		var handle = $('#building-' + this.get_handle());
@@ -8168,16 +8170,16 @@ city_builder.objects.building = function(params) {
 /**
  * Main Game soldier object.
  * 
- * @param {type} params
- * @class {city_builder.soldier}
- * @returns {city_builder.soldier}
+ * @param {Object} params
+ * @class {city_builder.objects.soldier}
+ * @returns {city_builder.objects.soldier}
  */
 city_builder.objects.soldier = function (params) {
 
 	/**
 	 * Pointer to the city this sodier is located in.
 	 * 
-	 * @type {city_builder.city}
+	 * @type {city_builder.objects.city}
 	 * @private
 	 */
 	this.city = null;
@@ -8238,7 +8240,7 @@ city_builder.objects.soldier = function (params) {
 	 * Object constructor.
 	 * 
 	 * @private
-	 * @returns {city_builder.soldier}
+	 * @returns {city_builder.objects.soldier}
 	 * @param {Object} params
 	 */
 	this.__constructor = function (params) {
@@ -8284,7 +8286,7 @@ city_builder.objects.soldier = function (params) {
 	 * Get the city this soldier is located into.
 	 * 
 	 * @public
-	 * @returns {city_builder.city}
+	 * @returns {city_builder.objects.city}
 	 */
 	this.get_city = function () {
 		return this.city;
@@ -8317,16 +8319,16 @@ city_builder.objects.soldier = function (params) {
 /**
  * Main Game ship object.
  * 
- * @param {type} params
- * @class {city_builder.ship}
- * @returns {city_builder.ship}
+ * @param {Object} params
+ * @class {city_builder.objects.ship}
+ * @returns {city_builder.objects.ship}
  */
 city_builder.objects.ship = function (params) {
 
 	/**
 	 * Pointer to the city this ship is located in.
 	 * 
-	 * @type {city_builder.city}
+	 * @type {city_builder.objects.city}
 	 * @private
 	 */
 	this.city = null;
@@ -8387,7 +8389,7 @@ city_builder.objects.ship = function (params) {
 	 * Object constructor.
 	 * 
 	 * @private
-	 * @returns {city_builder.ship}
+	 * @returns {city_builder.objects.ship}
 	 * @param {Object} params
 	 */
 	this.__constructor = function (params) {
@@ -8433,7 +8435,7 @@ city_builder.objects.ship = function (params) {
 	 * Get the city this ship is located into.
 	 * 
 	 * @public
-	 * @returns {city_builder.city}
+	 * @returns {city_builder.objects.city}
 	 */
 	this.get_city = function () {
 		return this.city;
@@ -8466,16 +8468,16 @@ city_builder.objects.ship = function (params) {
 /**
  * Main Game army object.
  * 
- * @param {type} params
- * @class {city_builder.army}
- * @returns {city_builder.army}
+ * @param {Object} params
+ * @class {city_builder.objects.army}
+ * @returns {city_builder.objects.army}
  */
 city_builder.objects.army = function (params) {
 
 	/**
 	 * Pointer to the city this army is located in.
 	 * 
-	 * @type {city_builder.city}
+	 * @type {city_builder.objects.city}
 	 * @private
 	 */
 	this.city = null;
@@ -8536,7 +8538,7 @@ city_builder.objects.army = function (params) {
 	 * Object constructor.
 	 * 
 	 * @private
-	 * @returns {city_builder.army}
+	 * @returns {city_builder.objects.army}
 	 * @param {Object} params
 	 */
 	this.__constructor = function (params) {
@@ -8550,7 +8552,7 @@ city_builder.objects.army = function (params) {
 	 * Get the city this army is located into.
 	 * 
 	 * @public
-	 * @returns {city_builder.city}
+	 * @returns {city_builder.objects.city}
 	 */
 	this.get_city = function () {
 		return this.city;
@@ -8583,9 +8585,9 @@ city_builder.objects.army = function (params) {
 /**
  * Main Game building panel object.
  * 
- * @param {type} params
- * @class {city_builder.panel_building}
- * @returns {city_builder.panel_building}
+ * @param {Object} params
+ * @class {city_builder.controls.panel_building}
+ * @returns {city_builder.controls.panel_building}
  */
 city_builder.controls.panel_building = function (params) {
 
@@ -8640,7 +8642,7 @@ city_builder.controls.panel_building = function (params) {
 	 * Object constructor.
 	 * 
 	 * @private
-	 * @returns {city_builder.panel}
+	 * @returns {city_builder.controls.panel_building}
 	 * @param {Object} params
 	 */
 	this.__constructor = function (params) {
@@ -8729,7 +8731,7 @@ city_builder.controls.panel_building = function (params) {
 	 * information on this panel.
 	 *
 	 * @public
-	 * @returns {city_builder.panel_building}
+	 * @returns {city_builder.controls.panel_building}
 	 */
 	this.refresh = function() {
 		var _c = this.core.get_city().get_building_by_handle(params.data.handle);
@@ -8754,9 +8756,9 @@ city_builder.controls.panel_building = function (params) {
 /**
  * Main Game buildings panel object.
  * 
- * @param {type} params
- * @class {city_builder.panel_buildings}
- * @returns {city_builder.panel_buildings}
+ * @param {Object} params
+ * @class {city_builder.controls.panel_buildings}
+ * @returns {city_builder.controls.panel_buildings}
  */
 city_builder.controls.panel_buildings = function (params) {
 
@@ -8811,7 +8813,7 @@ city_builder.controls.panel_buildings = function (params) {
 	 * Object constructor.
 	 * 
 	 * @private
-	 * @returns {city_builder.panel}
+	 * @returns {city_builder.controls.panel_buildings}
 	 * @param {Object} params
 	 */
 	this.__constructor = function (params) {
@@ -9019,7 +9021,7 @@ city_builder.controls.panel_buildings = function (params) {
 	 * information on this panel.
 	 *
 	 * @public
-	 * @returns {city_builder.panel_building}
+	 * @returns {city_builder.controls.panel_building}
 	 */
 	this.refresh = function() {
 		return this;
@@ -9032,9 +9034,9 @@ city_builder.controls.panel_buildings = function (params) {
 /**
  * Main Game storage panel object.
  * 
- * @param {type} params
- * @class {city_builder.panel_storage}
- * @returns {city_builder.panel_storage}
+ * @param {Object} params
+ * @class {city_builder.controls.panel_storage}
+ * @returns {city_builder.controls.panel_storage}
  */
 city_builder.controls.panel_storage = function (params) {
 	
@@ -9091,7 +9093,7 @@ city_builder.controls.panel_storage = function (params) {
 	 * Object constructor.
 	 * 
 	 * @private
-	 * @returns {city_builder.panel}
+	 * @returns {city_builder.controls.panel_storage}
 	 * @param {Object} params
 	 */
 	this.__constructor = function (params) {
@@ -9150,7 +9152,7 @@ city_builder.controls.panel_storage = function (params) {
 	 * information on this panel.
 	 *
 	 * @public
-	 * @returns {city_builder.panel_building}
+	 * @returns {city_builder.controls.panel_storage}
 	 */
 	this.refresh = function() {
 		var city = this.core.get_city();
@@ -9193,9 +9195,9 @@ city_builder.controls.panel_storage = function (params) {
 /**
  * Main Game storage panel object.
  * 
- * @param {type} params
- * @class {city_builder.panel_city}
- * @returns {city_builder.panel_city}
+ * @param {Object} params
+ * @class {city_builder.controls.panel_city}
+ * @returns {city_builder.controls.panel_city}
  */
 city_builder.controls.panel_city = function (params) {
 
@@ -9243,7 +9245,7 @@ city_builder.controls.panel_city = function (params) {
 	 * Object constructor.
 	 * 
 	 * @private
-	 * @returns {city_builder.panel}
+	 * @returns {city_builder.controls.panel_city}
 	 * @param {Object} params
 	 */
 	this.__constructor = function (params) {
@@ -9304,7 +9306,7 @@ city_builder.controls.panel_city = function (params) {
 	 * information on this panel.
 	 *
 	 * @public
-	 * @returns {city_builder.panel_building}
+	 * @returns {city_builder.controls.panel_city}
 	 */
 	this.refresh = function() {
 		return this;
@@ -9317,9 +9319,9 @@ city_builder.controls.panel_city = function (params) {
 /**
  * Main Game help panel object.
  * 
- * @param {type} params
- * @class {city_builder.panel_help}
- * @returns {city_builder.panel_help}
+ * @param {Object} params
+ * @class {city_builder.controls.panel_help}
+ * @returns {city_builder.controls.panel_help}
  */
 city_builder.controls.panel_help = function (params) {
 
@@ -9388,7 +9390,7 @@ city_builder.controls.panel_help = function (params) {
 	 * Object constructor.
 	 * 
 	 * @private
-	 * @returns {city_builder.panel}
+	 * @returns {city_builder.controls.panel_help}
 	 * @param {Object} params
 	 */
 	this.__constructor = function (params) {
@@ -9410,7 +9412,7 @@ city_builder.controls.panel_help = function (params) {
 				title = data.get_name();
 				break;
 		}
-		$(el + ' header .title').html(title !== '' ? 'Help about ' + title : 'Help');
+		$(el + ' header .title').html(title !== '' ? city_builder.l('Help about ') + title : city_builder.l('Help'));
 		var _t = '';
 		
 		$(el + ' .contents').append(_t);
@@ -9438,7 +9440,7 @@ city_builder.controls.panel_help = function (params) {
 	 * information on this panel.
 	 *
 	 * @public
-	 * @returns {city_builder.panel_building}
+	 * @returns {city_builder.controls.panel_help}
 	 */
 	this.refresh = function() {
 		return this;
@@ -9451,9 +9453,9 @@ city_builder.controls.panel_help = function (params) {
 /**
  * Main Game storage panel object.
  * 
- * @param {type} params
- * @class {city_builder.panel_rankings}
- * @returns {city_builder.panel_rankings}
+ * @param {Object} params
+ * @class {city_builder.controls.panel_rankings}
+ * @returns {city_builder.controls.panel_rankings}
  */
 city_builder.controls.panel_rankings = function (params) {
 	
@@ -9508,7 +9510,7 @@ city_builder.controls.panel_rankings = function (params) {
 	 * Object constructor.
 	 * 
 	 * @private
-	 * @returns {city_builder.panel}
+	 * @returns {city_builder.controls.panel_rankings}
 	 * @param {Object} params
 	 */
 	this.__constructor = function (params) {
@@ -9548,7 +9550,7 @@ city_builder.controls.panel_rankings = function (params) {
 	 * information on this panel.
 	 *
 	 * @public
-	 * @returns {city_builder.panel_building}
+	 * @returns {city_builder.controls.panel_rankings}
 	 */
 	this.refresh = function() {
 		var el = '#panel-' + this.id;
@@ -9613,9 +9615,9 @@ city_builder.controls.panel_rankings = function (params) {
 /**
  * Send goods to another city panel object.
  * 
- * @param {type} params
- * @class {city_builder.panel_send_goods}
- * @returns {city_builder.panel_send_goods}
+ * @param {Object} params
+ * @class {city_builder.controls.panel_send_goods}
+ * @returns {city_builder.controls.panel_send_goods}
  */
 city_builder.controls.panel_send_goods = function (params) {
 	
@@ -9670,7 +9672,7 @@ city_builder.controls.panel_send_goods = function (params) {
 	 * Object constructor.
 	 * 
 	 * @private
-	 * @returns {city_builder.panel}
+	 * @returns {city_builder.controls.panel_send_goods}
 	 * @param {Object} params
 	 */
 	this.__constructor = function (params) {
@@ -9713,7 +9715,7 @@ city_builder.controls.panel_send_goods = function (params) {
 	 * information on this panel.
 	 *
 	 * @public
-	 * @returns {city_builder.panel_building}
+	 * @returns {city_builder.controls.panel_send_goods}
 	 */
 	this.refresh = function() {
 		return this;
@@ -9726,9 +9728,9 @@ city_builder.controls.panel_send_goods = function (params) {
 /**
  * Declare war to another city panel object.
  * 
- * @param {type} params
- * @class {city_builder.panel_declare_war}
- * @returns {city_builder.panel_declare_war}
+ * @param {Object} params
+ * @class {city_builder.controls.panel_declare_war}
+ * @returns {city_builder.controls.panel_declare_war}
  */
 city_builder.controls.panel_declare_war = function (params) {
 	
@@ -9783,7 +9785,7 @@ city_builder.controls.panel_declare_war = function (params) {
 	 * Object constructor.
 	 * 
 	 * @private
-	 * @returns {city_builder.panel}
+	 * @returns {city_builder.controls.panel_declare_war}
 	 * @param {Object} params
 	 */
 	this.__constructor = function (params) {
@@ -9826,7 +9828,7 @@ city_builder.controls.panel_declare_war = function (params) {
 	 * information on this panel.
 	 *
 	 * @public
-	 * @returns {city_builder.panel_building}
+	 * @returns {city_builder.controls.panel_declare_war}
 	 */
 	this.refresh = function() {
 		return this;
@@ -9839,9 +9841,9 @@ city_builder.controls.panel_declare_war = function (params) {
 /**
  * Main Game world panel object.
  * 
- * @param {type} params
- * @class {city_builder.panel_world}
- * @returns {city_builder.panel_world}
+ * @param {Object} params
+ * @class {city_builder.controls.panel_world}
+ * @returns {city_builder.controls.panel_world}
  */
 city_builder.controls.panel_world = function (params) {
 
@@ -9889,7 +9891,7 @@ city_builder.controls.panel_world = function (params) {
 	 * Object constructor.
 	 * 
 	 * @private
-	 * @returns {city_builder.panel}
+	 * @returns {city_builder.controls.panel_world}
 	 * @param {Object} params
 	 */
 	this.__constructor = function (params) {
@@ -9947,7 +9949,7 @@ city_builder.controls.panel_world = function (params) {
 	 * information on this panel.
 	 *
 	 * @public
-	 * @returns {city_builder.panel_building}
+	 * @returns {city_builder.controls.panel_world}
 	 */
 	this.refresh = function() {
 		return this;
@@ -9960,9 +9962,9 @@ city_builder.controls.panel_world = function (params) {
 /**
  * Main Game city advisor panel object.
  * 
- * @param {type} params
- * @class {city_builder.panel_advisor}
- * @returns {city_builder.panel_advisor}
+ * @param {Object} params
+ * @class {city_builder.controls.panel_advisor}
+ * @returns {city_builder.controls.panel_advisor}
  */
 city_builder.controls.panel_advisor = function (params) {
 
@@ -10017,7 +10019,7 @@ city_builder.controls.panel_advisor = function (params) {
 	 * Object constructor.
 	 * 
 	 * @private
-	 * @returns {city_builder.panel}
+	 * @returns {city_builder.controls.panel_advisor}
 	 * @param {Object} params
 	 */
 	this.__constructor = function (params) {
@@ -10084,7 +10086,7 @@ city_builder.controls.panel_advisor = function (params) {
 		}).on('click', '.spy', function () {
 			if (can_diplomacy === true) {
 				var city = $(this).data('name');
-				self.core.error('Not implemented yet.');
+				self.core.error(city_builder.l('Not implemented yet.'));
 				/*
 				if (self.core.get_city().assign_spy(city) === true) {
 					// TODO
@@ -10097,7 +10099,7 @@ city_builder.controls.panel_advisor = function (params) {
 		}).on('click', '.recruit-ship', function () {
 			if (can_build_ships === true) {
 				var ship = $(this).data('handle');
-				self.core.error('Not implemented yet.');
+				self.core.error(city_builder.l('Not implemented yet.'));
 				/*
 				if (self.core.get_city().recruit_ship(ship) === true) {
 					self._refresh_navy();
@@ -10111,7 +10113,7 @@ city_builder.controls.panel_advisor = function (params) {
 			if (can_diplomacy === true) {
 				var name = $(this).data('name');
 				var _city = self.core.get_city(name);
-				self.core.error('Not implemented yet.');
+				self.core.error(city_builder.l('Not implemented yet.'));
 				/*
 				self.core.open_panel(new city_builder.controls.panel_declare_war({
 					core: self.core,
@@ -10126,7 +10128,7 @@ city_builder.controls.panel_advisor = function (params) {
 			if (can_diplomacy === true) {
 				var name = $(this).data('name');
 				var _city = self.core.get_city(name);
-				self.core.error('Not implemented yet.');
+				self.core.error(city_builder.l('Not implemented yet.'));
 				/*
 				self.core.open_panel(new city_builder.controls.panel_send_goods({
 					core: self.core,
@@ -10202,7 +10204,7 @@ city_builder.controls.panel_advisor = function (params) {
 	 * information on this panel.
 	 *
 	 * @public
-	 * @returns {city_builder.panel_advisor}
+	 * @returns {city_builder.controls.panel_advisor}
 	 */
 	this.refresh = function() {
 		this._refresh_info();
@@ -10326,9 +10328,9 @@ city_builder.controls.panel_advisor = function (params) {
 					'<thead>' +
 					'<tr>' +
 						'<td></td>' +
-						'<td class="center">Level</td>' +
-						'<td>Tax</td>' +
-						'<td>Materials</td>' +
+						'<td class="center">' + city_builder.l('Level') + '</td>' +
+						'<td>' + city_builder.l('Tax') + '</td>' +
+						'<td>' + city_builder.l('Materials') + '</td>' +
 					'</tr>' +
 					'</thead>';
 		var total_tax = 0;
@@ -10358,7 +10360,7 @@ city_builder.controls.panel_advisor = function (params) {
 							'<tr>' +
 								'<td></td>' +
 								'<td></td>' +
-								'<td>Tax income: ' + total_tax + ' ' + city_builder.ui.resource_small_img('coins') + '</td>' +
+								'<td>' + city_builder.l('Tax income') + ': ' + total_tax + ' ' + city_builder.ui.resource_small_img('coins') + '</td>' +
 								'<td></td>' +
 							'</tr>' +
 						'</tfoot>' +
@@ -10374,10 +10376,10 @@ city_builder.controls.panel_advisor = function (params) {
 					'<thead>' +
 					'<tr>' +
 						'<td></td>' +
-						'<td class="center">Level</td>' +
-						'<td>Production</td>' +
-						'<td>Materials</td>' +
-						'<td class="center">Stopped</td>' +
+						'<td class="center">' + city_builder.l('Level') + '</td>' +
+						'<td>' + city_builder.l('Production') + '</td>' +
+						'<td>' + city_builder.l('Materials') + '</td>' +
+						'<td class="center">' + city_builder.l('Stopped') + '</td>' +
 					'</tr>' +
 					'</thead>';
 		for (var l = 0; l < buildings.length; l++) {
@@ -10407,13 +10409,13 @@ city_builder.controls.panel_advisor = function (params) {
 		_t += '<tfoot>' +
 					'<tr>' +
 						'<td></td>' +
-						'<td class="center">Level</td>' +
-						'<td>Production</td>' +
-						'<td>Materials</td>' +
-						'<td class="center">Stopped</td>' +
+						'<td class="center">' + city_builder.l('Level') + '</td>' +
+						'<td>' + city_builder.l('Production') + '</td>' +
+						'<td>' + city_builder.l('Materials') + '</td>' +
+						'<td class="center">' + city_builder.l('Stopped') + '</td>' +
 					'</tr>' +
-					'</tfoot>' +
-					'</table>';
+				'</tfoot>' +
+			'</table>';
 		$('#tab-production').empty().append(_t);
 		return this;
 	};
@@ -10422,7 +10424,7 @@ city_builder.controls.panel_advisor = function (params) {
 	 * Internal function for refreshing the Army tab.
 	 * 
 	 * @private
-	 * @returns {city_builder.panel_advisor}
+	 * @returns {city_builder.controls.panel_advisor}
 	 */
 	this._refresh_army = function () {
 		var city = this.core.get_city();
@@ -10469,7 +10471,7 @@ city_builder.controls.panel_advisor = function (params) {
 	 * Internal function for refreshing the Navy tab.
 	 * 
 	 * @private
-	 * @returns {city_builder.panel_advisor}
+	 * @returns {city_builder.controls.panel_advisor}
 	 */
 	this._refresh_navy = function () {
 		var city = this.core.get_city();
@@ -10519,9 +10521,9 @@ city_builder.controls.panel_advisor = function (params) {
 /**
  * Main Game army panel object.
  * 
- * @param {type} params
- * @class {city_builder.panel_army}
- * @returns {city_builder.panel_army}
+ * @param {Object} params
+ * @class {city_builder.controls.panel_army}
+ * @returns {city_builder.controls.panel_army}
  */
 city_builder.controls.panel_army = function (params) {
 
@@ -10569,7 +10571,7 @@ city_builder.controls.panel_army = function (params) {
 	 * Object constructor.
 	 * 
 	 * @private
-	 * @returns {city_builder.panel}
+	 * @returns {city_builder.controls.panel_army}
 	 * @param {Object} params
 	 */
 	this.__constructor = function (params) {
@@ -10613,7 +10615,7 @@ city_builder.controls.panel_army = function (params) {
 	 * information on this panel.
 	 *
 	 * @public
-	 * @returns {city_builder.panel_army}
+	 * @returns {city_builder.controls.panel_army}
 	 */
 	this.refresh = function() {
 		return this;
@@ -10626,9 +10628,9 @@ city_builder.controls.panel_army = function (params) {
 /**
  * Main Game trades panel object.
  * 
- * @param {type} params
- * @class {city_builder.panel_trades}
- * @returns {city_builder.panel_trades}
+ * @param {Object} params
+ * @class {city_builder.controls.panel_trades}
+ * @returns {city_builder.controls.panel_trades}
  */
 city_builder.controls.panel_trades = function (params) {
 
@@ -10683,7 +10685,7 @@ city_builder.controls.panel_trades = function (params) {
 	 * Object constructor.
 	 * 
 	 * @private
-	 * @returns {city_builder.panel}
+	 * @returns {city_builder.controls.panel_trades}
 	 * @param {Object} params
 	 */
 	this.__constructor = function (params) {
@@ -10767,7 +10769,7 @@ city_builder.controls.panel_trades = function (params) {
 	 * information on this panel.
 	 *
 	 * @public
-	 * @returns {city_builder.panel_building}
+	 * @returns {city_builder.controls.panel_trades}
 	 */
 	this.refresh = function() {
 		this._refresh_imports();
@@ -10780,7 +10782,7 @@ city_builder.controls.panel_trades = function (params) {
 	/**
 	 * Internal function for building the Black Market panel.
 	 * 
-	 * @returns {city_builder.panelTrades}
+	 * @returns {city_builder.controls.panel_trades}
 	 * @private
 	 */
 	this._build_black_market = function () {
@@ -10805,7 +10807,7 @@ city_builder.controls.panel_trades = function (params) {
 	/**
 	 * Internal function for refreshing the Black Market panel.
 	 * 
-	 * @returns {city_builder.panelTrades}
+	 * @returns {city_builder.controls.panel_trades}
 	 * @private
 	 */
 	this._refresh_black_market = function () {
@@ -10825,7 +10827,7 @@ city_builder.controls.panel_trades = function (params) {
 	/**
 	 * Internal function for refreshing the Black Market resources dropbox.
 	 * 
-	 * @returns {city_builder.panelTrades}
+	 * @returns {city_builder.controls.panel_trades}
 	 * @private
 	 */
 	this._refresh_black_market_materials = function () {
@@ -10844,7 +10846,7 @@ city_builder.controls.panel_trades = function (params) {
 	/**
 	 * Internal function for refreshing the Imports panel.
 	 * 
-	 * @returns {city_builder.panelTrades}
+	 * @returns {city_builder.controls.panel_trades}
 	 * @private
 	 */
 	this._refresh_imports = function () {
@@ -10853,12 +10855,12 @@ city_builder.controls.panel_trades = function (params) {
 					'<thead>' +
 					'<tr>' +
 						'<td>City</td>' +
-						'<td class="center">Goods</td>' +
-						'<td class="center">Amount</td>' +
-						'<td class="center">Price</td>' +
-						'<td class="center">Discount</td>' +
-						'<td class="center">City Price</td>' +
-						'<td class="center">Total price</td>' +
+						'<td class="center">' + city_builder.l('Goods') + '</td>' +
+						'<td class="center">' + city_builder.l('Amount') + '</td>' +
+						'<td class="center">' + city_builder.l('Price') + '</td>' +
+						'<td class="center">' + city_builder.l('Discount') + '</td>' +
+						'<td class="center">' + city_builder.l('City Price') + '</td>' +
+						'<td class="center">' + city_builder.l('Total price') + '</td>' +
 						'<td></td>' +
 					'</tr>' +
 					'</thead>';
@@ -10887,12 +10889,12 @@ city_builder.controls.panel_trades = function (params) {
 		out += '<tfoot>' +
 					'<tr>' +
 						'<td>City</td>' +
-						'<td class="center">Goods</td>' +
-						'<td class="center">Amount</td>' +
-						'<td class="center">Price</td>' +
-						'<td class="center">Discount</td>' +
-						'<td class="center">City Price</td>' +
-						'<td class="center">Total price</td>' +
+						'<td class="center">' + city_builder.l('Goods') + '</td>' +
+						'<td class="center">' + city_builder.l('Amount') + '</td>' +
+						'<td class="center">' + city_builder.l('Price') + '</td>' +
+						'<td class="center">' + city_builder.l('Discount') + '</td>' +
+						'<td class="center">' + city_builder.l('City Price') + '</td>' +
+						'<td class="center">' + city_builder.l('Total price') + '</td>' +
 						'<td></td>' +
 					'</tr>' +
 				'</tfoot>' +
@@ -10904,7 +10906,7 @@ city_builder.controls.panel_trades = function (params) {
 	/**
 	 * Internal function for refreshing the Mercenaries panel.
 	 * 
-	 * @returns {city_builder.panelTrades}
+	 * @returns {city_builder.controls.panel_trades}
 	 * @private
 	 */
 	this._refresh_mercenaries = function () {
@@ -10935,7 +10937,7 @@ city_builder.controls.panel_trades = function (params) {
 	/**
 	 * Internal function for refreshing the Exports panel.
 	 * 
-	 * @returns {city_builder.panelTrades}
+	 * @returns {city_builder.controls.panel_trades}
 	 * @private
 	 */
 	this._refresh_exports = function () {
@@ -10944,12 +10946,12 @@ city_builder.controls.panel_trades = function (params) {
 					'<thead>' +
 					'<tr>' +
 						'<td>City</td>' +
-						'<td class="center">Goods</td>' +
-						'<td class="center">Amount</td>' +
-						'<td class="center">Price</td>' +
-						'<td class="center">Tax</td>' +
-						'<td class="center">City Price</td>' +
-						'<td class="center">Total price</td>' +
+						'<td class="center">' + city_builder.l('Goods') + '</td>' +
+						'<td class="center">' + city_builder.l('Amount') + '</td>' +
+						'<td class="center">' + city_builder.l('Price') + '</td>' +
+						'<td class="center">' + city_builder.l('Tax') + '</td>' +
+						'<td class="center">' + city_builder.l('City Price') + '</td>' +
+						'<td class="center">' + city_builder.l('Total price') + '</td>' +
 						'<td></td>' +
 					'</tr>' +
 					'</thead>';
@@ -10978,12 +10980,12 @@ city_builder.controls.panel_trades = function (params) {
 		out += '<tfoot>' +
 					'<tr>' +
 						'<td>City</td>' +
-						'<td class="center">Goods</td>' +
-						'<td class="center">Amount</td>' +
-						'<td class="center">Price</td>' +
-						'<td class="center">Tax</td>' +
-						'<td class="center">City Price</td>' +
-						'<td class="center">Total price</td>' +
+						'<td class="center">' + city_builder.l('Goods') + '</td>' +
+						'<td class="center">' + city_builder.l('Amount') + '</td>' +
+						'<td class="center">' + city_builder.l('Price') + '</td>' +
+						'<td class="center">' + city_builder.l('Tax') + '</td>' +
+						'<td class="center">' + city_builder.l('City Price') + '</td>' +
+						'<td class="center">' + city_builder.l('Total price') + '</td>' +
 						'<td></td>' +
 					'</tr>' +
 				'</tfoot>' +
@@ -10999,9 +11001,9 @@ city_builder.controls.panel_trades = function (params) {
 /**
  * Main Game settings panel object.
  * 
- * @param {type} params
- * @class {city_builder.panel_settings}
- * @returns {city_builder.panel_settings}
+ * @param {Object} params
+ * @class {city_builder.controls.panel_settings}
+ * @returns {city_builder.controls.panel_settings}
  */
 city_builder.controls.panel_settings = function (params) {
 
@@ -11049,7 +11051,7 @@ city_builder.controls.panel_settings = function (params) {
 	 * Object constructor.
 	 * 
 	 * @private
-	 * @returns {city_builder.panel}
+	 * @returns {city_builder.controls.panel_settings}
 	 * @param {Object} params
 	 */
 	this.__constructor = function (params) {
@@ -11121,7 +11123,7 @@ city_builder.controls.panel_settings = function (params) {
 	 * information on this panel.
 	 *
 	 * @public
-	 * @returns {city_builder.panel_building}
+	 * @returns {city_builder.controls.panel_settings}
 	 */
 	this.refresh = function() {
 		return this;

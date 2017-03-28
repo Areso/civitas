@@ -1,9 +1,9 @@
 /**
  * Main Game army panel object.
  * 
- * @param {type} params
- * @class {city_builder.panel_army}
- * @returns {city_builder.panel_army}
+ * @param {Object} params
+ * @class {city_builder.controls.panel_army}
+ * @returns {city_builder.controls.panel_army}
  */
 city_builder.controls.panel_army = function (params) {
 
@@ -51,7 +51,7 @@ city_builder.controls.panel_army = function (params) {
 	 * Object constructor.
 	 * 
 	 * @private
-	 * @returns {city_builder.panel}
+	 * @returns {city_builder.controls.panel_army}
 	 * @param {Object} params
 	 */
 	this.__constructor = function (params) {
@@ -95,7 +95,7 @@ city_builder.controls.panel_army = function (params) {
 	 * information on this panel.
 	 *
 	 * @public
-	 * @returns {city_builder.panel_army}
+	 * @returns {city_builder.controls.panel_army}
 	 */
 	this.refresh = function() {
 		return this;

@@ -1,9 +1,9 @@
 /**
  * Main Game history object.
  * 
- * @param {type} params
- * @class {city_builder.history}
- * @returns {city_builder.history}
+ * @param {Object} params
+ * @class {city_builder.modules.history}
+ * @returns {city_builder.modules.history}
  */
 city_builder.modules.history = function (params) {
 
@@ -18,7 +18,7 @@ city_builder.modules.history = function (params) {
 	 * Object constructor.
 	 * 
 	 * @private
-	 * @returns {city_builder.history}
+	 * @returns {city_builder.modules.history}
 	 * @param {Object} params
 	 */
 	this.__constructor = function (params) {

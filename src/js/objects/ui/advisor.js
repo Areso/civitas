@@ -1,9 +1,9 @@
 /**
  * Main Game city advisor panel object.
  * 
- * @param {type} params
- * @class {city_builder.panel_advisor}
- * @returns {city_builder.panel_advisor}
+ * @param {Object} params
+ * @class {city_builder.controls.panel_advisor}
+ * @returns {city_builder.controls.panel_advisor}
  */
 city_builder.controls.panel_advisor = function (params) {
 
@@ -58,7 +58,7 @@ city_builder.controls.panel_advisor = function (params) {
 	 * Object constructor.
 	 * 
 	 * @private
-	 * @returns {city_builder.panel}
+	 * @returns {city_builder.controls.panel_advisor}
 	 * @param {Object} params
 	 */
 	this.__constructor = function (params) {
@@ -125,7 +125,7 @@ city_builder.controls.panel_advisor = function (params) {
 		}).on('click', '.spy', function () {
 			if (can_diplomacy === true) {
 				var city = $(this).data('name');
-				self.core.error('Not implemented yet.');
+				self.core.error(city_builder.l('Not implemented yet.'));
 				/*
 				if (self.core.get_city().assign_spy(city) === true) {
 					// TODO
@@ -138,7 +138,7 @@ city_builder.controls.panel_advisor = function (params) {
 		}).on('click', '.recruit-ship', function () {
 			if (can_build_ships === true) {
 				var ship = $(this).data('handle');
-				self.core.error('Not implemented yet.');
+				self.core.error(city_builder.l('Not implemented yet.'));
 				/*
 				if (self.core.get_city().recruit_ship(ship) === true) {
 					self._refresh_navy();
@@ -152,7 +152,7 @@ city_builder.controls.panel_advisor = function (params) {
 			if (can_diplomacy === true) {
 				var name = $(this).data('name');
 				var _city = self.core.get_city(name);
-				self.core.error('Not implemented yet.');
+				self.core.error(city_builder.l('Not implemented yet.'));
 				/*
 				self.core.open_panel(new city_builder.controls.panel_declare_war({
 					core: self.core,
@@ -167,7 +167,7 @@ city_builder.controls.panel_advisor = function (params) {
 			if (can_diplomacy === true) {
 				var name = $(this).data('name');
 				var _city = self.core.get_city(name);
-				self.core.error('Not implemented yet.');
+				self.core.error(city_builder.l('Not implemented yet.'));
 				/*
 				self.core.open_panel(new city_builder.controls.panel_send_goods({
 					core: self.core,
@@ -243,7 +243,7 @@ city_builder.controls.panel_advisor = function (params) {
 	 * information on this panel.
 	 *
 	 * @public
-	 * @returns {city_builder.panel_advisor}
+	 * @returns {city_builder.controls.panel_advisor}
 	 */
 	this.refresh = function() {
 		this._refresh_info();
@@ -367,9 +367,9 @@ city_builder.controls.panel_advisor = function (params) {
 					'<thead>' +
 					'<tr>' +
 						'<td></td>' +
-						'<td class="center">Level</td>' +
-						'<td>Tax</td>' +
-						'<td>Materials</td>' +
+						'<td class="center">' + city_builder.l('Level') + '</td>' +
+						'<td>' + city_builder.l('Tax') + '</td>' +
+						'<td>' + city_builder.l('Materials') + '</td>' +
 					'</tr>' +
 					'</thead>';
 		var total_tax = 0;
@@ -399,7 +399,7 @@ city_builder.controls.panel_advisor = function (params) {
 							'<tr>' +
 								'<td></td>' +
 								'<td></td>' +
-								'<td>Tax income: ' + total_tax + ' ' + city_builder.ui.resource_small_img('coins') + '</td>' +
+								'<td>' + city_builder.l('Tax income') + ': ' + total_tax + ' ' + city_builder.ui.resource_small_img('coins') + '</td>' +
 								'<td></td>' +
 							'</tr>' +
 						'</tfoot>' +
@@ -415,10 +415,10 @@ city_builder.controls.panel_advisor = function (params) {
 					'<thead>' +
 					'<tr>' +
 						'<td></td>' +
-						'<td class="center">Level</td>' +
-						'<td>Production</td>' +
-						'<td>Materials</td>' +
-						'<td class="center">Stopped</td>' +
+						'<td class="center">' + city_builder.l('Level') + '</td>' +
+						'<td>' + city_builder.l('Production') + '</td>' +
+						'<td>' + city_builder.l('Materials') + '</td>' +
+						'<td class="center">' + city_builder.l('Stopped') + '</td>' +
 					'</tr>' +
 					'</thead>';
 		for (var l = 0; l < buildings.length; l++) {
@@ -448,13 +448,13 @@ city_builder.controls.panel_advisor = function (params) {
 		_t += '<tfoot>' +
 					'<tr>' +
 						'<td></td>' +
-						'<td class="center">Level</td>' +
-						'<td>Production</td>' +
-						'<td>Materials</td>' +
-						'<td class="center">Stopped</td>' +
+						'<td class="center">' + city_builder.l('Level') + '</td>' +
+						'<td>' + city_builder.l('Production') + '</td>' +
+						'<td>' + city_builder.l('Materials') + '</td>' +
+						'<td class="center">' + city_builder.l('Stopped') + '</td>' +
 					'</tr>' +
-					'</tfoot>' +
-					'</table>';
+				'</tfoot>' +
+			'</table>';
 		$('#tab-production').empty().append(_t);
 		return this;
 	};
@@ -463,7 +463,7 @@ city_builder.controls.panel_advisor = function (params) {
 	 * Internal function for refreshing the Army tab.
 	 * 
 	 * @private
-	 * @returns {city_builder.panel_advisor}
+	 * @returns {city_builder.controls.panel_advisor}
 	 */
 	this._refresh_army = function () {
 		var city = this.core.get_city();
@@ -510,7 +510,7 @@ city_builder.controls.panel_advisor = function (params) {
 	 * Internal function for refreshing the Navy tab.
 	 * 
 	 * @private
-	 * @returns {city_builder.panel_advisor}
+	 * @returns {city_builder.controls.panel_advisor}
 	 */
 	this._refresh_navy = function () {
 		var city = this.core.get_city();

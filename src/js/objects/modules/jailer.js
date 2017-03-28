@@ -1,9 +1,9 @@
 /**
  * Game jailer (enforcing security) object.
  * 
- * @param {type} params
- * @class {city_builder.jailer}
- * @returns {city_builder.__constructor}
+ * @param {Object} params
+ * @class {city_builder.modules.jailer}
+ * @returns {city_builder.modules.jailer}
  */
 city_builder.modules.jailer = function (params) {
 
@@ -25,7 +25,7 @@ city_builder.modules.jailer = function (params) {
 	 * Object constructor.
 	 * 
 	 * @private
-	 * @returns {city_builder.jailer}
+	 * @returns {city_builder.modules.jailer}
 	 * @param {Object} params
 	 */
 	this.__constructor = function (params) {

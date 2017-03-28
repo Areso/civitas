@@ -1,9 +1,9 @@
 /**
  * Main Game storage panel object.
  * 
- * @param {type} params
- * @class {city_builder.panel_storage}
- * @returns {city_builder.panel_storage}
+ * @param {Object} params
+ * @class {city_builder.controls.panel_storage}
+ * @returns {city_builder.controls.panel_storage}
  */
 city_builder.controls.panel_storage = function (params) {
 	
@@ -60,7 +60,7 @@ city_builder.controls.panel_storage = function (params) {
 	 * Object constructor.
 	 * 
 	 * @private
-	 * @returns {city_builder.panel}
+	 * @returns {city_builder.controls.panel_storage}
 	 * @param {Object} params
 	 */
 	this.__constructor = function (params) {
@@ -119,7 +119,7 @@ city_builder.controls.panel_storage = function (params) {
 	 * information on this panel.
 	 *
 	 * @public
-	 * @returns {city_builder.panel_building}
+	 * @returns {city_builder.controls.panel_storage}
 	 */
 	this.refresh = function() {
 		var city = this.core.get_city();

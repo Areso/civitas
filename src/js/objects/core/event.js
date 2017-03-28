@@ -1,9 +1,9 @@
 /**
  * Main Game event object.
  * 
- * @param {type} params
- * @class {city_builder.event}
- * @returns {city_builder.event}
+ * @param {Object} params
+ * @class {city_builder.objects.event}
+ * @returns {city_builder.objects.event}
  */
 city_builder.objects.event = function (params) {
 
@@ -66,7 +66,7 @@ city_builder.objects.event = function (params) {
 	 * Object constructor.
 	 * 
 	 * @private
-	 * @returns {city_builder.event}
+	 * @returns {city_builder.objects.event}
 	 * @param {Object} params
 	 */
 	this.__constructor = function (params) {
@@ -100,7 +100,7 @@ city_builder.objects.event = function (params) {
 	 * Notify the player that this event occured.
 	 *
 	 * @public
-	 * @returns {city_builder.event}
+	 * @returns {city_builder.objects.event}
 	 */
 	this.notify = function() {
 		this.core._notify({
@@ -118,7 +118,7 @@ city_builder.objects.event = function (params) {
 	 * Internal function for processing the event data.
 	 * 
 	 * @private
-	 * @returns {city_builder.event}
+	 * @returns {city_builder.objects.event}
 	 */
 	this._process = function () {
 		this.notify();

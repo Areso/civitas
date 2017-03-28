@@ -1,9 +1,9 @@
 /**
  * Main Game settings panel object.
  * 
- * @param {type} params
- * @class {city_builder.panel_settings}
- * @returns {city_builder.panel_settings}
+ * @param {Object} params
+ * @class {city_builder.controls.panel_settings}
+ * @returns {city_builder.controls.panel_settings}
  */
 city_builder.controls.panel_settings = function (params) {
 
@@ -51,7 +51,7 @@ city_builder.controls.panel_settings = function (params) {
 	 * Object constructor.
 	 * 
 	 * @private
-	 * @returns {city_builder.panel}
+	 * @returns {city_builder.controls.panel_settings}
 	 * @param {Object} params
 	 */
 	this.__constructor = function (params) {
@@ -123,7 +123,7 @@ city_builder.controls.panel_settings = function (params) {
 	 * information on this panel.
 	 *
 	 * @public
-	 * @returns {city_builder.panel_building}
+	 * @returns {city_builder.controls.panel_settings}
 	 */
 	this.refresh = function() {
 		return this;

@@ -1,16 +1,16 @@
 /**
  * Main Game army object.
  * 
- * @param {type} params
- * @class {city_builder.army}
- * @returns {city_builder.army}
+ * @param {Object} params
+ * @class {city_builder.objects.army}
+ * @returns {city_builder.objects.army}
  */
 city_builder.objects.army = function (params) {
 
 	/**
 	 * Pointer to the city this army is located in.
 	 * 
-	 * @type {city_builder.city}
+	 * @type {city_builder.objects.city}
 	 * @private
 	 */
 	this.city = null;
@@ -71,7 +71,7 @@ city_builder.objects.army = function (params) {
 	 * Object constructor.
 	 * 
 	 * @private
-	 * @returns {city_builder.army}
+	 * @returns {city_builder.objects.army}
 	 * @param {Object} params
 	 */
 	this.__constructor = function (params) {
@@ -85,7 +85,7 @@ city_builder.objects.army = function (params) {
 	 * Get the city this army is located into.
 	 * 
 	 * @public
-	 * @returns {city_builder.city}
+	 * @returns {city_builder.objects.city}
 	 */
 	this.get_city = function () {
 		return this.city;

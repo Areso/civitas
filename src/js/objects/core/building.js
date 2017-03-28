@@ -1,9 +1,9 @@
 /**
  * Main Game building object.
  * 
- * @param {type} params
- * @class {city_builder.building}
- * @returns {city_builder.building}
+ * @param {Object} params
+ * @class {city_builder.objects.building}
+ * @returns {city_builder.objects.building}
  */
 city_builder.objects.building = function(params) {
 	
@@ -18,7 +18,7 @@ city_builder.objects.building = function(params) {
 	/**
 	 * Pointer to the city this building is located in.
 	 * 
-	 * @type {city_builder.city}
+	 * @type {city_builder.objects.city}
 	 * @private
 	 */
 	this.city = null;
@@ -91,7 +91,7 @@ city_builder.objects.building = function(params) {
 	 * Object constructor.
 	 * 
 	 * @private
-	 * @returns {city_builder.building}
+	 * @returns {city_builder.objects.building}
 	 * @param {Object} params
 	 */
 	this.__constructor = function(params) {
@@ -329,7 +329,7 @@ city_builder.objects.building = function(params) {
 	 * 
 	 * @public
 	 * @param {String|Array} material
-	 * @returns {city_builder.building}
+	 * @returns {city_builder.objects.building}
 	 */
 	this.use_material = function(material) {
 		var building = this.get_building_data();
@@ -381,7 +381,7 @@ city_builder.objects.building = function(params) {
 	 * 
 	 * @public
 	 * @param {String|Array} material
-	 * @returns {city_builder.building}
+	 * @returns {city_builder.objects.building}
 	 */
 	this.produce_material = function(material) {
 		var city = this.get_city();
@@ -434,9 +434,9 @@ city_builder.objects.building = function(params) {
 	 * Process the materials and use the required ones.
 	 * 
 	 * @public
-	 * @returns {city_builder.building}
-	 * @param {String|Array} matsProduction
-	 * @param {String|Array} matsUse
+	 * @returns {city_builder.objects.building}
+	 * @param {String|Array} mats_production
+	 * @param {String|Array} mats_use
 	 */
 	this.process_mats = function(mats_production, mats_use) {
 		if (typeof mats_use !== 'undefined') {
@@ -507,7 +507,7 @@ city_builder.objects.building = function(params) {
 	 * Calculate if the house has the required food and processes the tax.
 	 * 
 	 * @public
-	 * @returns {city_builder.building}
+	 * @returns {city_builder.objects.building}
 	 */
 	this.process_tax = function() {
 		var _m = [];
@@ -565,7 +565,7 @@ city_builder.objects.building = function(params) {
 	 * Internal function for further processing of the production chain.
 	 * 
 	 * @private
-	 * @returns {city_builder.building}
+	 * @returns {city_builder.objects.building}
 	 */
 	this._process = function() {
 		var _p = [];
@@ -628,7 +628,7 @@ city_builder.objects.building = function(params) {
 	 * Main threading method for the building, this does the actual processing each turn.
 	 * 
 	 * @public
-	 * @returns {city_builder.building}
+	 * @returns {city_builder.objects.building}
 	 */
 	this.process = function() {
 		var building = this.get_building_data();
@@ -671,7 +671,7 @@ city_builder.objects.building = function(params) {
 	 * Get the city this building is located into
 	 * 
 	 * @public
-	 * @returns {city_builder.city}
+	 * @returns {city_builder.objects.city}
 	 */
 	this.get_city = function() {
 		return this.city;
@@ -742,7 +742,7 @@ city_builder.objects.building = function(params) {
 	 *
 	 * @public
 	 * @param {Number} notification_type
-	 * @returns {city_builder.building}
+	 * @returns {city_builder.objects.building}
 	 */
 	this.notify = function(notification_type) {
 		var handle = $('#building-' + this.get_handle());

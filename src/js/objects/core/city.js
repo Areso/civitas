@@ -2,8 +2,8 @@
  * Main Game city object.
  * 
  * @param {type} params
- * @class {city_builder.city}
- * @returns {city_builder.city}
+ * @class {city_builder.objects.city}
+ * @returns {city_builder.objects.city}
  */
 city_builder.objects.city = function(params) {
 	
@@ -168,7 +168,7 @@ city_builder.objects.city = function(params) {
 	 * Object constructor.
 	 * 
 	 * @private
-	 * @returns {city_builder.city}
+	 * @returns {city_builder.objects.city}
 	 * @param {Object} params
 	 */
 	this.__constructor = function(params) {
@@ -221,7 +221,7 @@ city_builder.objects.city = function(params) {
 	 * Buy the specified goods from a city.
 	 * 
 	 * @public
-	 * @param {Object|String} city
+	 * @param {city_builder.objects.city|String} city
 	 * @param {String} resource
 	 * @param {Number} amount
 	 * @returns {Object|Boolean}
@@ -406,7 +406,7 @@ city_builder.objects.city = function(params) {
 	 * Sell the specified goods to a city.
 	 * 
 	 * @public
-	 * @param {Object|String} city
+	 * @param {city_builder.objects.city|String} city
 	 * @param {String} resource
 	 * @param {Number} amount
 	 * @returns {Object|Boolean}
@@ -474,7 +474,7 @@ city_builder.objects.city = function(params) {
 	 * Remove a specified amount of a resource from the trade exports of a city.
 	 * 
 	 * @public
-	 * @param {city_builder.city} city
+	 * @param {city_builder.objects.city} city
 	 * @param {String} item
 	 * @param {Number} amount
 	 * @returns {Boolean}
@@ -488,7 +488,7 @@ city_builder.objects.city = function(params) {
 	 * Remove a specified amount of a resource from the trade imports of a city.
 	 * 
 	 * @public
-	 * @param {city_builder.city} city
+	 * @param {city_builder.objects.city} city
 	 * @param {String} item
 	 * @param {Number} amount
 	 * @returns {Boolean}
@@ -542,7 +542,7 @@ city_builder.objects.city = function(params) {
 	 * 
 	 * @public
 	 * @param {Object} data
-	 * @returns {city_builder.city}
+	 * @returns {city_builder.objects.city}
 	 */
 	this.import_data = function(data) {
 		this.set_name(data.name);
@@ -588,7 +588,7 @@ city_builder.objects.city = function(params) {
 	 * 
 	 * @public
 	 * @param {String} value
-	 * @returns {city_builder.city}
+	 * @returns {city_builder.objects.city}
 	 */
 	this.set_name = function(value) {
 		this.name = value;
@@ -599,7 +599,7 @@ city_builder.objects.city = function(params) {
 	 * Return a pointer to the game core.
 	 * 
 	 * @public
-	 * @returns {city_builder.core}
+	 * @returns {city_builder.game}
 	 */
 	this.get_core = function() {
 		return this.core;
@@ -609,7 +609,7 @@ city_builder.objects.city = function(params) {
 	 * Raise the level of this city.
 	 * 
 	 * @public
-	 * @returns {city_builder.city}
+	 * @returns {city_builder.objects.city}
 	 */
 	this.level_up = function() {
 		this.level++;
@@ -623,7 +623,7 @@ city_builder.objects.city = function(params) {
 	 * 
 	 * @public
 	 * @param {String} value
-	 * @returns {city_builder.city}
+	 * @returns {city_builder.objects.city}
 	 */
 	this.rename = function(value) {
 		this.name = value;
@@ -707,7 +707,7 @@ city_builder.objects.city = function(params) {
 	 * @public
 	 * @param {String|Object} building_type
 	 * @param {Boolean} hidden
-	 * @returns {city_builder.building|Boolean}
+	 * @returns {city_builder.objects.building|Boolean}
 	 */
 	this._create_buildings = function(building_type, hidden) {
 		hidden = (typeof hidden !== 'undefined') && hidden === true ? true : false;
@@ -764,7 +764,7 @@ city_builder.objects.city = function(params) {
 	 * 
 	 * @public
 	 * @param {String} building_type
-	 * @returns {city_builder.building|Boolean}
+	 * @returns {city_builder.objects.building|Boolean}
 	 */
 	this.build = function(building_type) {
 		var _b = city_builder.BUILDINGS.findIndexM(building_type);
@@ -840,7 +840,7 @@ city_builder.objects.city = function(params) {
 	 * 
 	 * @public
 	 * @param {String} handle
-	 * @returns {city_builder.building|Boolean}
+	 * @returns {city_builder.objects.building|Boolean}
 	 */
 	this.get_building_by_handle = function(handle) {
 		var buildings = this.get_buildings();
@@ -858,7 +858,7 @@ city_builder.objects.city = function(params) {
 	 * @public
 	 * @TODO
 	 * @param {Number} id
-	 * @returns {city_builder.city}
+	 * @returns {city_builder.objects.city}
 	 */
 	this.demolish = function(id) {
 		if (typeof id === 'number') {
@@ -969,7 +969,7 @@ city_builder.objects.city = function(params) {
 	 * 
 	 * @public
 	 * @param {Object} value
-	 * @returns {city_builder.city}
+	 * @returns {city_builder.objects.city}
 	 */
 	this.set_fame = function(value) {
 		this.resources.fame = value;
@@ -981,7 +981,7 @@ city_builder.objects.city = function(params) {
 	 * 
 	 * @public
 	 * @param {Object} value
-	 * @returns {city_builder.city}
+	 * @returns {city_builder.objects.city}
 	 */
 	this.set_coins = function(value) {
 		this.resources.coins = value;
@@ -1333,7 +1333,7 @@ city_builder.objects.city = function(params) {
 	 * 
 	 * @public
 	 * @param {String} ship_name
-	 * @returns {city_builder.city}
+	 * @returns {city_builder.objects.city}
 	 */
 	this._recruit_ship = function(ship_name) {
 		for (var item in city_builder.SHIP_TYPES) {
@@ -1354,7 +1354,7 @@ city_builder.objects.city = function(params) {
 	 * 
 	 * @public
 	 * @param {String} soldier_name
-	 * @returns {city_builder.city}
+	 * @returns {city_builder.objects.city}
 	 */
 	this._recruit_soldier = function(soldier_name) {
 		for (var item in city_builder.SOLDIER_TYPES) {
@@ -1433,7 +1433,7 @@ city_builder.objects.city = function(params) {
 	 * 
 	 * @public
 	 * @param {Number} value
-	 * @returns {city_builder.city}
+	 * @returns {city_builder.objects.city}
 	 */
 	this.set_mercenary = function(value) {
 		this.mercenary = value;
@@ -1445,7 +1445,7 @@ city_builder.objects.city = function(params) {
 	 * 
 	 * @public
 	 * @param {Number} value
-	 * @returns {city_builder.city}
+	 * @returns {city_builder.objects.city}
 	 */
 	this.set_navy = function(value) {
 		this.navy = value;
@@ -1457,7 +1457,7 @@ city_builder.objects.city = function(params) {
 	 * 
 	 * @public
 	 * @param {Number} value
-	 * @returns {city_builder.city}
+	 * @returns {city_builder.objects.city}
 	 */
 	this.set_army = function(value) {
 		this.army = value;
@@ -1479,7 +1479,7 @@ city_builder.objects.city = function(params) {
 	 * 
 	 * @public
 	 * @param {Object} value
-	 * @returns {city_builder.city}
+	 * @returns {city_builder.objects.city}
 	 */
 	this.set_resources = function(value) {
 		this.resources = value;
@@ -1501,7 +1501,7 @@ city_builder.objects.city = function(params) {
 	 * 
 	 * @public
 	 * @param {String} value
-	 * @returns {city_builder.city}
+	 * @returns {city_builder.objects.city}
 	 */
 	this.set_ruler = function(value) {
 		this.ruler = value;
@@ -1513,7 +1513,7 @@ city_builder.objects.city = function(params) {
 	 * 
 	 * @public
 	 * @param {Number} value
-	 * @returns {city_builder.city}
+	 * @returns {city_builder.objects.city}
 	 */
 	this.set_level = function(value) {
 		this.level = value;
@@ -1545,7 +1545,7 @@ city_builder.objects.city = function(params) {
 	 * 
 	 * @public
 	 * @param {Object} value
-	 * @returns {city_builder.city}
+	 * @returns {city_builder.objects.city}
 	 */
 	this.set_trades = function(value) {
 		this.trades = value;
@@ -1569,7 +1569,7 @@ city_builder.objects.city = function(params) {
 	 * Release all the mercenary armies.
 	 * 
 	 * @public
-	 * @returns {city_builder.city}
+	 * @returns {city_builder.objects.city}
 	 */
 	this.release_mercenaries = function() {
 		this.mercenary = [];
@@ -1583,7 +1583,7 @@ city_builder.objects.city = function(params) {
 	 * @public
 	 * @param {Boolean} hidden
 	 * @param {Object} data
-	 * @returns {city_builder.city}
+	 * @returns {city_builder.objects.city}
 	 */
 	this.setup_navy = function(hidden, data) {
 		if (typeof data === 'undefined') {
@@ -1618,7 +1618,7 @@ city_builder.objects.city = function(params) {
 	 * @public
 	 * @param {Boolean} hidden
 	 * @param {Object} data
-	 * @returns {city_builder.city}
+	 * @returns {city_builder.objects.city}
 	 */
 	this.setup_army = function(hidden, data) {
 		if (typeof data === 'undefined') {
@@ -1758,7 +1758,7 @@ city_builder.objects.city = function(params) {
 	/**
 	 * Reset the espionage of this city to 1.
 	 * 
-	 * @returns {city_builder.city}
+	 * @returns {city_builder.objects.city}
 	 * @public
 	 */
 	this.reset_espionage = function() {
@@ -1770,7 +1770,7 @@ city_builder.objects.city = function(params) {
 	/**
 	 * Reset the prestige of this city to 1.
 	 * 
-	 * @returns {city_builder.city}
+	 * @returns {city_builder.objects.city}
 	 * @public
 	 */
 	this.reset_prestige = function() {
@@ -1783,7 +1783,7 @@ city_builder.objects.city = function(params) {
 	 * Set the espionage of this city.
 	 * 
 	 * @public
-	 * @returns {city_builder.city}
+	 * @returns {city_builder.objects.city}
 	 * @param {Number} value
 	 */
 	this.set_espionage = function(value) {
@@ -1796,7 +1796,7 @@ city_builder.objects.city = function(params) {
 	 * Set the prestige of this city.
 	 * 
 	 * @public
-	 * @returns {city_builder.city}
+	 * @returns {city_builder.objects.city}
 	 * @param {Number} value
 	 */
 	this.set_prestige = function(value) {
@@ -1887,7 +1887,7 @@ city_builder.objects.city = function(params) {
 	 * Set the icon of this city.
 	 * 
 	 * @public
-	 * @returns {city_builder.city}
+	 * @returns {city_builder.objects.city}
 	 * @param {Number} value
 	 */
 	this.set_icon = function(value) {
@@ -1909,7 +1909,7 @@ city_builder.objects.city = function(params) {
 	 * Set the avatar of the ruler of this city.
 	 * 
 	 * @public
-	 * @returns {city_builder.city}
+	 * @returns {city_builder.objects.city}
 	 * @param {Number} value
 	 */
 	this.set_avatar = function(value) {
@@ -1936,7 +1936,7 @@ city_builder.objects.city = function(params) {
 	 * Increase the influence of this city.
 	 * 
 	 * @public
-	 * @param {String}} city
+	 * @param {String} city
 	 * @param {Number} value
 	 * @returns {Number}
 	 */
@@ -1972,7 +1972,7 @@ city_builder.objects.city = function(params) {
 	 * Set the influence of this city.
 	 * 
 	 * @public
-	 * @returns {city_builder.city}
+	 * @returns {city_builder.objects.city}
 	 * @param {Object} value
 	 */
 	this.set_influence = function(value) {
@@ -1984,7 +1984,7 @@ city_builder.objects.city = function(params) {
 	 * Set the climate of this city.
 	 * 
 	 * @public
-	 * @returns {city_builder.city}
+	 * @returns {city_builder.objects.city}
 	 * @param {Number} value
 	 */
 	this.set_climate = function(value) {
@@ -1996,7 +1996,7 @@ city_builder.objects.city = function(params) {
 	 * Set the nationality of this city.
 	 * 
 	 * @public
-	 * @returns {city_builder.city}
+	 * @returns {city_builder.objects.city}
 	 * @param {Number} value
 	 */
 	this.set_nationality = function(value) {
@@ -2008,8 +2008,8 @@ city_builder.objects.city = function(params) {
 	 * Propose a pact to the specified city.
 	 *
 	 * @public
-	 * @returns {city_builder.city}
-	 * @param {city_builder.city}
+	 * @returns {city_builder.objects.city}
+	 * @param {city_builder.objects.city}
 	 */
 	this.propose_pact = function(city) {
 		// TODO
@@ -2020,8 +2020,8 @@ city_builder.objects.city = function(params) {
 	 * Assign a spy to the specified city.
 	 *
 	 * @public
-	 * @returns {city_builder.city}
-	 * @param {city_builder.city}
+	 * @returns {city_builder.objects.city}
+	 * @param {city_builder.objects.city}
 	 */
 	this.assign_spy = function(city) {
 		// TODO

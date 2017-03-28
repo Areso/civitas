@@ -1,9 +1,9 @@
 /**
  * Declare war to another city panel object.
  * 
- * @param {type} params
- * @class {city_builder.panel_declare_war}
- * @returns {city_builder.panel_declare_war}
+ * @param {Object} params
+ * @class {city_builder.controls.panel_declare_war}
+ * @returns {city_builder.controls.panel_declare_war}
  */
 city_builder.controls.panel_declare_war = function (params) {
 	
@@ -58,7 +58,7 @@ city_builder.controls.panel_declare_war = function (params) {
 	 * Object constructor.
 	 * 
 	 * @private
-	 * @returns {city_builder.panel}
+	 * @returns {city_builder.controls.panel_declare_war}
 	 * @param {Object} params
 	 */
 	this.__constructor = function (params) {
@@ -101,7 +101,7 @@ city_builder.controls.panel_declare_war = function (params) {
 	 * information on this panel.
 	 *
 	 * @public
-	 * @returns {city_builder.panel_building}
+	 * @returns {city_builder.controls.panel_declare_war}
 	 */
 	this.refresh = function() {
 		return this;

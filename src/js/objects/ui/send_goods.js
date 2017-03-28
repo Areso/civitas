@@ -1,9 +1,9 @@
 /**
  * Send goods to another city panel object.
  * 
- * @param {type} params
- * @class {city_builder.panel_send_goods}
- * @returns {city_builder.panel_send_goods}
+ * @param {Object} params
+ * @class {city_builder.controls.panel_send_goods}
+ * @returns {city_builder.controls.panel_send_goods}
  */
 city_builder.controls.panel_send_goods = function (params) {
 	
@@ -58,7 +58,7 @@ city_builder.controls.panel_send_goods = function (params) {
 	 * Object constructor.
 	 * 
 	 * @private
-	 * @returns {city_builder.panel}
+	 * @returns {city_builder.controls.panel_send_goods}
 	 * @param {Object} params
 	 */
 	this.__constructor = function (params) {
@@ -101,7 +101,7 @@ city_builder.controls.panel_send_goods = function (params) {
 	 * information on this panel.
 	 *
 	 * @public
-	 * @returns {city_builder.panel_building}
+	 * @returns {city_builder.controls.panel_send_goods}
 	 */
 	this.refresh = function() {
 		return this;

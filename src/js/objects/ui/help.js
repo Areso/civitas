@@ -1,9 +1,9 @@
 /**
  * Main Game help panel object.
  * 
- * @param {type} params
- * @class {city_builder.panel_help}
- * @returns {city_builder.panel_help}
+ * @param {Object} params
+ * @class {city_builder.controls.panel_help}
+ * @returns {city_builder.controls.panel_help}
  */
 city_builder.controls.panel_help = function (params) {
 
@@ -72,7 +72,7 @@ city_builder.controls.panel_help = function (params) {
 	 * Object constructor.
 	 * 
 	 * @private
-	 * @returns {city_builder.panel}
+	 * @returns {city_builder.controls.panel_help}
 	 * @param {Object} params
 	 */
 	this.__constructor = function (params) {
@@ -94,7 +94,7 @@ city_builder.controls.panel_help = function (params) {
 				title = data.get_name();
 				break;
 		}
-		$(el + ' header .title').html(title !== '' ? 'Help about ' + title : 'Help');
+		$(el + ' header .title').html(title !== '' ? city_builder.l('Help about ') + title : city_builder.l('Help'));
 		var _t = '';
 		
 		$(el + ' .contents').append(_t);
@@ -122,7 +122,7 @@ city_builder.controls.panel_help = function (params) {
 	 * information on this panel.
 	 *
 	 * @public
-	 * @returns {city_builder.panel_building}
+	 * @returns {city_builder.controls.panel_help}
 	 */
 	this.refresh = function() {
 		return this;

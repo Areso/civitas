@@ -1,3 +1,6 @@
+/*
+ * Check for undefined stuff.
+ */
 if (typeof city_builder === 'undefined') {
 	var city_builder = {};
 }
@@ -21,8 +24,7 @@ if (typeof city_builder.modules === 'undefined') {
  * @returns {String}
  */
 city_builder.l = function (value) {
-	if (typeof city_builder.lang[value] !== 'undefined' &&
-		city_builder.lang[value] !== '') {
+	if (typeof city_builder.lang[value] !== 'undefined' && city_builder.lang[value] !== '') {
 		return city_builder.lang[value];
 	} else {
 		return value;

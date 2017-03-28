@@ -1,9 +1,9 @@
 /**
  * Main Game building panel object.
  * 
- * @param {type} params
- * @class {city_builder.panel_building}
- * @returns {city_builder.panel_building}
+ * @param {Object} params
+ * @class {city_builder.controls.panel_building}
+ * @returns {city_builder.controls.panel_building}
  */
 city_builder.controls.panel_building = function (params) {
 
@@ -58,7 +58,7 @@ city_builder.controls.panel_building = function (params) {
 	 * Object constructor.
 	 * 
 	 * @private
-	 * @returns {city_builder.panel}
+	 * @returns {city_builder.controls.panel_building}
 	 * @param {Object} params
 	 */
 	this.__constructor = function (params) {
@@ -147,7 +147,7 @@ city_builder.controls.panel_building = function (params) {
 	 * information on this panel.
 	 *
 	 * @public
-	 * @returns {city_builder.panel_building}
+	 * @returns {city_builder.controls.panel_building}
 	 */
 	this.refresh = function() {
 		var _c = this.core.get_city().get_building_by_handle(params.data.handle);

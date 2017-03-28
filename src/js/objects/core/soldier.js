@@ -1,16 +1,16 @@
 /**
  * Main Game soldier object.
  * 
- * @param {type} params
- * @class {city_builder.soldier}
- * @returns {city_builder.soldier}
+ * @param {Object} params
+ * @class {city_builder.objects.soldier}
+ * @returns {city_builder.objects.soldier}
  */
 city_builder.objects.soldier = function (params) {
 
 	/**
 	 * Pointer to the city this sodier is located in.
 	 * 
-	 * @type {city_builder.city}
+	 * @type {city_builder.objects.city}
 	 * @private
 	 */
 	this.city = null;
@@ -71,7 +71,7 @@ city_builder.objects.soldier = function (params) {
 	 * Object constructor.
 	 * 
 	 * @private
-	 * @returns {city_builder.soldier}
+	 * @returns {city_builder.objects.soldier}
 	 * @param {Object} params
 	 */
 	this.__constructor = function (params) {
@@ -117,7 +117,7 @@ city_builder.objects.soldier = function (params) {
 	 * Get the city this soldier is located into.
 	 * 
 	 * @public
-	 * @returns {city_builder.city}
+	 * @returns {city_builder.objects.city}
 	 */
 	this.get_city = function () {
 		return this.city;

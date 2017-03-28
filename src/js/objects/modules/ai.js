@@ -1,9 +1,9 @@
 /**
  * Main Game AI (Artificial Intelligence) object.
  * 
- * @param {type} params
- * @class {city_builder.ai}
- * @returns {city_builder.__constructor}
+ * @param {Object} params
+ * @class {city_builder.modules.ai}
+ * @returns {city_builder.modules.ai}
  */
 city_builder.modules.ai = function (params) {
 
@@ -18,7 +18,7 @@ city_builder.modules.ai = function (params) {
 	 * Object constructor.
 	 * 
 	 * @private
-	 * @returns {city_builder.ai}
+	 * @returns {city_builder.modules.ai}
 	 * @param {Object} params
 	 */
 	this.__constructor = function (params) {

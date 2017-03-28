@@ -1,9 +1,9 @@
 /**
  * Main Game trades panel object.
  * 
- * @param {type} params
- * @class {city_builder.panel_trades}
- * @returns {city_builder.panel_trades}
+ * @param {Object} params
+ * @class {city_builder.controls.panel_trades}
+ * @returns {city_builder.controls.panel_trades}
  */
 city_builder.controls.panel_trades = function (params) {
 
@@ -58,7 +58,7 @@ city_builder.controls.panel_trades = function (params) {
 	 * Object constructor.
 	 * 
 	 * @private
-	 * @returns {city_builder.panel}
+	 * @returns {city_builder.controls.panel_trades}
 	 * @param {Object} params
 	 */
 	this.__constructor = function (params) {
@@ -142,7 +142,7 @@ city_builder.controls.panel_trades = function (params) {
 	 * information on this panel.
 	 *
 	 * @public
-	 * @returns {city_builder.panel_building}
+	 * @returns {city_builder.controls.panel_trades}
 	 */
 	this.refresh = function() {
 		this._refresh_imports();
@@ -155,7 +155,7 @@ city_builder.controls.panel_trades = function (params) {
 	/**
 	 * Internal function for building the Black Market panel.
 	 * 
-	 * @returns {city_builder.panelTrades}
+	 * @returns {city_builder.controls.panel_trades}
 	 * @private
 	 */
 	this._build_black_market = function () {
@@ -180,7 +180,7 @@ city_builder.controls.panel_trades = function (params) {
 	/**
 	 * Internal function for refreshing the Black Market panel.
 	 * 
-	 * @returns {city_builder.panelTrades}
+	 * @returns {city_builder.controls.panel_trades}
 	 * @private
 	 */
 	this._refresh_black_market = function () {
@@ -200,7 +200,7 @@ city_builder.controls.panel_trades = function (params) {
 	/**
 	 * Internal function for refreshing the Black Market resources dropbox.
 	 * 
-	 * @returns {city_builder.panelTrades}
+	 * @returns {city_builder.controls.panel_trades}
 	 * @private
 	 */
 	this._refresh_black_market_materials = function () {
@@ -219,7 +219,7 @@ city_builder.controls.panel_trades = function (params) {
 	/**
 	 * Internal function for refreshing the Imports panel.
 	 * 
-	 * @returns {city_builder.panelTrades}
+	 * @returns {city_builder.controls.panel_trades}
 	 * @private
 	 */
 	this._refresh_imports = function () {
@@ -228,12 +228,12 @@ city_builder.controls.panel_trades = function (params) {
 					'<thead>' +
 					'<tr>' +
 						'<td>City</td>' +
-						'<td class="center">Goods</td>' +
-						'<td class="center">Amount</td>' +
-						'<td class="center">Price</td>' +
-						'<td class="center">Discount</td>' +
-						'<td class="center">City Price</td>' +
-						'<td class="center">Total price</td>' +
+						'<td class="center">' + city_builder.l('Goods') + '</td>' +
+						'<td class="center">' + city_builder.l('Amount') + '</td>' +
+						'<td class="center">' + city_builder.l('Price') + '</td>' +
+						'<td class="center">' + city_builder.l('Discount') + '</td>' +
+						'<td class="center">' + city_builder.l('City Price') + '</td>' +
+						'<td class="center">' + city_builder.l('Total price') + '</td>' +
 						'<td></td>' +
 					'</tr>' +
 					'</thead>';
@@ -262,12 +262,12 @@ city_builder.controls.panel_trades = function (params) {
 		out += '<tfoot>' +
 					'<tr>' +
 						'<td>City</td>' +
-						'<td class="center">Goods</td>' +
-						'<td class="center">Amount</td>' +
-						'<td class="center">Price</td>' +
-						'<td class="center">Discount</td>' +
-						'<td class="center">City Price</td>' +
-						'<td class="center">Total price</td>' +
+						'<td class="center">' + city_builder.l('Goods') + '</td>' +
+						'<td class="center">' + city_builder.l('Amount') + '</td>' +
+						'<td class="center">' + city_builder.l('Price') + '</td>' +
+						'<td class="center">' + city_builder.l('Discount') + '</td>' +
+						'<td class="center">' + city_builder.l('City Price') + '</td>' +
+						'<td class="center">' + city_builder.l('Total price') + '</td>' +
 						'<td></td>' +
 					'</tr>' +
 				'</tfoot>' +
@@ -279,7 +279,7 @@ city_builder.controls.panel_trades = function (params) {
 	/**
 	 * Internal function for refreshing the Mercenaries panel.
 	 * 
-	 * @returns {city_builder.panelTrades}
+	 * @returns {city_builder.controls.panel_trades}
 	 * @private
 	 */
 	this._refresh_mercenaries = function () {
@@ -310,7 +310,7 @@ city_builder.controls.panel_trades = function (params) {
 	/**
 	 * Internal function for refreshing the Exports panel.
 	 * 
-	 * @returns {city_builder.panelTrades}
+	 * @returns {city_builder.controls.panel_trades}
 	 * @private
 	 */
 	this._refresh_exports = function () {
@@ -319,12 +319,12 @@ city_builder.controls.panel_trades = function (params) {
 					'<thead>' +
 					'<tr>' +
 						'<td>City</td>' +
-						'<td class="center">Goods</td>' +
-						'<td class="center">Amount</td>' +
-						'<td class="center">Price</td>' +
-						'<td class="center">Tax</td>' +
-						'<td class="center">City Price</td>' +
-						'<td class="center">Total price</td>' +
+						'<td class="center">' + city_builder.l('Goods') + '</td>' +
+						'<td class="center">' + city_builder.l('Amount') + '</td>' +
+						'<td class="center">' + city_builder.l('Price') + '</td>' +
+						'<td class="center">' + city_builder.l('Tax') + '</td>' +
+						'<td class="center">' + city_builder.l('City Price') + '</td>' +
+						'<td class="center">' + city_builder.l('Total price') + '</td>' +
 						'<td></td>' +
 					'</tr>' +
 					'</thead>';
@@ -353,12 +353,12 @@ city_builder.controls.panel_trades = function (params) {
 		out += '<tfoot>' +
 					'<tr>' +
 						'<td>City</td>' +
-						'<td class="center">Goods</td>' +
-						'<td class="center">Amount</td>' +
-						'<td class="center">Price</td>' +
-						'<td class="center">Tax</td>' +
-						'<td class="center">City Price</td>' +
-						'<td class="center">Total price</td>' +
+						'<td class="center">' + city_builder.l('Goods') + '</td>' +
+						'<td class="center">' + city_builder.l('Amount') + '</td>' +
+						'<td class="center">' + city_builder.l('Price') + '</td>' +
+						'<td class="center">' + city_builder.l('Tax') + '</td>' +
+						'<td class="center">' + city_builder.l('City Price') + '</td>' +
+						'<td class="center">' + city_builder.l('Total price') + '</td>' +
 						'<td></td>' +
 					'</tr>' +
 				'</tfoot>' +
