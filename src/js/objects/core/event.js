@@ -69,7 +69,7 @@ civitas.objects.event = function (params) {
 	 * @returns {civitas.objects.event}
 	 * @param {Object} params
 	 */
-	this.__constructor = function (params) {
+	this.__init = function (params) {
 		this.core = params.core;
 		this.name = params.name;
 		this.handle = params.handle;
@@ -154,5 +154,5 @@ civitas.objects.event = function (params) {
 	};
 
 	// Fire up the constructor
-	return this.__constructor(params);
+	return this.__init(params);
 };

@@ -8,11 +8,15 @@ var pkg = require('./package.json');
 var fs = require('fs');
 var replace = require('gulp-replace');
 
-gulp.task('app', ['cleanup_js'], function() {
+gulp.task('app', function() {
+	del([
+		'dist/application.*.js'
+    ]);
 	return gulp.src([
 	  	'src/js/others/functions.js',
 		'src/js/constants/default.js',
 		'src/js/languages/en.js',
+		'src/js/constants/initial.js',
 		'src/js/constants/api.js',
 		'src/js/constants/diplomacy.js',
 		'src/js/constants/nation.js',
@@ -80,7 +84,10 @@ gulp.task('lib_minify', ['lib'], function() {
     .pipe(gulp.dest('dist/'))
 });
 
-gulp.task('lib', ['cleanup_js'], function() {
+gulp.task('lib', function() {
+	del([
+		'dist/libraries.*.js'
+    ]);
 	return gulp.src([
 	  	'vendor/js/jquery.js',
 		'vendor/js/jquery.ui.js',
@@ -91,7 +98,10 @@ gulp.task('lib', ['cleanup_js'], function() {
     .pipe(gulp.dest('dist/'))
 });
 
-gulp.task('css', ['cleanup_css'], function() {
+gulp.task('css', function() {
+	del([
+		'dist/styles.*.js'
+    ]);
 	return gulp.src([
 	  	'src/css/main.css',
 		'src/css/resources.css'
@@ -113,27 +123,7 @@ gulp.task('css_minify', ['css'], function() {
     .pipe(gulp.dest('dist/'))
 });
 
-gulp.task('cleanup_css', function() {
-	return del([
-		'dist/*.css'
-    ]);
-});
-
-gulp.task('cleanup_js', function() {
-	return del([
-		'dist/*.js'
-    ]);
-});
-
 gulp.task('minify', ['app_minify', 'lib_minify', 'css_minify'], function() {
-	return true;
-});
-
-gulp.task('deploy', ['cleanup_deploy'], function() {
-	return true;
-});
-
-gulp.task('cleanup_deploy', function() {
 	return true;
 });
 
@@ -141,9 +131,8 @@ gulp.task('watch', function () {
 	gulp.watch("src/**/*.js", ['app']);
 	gulp.watch("src/**/*.css", ['css']);
 	gulp.watch("vendor/**/*.js", ['lib']);
-	gulp.watch("images/**/*.*", ['deploy']);
 });
 
-gulp.task('build', ['css', 'app', 'lib', 'deploy']);
+gulp.task('build', ['css', 'app', 'lib']);
 
 gulp.task('default', ['watch', 'build']);

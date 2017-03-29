@@ -63,7 +63,7 @@ civitas.controls.panel_storage = function (params) {
 	 * @returns {civitas.controls.panel_storage}
 	 * @param {Object} params
 	 */
-	this.__constructor = function (params) {
+	this.__init = function (params) {
 		this.core = params.core;
 		var self = this;
 		var el = '#panel-' + this.id;
@@ -156,5 +156,5 @@ civitas.controls.panel_storage = function (params) {
 	};
 	
 	// Fire up the constructor
-	return this.__constructor(params);
+	return this.__init(params);
 };

@@ -143,7 +143,7 @@ civitas.modules.api = function (params) {
 			},
 			crossDomain: true,
 			data: data.data,
-			url: civitas.API_VERSION_URL + data.url,
+			url: civitas.API_URL + data.url,
 			async: (typeof data.async === 'undefined' || data.async == true) ? true : false,
 			success: data.success instanceof Function ? data.success : function () {
 				// TODO
@@ -162,11 +162,11 @@ civitas.modules.api = function (params) {
 	 * @returns {civitas.modules.api}
 	 * @param {Object} params
 	 */
-	this.__constructor = function (params) {
+	this.__init = function (params) {
 		this.core = params.core;
 		return this;
 	};
 
 	// Fire up the constructor
-	return this.__constructor(params);
+	return this.__init(params);
 };

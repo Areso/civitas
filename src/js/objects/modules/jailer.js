@@ -28,7 +28,7 @@ civitas.modules.jailer = function (params) {
 	 * @returns {civitas.modules.jailer}
 	 * @param {Object} params
 	 */
-	this.__constructor = function (params) {
+	this.__init = function (params) {
 		this.core = params.core;
 		return this;
 	};
@@ -54,5 +54,5 @@ civitas.modules.jailer = function (params) {
 	};
 
 	// Fire up the constructor
-	return this.__constructor(params);
+	return this.__init(params);
 };

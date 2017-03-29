@@ -54,7 +54,7 @@ civitas.controls.panel_settings = function (params) {
 	 * @returns {civitas.controls.panel_settings}
 	 * @param {Object} params
 	 */
-	this.__constructor = function (params) {
+	this.__init = function (params) {
 		$('.panel.pw').remove();
 		this.core = params.core;
 		this.id = params.id;
@@ -130,5 +130,5 @@ civitas.controls.panel_settings = function (params) {
 	};
 	
 	// Fire up the constructor
-	return this.__constructor(params);
+	return this.__init(params);
 };

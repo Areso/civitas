@@ -21,12 +21,12 @@ civitas.modules.history = function (params) {
 	 * @returns {civitas.modules.history}
 	 * @param {Object} params
 	 */
-	this.__constructor = function (params) {
+	this.__init = function (params) {
 		this.core = params.core;
 		// TODO
 		return this;
 	};
 
 	// Fire up the constructor
-	return this.__constructor(params);
+	return this.__init(params);
 };

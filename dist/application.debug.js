@@ -175,7 +175,7 @@ civitas.STORAGE_KEY = 'civitas';
  * @constant
  * @type {Number}
  */
-civitas.GOODS_IMPORTANCE_VITAL = 50;
+civitas.IMPORTANCE_VITAL = 50;
 
 /**
  * Goods importance, high means at most 300 stacks of goods will be up for importing
@@ -184,7 +184,7 @@ civitas.GOODS_IMPORTANCE_VITAL = 50;
  * @constant
  * @type {Number}
  */
-civitas.GOODS_IMPORTANCE_HIGH = 30;
+civitas.IMPORTANCE_HIGH = 30;
 
 /**
  * Goods importance, medium means at most 200 stacks of goods will be up for importing
@@ -193,7 +193,7 @@ civitas.GOODS_IMPORTANCE_HIGH = 30;
  * @constant
  * @type {Number}
  */
-civitas.GOODS_IMPORTANCE_MEDIUM = 20;
+civitas.IMPORTANCE_MEDIUM = 20;
 
 /**
  * Goods importance, low means at most 100 stacks of goods will be up for importing
@@ -202,7 +202,7 @@ civitas.GOODS_IMPORTANCE_MEDIUM = 20;
  * @constant
  * @type {Number}
  */
-civitas.GOODS_IMPORTANCE_LOW = 10;
+civitas.IMPORTANCE_LOW = 10;
 
 /**
  * Difficulty level of the game is easy.
@@ -210,7 +210,7 @@ civitas.GOODS_IMPORTANCE_LOW = 10;
  * @constant
  * @type {Number}
  */
-civitas.DIFFICULTY_LEVEL_EASY = 1;
+civitas.DIFFICULTY_EASY = 1;
 
 /**
  * Difficulty level of the game is medium.
@@ -218,7 +218,7 @@ civitas.DIFFICULTY_LEVEL_EASY = 1;
  * @constant
  * @type {Number}
  */
-civitas.DIFFICULTY_LEVEL_MEDIUM = 2;
+civitas.DIFFICULTY_MEDIUM = 2;
 
 /**
  * Difficulty level of the game is hard.
@@ -226,7 +226,7 @@ civitas.DIFFICULTY_LEVEL_MEDIUM = 2;
  * @constant
  * @type {Number}
  */
-civitas.DIFFICULTY_LEVEL_HARD = 3;
+civitas.DIFFICULTY_HARD = 3;
 
 /**
  * Difficulty level of the game is hardcore.
@@ -234,7 +234,7 @@ civitas.DIFFICULTY_LEVEL_HARD = 3;
  * @constant
  * @type {Number}
  */
-civitas.DIFFICULTY_LEVEL_HARDCORE = 4;
+civitas.DIFFICULTY_HARDCORE = 4;
 
 /**
  * When a building is notifying the player it's out of resources (the building, not the player).
@@ -253,6 +253,138 @@ civitas.NOTIFICATION_MISSING_RESOURCES = 1;
 civitas.NOTIFICATION_PRODUCTION_PAUSED = 2;
 
 civitas.lang = {};
+
+/**
+ * List of soldiers/ships to start with in various difficulty modes.
+ *
+ * @constant
+ * @type {Object}
+ */
+civitas.START_ARMY = [
+	/* Easy difficulty */
+	{
+		army: {
+			'Militia': 10,
+			'Axeman': 2,
+			'Bowman': 4
+		},
+		navy: {
+			'Corsair': 2,
+			'Caravel': 1
+		}
+	},
+	/* Medium difficulty */
+	{
+		army: {
+			'Militia': 5,
+			'Axeman': 1,
+			'Bowman': 2
+		},
+		navy: {
+			'Corsair': 1,
+			'Caravel': 1
+		}
+	},
+	/* Hard difficulty */
+	{
+		army: {
+			'Militia': 3,
+			'Bowman': 2
+		},
+		navy: {
+			'Corsair': 1
+		}
+	},
+	/* Hardcore difficulty */
+	{
+		army: {},
+		navy: {}
+	}
+];
+
+/**
+ * Minimal buildings for a city to operate.
+ * 
+ * @constant
+ * @type {Array}
+ */
+civitas.START_BUILDINGS = [
+	{
+		handle: 'marketplace',
+		level: 1
+	}, {
+		handle: 'lumberjack',
+		level: 1
+	}, {
+		handle: 'stone',
+		level: 1
+	}, {
+		handle: 'house1',
+		level: 1
+	}, {
+		handle: 'house2',
+		level: 1
+	}
+];
+
+/**
+ * List of resources to start with in various difficulty modes.
+ *
+ * @constant
+ * @type {Object}
+ */
+civitas.START_RESOURCES = [
+	/* Easy difficulty */
+	{
+		'coins': 50000,
+		'fame': 10,
+		'prestige': 1,
+		'espionage': 1,
+		'bread': 300,
+		'meat': 100,
+		'stones': 100,
+		'weapons': 100,
+		'wheat': 40,
+		'wood': 100
+	},
+	/* Medium difficulty */
+	{
+		'coins': 20000,
+		'fame': 1,
+		'prestige': 1,
+		'espionage': 1,
+		'bread': 300,
+		'meat': 100,
+		'stones': 100,
+		'weapons': 60,
+		'wheat': 40,
+		'wood': 100
+	},
+	/* Hard difficulty */
+	{
+		'coins': 10000,
+		'fame': 1,
+		'prestige': 1,
+		'espionage': 1,
+		'bread': 300,
+		'meat': 100,
+		'stones': 70,
+		'wheat': 40,
+		'wood': 70
+	},
+	/* Hardcore difficulty */
+	{
+		'coins': 5000,
+		'fame': 1,
+		'prestige': 1,
+		'espionage': 1,
+		'bread': 100,
+		'meat': 50,
+		'stones': 50,
+		'wheat': 40,
+		'wood': 50
+	}
+];
 
 /**
  * Game API version to connect to.
@@ -276,7 +408,7 @@ civitas.API_ENTRY_POINT = 'http://civitas.dev/api/';
  * @constant
  * @type {String}
  */
-civitas.API_VERSION_URL = civitas.API_ENTRY_POINT + civitas.API_VERSION + '/';
+civitas.API_URL = civitas.API_ENTRY_POINT + civitas.API_VERSION + '/';
 
 /**
  * Just met, temporary trucem can declare war, can trade.
@@ -324,7 +456,7 @@ civitas.DIPLOMACY_CEASE_FIRE = 5;
  * @constant
  * @type {Array}
  */
-civitas.NATION_TYPES = [
+civitas.NATIONS = [
 	'none',
 	'phoenician',
 	'carthaginian',
@@ -351,7 +483,7 @@ civitas.NATION_TYPES = [
  * @constant
  * @type {Number}
  */
-civitas.NATION_TYPE_PHOENICIAN = 1;
+civitas.NATION_PHOENICIAN = 1;
 
 /**
  * Carthaginans
@@ -359,7 +491,7 @@ civitas.NATION_TYPE_PHOENICIAN = 1;
  * @constant
  * @type {Number}
  */
-civitas.NATION_TYPE_CARTHAGINIAN = 2;
+civitas.NATION_CARTHAGINIAN = 2;
 
 /**
  * Greeks
@@ -367,7 +499,7 @@ civitas.NATION_TYPE_CARTHAGINIAN = 2;
  * @constant
  * @type {Number}
  */
-civitas.NATION_TYPE_GREEK = 3;
+civitas.NATION_GREEK = 3;
 
 /**
  * Egyptians
@@ -375,7 +507,7 @@ civitas.NATION_TYPE_GREEK = 3;
  * @constant
  * @type {Number}
  */
-civitas.NATION_TYPE_EGYPTIAN = 4;
+civitas.NATION_EGYPTIAN = 4;
 
 /**
  * Assyrians
@@ -383,7 +515,7 @@ civitas.NATION_TYPE_EGYPTIAN = 4;
  * @constant
  * @type {Number}
  */
-civitas.NATION_TYPE_ASSYRIAN = 5;
+civitas.NATION_ASSYRIAN = 5;
 
 /**
  * Romans
@@ -391,7 +523,7 @@ civitas.NATION_TYPE_ASSYRIAN = 5;
  * @constant
  * @type {Number}
  */
-civitas.NATION_TYPE_ROMAN = 6;
+civitas.NATION_ROMAN = 6;
 
 /**
  * Thracians
@@ -399,7 +531,7 @@ civitas.NATION_TYPE_ROMAN = 6;
  * @constant
  * @type {Number}
  */
-civitas.NATION_TYPE_THRACIAN = 7;
+civitas.NATION_THRACIAN = 7;
 
 /**
  * Sudanese
@@ -407,7 +539,7 @@ civitas.NATION_TYPE_THRACIAN = 7;
  * @constant
  * @type {Number}
  */
-civitas.NATION_TYPE_SUDANESE = 8;
+civitas.NATION_SUDANESE = 8;
 
 /**
  * Spanish
@@ -415,7 +547,7 @@ civitas.NATION_TYPE_SUDANESE = 8;
  * @constant
  * @type {Number}
  */
-civitas.NATION_TYPE_SPANISH = 9;
+civitas.NATION_SPANISH = 9;
 
 /**
  * Sumerians
@@ -423,7 +555,7 @@ civitas.NATION_TYPE_SPANISH = 9;
  * @constant
  * @type {Number}
  */
-civitas.NATION_TYPE_SUMERIAN = 10;
+civitas.NATION_SUMERIAN = 10;
 
 /**
  * Chinese
@@ -431,7 +563,7 @@ civitas.NATION_TYPE_SUMERIAN = 10;
  * @constant
  * @type {Number}
  */
-civitas.NATION_TYPE_CHINESE = 11;
+civitas.NATION_CHINESE = 11;
 
 /**
  * Indian
@@ -439,7 +571,7 @@ civitas.NATION_TYPE_CHINESE = 11;
  * @constant
  * @type {Number}
  */
-civitas.NATION_TYPE_INDIAN = 12;
+civitas.NATION_INDIAN = 12;
 
 /**
  * Franks
@@ -447,7 +579,7 @@ civitas.NATION_TYPE_INDIAN = 12;
  * @constant
  * @type {Number}
  */
-civitas.NATION_TYPE_FRANKS = 13;
+civitas.NATION_FRANKS = 13;
 
 /**
  * Russians
@@ -455,7 +587,7 @@ civitas.NATION_TYPE_FRANKS = 13;
  * @constant
  * @type {Number}
  */
-civitas.NATION_TYPE_RUSSIAN = 14;
+civitas.NATION_RUSSIAN = 14;
 
 /**
  * Nigerians
@@ -463,7 +595,7 @@ civitas.NATION_TYPE_RUSSIAN = 14;
  * @constant
  * @type {Number}
  */
-civitas.NATION_TYPE_NIGERIAN = 15;
+civitas.NATION_NIGERIAN = 15;
 
 /**
  * Malinese
@@ -471,7 +603,7 @@ civitas.NATION_TYPE_NIGERIAN = 15;
  * @constant
  * @type {Number}
  */
-civitas.NATION_TYPE_MALINESE = 16;
+civitas.NATION_MALINESE = 16;
 
 /**
  * Mongolian
@@ -479,7 +611,7 @@ civitas.NATION_TYPE_MALINESE = 16;
  * @constant
  * @type {Number}
  */
-civitas.NATION_TYPE_MONGOLIAN = 17;
+civitas.NATION_MONGOLIAN = 17;
 
 /**
  * List of the possible climate types.
@@ -487,7 +619,7 @@ civitas.NATION_TYPE_MONGOLIAN = 17;
  * @constant
  * @type {Array}
  */
-civitas.CLIMATE_TYPES = [
+civitas.CLIMATES = [
 	'none',
 	'temperate',
 	'tropical',
@@ -502,7 +634,7 @@ civitas.CLIMATE_TYPES = [
  * @constant
  * @type {Number}
  */
-civitas.CLIMATE_TYPE_TEMPERATE = 1;
+civitas.CLIMATE_TEMPERATE = 1;
 
 /**
  * Tropical climate, favoring farms and exotic goods.
@@ -510,7 +642,7 @@ civitas.CLIMATE_TYPE_TEMPERATE = 1;
  * @constant
  * @type {Number}
  */
-civitas.CLIMATE_TYPE_TROPICAL = 2;
+civitas.CLIMATE_TROPICAL = 2;
 
 /**
  * Arid climate, favoring ore mines.
@@ -518,7 +650,7 @@ civitas.CLIMATE_TYPE_TROPICAL = 2;
  * @constant
  * @type {Number}
  */
-civitas.CLIMATE_TYPE_ARID = 3;
+civitas.CLIMATE_ARID = 3;
 
 /**
  * Continental climate, no sea access.
@@ -526,7 +658,7 @@ civitas.CLIMATE_TYPE_ARID = 3;
  * @constant
  * @type {Number}
  */
-civitas.CLIMATE_TYPE_CONTINENTAL = 4;
+civitas.CLIMATE_CONTINENTAL = 4;
 
 /**
  * Polar climate, very extreme.
@@ -534,7 +666,7 @@ civitas.CLIMATE_TYPE_CONTINENTAL = 4;
  * @constant
  * @type {Number}
  */
-civitas.CLIMATE_TYPE_POLAR = 5;
+civitas.CLIMATE_POLAR = 5;
 
 /**
  * Worldmap position of city when the climate is temperate.
@@ -597,7 +729,7 @@ civitas.CITY_LOCATION_POLAR = {
  * @constant
  * @type {Array}
  */
-civitas.PERSONALITY_TYPES = [
+civitas.PERSONALITIES = [
     'none',
     'balanced',
     'diplomat',
@@ -611,7 +743,7 @@ civitas.PERSONALITY_TYPES = [
  * @constant
  * @type {Number}
  */
-civitas.PERSONALITY_TYPE_BALANCED = 1;
+civitas.PERSONALITY_BALANCED = 1;
 
 /**
  * The ruler will always consider diplomacy before going to war.
@@ -619,7 +751,7 @@ civitas.PERSONALITY_TYPE_BALANCED = 1;
  * @constant
  * @type {Number}
  */
-civitas.PERSONALITY_TYPE_DIPLOMAT = 2;
+civitas.PERSONALITY_DIPLOMAT = 2;
 
 /**
  * If you upset this ruler, he will go to war with you.
@@ -627,7 +759,7 @@ civitas.PERSONALITY_TYPE_DIPLOMAT = 2;
  * @constant
  * @type {Number}
  */
-civitas.PERSONALITY_TYPE_WARLORD = 3;
+civitas.PERSONALITY_WARLORD = 3;
 
 /**
  * List of soldier types, their attributes and cost.
@@ -635,9 +767,9 @@ civitas.PERSONALITY_TYPE_WARLORD = 3;
  * @type {Object}
  * @constant
  */
-civitas.SOLDIER_TYPES = {
+civitas.SOLDIERS = {
 	'Militia': {
-		id: civitas.SOLDIER_TYPE_MILITIA,
+		id: civitas.SOLDIER_MILITIA,
 		attack: 2,
 		defense: 1,
 		cost: {
@@ -648,7 +780,7 @@ civitas.SOLDIER_TYPES = {
 		}
 	},
 	'Axeman': {
-		id: civitas.SOLDIER_TYPE_AXEMAN,
+		id: civitas.SOLDIER_AXEMAN,
 		attack: 3,
 		defense: 2,
 		cost: {
@@ -659,7 +791,7 @@ civitas.SOLDIER_TYPES = {
 		}
 	},
 	'Bowman': {
-		id: civitas.SOLDIER_TYPE_BOWMAN,
+		id: civitas.SOLDIER_BOWMAN,
 		attack: 6,
 		defense: 1,
 		cost: {
@@ -670,7 +802,7 @@ civitas.SOLDIER_TYPES = {
 		}
 	},
 	'Pikeman': {
-		id: civitas.SOLDIER_TYPE_PIKEMAN,
+		id: civitas.SOLDIER_PIKEMAN,
 		attack: 5,
 		defense: 4,
 		cost: {
@@ -684,7 +816,7 @@ civitas.SOLDIER_TYPES = {
 		}
 	},
 	'Crossbowman': {
-		id: civitas.SOLDIER_TYPE_CROSSBOWMAN,
+		id: civitas.SOLDIER_CROSSBOWMAN,
 		attack: 7,
 		defense: 2,
 		cost: {
@@ -698,7 +830,7 @@ civitas.SOLDIER_TYPES = {
 		}
 	},
 	'Knight': {
-		id: civitas.SOLDIER_TYPE_KNIGHT,
+		id: civitas.SOLDIER_KNIGHT,
 		attack: 6,
 		defense: 9,
 		cost: {
@@ -719,7 +851,7 @@ civitas.SOLDIER_TYPES = {
  * @constant
  * @type {Number}
  */
-civitas.SOLDIER_TYPE_MILITIA = 0;
+civitas.SOLDIER_MILITIA = 0;
 
 /**
  * Axemen
@@ -727,7 +859,7 @@ civitas.SOLDIER_TYPE_MILITIA = 0;
  * @constant
  * @type {Number}
  */
-civitas.SOLDIER_TYPE_AXEMAN = 1;
+civitas.SOLDIER_AXEMAN = 1;
 
 /**
  * Knights
@@ -735,7 +867,7 @@ civitas.SOLDIER_TYPE_AXEMAN = 1;
  * @constant
  * @type {Number}
  */
-civitas.SOLDIER_TYPE_KNIGHT = 2;
+civitas.SOLDIER_KNIGHT = 2;
 
 /**
  * Bowmen
@@ -743,7 +875,7 @@ civitas.SOLDIER_TYPE_KNIGHT = 2;
  * @constant
  * @type {Number}
  */
-civitas.SOLDIER_TYPE_BOWMAN = 3;
+civitas.SOLDIER_BOWMAN = 3;
 
 /**
  * Crossbowmen
@@ -751,7 +883,7 @@ civitas.SOLDIER_TYPE_BOWMAN = 3;
  * @constant
  * @type {Number}
  */
-civitas.SOLDIER_TYPE_CROSSBOWMAN = 4;
+civitas.SOLDIER_CROSSBOWMAN = 4;
 
 /**
  * Pikemen
@@ -759,7 +891,7 @@ civitas.SOLDIER_TYPE_CROSSBOWMAN = 4;
  * @constant
  * @type {Number}
  */
-civitas.SOLDIER_TYPE_PIKEMAN = 5;
+civitas.SOLDIER_PIKEMAN = 5;
 
 /**
  * List of mercenary armies available for hire.
@@ -916,53 +1048,14 @@ civitas.MERCENARIES = [{
 }];
 
 /**
- * List of soldiers/ships to start with in various difficulty modes.
- *
- * @constant
- * @type {Object}
- */
-civitas.ARMIES_START = [{
-		army: {
-			'Militia': 10,
-			'Axeman': 2,
-			'Bowman': 4
-		},
-		navy: {
-			'Corsair': 2,
-			'Caravel': 1
-		}
-	}, {
-		army: {
-			'Militia': 5,
-			'Axeman': 1,
-			'Bowman': 2
-		},
-		navy: {
-			'Corsair': 1,
-			'Caravel': 1
-		}
-	}, {
-		army: {
-			'Militia': 3,
-			'Bowman': 2
-		},
-		navy: {
-			'Corsair': 1
-		}
-	}, {
-		army: {},
-		navy: {}
-}];
-
-/**
  * List of ship types, their attributes and cost.
  * 
  * @type {Object}
  * @constant
  */
-civitas.SHIP_TYPES = {
+civitas.SHIPS = {
 	'Caravel': {
-		id: civitas.SHIP_TYPE_CARAVEL,
+		id: civitas.SHIP_CARAVEL,
 		attack: 10,
 		defense: 10,
 		cost: {
@@ -979,7 +1072,7 @@ civitas.SHIP_TYPES = {
 		}
 	},
 	'Corsair': {
-		id: civitas.SHIP_TYPE_CORSAIR,
+		id: civitas.SHIP_CORSAIR,
 		attack: 5,
 		defense: 5,
 		cost: {
@@ -997,7 +1090,7 @@ civitas.SHIP_TYPES = {
 		}
 	},
 	'Frigate': {
-		id: civitas.SHIP_TYPE_FRIGATE,
+		id: civitas.SHIP_FRIGATE,
 		attack: 17,
 		defense: 8,
 		cost: {
@@ -1015,7 +1108,7 @@ civitas.SHIP_TYPES = {
 		}
 	},
 	'Galleon': {
-		id: civitas.SHIP_TYPE_GALLEON,
+		id: civitas.SHIP_GALLEON,
 		attack: 15,
 		defense: 15,
 		cost: {
@@ -1033,7 +1126,7 @@ civitas.SHIP_TYPES = {
 		}
 	},
 	'Warship': {
-		id: civitas.SHIP_TYPE_WARSHIP,
+		id: civitas.SHIP_WARSHIP,
 		attack: 35,
 		defense: 30,
 		cost: {
@@ -1052,7 +1145,7 @@ civitas.SHIP_TYPES = {
 		}
 	},
 	'Ship of the Line': {
-		id: civitas.SHIP_TYPE_SHIPOFTHELINE,
+		id: civitas.SHIP_SHIPOFTHELINE,
 		attack: 55,
 		defense: 50,
 		cost: {
@@ -1079,7 +1172,7 @@ civitas.SHIP_TYPES = {
  * @constant
  * @type {Number}
  */
-civitas.SHIP_TYPE_CORSAIR = 0;
+civitas.SHIP_CORSAIR = 0;
 
 /**
  * Caravel ship.
@@ -1087,7 +1180,7 @@ civitas.SHIP_TYPE_CORSAIR = 0;
  * @constant
  * @type {Number}
  */
-civitas.SHIP_TYPE_CARAVEL = 1;
+civitas.SHIP_CARAVEL = 1;
 
 /**
  * Warship ship.
@@ -1095,7 +1188,7 @@ civitas.SHIP_TYPE_CARAVEL = 1;
  * @constant
  * @type {Number}
  */
-civitas.SHIP_TYPE_WARSHIP = 2;
+civitas.SHIP_WARSHIP = 2;
 
 /**
  * Galleon ship.
@@ -1103,7 +1196,7 @@ civitas.SHIP_TYPE_WARSHIP = 2;
  * @constant
  * @type {Number}
  */
-civitas.SHIP_TYPE_GALLEON = 3;
+civitas.SHIP_GALLEON = 3;
 
 /**
  * Ship of the Line ship.
@@ -1111,7 +1204,7 @@ civitas.SHIP_TYPE_GALLEON = 3;
  * @constant
  * @type {Number}
  */
-civitas.SHIP_TYPE_SHIPOFTHELINE = 4;
+civitas.SHIP_SHIPOFTHELINE = 4;
 
 /**
  * Frigate ship.
@@ -1119,7 +1212,7 @@ civitas.SHIP_TYPE_SHIPOFTHELINE = 4;
  * @constant
  * @type {Number}
  */
-civitas.SHIP_TYPE_FRIGATE = 5;
+civitas.SHIP_FRIGATE = 5;
 
 /**
  * Buildings native to the tropical climate.
@@ -1306,31 +1399,6 @@ civitas.CITY_BUILDINGS_TEMPERATE = [
 	'cattlefarm', 'cattlefield', 'ciderfarm', 'ciderfield', 'grainfarm', 'grainfield',
 	'grapesfarm', 'grapesfield',
 	'hempfarm', 'hempfield', 'pigfarm', 'pigfield', 'indigofarm'
-];
-
-/**
- * Minimal buildings for a city to operate.
- * 
- * @constant
- * @type {Array}
- */
-civitas.BUILDINGS_START = [
-	{
-		handle: 'marketplace',
-		level: 1
-	}, {
-		handle: 'lumberjack',
-		level: 1
-	}, {
-		handle: 'stone',
-		level: 1
-	}, {
-		handle: 'house1',
-		level: 1
-	}, {
-		handle: 'house2',
-		level: 1
-	}
 ];
 
 /**
@@ -3199,12 +3267,12 @@ civitas.BUILDINGS = [{
  */
 civitas.CITIES = {
 	'Byblos': {
-		nationality: civitas.NATION_TYPE_PHOENICIAN,
+		nationality: civitas.NATION_PHOENICIAN,
 		ruler: 'Cronus',
 		icon: 4,
 		avatar: 1,
-		climate: civitas.CLIMATE_TYPE_TEMPERATE,
-		personality: civitas.PERSONALITY_TYPE_DIPLOMAT,
+		climate: civitas.CLIMATE_TEMPERATE,
+		personality: civitas.PERSONALITY_DIPLOMAT,
 		level: 25,
 		resources: {
 			'coins': 230000,
@@ -3213,21 +3281,21 @@ civitas.CITIES = {
 		},
 		trades: {
 			'imports': {
-				gold: civitas.GOODS_IMPORTANCE_MEDIUM,
-				milk: civitas.GOODS_IMPORTANCE_HIGH,
-				goldores: civitas.GOODS_IMPORTANCE_LOW,
-				weapons: civitas.GOODS_IMPORTANCE_LOW,
-				quartz: civitas.GOODS_IMPORTANCE_LOW,
-				roses: civitas.GOODS_IMPORTANCE_MEDIUM,
-				wine: civitas.GOODS_IMPORTANCE_VITAL,
-				clay: civitas.GOODS_IMPORTANCE_VITAL,
-				fish: civitas.GOODS_IMPORTANCE_MEDIUM
+				gold: civitas.IMPORTANCE_MEDIUM,
+				milk: civitas.IMPORTANCE_HIGH,
+				goldores: civitas.IMPORTANCE_LOW,
+				weapons: civitas.IMPORTANCE_LOW,
+				quartz: civitas.IMPORTANCE_LOW,
+				roses: civitas.IMPORTANCE_MEDIUM,
+				wine: civitas.IMPORTANCE_VITAL,
+				clay: civitas.IMPORTANCE_VITAL,
+				fish: civitas.IMPORTANCE_MEDIUM
 			},
 			'exports': {
-				hemp: civitas.GOODS_IMPORTANCE_VITAL,
-				indigo: civitas.GOODS_IMPORTANCE_LOW,
-				paper: civitas.GOODS_IMPORTANCE_HIGH,
-				stones: civitas.GOODS_IMPORTANCE_LOW
+				hemp: civitas.IMPORTANCE_VITAL,
+				indigo: civitas.IMPORTANCE_LOW,
+				paper: civitas.IMPORTANCE_HIGH,
+				stones: civitas.IMPORTANCE_LOW
 			}
 		},
 		army: {
@@ -3251,12 +3319,12 @@ civitas.CITIES = {
 		}
 	},
 	'Carthage': {
-		nationality: civitas.NATION_TYPE_CARTHAGINIAN,
+		nationality: civitas.NATION_CARTHAGINIAN,
 		ruler: 'Elisa',
 		avatar: 21,
 		icon: 4,
-		climate: civitas.CLIMATE_TYPE_TROPICAL,
-		personality: civitas.PERSONALITY_TYPE_DIPLOMAT,
+		climate: civitas.CLIMATE_TROPICAL,
+		personality: civitas.PERSONALITY_DIPLOMAT,
 		level: 50,
 		resources: {
 			'coins': 130000,
@@ -3265,24 +3333,24 @@ civitas.CITIES = {
 		},
 		trades: {
 			'imports': {
-				wax: civitas.GOODS_IMPORTANCE_LOW,
-				sugar: civitas.GOODS_IMPORTANCE_VITAL,
-				sugarcane: civitas.GOODS_IMPORTANCE_MEDIUM,
-				glasses: civitas.GOODS_IMPORTANCE_LOW,
-				fish: civitas.GOODS_IMPORTANCE_HIGH,
-				candles: civitas.GOODS_IMPORTANCE_LOW,
-				bread: civitas.GOODS_IMPORTANCE_VITAL,
-				pearls: civitas.GOODS_IMPORTANCE_LOW,
-				salt: civitas.GOODS_IMPORTANCE_LOW
+				wax: civitas.IMPORTANCE_LOW,
+				sugar: civitas.IMPORTANCE_VITAL,
+				sugarcane: civitas.IMPORTANCE_MEDIUM,
+				glasses: civitas.IMPORTANCE_LOW,
+				fish: civitas.IMPORTANCE_HIGH,
+				candles: civitas.IMPORTANCE_LOW,
+				bread: civitas.IMPORTANCE_VITAL,
+				pearls: civitas.IMPORTANCE_LOW,
+				salt: civitas.IMPORTANCE_LOW
 			},
 			'exports': {
-				leather: civitas.GOODS_IMPORTANCE_MEDIUM,
-				indigo: civitas.GOODS_IMPORTANCE_LOW,
-				flour: civitas.GOODS_IMPORTANCE_VITAL,
-				glass: civitas.GOODS_IMPORTANCE_MEDIUM,
-				coal: civitas.GOODS_IMPORTANCE_LOW,
-				fish: civitas.GOODS_IMPORTANCE_HIGH,
-				wood: civitas.GOODS_IMPORTANCE_VITAL
+				leather: civitas.IMPORTANCE_MEDIUM,
+				indigo: civitas.IMPORTANCE_LOW,
+				flour: civitas.IMPORTANCE_VITAL,
+				glass: civitas.IMPORTANCE_MEDIUM,
+				coal: civitas.IMPORTANCE_LOW,
+				fish: civitas.IMPORTANCE_HIGH,
+				wood: civitas.IMPORTANCE_VITAL
 			}
 		},
 		navy: {
@@ -3306,12 +3374,12 @@ civitas.CITIES = {
 		}
 	},
 	'Karakorum': {
-		nationality: civitas.NATION_TYPE_MONGOLIAN,
+		nationality: civitas.NATION_MONGOLIAN,
 		ruler: 'Genghis Khan',
 		avatar: 45,
 		icon: 6,
-		climate: civitas.CLIMATE_TYPE_TEMPERATE,
-		personality: civitas.PERSONALITY_TYPE_WARLORD,
+		climate: civitas.CLIMATE_TEMPERATE,
+		personality: civitas.PERSONALITY_WARLORD,
 		level: 30,
 		resources: {
 			'coins': 100000,
@@ -3320,18 +3388,18 @@ civitas.CITIES = {
 		},
 		trades: {
 			'imports': {
-				wheat: civitas.GOODS_IMPORTANCE_VITAL,
-				wood: civitas.GOODS_IMPORTANCE_HIGH,
-				sugar: civitas.GOODS_IMPORTANCE_LOW,
-				sugarcane: civitas.GOODS_IMPORTANCE_LOW,
-				clay: civitas.GOODS_IMPORTANCE_VITAL
+				wheat: civitas.IMPORTANCE_VITAL,
+				wood: civitas.IMPORTANCE_HIGH,
+				sugar: civitas.IMPORTANCE_LOW,
+				sugarcane: civitas.IMPORTANCE_LOW,
+				clay: civitas.IMPORTANCE_VITAL
 			},
 			'exports': {
-				silver: civitas.GOODS_IMPORTANCE_VITAL,
-				glasses: civitas.GOODS_IMPORTANCE_LOW,
-				furcoats: civitas.GOODS_IMPORTANCE_MEDIUM,
-				indigo: civitas.GOODS_IMPORTANCE_LOW,
-				wheat: civitas.GOODS_IMPORTANCE_LOW
+				silver: civitas.IMPORTANCE_VITAL,
+				glasses: civitas.IMPORTANCE_LOW,
+				furcoats: civitas.IMPORTANCE_MEDIUM,
+				indigo: civitas.IMPORTANCE_LOW,
+				wheat: civitas.IMPORTANCE_LOW
 			}
 		},
 		army: {
@@ -3346,12 +3414,12 @@ civitas.CITIES = {
 		}
 	},
 	'Kyrene': {
-		nationality: civitas.NATION_TYPE_GREEK,
+		nationality: civitas.NATION_GREEK,
 		ruler: 'Abdul',
 		avatar: 33,
 		icon: 5,
-		climate: civitas.CLIMATE_TYPE_TROPICAL,
-		personality: civitas.PERSONALITY_TYPE_WARLORD,
+		climate: civitas.CLIMATE_TROPICAL,
+		personality: civitas.PERSONALITY_WARLORD,
 		level: 22,
 		resources: {
 			'coins': 200000,
@@ -3360,21 +3428,21 @@ civitas.CITIES = {
 		},
 		trades: {
 			'imports': {
-				flour: civitas.GOODS_IMPORTANCE_LOW,
-				milk: civitas.GOODS_IMPORTANCE_VITAL,
-				brass: civitas.GOODS_IMPORTANCE_LOW,
-				furs: civitas.GOODS_IMPORTANCE_LOW,
-				fish: civitas.GOODS_IMPORTANCE_VITAL,
-				cider: civitas.GOODS_IMPORTANCE_LOW,
-				silk: civitas.GOODS_IMPORTANCE_HIGH,
-				cattle: civitas.GOODS_IMPORTANCE_MEDIUM,
-				wheat: civitas.GOODS_IMPORTANCE_VITAL
+				flour: civitas.IMPORTANCE_LOW,
+				milk: civitas.IMPORTANCE_VITAL,
+				brass: civitas.IMPORTANCE_LOW,
+				furs: civitas.IMPORTANCE_LOW,
+				fish: civitas.IMPORTANCE_VITAL,
+				cider: civitas.IMPORTANCE_LOW,
+				silk: civitas.IMPORTANCE_HIGH,
+				cattle: civitas.IMPORTANCE_MEDIUM,
+				wheat: civitas.IMPORTANCE_VITAL
 			},
 			'exports': {
-				clothes: civitas.GOODS_IMPORTANCE_VITAL,
-				fish: civitas.GOODS_IMPORTANCE_LOW,
-				coffeebeans: civitas.GOODS_IMPORTANCE_HIGH,
-				silk: civitas.GOODS_IMPORTANCE_LOW
+				clothes: civitas.IMPORTANCE_VITAL,
+				fish: civitas.IMPORTANCE_LOW,
+				coffeebeans: civitas.IMPORTANCE_HIGH,
+				silk: civitas.IMPORTANCE_LOW
 			}
 		},
 		army: {
@@ -3390,12 +3458,12 @@ civitas.CITIES = {
 		}
 	},
 	'Menat Khufu': {
-		nationality: civitas.NATION_TYPE_EGYPTIAN,
+		nationality: civitas.NATION_EGYPTIAN,
 		ruler: 'Khufu',
 		avatar: 34,
 		icon: 7,
-		climate: civitas.CLIMATE_TYPE_ARID,
-		personality: civitas.PERSONALITY_TYPE_DIPLOMAT,
+		climate: civitas.CLIMATE_ARID,
+		personality: civitas.PERSONALITY_DIPLOMAT,
 		level: 45,
 		resources: {
 			'coins': 200000,
@@ -3404,21 +3472,21 @@ civitas.CITIES = {
 		},
 		trades: {
 			'imports': {
-				barrels: civitas.GOODS_IMPORTANCE_LOW,
-				books: civitas.GOODS_IMPORTANCE_LOW,
-				paper: civitas.GOODS_IMPORTANCE_LOW,
-				coal: civitas.GOODS_IMPORTANCE_VITAL,
-				copper: civitas.GOODS_IMPORTANCE_MEDIUM,
-				indigo: civitas.GOODS_IMPORTANCE_HIGH
+				barrels: civitas.IMPORTANCE_LOW,
+				books: civitas.IMPORTANCE_LOW,
+				paper: civitas.IMPORTANCE_LOW,
+				coal: civitas.IMPORTANCE_VITAL,
+				copper: civitas.IMPORTANCE_MEDIUM,
+				indigo: civitas.IMPORTANCE_HIGH
 			},
 			'exports': {
-				coal: civitas.GOODS_IMPORTANCE_VITAL,
-				ironores: civitas.GOODS_IMPORTANCE_LOW,
-				copper: civitas.GOODS_IMPORTANCE_MEDIUM,
-				goldores: civitas.GOODS_IMPORTANCE_LOW,
-				iron: civitas.GOODS_IMPORTANCE_LOW,
-				gold: civitas.GOODS_IMPORTANCE_VITAL,
-				brass: civitas.GOODS_IMPORTANCE_LOW
+				coal: civitas.IMPORTANCE_VITAL,
+				ironores: civitas.IMPORTANCE_LOW,
+				copper: civitas.IMPORTANCE_MEDIUM,
+				goldores: civitas.IMPORTANCE_LOW,
+				iron: civitas.IMPORTANCE_LOW,
+				gold: civitas.IMPORTANCE_VITAL,
+				brass: civitas.IMPORTANCE_LOW
 			}
 		},
 		army: {
@@ -3435,12 +3503,12 @@ civitas.CITIES = {
 		}
 	},
 	'Niani': {
-		nationality: civitas.NATION_TYPE_MALINESE,
+		nationality: civitas.NATION_MALINESE,
 		ruler: 'Mansa Musa',
 		avatar: 30,
 		icon: 2,
-		climate: civitas.CLIMATE_TYPE_TROPICAL,
-		personality: civitas.PERSONALITY_TYPE_WARLORD,
+		climate: civitas.CLIMATE_TROPICAL,
+		personality: civitas.PERSONALITY_WARLORD,
 		level: 21,
 		resources: {
 			'coins': 200000,
@@ -3449,21 +3517,21 @@ civitas.CITIES = {
 		},
 		trades: {
 			'imports': {
-				meat: civitas.GOODS_IMPORTANCE_LOW,
-				milk: civitas.GOODS_IMPORTANCE_LOW,
-				weapons: civitas.GOODS_IMPORTANCE_LOW,
-				roses: civitas.GOODS_IMPORTANCE_MEDIUM,
-				perfume: civitas.GOODS_IMPORTANCE_LOW,
-				iron: civitas.GOODS_IMPORTANCE_VITAL,
-				ironores: civitas.GOODS_IMPORTANCE_LOW
+				meat: civitas.IMPORTANCE_LOW,
+				milk: civitas.IMPORTANCE_LOW,
+				weapons: civitas.IMPORTANCE_LOW,
+				roses: civitas.IMPORTANCE_MEDIUM,
+				perfume: civitas.IMPORTANCE_LOW,
+				iron: civitas.IMPORTANCE_VITAL,
+				ironores: civitas.IMPORTANCE_LOW
 			},
 			'exports': {
-				brine: civitas.GOODS_IMPORTANCE_MEDIUM,
-				clothes: civitas.GOODS_IMPORTANCE_LOW,
-				glass: civitas.GOODS_IMPORTANCE_HIGH,
-				wheat: civitas.GOODS_IMPORTANCE_VITAL,
-				hides: civitas.GOODS_IMPORTANCE_LOW,
-				paper: civitas.GOODS_IMPORTANCE_LOW
+				brine: civitas.IMPORTANCE_MEDIUM,
+				clothes: civitas.IMPORTANCE_LOW,
+				glass: civitas.IMPORTANCE_HIGH,
+				wheat: civitas.IMPORTANCE_VITAL,
+				hides: civitas.IMPORTANCE_LOW,
+				paper: civitas.IMPORTANCE_LOW
 			}
 		},
 		army: {
@@ -3476,12 +3544,12 @@ civitas.CITIES = {
 		}
 	},
 	'Niniveh': {
-		nationality: civitas.NATION_TYPE_ASSYRIAN,
+		nationality: civitas.NATION_ASSYRIAN,
 		ruler: 'Sennacherib',
 		avatar: 37,
 		icon: 4,
-		climate: civitas.CLIMATE_TYPE_ARID,
-		personality: civitas.PERSONALITY_TYPE_DIPLOMAT,
+		climate: civitas.CLIMATE_ARID,
+		personality: civitas.PERSONALITY_DIPLOMAT,
 		level: 35,
 		resources: {
 			'coins': 130000,
@@ -3490,17 +3558,17 @@ civitas.CITIES = {
 		},
 		trades: {
 			'imports': {
-				silk: civitas.GOODS_IMPORTANCE_LOW,
-				clothes: civitas.GOODS_IMPORTANCE_HIGH,
-				leather: civitas.GOODS_IMPORTANCE_LOW,
-				meat: civitas.GOODS_IMPORTANCE_MEDIUM
+				silk: civitas.IMPORTANCE_LOW,
+				clothes: civitas.IMPORTANCE_HIGH,
+				leather: civitas.IMPORTANCE_LOW,
+				meat: civitas.IMPORTANCE_MEDIUM
 			},
 			'exports': {
-				gold: civitas.GOODS_IMPORTANCE_LOW,
-				iron: civitas.GOODS_IMPORTANCE_VITAL,
-				ironores: civitas.GOODS_IMPORTANCE_MEDIUM,
-				copper: civitas.GOODS_IMPORTANCE_HIGH,
-				coal: civitas.GOODS_IMPORTANCE_LOW
+				gold: civitas.IMPORTANCE_LOW,
+				iron: civitas.IMPORTANCE_VITAL,
+				ironores: civitas.IMPORTANCE_MEDIUM,
+				copper: civitas.IMPORTANCE_HIGH,
+				coal: civitas.IMPORTANCE_LOW
 			}
 		},
 		army: {
@@ -3517,12 +3585,12 @@ civitas.CITIES = {
 		}
 	},
 	'Novgorod': {
-		nationality: civitas.NATION_TYPE_RUSSIAN,
+		nationality: civitas.NATION_RUSSIAN,
 		ruler: 'Rurik',
 		avatar: 5,
 		icon: 5,
-		climate: civitas.CLIMATE_TYPE_POLAR,
-		personality: civitas.PERSONALITY_TYPE_WARLORD,
+		climate: civitas.CLIMATE_POLAR,
+		personality: civitas.PERSONALITY_WARLORD,
 		level: 20,
 		resources: {
 			'coins': 30000,
@@ -3531,18 +3599,18 @@ civitas.CITIES = {
 		},
 		trades: {
 			'imports': {
-				furs: civitas.GOODS_IMPORTANCE_LOW,
-				hides: civitas.GOODS_IMPORTANCE_LOW,
-				milk: civitas.GOODS_IMPORTANCE_MEDIUM,
-				leather: civitas.GOODS_IMPORTANCE_LOW,
-				fish: civitas.GOODS_IMPORTANCE_VITAL,
-				furcoats: civitas.GOODS_IMPORTANCE_VITAL
+				furs: civitas.IMPORTANCE_LOW,
+				hides: civitas.IMPORTANCE_LOW,
+				milk: civitas.IMPORTANCE_MEDIUM,
+				leather: civitas.IMPORTANCE_LOW,
+				fish: civitas.IMPORTANCE_VITAL,
+				furcoats: civitas.IMPORTANCE_VITAL
 			},
 			'exports': {
-				statues: civitas.GOODS_IMPORTANCE_VITAL,
-				wax: civitas.GOODS_IMPORTANCE_LOW,
-				candles: civitas.GOODS_IMPORTANCE_LOW,
-				salt: civitas.GOODS_IMPORTANCE_MEDIUM
+				statues: civitas.IMPORTANCE_VITAL,
+				wax: civitas.IMPORTANCE_LOW,
+				candles: civitas.IMPORTANCE_LOW,
+				salt: civitas.IMPORTANCE_MEDIUM
 			}
 		},
 		army: {
@@ -3559,12 +3627,12 @@ civitas.CITIES = {
 		}
 	},
 	'Rome': {
-		nationality: civitas.NATION_TYPE_ROMAN,
+		nationality: civitas.NATION_ROMAN,
 		ruler: 'Caesar',
 		avatar: 17,
 		icon: 4,
-		climate: civitas.CLIMATE_TYPE_TEMPERATE,
-		personality: civitas.PERSONALITY_TYPE_BALANCED,
+		climate: civitas.CLIMATE_TEMPERATE,
+		personality: civitas.PERSONALITY_BALANCED,
 		level: 50,
 		resources: {
 			'coins': 330000,
@@ -3573,29 +3641,29 @@ civitas.CITIES = {
 		},
 		trades: {
 			'imports': {
-				perfume: civitas.GOODS_IMPORTANCE_MEDIUM,
-				coffee: civitas.GOODS_IMPORTANCE_LOW,
-				cider: civitas.GOODS_IMPORTANCE_LOW,
-				wine: civitas.GOODS_IMPORTANCE_LOW,
-				beer: civitas.GOODS_IMPORTANCE_LOW,
-				silk: civitas.GOODS_IMPORTANCE_MEDIUM
+				perfume: civitas.IMPORTANCE_MEDIUM,
+				coffee: civitas.IMPORTANCE_LOW,
+				cider: civitas.IMPORTANCE_LOW,
+				wine: civitas.IMPORTANCE_LOW,
+				beer: civitas.IMPORTANCE_LOW,
+				silk: civitas.IMPORTANCE_MEDIUM
 			},
 			'exports': {
-				robes: civitas.GOODS_IMPORTANCE_VITAL,
-				statues: civitas.GOODS_IMPORTANCE_VITAL,
-				barrels: civitas.GOODS_IMPORTANCE_MEDIUM,
-				brine: civitas.GOODS_IMPORTANCE_LOW,
-				brass: civitas.GOODS_IMPORTANCE_VITAL,
-				candlesticks: civitas.GOODS_IMPORTANCE_LOW,
-				cattle: civitas.GOODS_IMPORTANCE_VITAL,
-				glass: civitas.GOODS_IMPORTANCE_MEDIUM,
-				gold: civitas.GOODS_IMPORTANCE_MEDIUM,
-				wheat: civitas.GOODS_IMPORTANCE_MEDIUM,
-				iron: civitas.GOODS_IMPORTANCE_LOW,
-				grapes: civitas.GOODS_IMPORTANCE_HIGH,
-				hemp: civitas.GOODS_IMPORTANCE_HIGH,
-				herbs: civitas.GOODS_IMPORTANCE_HIGH,
-				quartz: civitas.GOODS_IMPORTANCE_MEDIUM
+				robes: civitas.IMPORTANCE_VITAL,
+				statues: civitas.IMPORTANCE_VITAL,
+				barrels: civitas.IMPORTANCE_MEDIUM,
+				brine: civitas.IMPORTANCE_LOW,
+				brass: civitas.IMPORTANCE_VITAL,
+				candlesticks: civitas.IMPORTANCE_LOW,
+				cattle: civitas.IMPORTANCE_VITAL,
+				glass: civitas.IMPORTANCE_MEDIUM,
+				gold: civitas.IMPORTANCE_MEDIUM,
+				wheat: civitas.IMPORTANCE_MEDIUM,
+				iron: civitas.IMPORTANCE_LOW,
+				grapes: civitas.IMPORTANCE_HIGH,
+				hemp: civitas.IMPORTANCE_HIGH,
+				herbs: civitas.IMPORTANCE_HIGH,
+				quartz: civitas.IMPORTANCE_MEDIUM
 			}
 		},
 		army: {
@@ -3612,12 +3680,12 @@ civitas.CITIES = {
 		}
 	},
 	'Sarmizegetusa': {
-		nationality: civitas.NATION_TYPE_THRACIAN,
+		nationality: civitas.NATION_THRACIAN,
 		ruler: 'Deceballus',
 		avatar: 8,
 		icon: 7,
-		climate: civitas.CLIMATE_TYPE_CONTINENTAL,
-		personality: civitas.PERSONALITY_TYPE_WARLORD,
+		climate: civitas.CLIMATE_CONTINENTAL,
+		personality: civitas.PERSONALITY_WARLORD,
 		level: 18,
 		resources: {
 			'coins': 22000,
@@ -3626,15 +3694,15 @@ civitas.CITIES = {
 		},
 		trades: {
 			'imports': {
-				flour: civitas.GOODS_IMPORTANCE_LOW,
-				bread: civitas.GOODS_IMPORTANCE_LOW,
-				brass: civitas.GOODS_IMPORTANCE_MEDIUM,
-				coal: civitas.GOODS_IMPORTANCE_VITAL
+				flour: civitas.IMPORTANCE_LOW,
+				bread: civitas.IMPORTANCE_LOW,
+				brass: civitas.IMPORTANCE_MEDIUM,
+				coal: civitas.IMPORTANCE_VITAL
 			},
 			'exports': {
-				wood: civitas.GOODS_IMPORTANCE_LOW,
-				stones: civitas.GOODS_IMPORTANCE_VITAL,
-				wine: civitas.GOODS_IMPORTANCE_MEDIUM
+				wood: civitas.IMPORTANCE_LOW,
+				stones: civitas.IMPORTANCE_VITAL,
+				wine: civitas.IMPORTANCE_MEDIUM
 			}
 		},
 		army: {
@@ -3651,12 +3719,12 @@ civitas.CITIES = {
 		}
 	},
 	'Sigiriya': {
-		nationality: civitas.NATION_TYPE_INDIAN,
+		nationality: civitas.NATION_INDIAN,
 		ruler: 'Kashyapa',
 		avatar: 40,
 		icon: 7,
-		climate: civitas.CLIMATE_TYPE_TROPICAL,
-		personality: civitas.PERSONALITY_TYPE_BALANCED,
+		climate: civitas.CLIMATE_TROPICAL,
+		personality: civitas.PERSONALITY_BALANCED,
 		level: 22,
 		resources: {
 			'coins': 180000,
@@ -3665,17 +3733,17 @@ civitas.CITIES = {
 		},
 		trades: {
 			'imports': {
-				furs: civitas.GOODS_IMPORTANCE_LOW,
-				hides: civitas.GOODS_IMPORTANCE_MEDIUM,
-				milk: civitas.GOODS_IMPORTANCE_LOW,
-				leather: civitas.GOODS_IMPORTANCE_LOW
+				furs: civitas.IMPORTANCE_LOW,
+				hides: civitas.IMPORTANCE_MEDIUM,
+				milk: civitas.IMPORTANCE_LOW,
+				leather: civitas.IMPORTANCE_LOW
 			},
 			'exports': {
-				spyglasses: civitas.GOODS_IMPORTANCE_VITAL,
-				wax: civitas.GOODS_IMPORTANCE_LOW,
-				candles: civitas.GOODS_IMPORTANCE_LOW,
-				salt: civitas.GOODS_IMPORTANCE_MEDIUM,
-				sugarcane: civitas.GOODS_IMPORTANCE_HIGH
+				spyglasses: civitas.IMPORTANCE_VITAL,
+				wax: civitas.IMPORTANCE_LOW,
+				candles: civitas.IMPORTANCE_LOW,
+				salt: civitas.IMPORTANCE_MEDIUM,
+				sugarcane: civitas.IMPORTANCE_HIGH
 			}
 		},
 		army: {
@@ -3698,12 +3766,12 @@ civitas.CITIES = {
 		}
 	},
 	'Selima Oasis': {
-		nationality: civitas.NATION_TYPE_SUDANESE,
+		nationality: civitas.NATION_SUDANESE,
 		ruler: 'Pepi',
 		avatar: 38,
 		icon: 7,
-		climate: civitas.CLIMATE_TYPE_TROPICAL,
-		personality: civitas.PERSONALITY_TYPE_WARLORD,
+		climate: civitas.CLIMATE_TROPICAL,
+		personality: civitas.PERSONALITY_WARLORD,
 		level: 18,
 		resources: {
 			'coins': 80000,
@@ -3712,21 +3780,21 @@ civitas.CITIES = {
 		},
 		trades: {
 			'imports': {
-				cider: civitas.GOODS_IMPORTANCE_LOW,
-				ropes: civitas.GOODS_IMPORTANCE_LOW,
-				wax: civitas.GOODS_IMPORTANCE_MEDIUM,
-				sugar: civitas.GOODS_IMPORTANCE_LOW,
-				wood: civitas.GOODS_IMPORTANCE_VITAL,
-				stones: civitas.GOODS_IMPORTANCE_VITAL
+				cider: civitas.IMPORTANCE_LOW,
+				ropes: civitas.IMPORTANCE_LOW,
+				wax: civitas.IMPORTANCE_MEDIUM,
+				sugar: civitas.IMPORTANCE_LOW,
+				wood: civitas.IMPORTANCE_VITAL,
+				stones: civitas.IMPORTANCE_VITAL
 			},
 			'exports': {
-				almonds: civitas.GOODS_IMPORTANCE_LOW,
-				roses: civitas.GOODS_IMPORTANCE_HIGH,
-				grapes: civitas.GOODS_IMPORTANCE_LOW,
-				hemp: civitas.GOODS_IMPORTANCE_LOW,
-				coffeebeans: civitas.GOODS_IMPORTANCE_LOW,
-				coffee: civitas.GOODS_IMPORTANCE_LOW,
-				spices: civitas.GOODS_IMPORTANCE_MEDIUM
+				almonds: civitas.IMPORTANCE_LOW,
+				roses: civitas.IMPORTANCE_HIGH,
+				grapes: civitas.IMPORTANCE_LOW,
+				hemp: civitas.IMPORTANCE_LOW,
+				coffeebeans: civitas.IMPORTANCE_LOW,
+				coffee: civitas.IMPORTANCE_LOW,
+				spices: civitas.IMPORTANCE_MEDIUM
 			}
 		},
 		army: {
@@ -3743,12 +3811,12 @@ civitas.CITIES = {
 		}
 	},
 	'Taruga': {
-		nationality: civitas.NATION_TYPE_NIGERIAN,
+		nationality: civitas.NATION_NIGERIAN,
 		ruler: 'Samun',
 		avatar: 30,
 		icon: 2,
-		climate: civitas.CLIMATE_TYPE_TROPICAL,
-		personality: civitas.PERSONALITY_TYPE_WARLORD,
+		climate: civitas.CLIMATE_TROPICAL,
+		personality: civitas.PERSONALITY_WARLORD,
 		level: 16,
 		resources: {
 			'coins': 20000,
@@ -3757,21 +3825,21 @@ civitas.CITIES = {
 		},
 		trades: {
 			'imports': {
-				meat: civitas.GOODS_IMPORTANCE_LOW,
-				milk: civitas.GOODS_IMPORTANCE_LOW,
-				weapons: civitas.GOODS_IMPORTANCE_LOW,
-				roses: civitas.GOODS_IMPORTANCE_MEDIUM,
-				perfume: civitas.GOODS_IMPORTANCE_LOW,
-				iron: civitas.GOODS_IMPORTANCE_VITAL,
-				ironores: civitas.GOODS_IMPORTANCE_LOW
+				meat: civitas.IMPORTANCE_LOW,
+				milk: civitas.IMPORTANCE_LOW,
+				weapons: civitas.IMPORTANCE_LOW,
+				roses: civitas.IMPORTANCE_MEDIUM,
+				perfume: civitas.IMPORTANCE_LOW,
+				iron: civitas.IMPORTANCE_VITAL,
+				ironores: civitas.IMPORTANCE_LOW
 			},
 			'exports': {
-				brine: civitas.GOODS_IMPORTANCE_MEDIUM,
-				clothes: civitas.GOODS_IMPORTANCE_LOW,
-				glass: civitas.GOODS_IMPORTANCE_HIGH,
-				wheat: civitas.GOODS_IMPORTANCE_VITAL,
-				hides: civitas.GOODS_IMPORTANCE_LOW,
-				paper: civitas.GOODS_IMPORTANCE_LOW
+				brine: civitas.IMPORTANCE_MEDIUM,
+				clothes: civitas.IMPORTANCE_LOW,
+				glass: civitas.IMPORTANCE_HIGH,
+				wheat: civitas.IMPORTANCE_VITAL,
+				hides: civitas.IMPORTANCE_LOW,
+				paper: civitas.IMPORTANCE_LOW
 			}
 		},
 		army: {
@@ -3784,12 +3852,12 @@ civitas.CITIES = {
 		}
 	},
 	'Thebes': {
-		nationality: civitas.NATION_TYPE_EGYPTIAN,
+		nationality: civitas.NATION_EGYPTIAN,
 		ruler: 'Hatshepsut',
 		avatar: 36,
 		icon: 4,
-		climate: civitas.CLIMATE_TYPE_TROPICAL,
-		personality: civitas.PERSONALITY_TYPE_DIPLOMAT,
+		climate: civitas.CLIMATE_TROPICAL,
+		personality: civitas.PERSONALITY_DIPLOMAT,
 		level: 38,
 		resources: {
 			'coins': 280000,
@@ -3798,21 +3866,21 @@ civitas.CITIES = {
 		},
 		trades: {
 			'imports': {
-				meat: civitas.GOODS_IMPORTANCE_LOW,
-				milk: civitas.GOODS_IMPORTANCE_LOW,
-				weapons: civitas.GOODS_IMPORTANCE_LOW,
-				roses: civitas.GOODS_IMPORTANCE_MEDIUM,
-				perfume: civitas.GOODS_IMPORTANCE_LOW,
-				iron: civitas.GOODS_IMPORTANCE_VITAL,
-				ironores: civitas.GOODS_IMPORTANCE_LOW
+				meat: civitas.IMPORTANCE_LOW,
+				milk: civitas.IMPORTANCE_LOW,
+				weapons: civitas.IMPORTANCE_LOW,
+				roses: civitas.IMPORTANCE_MEDIUM,
+				perfume: civitas.IMPORTANCE_LOW,
+				iron: civitas.IMPORTANCE_VITAL,
+				ironores: civitas.IMPORTANCE_LOW
 			},
 			'exports': {
-				brine: civitas.GOODS_IMPORTANCE_MEDIUM,
-				clothes: civitas.GOODS_IMPORTANCE_LOW,
-				glass: civitas.GOODS_IMPORTANCE_HIGH,
-				wheat: civitas.GOODS_IMPORTANCE_VITAL,
-				hides: civitas.GOODS_IMPORTANCE_LOW,
-				paper: civitas.GOODS_IMPORTANCE_LOW
+				brine: civitas.IMPORTANCE_MEDIUM,
+				clothes: civitas.IMPORTANCE_LOW,
+				glass: civitas.IMPORTANCE_HIGH,
+				wheat: civitas.IMPORTANCE_VITAL,
+				hides: civitas.IMPORTANCE_LOW,
+				paper: civitas.IMPORTANCE_LOW
 			}
 		},
 		army: {
@@ -3829,12 +3897,12 @@ civitas.CITIES = {
 		}
 	},
 	'Toledo': {
-		nationality: civitas.NATION_TYPE_SPANISH,
+		nationality: civitas.NATION_SPANISH,
 		ruler: 'Juan Luiz',
 		avatar: 12,
 		icon: 5,
-		climate: civitas.CLIMATE_TYPE_TEMPERATE,
-		personality: civitas.PERSONALITY_TYPE_BALANCED,
+		climate: civitas.CLIMATE_TEMPERATE,
+		personality: civitas.PERSONALITY_BALANCED,
 		level: 21,
 		resources: {
 			'coins': 110000,
@@ -3843,21 +3911,21 @@ civitas.CITIES = {
 		},
 		trades: {
 			'imports': {
-				meat: civitas.GOODS_IMPORTANCE_LOW,
-				iron: civitas.GOODS_IMPORTANCE_HIGH,
-				brass: civitas.GOODS_IMPORTANCE_LOW,
-				cider: civitas.GOODS_IMPORTANCE_LOW,
-				grapes: civitas.GOODS_IMPORTANCE_LOW,
-				coal: civitas.GOODS_IMPORTANCE_MEDIUM,
-				ironores: civitas.GOODS_IMPORTANCE_LOW
+				meat: civitas.IMPORTANCE_LOW,
+				iron: civitas.IMPORTANCE_HIGH,
+				brass: civitas.IMPORTANCE_LOW,
+				cider: civitas.IMPORTANCE_LOW,
+				grapes: civitas.IMPORTANCE_LOW,
+				coal: civitas.IMPORTANCE_MEDIUM,
+				ironores: civitas.IMPORTANCE_LOW
 			},
 			'exports': {
-				mosaic: civitas.GOODS_IMPORTANCE_VITAL,
-				wine: civitas.GOODS_IMPORTANCE_HIGH,
-				silk: civitas.GOODS_IMPORTANCE_LOW,
-				wood: civitas.GOODS_IMPORTANCE_MEDIUM,
-				cattle: civitas.GOODS_IMPORTANCE_LOW,
-				statues: civitas.GOODS_IMPORTANCE_VITAL
+				mosaic: civitas.IMPORTANCE_VITAL,
+				wine: civitas.IMPORTANCE_HIGH,
+				silk: civitas.IMPORTANCE_LOW,
+				wood: civitas.IMPORTANCE_MEDIUM,
+				cattle: civitas.IMPORTANCE_LOW,
+				statues: civitas.IMPORTANCE_VITAL
 			}
 		},
 		army: {
@@ -3874,12 +3942,12 @@ civitas.CITIES = {
 		}
 	},
 	'Tournai': {
-		nationality: civitas.NATION_TYPE_FRANKS,
+		nationality: civitas.NATION_FRANKS,
 		ruler: 'Clovis',
 		avatar: 44,
 		icon: 5,
-		climate: civitas.CLIMATE_TYPE_CONTINENTAL,
-		personality: civitas.PERSONALITY_TYPE_WARLORD,
+		climate: civitas.CLIMATE_CONTINENTAL,
+		personality: civitas.PERSONALITY_WARLORD,
 		level: 22,
 		resources: {
 			'coins': 10000,
@@ -3888,20 +3956,20 @@ civitas.CITIES = {
 		},
 		trades: {
 			'imports': {
-				furs: civitas.GOODS_IMPORTANCE_LOW,
-				hides: civitas.GOODS_IMPORTANCE_VITAL,
-				milk: civitas.GOODS_IMPORTANCE_MEDIUM,
-				gems: civitas.GOODS_IMPORTANCE_LOW,
-				brass: civitas.GOODS_IMPORTANCE_VITAL,
-				wheat: civitas.GOODS_IMPORTANCE_HIGH,
-				clay: civitas.GOODS_IMPORTANCE_LOW
+				furs: civitas.IMPORTANCE_LOW,
+				hides: civitas.IMPORTANCE_VITAL,
+				milk: civitas.IMPORTANCE_MEDIUM,
+				gems: civitas.IMPORTANCE_LOW,
+				brass: civitas.IMPORTANCE_VITAL,
+				wheat: civitas.IMPORTANCE_HIGH,
+				clay: civitas.IMPORTANCE_LOW
 			},
 			'exports': {
-				silver: civitas.GOODS_IMPORTANCE_VITAL,
-				wax: civitas.GOODS_IMPORTANCE_MEDIUM,
-				candles: civitas.GOODS_IMPORTANCE_LOW,
-				salt: civitas.GOODS_IMPORTANCE_VITAL,
-				pearls: civitas.GOODS_IMPORTANCE_MEDIUM
+				silver: civitas.IMPORTANCE_VITAL,
+				wax: civitas.IMPORTANCE_MEDIUM,
+				candles: civitas.IMPORTANCE_LOW,
+				salt: civitas.IMPORTANCE_VITAL,
+				pearls: civitas.IMPORTANCE_MEDIUM
 			}
 		},
 		army: {
@@ -3918,12 +3986,12 @@ civitas.CITIES = {
 		}
 	},
 	'Uruk': {
-		nationality: civitas.NATION_TYPE_SUMERIAN,
+		nationality: civitas.NATION_SUMERIAN,
 		ruler: 'Gilgamesh',
 		avatar: 14,
 		icon: 7,
-		climate: civitas.CLIMATE_TYPE_TROPICAL,
-		personality: civitas.PERSONALITY_TYPE_WARLORD,
+		climate: civitas.CLIMATE_TROPICAL,
+		personality: civitas.PERSONALITY_WARLORD,
 		level: 26,
 		resources: {
 			'coins': 80000,
@@ -3932,18 +4000,18 @@ civitas.CITIES = {
 		},
 		trades: {
 			'imports': {
-				wheat: civitas.GOODS_IMPORTANCE_VITAL,
-				wood: civitas.GOODS_IMPORTANCE_HIGH,
-				sugar: civitas.GOODS_IMPORTANCE_LOW,
-				sugarcane: civitas.GOODS_IMPORTANCE_LOW,
-				clay: civitas.GOODS_IMPORTANCE_VITAL
+				wheat: civitas.IMPORTANCE_VITAL,
+				wood: civitas.IMPORTANCE_HIGH,
+				sugar: civitas.IMPORTANCE_LOW,
+				sugarcane: civitas.IMPORTANCE_LOW,
+				clay: civitas.IMPORTANCE_VITAL
 			},
 			'exports': {
-				silver: civitas.GOODS_IMPORTANCE_VITAL,
-				glasses: civitas.GOODS_IMPORTANCE_LOW,
-				furcoats: civitas.GOODS_IMPORTANCE_MEDIUM,
-				indigo: civitas.GOODS_IMPORTANCE_LOW,
-				wheat: civitas.GOODS_IMPORTANCE_LOW
+				silver: civitas.IMPORTANCE_VITAL,
+				glasses: civitas.IMPORTANCE_LOW,
+				furcoats: civitas.IMPORTANCE_MEDIUM,
+				indigo: civitas.IMPORTANCE_LOW,
+				wheat: civitas.IMPORTANCE_LOW
 			}
 		},
 		army: {
@@ -3960,12 +4028,12 @@ civitas.CITIES = {
 		}
 	},
 	'Xinjiang': {
-		nationality: civitas.NATION_TYPE_CHINESE,
+		nationality: civitas.NATION_CHINESE,
 		ruler: 'Gaozu',
 		avatar: 15,
 		icon: 7,
-		climate: civitas.CLIMATE_TYPE_TEMPERATE,
-		personality: civitas.PERSONALITY_TYPE_BALANCED,
+		climate: civitas.CLIMATE_TEMPERATE,
+		personality: civitas.PERSONALITY_BALANCED,
 		level: 29,
 		resources: {
 			'coins': 240000,
@@ -3974,18 +4042,18 @@ civitas.CITIES = {
 		},
 		trades: {
 			'imports': {
-				salt: civitas.GOODS_IMPORTANCE_MEDIUM,
-				stones: civitas.GOODS_IMPORTANCE_VITAL,
-				gems: civitas.GOODS_IMPORTANCE_LOW,
-				pearls: civitas.GOODS_IMPORTANCE_LOW
+				salt: civitas.IMPORTANCE_MEDIUM,
+				stones: civitas.IMPORTANCE_VITAL,
+				gems: civitas.IMPORTANCE_LOW,
+				pearls: civitas.IMPORTANCE_LOW
 			},
 			'exports': {
-				donkeys: civitas.GOODS_IMPORTANCE_VITAL,
-				sulphur: civitas.GOODS_IMPORTANCE_VITAL,
-				silk: civitas.GOODS_IMPORTANCE_MEDIUM,
-				glass: civitas.GOODS_IMPORTANCE_HIGH,
-				carpets: civitas.GOODS_IMPORTANCE_LOW,
-				cannons: civitas.GOODS_IMPORTANCE_LOW
+				donkeys: civitas.IMPORTANCE_VITAL,
+				sulphur: civitas.IMPORTANCE_VITAL,
+				silk: civitas.IMPORTANCE_MEDIUM,
+				glass: civitas.IMPORTANCE_HIGH,
+				carpets: civitas.IMPORTANCE_LOW,
+				cannons: civitas.IMPORTANCE_LOW
 			}
 		},
 		army: {
@@ -4001,12 +4069,12 @@ civitas.CITIES = {
 		}
 	},
 	'Yinxu': {
-		nationality: civitas.NATION_TYPE_CHINESE,
+		nationality: civitas.NATION_CHINESE,
 		ruler: 'Wu Ding',
 		avatar: 15,
 		icon: 7,
-		climate: civitas.CLIMATE_TYPE_TEMPERATE,
-		personality: civitas.PERSONALITY_TYPE_WARLORD,
+		climate: civitas.CLIMATE_TEMPERATE,
+		personality: civitas.PERSONALITY_WARLORD,
 		level: 22,
 		resources: {
 			'coins': 240000,
@@ -4015,25 +4083,25 @@ civitas.CITIES = {
 		},
 		trades: {
 			'imports': {
-				gold: civitas.GOODS_IMPORTANCE_LOW,
-				goldores: civitas.GOODS_IMPORTANCE_LOW,
-				weapons: civitas.GOODS_IMPORTANCE_LOW,
-				salt: civitas.GOODS_IMPORTANCE_MEDIUM,
-				stones: civitas.GOODS_IMPORTANCE_VITAL,
-				gems: civitas.GOODS_IMPORTANCE_LOW,
-				pearls: civitas.GOODS_IMPORTANCE_LOW
+				gold: civitas.IMPORTANCE_LOW,
+				goldores: civitas.IMPORTANCE_LOW,
+				weapons: civitas.IMPORTANCE_LOW,
+				salt: civitas.IMPORTANCE_MEDIUM,
+				stones: civitas.IMPORTANCE_VITAL,
+				gems: civitas.IMPORTANCE_LOW,
+				pearls: civitas.IMPORTANCE_LOW
 			},
 			'exports': {
-				donkeys: civitas.GOODS_IMPORTANCE_VITAL,
-				sulphur: civitas.GOODS_IMPORTANCE_VITAL,
-				silk: civitas.GOODS_IMPORTANCE_MEDIUM,
-				glass: civitas.GOODS_IMPORTANCE_HIGH,
-				roses: civitas.GOODS_IMPORTANCE_LOW,
-				cattle: civitas.GOODS_IMPORTANCE_LOW,
-				bread: civitas.GOODS_IMPORTANCE_LOW,
-				meat: civitas.GOODS_IMPORTANCE_MEDIUM,
-				carpets: civitas.GOODS_IMPORTANCE_LOW,
-				cannons: civitas.GOODS_IMPORTANCE_LOW
+				donkeys: civitas.IMPORTANCE_VITAL,
+				sulphur: civitas.IMPORTANCE_VITAL,
+				silk: civitas.IMPORTANCE_MEDIUM,
+				glass: civitas.IMPORTANCE_HIGH,
+				roses: civitas.IMPORTANCE_LOW,
+				cattle: civitas.IMPORTANCE_LOW,
+				bread: civitas.IMPORTANCE_LOW,
+				meat: civitas.IMPORTANCE_MEDIUM,
+				carpets: civitas.IMPORTANCE_LOW,
+				cannons: civitas.IMPORTANCE_LOW
 			}
 		},
 		army: {
@@ -4184,56 +4252,6 @@ civitas.EVENTS = [{
 	data: {
 		amount: 10,
 	}
-}];
-
-/**
- * List of resources to start with in various difficulty modes.
- *
- * @constant
- * @type {Object}
- */
-civitas.RESOURCES_START = [{
-		'coins': 50000,
-		'fame': 10,
-		'prestige': 1,
-		'espionage': 1,
-		'bread': 300,
-		'meat': 100,
-		'stones': 100,
-		'weapons': 100,
-		'wheat': 40,
-		'wood': 100
-	}, {
-		'coins': 20000,
-		'fame': 1,
-		'prestige': 1,
-		'espionage': 1,
-		'bread': 300,
-		'meat': 100,
-		'stones': 100,
-		'weapons': 60,
-		'wheat': 40,
-		'wood': 100
-	}, {
-		'coins': 10000,
-		'fame': 1,
-		'prestige': 1,
-		'espionage': 1,
-		'bread': 300,
-		'meat': 100,
-		'stones': 70,
-		'wheat': 40,
-		'wood': 70
-	}, {
-		'coins': 5000,
-		'fame': 1,
-		'prestige': 1,
-		'espionage': 1,
-		'bread': 100,
-		'meat': 50,
-		'stones': 50,
-		'wheat': 40,
-		'wood': 50
 }];
 
 /**
@@ -4518,12 +4536,12 @@ civitas.MAIN_RESOURCES = [
  */
 if (civitas.DEBUG === true) {
 	civitas.CITIES['Sandbox'] = {
-		nationality: civitas.NATION_TYPE_ASSYRIAN,
+		nationality: civitas.NATION_ASSYRIAN,
 		ruler: 'Sandking',
 		avatar: 1,
 		icon: 2,
-		climate: civitas.CLIMATE_TYPE_TEMPERATE,
-		personality: civitas.PERSONALITY_TYPE_DIPLOMAT,
+		climate: civitas.CLIMATE_TEMPERATE,
+		personality: civitas.PERSONALITY_DIPLOMAT,
 		level: 30,
 		resources: {
 			'coins': 1000000,
@@ -4531,26 +4549,26 @@ if (civitas.DEBUG === true) {
 		},
 		trades: {
 			'imports': {
-				gold: civitas.GOODS_IMPORTANCE_VITAL,
-				goldores: civitas.GOODS_IMPORTANCE_VITAL,
-				weapons: civitas.GOODS_IMPORTANCE_VITAL,
-				weapons: civitas.GOODS_IMPORTANCE_VITAL,
-				milk: civitas.GOODS_IMPORTANCE_VITAL,
-				gems: civitas.GOODS_IMPORTANCE_VITAL,
-				pearls: civitas.GOODS_IMPORTANCE_VITAL
+				gold: civitas.IMPORTANCE_VITAL,
+				goldores: civitas.IMPORTANCE_VITAL,
+				weapons: civitas.IMPORTANCE_VITAL,
+				weapons: civitas.IMPORTANCE_VITAL,
+				milk: civitas.IMPORTANCE_VITAL,
+				gems: civitas.IMPORTANCE_VITAL,
+				pearls: civitas.IMPORTANCE_VITAL
 			},
 			'exports': {
-				stones: civitas.GOODS_IMPORTANCE_VITAL,
-				wood: civitas.GOODS_IMPORTANCE_VITAL,
-				ironores: civitas.GOODS_IMPORTANCE_VITAL,
-				goldores: civitas.GOODS_IMPORTANCE_VITAL,
-				copper: civitas.GOODS_IMPORTANCE_VITAL,
-				clay: civitas.GOODS_IMPORTANCE_VITAL,
-				iron: civitas.GOODS_IMPORTANCE_VITAL,
-				gold: civitas.GOODS_IMPORTANCE_VITAL,
-				meat: civitas.GOODS_IMPORTANCE_VITAL,
-				bread: civitas.GOODS_IMPORTANCE_VITAL,
-				coal: civitas.GOODS_IMPORTANCE_VITAL
+				stones: civitas.IMPORTANCE_VITAL,
+				wood: civitas.IMPORTANCE_VITAL,
+				ironores: civitas.IMPORTANCE_VITAL,
+				goldores: civitas.IMPORTANCE_VITAL,
+				copper: civitas.IMPORTANCE_VITAL,
+				clay: civitas.IMPORTANCE_VITAL,
+				iron: civitas.IMPORTANCE_VITAL,
+				gold: civitas.IMPORTANCE_VITAL,
+				meat: civitas.IMPORTANCE_VITAL,
+				bread: civitas.IMPORTANCE_VITAL,
+				coal: civitas.IMPORTANCE_VITAL
 			}
 		},
 		army: {
@@ -4723,13 +4741,13 @@ civitas.modules.ai = function (params) {
 	 * @returns {civitas.modules.ai}
 	 * @param {Object} params
 	 */
-	this.__constructor = function (params) {
+	this.__init = function (params) {
 		this.core = params.core;
 		return this;
 	};
 
 	// Fire up the constructor
-	return this.__constructor(params);
+	return this.__init(params);
 };
 
 /**
@@ -4877,7 +4895,7 @@ civitas.modules.api = function (params) {
 			},
 			crossDomain: true,
 			data: data.data,
-			url: civitas.API_VERSION_URL + data.url,
+			url: civitas.API_URL + data.url,
 			async: (typeof data.async === 'undefined' || data.async == true) ? true : false,
 			success: data.success instanceof Function ? data.success : function () {
 				// TODO
@@ -4896,13 +4914,13 @@ civitas.modules.api = function (params) {
 	 * @returns {civitas.modules.api}
 	 * @param {Object} params
 	 */
-	this.__constructor = function (params) {
+	this.__init = function (params) {
 		this.core = params.core;
 		return this;
 	};
 
 	// Fire up the constructor
-	return this.__constructor(params);
+	return this.__init(params);
 };
 
 /**
@@ -4935,7 +4953,7 @@ civitas.modules.jailer = function (params) {
 	 * @returns {civitas.modules.jailer}
 	 * @param {Object} params
 	 */
-	this.__constructor = function (params) {
+	this.__init = function (params) {
 		this.core = params.core;
 		return this;
 	};
@@ -4961,7 +4979,7 @@ civitas.modules.jailer = function (params) {
 	};
 
 	// Fire up the constructor
-	return this.__constructor(params);
+	return this.__init(params);
 };
 
 /**
@@ -4987,14 +5005,14 @@ civitas.modules.history = function (params) {
 	 * @returns {civitas.modules.history}
 	 * @param {Object} params
 	 */
-	this.__constructor = function (params) {
+	this.__init = function (params) {
 		this.core = params.core;
 		// TODO
 		return this;
 	};
 
 	// Fire up the constructor
-	return this.__constructor(params);
+	return this.__init(params);
 };
 
 /**
@@ -5383,16 +5401,16 @@ civitas.objects.city = function(params) {
 	 * @returns {civitas.objects.city}
 	 * @param {Object} params
 	 */
-	this.__constructor = function(params) {
+	this.__init = function(params) {
 		this.core = params.core;
 		this.name = params.name;
 		this.data = params.data;
 		this.player = (typeof params.player !== 'undefined') ? params.player : false;
 		this.level = (typeof params.data.level !== 'undefined') ? params.data.level : 1;
 		this.resources = this._build_resources(params);
-		this.personality = (typeof params.data.personality !== 'undefined') ? params.data.personality : civitas.PERSONALITY_TYPE_BALANCED;
-		this.nationality = (typeof params.data.nationality !== 'undefined') ? params.data.nationality : civitas.NATION_TYPE_ROMAN;
-		this.climate = (typeof params.data.climate !== 'undefined') ? params.data.climate : civitas.CLIMATE_TYPE_TEMPERATE;
+		this.personality = (typeof params.data.personality !== 'undefined') ? params.data.personality : civitas.PERSONALITY_BALANCED;
+		this.nationality = (typeof params.data.nationality !== 'undefined') ? params.data.nationality : civitas.NATION_ROMAN;
+		this.climate = (typeof params.data.climate !== 'undefined') ? params.data.climate : civitas.CLIMATE_TEMPERATE;
 		this.ruler = (typeof params.data.ruler !== 'undefined') ? params.data.ruler : 0;
 		this.avatar = (typeof params.data.avatar !== 'undefined') ? params.data.avatar : 1;
 		this.icon = (typeof params.data.icon !== 'undefined') ? params.data.icon : 1;
@@ -5412,10 +5430,10 @@ civitas.objects.city = function(params) {
 		var difficulty = this.get_core().get_difficulty();
 		for (var item in civitas.RESOURCES) {
 			if (this.player === true) {
-				if (typeof civitas.RESOURCES_START[difficulty - 1][item] === 'undefined') {
+				if (typeof civitas.START_RESOURCES[difficulty - 1][item] === 'undefined') {
 					resources[item] = 0;
 				} else {
-					resources[item] = civitas.RESOURCES_START[difficulty - 1][item];
+					resources[item] = civitas.START_RESOURCES[difficulty - 1][item];
 				}
 			} else {
 				if (typeof params.data.resources[item] !== 'undefined') {
@@ -6273,7 +6291,7 @@ civitas.objects.city = function(params) {
 	this.get_navy_total = function() {
 		var total = 0;
 		var total_navy = {};
-		for (var item in civitas.SHIP_TYPES) {
+		for (var item in civitas.SHIPS) {
 			total_navy[item] = 0;
 		}
 		for (var i = 0; i < this.navy.length; i++) {
@@ -6300,7 +6318,7 @@ civitas.objects.city = function(params) {
 	this.get_army_total = function() {
 		var total = 0;
 		var total_army = {};
-		for (var item in civitas.SOLDIER_TYPES) {
+		for (var item in civitas.SOLDIERS) {
 			total_army[item] = 0;
 		}
 		for (var i = 0; i < this.army.length; i++) {
@@ -6327,7 +6345,7 @@ civitas.objects.city = function(params) {
 	this.get_mercenary_total = function() {
 		var total = 0;
 		var total_army = {};
-		for (var item in civitas.SOLDIER_TYPES) {
+		for (var item in civitas.SOLDIERS) {
 			total_army[item] = 0;
 		}
 		for (var i = 0; i < this.mercenary.length; i++) {
@@ -6464,7 +6482,7 @@ civitas.objects.city = function(params) {
 					army: []
 				};
 				for (var item in civitas.MERCENARIES[i].army) {
-					var soldier = civitas.SOLDIER_TYPES[item];
+					var soldier = civitas.SOLDIERS[item];
 					var _soldier = new civitas.objects.soldier({
 						name: item,
 						data: soldier
@@ -6490,9 +6508,9 @@ civitas.objects.city = function(params) {
 	 * @returns {Boolean}
 	 */
 	this.recruit_ship = function(ship_name) {
-		for (var item in civitas.SHIP_TYPES) {
+		for (var item in civitas.SHIPS) {
 			if (ship_name === item) {
-				var ship = civitas.SHIP_TYPES[item];
+				var ship = civitas.SHIPS[item];
 				if (!this.remove_resources(ship.cost)) {
 					return false;
 				}
@@ -6519,9 +6537,9 @@ civitas.objects.city = function(params) {
 	 * @returns {Boolean}
 	 */
 	this.recruit_soldier = function(soldier_name) {
-		for (var item in civitas.SOLDIER_TYPES) {
+		for (var item in civitas.SOLDIERS) {
 			if (soldier_name === item) {
-				var soldier = civitas.SOLDIER_TYPES[item];
+				var soldier = civitas.SOLDIERS[item];
 				if (!this.remove_resources(soldier.cost)) {
 					return false;
 				}
@@ -6548,9 +6566,9 @@ civitas.objects.city = function(params) {
 	 * @returns {civitas.objects.city}
 	 */
 	this._recruit_ship = function(ship_name) {
-		for (var item in civitas.SHIP_TYPES) {
+		for (var item in civitas.SHIPS) {
 			if (ship_name === item) {
-				var ship = civitas.SHIP_TYPES[item];
+				var ship = civitas.SHIPS[item];
 				var _ship = new civitas.objects.ship({
 					name: item,
 					data: ship
@@ -6569,9 +6587,9 @@ civitas.objects.city = function(params) {
 	 * @returns {civitas.objects.city}
 	 */
 	this._recruit_soldier = function(soldier_name) {
-		for (var item in civitas.SOLDIER_TYPES) {
+		for (var item in civitas.SOLDIERS) {
 			if (soldier_name === item) {
-				var soldier = civitas.SOLDIER_TYPES[item];
+				var soldier = civitas.SOLDIERS[item];
 				var _soldier = new civitas.objects.soldier({
 					name: item,
 					data: soldier
@@ -6773,7 +6791,7 @@ civitas.objects.city = function(params) {
 	this.get_personality = function() {
 		return {
 			id: this.personality,
-			name: civitas.PERSONALITY_TYPES[this.personality]
+			name: civitas.PERSONALITIES[this.personality]
 		};
 	};
 	
@@ -6868,7 +6886,7 @@ civitas.objects.city = function(params) {
 	this.get_climate = function() {
 		return {
 			id: this.climate,
-			name: civitas.CLIMATE_TYPES[this.climate]
+			name: civitas.CLIMATES[this.climate]
 		};
 	};
 	
@@ -6881,7 +6899,7 @@ civitas.objects.city = function(params) {
 	this.get_nationality = function() {
 		return {
 			id: this.nationality,
-			name: civitas.NATION_TYPES[this.nationality]
+			name: civitas.NATIONS[this.nationality]
 		};
 	};
 	
@@ -7241,7 +7259,7 @@ civitas.objects.city = function(params) {
 	};
 
 	// Fire up the constructor
-	return this.__constructor(params);
+	return this.__init(params);
 };
 
 /**
@@ -7315,7 +7333,7 @@ civitas.objects.event = function (params) {
 	 * @returns {civitas.objects.event}
 	 * @param {Object} params
 	 */
-	this.__constructor = function (params) {
+	this.__init = function (params) {
 		this.core = params.core;
 		this.name = params.name;
 		this.handle = params.handle;
@@ -7400,7 +7418,7 @@ civitas.objects.event = function (params) {
 	};
 
 	// Fire up the constructor
-	return this.__constructor(params);
+	return this.__init(params);
 };
 
 /**
@@ -7499,7 +7517,7 @@ civitas.objects.building = function(params) {
 	 * @returns {civitas.objects.building}
 	 * @param {Object} params
 	 */
-	this.__constructor = function(params) {
+	this.__init = function(params) {
 		var self = this;
 		this.city = params.city;
 		this.type = params.type;
@@ -8164,7 +8182,7 @@ civitas.objects.building = function(params) {
 	};
 
 	// Fire up the constructor
-	return this.__constructor(params);
+	return this.__init(params);
 };
 
 /**
@@ -8243,7 +8261,7 @@ civitas.objects.soldier = function (params) {
 	 * @returns {civitas.objects.soldier}
 	 * @param {Object} params
 	 */
-	this.__constructor = function (params) {
+	this.__init = function (params) {
 		this.city = params.city;
 		this.name = params.name;
 		this.attack = params.data.attack;
@@ -8313,7 +8331,7 @@ civitas.objects.soldier = function (params) {
 	};
 
 	// Fire up the constructor
-	return this.__constructor(params);
+	return this.__init(params);
 };
 
 /**
@@ -8392,7 +8410,7 @@ civitas.objects.ship = function (params) {
 	 * @returns {civitas.objects.ship}
 	 * @param {Object} params
 	 */
-	this.__constructor = function (params) {
+	this.__init = function (params) {
 		this.city = params.city;
 		this.name = params.name;
 		this.attack = params.data.attack;
@@ -8462,7 +8480,7 @@ civitas.objects.ship = function (params) {
 	};
 
 	// Fire up the constructor
-	return this.__constructor(params);
+	return this.__init(params);
 };
 
 /**
@@ -8541,7 +8559,7 @@ civitas.objects.army = function (params) {
 	 * @returns {civitas.objects.army}
 	 * @param {Object} params
 	 */
-	this.__constructor = function (params) {
+	this.__init = function (params) {
 		this.city = params.city;
 		this.name = params.name;
 		this.cost = params.data.cost;
@@ -8579,7 +8597,7 @@ civitas.objects.army = function (params) {
 	};
 
 	// Fire up the constructor
-	return this.__constructor(params);
+	return this.__init(params);
 };
 
 /**
@@ -8645,7 +8663,7 @@ civitas.controls.panel_building = function (params) {
 	 * @returns {civitas.controls.panel_building}
 	 * @param {Object} params
 	 */
-	this.__constructor = function (params) {
+	this.__init = function (params) {
 		var self = this;
 		this.core = params.core;
 		this.params_data = params.data;
@@ -8750,7 +8768,7 @@ civitas.controls.panel_building = function (params) {
 	};
 
 	// Fire up the constructor
-	return this.__constructor(params);
+	return this.__init(params);
 };
 
 /**
@@ -8816,7 +8834,7 @@ civitas.controls.panel_buildings = function (params) {
 	 * @returns {civitas.controls.panel_buildings}
 	 * @param {Object} params
 	 */
-	this.__constructor = function (params) {
+	this.__init = function (params) {
 		this.core = params.core;
 		var self = this;
 		var el = '#panel-' + this.id;
@@ -9028,7 +9046,7 @@ civitas.controls.panel_buildings = function (params) {
 	};
 	
 	// Fire up the constructor
-	return this.__constructor(params);
+	return this.__init(params);
 };
 
 /**
@@ -9096,7 +9114,7 @@ civitas.controls.panel_storage = function (params) {
 	 * @returns {civitas.controls.panel_storage}
 	 * @param {Object} params
 	 */
-	this.__constructor = function (params) {
+	this.__init = function (params) {
 		this.core = params.core;
 		var self = this;
 		var el = '#panel-' + this.id;
@@ -9189,7 +9207,7 @@ civitas.controls.panel_storage = function (params) {
 	};
 	
 	// Fire up the constructor
-	return this.__constructor(params);
+	return this.__init(params);
 };
 
 /**
@@ -9248,7 +9266,7 @@ civitas.controls.panel_city = function (params) {
 	 * @returns {civitas.controls.panel_city}
 	 * @param {Object} params
 	 */
-	this.__constructor = function (params) {
+	this.__init = function (params) {
 		var self = this;
 		this.core = params.core;
 		var el = '#panel-' + this.id;
@@ -9313,7 +9331,7 @@ civitas.controls.panel_city = function (params) {
 	};
 	
 	// Fire up the constructor
-	return this.__constructor(params);
+	return this.__init(params);
 };
 
 /**
@@ -9393,7 +9411,7 @@ civitas.controls.panel_help = function (params) {
 	 * @returns {civitas.controls.panel_help}
 	 * @param {Object} params
 	 */
-	this.__constructor = function (params) {
+	this.__init = function (params) {
 		this.core = params.core;
 		this.term = params.term;
 		this.context = params.context;
@@ -9447,7 +9465,7 @@ civitas.controls.panel_help = function (params) {
 	};
 	
 	// Fire up the constructor
-	return this.__constructor(params);
+	return this.__init(params);
 };
 
 /**
@@ -9513,7 +9531,7 @@ civitas.controls.panel_rankings = function (params) {
 	 * @returns {civitas.controls.panel_rankings}
 	 * @param {Object} params
 	 */
-	this.__constructor = function (params) {
+	this.__init = function (params) {
 		this.core = params.core;
 		var self = this;
 		var el = '#panel-' + this.id;
@@ -9609,7 +9627,7 @@ civitas.controls.panel_rankings = function (params) {
 	};
 
 	// Fire up the constructor
-	return this.__constructor(params);
+	return this.__init(params);
 };
 
 /**
@@ -9675,7 +9693,7 @@ civitas.controls.panel_send_goods = function (params) {
 	 * @returns {civitas.controls.panel_send_goods}
 	 * @param {Object} params
 	 */
-	this.__constructor = function (params) {
+	this.__init = function (params) {
 		this.core = params.core;
 		var self = this;
 		var el = '#panel-' + this.id;
@@ -9722,7 +9740,7 @@ civitas.controls.panel_send_goods = function (params) {
 	};
 	
 	// Fire up the constructor
-	return this.__constructor(params);
+	return this.__init(params);
 };
 
 /**
@@ -9788,7 +9806,7 @@ civitas.controls.panel_declare_war = function (params) {
 	 * @returns {civitas.controls.panel_declare_war}
 	 * @param {Object} params
 	 */
-	this.__constructor = function (params) {
+	this.__init = function (params) {
 		this.core = params.core;
 		var self = this;
 		var el = '#panel-' + this.id;
@@ -9835,7 +9853,7 @@ civitas.controls.panel_declare_war = function (params) {
 	};
 	
 	// Fire up the constructor
-	return this.__constructor(params);
+	return this.__init(params);
 };
 
 /**
@@ -9894,7 +9912,7 @@ civitas.controls.panel_world = function (params) {
 	 * @returns {civitas.controls.panel_world}
 	 * @param {Object} params
 	 */
-	this.__constructor = function (params) {
+	this.__init = function (params) {
 		var self = this;
 		this.core = params.core;
 		var el = '#panel-' + this.id;
@@ -9956,7 +9974,7 @@ civitas.controls.panel_world = function (params) {
 	};
 
 	// Fire up the constructor
-	return this.__constructor(params);
+	return this.__init(params);
 };
 
 /**
@@ -10022,7 +10040,7 @@ civitas.controls.panel_advisor = function (params) {
 	 * @returns {civitas.controls.panel_advisor}
 	 * @param {Object} params
 	 */
-	this.__constructor = function (params) {
+	this.__init = function (params) {
 		this.core = params.core;
 		var el = '#panel-' + this.id;
 		var self = this;
@@ -10437,20 +10455,20 @@ civitas.controls.panel_advisor = function (params) {
 		_t += '<div class="army-list">' +
 				'</div>' +
 				'<div class="army-recruiter">';
-		for (var item in civitas.SOLDIER_TYPES) {
+		for (var item in civitas.SOLDIERS) {
 			_t += '<fieldset>' +
 					'<legend>' + item + '</legend>' +
 					'<div class="cost">' +
 					'<dl class="nomg">';
-			for (var res in civitas.SOLDIER_TYPES[item].cost) {
-				_t += '<dt>' + civitas.utils.nice_numbers(civitas.SOLDIER_TYPES[item].cost[res]) + '</dt><dd><img class="tips" title="' + resources[res].name + '" src="' + civitas.ASSETS_URL + 'images/resources/' + res + '_small.png" /></dd>';
+			for (var res in civitas.SOLDIERS[item].cost) {
+				_t += '<dt>' + civitas.utils.nice_numbers(civitas.SOLDIERS[item].cost[res]) + '</dt><dd><img class="tips" title="' + resources[res].name + '" src="' + civitas.ASSETS_URL + 'images/resources/' + res + '_small.png" /></dd>';
 			}
 			_t += '</dl>' +
 					'</div>' +
 					'<div class="info">' +
 					'<dl class="nomg">' +
-					'<dt>Attack</dt><dd>' + civitas.SOLDIER_TYPES[item].attack + '</dd>' +
-					'<dt>Defense</dt><dd>' + civitas.SOLDIER_TYPES[item].defense + '</dd>' +
+					'<dt>Attack</dt><dd>' + civitas.SOLDIERS[item].attack + '</dd>' +
+					'<dt>Defense</dt><dd>' + civitas.SOLDIERS[item].defense + '</dd>' +
 					'</dl>' +
 					'</div>' +
 					'<img data-handle="' + item + '" title="' + civitas.l('Recruit') + ' ' + item + '" class="tips recruit-soldier" src="' + civitas.ASSETS_URL + 'images/armies/' + item.toLowerCase() + '.png" />' +
@@ -10484,20 +10502,20 @@ civitas.controls.panel_advisor = function (params) {
 		_t += '<div class="navy-list">' +
 				'</div>' +
 				'<div class="navy-recruiter">';
-		for (var item in civitas.SHIP_TYPES) {
+		for (var item in civitas.SHIPS) {
 			_t += '<fieldset>' +
 					'<legend>' + item + '</legend>' +
 					'<div class="cost">' +
 					'<dl class="nomg">';
-			for (var res in civitas.SHIP_TYPES[item].cost) {
-				_t += '<dt>' + civitas.utils.nice_numbers(civitas.SHIP_TYPES[item].cost[res]) + '</dt><dd><img class="tips" title="' + resources[res].name + '" src="' + civitas.ASSETS_URL + 'images/resources/' + res + '_small.png" /></dd>';
+			for (var res in civitas.SHIPS[item].cost) {
+				_t += '<dt>' + civitas.utils.nice_numbers(civitas.SHIPS[item].cost[res]) + '</dt><dd><img class="tips" title="' + resources[res].name + '" src="' + civitas.ASSETS_URL + 'images/resources/' + res + '_small.png" /></dd>';
 			}
 			_t += '</dl>' +
 					'</div>' +
 					'<div class="info">' +
 					'<dl class="nomg">' +
-					'<dt>' + civitas.l('Attack') + '</dt><dd>' + civitas.SHIP_TYPES[item].attack + '</dd>' +
-					'<dt>' + civitas.l('Defense') + '</dt><dd>' + civitas.SHIP_TYPES[item].defense + '</dd>' +
+					'<dt>' + civitas.l('Attack') + '</dt><dd>' + civitas.SHIPS[item].attack + '</dd>' +
+					'<dt>' + civitas.l('Defense') + '</dt><dd>' + civitas.SHIPS[item].defense + '</dd>' +
 					'</dl>' +
 					'</div>' +
 					'<img data-handle="' + item + '" title="' + civitas.l('Recruit') + ' ' + item + '" class="tips recruit-ship" src="' + civitas.ASSETS_URL + 'images/armies/' + item.toLowerCase().replace(/ /g,"_") + '.png" />' +
@@ -10515,7 +10533,7 @@ civitas.controls.panel_advisor = function (params) {
 	};
 
 	// Fire up the constructor
-	return this.__constructor(params);
+	return this.__init(params);
 };
 
 /**
@@ -10574,7 +10592,7 @@ civitas.controls.panel_army = function (params) {
 	 * @returns {civitas.controls.panel_army}
 	 * @param {Object} params
 	 */
-	this.__constructor = function (params) {
+	this.__init = function (params) {
 		var self = this;
 		this.core = params.core;
 		var el = '#panel-' + this.id;
@@ -10622,7 +10640,7 @@ civitas.controls.panel_army = function (params) {
 	};
 
 	// Fire up the constructor
-	return this.__constructor(params);
+	return this.__init(params);
 };
 
 /**
@@ -10688,7 +10706,7 @@ civitas.controls.panel_trades = function (params) {
 	 * @returns {civitas.controls.panel_trades}
 	 * @param {Object} params
 	 */
-	this.__constructor = function (params) {
+	this.__init = function (params) {
 		this.core = params.core;
 		var el = '#panel-' + this.id;
 		var self = this;
@@ -10995,7 +11013,7 @@ civitas.controls.panel_trades = function (params) {
 	};
 
 	// Fire up the constructor
-	return this.__constructor(params);
+	return this.__init(params);
 };
 
 /**
@@ -11054,7 +11072,7 @@ civitas.controls.panel_settings = function (params) {
 	 * @returns {civitas.controls.panel_settings}
 	 * @param {Object} params
 	 */
-	this.__constructor = function (params) {
+	this.__init = function (params) {
 		$('.panel.pw').remove();
 		this.core = params.core;
 		this.id = params.id;
@@ -11130,7 +11148,7 @@ civitas.controls.panel_settings = function (params) {
 	};
 	
 	// Fire up the constructor
-	return this.__constructor(params);
+	return this.__init(params);
 };
 
 /**
@@ -11238,7 +11256,7 @@ civitas.game = function () {
 	 * @type {Number}
 	 * @private
 	 */
-	this.difficulty = civitas.DIFFICULTY_LEVEL_EASY;
+	this.difficulty = civitas.DIFFICULTY_EASY;
 
 	/**
 	 * Array containing the list of all open panels.
@@ -11254,7 +11272,7 @@ civitas.game = function () {
 	 * @private
 	 * @returns {civitas.game}
 	 */
-	this.__constructor = function () {
+	this.__init = function () {
 		var clicked = false;
 		var clickY, clickX;
 		var self = this;
@@ -11565,11 +11583,11 @@ civitas.game = function () {
 	this._setup_start_ui = function () {
 		var self = this;
 		var avatar = 1;
-		for (var i = 1; i < civitas.CLIMATE_TYPES.length; i++) {
-			$('.start .climate').append('<option value="' + civitas['CLIMATE_TYPE_' + civitas.CLIMATE_TYPES[i].toUpperCase()] + '">' + civitas.CLIMATE_TYPES[i].capitalize() + '</option>');
+		for (var i = 1; i < civitas.CLIMATES.length; i++) {
+			$('.start .climate').append('<option value="' + civitas['CLIMATE_' + civitas.CLIMATES[i].toUpperCase()] + '">' + civitas.CLIMATES[i].capitalize() + '</option>');
 		}
-		for (var i = 1; i < civitas.NATION_TYPES.length; i++) {
-			$('.start .nation').append('<option value="' + civitas['NATION_TYPE_' + civitas.NATION_TYPES[i].toUpperCase()] + '">' + civitas.NATION_TYPES[i].capitalize() + '</option>');
+		for (var i = 1; i < civitas.NATIONS.length; i++) {
+			$('.start .nation').append('<option value="' + civitas['NATION_' + civitas.NATIONS[i].toUpperCase()] + '">' + civitas.NATIONS[i].capitalize() + '</option>');
 		}
 		for (var i = 1; i <= civitas.AVATARS; i++) {
 			$('.start .avatar-select').append('<img src="' + civitas.ASSETS_URL + 'images/avatars/avatar' + i + '.png" />');
@@ -11710,7 +11728,7 @@ civitas.game = function () {
 				nationality: data.nationality,
 				ruler: data.ruler,
 				climate: data.climate,
-				personality: civitas.PERSONALITY_TYPE_BALANCED,
+				personality: civitas.PERSONALITY_BALANCED,
 				avatar: data.avatar,
 				level: data.level
 			},
@@ -11741,17 +11759,17 @@ civitas.game = function () {
 				nationality: nation,
 				ruler: name,
 				climate: climate,
-				personality: civitas.PERSONALITY_TYPE_BALANCED,
+				personality: civitas.PERSONALITY_BALANCED,
 				avatar: avatar
 			},
 			player: true,
 			core: this
 		});
 		var difficulty = this.get_difficulty();
-		my_city.setup_army(true, civitas.ARMIES_START[difficulty - 1]);
-		my_city.setup_navy(true, civitas.ARMIES_START[difficulty - 1]);
+		my_city.setup_army(true, civitas.START_ARMY[difficulty - 1]);
+		my_city.setup_navy(true, civitas.START_ARMY[difficulty - 1]);
 		this.cities.push(my_city);
-		this.get_city()._create_buildings(civitas.BUILDINGS_START);
+		this.get_city()._create_buildings(civitas.START_BUILDINGS);
 		return this;
 	};
 
@@ -12278,7 +12296,7 @@ civitas.game = function () {
 	};
 
 	// Fire up the constructor
-	return this.__constructor();
+	return this.__init();
 };
 
 $(document).ready(function () {

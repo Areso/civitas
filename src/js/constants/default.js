@@ -154,7 +154,7 @@ civitas.STORAGE_KEY = 'civitas';
  * @constant
  * @type {Number}
  */
-civitas.GOODS_IMPORTANCE_VITAL = 50;
+civitas.IMPORTANCE_VITAL = 50;
 
 /**
  * Goods importance, high means at most 300 stacks of goods will be up for importing
@@ -163,7 +163,7 @@ civitas.GOODS_IMPORTANCE_VITAL = 50;
  * @constant
  * @type {Number}
  */
-civitas.GOODS_IMPORTANCE_HIGH = 30;
+civitas.IMPORTANCE_HIGH = 30;
 
 /**
  * Goods importance, medium means at most 200 stacks of goods will be up for importing
@@ -172,7 +172,7 @@ civitas.GOODS_IMPORTANCE_HIGH = 30;
  * @constant
  * @type {Number}
  */
-civitas.GOODS_IMPORTANCE_MEDIUM = 20;
+civitas.IMPORTANCE_MEDIUM = 20;
 
 /**
  * Goods importance, low means at most 100 stacks of goods will be up for importing
@@ -181,7 +181,7 @@ civitas.GOODS_IMPORTANCE_MEDIUM = 20;
  * @constant
  * @type {Number}
  */
-civitas.GOODS_IMPORTANCE_LOW = 10;
+civitas.IMPORTANCE_LOW = 10;
 
 /**
  * Difficulty level of the game is easy.
@@ -189,7 +189,7 @@ civitas.GOODS_IMPORTANCE_LOW = 10;
  * @constant
  * @type {Number}
  */
-civitas.DIFFICULTY_LEVEL_EASY = 1;
+civitas.DIFFICULTY_EASY = 1;
 
 /**
  * Difficulty level of the game is medium.
@@ -197,7 +197,7 @@ civitas.DIFFICULTY_LEVEL_EASY = 1;
  * @constant
  * @type {Number}
  */
-civitas.DIFFICULTY_LEVEL_MEDIUM = 2;
+civitas.DIFFICULTY_MEDIUM = 2;
 
 /**
  * Difficulty level of the game is hard.
@@ -205,7 +205,7 @@ civitas.DIFFICULTY_LEVEL_MEDIUM = 2;
  * @constant
  * @type {Number}
  */
-civitas.DIFFICULTY_LEVEL_HARD = 3;
+civitas.DIFFICULTY_HARD = 3;
 
 /**
  * Difficulty level of the game is hardcore.
@@ -213,7 +213,7 @@ civitas.DIFFICULTY_LEVEL_HARD = 3;
  * @constant
  * @type {Number}
  */
-civitas.DIFFICULTY_LEVEL_HARDCORE = 4;
+civitas.DIFFICULTY_HARDCORE = 4;
 
 /**
  * When a building is notifying the player it's out of resources (the building, not the player).

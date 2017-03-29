@@ -103,7 +103,7 @@ civitas.game = function () {
 	 * @type {Number}
 	 * @private
 	 */
-	this.difficulty = civitas.DIFFICULTY_LEVEL_EASY;
+	this.difficulty = civitas.DIFFICULTY_EASY;
 
 	/**
 	 * Array containing the list of all open panels.
@@ -119,7 +119,7 @@ civitas.game = function () {
 	 * @private
 	 * @returns {civitas.game}
 	 */
-	this.__constructor = function () {
+	this.__init = function () {
 		var clicked = false;
 		var clickY, clickX;
 		var self = this;
@@ -430,11 +430,11 @@ civitas.game = function () {
 	this._setup_start_ui = function () {
 		var self = this;
 		var avatar = 1;
-		for (var i = 1; i < civitas.CLIMATE_TYPES.length; i++) {
-			$('.start .climate').append('<option value="' + civitas['CLIMATE_TYPE_' + civitas.CLIMATE_TYPES[i].toUpperCase()] + '">' + civitas.CLIMATE_TYPES[i].capitalize() + '</option>');
+		for (var i = 1; i < civitas.CLIMATES.length; i++) {
+			$('.start .climate').append('<option value="' + civitas['CLIMATE_' + civitas.CLIMATES[i].toUpperCase()] + '">' + civitas.CLIMATES[i].capitalize() + '</option>');
 		}
-		for (var i = 1; i < civitas.NATION_TYPES.length; i++) {
-			$('.start .nation').append('<option value="' + civitas['NATION_TYPE_' + civitas.NATION_TYPES[i].toUpperCase()] + '">' + civitas.NATION_TYPES[i].capitalize() + '</option>');
+		for (var i = 1; i < civitas.NATIONS.length; i++) {
+			$('.start .nation').append('<option value="' + civitas['NATION_' + civitas.NATIONS[i].toUpperCase()] + '">' + civitas.NATIONS[i].capitalize() + '</option>');
 		}
 		for (var i = 1; i <= civitas.AVATARS; i++) {
 			$('.start .avatar-select').append('<img src="' + civitas.ASSETS_URL + 'images/avatars/avatar' + i + '.png" />');
@@ -575,7 +575,7 @@ civitas.game = function () {
 				nationality: data.nationality,
 				ruler: data.ruler,
 				climate: data.climate,
-				personality: civitas.PERSONALITY_TYPE_BALANCED,
+				personality: civitas.PERSONALITY_BALANCED,
 				avatar: data.avatar,
 				level: data.level
 			},
@@ -606,17 +606,17 @@ civitas.game = function () {
 				nationality: nation,
 				ruler: name,
 				climate: climate,
-				personality: civitas.PERSONALITY_TYPE_BALANCED,
+				personality: civitas.PERSONALITY_BALANCED,
 				avatar: avatar
 			},
 			player: true,
 			core: this
 		});
 		var difficulty = this.get_difficulty();
-		my_city.setup_army(true, civitas.ARMIES_START[difficulty - 1]);
-		my_city.setup_navy(true, civitas.ARMIES_START[difficulty - 1]);
+		my_city.setup_army(true, civitas.START_ARMY[difficulty - 1]);
+		my_city.setup_navy(true, civitas.START_ARMY[difficulty - 1]);
 		this.cities.push(my_city);
-		this.get_city()._create_buildings(civitas.BUILDINGS_START);
+		this.get_city()._create_buildings(civitas.START_BUILDINGS);
 		return this;
 	};
 
@@ -1143,7 +1143,7 @@ civitas.game = function () {
 	};
 
 	// Fire up the constructor
-	return this.__constructor();
+	return this.__init();
 };
 
 $(document).ready(function () {

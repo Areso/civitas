@@ -21,11 +21,11 @@ civitas.modules.ai = function (params) {
 	 * @returns {civitas.modules.ai}
 	 * @param {Object} params
 	 */
-	this.__constructor = function (params) {
+	this.__init = function (params) {
 		this.core = params.core;
 		return this;
 	};
 
 	// Fire up the constructor
-	return this.__constructor(params);
+	return this.__init(params);
 };

@@ -74,7 +74,7 @@ civitas.objects.army = function (params) {
 	 * @returns {civitas.objects.army}
 	 * @param {Object} params
 	 */
-	this.__constructor = function (params) {
+	this.__init = function (params) {
 		this.city = params.city;
 		this.name = params.name;
 		this.cost = params.data.cost;
@@ -112,5 +112,5 @@ civitas.objects.army = function (params) {
 	};
 
 	// Fire up the constructor
-	return this.__constructor(params);
+	return this.__init(params);
 };

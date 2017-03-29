@@ -4,9 +4,9 @@
  * @type {Object}
  * @constant
  */
-civitas.SHIP_TYPES = {
+civitas.SHIPS = {
 	'Caravel': {
-		id: civitas.SHIP_TYPE_CARAVEL,
+		id: civitas.SHIP_CARAVEL,
 		attack: 10,
 		defense: 10,
 		cost: {
@@ -23,7 +23,7 @@ civitas.SHIP_TYPES = {
 		}
 	},
 	'Corsair': {
-		id: civitas.SHIP_TYPE_CORSAIR,
+		id: civitas.SHIP_CORSAIR,
 		attack: 5,
 		defense: 5,
 		cost: {
@@ -41,7 +41,7 @@ civitas.SHIP_TYPES = {
 		}
 	},
 	'Frigate': {
-		id: civitas.SHIP_TYPE_FRIGATE,
+		id: civitas.SHIP_FRIGATE,
 		attack: 17,
 		defense: 8,
 		cost: {
@@ -59,7 +59,7 @@ civitas.SHIP_TYPES = {
 		}
 	},
 	'Galleon': {
-		id: civitas.SHIP_TYPE_GALLEON,
+		id: civitas.SHIP_GALLEON,
 		attack: 15,
 		defense: 15,
 		cost: {
@@ -77,7 +77,7 @@ civitas.SHIP_TYPES = {
 		}
 	},
 	'Warship': {
-		id: civitas.SHIP_TYPE_WARSHIP,
+		id: civitas.SHIP_WARSHIP,
 		attack: 35,
 		defense: 30,
 		cost: {
@@ -96,7 +96,7 @@ civitas.SHIP_TYPES = {
 		}
 	},
 	'Ship of the Line': {
-		id: civitas.SHIP_TYPE_SHIPOFTHELINE,
+		id: civitas.SHIP_SHIPOFTHELINE,
 		attack: 55,
 		defense: 50,
 		cost: {
@@ -123,7 +123,7 @@ civitas.SHIP_TYPES = {
  * @constant
  * @type {Number}
  */
-civitas.SHIP_TYPE_CORSAIR = 0;
+civitas.SHIP_CORSAIR = 0;
 
 /**
  * Caravel ship.
@@ -131,7 +131,7 @@ civitas.SHIP_TYPE_CORSAIR = 0;
  * @constant
  * @type {Number}
  */
-civitas.SHIP_TYPE_CARAVEL = 1;
+civitas.SHIP_CARAVEL = 1;
 
 /**
  * Warship ship.
@@ -139,7 +139,7 @@ civitas.SHIP_TYPE_CARAVEL = 1;
  * @constant
  * @type {Number}
  */
-civitas.SHIP_TYPE_WARSHIP = 2;
+civitas.SHIP_WARSHIP = 2;
 
 /**
  * Galleon ship.
@@ -147,7 +147,7 @@ civitas.SHIP_TYPE_WARSHIP = 2;
  * @constant
  * @type {Number}
  */
-civitas.SHIP_TYPE_GALLEON = 3;
+civitas.SHIP_GALLEON = 3;
 
 /**
  * Ship of the Line ship.
@@ -155,7 +155,7 @@ civitas.SHIP_TYPE_GALLEON = 3;
  * @constant
  * @type {Number}
  */
-civitas.SHIP_TYPE_SHIPOFTHELINE = 4;
+civitas.SHIP_SHIPOFTHELINE = 4;
 
 /**
  * Frigate ship.
@@ -163,4 +163,4 @@ civitas.SHIP_TYPE_SHIPOFTHELINE = 4;
  * @constant
  * @type {Number}
  */
-civitas.SHIP_TYPE_FRIGATE = 5;
+civitas.SHIP_FRIGATE = 5;

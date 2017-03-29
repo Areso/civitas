@@ -171,16 +171,16 @@ civitas.objects.city = function(params) {
 	 * @returns {civitas.objects.city}
 	 * @param {Object} params
 	 */
-	this.__constructor = function(params) {
+	this.__init = function(params) {
 		this.core = params.core;
 		this.name = params.name;
 		this.data = params.data;
 		this.player = (typeof params.player !== 'undefined') ? params.player : false;
 		this.level = (typeof params.data.level !== 'undefined') ? params.data.level : 1;
 		this.resources = this._build_resources(params);
-		this.personality = (typeof params.data.personality !== 'undefined') ? params.data.personality : civitas.PERSONALITY_TYPE_BALANCED;
-		this.nationality = (typeof params.data.nationality !== 'undefined') ? params.data.nationality : civitas.NATION_TYPE_ROMAN;
-		this.climate = (typeof params.data.climate !== 'undefined') ? params.data.climate : civitas.CLIMATE_TYPE_TEMPERATE;
+		this.personality = (typeof params.data.personality !== 'undefined') ? params.data.personality : civitas.PERSONALITY_BALANCED;
+		this.nationality = (typeof params.data.nationality !== 'undefined') ? params.data.nationality : civitas.NATION_ROMAN;
+		this.climate = (typeof params.data.climate !== 'undefined') ? params.data.climate : civitas.CLIMATE_TEMPERATE;
 		this.ruler = (typeof params.data.ruler !== 'undefined') ? params.data.ruler : 0;
 		this.avatar = (typeof params.data.avatar !== 'undefined') ? params.data.avatar : 1;
 		this.icon = (typeof params.data.icon !== 'undefined') ? params.data.icon : 1;
@@ -200,10 +200,10 @@ civitas.objects.city = function(params) {
 		var difficulty = this.get_core().get_difficulty();
 		for (var item in civitas.RESOURCES) {
 			if (this.player === true) {
-				if (typeof civitas.RESOURCES_START[difficulty - 1][item] === 'undefined') {
+				if (typeof civitas.START_RESOURCES[difficulty - 1][item] === 'undefined') {
 					resources[item] = 0;
 				} else {
-					resources[item] = civitas.RESOURCES_START[difficulty - 1][item];
+					resources[item] = civitas.START_RESOURCES[difficulty - 1][item];
 				}
 			} else {
 				if (typeof params.data.resources[item] !== 'undefined') {
@@ -1061,7 +1061,7 @@ civitas.objects.city = function(params) {
 	this.get_navy_total = function() {
 		var total = 0;
 		var total_navy = {};
-		for (var item in civitas.SHIP_TYPES) {
+		for (var item in civitas.SHIPS) {
 			total_navy[item] = 0;
 		}
 		for (var i = 0; i < this.navy.length; i++) {
@@ -1088,7 +1088,7 @@ civitas.objects.city = function(params) {
 	this.get_army_total = function() {
 		var total = 0;
 		var total_army = {};
-		for (var item in civitas.SOLDIER_TYPES) {
+		for (var item in civitas.SOLDIERS) {
 			total_army[item] = 0;
 		}
 		for (var i = 0; i < this.army.length; i++) {
@@ -1115,7 +1115,7 @@ civitas.objects.city = function(params) {
 	this.get_mercenary_total = function() {
 		var total = 0;
 		var total_army = {};
-		for (var item in civitas.SOLDIER_TYPES) {
+		for (var item in civitas.SOLDIERS) {
 			total_army[item] = 0;
 		}
 		for (var i = 0; i < this.mercenary.length; i++) {
@@ -1252,7 +1252,7 @@ civitas.objects.city = function(params) {
 					army: []
 				};
 				for (var item in civitas.MERCENARIES[i].army) {
-					var soldier = civitas.SOLDIER_TYPES[item];
+					var soldier = civitas.SOLDIERS[item];
 					var _soldier = new civitas.objects.soldier({
 						name: item,
 						data: soldier
@@ -1278,9 +1278,9 @@ civitas.objects.city = function(params) {
 	 * @returns {Boolean}
 	 */
 	this.recruit_ship = function(ship_name) {
-		for (var item in civitas.SHIP_TYPES) {
+		for (var item in civitas.SHIPS) {
 			if (ship_name === item) {
-				var ship = civitas.SHIP_TYPES[item];
+				var ship = civitas.SHIPS[item];
 				if (!this.remove_resources(ship.cost)) {
 					return false;
 				}
@@ -1307,9 +1307,9 @@ civitas.objects.city = function(params) {
 	 * @returns {Boolean}
 	 */
 	this.recruit_soldier = function(soldier_name) {
-		for (var item in civitas.SOLDIER_TYPES) {
+		for (var item in civitas.SOLDIERS) {
 			if (soldier_name === item) {
-				var soldier = civitas.SOLDIER_TYPES[item];
+				var soldier = civitas.SOLDIERS[item];
 				if (!this.remove_resources(soldier.cost)) {
 					return false;
 				}
@@ -1336,9 +1336,9 @@ civitas.objects.city = function(params) {
 	 * @returns {civitas.objects.city}
 	 */
 	this._recruit_ship = function(ship_name) {
-		for (var item in civitas.SHIP_TYPES) {
+		for (var item in civitas.SHIPS) {
 			if (ship_name === item) {
-				var ship = civitas.SHIP_TYPES[item];
+				var ship = civitas.SHIPS[item];
 				var _ship = new civitas.objects.ship({
 					name: item,
 					data: ship
@@ -1357,9 +1357,9 @@ civitas.objects.city = function(params) {
 	 * @returns {civitas.objects.city}
 	 */
 	this._recruit_soldier = function(soldier_name) {
-		for (var item in civitas.SOLDIER_TYPES) {
+		for (var item in civitas.SOLDIERS) {
 			if (soldier_name === item) {
-				var soldier = civitas.SOLDIER_TYPES[item];
+				var soldier = civitas.SOLDIERS[item];
 				var _soldier = new civitas.objects.soldier({
 					name: item,
 					data: soldier
@@ -1561,7 +1561,7 @@ civitas.objects.city = function(params) {
 	this.get_personality = function() {
 		return {
 			id: this.personality,
-			name: civitas.PERSONALITY_TYPES[this.personality]
+			name: civitas.PERSONALITIES[this.personality]
 		};
 	};
 	
@@ -1656,7 +1656,7 @@ civitas.objects.city = function(params) {
 	this.get_climate = function() {
 		return {
 			id: this.climate,
-			name: civitas.CLIMATE_TYPES[this.climate]
+			name: civitas.CLIMATES[this.climate]
 		};
 	};
 	
@@ -1669,7 +1669,7 @@ civitas.objects.city = function(params) {
 	this.get_nationality = function() {
 		return {
 			id: this.nationality,
-			name: civitas.NATION_TYPES[this.nationality]
+			name: civitas.NATIONS[this.nationality]
 		};
 	};
 	
@@ -2029,5 +2029,5 @@ civitas.objects.city = function(params) {
 	};
 
 	// Fire up the constructor
-	return this.__constructor(params);
+	return this.__init(params);
 };

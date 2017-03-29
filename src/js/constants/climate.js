@@ -4,7 +4,7 @@
  * @constant
  * @type {Array}
  */
-civitas.CLIMATE_TYPES = [
+civitas.CLIMATES = [
 	'none',
 	'temperate',
 	'tropical',
@@ -19,7 +19,7 @@ civitas.CLIMATE_TYPES = [
  * @constant
  * @type {Number}
  */
-civitas.CLIMATE_TYPE_TEMPERATE = 1;
+civitas.CLIMATE_TEMPERATE = 1;
 
 /**
  * Tropical climate, favoring farms and exotic goods.
@@ -27,7 +27,7 @@ civitas.CLIMATE_TYPE_TEMPERATE = 1;
  * @constant
  * @type {Number}
  */
-civitas.CLIMATE_TYPE_TROPICAL = 2;
+civitas.CLIMATE_TROPICAL = 2;
 
 /**
  * Arid climate, favoring ore mines.
@@ -35,7 +35,7 @@ civitas.CLIMATE_TYPE_TROPICAL = 2;
  * @constant
  * @type {Number}
  */
-civitas.CLIMATE_TYPE_ARID = 3;
+civitas.CLIMATE_ARID = 3;
 
 /**
  * Continental climate, no sea access.
@@ -43,7 +43,7 @@ civitas.CLIMATE_TYPE_ARID = 3;
  * @constant
  * @type {Number}
  */
-civitas.CLIMATE_TYPE_CONTINENTAL = 4;
+civitas.CLIMATE_CONTINENTAL = 4;
 
 /**
  * Polar climate, very extreme.
@@ -51,7 +51,7 @@ civitas.CLIMATE_TYPE_CONTINENTAL = 4;
  * @constant
  * @type {Number}
  */
-civitas.CLIMATE_TYPE_POLAR = 5;
+civitas.CLIMATE_POLAR = 5;
 
 /**
  * Worldmap position of city when the climate is temperate.

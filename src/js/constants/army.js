@@ -4,9 +4,9 @@
  * @type {Object}
  * @constant
  */
-civitas.SOLDIER_TYPES = {
+civitas.SOLDIERS = {
 	'Militia': {
-		id: civitas.SOLDIER_TYPE_MILITIA,
+		id: civitas.SOLDIER_MILITIA,
 		attack: 2,
 		defense: 1,
 		cost: {
@@ -17,7 +17,7 @@ civitas.SOLDIER_TYPES = {
 		}
 	},
 	'Axeman': {
-		id: civitas.SOLDIER_TYPE_AXEMAN,
+		id: civitas.SOLDIER_AXEMAN,
 		attack: 3,
 		defense: 2,
 		cost: {
@@ -28,7 +28,7 @@ civitas.SOLDIER_TYPES = {
 		}
 	},
 	'Bowman': {
-		id: civitas.SOLDIER_TYPE_BOWMAN,
+		id: civitas.SOLDIER_BOWMAN,
 		attack: 6,
 		defense: 1,
 		cost: {
@@ -39,7 +39,7 @@ civitas.SOLDIER_TYPES = {
 		}
 	},
 	'Pikeman': {
-		id: civitas.SOLDIER_TYPE_PIKEMAN,
+		id: civitas.SOLDIER_PIKEMAN,
 		attack: 5,
 		defense: 4,
 		cost: {
@@ -53,7 +53,7 @@ civitas.SOLDIER_TYPES = {
 		}
 	},
 	'Crossbowman': {
-		id: civitas.SOLDIER_TYPE_CROSSBOWMAN,
+		id: civitas.SOLDIER_CROSSBOWMAN,
 		attack: 7,
 		defense: 2,
 		cost: {
@@ -67,7 +67,7 @@ civitas.SOLDIER_TYPES = {
 		}
 	},
 	'Knight': {
-		id: civitas.SOLDIER_TYPE_KNIGHT,
+		id: civitas.SOLDIER_KNIGHT,
 		attack: 6,
 		defense: 9,
 		cost: {
@@ -88,7 +88,7 @@ civitas.SOLDIER_TYPES = {
  * @constant
  * @type {Number}
  */
-civitas.SOLDIER_TYPE_MILITIA = 0;
+civitas.SOLDIER_MILITIA = 0;
 
 /**
  * Axemen
@@ -96,7 +96,7 @@ civitas.SOLDIER_TYPE_MILITIA = 0;
  * @constant
  * @type {Number}
  */
-civitas.SOLDIER_TYPE_AXEMAN = 1;
+civitas.SOLDIER_AXEMAN = 1;
 
 /**
  * Knights
@@ -104,7 +104,7 @@ civitas.SOLDIER_TYPE_AXEMAN = 1;
  * @constant
  * @type {Number}
  */
-civitas.SOLDIER_TYPE_KNIGHT = 2;
+civitas.SOLDIER_KNIGHT = 2;
 
 /**
  * Bowmen
@@ -112,7 +112,7 @@ civitas.SOLDIER_TYPE_KNIGHT = 2;
  * @constant
  * @type {Number}
  */
-civitas.SOLDIER_TYPE_BOWMAN = 3;
+civitas.SOLDIER_BOWMAN = 3;
 
 /**
  * Crossbowmen
@@ -120,7 +120,7 @@ civitas.SOLDIER_TYPE_BOWMAN = 3;
  * @constant
  * @type {Number}
  */
-civitas.SOLDIER_TYPE_CROSSBOWMAN = 4;
+civitas.SOLDIER_CROSSBOWMAN = 4;
 
 /**
  * Pikemen
@@ -128,7 +128,7 @@ civitas.SOLDIER_TYPE_CROSSBOWMAN = 4;
  * @constant
  * @type {Number}
  */
-civitas.SOLDIER_TYPE_PIKEMAN = 5;
+civitas.SOLDIER_PIKEMAN = 5;
 
 /**
  * List of mercenary armies available for hire.
@@ -282,43 +282,4 @@ civitas.MERCENARIES = [{
 		'Ship of the Line': 10
 	},
 	cost: 1500000
-}];
-
-/**
- * List of soldiers/ships to start with in various difficulty modes.
- *
- * @constant
- * @type {Object}
- */
-civitas.ARMIES_START = [{
-		army: {
-			'Militia': 10,
-			'Axeman': 2,
-			'Bowman': 4
-		},
-		navy: {
-			'Corsair': 2,
-			'Caravel': 1
-		}
-	}, {
-		army: {
-			'Militia': 5,
-			'Axeman': 1,
-			'Bowman': 2
-		},
-		navy: {
-			'Corsair': 1,
-			'Caravel': 1
-		}
-	}, {
-		army: {
-			'Militia': 3,
-			'Bowman': 2
-		},
-		navy: {
-			'Corsair': 1
-		}
-	}, {
-		army: {},
-		navy: {}
 }];

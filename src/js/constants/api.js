@@ -20,4 +20,4 @@ civitas.API_ENTRY_POINT = 'http://civitas.dev/api/';
  * @constant
  * @type {String}
  */
-civitas.API_VERSION_URL = civitas.API_ENTRY_POINT + civitas.API_VERSION + '/';
+civitas.API_URL = civitas.API_ENTRY_POINT + civitas.API_VERSION + '/';

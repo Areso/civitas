@@ -186,31 +186,6 @@ civitas.CITY_BUILDINGS_TEMPERATE = [
 ];
 
 /**
- * Minimal buildings for a city to operate.
- * 
- * @constant
- * @type {Array}
- */
-civitas.BUILDINGS_START = [
-	{
-		handle: 'marketplace',
-		level: 1
-	}, {
-		handle: 'lumberjack',
-		level: 1
-	}, {
-		handle: 'stone',
-		level: 1
-	}, {
-		handle: 'house1',
-		level: 1
-	}, {
-		handle: 'house2',
-		level: 1
-	}
-];
-
-/**
  * All the buildings for a city.
  * 
  * @constant

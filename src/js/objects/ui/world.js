@@ -54,7 +54,7 @@ civitas.controls.panel_world = function (params) {
 	 * @returns {civitas.controls.panel_world}
 	 * @param {Object} params
 	 */
-	this.__constructor = function (params) {
+	this.__init = function (params) {
 		var self = this;
 		this.core = params.core;
 		var el = '#panel-' + this.id;
@@ -116,5 +116,5 @@ civitas.controls.panel_world = function (params) {
 	};
 
 	// Fire up the constructor
-	return this.__constructor(params);
+	return this.__init(params);
 };

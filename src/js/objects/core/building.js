@@ -94,7 +94,7 @@ civitas.objects.building = function(params) {
 	 * @returns {civitas.objects.building}
 	 * @param {Object} params
 	 */
-	this.__constructor = function(params) {
+	this.__init = function(params) {
 		var self = this;
 		this.city = params.city;
 		this.type = params.type;
@@ -759,5 +759,5 @@ civitas.objects.building = function(params) {
 	};
 
 	// Fire up the constructor
-	return this.__constructor(params);
+	return this.__init(params);
 };
