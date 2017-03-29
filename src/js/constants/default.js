@@ -230,3 +230,11 @@ civitas.NOTIFICATION_MISSING_RESOURCES = 1;
  * @type {Number}
  */
 civitas.NOTIFICATION_PRODUCTION_PAUSED = 2;
+
+/**
+ * When a building is notifying the player the level of the city is too low.
+ *
+ * @constant
+ * @type {Number}
+ */
+civitas.NOTIFICATION_CITY_LOW_LEVEL = 3;
