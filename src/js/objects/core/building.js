@@ -103,20 +103,20 @@ civitas.objects.building = function(params) {
 		this.is_municipal = (typeof params.data.is_municipal !== 'undefined' && params.data.is_municipal === true) ? true : false;
 		this.is_housing = (typeof params.data.is_housing !== 'undefined' && params.data.is_housing === true) ? true : false;
 		this.level = (typeof params.data.level !== 'undefined') ? params.data.level : 1;
-		params.data.level = this.level;
 		this.handle = params.data.handle;
-		$('#building-' + this.handle).empty();
+		params.data.level = this.get_level();
+		$('#building-' + this.get_handle()).empty();
 		if (params.hidden !== true) {
-			$('section.game').append(civitas.ui.building_element(params)).on('click', '#building-' + params.data.handle, function() {
+			$('section.game').append(civitas.ui.building_element(params)).on('click', '#building-' + this.get_handle(), function() {
 				self.get_core().open_panel(new civitas.controls.panel_building({
 					core: self.get_core(),
-					header: params.data.name,
+					header: self.get_name(),
 					data: params.data
 				}));
 			});
 		}
 		var building = this.get_building_data();
-		switch (this.type) {
+		switch (this.get_type()) {
 			case 'marketplace':
 			case 'warehouse':
 				this.get_city().storage = this.get_city().storage + (building.storage * this.get_level());
@@ -126,9 +126,15 @@ civitas.objects.building = function(params) {
 		return this;
 	};
 	
+	/**
+	 * Check if the building can be upgraded.
+	 *
+	 * @returns {Boolean}
+	 * @public
+	 */
 	this.is_upgradable = function() {
 		var building = this.get_building_data();
-		if (this.level < building.levels) {
+		if (this.get_level() < building.levels) {
 			return true;
 		}
 		return false;
@@ -189,7 +195,7 @@ civitas.objects.building = function(params) {
 	 * @returns {Boolean}
 	 */
 	this.downgrade = function() {
-		if (this.level > 1) {
+		if (this.get_level() > 1) {
 			var bl_id = this.get_city().buildings_list.findIndexM(this.get_type());
 			if (bl_id !== false) {
 				--this.level;
@@ -248,7 +254,7 @@ civitas.objects.building = function(params) {
 			this.working = true;
 			this.problems = false;
 			this.get_core().refresh_panels();
-			$('#building-' + this.handle).empty();
+			$('#building-' + this.get_handle()).empty();
 			return true;
 		} else {
 			return false;
