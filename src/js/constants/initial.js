@@ -80,52 +80,52 @@ civitas.START_BUILDINGS = [
 civitas.START_RESOURCES = [
 	/* Easy difficulty */
 	{
-		'coins': 50000,
-		'fame': 10,
-		'prestige': 1,
-		'espionage': 1,
-		'bread': 300,
-		'meat': 100,
-		'stones': 100,
-		'weapons': 100,
-		'wheat': 40,
-		'wood': 100
+		coins: 50000,
+		fame: 10,
+		prestige: 1,
+		espionage: 1,
+		bread: 300,
+		meat: 100,
+		stones: 100,
+		weapons: 100,
+		wheat: 40,
+		wood: 100
 	},
 	/* Medium difficulty */
 	{
-		'coins': 20000,
-		'fame': 1,
-		'prestige': 1,
-		'espionage': 1,
-		'bread': 300,
-		'meat': 100,
-		'stones': 100,
-		'weapons': 60,
-		'wheat': 40,
-		'wood': 100
+		coins: 20000,
+		fame: 1,
+		prestige: 1,
+		espionage: 1,
+		bread: 300,
+		meat: 100,
+		stones: 100,
+		weapons: 60,
+		wheat: 40,
+		wood: 100
 	},
 	/* Hard difficulty */
 	{
-		'coins': 10000,
-		'fame': 1,
-		'prestige': 1,
-		'espionage': 1,
-		'bread': 300,
-		'meat': 100,
-		'stones': 70,
-		'wheat': 40,
-		'wood': 70
+		coins: 10000,
+		fame: 1,
+		prestige: 1,
+		espionage: 1,
+		bread: 300,
+		meat: 100,
+		stones: 70,
+		wheat: 40,
+		wood: 70
 	},
 	/* Hardcore difficulty */
 	{
-		'coins': 5000,
-		'fame': 1,
-		'prestige': 1,
-		'espionage': 1,
-		'bread': 100,
-		'meat': 50,
-		'stones': 50,
-		'wheat': 40,
-		'wood': 50
+		coins: 5000,
+		fame: 1,
+		prestige: 1,
+		espionage: 1,
+		bread: 100,
+		meat: 50,
+		stones: 50,
+		wheat: 40,
+		wood: 50
 	}
 ];

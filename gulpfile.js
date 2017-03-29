@@ -28,27 +28,32 @@ gulp.task('app', function() {
 		'src/js/constants/cities.js',
 		'src/js/constants/events.js',
 		'src/js/constants/resources.js',
-		'src/js/constants/debug.js',
 		'src/js/objects/core/utils.js',
+		/*
 		'src/js/objects/modules/ai.js',
 		'src/js/objects/modules/api.js',
 		'src/js/objects/modules/jailer.js',
 		'src/js/objects/modules/history.js',
+		*/
 		'src/js/objects/core/ui.js',
 		'src/js/objects/core/city.js',
 		'src/js/objects/core/event.js',
 		'src/js/objects/core/building.js',
 		'src/js/objects/core/soldier.js',
 		'src/js/objects/core/ship.js',
+		/*
 		'src/js/objects/core/army.js',
+		*/
 		'src/js/objects/ui/building.js',
 		'src/js/objects/ui/buildings.js',
 		'src/js/objects/ui/storage.js',
 		'src/js/objects/ui/city.js',
 		'src/js/objects/ui/help.js',
 		'src/js/objects/ui/rankings.js',
+		/*
 		'src/js/objects/ui/send_goods.js',
 		'src/js/objects/ui/declare_war.js',
+		*/
 		'src/js/objects/ui/world.js',
 		'src/js/objects/ui/advisor.js',
 		'src/js/objects/ui/army.js',

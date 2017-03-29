@@ -336,53 +336,53 @@ civitas.START_BUILDINGS = [
 civitas.START_RESOURCES = [
 	/* Easy difficulty */
 	{
-		'coins': 50000,
-		'fame': 10,
-		'prestige': 1,
-		'espionage': 1,
-		'bread': 300,
-		'meat': 100,
-		'stones': 100,
-		'weapons': 100,
-		'wheat': 40,
-		'wood': 100
+		coins: 50000,
+		fame: 10,
+		prestige: 1,
+		espionage: 1,
+		bread: 300,
+		meat: 100,
+		stones: 100,
+		weapons: 100,
+		wheat: 40,
+		wood: 100
 	},
 	/* Medium difficulty */
 	{
-		'coins': 20000,
-		'fame': 1,
-		'prestige': 1,
-		'espionage': 1,
-		'bread': 300,
-		'meat': 100,
-		'stones': 100,
-		'weapons': 60,
-		'wheat': 40,
-		'wood': 100
+		coins: 20000,
+		fame: 1,
+		prestige: 1,
+		espionage: 1,
+		bread: 300,
+		meat: 100,
+		stones: 100,
+		weapons: 60,
+		wheat: 40,
+		wood: 100
 	},
 	/* Hard difficulty */
 	{
-		'coins': 10000,
-		'fame': 1,
-		'prestige': 1,
-		'espionage': 1,
-		'bread': 300,
-		'meat': 100,
-		'stones': 70,
-		'wheat': 40,
-		'wood': 70
+		coins: 10000,
+		fame: 1,
+		prestige: 1,
+		espionage: 1,
+		bread: 300,
+		meat: 100,
+		stones: 70,
+		wheat: 40,
+		wood: 70
 	},
 	/* Hardcore difficulty */
 	{
-		'coins': 5000,
-		'fame': 1,
-		'prestige': 1,
-		'espionage': 1,
-		'bread': 100,
-		'meat': 50,
-		'stones': 50,
-		'wheat': 40,
-		'wood': 50
+		coins: 5000,
+		fame: 1,
+		prestige: 1,
+		espionage: 1,
+		bread: 100,
+		meat: 50,
+		stones: 50,
+		wheat: 40,
+		wood: 50
 	}
 ];
 
@@ -3275,9 +3275,9 @@ civitas.CITIES = {
 		personality: civitas.PERSONALITY_DIPLOMAT,
 		level: 25,
 		resources: {
-			'coins': 230000,
-			'prestige': 700,
-			'espionage': 400
+			coins: 230000,
+			prestige: 700,
+			espionage: 400
 		},
 		trades: {
 			'imports': {
@@ -3327,9 +3327,9 @@ civitas.CITIES = {
 		personality: civitas.PERSONALITY_DIPLOMAT,
 		level: 50,
 		resources: {
-			'coins': 130000,
-			'prestige': 700,
-			'espionage': 1200
+			coins: 130000,
+			prestige: 700,
+			espionage: 1200
 		},
 		trades: {
 			'imports': {
@@ -3382,9 +3382,9 @@ civitas.CITIES = {
 		personality: civitas.PERSONALITY_WARLORD,
 		level: 30,
 		resources: {
-			'coins': 100000,
-			'prestige': 1000,
-			'espionage': 800
+			coins: 100000,
+			prestige: 1000,
+			espionage: 800
 		},
 		trades: {
 			'imports': {
@@ -3422,9 +3422,9 @@ civitas.CITIES = {
 		personality: civitas.PERSONALITY_WARLORD,
 		level: 22,
 		resources: {
-			'coins': 200000,
-			'prestige': 500,
-			'espionage': 300
+			coins: 200000,
+			prestige: 500,
+			espionage: 300
 		},
 		trades: {
 			'imports': {
@@ -3466,9 +3466,9 @@ civitas.CITIES = {
 		personality: civitas.PERSONALITY_DIPLOMAT,
 		level: 45,
 		resources: {
-			'coins': 200000,
-			'prestige': 800,
-			'espionage': 900
+			coins: 200000,
+			prestige: 800,
+			espionage: 900
 		},
 		trades: {
 			'imports': {
@@ -3511,9 +3511,9 @@ civitas.CITIES = {
 		personality: civitas.PERSONALITY_WARLORD,
 		level: 21,
 		resources: {
-			'coins': 200000,
-			'prestige': 100,
-			'espionage': 100
+			coins: 200000,
+			prestige: 100,
+			espionage: 100
 		},
 		trades: {
 			'imports': {
@@ -3552,9 +3552,9 @@ civitas.CITIES = {
 		personality: civitas.PERSONALITY_DIPLOMAT,
 		level: 35,
 		resources: {
-			'coins': 130000,
-			'prestige': 780,
-			'espionage': 400
+			coins: 130000,
+			prestige: 780,
+			espionage: 400
 		},
 		trades: {
 			'imports': {
@@ -3593,9 +3593,9 @@ civitas.CITIES = {
 		personality: civitas.PERSONALITY_WARLORD,
 		level: 20,
 		resources: {
-			'coins': 30000,
-			'prestige': 200,
-			'espionage': 150
+			coins: 30000,
+			prestige: 200,
+			espionage: 150
 		},
 		trades: {
 			'imports': {
@@ -3635,9 +3635,9 @@ civitas.CITIES = {
 		personality: civitas.PERSONALITY_BALANCED,
 		level: 50,
 		resources: {
-			'coins': 330000,
-			'prestige': 900,
-			'espionage': 1900
+			coins: 330000,
+			prestige: 900,
+			espionage: 1900
 		},
 		trades: {
 			'imports': {
@@ -3688,9 +3688,9 @@ civitas.CITIES = {
 		personality: civitas.PERSONALITY_WARLORD,
 		level: 18,
 		resources: {
-			'coins': 22000,
-			'prestige': 160,
-			'espionage': 500
+			coins: 22000,
+			prestige: 160,
+			espionage: 500
 		},
 		trades: {
 			'imports': {
@@ -3727,9 +3727,9 @@ civitas.CITIES = {
 		personality: civitas.PERSONALITY_BALANCED,
 		level: 22,
 		resources: {
-			'coins': 180000,
-			'prestige': 200,
-			'espionage': 450
+			coins: 180000,
+			prestige: 200,
+			espionage: 450
 		},
 		trades: {
 			'imports': {
@@ -3774,9 +3774,9 @@ civitas.CITIES = {
 		personality: civitas.PERSONALITY_WARLORD,
 		level: 18,
 		resources: {
-			'coins': 80000,
-			'prestige': 300,
-			'espionage': 300
+			coins: 80000,
+			prestige: 300,
+			espionage: 300
 		},
 		trades: {
 			'imports': {
@@ -3819,9 +3819,9 @@ civitas.CITIES = {
 		personality: civitas.PERSONALITY_WARLORD,
 		level: 16,
 		resources: {
-			'coins': 20000,
-			'prestige': 10,
-			'espionage': 50
+			coins: 20000,
+			prestige: 10,
+			espionage: 50
 		},
 		trades: {
 			'imports': {
@@ -3860,9 +3860,9 @@ civitas.CITIES = {
 		personality: civitas.PERSONALITY_DIPLOMAT,
 		level: 38,
 		resources: {
-			'coins': 280000,
-			'prestige': 600,
-			'espionage': 580
+			coins: 280000,
+			prestige: 600,
+			espionage: 580
 		},
 		trades: {
 			'imports': {
@@ -3905,9 +3905,9 @@ civitas.CITIES = {
 		personality: civitas.PERSONALITY_BALANCED,
 		level: 21,
 		resources: {
-			'coins': 110000,
-			'prestige': 180,
-			'espionage': 200
+			coins: 110000,
+			prestige: 180,
+			espionage: 200
 		},
 		trades: {
 			'imports': {
@@ -3950,9 +3950,9 @@ civitas.CITIES = {
 		personality: civitas.PERSONALITY_WARLORD,
 		level: 22,
 		resources: {
-			'coins': 10000,
-			'prestige': 360,
-			'espionage': 500
+			coins: 10000,
+			prestige: 360,
+			espionage: 500
 		},
 		trades: {
 			'imports': {
@@ -3994,9 +3994,9 @@ civitas.CITIES = {
 		personality: civitas.PERSONALITY_WARLORD,
 		level: 26,
 		resources: {
-			'coins': 80000,
-			'prestige': 400,
-			'espionage': 500
+			coins: 80000,
+			prestige: 400,
+			espionage: 500
 		},
 		trades: {
 			'imports': {
@@ -4036,9 +4036,9 @@ civitas.CITIES = {
 		personality: civitas.PERSONALITY_BALANCED,
 		level: 29,
 		resources: {
-			'coins': 240000,
-			'prestige': 500,
-			'espionage': 800
+			coins: 240000,
+			prestige: 500,
+			espionage: 800
 		},
 		trades: {
 			'imports': {
@@ -4077,9 +4077,9 @@ civitas.CITIES = {
 		personality: civitas.PERSONALITY_WARLORD,
 		level: 22,
 		resources: {
-			'coins': 240000,
-			'prestige': 420,
-			'espionage': 700
+			coins: 240000,
+			prestige: 420,
+			espionage: 700
 		},
 		trades: {
 			'imports': {
@@ -4530,68 +4530,6 @@ civitas.MAIN_RESOURCES = [
 ];
 
 /**
- * Special check if the debug mode is activated. If yes, add a special sandbox city with
- * goodies, nice trades and a cool alliance.
- * Throw in some coins too.
- */
-if (civitas.DEBUG === true) {
-	civitas.CITIES['Sandbox'] = {
-		nationality: civitas.NATION_ASSYRIAN,
-		ruler: 'Sandking',
-		avatar: 1,
-		icon: 2,
-		climate: civitas.CLIMATE_TEMPERATE,
-		personality: civitas.PERSONALITY_DIPLOMAT,
-		level: 30,
-		resources: {
-			'coins': 1000000,
-			'prestige': 999
-		},
-		trades: {
-			'imports': {
-				gold: civitas.IMPORTANCE_VITAL,
-				goldores: civitas.IMPORTANCE_VITAL,
-				weapons: civitas.IMPORTANCE_VITAL,
-				weapons: civitas.IMPORTANCE_VITAL,
-				milk: civitas.IMPORTANCE_VITAL,
-				gems: civitas.IMPORTANCE_VITAL,
-				pearls: civitas.IMPORTANCE_VITAL
-			},
-			'exports': {
-				stones: civitas.IMPORTANCE_VITAL,
-				wood: civitas.IMPORTANCE_VITAL,
-				ironores: civitas.IMPORTANCE_VITAL,
-				goldores: civitas.IMPORTANCE_VITAL,
-				copper: civitas.IMPORTANCE_VITAL,
-				clay: civitas.IMPORTANCE_VITAL,
-				iron: civitas.IMPORTANCE_VITAL,
-				gold: civitas.IMPORTANCE_VITAL,
-				meat: civitas.IMPORTANCE_VITAL,
-				bread: civitas.IMPORTANCE_VITAL,
-				coal: civitas.IMPORTANCE_VITAL
-			}
-		},
-		army: {
-			'Militia': 99,
-			'Axeman': 99,
-			'Knight': 99,
-			'Bowman': 99,
-			'Crossbowman': 99,
-			'Pikeman': 99
-		},
-		navy: {
-			'Corsair': 99,
-			'Caravel': 99,
-			'Warship': 99
-		},
-		location: {
-			x: 460,
-			y: 260
-		}
-	};
-}
-
-/**
  * Utils object.
  */
 civitas.utils = {
@@ -4716,303 +4654,6 @@ civitas.utils = {
 		}
 		return num;
 	}
-};
-
-/**
- * Main Game AI (Artificial Intelligence) object.
- * 
- * @param {Object} params
- * @class {civitas.modules.ai}
- * @returns {civitas.modules.ai}
- */
-civitas.modules.ai = function (params) {
-
-	/**
-	 * Reference to the core object.
-	 * 
-	 * @type {civitas.game}
-	 */
-	this.core = null;
-
-	/**
-	 * Object constructor.
-	 * 
-	 * @private
-	 * @returns {civitas.modules.ai}
-	 * @param {Object} params
-	 */
-	this.__init = function (params) {
-		this.core = params.core;
-		return this;
-	};
-
-	// Fire up the constructor
-	return this.__init(params);
-};
-
-/**
- * Main Game API object.
- * 
- * @param {Object} params
- * @class {civitas.modules.api}
- * @returns {civitas.modules.api}
- */
-civitas.modules.api = function (params) {
-
-	/**
-	 * Reference to the core object.
-	 * 
-	 * @type {civitas.game}
-	 */
-	this.core = null;
-
-	/**
-	 * Module version.
-	 * 
-	 * @private
-	 * @type {String}
-	 */
-	this.version = '0.2.0';
-
-	/**
-	 * Sign in a visitor using the specified data.
-	 * 
-	 * @param {Object} data
-	 * @returns {civitas.modules.api}
-	 */
-	this.login = function (data) {
-		return this.request({
-			url: 'login',
-			data: data
-		});
-	};
-
-	/**
-	 * Return the module version.
-	 * 
-	 * @public
-	 * @returns {String}
-	 */
-	this.get_version = function () {
-		return this.version;
-	};
-
-	/**
-	 * Sign out the currently logged in user.
-	 * 
-	 * @returns {civitas.modules.api}
-	 */
-	this.logout = function () {
-		return this.request({
-			url: 'logout'
-		});
-	};
-
-	/**
-	 * Get information about the application and API version.
-	 *
-	 * @returns {civitas.modules.api}
-	 */
-	this.api_version = function() {
-		return this.request({
-			url: 'version'
-		});
-	};
-
-	/**
-	 * Get information about the currently logged in user's city.
-	 *
-	 * @returns {civitas.modules.api}
-	 */
-	this.city_info = function() {
-		return this.request({
-			url: 'city'
-		});
-	};
-
-	/**
-	 * Perform a heartbeat request and get data about it.
-	 *
-	 * @returns {civitas.modules.api}
-	 */
-	this.heartbeat = function() {
-		return this.request({
-			url: 'heartbeat'
-		});
-	};
-
-	/**
-	 * Register a visitor using the specified data.
-	 * 
-	 * @param {Object} data
-	 * @returns {civitas.modules.api}
-	 */
-	this.register = function (data) {
-		return this.request({
-			url: 'register',
-			data: data
-		});
-	};
-
-	/**
-	 * Export the specified data to the API endpoint.
-	 * 
-	 * @param {Object} data
-	 * @returns {civitas.modules.api}
-	 */
-	this.do_export = function (data) {
-		return this.request({
-			url: 'export',
-			data: data
-		});
-	};
-
-	/**
-	 * Import the specified data from the API endpoint.
-	 * 
-	 * @param {Object} data
-	 * @returns {civitas.modules.api}
-	 */
-	this.do_import = function (data) {
-		return this.request({
-			url: 'import',
-			data: data
-		});
-	};
-
-	/**
-	 * Internal function for performing an API AJAX request.
-	 * 
-	 * @param {Object} data
-	 * @returns {civitas.modules.api}
-	 */
-	this._request = function (data) {
-		$.ajax({
-			type: (typeof data.requestType !== 'undefined') ? data.requestType : 'POST',
-			dataType: typeof data.dataType !== 'undefined' ? data.dataType : 'jsonp',
-			xhrFields: {
-				withCredentials: (typeof data.auth === 'undefined' || data.auth === true) ? true : false
-			},
-			crossDomain: true,
-			data: data.data,
-			url: civitas.API_URL + data.url,
-			async: (typeof data.async === 'undefined' || data.async == true) ? true : false,
-			success: data.success instanceof Function ? data.success : function () {
-				// TODO
-			},
-			error: data.error instanceof Function ? data.error : function () {
-				// TODO
-			}
-		});
-		return this;
-	};
-
-	/**
-	 * Object constructor.
-	 * 
-	 * @private
-	 * @returns {civitas.modules.api}
-	 * @param {Object} params
-	 */
-	this.__init = function (params) {
-		this.core = params.core;
-		return this;
-	};
-
-	// Fire up the constructor
-	return this.__init(params);
-};
-
-/**
- * Game jailer (enforcing security) object.
- * 
- * @param {Object} params
- * @class {civitas.modules.jailer}
- * @returns {civitas.modules.jailer}
- */
-civitas.modules.jailer = function (params) {
-
-	/**
-	 * Reference to the core object.
-	 * 
-	 * @type {civitas.game}
-	 */
-	this.core = null;
-
-	/**
-	 * Module version.
-	 * 
-	 * @private
-	 * @type {String}
-	 */
-	this.version = '0.2.0';
-	/**
-	 * Object constructor.
-	 * 
-	 * @private
-	 * @returns {civitas.modules.jailer}
-	 * @param {Object} params
-	 */
-	this.__init = function (params) {
-		this.core = params.core;
-		return this;
-	};
-
-	/**
-	 * Return the module version.
-	 * 
-	 * @public
-	 * @returns {String}
-	 */
-	this.get_version = function () {
-		return this.version;
-	};
-
-	/**
-	 * Perform an actual security audit.
-	 * 
-	 * @public
-	 * @returns {Boolean}
-	 */
-	this.check = function () {
-		return true;
-	};
-
-	// Fire up the constructor
-	return this.__init(params);
-};
-
-/**
- * Main Game history object.
- * 
- * @param {Object} params
- * @class {civitas.modules.history}
- * @returns {civitas.modules.history}
- */
-civitas.modules.history = function (params) {
-
-	/**
-	 * Reference to the core object.
-	 * 
-	 * @type {civitas.game}
-	 */
-	this.core = null;
-
-	/**
-	 * Object constructor.
-	 * 
-	 * @private
-	 * @returns {civitas.modules.history}
-	 * @param {Object} params
-	 */
-	this.__init = function (params) {
-		this.core = params.core;
-		// TODO
-		return this;
-	};
-
-	// Fire up the constructor
-	return this.__init(params);
 };
 
 /**
@@ -8484,123 +8125,6 @@ civitas.objects.ship = function (params) {
 };
 
 /**
- * Main Game army object.
- * 
- * @param {Object} params
- * @class {civitas.objects.army}
- * @returns {civitas.objects.army}
- */
-civitas.objects.army = function (params) {
-
-	/**
-	 * Pointer to the city this army is located in.
-	 * 
-	 * @type {civitas.objects.city}
-	 * @private
-	 */
-	this.city = null;
-
-	/**
-	 * Requirements of this ship.
-	 * 
-	 * @type {Object}
-	 * @private
-	 */
-	this.cost = null;
-
-	/**
-	 * Get the name of this ship.
-	 * 
-	 * @type {String}
-	 * @private
-	 */
-	this.name = null;
-
-	/**
-	 * List of soldiers in this army.
-	 *
-	 * @type {Array}
-	 * @private
-	 */
-	this.soldiers = [];
-
-	/**
-	 * List of ships in this army.
-	 *
-	 * @type {Array}
-	 * @private
-	 */
-	this.ships = [];
-
-	/**
-	 * Object destructor
-	 * 
-	 * @private
-	 * @returns {Boolean}
-	 */
-	this.__destructor = function () {
-		return false;
-	};
-
-	/**
-	 * Method for destroying(disbanding) the army.
-	 * 
-	 * @public
-	 * @returns {Boolean}
-	 */
-	this.destroy = function () {
-		return this.__destructor();
-	};
-
-	/**
-	 * Object constructor.
-	 * 
-	 * @private
-	 * @returns {civitas.objects.army}
-	 * @param {Object} params
-	 */
-	this.__init = function (params) {
-		this.city = params.city;
-		this.name = params.name;
-		this.cost = params.data.cost;
-		return this;
-	};
-
-	/**
-	 * Get the city this army is located into.
-	 * 
-	 * @public
-	 * @returns {civitas.objects.city}
-	 */
-	this.get_city = function () {
-		return this.city;
-	};
-
-	/**
-	 * Get the name of this army.
-	 * 
-	 * @public
-	 * @returns {String}
-	 */
-	this.get_name = function () {
-		return this.name;
-	};
-
-	/**
-	 * Get a pointer to the game core.
-	 * 
-	 * @public
-	 * @returns {civitas.game}
-	 */
-	this.get_core = function () {
-		return this.get_city().get_core();
-	};
-
-	// Fire up the constructor
-	return this.__init(params);
-};
-
-/**
  * Main Game building panel object.
  * 
  * @param {Object} params
@@ -9626,232 +9150,6 @@ civitas.controls.panel_rankings = function (params) {
 		}
 	};
 
-	// Fire up the constructor
-	return this.__init(params);
-};
-
-/**
- * Send goods to another city panel object.
- * 
- * @param {Object} params
- * @class {civitas.controls.panel_send_goods}
- * @returns {civitas.controls.panel_send_goods}
- */
-civitas.controls.panel_send_goods = function (params) {
-	
-	/**
-	 * Reference to the core object.
-	 * 
-	 * @type {civitas.game}
-	 */
-	this.core = null;
-
-	/**
-	 * DOM id of this panel.
-	 * 
-	 * @type {String}
-	 * @constant
-	 */
-	this.id = 'sendgoods';
-
-	/**
-	 * Localized title of the panel.
-	 * 
-	 * @type {String}
-	 */
-	this.title = civitas.l('Send Goods');
-
-	/**
-	 * Object destructor.
-	 * 
-	 * @private
-	 * @returns {Boolean}
-	 */
-	this.__destructor = function () {
-		this.core.console_log('destroying panel with id `' + this.id + '`');
-		var el = '#panel-' + this.id;
-		$(el).remove();
-		this.core.close_panel(this.id);
-		$('.tipsy').remove();
-		return false;
-	};
-
-	/**
-	 * Method for destroying the window/panel.
-	 * 
-	 * @public
-	 * @returns {Boolean}
-	 */
-	this.destroy = function () {
-		return this.__destructor();
-	};
-
-	/**
-	 * Object constructor.
-	 * 
-	 * @private
-	 * @returns {civitas.controls.panel_send_goods}
-	 * @param {Object} params
-	 */
-	this.__init = function (params) {
-		this.core = params.core;
-		var self = this;
-		var el = '#panel-' + this.id;
-		if (civitas.ui.panel_exists(el)) {
-			this.destroy();
-		}
-		this.core.console_log('creating panel with id `' + this.id + '`');
-		var city = this.core.get_city();
-		var resources = city.get_resources();
-		$('.ui').append(civitas.ui.generic_panel_template
-			.replace(/{id}/g, this.id)
-			.replace(/{title}/g, this.title));
-		var out = '';
-		
-		$(el + ' .contents').empty().append(out);
-		$(el).on('click', '.close', function () {
-			self.destroy();
-			return false;
-		}).draggable({
-			handle: 'header',
-			containment: 'window',
-			snap: '.panel'
-		});
-		$(el + ' .tabs').tabs();
-		$(el + ' .tips').tipsy({
-			gravity: 's'
-		});
-		$(el).css({
-			'left': ($(window).width() / 2) - ($(el).width() / 2),
-			'top': ($(window).height() / 2) - ($(el).height() / 2)
-		});
-		return this;
-	};
-
-	/**
-	 * Callback method called when a function from the core needs to refresh
-	 * information on this panel.
-	 *
-	 * @public
-	 * @returns {civitas.controls.panel_send_goods}
-	 */
-	this.refresh = function() {
-		return this;
-	};
-	
-	// Fire up the constructor
-	return this.__init(params);
-};
-
-/**
- * Declare war to another city panel object.
- * 
- * @param {Object} params
- * @class {civitas.controls.panel_declare_war}
- * @returns {civitas.controls.panel_declare_war}
- */
-civitas.controls.panel_declare_war = function (params) {
-	
-	/**
-	 * Reference to the core object.
-	 * 
-	 * @type {civitas.game}
-	 */
-	this.core = null;
-
-	/**
-	 * DOM id of this panel.
-	 * 
-	 * @type {String}
-	 * @constant
-	 */
-	this.id = 'declarewar';
-
-	/**
-	 * Localized title of the panel.
-	 * 
-	 * @type {String}
-	 */
-	this.title = civitas.l('Declare War');
-
-	/**
-	 * Object destructor.
-	 * 
-	 * @private
-	 * @returns {Boolean}
-	 */
-	this.__destructor = function () {
-		this.core.console_log('destroying panel with id `' + this.id + '`');
-		var el = '#panel-' + this.id;
-		$(el).remove();
-		this.core.close_panel(this.id);
-		$('.tipsy').remove();
-		return false;
-	};
-
-	/**
-	 * Method for destroying the window/panel.
-	 * 
-	 * @public
-	 * @returns {Boolean}
-	 */
-	this.destroy = function () {
-		return this.__destructor();
-	};
-
-	/**
-	 * Object constructor.
-	 * 
-	 * @private
-	 * @returns {civitas.controls.panel_declare_war}
-	 * @param {Object} params
-	 */
-	this.__init = function (params) {
-		this.core = params.core;
-		var self = this;
-		var el = '#panel-' + this.id;
-		if (civitas.ui.panel_exists(el)) {
-			this.destroy();
-		}
-		this.core.console_log('creating panel with id `' + this.id + '`');
-		var city = this.core.get_city();
-		var otherCity = params.data;
-		$('.ui').append(civitas.ui.generic_panel_template
-			.replace(/{id}/g, this.id)
-			.replace(/{title}/g, this.title));
-		var out = '';
-		
-		$(el + ' .contents').empty().append(out);
-		$(el).on('click', '.close', function () {
-			self.destroy();
-			return false;
-		}).draggable({
-			handle: 'header',
-			containment: 'window',
-			snap: '.panel'
-		});
-		$(el + ' .tabs').tabs();
-		$(el + ' .tips').tipsy({
-			gravity: 's'
-		});
-		$(el).css({
-			'left': ($(window).width() / 2) - ($(el).width() / 2),
-			'top': ($(window).height() / 2) - ($(el).height() / 2)
-		});
-		return this;
-	};
-
-	/**
-	 * Callback method called when a function from the core needs to refresh
-	 * information on this panel.
-	 *
-	 * @public
-	 * @returns {civitas.controls.panel_declare_war}
-	 */
-	this.refresh = function() {
-		return this;
-	};
-	
 	// Fire up the constructor
 	return this.__init(params);
 };
@@ -11276,12 +10574,14 @@ civitas.game = function () {
 		var clicked = false;
 		var clickY, clickX;
 		var self = this;
+		/*
 		this.history = new civitas.modules.history({
 			core: this
 		});
 		this.jailer = new civitas.modules.jailer({
 			core: this
 		});
+		*/
 		this.setup_audio();
 		$('.game').on({
 			mousemove: function (e) {
@@ -11361,9 +10661,11 @@ civitas.game = function () {
 		}).on('click', '.up', function () {
 			$('.console .contents').scrollTo('-=97px', 500);
 		});
+		/*
 		this.api = new civitas.modules.api({
 			core: this
 		});
+		*/
 		return this;
 	};
 

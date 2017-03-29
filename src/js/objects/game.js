@@ -123,12 +123,14 @@ civitas.game = function () {
 		var clicked = false;
 		var clickY, clickX;
 		var self = this;
+		/*
 		this.history = new civitas.modules.history({
 			core: this
 		});
 		this.jailer = new civitas.modules.jailer({
 			core: this
 		});
+		*/
 		this.setup_audio();
 		$('.game').on({
 			mousemove: function (e) {
@@ -208,9 +210,11 @@ civitas.game = function () {
 		}).on('click', '.up', function () {
 			$('.console .contents').scrollTo('-=97px', 500);
 		});
+		/*
 		this.api = new civitas.modules.api({
 			core: this
 		});
+		*/
 		return this;
 	};
 

@@ -14,9 +14,9 @@ civitas.CITIES = {
 		personality: civitas.PERSONALITY_DIPLOMAT,
 		level: 25,
 		resources: {
-			'coins': 230000,
-			'prestige': 700,
-			'espionage': 400
+			coins: 230000,
+			prestige: 700,
+			espionage: 400
 		},
 		trades: {
 			'imports': {
@@ -66,9 +66,9 @@ civitas.CITIES = {
 		personality: civitas.PERSONALITY_DIPLOMAT,
 		level: 50,
 		resources: {
-			'coins': 130000,
-			'prestige': 700,
-			'espionage': 1200
+			coins: 130000,
+			prestige: 700,
+			espionage: 1200
 		},
 		trades: {
 			'imports': {
@@ -121,9 +121,9 @@ civitas.CITIES = {
 		personality: civitas.PERSONALITY_WARLORD,
 		level: 30,
 		resources: {
-			'coins': 100000,
-			'prestige': 1000,
-			'espionage': 800
+			coins: 100000,
+			prestige: 1000,
+			espionage: 800
 		},
 		trades: {
 			'imports': {
@@ -161,9 +161,9 @@ civitas.CITIES = {
 		personality: civitas.PERSONALITY_WARLORD,
 		level: 22,
 		resources: {
-			'coins': 200000,
-			'prestige': 500,
-			'espionage': 300
+			coins: 200000,
+			prestige: 500,
+			espionage: 300
 		},
 		trades: {
 			'imports': {
@@ -205,9 +205,9 @@ civitas.CITIES = {
 		personality: civitas.PERSONALITY_DIPLOMAT,
 		level: 45,
 		resources: {
-			'coins': 200000,
-			'prestige': 800,
-			'espionage': 900
+			coins: 200000,
+			prestige: 800,
+			espionage: 900
 		},
 		trades: {
 			'imports': {
@@ -250,9 +250,9 @@ civitas.CITIES = {
 		personality: civitas.PERSONALITY_WARLORD,
 		level: 21,
 		resources: {
-			'coins': 200000,
-			'prestige': 100,
-			'espionage': 100
+			coins: 200000,
+			prestige: 100,
+			espionage: 100
 		},
 		trades: {
 			'imports': {
@@ -291,9 +291,9 @@ civitas.CITIES = {
 		personality: civitas.PERSONALITY_DIPLOMAT,
 		level: 35,
 		resources: {
-			'coins': 130000,
-			'prestige': 780,
-			'espionage': 400
+			coins: 130000,
+			prestige: 780,
+			espionage: 400
 		},
 		trades: {
 			'imports': {
@@ -332,9 +332,9 @@ civitas.CITIES = {
 		personality: civitas.PERSONALITY_WARLORD,
 		level: 20,
 		resources: {
-			'coins': 30000,
-			'prestige': 200,
-			'espionage': 150
+			coins: 30000,
+			prestige: 200,
+			espionage: 150
 		},
 		trades: {
 			'imports': {
@@ -374,9 +374,9 @@ civitas.CITIES = {
 		personality: civitas.PERSONALITY_BALANCED,
 		level: 50,
 		resources: {
-			'coins': 330000,
-			'prestige': 900,
-			'espionage': 1900
+			coins: 330000,
+			prestige: 900,
+			espionage: 1900
 		},
 		trades: {
 			'imports': {
@@ -427,9 +427,9 @@ civitas.CITIES = {
 		personality: civitas.PERSONALITY_WARLORD,
 		level: 18,
 		resources: {
-			'coins': 22000,
-			'prestige': 160,
-			'espionage': 500
+			coins: 22000,
+			prestige: 160,
+			espionage: 500
 		},
 		trades: {
 			'imports': {
@@ -466,9 +466,9 @@ civitas.CITIES = {
 		personality: civitas.PERSONALITY_BALANCED,
 		level: 22,
 		resources: {
-			'coins': 180000,
-			'prestige': 200,
-			'espionage': 450
+			coins: 180000,
+			prestige: 200,
+			espionage: 450
 		},
 		trades: {
 			'imports': {
@@ -513,9 +513,9 @@ civitas.CITIES = {
 		personality: civitas.PERSONALITY_WARLORD,
 		level: 18,
 		resources: {
-			'coins': 80000,
-			'prestige': 300,
-			'espionage': 300
+			coins: 80000,
+			prestige: 300,
+			espionage: 300
 		},
 		trades: {
 			'imports': {
@@ -558,9 +558,9 @@ civitas.CITIES = {
 		personality: civitas.PERSONALITY_WARLORD,
 		level: 16,
 		resources: {
-			'coins': 20000,
-			'prestige': 10,
-			'espionage': 50
+			coins: 20000,
+			prestige: 10,
+			espionage: 50
 		},
 		trades: {
 			'imports': {
@@ -599,9 +599,9 @@ civitas.CITIES = {
 		personality: civitas.PERSONALITY_DIPLOMAT,
 		level: 38,
 		resources: {
-			'coins': 280000,
-			'prestige': 600,
-			'espionage': 580
+			coins: 280000,
+			prestige: 600,
+			espionage: 580
 		},
 		trades: {
 			'imports': {
@@ -644,9 +644,9 @@ civitas.CITIES = {
 		personality: civitas.PERSONALITY_BALANCED,
 		level: 21,
 		resources: {
-			'coins': 110000,
-			'prestige': 180,
-			'espionage': 200
+			coins: 110000,
+			prestige: 180,
+			espionage: 200
 		},
 		trades: {
 			'imports': {
@@ -689,9 +689,9 @@ civitas.CITIES = {
 		personality: civitas.PERSONALITY_WARLORD,
 		level: 22,
 		resources: {
-			'coins': 10000,
-			'prestige': 360,
-			'espionage': 500
+			coins: 10000,
+			prestige: 360,
+			espionage: 500
 		},
 		trades: {
 			'imports': {
@@ -733,9 +733,9 @@ civitas.CITIES = {
 		personality: civitas.PERSONALITY_WARLORD,
 		level: 26,
 		resources: {
-			'coins': 80000,
-			'prestige': 400,
-			'espionage': 500
+			coins: 80000,
+			prestige: 400,
+			espionage: 500
 		},
 		trades: {
 			'imports': {
@@ -775,9 +775,9 @@ civitas.CITIES = {
 		personality: civitas.PERSONALITY_BALANCED,
 		level: 29,
 		resources: {
-			'coins': 240000,
-			'prestige': 500,
-			'espionage': 800
+			coins: 240000,
+			prestige: 500,
+			espionage: 800
 		},
 		trades: {
 			'imports': {
@@ -816,9 +816,9 @@ civitas.CITIES = {
 		personality: civitas.PERSONALITY_WARLORD,
 		level: 22,
 		resources: {
-			'coins': 240000,
-			'prestige': 420,
-			'espionage': 700
+			coins: 240000,
+			prestige: 420,
+			espionage: 700
 		},
 		trades: {
 			'imports': {
