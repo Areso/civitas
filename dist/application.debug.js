@@ -4218,7 +4218,7 @@ civitas.EVENTS = [{
 	name: 'Royal marriage',
 	handle: 'marriage',
 	description: 'A marriage was arranged between a member of your family and the royal family of CITY. This raises your influence on CITY. Good job!',
-	chance: 0.001,
+	chance: 0.003,
 	effect: civitas.EVENT_EFFECT_RAISE_INFLUENCE,
 	data: {
 		amount: 50,
@@ -4250,6 +4250,7 @@ civitas.EVENTS = [{
 	effect: civitas.EVENT_EFFECT_GAIN_ESPIONAGE,
 	data: {
 		amount: 10,
+		city: 'Uruk'
 	}
 }, {
 	name: 'Discovery',
@@ -4259,6 +4260,7 @@ civitas.EVENTS = [{
 	effect: civitas.EVENT_EFFECT_LOSE_ESPIONAGE,
 	data: {
 		amount: 10,
+		city: 'Carthage'
 	}
 }];
 
@@ -7635,7 +7637,8 @@ civitas.objects.building = function(params) {
 					this.problems = true;
 				}
 			}
-		} else if (typeof building.requires.city_level !== 'undefined') {
+		}
+		if (typeof building.requires.city_level !== 'undefined') {
 			if (building.requires.city_level > this.get_city().get_level()) {
 				this.get_core().log('Your city level is too low for ' + this.get_name() + ' to be active.', true);
 				this.notify(civitas.NOTIFICATION_CITY_LOW_LEVEL);

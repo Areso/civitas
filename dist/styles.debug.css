@@ -5,12 +5,12 @@
  * @version 0.1.3292017
  * @license MIT
  */ @font-face {
-  font-family: 'Nova Oval';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Nova Oval'),
-  	local('NovaOval'),
-  	url(http://fonts.gstatic.com/s/novaoval/v8/Raz8Gead6A3y70SEndGXGZBw1xU1rKptJj_0jans920.woff2) format('woff2');
+	font-family: 'Nova Oval';
+	font-style: normal;
+	font-weight: 400;
+	src: local('Nova Oval'),
+		local('NovaOval'),
+		url(../fonts/nova-oval.woff2) format('woff2');
 	unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;
 }
 
@@ -32,6 +32,8 @@ body {
 	margin: 0;
 	padding: 0;
 	font-family: 'Nova Oval';
+	font-style: normal;
+	font-weight: 400;
 	overflow: hidden;
 }
 
@@ -1212,9 +1214,9 @@ a.disabled {
 }
 
 .ui .console .contents {
-	margin: 20px 40px 20px 20px;
+	margin: 18px 40px 20px 16px;
 	overflow: hidden;
-	height: 97px;
+	height: 100px;
 	width: 434px;
 }
 
