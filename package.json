@@ -1,11 +1,8 @@
 {
   "name": "civitas",
-  "version": "0.1",
+  "version": "0.1.0",
   "description": "Civitas is an empire-building game written in Javascript with the help of the jQuery library.",
   "main": "index.html",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "keywords": [
     "game",
     "strategy",
@@ -15,7 +12,13 @@
     "city-building",
     "simulator"
   ],
-  "author": "sizeofcat@riseup.net",
+  "homepage": "https://sizeof.cat/games/civitas/",
+  "bugs": "https://github.com/sizeofcat/civitas/issues",
+  "author": {
+    "name": "sizeof(cat)",
+    "email": "sizeofcat@riseup.net",
+    "url": "https://sizeof.cat"
+  },
   "license": "MIT",
   "devDependencies": {
     "del": "^2.2.2",
@@ -28,14 +31,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:sizeofcat/civitas.git"
-  },
-  "dependencies": {
-    "del": "^2.2.2",
-    "gulp-clean-css": "^2.4.0",
-    "gulp-concat": "^2.6.1",
-    "gulp-header": "^1.8.8",
-    "gulp-replace": "^0.5.4",
-    "gulp-uglify": "^2.1.0"
+    "url": "https://github.com/sizeofcat/civitas.git"
   }
 }
