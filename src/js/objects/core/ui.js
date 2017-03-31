@@ -2,7 +2,7 @@
  * Main Game UI interface.
  */
 civitas.ui = {
-	
+
 	building_panel_template: '<div id="panel-{id}" class="panel pb">' +
 			'<header>' +
 				'<span class="title"></span>' +
@@ -16,7 +16,7 @@ civitas.ui = {
 				'<a class="tips help btn" data-ctxt="{context}" data-term="{building}" title="' + civitas.l('Info about this building') + '"></a>' +
 			'</footer>' +
 		'</div>',
-	
+
 	worldmap_panel_template: '<div id="panel-{id}" class="panel">' +
 			'<header>' +
 				'<span class="title">' + civitas.l('World Map') + '</span>' +
@@ -24,7 +24,7 @@ civitas.ui = {
 			'</header>' +
 			'<div class="contents"><div class="worldmap"></div></div>' +
 		'</div>',
-	
+
 	generic_panel_template: '<div id="panel-{id}" class="panel">' +
 			'<header>' +
 			'<span class="title">{title}</span>' +
@@ -32,7 +32,7 @@ civitas.ui = {
 			'</header>' +
 			'<div class="contents"></div>' +
 			'</div>',
-	
+
 	normal_panel: function (section, contents) {
 		var out = '<fieldset>' +
 				'<legend>' + section + '</legend>' +
@@ -40,7 +40,7 @@ civitas.ui = {
 				'</fieldset>';
 		return out;
 	},
-	
+
 	cost_panel: function (costs) {
 		var out = '';
 		if (typeof costs !== 'undefined') {
@@ -51,15 +51,15 @@ civitas.ui = {
 		}
 		return out;
 	},
-	
+
 	city_worldmap_element: function (name) {
 		return '<div data-name="' + name + '" class="tips city c' + civitas.CITIES[name].icon + '" title="' + civitas.l('City of') + ' ' + name + '" style="left:' + civitas.CITIES[name].location.x + 'px;top:' + civitas.CITIES[name].location.y + 'px"></div>';
 	},
-	
+
 	army_img: function (name) {
 		return '<img class="tips" title="' + name + '" src="' + civitas.ASSETS_URL + 'images/armies/' + name.toLowerCase().replace(/ /g,"_") + '_small.png" />';
 	},
-	
+
 	army_list: function (army, no_margin) {
 		var out = '<dl' + ((typeof no_margin !== 'undefined' && no_margin === true) ? ' class="nomg"' : '') + '>';
 		var total = 0;
@@ -72,7 +72,21 @@ civitas.ui = {
 				'</dl>';
 		return out;
 	},
-	
+
+	/**
+	 * Check if a window exists and is opened.
+	 * 
+	 * @param {String} id
+	 * @public
+	 * @returns {Boolean}
+	 */
+	window_exists: function (id) {
+		if ($(id).length == 0) {
+			return false;
+		}
+		return true;
+	},
+
 	/**
 	 * Check if a panel exists and is opened.
 	 * 
@@ -86,11 +100,11 @@ civitas.ui = {
 		}
 		return true;
 	},
-	
+
 	panel_btn: function (text, title, handle, class_name, disabled) {
 		return '<a title="' + title + '" data-handle="' + handle + '" class="tips ' + class_name + (disabled === true ? ' disabled' : '') + '" href="#">' + text + '</a></td>';
 	},
-	
+
 	trades_list: function (trades, mode) {
 		mode = (typeof mode === 'undefined' || mode === 'imports') ? 'imports' : 'exports';
 		var out = '';
@@ -105,7 +119,7 @@ civitas.ui = {
 		}
 		return out;
 	},
-	
+
 	navy_list: function (army, no_margin) {
 		var out = '<dl' + ((typeof no_margin !== 'undefined' && no_margin === true) ? ' class="nomg"' : '') + '>';
 		var total = 0;
@@ -118,7 +132,7 @@ civitas.ui = {
 				'</dl>';
 		return out;
 	},
-	
+
 	building_element: function (params) {
 		var building_image = params.type;
 		var description = '<br /><span class="smalldesc">' + params.data.description + '</span>';
@@ -132,7 +146,7 @@ civitas.ui = {
 				'id="building-' + params.data.handle + '"' +
 				'class="tips slots building"></div>';
 	},
-	
+
 	resource_storage_el: function (resource, amount) {
 		return '<div class="storage-item item-' + resource + '">' +
 				'<span class="title">' + civitas.utils.get_resource_name(resource) + '</span>' +
@@ -140,7 +154,7 @@ civitas.ui = {
 				'<span class="amount">' + amount + '</amount>' +
 				'</div>';
 	},
-	
+
 	tabs: function (data) {
 		var out = '<div class="tabs">' +
 				'<ul>';
@@ -155,7 +169,7 @@ civitas.ui = {
 		out += '</div>';
 		return out;
 	},
-	
+
 	materials_panel: function (materials) {
 		var out = '';
 		if (typeof materials !== 'undefined') {
@@ -166,7 +180,7 @@ civitas.ui = {
 		}
 		return out;
 	},
-	
+
 	production_panel: function (materials, level) {
 		var out = '';
 		if (typeof materials !== 'undefined') {
@@ -177,7 +191,7 @@ civitas.ui = {
 		}
 		return out;
 	},
-	
+
 	requires_panel: function (requires) {
 		var out = '';
 		if (typeof requires.buildings !== 'undefined') {
@@ -187,7 +201,7 @@ civitas.ui = {
 		}
 		return out;
 	},
-	
+
 	tax_panel: function (tax, level) {
 		var out = '';
 		if (typeof tax !== 'undefined') {
@@ -196,7 +210,7 @@ civitas.ui = {
 		}
 		return out;
 	},
-	
+
 	storage_panel: function (storage, level) {
 		var out = '';
 		if (typeof storage !== 'undefined') {
@@ -205,7 +219,7 @@ civitas.ui = {
 		}
 		return out;
 	},
-	
+
 	resource_small_img: function (resource) {
 		return '<img alt="' + civitas.utils.get_resource_name(resource) + '" class="tips" title="' + civitas.utils.get_resource_name(resource) + '" src="' + civitas.ASSETS_URL + 'images/resources/' + resource + '_small.png" />';
 	}

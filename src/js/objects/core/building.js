@@ -6,7 +6,7 @@
  * @returns {civitas.objects.building}
  */
 civitas.objects.building = function(params) {
-	
+
 	/**
 	 * The level of this building.
 	 * 
@@ -14,7 +14,7 @@ civitas.objects.building = function(params) {
 	 * @private
 	 */
 	this.level = 1;
-	
+
 	/**
 	 * Pointer to the city this building is located in.
 	 * 
@@ -22,7 +22,7 @@ civitas.objects.building = function(params) {
 	 * @private
 	 */
 	this.city = null;
-	
+
 	/**
 	 * The name of this building.
 	 * 
@@ -30,7 +30,7 @@ civitas.objects.building = function(params) {
 	 * @private
 	 */
 	this.name = null;
-	
+
 	/**
 	 * The type of this building.
 	 * 
@@ -38,7 +38,7 @@ civitas.objects.building = function(params) {
 	 * @private
 	 */
 	this.type = null;
-	
+
 	/**
 	 * Check if this building producing goods.
 	 * 
@@ -46,7 +46,7 @@ civitas.objects.building = function(params) {
 	 * @private
 	 */
 	this.working = true;
-	
+
 	/**
 	 * Check if this is a production building.
 	 * 
@@ -54,7 +54,7 @@ civitas.objects.building = function(params) {
 	 * @private
 	 */
 	this.is_production = false;
-	
+
 	/**
 	 * Check if this is a municipal building.
 	 * 
@@ -62,7 +62,7 @@ civitas.objects.building = function(params) {
 	 * @private
 	 */
 	this.is_municipal = false;
-		
+
 	/**
 	 * Check if this is a housing building.
 	 * 
@@ -125,7 +125,7 @@ civitas.objects.building = function(params) {
 		this.get_core().refresh_panels();
 		return this;
 	};
-	
+
 	/**
 	 * Check if the building can be upgraded.
 	 *
@@ -187,7 +187,7 @@ civitas.objects.building = function(params) {
 		}
 		return false;
 	};
-	
+
 	/**
 	 * Downgrade this building.
 	 * 
@@ -210,7 +210,7 @@ civitas.objects.building = function(params) {
 		}
 		return false;
 	};
-	
+
 	/**
 	 * Check if this building is a housing building.
 	 * 
@@ -231,7 +231,7 @@ civitas.objects.building = function(params) {
 	this.is_production_building = function() {
 		return this.is_production;
 	};
-	
+
 	/**
 	 * Check if this building's production is started or stopped.
 	 * 
@@ -241,7 +241,7 @@ civitas.objects.building = function(params) {
 	this.is_producing = function() {
 		return this.working;
 	};
-	
+
 	/**
 	 * Start this building's production
 	 * 
@@ -260,7 +260,7 @@ civitas.objects.building = function(params) {
 			return false;
 		}
 	};
-	
+
 	/**
 	 * Stop this building's production
 	 * 
@@ -279,7 +279,7 @@ civitas.objects.building = function(params) {
 			return false;
 		}
 	};
-	
+
 	/**
 	 * Demolish this building and remove it from the DOM.
 	 * 
@@ -296,7 +296,7 @@ civitas.objects.building = function(params) {
 			return false;
 		}
 	};
-	
+
 	/**
 	 * Check if the city has the required materials to create this building.
 	 * 
@@ -329,7 +329,7 @@ civitas.objects.building = function(params) {
 		}
 		return true;
 	};
-	
+
 	/**
 	 * Use the materials required for this building's production.
 	 * 
@@ -351,7 +351,7 @@ civitas.objects.building = function(params) {
 		}
 		return this;
 	};
-	
+
 	/**
 	 * Get building data from the main configuration array.
 	 * 
@@ -361,7 +361,7 @@ civitas.objects.building = function(params) {
 	this.get_building_data = function() {
 		return civitas.BUILDINGS[civitas.BUILDINGS.findIndexM(this.type)];
 	};
-	
+
 	/**
 	 * Get building data.
 	 * 
@@ -371,7 +371,7 @@ civitas.objects.building = function(params) {
 	this.get_data = function() {
 		return this.data;
 	};
-	
+
 	/**
 	 * Get the city resources object
 	 * 
@@ -381,7 +381,7 @@ civitas.objects.building = function(params) {
 	this.get_city_resources = function() {
 		return this.get_city().get_resources();
 	};
-	
+
 	/**
 	 * Produce the materials.
 	 * 
@@ -435,7 +435,7 @@ civitas.objects.building = function(params) {
 		}
 		return this;
 	};
-	
+
 	/**
 	 * Process the materials and use the required ones.
 	 * 
@@ -455,7 +455,7 @@ civitas.objects.building = function(params) {
 		}
 		return this;
 	};
-	
+
 	/**
 	 * Raise the prestige of the city this building is located in.
 	 * 
@@ -485,7 +485,7 @@ civitas.objects.building = function(params) {
 		this.get_core().log(this.get_name() + ' raised city fame by ' + amount + '.');
 		return this.get_city().get_fame();
 	};
-	
+
 	/**
 	 * Raise the fame of the city this building is located in by converting
 	 * coins into fame.
@@ -508,7 +508,7 @@ civitas.objects.building = function(params) {
 			coins: this.get_city().get_coins()
 		};
 	};
-	
+
 	/**
 	 * Calculate if the house has the required food and processes the tax.
 	 * 
@@ -532,7 +532,7 @@ civitas.objects.building = function(params) {
 		}
 		return this;
 	};
-	
+
 	/**
 	 * Check if this building has the required additional buildings for production.
 	 * 
@@ -577,7 +577,7 @@ civitas.objects.building = function(params) {
 		}
 		return good;
 	};
-	
+
 	/**
 	 * Internal function for further processing of the production chain.
 	 * 
@@ -627,7 +627,7 @@ civitas.objects.building = function(params) {
 		}
 		return this;
 	};
-	
+
 	/**
 	 * Check if this building is the marketplace.
 	 * 
@@ -640,7 +640,7 @@ civitas.objects.building = function(params) {
 		}
 		return false;
 	};
-	
+
 	/**
 	 * Main threading method for the building, this does the actual processing each turn.
 	 * 
@@ -683,7 +683,7 @@ civitas.objects.building = function(params) {
 		}
 		return this;
 	};
-	
+
 	/**
 	 * Get the city this building is located into
 	 * 
@@ -693,7 +693,7 @@ civitas.objects.building = function(params) {
 	this.get_city = function() {
 		return this.city;
 	};
-	
+
 	/**
 	 * Get a pointer to the game core
 	 * 
@@ -703,7 +703,7 @@ civitas.objects.building = function(params) {
 	this.get_core = function() {
 		return this.get_city().get_core();
 	};
-	
+
 	/**
 	 * Get the name of this building
 	 * 
@@ -713,7 +713,7 @@ civitas.objects.building = function(params) {
 	this.get_name = function() {
 		return this.name;
 	};
-	
+
 	/**
 	 * Check whether this building has problems producing its goods.
 	 * 
@@ -723,7 +723,7 @@ civitas.objects.building = function(params) {
 	this.has_problems = function() {
 		return this.problems;
 	};
-	
+
 	/**
 	 * Get the level of this building
 	 * 
@@ -733,7 +733,7 @@ civitas.objects.building = function(params) {
 	this.get_level = function() {
 		return this.level;
 	};
-	
+
 	/**
 	 * Get the type of this building
 	 * 
@@ -743,7 +743,7 @@ civitas.objects.building = function(params) {
 	this.get_type = function() {
 		return this.type;
 	};
-	
+
 	/**
 	 * Return the DOM handle of this building.
 	 *

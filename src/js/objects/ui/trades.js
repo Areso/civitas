@@ -35,7 +35,7 @@ civitas.controls.panel_trades = function (params) {
 	 * @private
 	 * @returns {Boolean}
 	 */
-	this.__destructor = function () {
+	this.__destroy = function () {
 		this.core.console_log('destroying panel with id `' + this.id + '`');
 		var el = '#panel-' + this.id;
 		$(el).remove();
@@ -51,7 +51,7 @@ civitas.controls.panel_trades = function (params) {
 	 * @returns {Boolean}
 	 */
 	this.destroy = function () {
-		return this.__destructor();
+		return this.__destroy();
 	};
 
 	/**
@@ -208,7 +208,7 @@ civitas.controls.panel_trades = function (params) {
 		var city = this.core.get_city();
 		var resources = city.get_resources();
 		for (var item in resources) {
-			if (item !== 'fame' && item !== 'coins' && item !== 'prestige' && item !== 'espionage') {
+			if ($.inArray(item, civitas.NON_RESOURCES) === -1) {
 				out += '<option value="' + item + '"> ' + civitas.utils.get_resource_name(item) + '</option>';
 			}
 		}

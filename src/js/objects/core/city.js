@@ -483,7 +483,7 @@ civitas.objects.city = function(params) {
 		city.trades.exports[item] = city.trades.exports[item] - amount;
 		return true;
 	};
-	
+
 	/**
 	 * Remove a specified amount of a resource from the trade imports of a city.
 	 * 
@@ -497,7 +497,7 @@ civitas.objects.city = function(params) {
 		city.trades.imports[item] = city.trades.imports[item] - amount;
 		return true;
 	};
-	
+
 	/**
 	 * Export the game data of this city.
 	 * 
@@ -536,7 +536,7 @@ civitas.objects.city = function(params) {
 		}
 		return data;
 	};
-	
+
 	/**
 	 * Import the game data to this city.
 	 * 
@@ -562,7 +562,7 @@ civitas.objects.city = function(params) {
 		this.get_core().set_settings_console(data.settings.console);
 		return this;
 	};
-	
+
 	/**
 	 * Get the list of all the buildings in this city.
 	 * 
@@ -572,7 +572,7 @@ civitas.objects.city = function(params) {
 	this.get_buildings = function() {
 		return this.buildings;
 	};
-	
+
 	/**
 	 * Get the name of this city.
 	 * 
@@ -582,7 +582,7 @@ civitas.objects.city = function(params) {
 	this.get_name = function() {
 		return this.name;
 	};
-	
+
 	/**
 	 * Set the name of this city.
 	 * 
@@ -594,7 +594,7 @@ civitas.objects.city = function(params) {
 		this.name = value;
 		return this;
 	};
-	
+
 	/**
 	 * Return a pointer to the game core.
 	 * 
@@ -604,7 +604,7 @@ civitas.objects.city = function(params) {
 	this.get_core = function() {
 		return this.core;
 	};
-	
+
 	/**
 	 * Raise the level of this city.
 	 * 
@@ -617,7 +617,7 @@ civitas.objects.city = function(params) {
 		this.get_core().notify('The city of ' + this.get_name() + ' is now level ' + this.get_level() + '.');
 		return this;
 	};
-	
+
 	/**
 	 * Rename this city.
 	 * 
@@ -629,7 +629,7 @@ civitas.objects.city = function(params) {
 		this.name = value;
 		return this;
 	};
-	
+
 	/**
 	 * Check if the specified building is already built.
 	 * 
@@ -646,7 +646,7 @@ civitas.objects.city = function(params) {
 		}
 		return false;
 	};
-	
+
 	/**
 	 * Check if the city has a specific storage space.
 	 * 
@@ -690,7 +690,7 @@ civitas.objects.city = function(params) {
 	this.get_storage_space = function() {
 		var storage = 0;
 		for (var item in this.get_resources()) {
-			if (item !== 'coins' && item !== 'fame' && item !== 'prestige' && item !== 'espionage') {
+			if ($.inArray(item, civitas.NON_RESOURCES) === -1) {
 				storage += this.get_resources()[item];
 			}
 		}
@@ -935,48 +935,6 @@ civitas.objects.city = function(params) {
 	};
 	
 	/**
-	 * Return the value of this city's prestige.
-	 * 
-	 * @public
-	 * @returns {Number}
-	 */
-	this.get_prestige = function() {
-		return this.resources.prestige;
-	};
-	
-	/**
-	 * Return the value of this city's espionage.
-	 * 
-	 * @public
-	 * @returns {Number}
-	 */
-	this.get_espionage = function() {
-		return this.resources.espionage;
-	};
-	
-	/**
-	 * Get the fame this city has.
-	 * 
-	 * @public
-	 * @returns {Object}
-	 */
-	this.get_fame = function() {
-		return this.resources.fame;
-	};
-
-	/**
-	 * Set the fame of the city.
-	 * 
-	 * @public
-	 * @param {Object} value
-	 * @returns {civitas.objects.city}
-	 */
-	this.set_fame = function(value) {
-		this.resources.fame = value;
-		return this;
-	};
-	
-	/**
 	 * Set the coins of the city.
 	 * 
 	 * @public
@@ -986,151 +944,6 @@ civitas.objects.city = function(params) {
 	this.set_coins = function(value) {
 		this.resources.coins = value;
 		return this;
-	};
-	
-	/**
-	 * Increase this city's fame by the specified amount.
-	 * 
-	 * @public
-	 * @param {Number} value
-	 * @returns {Number}
-	 */
-	this.inc_fame = function(value) {
-		return this.set_fame(this.get_fame() + value);
-	};
-	
-	/**
-	 * Decrease this city's fame by the specified amount.
-	 * 
-	 * @public
-	 * @param {Number} value
-	 * @returns {Number}
-	 */
-	this.dec_fame = function(value) {
-		return this.set_fame(this.get_fame() - value);
-	};
-	
-	/**
-	 * Set this city's fame to the specified value.
-	 * 
-	 * @public
-	 * @param {Number} value
-	 * @returns {Number}
-	 */
-	this.set_fame = function(value) {
-		this.resources.fame = value;
-		return value;
-	};
-	
-	/**
-	 * Get the total number of soldiers available in this city.
-	 * 
-	 * @public
-	 * @returns {Number}
-	 */
-	this.get_army = function() {
-		return this.army;
-	};
-	
-	/**
-	 * Get the total number of ships available in this city.
-	 * 
-	 * @public
-	 * @returns {Number}
-	 */
-	this.get_navy = function() {
-		return this.navy;
-	};
-	
-	/**
-	 * Get the total number of mercenaries available for this city.
-	 * 
-	 * @public
-	 * @returns {Number}
-	 */
-	this.get_mercenary = function() {
-		return this.mercenary;
-	};
-	
-	/**
-	 * Get the navy of this city in an object format.
-	 * 
-	 * @public
-	 * @returns {Object}
-	 */
-	this.get_navy_total = function() {
-		var total = 0;
-		var total_navy = {};
-		for (var item in civitas.SHIPS) {
-			total_navy[item] = 0;
-		}
-		for (var i = 0; i < this.navy.length; i++) {
-			var ship = this.navy[i].get_name();
-			for (var item in total_navy) {
-				if (ship === item) {
-					total_navy[item]++;
-					total++;
-				}
-			}
-		}
-		return {
-			total: total,
-			navy: total_navy
-		};
-	};
-	
-	/**
-	 * Get the army of this city in an object format.
-	 * 
-	 * @public
-	 * @returns {Object}
-	 */
-	this.get_army_total = function() {
-		var total = 0;
-		var total_army = {};
-		for (var item in civitas.SOLDIERS) {
-			total_army[item] = 0;
-		}
-		for (var i = 0; i < this.army.length; i++) {
-			var soldier = this.army[i].get_name();
-			for (var item in total_army) {
-				if (soldier === item) {
-					total_army[item]++;
-					total++;
-				}
-			}
-		}
-		return {
-			total: total,
-			army: total_army
-		};
-	};
-	
-	/**
-	 * Get the mercenaries of this city in an object format.
-	 * 
-	 * @public
-	 * @returns {Object}
-	 */
-	this.get_mercenary_total = function() {
-		var total = 0;
-		var total_army = {};
-		for (var item in civitas.SOLDIERS) {
-			total_army[item] = 0;
-		}
-		for (var i = 0; i < this.mercenary.length; i++) {
-			var soldier = this.mercenary[i].get_name();
-			for (var item in total_army) {
-				if (soldier === item) {
-					total_army[item]++;
-					total++;
-				}
-			}
-		}
-		return {
-			total: total,
-			mercenary: total_army
-		};
 	};
 	
 	/**
@@ -1171,22 +984,6 @@ civitas.objects.city = function(params) {
 	};
 	
 	/**
-	 * Check if this mercenary army has already been recruited.
-	 * 
-	 * @public
-	 * @param {String} handle
-	 * @returns {Boolean}
-	 */
-	this.is_mercenary_recruited = function(handle) {
-		for (var i = 0; i < this.mercenary.length; i++) {
-			if (this.mercenary[i].handle === handle) {
-				return true;
-			}
-		}
-		return false;
-	};
-	
-	/**
 	 * Ask the City Advisor for tips.
 	 * 
 	 * @public
@@ -1223,245 +1020,13 @@ civitas.objects.city = function(params) {
 			advices.push('You have lots of coins, why not invest some in goods?');
 		}
 		for (var item in this.resources) {
-			if (item !== 'coins' && item !== 'fame' && item !== 'prestige' && item !== 'espionage') {
+			if ($.inArray(item, civitas.NON_RESOURCES) === -1) {
 				if (resources[item] > 1000) {
 					advices.push('You seem to have a surplus of ' + civitas.utils.get_resource_name(item) + '. You can sell some and get coins instead.');
 				}
 			}
 		}
 		return advices;
-	};
-	
-	/**
-	 * Recruit a soldier for the city's army.
-	 * 
-	 * @public
-	 * @param {String} name
-	 * @returns {Boolean}
-	 */
-	this.recruit_mercenary_army = function(name) {
-		for (var i = 0; i < civitas.MERCENARIES.length; i++) {
-			if (name === civitas.MERCENARIES[i].handle) {
-				var price = civitas.MERCENARIES[i].cost;
-				if (this.dec_coins(price) === false) {
-					return false;
-				}
-				var army = {
-					id: i,
-					handle: name,
-					army: []
-				};
-				for (var item in civitas.MERCENARIES[i].army) {
-					var soldier = civitas.SOLDIERS[item];
-					var _soldier = new civitas.objects.soldier({
-						name: item,
-						data: soldier
-					});
-					army.army.push(_soldier);
-				}
-				this.mercenary.push(army);
-				this.get_core().notify('The mercenaries of the ' + civitas.MERCENARIES[i].name + ' are now available for skirmish missions for the duration of one year.', 'Mercenaries recruited.');
-				this.get_core().refresh_ui();
-				this.get_core().refresh_panels();
-				this.get_core().save();
-				return true;
-			}
-		}
-		return false;
-	};
-	
-	/**
-	 * Construct a ship for the city's navy.
-	 * 
-	 * @public
-	 * @param {String} ship_name
-	 * @returns {Boolean}
-	 */
-	this.recruit_ship = function(ship_name) {
-		for (var item in civitas.SHIPS) {
-			if (ship_name === item) {
-				var ship = civitas.SHIPS[item];
-				if (!this.remove_resources(ship.cost)) {
-					return false;
-				}
-				var _ship = new civitas.objects.ship({
-					name: item,
-					data: ship
-				});
-				this.navy.push(_ship);
-				this.get_core().refresh_ui();
-				this.get_core().refresh_panels();
-				this.get_core().notify('A new ' + ship_name + ' ship has been constructed.', 'New ship');
-				this.get_core().save();
-				return true;
-			}
-		}
-		return false;
-	};
-	
-	/**
-	 * Recruit a soldier for the city's army.
-	 * 
-	 * @public
-	 * @param {String} soldier_name
-	 * @returns {Boolean}
-	 */
-	this.recruit_soldier = function(soldier_name) {
-		for (var item in civitas.SOLDIERS) {
-			if (soldier_name === item) {
-				var soldier = civitas.SOLDIERS[item];
-				if (!this.remove_resources(soldier.cost)) {
-					return false;
-				}
-				var _soldier = new civitas.objects.soldier({
-					name: item,
-					data: soldier
-				});
-				this.army.push(_soldier);
-				this.get_core().refresh_ui();
-				this.get_core().refresh_panels();
-				this.get_core().notify('A new ' + soldier_name + ' has been recruited.', 'New soldier');
-				this.get_core().save();
-				return true;
-			}
-		}
-		return false;
-	};
-	
-	/**
-	 * Internal function for recruiting a ship for the city's navy.
-	 * 
-	 * @public
-	 * @param {String} ship_name
-	 * @returns {civitas.objects.city}
-	 */
-	this._recruit_ship = function(ship_name) {
-		for (var item in civitas.SHIPS) {
-			if (ship_name === item) {
-				var ship = civitas.SHIPS[item];
-				var _ship = new civitas.objects.ship({
-					name: item,
-					data: ship
-				});
-				this.navy.push(_ship);
-			}
-		}
-		return this;
-	};
-	
-	/**
-	 * Internal function for recruiting a soldier for the city's army.
-	 * 
-	 * @public
-	 * @param {String} soldier_name
-	 * @returns {civitas.objects.city}
-	 */
-	this._recruit_soldier = function(soldier_name) {
-		for (var item in civitas.SOLDIERS) {
-			if (soldier_name === item) {
-				var soldier = civitas.SOLDIERS[item];
-				var _soldier = new civitas.objects.soldier({
-					name: item,
-					data: soldier
-				});
-				this.army.push(_soldier);
-			}
-		}
-		return this;
-	};
-	
-	/**
-	 * Get the navy size of this city.
-	 * 
-	 * @public
-	 * @returns {Number}
-	 */
-	this.get_navy_size = function() {
-		return this.get_navy().length;
-	};
-	
-	/**
-	 * Get the army size of this city.
-	 * 
-	 * @public
-	 * @returns {Number}
-	 */
-	this.get_army_size = function() {
-		return this.get_army().length;
-	};
-	
-	/**
-	 * Disband a ship from the city's navy.
-	 * 
-	 * @public
-	 * @param {String} ship_name
-	 * @returns {Boolean}
-	 */
-	this.disband_ship = function(ship_name) {
-		var navy = this.get_navy();
-		for (var i = 0; i < navy.length; i++) {
-			var ship = navy[i];
-			if (ship.get_name() === ship_name) {
-				delete navy.soldier[i];
-				return true;
-			}
-		}
-		return false;
-	};
-	
-	/**
-	 * Disband a soldier from the city's army.
-	 * 
-	 * @public
-	 * @param {String} soldier_name
-	 * @returns {Boolean}
-	 */
-	this.disband_soldier = function(soldier_name) {
-		var army = this.get_army();
-		for (var i = 0; i < army.length; i++) {
-			var soldier = army[i];
-			if (soldier.get_name() === soldier_name) {
-				delete army.soldier[i];
-				return true;
-			}
-		}
-		return false;
-	};
-	
-	/**
-	 * Set the mercenaries of the city.
-	 * 
-	 * @public
-	 * @param {Number} value
-	 * @returns {civitas.objects.city}
-	 */
-	this.set_mercenary = function(value) {
-		this.mercenary = value;
-		return this;
-	};
-	
-	/**
-	 * Set the navy of the city.
-	 * 
-	 * @public
-	 * @param {Number} value
-	 * @returns {civitas.objects.city}
-	 */
-	this.set_navy = function(value) {
-		this.navy = value;
-		return this;
-	};
-	
-	/**
-	 * Set the soldiers of the city.
-	 * 
-	 * @public
-	 * @param {Number} value
-	 * @returns {civitas.objects.city}
-	 */
-	this.set_army = function(value) {
-		this.army = value;
-		return this;
 	};
 	
 	/**
@@ -1566,88 +1131,6 @@ civitas.objects.city = function(params) {
 	};
 	
 	/**
-	 * Release all the mercenary armies.
-	 * 
-	 * @public
-	 * @returns {civitas.objects.city}
-	 */
-	this.release_mercenaries = function() {
-		this.mercenary = [];
-		this.get_core().notify('At the end of the year, mercenaries from your city have been released.');
-		return this;
-	};
-	
-	/**
-	 * Setup the navy of this city.
-	 * 
-	 * @public
-	 * @param {Boolean} hidden
-	 * @param {Object} data
-	 * @returns {civitas.objects.city}
-	 */
-	this.setup_navy = function(hidden, data) {
-		if (typeof data === 'undefined') {
-			var navy = this.data.navy;
-			for (var ship in navy) {
-				for (var i = 0; i < navy[ship]; i++) {
-					if (hidden === true) {
-						this._recruit_ship(ship);
-					} else {
-						this.recruit_ship(ship);
-					}
-				}
-			}
-		} else {
-			var navy = data.navy;
-			for (var ship in navy) {
-				for (var i = 0; i < navy[ship]; i++) {
-					if (hidden === true) {
-						this._recruit_ship(ship);
-					} else {
-						this.recruit_ship(ship);
-					}
-				}
-			}
-		}
-		return this;
-	};
-	
-	/**
-	 * Setup the army of this city.
-	 * 
-	 * @public
-	 * @param {Boolean} hidden
-	 * @param {Object} data
-	 * @returns {civitas.objects.city}
-	 */
-	this.setup_army = function(hidden, data) {
-		if (typeof data === 'undefined') {
-			var army = this.data.army;
-			for (var soldier in army) {
-				for (var i = 0; i < army[soldier]; i++) {
-					if (hidden === true) {
-						this._recruit_soldier(soldier);
-					} else {
-						this.recruit_soldier(soldier);
-					}
-				}
-			}
-		} else {
-			var army = data.army;
-			for (var soldier in army) {
-				for (var i = 0; i < army[soldier]; i++) {
-					if (hidden === true) {
-						this._recruit_soldier(soldier);
-					} else {
-						this.recruit_soldier(soldier);
-					}
-				}
-			}
-		}
-		return this;
-	};
-	
-	/**
 	 * Return the climate of the area of this city.
 	 * 
 	 * @public
@@ -1671,206 +1154,6 @@ civitas.objects.city = function(params) {
 			id: this.nationality,
 			name: civitas.NATIONS[this.nationality]
 		};
-	};
-	
-	/**
-	 * Raise the espionage of this city by the specified amount.
-	 * 
-	 * @public
-	 * @param {Number} amount
-	 * @returns {Number}
-	 */
-	this.raise_espionage = function(amount) {
-		if (typeof amount !== 'undefined') {
-			this.resources.espionage += amount;
-		} else {
-			++this.resources.espionage;
-		}
-		$('.cityespionage').html(this.get_espionage());
-		this.get_core().notify('The espionage of your city raised.');
-		return this.resources.espionage;
-	};
-	
-	/**
-	 * Raise the prestige of this city by the specified amount.
-	 * 
-	 * @public
-	 * @param {Number} amount
-	 * @returns {Number}
-	 */
-	this.raise_prestige = function(amount) {
-		if (typeof amount !== 'undefined') {
-			this.resources.prestige += amount;
-		} else {
-			++this.resources.prestige;
-		}
-		$('.cityprestige').html(this.get_prestige());
-		this.get_core().notify('The prestige of your city raised.');
-		return this.resources.prestige;
-	};
-	
-	/**
-	 * Lower the prestige of this city by the specified amount.
-	 * 
-	 * @public
-	 * @param {Number} amount
-	 * @returns {Number}
-	 */
-	this.lower_prestige = function(amount) {
-		if (typeof amount !== 'undefined') {
-			if ((this.resources.prestige - amount) >= 1) {
-				this.resources.prestige -= amount;
-				this.get_core().notify('The prestige of your city lowered.');
-			}
-		} else {
-			if ((this.resources.prestige - 1) >= 1) {
-				--this.resources.prestige;
-				this.get_core().notify('The prestige of your city lowered.');
-			}
-		}
-		$('.cityprestige').html(this.get_prestige());
-		return this.resources.prestige;
-	};
-	
-	/**
-	 * Lower the espionage of this city by the specified amount.
-	 * 
-	 * @public
-	 * @param {Number} amount
-	 * @returns {Number}
-	 */
-	this.lower_espionage = function(amount) {
-		if (typeof amount !== 'undefined') {
-			if ((this.resources.espionage - amount) >= 1) {
-				this.resources.espionage -= amount;
-				this.get_core().notify('The espionage of your city lowered.');
-			}
-		} else {
-			if ((this.resources.espionage - 1) >= 1) {
-				--this.resources.espionage;
-				this.get_core().notify('The espionage of your city lowered.');
-			}
-		}
-		$('.cityespionage').html(this.get_espionage());
-		return this.resources.espionage;
-	};
-
-	/**
-	 * Reset the espionage of this city to 1.
-	 * 
-	 * @returns {civitas.objects.city}
-	 * @public
-	 */
-	this.reset_espionage = function() {
-		this.resources.espionage = 1;
-		$('.cityespionage').html(this.get_espionage());
-		return this;
-	};
-
-	/**
-	 * Reset the prestige of this city to 1.
-	 * 
-	 * @returns {civitas.objects.city}
-	 * @public
-	 */
-	this.reset_prestige = function() {
-		this.resources.prestige = 1;
-		$('.cityprestige').html(this.get_prestige());
-		return this;
-	};
-	
-	/**
-	 * Set the espionage of this city.
-	 * 
-	 * @public
-	 * @returns {civitas.objects.city}
-	 * @param {Number} value
-	 */
-	this.set_espionage = function(value) {
-		this.resources.espionage = value;
-		$('.cityespionage').html(this.get_espionage());
-		return this;
-	};
-	
-	/**
-	 * Set the prestige of this city.
-	 * 
-	 * @public
-	 * @returns {civitas.objects.city}
-	 * @param {Number} value
-	 */
-	this.set_prestige = function(value) {
-		this.resources.prestige = value;
-		$('.cityprestige').html(this.get_prestige());
-		return this;
-	};
-	
-	/**
-	 * Increase this city's espionage by the specified amount.
-	 * 
-	 * @public
-	 * @param {Number} value
-	 * @returns {Number}
-	 */
-	this.inc_espionage = function(value) {
-		return this.set_espionage(this.get_espionage() + value);
-	};
-	
-	/**
-	 * Increase this city's prestige by the specified amount.
-	 * 
-	 * @public
-	 * @param {Number} value
-	 * @returns {Number}
-	 */
-	this.inc_prestige = function(value) {
-		return this.set_prestige(this.get_prestige() + value);
-	};
-	
-	/**
-	 * Decrease this city's espionage by the specified amount.
-	 * 
-	 * @public
-	 * @param {Number} value
-	 * @returns {Number}
-	 */
-	this.dec_espionage = function(value) {
-		return this.set_espionage(this.get_espionage() - value);
-	};
-
-	/**
-	 * Decrease this city's prestige by the specified amount.
-	 * 
-	 * @public
-	 * @param {Number} value
-	 * @returns {Number}
-	 */
-	this.dec_prestige = function(value) {
-		return this.set_prestige(this.get_prestige() - value);
-	};
-
-	/**
-	 * Set this city's espionage to the specified value.
-	 * 
-	 * @public
-	 * @param {Number} value
-	 * @returns {Number}
-	 */
-	this.set_espionage = function(value) {
-		this.resources.espionage = value;
-		return value;
-	};
-
-	/**
-	 * Set this city's prestige to the specified value.
-	 * 
-	 * @public
-	 * @param {Number} value
-	 * @returns {Number}
-	 */
-	this.set_prestige = function(value) {
-		this.resources.prestige = value;
-		return value;
 	};
 	
 	/**

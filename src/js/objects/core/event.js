@@ -45,7 +45,7 @@ civitas.objects.event = function (params) {
 	 * @type {Number}
 	 */
 	this.effect = null;
-	
+
 	/**
 	 * Description of the event.
 	 *
@@ -113,7 +113,7 @@ civitas.objects.event = function (params) {
 		});
 		return this;
 	};
-	
+
 	/**
 	 * Internal function for processing the event data.
 	 * 

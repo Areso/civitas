@@ -35,7 +35,7 @@ civitas.controls.panel_advisor = function (params) {
 	 * @private
 	 * @returns {Boolean}
 	 */
-	this.__destructor = function () {
+	this.__destroy = function () {
 		this.core.console_log('destroying panel with id `' + this.id + '`');
 		var el = '#panel-' + this.id;
 		$(el).remove();
@@ -51,7 +51,7 @@ civitas.controls.panel_advisor = function (params) {
 	 * @returns {Boolean}
 	 */
 	this.destroy = function () {
-		return this.__destructor();
+		return this.__destroy();
 	};
 
 	/**
@@ -346,6 +346,7 @@ civitas.controls.panel_advisor = function (params) {
 				'<dt>' + civitas.l('Level') + '</dt><dd class="citylevel">' + city.get_level() + '</dd>' +
 				'<dt>' + civitas.l('Prestige') + '</dt><dd class="cityprestige">' + city.get_prestige() + '</dd>' +
 				'<dt>' + civitas.l('Espionage') + '</dt><dd class="cityespionage">' + city.get_espionage() + '</dd>' +
+				'<dt>' + civitas.l('Research') + '</dt><dd class="cityresearch">' + city.get_research() + '</dd>' +
 				'</dl>';
 		var advices = city.call_advisor();
 		if (advices.length > 0) {

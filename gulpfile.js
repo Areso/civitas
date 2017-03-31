@@ -37,6 +37,11 @@ gulp.task('app', function() {
 		*/
 		'src/js/objects/core/ui.js',
 		'src/js/objects/core/city.js',
+		'src/js/objects/core/city/research.js',
+		'src/js/objects/core/city/fame.js',
+		'src/js/objects/core/city/espionage.js',
+		'src/js/objects/core/city/prestige.js',
+		'src/js/objects/core/city/army.js',
 		'src/js/objects/core/event.js',
 		'src/js/objects/core/building.js',
 		'src/js/objects/core/soldier.js',

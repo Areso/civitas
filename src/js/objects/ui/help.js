@@ -49,7 +49,7 @@ civitas.controls.panel_help = function (params) {
 	 * @private
 	 * @returns {Boolean}
 	 */
-	this.__destructor = function () {
+	this.__destroy = function () {
 		this.core.console_log('destroying panel with id `' + this.id + '`');
 		var el = '#panel-' + this.id;
 		$(el).remove();
@@ -65,7 +65,7 @@ civitas.controls.panel_help = function (params) {
 	 * @returns {Boolean}
 	 */
 	this.destroy = function () {
-		return this.__destructor();
+		return this.__destroy();
 	};
 
 	/**

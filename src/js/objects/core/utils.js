@@ -13,7 +13,7 @@ civitas.utils = {
 	get_up_number: function(value) {
 		return Math.floor(value / 10) * 10;
 	},
-	
+
 	/**
 	 * Return a random number between min and max.
 	 *
@@ -65,7 +65,7 @@ civitas.utils = {
 	calc_price_minus_discount: function (amount, resource, discount) {
 		return Math.ceil(Math.ceil(civitas.RESOURCES[resource].price - discount) * amount);
 	},
-		
+
 	/**
 	 * Calculate the resource price for the specified amount.
 	 * 
@@ -90,7 +90,7 @@ civitas.utils = {
 	calc_price_plus_discount: function (amount, resource, discount) {
 		return Math.ceil(Math.ceil(civitas.RESOURCES[resource].price + discount) * amount);
 	},
-	
+
 	/**
 	 * Format the current time.
 	 * 

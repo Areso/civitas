@@ -8,7 +8,7 @@ civitas.CITY_BUILDINGS_TROPICAL = [
 
 	/* Municipal */
 	'marketplace', 'warehouse', 'tradingpost', 'church', 'monastery', 'camp', 'castle',
-	'shipyard', 'embassy',
+	'shipyard', 'embassy', 'academy',
 
 	/* Housing */
 	'house1', 'house2', 'house3', 'house4', 'house5', 'house6', 'house7', 'house8',
@@ -48,7 +48,7 @@ civitas.CITY_BUILDINGS_POLAR = [
 
 	/* Municipal */
 	'marketplace', 'warehouse', 'tradingpost', 'church', 'monastery', 'camp', 'castle',
-	'shipyard', 'embassy',
+	'shipyard', 'embassy', 'academy',
 
 	/* Housing */
 	'house1', 'house2', 'house3', 'house4', 'house5', 'house6', 'house7',
@@ -81,7 +81,7 @@ civitas.CITY_BUILDINGS_ARID = [
 
 	/* Municipal */
 	'marketplace', 'warehouse', 'tradingpost', 'church', 'monastery', 'camp', 'castle',
-	'shipyard', 'embassy',
+	'shipyard', 'embassy', 'academy',
 
 	/* Housing */
 	'house1', 'house2', 'house3', 'house4', 'house5', 'house6', 'house7',
@@ -117,7 +117,7 @@ civitas.CITY_BUILDINGS_CONTINENTAL = [
 
 	/* Municipal */
 	'marketplace', 'warehouse', 'tradingpost', 'church', 'monastery', 'camp', 'castle',
-	'shipyard', 'embassy',
+	'shipyard', 'embassy', 'academy',
 
 	/* Housing */
 	'house1', 'house2', 'house3', 'house4', 'house5', 'house6', 'house7', 'house8',
@@ -156,7 +156,7 @@ civitas.CITY_BUILDINGS_TEMPERATE = [
 
 	/* Municipal */
 	'marketplace', 'warehouse', 'tradingpost', 'church', 'monastery', 'camp', 'castle',
-	'shipyard', 'embassy',
+	'shipyard', 'embassy', 'academy',
 
 	/* Housing */
 	'house1', 'house2', 'house3', 'house4', 'house5', 'house6', 'house7', 'house8',
@@ -206,7 +206,7 @@ civitas.BUILDINGS_ALL = [
 	'redsmithsworkshop', 'ropeyard', 'glassworks',
 	'apiary', 'barrelcooperage', 'brewery', 'candlemakersworkshop', 'indigofarm',
 	'ciderfarm', 'ciderfield', 'sugarmill', 'rosenursery',
-	'perfumery', 'tradingpost', 'weaver', 'embassy'
+	'perfumery', 'tradingpost', 'weaver', 'embassy',  'academy'
 ];
 
 /**
@@ -217,6 +217,7 @@ civitas.BUILDINGS_ALL = [
  */
 civitas.BUILDINGS_CATEGORIES = {
 	'Municipal': [
+		'academy',
 		'church',
 		'embassy',
 		'marketplace',
@@ -398,6 +399,31 @@ civitas.BUILDINGS = [{
 		},
 		requires: {
 			city_level: 6
+		}
+	}, {
+		name: 'Academy',
+		handle: 'academy',
+		description: 'The academy provides research for the city it is built into, at the expense of coins.',
+		is_municipal: true,
+		is_production: true, 
+		production: {
+			research: 10
+		},
+		materials: {
+			coins: 10
+		},
+		position: {
+			x: 680,
+			y: 400
+		},
+		levels: 3,
+		cost: {
+			coins: 100000,
+			wood: 1000,
+			stones: 1000
+		},
+		requires: {
+			city_level: 10
 		}
 	}, {
 		name: 'Embassy',

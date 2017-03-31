@@ -17,6 +17,9 @@ civitas.RESOURCES = {
 	'espionage': {
 		name: 'Espionage'
 	},
+	'research': {
+		name: 'Research'
+	},
 	'almonds': {
 		name: 'Almonds',
 		price: 200
@@ -267,6 +270,22 @@ civitas.RESOURCES = {
 	}
 };
 
+/**
+ * Resources that don't actually use up storage space, they're more ... virtual.
+ *
+ * @constant
+ * @type {Array}
+ */
+civitas.NON_RESOURCES = [
+	'coins', 'fame', 'prestige', 'espionage', 'research'
+];
+
+/**
+ * Resources that will be shown on the main Storage Panel side.
+ *
+ * @constant
+ * @type {Array}
+ */
 civitas.MAIN_RESOURCES = [
 	'coins', 'bread', 'brass', 'cannons', 'cattle', 'cider', 'clay', 'clothes', 'coal', 'copper',
 	'fish', 'flour', 'furs', 'herbs', 'hides', 'iron', 'ironores', 'meat', 'milk', 'salt',

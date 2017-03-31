@@ -53,7 +53,7 @@ civitas.objects.ship = function (params) {
 	 * @private
 	 * @returns {Boolean}
 	 */
-	this.__destructor = function () {
+	this.__destroy = function () {
 		return false;
 	};
 
@@ -64,7 +64,7 @@ civitas.objects.ship = function (params) {
 	 * @returns {Boolean}
 	 */
 	this.destroy = function () {
-		return this.__destructor();
+		return this.__destroy();
 	};
 
 	/**

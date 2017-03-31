@@ -37,7 +37,7 @@ civitas.controls.panel_storage = function (params) {
 	 * @private
 	 * @returns {Boolean}
 	 */
-	this.__destructor = function () {
+	this.__destroy = function () {
 		this.core.console_log('destroying panel with id `' + this.id + '`');
 		var el = '#panel-' + this.id;
 		$(el).remove();
@@ -53,7 +53,7 @@ civitas.controls.panel_storage = function (params) {
 	 * @returns {Boolean}
 	 */
 	this.destroy = function () {
-		return this.__destructor();
+		return this.__destroy();
 	};
 
 	/**
@@ -130,7 +130,7 @@ civitas.controls.panel_storage = function (params) {
 		var main_storage = '';
 		var extra_storage = '';
 		for (var resource in resources) {
-			if (resource !== 'fame' && resource !== 'prestige' && resource !== 'espionage') {
+			if ($.inArray(resource, civitas.NON_RESOURCES) === -1) {
 				if ($.inArray(resource, civitas.MAIN_RESOURCES) !== -1) {
 					main_storage += civitas.ui.resource_storage_el(resource, resources[resource]);
 				} else {
