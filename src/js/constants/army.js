@@ -72,9 +72,7 @@ civitas.SOLDIERS = {
 		defense: 9,
 		cost: {
 			coins: 1500,
-			bread: 1,
-			meat: 1,
-			wine: 1,
+			provisions: 1,
 			clothes: 1,
 			iron: 1,
 			weapons: 9

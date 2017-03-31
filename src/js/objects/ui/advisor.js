@@ -483,7 +483,7 @@ civitas.controls.panel_advisor = function (params) {
 					'<div class="cost">' +
 					'<dl class="nomg">';
 			for (var res in civitas.SOLDIERS[item].cost) {
-				_t += '<dt>' + civitas.utils.nice_numbers(civitas.SOLDIERS[item].cost[res]) + '</dt><dd><img class="tips" title="' + resources[res].name + '" src="' + civitas.ASSETS_URL + 'images/resources/' + res + '_small.png" /></dd>';
+				_t += '<dt>' + civitas.utils.nice_numbers(civitas.SOLDIERS[item].cost[res]) + '</dt><dd>' + civitas.ui.resource_small_img(res) + '</dd>';
 			}
 			_t += '</dl>' +
 					'</div>' +
@@ -530,7 +530,7 @@ civitas.controls.panel_advisor = function (params) {
 					'<div class="cost">' +
 					'<dl class="nomg">';
 			for (var res in civitas.SHIPS[item].cost) {
-				_t += '<dt>' + civitas.utils.nice_numbers(civitas.SHIPS[item].cost[res]) + '</dt><dd><img class="tips" title="' + resources[res].name + '" src="' + civitas.ASSETS_URL + 'images/resources/' + res + '_small.png" /></dd>';
+				_t += '<dt>' + civitas.utils.nice_numbers(civitas.SHIPS[item].cost[res]) + '</dt><dd>' + civitas.ui.resource_small_img(res) + '</dd>';
 			}
 			_t += '</dl>' +
 					'</div>' +

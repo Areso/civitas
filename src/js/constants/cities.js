@@ -388,7 +388,6 @@ civitas.CITIES = {
 				silk: civitas.IMPORTANCE_MEDIUM
 			},
 			'exports': {
-				robes: civitas.IMPORTANCE_VITAL,
 				statues: civitas.IMPORTANCE_VITAL,
 				barrels: civitas.IMPORTANCE_MEDIUM,
 				brine: civitas.IMPORTANCE_LOW,
@@ -659,7 +658,6 @@ civitas.CITIES = {
 				ironores: civitas.IMPORTANCE_LOW
 			},
 			'exports': {
-				mosaic: civitas.IMPORTANCE_VITAL,
 				wine: civitas.IMPORTANCE_HIGH,
 				silk: civitas.IMPORTANCE_LOW,
 				wood: civitas.IMPORTANCE_MEDIUM,

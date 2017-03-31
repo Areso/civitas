@@ -29,7 +29,7 @@ civitas.CITY_BUILDINGS_TROPICAL = [
 	'charcoalburnerhut', 'opticiansworkshop', 'papermill', 'printingpress',
 	'redsmithsworkshop', 'ropeyard', 'glassworks',
 	'apiary', 'barrelcooperage', 'brewery', 'candlemakersworkshop', 'sugarmill',
-	'perfumery', 'weaver',
+	'perfumery', 'weaver', 'provisions', 'carpenter',
 
 	/* Farms */
 	'almondsfarm', 'almondsfield', 'cattlefarm', 'cattlefield', 'coffeefarm', 'coffeefield',
@@ -68,7 +68,7 @@ civitas.CITY_BUILDINGS_POLAR = [
 	'charcoalburnerhut', 'opticiansworkshop', 'papermill', 'printingpress',
 	'redsmithsworkshop', 'ropeyard', 'glassworks',
 	'apiary', 'barrelcooperage', 'brewery', 'candlemakersworkshop', 'sugarmill',
-	'perfumery', 'weaver'
+	'perfumery', 'weaver', 'provisions', 'carpenter'
 ];
 
 /**
@@ -101,7 +101,7 @@ civitas.CITY_BUILDINGS_ARID = [
 	'charcoalburnerhut', 'opticiansworkshop', 'papermill', 'printingpress',
 	'redsmithsworkshop', 'ropeyard', 'glassworks',
 	'apiary', 'barrelcooperage', 'brewery', 'candlemakersworkshop', 'sugarmill',
-	'perfumery', 'weaver',
+	'perfumery', 'weaver', 'provisions', 'carpenter',
 
 	/* Farms */
 	'cattlefarm', 'cattlefield', 'pigfarm', 'pigfield'
@@ -138,7 +138,7 @@ civitas.CITY_BUILDINGS_CONTINENTAL = [
 	'charcoalburnerhut', 'opticiansworkshop', 'papermill', 'printingpress',
 	'redsmithsworkshop', 'ropeyard', 'glassworks',
 	'apiary', 'barrelcooperage', 'brewery', 'candlemakersworkshop', 'sugarmill',
-	'perfumery', 'weaver',
+	'perfumery', 'weaver', 'provisions', 'carpenter', 'catapultworkshop',
 
 	/* Farms */
 	'cattlefarm', 'cattlefield', 'ciderfarm', 'ciderfield', 'grainfarm', 'grainfield',
@@ -177,7 +177,7 @@ civitas.CITY_BUILDINGS_TEMPERATE = [
 	'charcoalburnerhut', 'opticiansworkshop', 'papermill', 'printingpress',
 	'redsmithsworkshop', 'ropeyard', 'glassworks',
 	'apiary', 'barrelcooperage', 'brewery', 'candlemakersworkshop', 'sugarmill',
-	'perfumery', 'weaver',
+	'perfumery', 'weaver', 'provisions', 'carpenter', 'catapultworkshop',
 
 	/* Farms */
 	'cattlefarm', 'cattlefield', 'ciderfarm', 'ciderfield', 'grainfarm', 'grainfield',
@@ -201,11 +201,11 @@ civitas.BUILDINGS_ALL = [
 	'coppermine', 'goldmine', 'goldsmelter', 'coppersmelter', 'armory', 'coffeefarm',
 	'coffeefield', 'hempfarm', 'hempfield', 'sugarfarm',
 	'sugarfield', 'silkfarm', 'silkfield', 'coffeeroaster', 'quartzfactory', 'grapesfarm',
-	'grapesfield', 'winery', 'saltworks',
+	'grapesfield', 'winery', 'saltworks', 'carpenter',
 	'charcoalburnerhut', 'monastery', 'opticiansworkshop', 'papermill', 'printingpress',
-	'redsmithsworkshop', 'ropeyard', 'glassworks',
+	'redsmithsworkshop', 'ropeyard', 'glassworks', 'provisions',
 	'apiary', 'barrelcooperage', 'brewery', 'candlemakersworkshop', 'indigofarm',
-	'ciderfarm', 'ciderfield', 'sugarmill', 'rosenursery',
+	'ciderfarm', 'ciderfield', 'sugarmill', 'rosenursery', 'catapultworkshop',
 	'perfumery', 'tradingpost', 'weaver', 'embassy',  'academy'
 ];
 
@@ -273,10 +273,10 @@ civitas.BUILDINGS_CATEGORIES = {
 	],
 	'Industry': [
 		'apiary',
-		'armory',
 		'barrelcooperage',
 		'brewery',
 		'candlemakersworkshop',
+		'carpenter',
 		'charcoalburnerhut',
 		'coffeeroaster',
 		'coppersmelter',
@@ -302,8 +302,11 @@ civitas.BUILDINGS_CATEGORIES = {
 		'winery'
 	],
 	'Military': [
+		'armory',
 		'camp',
-		'castle'
+		'castle',
+		'provisions',
+		'catapultworkshop'
 	]
 };
 
@@ -350,6 +353,7 @@ civitas.BUILDINGS = [{
 		cost: {
 			coins: 150000,
 			wood: 500,
+			woodplanks: 200,
 			stones: 500
 		},
 		requires: {
@@ -377,6 +381,7 @@ civitas.BUILDINGS = [{
 		cost: {
 			coins: 10000,
 			wood: 20,
+			woodplanks: 20,
 			stones: 20
 		},
 		requires: {
@@ -388,13 +393,14 @@ civitas.BUILDINGS = [{
 		description: 'The Trading Post allows you to trade resources with other cities.',
 		is_municipal: true,
 		position: {
-			x: 1740,
-			y: 330
+			x: 1590,
+			y: 200
 		},
 		levels: 3,
 		cost: {
 			coins: 50000,
-			wood: 40,
+			wood: 10,
+			woodplanks: 40,
 			stones: 40
 		},
 		requires: {
@@ -413,13 +419,13 @@ civitas.BUILDINGS = [{
 			coins: 10
 		},
 		position: {
-			x: 680,
-			y: 400
+			x: 1480,
+			y: 700
 		},
 		levels: 3,
 		cost: {
 			coins: 100000,
-			wood: 1000,
+			woodplanks: 1000,
 			stones: 1000
 		},
 		requires: {
@@ -440,17 +446,44 @@ civitas.BUILDINGS = [{
 			coins: 50
 		},
 		position: {
-			x: 680,
-			y: 400
+			x: 1620,
+			y: 390
 		},
 		levels: 3,
 		cost: {
 			coins: 100000,
-			wood: 100,
+			woodplanks: 100,
 			stones: 100
 		},
 		requires: {
 			city_level: 10
+		}
+	}, {
+		name: 'Provision House',
+		handle: 'provisions',
+		description: 'The provision house requires various goods to produce provisions for military units.',
+		is_production: true,
+		production: {
+			provisions: 2
+		},
+		materials: {
+			bread: 2,
+			meat: 2,
+			wine: 1
+		},
+		position: {
+			x: 1234,
+			y: 418
+		},
+		levels: 3,
+		cost: {
+			coins: 100000,
+			wood: 200,
+			stones: 200,
+			woodplanks: 100
+		},
+		requires: {
+			city_level: 8
 		}
 	}, {
 		name: 'Monastery',
@@ -471,11 +504,12 @@ civitas.BUILDINGS = [{
 		levels: 3,
 		cost: {
 			coins: 50000,
-			wood: 200,
+			woodplanks: 200,
 			stones: 200
 		},
 		requires: {
-			city_level: 16
+			city_level: 16,
+			buildings: 'academy'
 		}
 	}, {
 		name: 'Shipyard',
@@ -494,6 +528,7 @@ civitas.BUILDINGS = [{
 		cost: {
 			coins: 200000,
 			wood: 200,
+			woodplanks: 200,
 			stones: 100
 		},
 		production: {
@@ -515,10 +550,12 @@ civitas.BUILDINGS = [{
 		cost: {
 			coins: 50000,
 			wood: 200,
+			woodplanks: 200,
 			stones: 160
 		},
 		requires: {
-			city_level: 6
+			city_level: 8,
+			buildings: 'provisions'
 		}
 	}, {
 		name: 'Castle',
@@ -542,6 +579,7 @@ civitas.BUILDINGS = [{
 		cost: {
 			coins: 1000000,
 			wood: 500,
+			woodplanks: 500,
 			stones: 500
 		},
 		requires: {
@@ -559,7 +597,7 @@ civitas.BUILDINGS = [{
 		levels: 3,
 		position: {
 			x: 129,
-			y: 755
+			y: 710
 		},
 		cost: {
 			coins: 2000,
@@ -567,6 +605,30 @@ civitas.BUILDINGS = [{
 		},
 		requires: {
 			city_level: 1
+		}
+	}, {
+		name: 'Carpenter',
+		handle: 'carpenter',
+		description: '.',
+		is_production: true,
+		materials: {
+			wood: 2
+		},
+		production: {
+			woodplanks: 1
+		},
+		levels: 3,
+		position: {
+			x: 150,
+			y: 810
+		},
+		cost: {
+			coins: 5000,
+			wood: 10,
+			stones: 10
+		},
+		requires: {
+			city_level: 3
 		}
 	}, {
 		name: 'Stone Quarry',
@@ -610,7 +672,7 @@ civitas.BUILDINGS = [{
 		},
 		cost: {
 			coins: 10000,
-			wood: 20,
+			woodplanks: 20,
 			stones: 20
 		},
 		requires: {
@@ -736,7 +798,7 @@ civitas.BUILDINGS = [{
 		levels: 3,
 		cost: {
 			coins: 10000,
-			wood: 20,
+			woodplanks: 20,
 			stones: 20
 		},
 		requires: {
@@ -761,7 +823,7 @@ civitas.BUILDINGS = [{
 		levels: 3,
 		cost: {
 			coins: 15000,
-			wood: 30,
+			woodplanks: 30,
 			stones: 30
 		},
 		requires: {
@@ -778,6 +840,7 @@ civitas.BUILDINGS = [{
 		},
 		materials: {
 			iron: 2,
+			wood: 2,
 			leather: 1,
 			brass: 1
 		},
@@ -788,7 +851,7 @@ civitas.BUILDINGS = [{
 		levels: 3,
 		cost: {
 			coins: 50000,
-			wood: 100,
+			woodplanks: 100,
 			stones: 100
 		},
 		requires: {
@@ -815,7 +878,7 @@ civitas.BUILDINGS = [{
 		levels: 3,
 		cost: {
 			coins: 25000,
-			wood: 40,
+			woodplanks: 40,
 			stones: 40
 		},
 		requires: {
@@ -841,7 +904,7 @@ civitas.BUILDINGS = [{
 		levels: 3,
 		cost: {
 			coins: 40000,
-			wood: 40,
+			woodplanks: 40,
 			stones: 50
 		},
 		requires: {
@@ -866,7 +929,7 @@ civitas.BUILDINGS = [{
 		levels: 3,
 		cost: {
 			coins: 40000,
-			wood: 50,
+			woodplanks: 50,
 			stones: 50
 		},
 		requires: {
@@ -891,7 +954,7 @@ civitas.BUILDINGS = [{
 		levels: 3,
 		cost: {
 			coins: 40000,
-			wood: 55,
+			woodplanks: 55,
 			stones: 55
 		},
 		requires: {
@@ -938,7 +1001,7 @@ civitas.BUILDINGS = [{
 		levels: 3,
 		cost: {
 			coins: 15000,
-			wood: 30,
+			woodplanks: 30,
 			stones: 40
 		},
 		requires: {
@@ -1012,7 +1075,7 @@ civitas.BUILDINGS = [{
 		levels: 3,
 		cost: {
 			coins: 70000,
-			wood: 80,
+			woodplanks: 80,
 			stones: 60
 		},
 		requires: {
@@ -1036,7 +1099,7 @@ civitas.BUILDINGS = [{
 		levels: 3,
 		cost: {
 			coins: 70000,
-			wood: 80,
+			woodplanks: 80,
 			stones: 60
 		},
 		requires: {
@@ -1086,7 +1149,7 @@ civitas.BUILDINGS = [{
 		levels: 3,
 		cost: {
 			coins: 81000,
-			wood: 70,
+			woodplanks: 70,
 			stones: 70
 		},
 		requires: {
@@ -1111,7 +1174,7 @@ civitas.BUILDINGS = [{
 		levels: 3,
 		cost: {
 			coins: 83000,
-			wood: 60,
+			woodplanks: 60,
 			stones: 50
 		},
 		requires: {
@@ -1136,7 +1199,7 @@ civitas.BUILDINGS = [{
 		levels: 3,
 		cost: {
 			coins: 84000,
-			wood: 100,
+			woodplanks: 100,
 			stones: 100
 		},
 		requires: {
@@ -1161,7 +1224,7 @@ civitas.BUILDINGS = [{
 		levels: 3,
 		cost: {
 			coins: 90000,
-			wood: 80,
+			woodplanks: 80,
 			stones: 40
 		},
 		requires: {
@@ -1351,11 +1414,40 @@ civitas.BUILDINGS = [{
 		levels: 3,
 		cost: {
 			coins: 45000,
-			wood: 80,
+			woodplanks: 80,
 			stones: 60
 		},
 		requires: {
 			city_level: 20
+		}
+	}, {
+		name: 'Catapult Workshop',
+		handle: 'catapultworkshop',
+		description: '.',
+		is_production: true,
+		production: {
+			catapults: 1
+		},
+		materials: {
+			wood: 100,
+			copper: 10,
+			iron: 20,
+			woodplanks: 40,
+			ropes: 10,
+			sulphur: 10
+		},
+		position: {
+			x: 1110,
+			y: 130
+		},
+		levels: 3,
+		cost: {
+			coins: 250000,
+			woodplanks: 200,
+			stones: 300
+		},
+		requires: {
+			city_level: 15
 		}
 	}, {
 		name: 'Charcoal Burner`s Hut',
@@ -1367,7 +1459,7 @@ civitas.BUILDINGS = [{
 			coal: 4
 		},
 		materials: {
-			wood: 1
+			wood: 2
 		},
 		position: {
 			x: 1480,
@@ -1433,7 +1525,7 @@ civitas.BUILDINGS = [{
 		is_housing: true,
 		tax: 15,
 		cost: {
-			wood: 10,
+			woodplanks: 10,
 			stones: 20,
 			coins: 3000
 		},
@@ -1457,7 +1549,7 @@ civitas.BUILDINGS = [{
 		is_housing: true,
 		tax: 20,
 		cost: {
-			wood: 10,
+			woodplanks: 10,
 			stones: 20,
 			coins: 4000
 		},
@@ -1472,7 +1564,8 @@ civitas.BUILDINGS = [{
 		levels: 5,
 		visible_upgrades: true,
 		requires: {
-			city_level: 6
+			city_level: 6,
+			buildings: 'church'
 		}
 	}, {
 		name: 'House',
@@ -1481,7 +1574,7 @@ civitas.BUILDINGS = [{
 		is_housing: true,
 		tax: 25,
 		cost: {
-			wood: 25,
+			woodplanks: 25,
 			stones: 35,
 			coins: 5000
 		},
@@ -1497,7 +1590,8 @@ civitas.BUILDINGS = [{
 		levels: 5,
 		visible_upgrades: true,
 		requires: {
-			city_level: 10
+			city_level: 10,
+			buildings: 'church'
 		}
 	}, {
 		name: 'House',
@@ -1506,7 +1600,7 @@ civitas.BUILDINGS = [{
 		is_housing: true,
 		tax: 30,
 		cost: {
-			wood: 30,
+			woodplanks: 30,
 			stones: 45,
 			coins: 6000
 		},
@@ -1522,7 +1616,8 @@ civitas.BUILDINGS = [{
 		levels: 5,
 		visible_upgrades: true,
 		requires: {
-			city_level: 16
+			city_level: 16,
+			buildings: 'church'
 		}
 	}, {
 		name: 'House',
@@ -1531,7 +1626,7 @@ civitas.BUILDINGS = [{
 		is_housing: true,
 		tax: 35,
 		cost: {
-			wood: 40,
+			woodplanks: 40,
 			stones: 80,
 			coins: 7000
 		},
@@ -1548,7 +1643,8 @@ civitas.BUILDINGS = [{
 		levels: 5,
 		visible_upgrades: true,
 		requires: {
-			city_level: 20
+			city_level: 20,
+			buildings: 'academy'
 		}
 	}, {
 		name: 'House',
@@ -1557,7 +1653,7 @@ civitas.BUILDINGS = [{
 		is_housing: true,
 		tax: 40,
 		cost: {
-			wood: 50,
+			woodplanks: 50,
 			stones: 100,
 			coins: 8000
 		},
@@ -1575,7 +1671,8 @@ civitas.BUILDINGS = [{
 		levels: 5,
 		visible_upgrades: true,
 		requires: {
-			city_level: 25
+			city_level: 25,
+			buildings: 'academy'
 		}
 	}, {
 		name: 'House',
@@ -1584,7 +1681,7 @@ civitas.BUILDINGS = [{
 		is_housing: true,
 		tax: 45,
 		cost: {
-			wood: 100,
+			woodplanks: 100,
 			stones: 200,
 			coins: 10000
 		},
@@ -1603,7 +1700,8 @@ civitas.BUILDINGS = [{
 		levels: 5,
 		visible_upgrades: true,
 		requires: {
-			city_level: 30
+			city_level: 30,
+			buildings: 'castle'
 		}
 	}, {
 		name: 'Cider Farm',

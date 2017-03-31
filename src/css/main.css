@@ -659,8 +659,8 @@ table.mercenaries td:nth-child(3) {
 
 #panel-buildings {
 	max-width: 940px;
-	max-height: 582px;
-	height: 582px;
+	max-height: 610px;
+	height: 610px;
 	width: 590px;
 }
 
@@ -1031,7 +1031,7 @@ td.icon {
 .bldg-tabs {
 	padding: 10px 0 0 0;
 	overflow: auto;
-	height: 508px;
+	height: 534px;
 }
 
 .tabs > ul > li {

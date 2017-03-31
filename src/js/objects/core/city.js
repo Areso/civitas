@@ -1026,6 +1026,16 @@ civitas.objects.city = function(params) {
 				}
 			}
 		}
+		var buildings = this.get_buildings();
+		var _buildings = [];
+		for (var i = 0; i < buildings.length; i++) {
+			if (buildings[i].has_problems()) {
+				_buildings.push(buildings[i].get_name());
+			}
+		}
+		if (_buildings.length > 0) {
+			advices.push('Several of your buildings (' + _buildings.join(', ') + ') are not working due to a shortage of materials. Buy more goods.');
+		}
 		return advices;
 	};
 	

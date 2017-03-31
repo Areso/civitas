@@ -64,6 +64,10 @@ civitas.RESOURCES = {
 		name: 'Carpets',
 		price: 400
 	},
+	'catapults': {
+		name: 'Catapults',
+		price: 1200
+	},
 	'cattle': {
 		name: 'Cattle',
 		price: 41
@@ -176,10 +180,6 @@ civitas.RESOURCES = {
 		name: 'Milk',
 		price: 55
 	},
-	'mosaic': {
-		name: 'Mosaic',
-		price: 200
-	},
 	'paper': {
 		name: 'Paper',
 		price: 70
@@ -192,13 +192,13 @@ civitas.RESOURCES = {
 		name: 'Perfume',
 		price: 305
 	},
+	'provisions': {
+		name: 'Provisions',
+		price: 300
+	},
 	'quartz': {
 		name: 'Quartz',
 		price: 26
-	},
-	'robes': {
-		name: 'Robes',
-		price: 220
 	},
 	'ropes': {
 		name: 'Ropes',
@@ -267,6 +267,10 @@ civitas.RESOURCES = {
 	'wood': {
 		name: 'Wood',
 		price: 17
+	},
+	'woodplanks': {
+		name: 'Wood Planks',
+		price: 40
 	}
 };
 
@@ -287,7 +291,7 @@ civitas.NON_RESOURCES = [
  * @type {Array}
  */
 civitas.MAIN_RESOURCES = [
-	'coins', 'bread', 'brass', 'cannons', 'cattle', 'cider', 'clay', 'clothes', 'coal', 'copper',
+	'bread', 'brass', 'cannons', 'cattle', 'cider', 'clay', 'clothes', 'coal', 'copper',
 	'fish', 'flour', 'furs', 'herbs', 'hides', 'iron', 'ironores', 'meat', 'milk', 'salt',
-	'stones', 'weapons', 'wheat', 'wood'
+	'stones', 'weapons', 'wheat', 'wood', 'woodplanks'
 ];
