@@ -136,7 +136,7 @@ civitas.SOLDIER_PIKEMAN = 5;
  */
 civitas.MERCENARIES = [{
 	name: 'Legio I Adiutrix',
-	description: 'Legio prima Adiutrix (First Auxiliary legion) is a Roman legion.',
+	description: 'Legio prima Adiutrix is a Roman legion.',
 	handle: 'legio1',
 	icon: 1,
 	army: {
@@ -148,7 +148,7 @@ civitas.MERCENARIES = [{
 	cost: 120000
 }, {
 	name: 'Legio II Augusta',
-	description: 'Legio secunda Augusta (Second Augustan Legion) is a Roman legion.',
+	description: 'Legio secunda Augusta is a Roman legion.',
 	handle: 'legio2',
 	icon: 8,
 	army: {
@@ -160,7 +160,7 @@ civitas.MERCENARIES = [{
 	cost: 130000
 }, {
 	name: 'Legio III Cyrenaica',
-	description: 'Legio tertia Cyrenaica (Third Cyrenean legion) is a Roman legion.',
+	description: 'Legio tertia Cyrenaica is a Roman legion.',
 	handle: 'legio3',
 	icon: 15,
 	army: {
@@ -171,7 +171,7 @@ civitas.MERCENARIES = [{
 	cost: 100000
 }, {
 	name: 'Legio IV Flavia Felix',
-	description: 'Legio quarta Flavia Felix (Fourth Lucky Flavian Legion) is a Roman legion.',
+	description: 'Legio quarta Flavia Felix is a Roman legion.',
 	handle: 'legio4',
 	icon: 9,
 	army: {
@@ -185,7 +185,7 @@ civitas.MERCENARIES = [{
 	cost: 190000
 }, {
 	name: 'Legio V Alaudae',
-	description: 'Legio quinta Alaudae (Fifth Larks Legion) is a Roman legion.',
+	description: 'Legio quinta Alaudae is a Roman legion.',
 	handle: 'legio5',
 	icon: 16,
 	army: {
@@ -196,7 +196,7 @@ civitas.MERCENARIES = [{
 	cost: 110000
 }, {
 	name: 'Legio VI Victrix',
-	description: 'Legio sexta Victrix (Sixth Victorious Legion) is a Roman legion.',
+	description: 'Legio sexta Victrix is a Roman legion.',
 	handle: 'legio6',
 	icon: 22,
 	army: {
@@ -234,7 +234,8 @@ civitas.MERCENARIES = [{
 	cost: 100000
 }, {
 	name: 'Army of the Western Garden',
-	description: 'The Army of the Western Garden is an army established during the reign of Emperor Ling in the Eastern Han Dynasty.',
+	description: 'The Army of the Western Garden is an army established during the ' +
+		'reign of Emperor Ling in the Eastern Han Dynasty.',
 	handle: 'western',
 	icon: 27,
 	army: {
@@ -246,7 +247,9 @@ civitas.MERCENARIES = [{
 	cost: 90000
 }, {
 	name: 'Scholae Palatinae',
-	description: 'The Scholae Palatinae are an elite military guard unit, usually ascribed to the Roman Emperor Constantine the Great as a replacement for the equites singulares Augusti, the cavalry arm of the Praetorian Guard.',
+	description: 'The Scholae Palatinae are an elite military guard unit, usually ' +
+		'ascribed to the Roman Emperor Constantine the Great as a replacement for the ' +
+		'equites singulares Augusti, the cavalry arm of the Praetorian Guard.',
 	handle: 'scholae',
 	icon: 26,
 	army: {
@@ -258,7 +261,9 @@ civitas.MERCENARIES = [{
 	cost: 290000
 }, {
 	name: 'Imperial Guards',
-	description: 'The Imperial Guards of the Tang Dynasty, also known as the Forbidden Troops were initially honor guards of the emperor and garrisons of the imperial capitals during the Tang`s dinasty formation in early 7th century.',
+	description: 'The Imperial Guards of the Tang Dynasty, also known as the Forbidden ' +
+		'Troops were initially honor guards of the emperor and garrisons of the imperial ' +
+		'capitals during the Tang`s dinasty formation in early 7th century.',
 	handle: 'forbidden',
 	icon: 25,
 	army: {
@@ -270,7 +275,9 @@ civitas.MERCENARIES = [{
 	cost: 130000
 }, {
 	name: 'Navy of the Order of Saint John',
-	description: 'The navy of the Order of Saint John, also known as the Maltese Navy, was the first navy of a chivalric order, established in the Middle Ages, around the late 12th century.',
+	description: 'The navy of the Order of Saint John, also known as the Maltese Navy, ' +
+		'was the first navy of a chivalric order, established in the Middle Ages, around ' +
+		'the late 12th century.',
 	handle: 'maltesenavy',
 	icon: 28,
 	navy: {

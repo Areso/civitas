@@ -30,6 +30,22 @@ civitas.controls.window = function (params) {
 	this.title = null;
 
 	/**
+	 * Callback function when the window is shown (created).
+	 *
+	 * @public
+	 * @type {Function}
+	 */
+	this.on_show = null;
+
+	/**
+	 * Callback function when the window is hidden (destroyed).
+	 *
+	 * @public
+	 * @type {Function}
+	 */
+	this.on_hide = null;
+
+	/**
 	 * Object destructor.
 	 * 
 	 * @private
@@ -39,8 +55,8 @@ civitas.controls.window = function (params) {
 		this.get_core().console_log('destroying window with id `' + this.id + '`');
 		var el = '#window-' + this.id;
 		$(el).remove();
-		this.get_core().close_panel(this.id);
 		$('.tipsy').remove();
+		this.on_hide.call(this);
 		return false;
 	};
 
@@ -62,21 +78,26 @@ civitas.controls.window = function (params) {
 	 * @param {Object} params
 	 */
 	this.__init = function (params) {
-		this.core = params.core;
-		var el = '#window-' + this.id;
 		var self = this;
+		this.core = params.core;
+		this.id = params.id;
+		var el = '#window-' + this.id;
+		if (params.on_show instanceof Function) {
+			this.on_show = params.on_show;
+		} else {
+			this.on_show = function() {};
+		}
+		if (params.on_hide instanceof Function) {
+			this.on_hide = params.on_hide;
+		} else {
+			this.on_hide = function() {};
+		}
 		if (civitas.ui.window_exists(el)) {
 			this.destroy();
 		}
 		this.get_core().console_log('creating window with id `' + this.id + '`');
-		$('.ui').append(civitas.ui.generic_panel_template
-			.replace(/{id}/g, this.id));
-
-		$(el + ' .contents').append();
-		$(el).on('click', '.close', function () {
-			self.destroy();
-			return false;
-		});
+		$('body').append(params.template);
+		this.on_show.call(this);
 		$(el + ' .tips').tipsy({
 			gravity: 's'
 		});

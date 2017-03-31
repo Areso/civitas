@@ -131,6 +131,9 @@ civitas.game = function () {
 			core: this
 		});
 		*/
+		if (localStorage.getItem('civitas.data') === null) {
+			this.open_start_window();
+		}
 		this.setup_audio();
 		$('.game').on({
 			mousemove: function (e) {
@@ -151,7 +154,6 @@ civitas.game = function () {
 			$(window).scrollTop($(window).scrollTop() + (clickY - e.pageY));
 			$(window).scrollLeft($(window).scrollLeft() + (clickX - e.pageX));
 		};
-		this._setup_start_ui();
 		this._setup_toolbar();
 		if (localStorage.getItem('civitas.data') !== null) {
 			this.start_game();
@@ -167,12 +169,6 @@ civitas.game = function () {
 			self.open_panel(civitas.controls.panel_world({
 				core: self
 			}));
-			return false;
-		}).on('click', '.do-restart', function () {
-			if (confirm('Are you sure you want to restart the game? You wll lose all progress!') === true) {
-				localStorage.removeItem(civitas.STORAGE_KEY + '.data');
-				document.location.reload();
-			}
 			return false;
 		}).on('click', '.do-help', function () {
 			self.open_panel(new civitas.controls.panel_help({
@@ -204,6 +200,12 @@ civitas.game = function () {
 				core: self
 			}));
 			return false;
+		});
+		$(document).keyup(function(e) {
+			if (e.keyCode == 27 && !civitas.ui.window_exists('#window-options')) {
+				self.show_loader();
+				self.open_options_window();
+			}
 		});
 		$('.console').on('click', '.down', function () {
 			$('.console .contents').scrollTo('+=97px', 500);
@@ -426,54 +428,6 @@ civitas.game = function () {
 	};
 
 	/**
-	 * Setup the start screen UI.
-	 * 
-	 * @private
-	 * @returns {civitas.game}
-	 */
-	this._setup_start_ui = function () {
-		var self = this;
-		var avatar = 1;
-		for (var i = 1; i < civitas.CLIMATES.length; i++) {
-			$('.start .climate').append('<option value="' + civitas['CLIMATE_' + civitas.CLIMATES[i].toUpperCase()] + '">' + civitas.CLIMATES[i].capitalize() + '</option>');
-		}
-		for (var i = 1; i < civitas.NATIONS.length; i++) {
-			$('.start .nation').append('<option value="' + civitas['NATION_' + civitas.NATIONS[i].toUpperCase()] + '">' + civitas.NATIONS[i].capitalize() + '</option>');
-		}
-		for (var i = 1; i <= civitas.AVATARS; i++) {
-			$('.start .avatar-select').append('<img src="' + civitas.ASSETS_URL + 'images/avatars/avatar' + i + '.png" />');
-		}
-		$('.start').on('click', '.do-start', function () {
-			var name = $('.start .name').val();
-			var cityname = $('.start .cityname').val();
-			var nation = parseInt($('.start .nation').val());
-			var climate = parseInt($('.start .climate').val());
-			var difficulty = parseInt($('.start .difficulty').val());
-			if (name === '') {
-				self.error('Enter your ruler name, for example <strong>Ramses</strong>.', 'Error', true);
-				return false;
-			}
-			if (cityname === '') {
-				self.error('Enter your city name, for example <strong>Alexandria</strong>.', 'Error', true);
-				return false;
-			}
-			self.start_game(name, cityname, nation, climate, avatar, difficulty);
-			return false;
-		}).on('click', '.down', function () {
-			if (avatar < civitas.AVATARS) {
-				avatar = avatar + 1;
-			}
-			$('.start .avatar-select').scrollTo('+=64px', 500);
-		}).on('click', '.up', function () {
-			if (avatar > 1) {
-				avatar = avatar - 1;
-			}
-			$('.start .avatar-select').scrollTo('-=64px', 500);
-		});
-		return this;
-	};
-
-	/**
 	 * Start the game.
 	 * 
 	 * @returns {civitas.game}
@@ -496,7 +450,6 @@ civitas.game = function () {
 		}
 		this.setup_neighbours(data);
 		this.save();
-		$('section.start').remove();
 		$('header .cityname').html(this.get_city().get_name());
 		$('header .cityavatar').css({
 			'background-image': 'url(' + civitas.ASSETS_URL + 'images/avatars/avatar' + this.get_city().get_avatar() + '.png)'
@@ -509,6 +462,29 @@ civitas.game = function () {
 			gravity: $.fn.tipsy.autoNS,
 			html: true
 		});
+		this.hide_loader();
+		return this;
+	};
+
+	/**
+	 * Show the game loader.
+	 *
+	 * @public
+	 * @returns {civitas.game}
+	 */
+	this.show_loader = function() {
+		$('.loading').show();
+		return this;
+	};
+
+	/**
+	 * Hide the game loader.
+	 *
+	 * @public
+	 * @returns {civitas.game}
+	 */
+	this.hide_loader = function() {
+		$('.loading').hide();
 		return this;
 	};
 

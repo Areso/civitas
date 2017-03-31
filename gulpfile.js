@@ -46,6 +46,7 @@ gulp.task('app', function() {
 		'src/js/objects/core/building.js',
 		'src/js/objects/core/soldier.js',
 		'src/js/objects/core/ship.js',
+		'src/js/objects/core/window.js',
 		/*
 		'src/js/objects/core/army.js',
 		*/
@@ -63,8 +64,9 @@ gulp.task('app', function() {
 		'src/js/objects/ui/advisor.js',
 		'src/js/objects/ui/army.js',
 		'src/js/objects/ui/trades.js',
-		'src/js/objects/ui/settings.js',
-		'src/js/objects/game.js'
+		'src/js/objects/game.js',
+		'src/js/objects/core/window/start.js',
+		'src/js/objects/core/window/options.js'
   	])
     .pipe(concat('application.debug.js'))
     .pipe(header(fs.readFileSync('HEADER', 'utf8'), { pkg: pkg } ))

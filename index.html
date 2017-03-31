@@ -8,45 +8,6 @@
 		<script src="dist/application.debug.js"></script>
 	</head>
 	<body>
-		<section class="start">
-			<fieldset>
-				<legend>Setup Your City</legend>
-				<p>Choose your city details well, climate changes affect your building options and resources.</p>
-				<dl>
-					<dt class="clearfix">Name:</dt>
-					<dd><input type="text" class="name text-input" /></dd>
-					<dt class="clearfix">City Name:</dt>
-					<dd><input type="text" class="cityname text-input" /></dd>
-					<dt class="clearfix">Nationality:</dt>
-					<dd>
-						<select class="nation text-input"></select>
-					</dd>
-					<dt class="clearfix">Climate</dt>
-					<dd>
-						<select class="climate text-input"></select>
-					</dd>
-					<dt class="clearfix">Difficulty:</dt>
-					<dd>
-						<select class="difficulty text-input">
-							<option value="1">Easy</option>
-							<option value="2">Medium</option>
-							<option value="3">Hard</option>
-							<option value="4">Hardcore</option>
-						</select>
-					</dd>
-					<dt class="clearfix">Avatar:</dt>
-					<dd class="avatar-select-container">
-						<div class="avatar-select"></div>
-						<div class="scrollbar">
-							<div class="up"></div>
-							<div class="down"></div>
-						</div>
-					</dd>
-				</dl>
-				<div class="hr"></div>
-				<a href="#" class="do-start button">Start Playing</a>
-			</fieldset>
-		</section>
 		<section class="ui">
 			<header>
 				<div class="cityavatar"></div>
@@ -75,7 +36,6 @@
 					<div class="tips do-rankings" title="Rankings"></div>
 					<div class="tips do-worldmap" title="World Map"></div>
 					<div class="tips do-options" title="Game Options"></div>
-					<div class="tips do-restart" title="Restart Game"></div>
 					<div class="tips do-help" title="Help"></div>
 				</div>
 			</footer>
@@ -83,5 +43,6 @@
 		<audio id="music" loop>
 			<source src="music/track1.mp3" type="audio/mpeg">
 		</audio>
+		<div class="loading"></div>
 	</body>
 </html>

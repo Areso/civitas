@@ -2,7 +2,7 @@
  * Civitas empire-building game.
  *
  * @author sizeof(cat) <sizeofcat AT riseup.net>
- * @version 0.1.0.3312017
+ * @version 0.1.0.412017
  * @license MIT
  */ @font-face {
 	font-family: 'Nova Oval';
@@ -426,12 +426,12 @@ header .top-panel span {
 }
 
 .ui .panel .contents dl,
-.start dl {
+#window-start dl {
 	margin: 10px auto;
 }
 
 .ui .panel .contents dt,
-.start dt {
+#window-start dt {
 	float: left;
 	text-align: right;
 	width: 45%;
@@ -444,7 +444,7 @@ header .top-panel span {
 }
 
 .ui .panel .contents dd,
-.start dd {
+#window-start dd {
 	margin-left: 50%;
 	line-height: 20px;
 	margin-bottom: 5px;
@@ -464,37 +464,6 @@ header .top-panel span {
 	width: 800px;
 	height: 400px;
 	max-height: 400px;
-}
-
-/* Settings panel */
-
-#panel-settings {
-	max-width: 400px;
-	width: 400px;
-	height: 300px;
-	max-height: 300px;
-}
-
-#panel-settings .ui-tabs-panel > div {
-	padding: 20px;
-}
-
-.ui .panel .ui-control {
-	box-shadow: 0 0 5px #ccc;
-	-webkit-box-shadow: 0 0 5px #ccc;
-	-moz-box-shadow: 0 0 5px #ccc;
-	border-radius: 3px;
-	-moz-border-radius: 3px;
-	-webkit-border-radius: 3px;
-	padding: 2px 10px;
-}
-
-.ui-control.on {
-	background-color: #c0f5d3;
-}
-
-.ui-control.off {
-	background-color: #f5c8c0;
 }
 
 /* Worldmap panel */
@@ -743,67 +712,152 @@ p {
 	margin-top: 0;
 }
 
-/* Start window */
+/* Windows */
 
-section.start {
-	z-index: 99999;
-	opacity: 0.95;
-	background-color: #000;
+.window {
 	width: 100%;
 	height: 100%;
-	position: absolute;
+	position: fixed;
 	top: 0;
 	left: 0;
 	color: #fff;
+	z-index: 99999;
+	background: #45484d;
+	background: -moz-radial-gradient(center, ellipse cover, #45484d 0%, #000000 100%);
+	background: -webkit-radial-gradient(center, ellipse cover, #45484d 0%, #000000 100%);
+	background: radial-gradient(ellipse at center, #45484d 0%, #000000 100%);
+	opacity: 1;
 }
 
-section.start fieldset {
-	margin: 10px auto 0 auto;
+.window .logo {
+	margin: 3% auto 0 auto;
 	width: 300px;
+	text-align: center;
+	font-size: 62px;
+}
+
+/* Options window */
+
+#window-options ul {
+	margin-left: 20px;
+}
+
+#window-options .about-game,
+#window-options .options-game {
+	display: none;
+	padding: 10px 0;
+}
+
+#window-options li > a,
+#window-options p > a {
+	text-decoration: underline;
+}
+
+
+#window-options .ui-tabs-panel > div {
+	padding: 20px;
+}
+
+#window-options .tabs ul li a {
+	text-decoration: none;
+}
+
+#window-options .tabs ul li.ui-tabs-active {
+	background-color: #777;
+}
+#window-options .tabs > div {
 	border: 1px solid #777;
 }
 
-section.start fieldset legend {
-	color: #fff;
-	text-transform: uppercase;
-	padding: 10px 20px;
-	border: 1px solid #777;
+.ui-control {
+	box-shadow: 0 0 5px #fff;
+	-webkit-box-shadow: 0 0 5px #fff;
+	-moz-box-shadow: 0 0 5px #fff;
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	padding: 2px 10px;
+	color: #000;
+	font-size: 12px;
 }
 
-.start input[type=text],
-.start select {
-	border: 1px solid #777;
-	background-color: #000;
+.ui-control.on {
+	background-color: #c0f5d3;
+}
+
+.ui-control.off {
+	background-color: #f5c8c0;
+}
+
+/* Start window */
+
+#window-start fieldset,
+#window-options fieldset {
+	margin: 20px auto 0 auto;
+	width: 360px;
+	border: 0;
+}
+
+#window-start input[type=text],
+#window-start select {
+	border: 1px solid #908c68;
+	background: transparent;
 	color: #fff;
 	padding: 5px 10px;
+	font-family: 'Nova Oval';
+	font-size: 14px;
 }
-.start select {
+
+#window-start select {
 	width: 122px;
 }
-.start input[type=text] {
+
+#window-start input[type=text] {
 	width: 100px;
 }
-.start .button {
-	padding: 5px 10px;
-	border: 1px solid #777;
+
+#window-start .button,
+#window-options .button {
 	display: block;
-	text-align: center;
+	margin-top: 5px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	padding: 10px;
+	text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
+	color: #fff;
+	border: 1px solid #908c68;
+	background-color: #a9a588;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#a9a588), to(#8e865b));
+	background-image: -webkit-linear-gradient(top, #a9a588, #8e865b);
+	background-image: -moz-linear-gradient(top, #a9a588, #8e865b);
+	background-image: linear-gradient(to bottom, #a9a588, #8e865b);
 	text-transform: uppercase;
-	margin-top:5px;
+	text-align: center;
 }
 
-.start .avatar-select {
+#window-start .button:hover,
+#window-options .button:hover {
+	border: 1px solid #767255;
+	background-color: #938e6b;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#938e6b), to(#6f6947));
+	background-image: -webkit-linear-gradient(top, #938e6b, #6f6947);
+	background-image: -moz-linear-gradient(top, #938e6b, #6f6947);
+	background-image: linear-gradient(to bottom, #938e6b, #6f6947);
+}
+
+#window-start .avatar-select {
 	width: 64px;
 	height: 64px;
 	overflow: hidden;
 }
 
-.start dt {
+#window-start dt {
 	line-height: 28px;
 }
 
-.start dl {
-	width: 250px;
+#window-start dl {
+	width: 360px;
 }
 
 /* Notifications */
@@ -937,7 +991,7 @@ input[type=range]::-webkit-slider-thumb {
     height: 16px;
     width: 16px;
     border-radius: 50%;
-    background: #444;
+    background: #908c68;
     margin-top: -4px;
 }
 
@@ -962,7 +1016,7 @@ input[type=range]::-moz-range-thumb {
     height: 16px;
     width: 16px;
     border-radius: 50%;
-    background: #444;
+    background: #908c68;
 }
 
 input[type=range]:-moz-focusring{
@@ -1230,6 +1284,18 @@ a.disabled {
 	color: #aa4600;
 }
 
+.loading {
+	display: none;
+	position: fixed;
+	top: 10px;
+	right: 10px;
+	background-color: #000;
+	height: 46px;
+	width: 46px;
+	z-index: 99999999;
+	background: transparent url(../images/ui/loading.svg) no-repeat;
+}
+
 /* Tipsy */
 
 .tipsy {
@@ -1438,10 +1504,6 @@ footer .do-rankings {
 
 footer .do-options {
 	background: transparent url(../images/ui/toolbar/options.png) no-repeat;
-}
-
-footer .do-restart {
-	background: transparent url(../images/ui/toolbar/restart.png) no-repeat;
 }
 
 footer .do-help {

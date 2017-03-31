@@ -2,7 +2,7 @@
  * Civitas empire-building game.
  *
  * @author sizeof(cat) <sizeofcat AT riseup.net>
- * @version 0.1.0.3312017
+ * @version 0.1.0.412017
  * @license MIT
  */ 'use strict';
 
@@ -914,7 +914,7 @@ civitas.SOLDIER_PIKEMAN = 5;
  */
 civitas.MERCENARIES = [{
 	name: 'Legio I Adiutrix',
-	description: 'Legio prima Adiutrix (First Auxiliary legion) is a Roman legion.',
+	description: 'Legio prima Adiutrix is a Roman legion.',
 	handle: 'legio1',
 	icon: 1,
 	army: {
@@ -926,7 +926,7 @@ civitas.MERCENARIES = [{
 	cost: 120000
 }, {
 	name: 'Legio II Augusta',
-	description: 'Legio secunda Augusta (Second Augustan Legion) is a Roman legion.',
+	description: 'Legio secunda Augusta is a Roman legion.',
 	handle: 'legio2',
 	icon: 8,
 	army: {
@@ -938,7 +938,7 @@ civitas.MERCENARIES = [{
 	cost: 130000
 }, {
 	name: 'Legio III Cyrenaica',
-	description: 'Legio tertia Cyrenaica (Third Cyrenean legion) is a Roman legion.',
+	description: 'Legio tertia Cyrenaica is a Roman legion.',
 	handle: 'legio3',
 	icon: 15,
 	army: {
@@ -949,7 +949,7 @@ civitas.MERCENARIES = [{
 	cost: 100000
 }, {
 	name: 'Legio IV Flavia Felix',
-	description: 'Legio quarta Flavia Felix (Fourth Lucky Flavian Legion) is a Roman legion.',
+	description: 'Legio quarta Flavia Felix is a Roman legion.',
 	handle: 'legio4',
 	icon: 9,
 	army: {
@@ -963,7 +963,7 @@ civitas.MERCENARIES = [{
 	cost: 190000
 }, {
 	name: 'Legio V Alaudae',
-	description: 'Legio quinta Alaudae (Fifth Larks Legion) is a Roman legion.',
+	description: 'Legio quinta Alaudae is a Roman legion.',
 	handle: 'legio5',
 	icon: 16,
 	army: {
@@ -974,7 +974,7 @@ civitas.MERCENARIES = [{
 	cost: 110000
 }, {
 	name: 'Legio VI Victrix',
-	description: 'Legio sexta Victrix (Sixth Victorious Legion) is a Roman legion.',
+	description: 'Legio sexta Victrix is a Roman legion.',
 	handle: 'legio6',
 	icon: 22,
 	army: {
@@ -1012,7 +1012,8 @@ civitas.MERCENARIES = [{
 	cost: 100000
 }, {
 	name: 'Army of the Western Garden',
-	description: 'The Army of the Western Garden is an army established during the reign of Emperor Ling in the Eastern Han Dynasty.',
+	description: 'The Army of the Western Garden is an army established during the ' +
+		'reign of Emperor Ling in the Eastern Han Dynasty.',
 	handle: 'western',
 	icon: 27,
 	army: {
@@ -1024,7 +1025,9 @@ civitas.MERCENARIES = [{
 	cost: 90000
 }, {
 	name: 'Scholae Palatinae',
-	description: 'The Scholae Palatinae are an elite military guard unit, usually ascribed to the Roman Emperor Constantine the Great as a replacement for the equites singulares Augusti, the cavalry arm of the Praetorian Guard.',
+	description: 'The Scholae Palatinae are an elite military guard unit, usually ' +
+		'ascribed to the Roman Emperor Constantine the Great as a replacement for the ' +
+		'equites singulares Augusti, the cavalry arm of the Praetorian Guard.',
 	handle: 'scholae',
 	icon: 26,
 	army: {
@@ -1036,7 +1039,9 @@ civitas.MERCENARIES = [{
 	cost: 290000
 }, {
 	name: 'Imperial Guards',
-	description: 'The Imperial Guards of the Tang Dynasty, also known as the Forbidden Troops were initially honor guards of the emperor and garrisons of the imperial capitals during the Tang`s dinasty formation in early 7th century.',
+	description: 'The Imperial Guards of the Tang Dynasty, also known as the Forbidden ' +
+		'Troops were initially honor guards of the emperor and garrisons of the imperial ' +
+		'capitals during the Tang`s dinasty formation in early 7th century.',
 	handle: 'forbidden',
 	icon: 25,
 	army: {
@@ -1048,7 +1053,9 @@ civitas.MERCENARIES = [{
 	cost: 130000
 }, {
 	name: 'Navy of the Order of Saint John',
-	description: 'The navy of the Order of Saint John, also known as the Maltese Navy, was the first navy of a chivalric order, established in the Middle Ages, around the late 12th century.',
+	description: 'The navy of the Order of Saint John, also known as the Maltese Navy, ' +
+		'was the first navy of a chivalric order, established in the Middle Ages, around ' +
+		'the late 12th century.',
 	handle: 'maltesenavy',
 	icon: 28,
 	navy: {
@@ -8534,6 +8541,126 @@ civitas.objects.ship = function (params) {
 };
 
 /**
+ * Main Game window object.
+ * 
+ * @param {Object} params
+ * @class {civitas.controls.window}
+ * @returns {civitas.controls.window}
+ */
+civitas.controls.window = function (params) {
+
+	/**
+	 * Reference to the core object.
+	 * 
+	 * @type {civitas.game}
+	 */
+	this.core = null;
+
+	/**
+	 * DOM id of this panel.
+	 * 
+	 * @type {String}
+	 * @constant
+	 */
+	this.id = null;
+
+	/**
+	 * Localized title of the window.
+	 * 
+	 * @type {String}
+	 */
+	this.title = null;
+
+	/**
+	 * Callback function when the window is shown (created).
+	 *
+	 * @public
+	 * @type {Function}
+	 */
+	this.on_show = null;
+
+	/**
+	 * Callback function when the window is hidden (destroyed).
+	 *
+	 * @public
+	 * @type {Function}
+	 */
+	this.on_hide = null;
+
+	/**
+	 * Object destructor.
+	 * 
+	 * @private
+	 * @returns {Boolean}
+	 */
+	this.__destroy = function () {
+		this.get_core().console_log('destroying window with id `' + this.id + '`');
+		var el = '#window-' + this.id;
+		$(el).remove();
+		$('.tipsy').remove();
+		this.on_hide.call(this);
+		return false;
+	};
+
+	/**
+	 * Method for destroying the window.
+	 * 
+	 * @public
+	 * @returns {Boolean}
+	 */
+	this.destroy = function () {
+		return this.__destroy();
+	};
+
+	/**
+	 * Object constructor.
+	 * 
+	 * @private
+	 * @returns {civitas.controls.window}
+	 * @param {Object} params
+	 */
+	this.__init = function (params) {
+		var self = this;
+		this.core = params.core;
+		this.id = params.id;
+		var el = '#window-' + this.id;
+		if (params.on_show instanceof Function) {
+			this.on_show = params.on_show;
+		} else {
+			this.on_show = function() {};
+		}
+		if (params.on_hide instanceof Function) {
+			this.on_hide = params.on_hide;
+		} else {
+			this.on_hide = function() {};
+		}
+		if (civitas.ui.window_exists(el)) {
+			this.destroy();
+		}
+		this.get_core().console_log('creating window with id `' + this.id + '`');
+		$('body').append(params.template);
+		this.on_show.call(this);
+		$(el + ' .tips').tipsy({
+			gravity: 's'
+		});
+		return this;
+	};
+
+	/**
+	 * Return a pointer to the game core.
+	 *
+	 * @public
+	 * @returns {civitas.game}
+	 */
+	this.get_core = function() {
+		return this.core;
+	};
+
+	// Fire up the constructor
+	return this.__init(params);
+};
+
+/**
  * Main Game building panel object.
  * 
  * @param {Object} params
@@ -10726,141 +10853,6 @@ civitas.controls.panel_trades = function (params) {
 };
 
 /**
- * Main Game settings panel object.
- * 
- * @param {Object} params
- * @class {civitas.controls.panel_settings}
- * @returns {civitas.controls.panel_settings}
- */
-civitas.controls.panel_settings = function (params) {
-
-	/**
-	 * Reference to the core object.
-	 * 
-	 * @type {civitas.game}
-	 */
-	this.core = null;
-
-	/**
-	 * DOM id of this panel.
-	 * 
-	 * @type {String}
-	 * @constant
-	 */
-	this.id = null;
-
-	/**
-	 * Object destructor.
-	 * 
-	 * @private
-	 * @returns {Boolean}
-	 */
-	this.__destroy = function () {
-		this.core.console_log('destroying panel with id `' + this.id + '`');
-		var el = '#panel-' + this.id;
-		$(el).remove();
-		this.core.close_panel(this.id);
-		$('.tipsy').remove();
-		return false;
-	};
-
-	/**
-	 * Method for destroying the window/panel.
-	 * 
-	 * @public
-	 * @returns {Boolean}
-	 */
-	this.destroy = function () {
-		return this.__destroy();
-	};
-
-	/**
-	 * Object constructor.
-	 * 
-	 * @private
-	 * @returns {civitas.controls.panel_settings}
-	 * @param {Object} params
-	 */
-	this.__init = function (params) {
-		$('.panel.pw').remove();
-		this.core = params.core;
-		this.id = params.id;
-		var self = this;
-		var el = '#panel-' + this.id;
-		if (civitas.ui.panel_exists(el)) {
-			this.destroy();
-		}
-		this.core.console_log('creating panel with id `' + this.id + '`');
-		$('.ui').append(civitas.ui.generic_panel_template
-			.replace(/{id}/g, this.id)
-			.replace(/{title}/g, params.header));
-		$(el + ' .contents').append(civitas.ui.tabs([civitas.l('Sounds'), civitas.l('UI')]));
-		$(el + ' #tab-sounds').append('<div>' +
-			'<a href="#" class="music-control ui-control ' + ((this.core.get_settings('music') === true) ? 'on' : 'off') + '">toggle music</a>' +
-			'<input class="music-volume" type="range" min="0" max="1" step="0.1" ' + ((this.core.get_settings('music') !== true) ? 'disabled' : '') + ' />' +
-			'</div>');
-		$(el + ' #tab-ui').append('<div>' +
-			'<a href="#" class="console-control ui-control ' + ((this.core.get_settings('console') === true) ? 'on' : 'off') + '">toggle console</a>' +
-			'</div>');
-		$(el).on('click', '.music-control', function () {
-			if ($(this).hasClass('on')) {
-				$(this).removeClass('on').addClass('off');
-				$('.music-volume').attr('disabled', true);
-				self.core.set_settings_music(true);
-			} else {
-				$(this).removeClass('off').addClass('on');
-				$('.music-volume').attr('disabled', false);
-				self.core.set_settings_music(false);
-			}
-			return false;
-		}).on('click', '.console-control', function () {
-			if ($(this).hasClass('on')) {
-				$(this).removeClass('on').addClass('off');
-				self.core.set_settings_console(false);
-			} else {
-				$(this).removeClass('off').addClass('on');
-				self.core.set_settings_console(true);
-			}
-			return false;
-		}).on('change', '.music-volume', function () {
-			var value = $(this).val();
-			self.core.music.volume = value;
-			return false;
-		}).on('click', '.close', function () {
-			self.destroy();
-			return false;
-		}).draggable({
-			handle: 'header',
-			containment: 'window',
-			snap: '.panel'
-		});
-		$(el + ' .tabs').tabs();
-		$(el + ' .tips').tipsy({
-			gravity: 's'
-		});
-		$(el).css({
-			'left': ($(window).width() / 2) - ($(el).width() / 2),
-			'top': ($(window).height() / 2) - ($(el).height() / 2)
-		});
-		return this;
-	};
-
-	/**
-	 * Callback method called when a function from the core needs to refresh
-	 * information on this panel.
-	 *
-	 * @public
-	 * @returns {civitas.controls.panel_settings}
-	 */
-	this.refresh = function() {
-		return this;
-	};
-	
-	// Fire up the constructor
-	return this.__init(params);
-};
-
-/**
  * Main Game core object.
  * 
  * @class {civitas.game}
@@ -10993,6 +10985,9 @@ civitas.game = function () {
 			core: this
 		});
 		*/
+		if (localStorage.getItem('civitas.data') === null) {
+			this.open_start_window();
+		}
 		this.setup_audio();
 		$('.game').on({
 			mousemove: function (e) {
@@ -11013,7 +11008,6 @@ civitas.game = function () {
 			$(window).scrollTop($(window).scrollTop() + (clickY - e.pageY));
 			$(window).scrollLeft($(window).scrollLeft() + (clickX - e.pageX));
 		};
-		this._setup_start_ui();
 		this._setup_toolbar();
 		if (localStorage.getItem('civitas.data') !== null) {
 			this.start_game();
@@ -11029,12 +11023,6 @@ civitas.game = function () {
 			self.open_panel(civitas.controls.panel_world({
 				core: self
 			}));
-			return false;
-		}).on('click', '.do-restart', function () {
-			if (confirm('Are you sure you want to restart the game? You wll lose all progress!') === true) {
-				localStorage.removeItem(civitas.STORAGE_KEY + '.data');
-				document.location.reload();
-			}
 			return false;
 		}).on('click', '.do-help', function () {
 			self.open_panel(new civitas.controls.panel_help({
@@ -11066,6 +11054,12 @@ civitas.game = function () {
 				core: self
 			}));
 			return false;
+		});
+		$(document).keyup(function(e) {
+			if (e.keyCode == 27 && !civitas.ui.window_exists('#window-options')) {
+				self.show_loader();
+				self.open_options_window();
+			}
 		});
 		$('.console').on('click', '.down', function () {
 			$('.console .contents').scrollTo('+=97px', 500);
@@ -11288,54 +11282,6 @@ civitas.game = function () {
 	};
 
 	/**
-	 * Setup the start screen UI.
-	 * 
-	 * @private
-	 * @returns {civitas.game}
-	 */
-	this._setup_start_ui = function () {
-		var self = this;
-		var avatar = 1;
-		for (var i = 1; i < civitas.CLIMATES.length; i++) {
-			$('.start .climate').append('<option value="' + civitas['CLIMATE_' + civitas.CLIMATES[i].toUpperCase()] + '">' + civitas.CLIMATES[i].capitalize() + '</option>');
-		}
-		for (var i = 1; i < civitas.NATIONS.length; i++) {
-			$('.start .nation').append('<option value="' + civitas['NATION_' + civitas.NATIONS[i].toUpperCase()] + '">' + civitas.NATIONS[i].capitalize() + '</option>');
-		}
-		for (var i = 1; i <= civitas.AVATARS; i++) {
-			$('.start .avatar-select').append('<img src="' + civitas.ASSETS_URL + 'images/avatars/avatar' + i + '.png" />');
-		}
-		$('.start').on('click', '.do-start', function () {
-			var name = $('.start .name').val();
-			var cityname = $('.start .cityname').val();
-			var nation = parseInt($('.start .nation').val());
-			var climate = parseInt($('.start .climate').val());
-			var difficulty = parseInt($('.start .difficulty').val());
-			if (name === '') {
-				self.error('Enter your ruler name, for example <strong>Ramses</strong>.', 'Error', true);
-				return false;
-			}
-			if (cityname === '') {
-				self.error('Enter your city name, for example <strong>Alexandria</strong>.', 'Error', true);
-				return false;
-			}
-			self.start_game(name, cityname, nation, climate, avatar, difficulty);
-			return false;
-		}).on('click', '.down', function () {
-			if (avatar < civitas.AVATARS) {
-				avatar = avatar + 1;
-			}
-			$('.start .avatar-select').scrollTo('+=64px', 500);
-		}).on('click', '.up', function () {
-			if (avatar > 1) {
-				avatar = avatar - 1;
-			}
-			$('.start .avatar-select').scrollTo('-=64px', 500);
-		});
-		return this;
-	};
-
-	/**
 	 * Start the game.
 	 * 
 	 * @returns {civitas.game}
@@ -11358,7 +11304,6 @@ civitas.game = function () {
 		}
 		this.setup_neighbours(data);
 		this.save();
-		$('section.start').remove();
 		$('header .cityname').html(this.get_city().get_name());
 		$('header .cityavatar').css({
 			'background-image': 'url(' + civitas.ASSETS_URL + 'images/avatars/avatar' + this.get_city().get_avatar() + '.png)'
@@ -11371,6 +11316,29 @@ civitas.game = function () {
 			gravity: $.fn.tipsy.autoNS,
 			html: true
 		});
+		this.hide_loader();
+		return this;
+	};
+
+	/**
+	 * Show the game loader.
+	 *
+	 * @public
+	 * @returns {civitas.game}
+	 */
+	this.show_loader = function() {
+		$('.loading').show();
+		return this;
+	};
+
+	/**
+	 * Hide the game loader.
+	 *
+	 * @public
+	 * @returns {civitas.game}
+	 */
+	this.hide_loader = function() {
+		$('.loading').hide();
 		return this;
 	};
 
@@ -12015,3 +11983,179 @@ civitas.game = function () {
 $(document).ready(function () {
 	new civitas.game();
 });
+
+
+civitas.game.prototype.open_start_window = function() {
+	new civitas.controls.window({
+		core: this,
+		id: 'start',
+		template: '<section id="window-start" class="window">' +
+			'<div class="logo">Civitas</div>' +
+			'<fieldset>' +
+				'<p>' + civitas.l('Choose your city details well, climate changes affect your building options and resources.') + '</p>' +
+				'<dl>' +
+					'<dt class="clearfix">' + civitas.l('Your Name') + ':</dt>' +
+					'<dd><input type="text" class="name text-input" /></dd>' +
+					'<dt class="clearfix">' + civitas.l('City Name') + ':</dt>' +
+					'<dd><input type="text" class="cityname text-input" /></dd>' +
+					'<dt class="clearfix">' + civitas.l('Nationality') + ':</dt>' +
+					'<dd>' +
+						'<select class="nation text-input"></select>' +
+					'</dd>' +
+					'<dt class="clearfix">' + civitas.l('Climate') + ':</dt>' +
+					'<dd>' +
+						'<select class="climate text-input"></select>' +
+					'</dd>' +
+					'<dt class="clearfix">' + civitas.l('Difficulty') + ':</dt>' +
+					'<dd>' +
+						'<select class="difficulty text-input">' +
+							'<option value="1">' + civitas.l('Easy') + '</option>' +
+							'<option value="2">' + civitas.l('Medium') + '</option>' +
+							'<option value="3">' + civitas.l('Hard') + '</option>' +
+							'<option value="4">' + civitas.l('Hardcore') + '</option>' +
+						'</select>' +
+					'</dd>' +
+					'<dt class="clearfix">' + civitas.l('Avatar') + ':</dt>' +
+					'<dd class="avatar-select-container">' +
+						'<div class="avatar-select"></div>' +
+						'<div class="scrollbar">' +
+							'<div class="up"></div>' +
+							'<div class="down"></div>' +
+						'</div>' +
+					'</dd>' +
+				'</dl>' +
+				'<a href="#" class="do-start button">' + civitas.l('Start Playing') + '</a>' +
+			'</fieldset>' +
+		'</section>',
+		on_show: function() {
+			var self = this;
+			var core = this.get_core();
+			var el = '#window-' + this.id;
+			var avatar = 1;
+			for (var i = 1; i < civitas.CLIMATES.length; i++) {
+				$(el + ' .climate').append('<option value="' + civitas['CLIMATE_' + civitas.CLIMATES[i].toUpperCase()] + '">' + civitas.CLIMATES[i].capitalize() + '</option>');
+			}
+			for (var i = 1; i < civitas.NATIONS.length; i++) {
+				$(el + ' .nation').append('<option value="' + civitas['NATION_' + civitas.NATIONS[i].toUpperCase()] + '">' + civitas.NATIONS[i].capitalize() + '</option>');
+			}
+			for (var i = 1; i <= civitas.AVATARS; i++) {
+				$(el + ' .avatar-select').append('<img src="' + civitas.ASSETS_URL + 'images/avatars/avatar' + i + '.png" />');
+			}
+			$(el).on('click', '.do-start', function () {
+				var name = $(el + ' .name').val();
+				var cityname = $(el + ' .cityname').val();
+				var nation = parseInt($(el + ' .nation').val());
+				var climate = parseInt($(el + ' .climate').val());
+				var difficulty = parseInt($(el + ' .difficulty').val());
+				if (name === '') {
+					core.error('Enter your ruler name, for example <strong>Ramses</strong>.', 'Error', true);
+					return false;
+				}
+				if (cityname === '') {
+					core.error('Enter your city name, for example <strong>Alexandria</strong>.', 'Error', true);
+					return false;
+				}
+				core.show_loader();
+				core.start_game(name, cityname, nation, climate, avatar, difficulty);
+				self.destroy();
+				return false;
+			}).on('click', '.down', function () {
+				if (avatar < civitas.AVATARS) {
+					avatar = avatar + 1;
+				}
+				$(el + ' .avatar-select').scrollTo('+=64px', 500);
+			}).on('click', '.up', function () {
+				if (avatar > 1) {
+					avatar = avatar - 1;
+				}
+				$(el + ' .avatar-select').scrollTo('-=64px', 500);
+			});
+		}
+	});
+}
+
+
+civitas.game.prototype.open_options_window = function() {
+	new civitas.controls.window({
+		core: this,
+		id: 'options',
+		template: '<section id="window-options" class="window">' +
+			'<div class="logo">Civitas</div>' +
+			'<fieldset>' +
+				'<p>Your game is not paused during this time!</p>' +
+				'<a href="#" class="do-options button">' + civitas.l('Options') + '</a>' +
+				'<div class="options-game"></div>' +
+				'<a href="#" class="do-restart button">' + civitas.l('Restart') + '</a>' +
+				'<a href="#" class="do-about button">' + civitas.l('About') + '</a>' +
+				'<div class="about-game">' +
+					'<p>This game is written by <a href="https://sizeof.cat">sizeof(cat)</a>.</p>' +
+					'<p>Thanks to:</p>' +
+					'<ul>' +
+						'<li><a href="https://soundcloud.com/shantifax">Shantifax</a> for the music (Glandula Pinealis).</li>' +
+						'<li>Brendan Eich for Javascript.</li>' +
+						'<li><a href="http://bluebyte.com">Blue Byte</a> for Anno 1404.</li>' +
+					'</ul>' +
+				'</div>' +
+				'<br />' +
+				'<a href="#" class="do-resume button">' + civitas.l('Resume Playing') + '</a>' +
+			'</fieldset>' +
+		'</section>',
+		on_show: function() {
+			var self = this;
+			var core = this.get_core();
+			var el = '#window-' + this.id;
+			$(el + ' .options-game').append(civitas.ui.tabs([civitas.l('Sounds'), civitas.l('UI'), civitas.l('Gameplay')]));
+			$(el + ' #tab-sounds').append('<div>' +
+				'<a href="#" class="music-control ui-control ' + ((this.core.get_settings('music') === true) ? 'on' : 'off') + '">toggle music</a>' +
+				'<input class="music-volume" type="range" min="0" max="1" step="0.1" ' + ((this.core.get_settings('music') !== true) ? 'disabled' : '') + ' />' +
+				'</div>');
+			$(el + ' #tab-ui').append('<div>' +
+				'<a href="#" class="console-control ui-control ' + ((this.core.get_settings('console') === true) ? 'on' : 'off') + '">toggle console</a>' +
+				'</div>');
+			$(el + ' .tabs').tabs();
+			$(el).on('click', '.do-resume', function () {
+				self.destroy();
+				return false
+			}).on('click', '.do-options', function () {
+				$(el + ' .options-game').slideToggle();
+				return false
+			}).on('click', '.do-about', function () {
+				$(el + ' .about-game').slideToggle();
+				return false
+			}).on('click', '.do-restart', function () {
+				if (confirm('Are you sure you want to restart the game? You wll lose all progress!') === true) {
+					localStorage.removeItem(civitas.STORAGE_KEY + '.data');
+					document.location.reload();
+				}
+				return false;
+			}).on('click', '.music-control', function () {
+				if ($(this).hasClass('on')) {
+					$(this).removeClass('on').addClass('off');
+					$('.music-volume').attr('disabled', true);
+					core.set_settings_music(true);
+				} else {
+					$(this).removeClass('off').addClass('on');
+					$('.music-volume').attr('disabled', false);
+					core.set_settings_music(false);
+				}
+				return false;
+			}).on('click', '.console-control', function () {
+				if ($(this).hasClass('on')) {
+					$(this).removeClass('on').addClass('off');
+					core.set_settings_console(false);
+				} else {
+					$(this).removeClass('off').addClass('on');
+					core.set_settings_console(true);
+				}
+				return false;
+			}).on('change', '.music-volume', function () {
+				var value = $(this).val();
+				core.music.volume = value;
+				return false;
+			});
+		},
+		on_hide: function() {
+			this.get_core().hide_loader();
+		}
+	});
+}
