@@ -6,7 +6,7 @@ civitas.game.prototype.open_start_window = function() {
 		template: '<section id="window-start" class="window">' +
 			'<div class="logo">Civitas</div>' +
 			'<fieldset>' +
-				'<p>' + civitas.l('Choose your city details well, climate changes affect your building options and resources.') + '</p>' +
+				'<p>' + civitas.l('Choose your city details well, climate changes and game difficulty affects your building options and resources.') + '</p>' +
 				'<dl>' +
 					'<dt class="clearfix">' + civitas.l('Your Name') + ':</dt>' +
 					'<dd><input type="text" class="name text-input" /></dd>' +

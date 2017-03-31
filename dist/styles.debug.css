@@ -736,6 +736,10 @@ p {
 	font-size: 62px;
 }
 
+.window fieldset > p {
+	font-size: 12px;
+}
+
 /* Options window */
 
 #window-options ul {

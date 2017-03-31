@@ -10944,6 +10944,14 @@ civitas.game = function () {
 	};
 
 	/**
+	 * Is the game paused?
+	 *
+	 * @private
+	 * @type {Boolean}
+	 */
+	this.paused = false;
+
+	/**
 	 * Pointer to an instance of the game history.
 	 *
 	 * @type {civitas.history}
@@ -11310,7 +11318,9 @@ civitas.game = function () {
 		});
 		this.refresh_ui();
 		setInterval(function () {
-			self._do_daily();
+			if (!self.is_paused()) {
+				self._do_daily();
+			}
 		}, 12000);
 		$('.tips').tipsy({
 			gravity: $.fn.tipsy.autoNS,
@@ -11318,6 +11328,38 @@ civitas.game = function () {
 		});
 		this.hide_loader();
 		return this;
+	};
+
+	/**
+	 * Pause the game.
+	 *
+	 * @public
+	 * @returns {civitas.game}
+	 */
+	this.pause = function() {
+		this.paused = true;
+		return this;
+	};
+
+	/**
+	 * Resume the game.
+	 *
+	 * @public
+	 * @returns {civitas.game}
+	 */
+	this.unpause = function() {
+		this.paused = false;
+		return this;
+	};
+
+	/**
+	 * Check if the game is paused.
+	 *
+	 * @public
+	 * @returns {Boolean}
+	 */
+	this.is_paused = function() {
+		return this.paused;
 	};
 
 	/**
@@ -11992,7 +12034,7 @@ civitas.game.prototype.open_start_window = function() {
 		template: '<section id="window-start" class="window">' +
 			'<div class="logo">Civitas</div>' +
 			'<fieldset>' +
-				'<p>' + civitas.l('Choose your city details well, climate changes affect your building options and resources.') + '</p>' +
+				'<p>' + civitas.l('Choose your city details well, climate changes and game difficulty affects your building options and resources.') + '</p>' +
 				'<dl>' +
 					'<dt class="clearfix">' + civitas.l('Your Name') + ':</dt>' +
 					'<dd><input type="text" class="name text-input" /></dd>' +
@@ -12082,9 +12124,10 @@ civitas.game.prototype.open_options_window = function() {
 		template: '<section id="window-options" class="window">' +
 			'<div class="logo">Civitas</div>' +
 			'<fieldset>' +
-				'<p>Your game is not paused during this time!</p>' +
+				'<p>Your game is not paused during this time unless you press Pause! When you Resume, game is unpaused automatically.</p>' +
 				'<a href="#" class="do-options button">' + civitas.l('Options') + '</a>' +
 				'<div class="options-game"></div>' +
+				'<a href="#" class="do-pause button">' + civitas.l('Pause') + '</a>' +
 				'<a href="#" class="do-restart button">' + civitas.l('Restart') + '</a>' +
 				'<a href="#" class="do-about button">' + civitas.l('About') + '</a>' +
 				'<div class="about-game">' +
@@ -12106,22 +12149,35 @@ civitas.game.prototype.open_options_window = function() {
 			var el = '#window-' + this.id;
 			$(el + ' .options-game').append(civitas.ui.tabs([civitas.l('Sounds'), civitas.l('UI'), civitas.l('Gameplay')]));
 			$(el + ' #tab-sounds').append('<div>' +
-				'<a href="#" class="music-control ui-control ' + ((this.core.get_settings('music') === true) ? 'on' : 'off') + '">toggle music</a>' +
+				'<a href="#" class="music-control ui-control ' + ((this.core.get_settings('music') === true) ? 'on' : 'off') + '">' + civitas.l('toggle music') + '</a>' +
 				'<input class="music-volume" type="range" min="0" max="1" step="0.1" ' + ((this.core.get_settings('music') !== true) ? 'disabled' : '') + ' />' +
 				'</div>');
 			$(el + ' #tab-ui').append('<div>' +
-				'<a href="#" class="console-control ui-control ' + ((this.core.get_settings('console') === true) ? 'on' : 'off') + '">toggle console</a>' +
+				'<a href="#" class="console-control ui-control ' + ((this.core.get_settings('console') === true) ? 'on' : 'off') + '">' + civitas.l('toggle console') + '</a>' +
 				'</div>');
 			$(el + ' .tabs').tabs();
 			$(el).on('click', '.do-resume', function () {
+				core.hide_loader();
+				core.unpause();
 				self.destroy();
-				return false
+				return false;
+			}).on('click', '.do-pause', function () {
+				if (core.is_paused() === true) {
+					$(this).html(civitas.l('Pause'));
+					core.show_loader();
+					core.unpause();
+				} else {
+					$(this).html(civitas.l('Unpause'));
+					core.hide_loader();
+					core.pause();
+				}
+				return false;
 			}).on('click', '.do-options', function () {
 				$(el + ' .options-game').slideToggle();
-				return false
+				return false;
 			}).on('click', '.do-about', function () {
 				$(el + ' .about-game').slideToggle();
-				return false
+				return false;
 			}).on('click', '.do-restart', function () {
 				if (confirm('Are you sure you want to restart the game? You wll lose all progress!') === true) {
 					localStorage.removeItem(civitas.STORAGE_KEY + '.data');

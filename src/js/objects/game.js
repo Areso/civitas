@@ -90,6 +90,14 @@ civitas.game = function () {
 	};
 
 	/**
+	 * Is the game paused?
+	 *
+	 * @private
+	 * @type {Boolean}
+	 */
+	this.paused = false;
+
+	/**
 	 * Pointer to an instance of the game history.
 	 *
 	 * @type {civitas.history}
@@ -456,7 +464,9 @@ civitas.game = function () {
 		});
 		this.refresh_ui();
 		setInterval(function () {
-			self._do_daily();
+			if (!self.is_paused()) {
+				self._do_daily();
+			}
 		}, 12000);
 		$('.tips').tipsy({
 			gravity: $.fn.tipsy.autoNS,
@@ -464,6 +474,38 @@ civitas.game = function () {
 		});
 		this.hide_loader();
 		return this;
+	};
+
+	/**
+	 * Pause the game.
+	 *
+	 * @public
+	 * @returns {civitas.game}
+	 */
+	this.pause = function() {
+		this.paused = true;
+		return this;
+	};
+
+	/**
+	 * Resume the game.
+	 *
+	 * @public
+	 * @returns {civitas.game}
+	 */
+	this.unpause = function() {
+		this.paused = false;
+		return this;
+	};
+
+	/**
+	 * Check if the game is paused.
+	 *
+	 * @public
+	 * @returns {Boolean}
+	 */
+	this.is_paused = function() {
+		return this.paused;
 	};
 
 	/**
