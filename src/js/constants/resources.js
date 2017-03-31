@@ -100,6 +100,10 @@ civitas.RESOURCES = {
 		name: 'Copper',
 		price: 43
 	},
+	'dates': {
+		name: 'Dates',
+		price: 140
+	},
 	'donkeys': {
 		name: 'Donkeys',
 		price: 90
@@ -172,6 +176,10 @@ civitas.RESOURCES = {
 		name: 'Leather',
 		price: 60
 	},
+	'marzipan': {
+		name: 'Marzipan',
+		price: 280
+	},
 	'meat': {
 		name: 'Meat',
 		price: 30
@@ -179,6 +187,10 @@ civitas.RESOURCES = {
 	'milk': {
 		name: 'Milk',
 		price: 55
+	},
+	'mosaic': {
+		name: 'Mosaic',
+		price: 200
 	},
 	'paper': {
 		name: 'Paper',
@@ -199,6 +211,10 @@ civitas.RESOURCES = {
 	'quartz': {
 		name: 'Quartz',
 		price: 26
+	},
+	'robes': {
+		name: 'Robes',
+		price: 400
 	},
 	'ropes': {
 		name: 'Ropes',
@@ -247,6 +263,10 @@ civitas.RESOURCES = {
 	'sulphur': {
 		name: 'Sulphur',
 		price: 180
+	},
+	'tools': {
+		name: 'Tools',
+		price: 35
 	},
 	'wax': {
 		name: 'Wax',

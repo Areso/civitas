@@ -644,6 +644,10 @@ table.mercenaries td:nth-child(3) {
 	right: 4px;
 }
 
+.panel .storage-item img {
+	opacity: 0.9;
+}
+
 /* City info panel */
 
 #panel-city {
@@ -695,7 +699,9 @@ table.mercenaries td:nth-child(3) {
 .panel .building-item:nth-child(12),
 .panel .building-item:nth-child(16),
 .panel .building-item:nth-child(20),
-.panel .building-item:nth-child(24) {
+.panel .building-item:nth-child(24),
+.panel .building-item:nth-child(28),
+.panel .building-item:nth-child(32) {
 	margin-right: 0;
 }
 

@@ -28,12 +28,14 @@ civitas.CITIES = {
 				roses: civitas.IMPORTANCE_MEDIUM,
 				wine: civitas.IMPORTANCE_VITAL,
 				clay: civitas.IMPORTANCE_VITAL,
-				fish: civitas.IMPORTANCE_MEDIUM
+				fish: civitas.IMPORTANCE_MEDIUM,
+				catapults: civitas.IMPORTANCE_MEDIUM
 			},
 			'exports': {
 				hemp: civitas.IMPORTANCE_VITAL,
 				indigo: civitas.IMPORTANCE_LOW,
 				paper: civitas.IMPORTANCE_HIGH,
+				woodplanks: civitas.IMPORTANCE_MEDIUM,
 				stones: civitas.IMPORTANCE_LOW
 			}
 		},
@@ -77,6 +79,7 @@ civitas.CITIES = {
 				sugarcane: civitas.IMPORTANCE_MEDIUM,
 				glasses: civitas.IMPORTANCE_LOW,
 				fish: civitas.IMPORTANCE_HIGH,
+				mosaic: civitas.IMPORTANCE_HIGH,
 				candles: civitas.IMPORTANCE_LOW,
 				bread: civitas.IMPORTANCE_VITAL,
 				pearls: civitas.IMPORTANCE_LOW,
@@ -89,6 +92,7 @@ civitas.CITIES = {
 				glass: civitas.IMPORTANCE_MEDIUM,
 				coal: civitas.IMPORTANCE_LOW,
 				fish: civitas.IMPORTANCE_HIGH,
+				woodplanks: civitas.IMPORTANCE_VITAL,
 				wood: civitas.IMPORTANCE_VITAL
 			}
 		},
@@ -216,6 +220,7 @@ civitas.CITIES = {
 				paper: civitas.IMPORTANCE_LOW,
 				coal: civitas.IMPORTANCE_VITAL,
 				copper: civitas.IMPORTANCE_MEDIUM,
+				mosaic: civitas.IMPORTANCE_MEDIUM,
 				indigo: civitas.IMPORTANCE_HIGH
 			},
 			'exports': {
@@ -225,6 +230,7 @@ civitas.CITIES = {
 				goldores: civitas.IMPORTANCE_LOW,
 				iron: civitas.IMPORTANCE_LOW,
 				gold: civitas.IMPORTANCE_VITAL,
+				catapults: civitas.IMPORTANCE_MEDIUM,
 				brass: civitas.IMPORTANCE_LOW
 			}
 		},
@@ -307,6 +313,7 @@ civitas.CITIES = {
 				iron: civitas.IMPORTANCE_VITAL,
 				ironores: civitas.IMPORTANCE_MEDIUM,
 				copper: civitas.IMPORTANCE_HIGH,
+				woodplanks: civitas.IMPORTANCE_MEDIUM,
 				coal: civitas.IMPORTANCE_LOW
 			}
 		},
@@ -385,6 +392,7 @@ civitas.CITIES = {
 				cider: civitas.IMPORTANCE_LOW,
 				wine: civitas.IMPORTANCE_LOW,
 				beer: civitas.IMPORTANCE_LOW,
+				mosaic: civitas.IMPORTANCE_VITAL,
 				silk: civitas.IMPORTANCE_MEDIUM
 			},
 			'exports': {
@@ -523,6 +531,7 @@ civitas.CITIES = {
 				wax: civitas.IMPORTANCE_MEDIUM,
 				sugar: civitas.IMPORTANCE_LOW,
 				wood: civitas.IMPORTANCE_VITAL,
+				woodplanks: civitas.IMPORTANCE_MEDIUM,
 				stones: civitas.IMPORTANCE_VITAL
 			},
 			'exports': {
@@ -532,6 +541,7 @@ civitas.CITIES = {
 				hemp: civitas.IMPORTANCE_LOW,
 				coffeebeans: civitas.IMPORTANCE_LOW,
 				coffee: civitas.IMPORTANCE_LOW,
+				catapults: civitas.IMPORTANCE_MEDIUM,
 				spices: civitas.IMPORTANCE_MEDIUM
 			}
 		},
@@ -699,6 +709,7 @@ civitas.CITIES = {
 				gems: civitas.IMPORTANCE_LOW,
 				brass: civitas.IMPORTANCE_VITAL,
 				wheat: civitas.IMPORTANCE_HIGH,
+				catapults: civitas.IMPORTANCE_MEDIUM,
 				clay: civitas.IMPORTANCE_LOW
 			},
 			'exports': {
@@ -738,6 +749,7 @@ civitas.CITIES = {
 		trades: {
 			'imports': {
 				wheat: civitas.IMPORTANCE_VITAL,
+				mosaic: civitas.IMPORTANCE_MEDIUM,
 				wood: civitas.IMPORTANCE_HIGH,
 				sugar: civitas.IMPORTANCE_LOW,
 				sugarcane: civitas.IMPORTANCE_LOW,
@@ -748,6 +760,7 @@ civitas.CITIES = {
 				glasses: civitas.IMPORTANCE_LOW,
 				furcoats: civitas.IMPORTANCE_MEDIUM,
 				indigo: civitas.IMPORTANCE_LOW,
+				woodplanks: civitas.IMPORTANCE_MEDIUM,
 				wheat: civitas.IMPORTANCE_LOW
 			}
 		},

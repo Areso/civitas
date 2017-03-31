@@ -158,6 +158,7 @@ civitas.controls.panel_building = function (params) {
 				civitas.ui.materials_panel(this.params_data.materials) +
 				civitas.ui.production_panel(this.params_data.production, level) +
 				civitas.ui.requires_panel(this.params_data.requires) +
+				civitas.ui.chance_panel(this.params_data.chance, level) +
 				civitas.ui.tax_panel(this.params_data.tax, level) +
 				civitas.ui.storage_panel(this.params_data.storage, level) +
 			'</dl>';

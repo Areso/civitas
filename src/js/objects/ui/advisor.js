@@ -282,7 +282,7 @@ civitas.controls.panel_advisor = function (params) {
 			_t += '<p>' + civitas.l('You have no mercenary armies hired for your city. Go to the World Market Trades and hire one.') + '</p>';
 		}
 		_t += '</div>';
-		$('#tab-mercenary').empty().append(_t);
+		$('#panel-' + this.id + ' #tab-mercenary').empty().append(_t);
 		return this;
 	};
 
@@ -330,7 +330,7 @@ civitas.controls.panel_advisor = function (params) {
 		}
 		_t += '</table>' +
 				'</div>';
-		$('#tab-diplomacy').empty().append(_t);
+		$('#panel-' + this.id + ' #tab-diplomacy').empty().append(_t);
 		return this;
 	};
 
@@ -357,7 +357,7 @@ civitas.controls.panel_advisor = function (params) {
 			}
 			_t += '</ul>';
 		}
-		$('#tab-info').empty().append(_t);
+		$('#panel-' + this.id + ' #tab-info').empty().append(_t);
 		return this;
 	};
 
@@ -405,7 +405,7 @@ civitas.controls.panel_advisor = function (params) {
 							'</tr>' +
 						'</tfoot>' +
 					'</table>';
-		$('#tab-housing').empty().append(_t);
+		$('#panel-' + this.id + ' #tab-housing').empty().append(_t);
 		return this;
 	};
 
@@ -456,7 +456,7 @@ civitas.controls.panel_advisor = function (params) {
 					'</tr>' +
 				'</tfoot>' +
 			'</table>';
-		$('#tab-production').empty().append(_t);
+		$('#panel-' + this.id + ' #tab-production').empty().append(_t);
 		return this;
 	};
 
@@ -497,7 +497,7 @@ civitas.controls.panel_advisor = function (params) {
 					'</fieldset>';
 		}
 		_t += '</div>';
-		$('#tab-army').empty().append(_t);
+		$('#panel-' + this.id + ' #tab-army').empty().append(_t);
 		var el = '#panel-' + this.id;
 		var _tt = '<fieldset>' +
 				'<legend>' + civitas.l('Current Army') + '</legend>' +
@@ -544,7 +544,7 @@ civitas.controls.panel_advisor = function (params) {
 					'</fieldset>';
 		}
 		_t += '</div>';
-		$('#tab-navy').empty().append(_t);
+		$('#panel-' + this.id + ' #tab-navy').empty().append(_t);
 		var el = '#panel-' + this.id;
 		var _tt = '<fieldset>' +
 				'<legend>' + civitas.l('Current Navy') + '</legend>' +

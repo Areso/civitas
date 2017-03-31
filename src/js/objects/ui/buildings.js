@@ -116,7 +116,7 @@ civitas.controls.panel_buildings = function (params) {
 				'<div class="b-prod"></div>' +
 				'</fieldset>' +
 				'<fieldset class="extra">' +
-				'<legend>' + civitas.l('Chance of extra materials') + '</legend>' +
+				'<legend>' + civitas.l('Extra materials') + '</legend>' +
 				'<div class="b-chance"></div>' +
 				'</fieldset>' +
 				'<fieldset class="storage">' +

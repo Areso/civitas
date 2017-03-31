@@ -27,9 +27,9 @@ civitas.CITY_BUILDINGS_TROPICAL = [
 	'lumberjack', 'stone', 'trapper', 'tannery', 'furrier', 'armory', 'coffeeroaster',
 	'quartzfactory', 'winery', 'saltworks',
 	'charcoalburnerhut', 'opticiansworkshop', 'papermill', 'printingpress',
-	'redsmithsworkshop', 'ropeyard', 'glassworks',
+	'redsmithsworkshop', 'ropeyard', 'glassworks', 'silkweaver',
 	'apiary', 'barrelcooperage', 'brewery', 'candlemakersworkshop', 'sugarmill',
-	'perfumery', 'weaver', 'provisions', 'carpenter',
+	'perfumery', 'weaver', 'provisions', 'carpenter', 'marzipanworkshop',
 
 	/* Farms */
 	'almondsfarm', 'almondsfield', 'cattlefarm', 'cattlefield', 'coffeefarm', 'coffeefield',
@@ -66,7 +66,7 @@ civitas.CITY_BUILDINGS_POLAR = [
 	'lumberjack', 'stone', 'trapper', 'tannery', 'furrier', 'armory', 'coffeeroaster',
 	'quartzfactory', 'winery', 'saltworks',
 	'charcoalburnerhut', 'opticiansworkshop', 'papermill', 'printingpress',
-	'redsmithsworkshop', 'ropeyard', 'glassworks',
+	'redsmithsworkshop', 'ropeyard', 'glassworks', 'silkweaver', 'marzipanworkshop',
 	'apiary', 'barrelcooperage', 'brewery', 'candlemakersworkshop', 'sugarmill',
 	'perfumery', 'weaver', 'provisions', 'carpenter'
 ];
@@ -99,9 +99,9 @@ civitas.CITY_BUILDINGS_ARID = [
 	'lumberjack', 'stone', 'trapper', 'tannery', 'furrier', 'armory', 'coffeeroaster',
 	'quartzfactory', 'winery', 'saltworks',
 	'charcoalburnerhut', 'opticiansworkshop', 'papermill', 'printingpress',
-	'redsmithsworkshop', 'ropeyard', 'glassworks',
+	'redsmithsworkshop', 'ropeyard', 'glassworks', 'silkweaver',
 	'apiary', 'barrelcooperage', 'brewery', 'candlemakersworkshop', 'sugarmill',
-	'perfumery', 'weaver', 'provisions', 'carpenter',
+	'perfumery', 'weaver', 'provisions', 'carpenter', 'marzipanworkshop',
 
 	/* Farms */
 	'cattlefarm', 'cattlefield', 'pigfarm', 'pigfield'
@@ -136,7 +136,7 @@ civitas.CITY_BUILDINGS_CONTINENTAL = [
 	'lumberjack', 'stone', 'trapper', 'tannery', 'furrier', 'armory', 'coffeeroaster',
 	'quartzfactory', 'winery', 'saltworks',
 	'charcoalburnerhut', 'opticiansworkshop', 'papermill', 'printingpress',
-	'redsmithsworkshop', 'ropeyard', 'glassworks',
+	'redsmithsworkshop', 'ropeyard', 'glassworks', 'silkweaver', 'marzipanworkshop',
 	'apiary', 'barrelcooperage', 'brewery', 'candlemakersworkshop', 'sugarmill',
 	'perfumery', 'weaver', 'provisions', 'carpenter', 'catapultworkshop',
 
@@ -175,7 +175,7 @@ civitas.CITY_BUILDINGS_TEMPERATE = [
 	'lumberjack', 'stone', 'trapper', 'tannery', 'furrier', 'armory', 'coffeeroaster',
 	'quartzfactory', 'winery', 'saltworks',
 	'charcoalburnerhut', 'opticiansworkshop', 'papermill', 'printingpress',
-	'redsmithsworkshop', 'ropeyard', 'glassworks',
+	'redsmithsworkshop', 'ropeyard', 'glassworks', 'silkweaver', 'marzipanworkshop',
 	'apiary', 'barrelcooperage', 'brewery', 'candlemakersworkshop', 'sugarmill',
 	'perfumery', 'weaver', 'provisions', 'carpenter', 'catapultworkshop',
 
@@ -203,10 +203,10 @@ civitas.BUILDINGS_ALL = [
 	'sugarfield', 'silkfarm', 'silkfield', 'coffeeroaster', 'quartzfactory', 'grapesfarm',
 	'grapesfield', 'winery', 'saltworks', 'carpenter',
 	'charcoalburnerhut', 'monastery', 'opticiansworkshop', 'papermill', 'printingpress',
-	'redsmithsworkshop', 'ropeyard', 'glassworks', 'provisions',
+	'redsmithsworkshop', 'ropeyard', 'glassworks', 'provisions', 'silkweaver',
 	'apiary', 'barrelcooperage', 'brewery', 'candlemakersworkshop', 'indigofarm',
 	'ciderfarm', 'ciderfield', 'sugarmill', 'rosenursery', 'catapultworkshop',
-	'perfumery', 'tradingpost', 'weaver', 'embassy',  'academy'
+	'perfumery', 'tradingpost', 'weaver', 'embassy',  'academy', 'marzipanworkshop'
 ];
 
 /**
@@ -272,13 +272,11 @@ civitas.BUILDINGS_CATEGORIES = {
 		'sugarfield'
 	],
 	'Industry': [
-		'apiary',
 		'barrelcooperage',
 		'brewery',
 		'candlemakersworkshop',
 		'carpenter',
 		'charcoalburnerhut',
-		'coffeeroaster',
 		'coppersmelter',
 		'furrier',
 		'glassworks',
@@ -287,19 +285,25 @@ civitas.BUILDINGS_CATEGORIES = {
 		'lumberjack',
 		'opticiansworkshop',
 		'papermill',
-		'perfumery',
 		'printingpress',
 		'quartzfactory',
 		'redsmithsworkshop',
 		'ropeyard',
-		'rosenursery',
 		'saltworks',
 		'stone',
-		'sugarmill',
 		'trapper',
 		'tannery',
 		'weaver',
 		'winery'
+	],
+	'Exotic': [
+		'apiary',
+		'coffeeroaster',
+		'marzipanworkshop',
+		'perfumery',
+		'rosenursery',
+		'silkweaver',
+		'sugarmill'
 	],
 	'Military': [
 		'armory',
@@ -523,7 +527,7 @@ civitas.BUILDINGS = [{
 		},
 		levels: 3,
 		chance: {
-			pearls: 0.05
+			pearls: 0.005
 		},
 		cost: {
 			coins: 200000,
@@ -649,6 +653,9 @@ civitas.BUILDINGS = [{
 			coins: 2000,
 			wood: 20
 		},
+		chance: {
+			mosaic: 0.001
+		},
 		requires: {
 			city_level: 1
 		}
@@ -668,7 +675,7 @@ civitas.BUILDINGS = [{
 		},
 		levels: 3,
 		chance: {
-			gems: 0.01
+			gems: 0.0001
 		},
 		cost: {
 			coins: 10000,
@@ -694,7 +701,7 @@ civitas.BUILDINGS = [{
 		},
 		levels: 3,
 		chance: {
-			gems: 0.01
+			gems: 0.0001
 		},
 		cost: {
 			coins: 10000,
@@ -743,7 +750,7 @@ civitas.BUILDINGS = [{
 		},
 		levels: 3,
 		chance: {
-			gems: 0.01
+			gems: 0.0001
 		},
 		cost: {
 			coins: 10000,
@@ -1079,7 +1086,8 @@ civitas.BUILDINGS = [{
 			stones: 60
 		},
 		requires: {
-			city_level: 16
+			city_level: 16,
+			buildings: 'tradingpost'
 		}
 	}, {
 		name: 'Sugar Mill',
@@ -1103,7 +1111,8 @@ civitas.BUILDINGS = [{
 			stones: 60
 		},
 		requires: {
-			city_level: 16
+			city_level: 16,
+			buildings: 'tradingpost'
 		}
 	}, {
 		name: 'Winery',
@@ -1228,7 +1237,8 @@ civitas.BUILDINGS = [{
 			stones: 40
 		},
 		requires: {
-			city_level: 20
+			city_level: 20,
+			buildings: 'tradingpost'
 		}
 	}, {
 		name: 'Redsmith`s Workshop',
@@ -1302,6 +1312,59 @@ civitas.BUILDINGS = [{
 		},
 		requires: {
 			city_level: 16
+		}
+	}, {
+		name: 'Marzipan Workshop',
+		handle: 'marzipanworkshop',
+		description: '.',
+		is_production: true,
+		production: {
+			marzipan: 1
+		},
+		materials: {
+			almonds: 2,
+			sugar: 2
+		},
+		position: {
+			x: 1380,
+			y: 340
+		},
+		levels: 3,
+		cost: {
+			coins: 50000,
+			wood: 50,
+			stones: 80
+		},
+		requires: {
+			city_level: 20,
+			buildings: 'tradingpost'
+		}
+	}, {
+		name: 'Silk Weaver',
+		handle: 'silkweaver',
+		description: 'The silk weaking mill requires gold and silk and produces brocade robes.',
+		is_production: true,
+		production: {
+			robes: 1
+		},
+		materials: {
+			silk: 2,
+			hemp: 1,
+			gold: 2
+		},
+		position: {
+			x: 1380,
+			y: 340
+		},
+		levels: 3,
+		cost: {
+			coins: 50000,
+			wood: 50,
+			stones: 80
+		},
+		requires: {
+			city_level: 20,
+			buildings: 'tradingpost'
 		}
 	}, {
 		name: 'Quartz factory',
@@ -1679,7 +1742,7 @@ civitas.BUILDINGS = [{
 		handle: 'house9',
 		description: 'Houses provide coins through taxes and space for your settlers.',
 		is_housing: true,
-		tax: 45,
+		tax: 100,
 		cost: {
 			woodplanks: 100,
 			stones: 200,
@@ -1691,7 +1754,9 @@ civitas.BUILDINGS = [{
 			wine: 1,
 			candlesticks: 1,
 			furcoats: 1,
-			perfume: 1
+			perfume: 1,
+			robes: 1,
+			marzipan: 1
 		},
 		position: {
 			x: 447,
@@ -1830,7 +1895,8 @@ civitas.BUILDINGS = [{
 			'than bread.',
 		is_production: true,
 		production: {
-			meat: 1
+			meat: 1,
+			hides: 1
 		},
 		levels: 3,
 		materials: {

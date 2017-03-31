@@ -405,7 +405,7 @@ civitas.objects.building = function(params) {
 					if (typeof building.chance !== 'undefined') {
 						for (var item in building.chance) {
 							var rnd = Math.random();
-							if (rnd < building.chance[item]) {
+							if (rnd < building.chance[item] * this.get_level()) {
 								this.get_core().log(this.get_name() + ' procced extra ' + civitas.utils.get_resource_name(item) + '.');
 								this.get_city().add_to_storage(item, 1);
 							}
