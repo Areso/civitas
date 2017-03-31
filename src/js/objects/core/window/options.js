@@ -12,8 +12,8 @@ civitas.game.prototype.open_options_window = function() {
 				'<a href="#" class="do-restart button">' + civitas.l('Restart') + '</a>' +
 				'<a href="#" class="do-about button">' + civitas.l('About') + '</a>' +
 				'<div class="about-game">' +
-					'<p>This game is written by <a href="https://sizeof.cat">sizeof(cat)</a>.</p>' +
-					'<p>Thanks to:</p>' +
+					'<p>Civitas is written by <a href="https://sizeof.cat">sizeof(cat)</a>. <a href="https://github.com/sizeofcat/civitas"><img class="tips" title="Visit the project page on GitHub" src="../images/ui/github.png" /></a></p>' +
+					'<p>Big thanks to:</p>' +
 					'<ul>' +
 						'<li><a href="https://soundcloud.com/shantifax">Shantifax</a> for the music (Glandula Pinealis).</li>' +
 						'<li>Brendan Eich for Javascript.</li>' +
