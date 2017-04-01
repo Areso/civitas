@@ -742,6 +742,7 @@ p {
 
 #window-options .about-game,
 #window-options .options-game {
+	position: relative;
 	display: none;
 	padding: 10px 0;
 }
@@ -751,6 +752,11 @@ p {
 	text-decoration: underline;
 }
 
+#window-options .github {
+	position: absolute;
+	top: 10px;
+	right: 0px;
+}
 
 #window-options .ui-tabs-panel > div {
 	padding: 20px;
