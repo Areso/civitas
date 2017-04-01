@@ -11369,7 +11369,9 @@ civitas.game = function () {
 	 * @returns {civitas.game}
 	 */
 	this.show_loader = function() {
-		$('.loading').show();
+		$('.loading').show().tipsy({
+			gravity: 'e'
+		});
 		return this;
 	};
 
@@ -12124,15 +12126,15 @@ civitas.game.prototype.open_options_window = function() {
 		template: '<section id="window-options" class="window">' +
 			'<div class="logo">Civitas</div>' +
 			'<fieldset>' +
-				'<p>Your game is not paused during this time unless you press Pause! When you Resume, game is unpaused automatically.</p>' +
+				'<p>' + civitas.l('Your game is not paused during this time unless you press Pause! When you Resume, game is unpaused automatically.') + '</p>' +
 				'<a href="#" class="do-options button">' + civitas.l('Options') + '</a>' +
 				'<div class="options-game"></div>' +
 				'<a href="#" class="do-pause button">' + civitas.l('Pause') + '</a>' +
 				'<a href="#" class="do-restart button">' + civitas.l('Restart') + '</a>' +
 				'<a href="#" class="do-about button">' + civitas.l('About') + '</a>' +
 				'<div class="about-game">' +
-					'<p>Civitas is written by <a href="https://sizeof.cat">sizeof(cat)</a>. <a href="https://github.com/sizeofcat/civitas"><img class="tips" title="Visit the project page on GitHub" src="../images/ui/github.png" /></a></p>' +
-					'<p>Big thanks to:</p>' +
+					'<p>' + civitas.l('Civitas is written by <a href="https://sizeof.cat">sizeof(cat)</a>.') + ' <a href="https://github.com/sizeofcat/civitas"><img class="tips" title="' + civitas.l('Visit the project page on GitHub') + '" src="../images/ui/github.png" /></a></p>' +
+					'<p>' + civitas.l('Big thanks to') + ':</p>' +
 					'<ul>' +
 						'<li><a href="https://soundcloud.com/shantifax">Shantifax</a> for the music (Glandula Pinealis).</li>' +
 						'<li>Brendan Eich for Javascript.</li>' +
@@ -12163,11 +12165,11 @@ civitas.game.prototype.open_options_window = function() {
 				return false;
 			}).on('click', '.do-pause', function () {
 				if (core.is_paused() === true) {
-					$(this).html(civitas.l('Pause'));
+					$(this).removeClass('highlight').html(civitas.l('Pause'));
 					core.show_loader();
 					core.unpause();
 				} else {
-					$(this).html(civitas.l('Unpause'));
+					$(this).addClass('highlight').html(civitas.l('Unpause'));
 					core.hide_loader();
 					core.pause();
 				}

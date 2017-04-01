@@ -515,7 +515,9 @@ civitas.game = function () {
 	 * @returns {civitas.game}
 	 */
 	this.show_loader = function() {
-		$('.loading').show();
+		$('.loading').show().tipsy({
+			gravity: 'e'
+		});
 		return this;
 	};
 

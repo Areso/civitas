@@ -768,9 +768,6 @@ p {
 }
 
 .ui-control {
-	box-shadow: 0 0 5px #fff;
-	-webkit-box-shadow: 0 0 5px #fff;
-	-moz-box-shadow: 0 0 5px #fff;
 	border-radius: 3px;
 	-moz-border-radius: 3px;
 	-webkit-border-radius: 3px;
@@ -781,10 +778,16 @@ p {
 
 .ui-control.on {
 	background-color: #c0f5d3;
+	box-shadow: 0 0 5px #c0f5d3;
+	-webkit-box-shadow: 0 0 5px #c0f5d3;
+	-moz-box-shadow: 0 0 5px #c0f5d3;
 }
 
 .ui-control.off {
-	background-color: #f5c8c0;
+	background-color: #ef705a;
+	box-shadow: 0 0 5px #ef705a;
+	-webkit-box-shadow: 0 0 5px #ef705a;
+	-moz-box-shadow: 0 0 5px #ef705a;
 }
 
 /* Start window */
@@ -832,6 +835,22 @@ p {
 	background-image: linear-gradient(to bottom, #a9a588, #8e865b);
 	text-transform: uppercase;
 	text-align: center;
+}
+
+#window-options .button.highlight {
+	background-color: #f09484;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#f5c8c0), to(#f09484));
+	background-image: -webkit-linear-gradient(top, #f5c8c0, #f09484);
+	background-image: -moz-linear-gradient(top, #f5c8c0, #f09484);
+	background-image: linear-gradient(to bottom, #f5c8c0, #f09484);
+}
+
+#window-options .button.highlight:hover {
+	background-color: #ef705a;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#f09484), to(#ef705a));
+	background-image: -webkit-linear-gradient(top, #f09484, #ef705a);
+	background-image: -moz-linear-gradient(top, #f09484, #ef705a);
+	background-image: linear-gradient(to bottom, #f09484, #ef705a);
 }
 
 #window-start .button:hover,
