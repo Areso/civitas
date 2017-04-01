@@ -715,6 +715,7 @@ civitas.objects.city = function(params) {
 			for (var i = 0; i < building_type.length; i++) {
 				var handle = typeof building_type[i].handle !== 'undefined' ? building_type[i].handle : building_type[i];
 				var level = typeof building_type[i].level !== 'undefined' ? building_type[i].level : 1;
+				var working = typeof building_type[i].working !== 'undefined' ? building_type[i].working : true;
 				var _b = civitas.BUILDINGS.findIndexM(handle);
 				if (_b !== false) {
 					var _c = civitas.BUILDINGS[_b];
@@ -725,18 +726,21 @@ civitas.objects.city = function(params) {
 						city: this,
 						type: handle,
 						data: _c,
-						hidden: hidden
+						hidden: hidden,
+						working: working
 					});
 					this.buildings.push(_building);
 					this.buildings_list.push({
 						handle: handle,
-						level: level
+						level: level,
+						working: working
 					});
 				}
 			}
 		} else {
 			var handle = typeof building_type.handle !== 'undefined' ? building_type.handle : building_type;
 			var level = typeof building_type.level !== 'undefined' ? building_type.level : 1;
+			var working = typeof building_type.working !== 'undefined' ? building_type.working : true;
 			var _b = civitas.BUILDINGS.findIndexM(handle);
 			if (_b !== false) {
 				var _c = civitas.BUILDINGS[_b];
@@ -747,12 +751,14 @@ civitas.objects.city = function(params) {
 					city: this,
 					type: handle,
 					data: _c,
-					hidden: hidden
+					hidden: hidden,
+					working: working
 				});
 				this.buildings.push(_building);
 				this.buildings_list.push({
 					handle: handle,
-					level: level
+					level: level,
+					working: working
 				});
 			}
 		}
@@ -799,7 +805,8 @@ civitas.objects.city = function(params) {
 			this.buildings.push(_building);
 			this.buildings_list.push({
 				handle: building_type,
-				level: 1
+				level: 1,
+				stopped: false
 			});
 			this.get_core().refresh_ui();
 			this.get_core().refresh_panels();

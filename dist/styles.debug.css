@@ -48,9 +48,16 @@ ul, li {
 }
 
 .clearfix {
-	clear:both;
+	clear: both;
 }
 
+:focus {
+	outline: none;
+}
+
+::-moz-focus-inner {
+	border: 0;
+}
 
 .hr {
 	border-top: 1px solid #777;

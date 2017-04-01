@@ -103,9 +103,10 @@ civitas.objects.building = function(params) {
 		this.is_municipal = (typeof params.data.is_municipal !== 'undefined' && params.data.is_municipal === true) ? true : false;
 		this.is_housing = (typeof params.data.is_housing !== 'undefined' && params.data.is_housing === true) ? true : false;
 		this.level = (typeof params.data.level !== 'undefined') ? params.data.level : 1;
+		this.working = (typeof params.working !== 'undefined') ? params.working : true;
 		this.handle = params.data.handle;
 		params.data.level = this.get_level();
-		$('#building-' + this.get_handle()).empty();
+		//$('#building-' + this.get_handle()).empty();
 		if (params.hidden !== true) {
 			$('section.game').append(civitas.ui.building_element(params)).on('click', '#building-' + this.get_handle(), function() {
 				self.get_core().open_panel(new civitas.controls.panel_building({
@@ -122,7 +123,13 @@ civitas.objects.building = function(params) {
 				this.get_city().storage = this.get_city().storage + (building.storage * this.get_level());
 				break;
 		}
-		this.get_core().refresh_panels();
+		if (params.hidden !== true) {
+			if (this.working === false) {
+				this.problems = true;
+				this.notify(civitas.NOTIFICATION_PRODUCTION_PAUSED);
+			}
+			this.get_core().refresh_panels();
+		}
 		return this;
 	};
 
@@ -249,16 +256,20 @@ civitas.objects.building = function(params) {
 	 * @returns {Boolean}
 	 */
 	this.start_production = function() {
-		if (this.is_production_building()) {
-			this.get_core().notify(this.get_name() + '`s production started.');
-			this.working = true;
-			this.problems = false;
-			this.get_core().refresh_panels();
-			$('#building-' + this.get_handle()).empty();
-			return true;
-		} else {
-			return false;
+		var bl_id = this.get_city().buildings_list.findIndexM(this.get_type());
+		if (bl_id !== false) {
+			if (this.is_production_building()) {
+				this.get_core().notify(this.get_name() + '`s production started.');
+				this.get_city().buildings_list[bl_id].working = true;
+				this.working = true;
+				this.problems = false;
+				this.get_core().save();
+				this.get_core().refresh_panels();
+				$('#building-' + this.get_handle()).empty();
+				return true;
+			}
 		}
+		return false;
 	};
 
 	/**
@@ -268,16 +279,20 @@ civitas.objects.building = function(params) {
 	 * @returns {Boolean}
 	 */
 	this.stop_production = function() {
-		if (this.is_production_building()) {
-			this.get_core().notify(this.get_name() + '`s production stopped.');
-			this.working = false;
-			this.problems = true;
-			this.get_core().refresh_panels();
-			this.notify(civitas.NOTIFICATION_PRODUCTION_PAUSED);
-			return true;
-		} else {
-			return false;
+		var bl_id = this.get_city().buildings_list.findIndexM(this.get_type());
+		if (bl_id !== false) {
+			if (this.is_production_building()) {
+				this.get_core().notify(this.get_name() + '`s production stopped.');
+				this.get_city().buildings_list[bl_id].working = false;
+				this.working = false;
+				this.problems = true;
+				this.get_core().save();
+				this.get_core().refresh_panels();
+				this.notify(civitas.NOTIFICATION_PRODUCTION_PAUSED);
+				return true;
+			}
 		}
+		return false;
 	};
 
 	/**
