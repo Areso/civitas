@@ -15,6 +15,14 @@ civitas.game = function () {
 	this.cities = [];
 
 	/**
+	 * List of currently completed achievements.
+	 *
+	 * @private
+	 * @type {Array}
+	 */
+	this.achievements = [];
+
+	/**
 	 * Pointer to the audio subsystem component.
 	 * 
 	 * @private
@@ -157,6 +165,9 @@ civitas.game = function () {
 				clicked = false;
 				$('html').css('cursor', 'auto');
 			}
+		});
+		$('.ui > footer').css({
+			left: ($(window).width() / 2) - ($('.ui > footer').width() / 2)
 		});
 		var update_scroll_pos = function (e) {
 			$(window).scrollTop($(window).scrollTop() + (clickY - e.pageY));
@@ -705,6 +716,7 @@ civitas.game = function () {
 		this.log('day ' + this.day_of_month + ' month ' + this.month + ' year ' + this.year);
 		this.process_all_buildings();
 		this.check_for_events();
+		this.check_achievements();
 		this.calc_storage();
 		this.refresh_ui();
 		this.day_of_month++;
@@ -863,7 +875,7 @@ civitas.game = function () {
 	 * @private
 	 */
 	this._notify = function (settings) {
-		var container, notty, hide, image, right, left, inner;
+		var container, notty, hide, image, right, left, inner, _container;
 		settings = $.extend({
 			title: undefined,
 			content: undefined,
@@ -871,14 +883,23 @@ civitas.game = function () {
 			img: civitas.ASSETS_URL + 'images/ui/icon_notification_1.png',
 			showTime: true,
 			error: false,
+			achievement: false,
 			other: false
 		}, settings);
-		container = $(".notifications");
+		if (settings.achievement === false) {
+			_container = "notifications";
+		} else {
+			_container = "achievements-notifications";
+		}
+		container = $("." + _container);
 		if (!container.length) {
 			container = $("<div>", {
-				'class': "notifications"
+				'class': _container
 			}).appendTo(document.body);
 		}
+		$('.achievements-notifications').css({
+			left: ($(window).width() / 2) - (container.width() / 2)
+		});
 		notty = $("<div>");
 		notty.addClass("notty");
 		hide = $("<div>", {
@@ -903,6 +924,10 @@ civitas.game = function () {
 		if (settings.other === true) {
 			notty.addClass('other');
 			settings.img = civitas.ASSETS_URL + 'images/ui/icon_notification_1.png';
+		}
+		if (settings.achievement === true) {
+			notty.addClass('achievement');
+			settings.img = civitas.ASSETS_URL + 'images/ui/icon_achievement.png';
 		}
 		image = $("<div>", {
 			style: "background: url('" + settings.img + "')"
@@ -941,18 +966,20 @@ civitas.game = function () {
 			}
 			return time;
 		}
-		var timestamp = Number(new Date());
-		var timeHTML = $("<div>", {
-			html: "<strong>" + time_since(timestamp) + "</strong> ago"
-		});
-		timeHTML.addClass("time").attr("title", timestamp);
-		timeHTML.appendTo(right);
-		setInterval(function () {
-			$(".time").each(function () {
-				var timing = $(this).attr("title");
-				$(this).html("<strong>" + time_since(timing) + "</strong> ago");
+		if (settings.achievement === false) {
+			var timestamp = Number(new Date());
+			var timeHTML = $("<div>", {
+				html: "<strong>" + time_since(timestamp) + "</strong> ago"
 			});
-		}, 4000);
+			timeHTML.addClass("time").attr("title", timestamp);
+			timeHTML.appendTo(right);
+			setInterval(function () {
+				$(".time").each(function () {
+					var timing = $(this).attr("title");
+					$(this).html("<strong>" + time_since(timing) + "</strong> ago");
+				});
+			}, 4000);
+		}
 		notty.hover(function () {
 			hide.show();
 		}, function () {
@@ -1164,6 +1191,135 @@ civitas.game = function () {
 	 */
 	this.get_difficulty = function() {
 		return this.difficulty;
+	};
+
+	this.check_achievements = function() {
+		var achievement;
+		var condition;
+		var city = this.get_city();
+		for (var i = 0; i < civitas.ACHIEVEMENTS.length; i++) {
+			achievement = civitas.ACHIEVEMENTS[i];
+			for (var z = 0; z < civitas.ACHIEVEMENTS[i].conditions.length; z++) {
+				if (!this.has_achievement(i)) {
+					condition = civitas.ACHIEVEMENTS[i].conditions[z];
+					if (typeof condition.city_level !== 'undefined') {
+						if (city.get_level() === condition.city_level) {
+							this.achievement(i);
+						}
+					}
+					if (typeof condition.soldiers !== 'undefined') {
+						var army = city.get_army_total();
+						if (army.total >= condition.soldiers) {
+							this.achievement(i);
+						}
+					}
+					if (typeof condition.ships !== 'undefined') {
+						var navy = city.get_navy_total();
+						if (navy.total >= condition.ships) {
+							this.achievement(i);
+						}
+					}
+					if (typeof condition.coins !== 'undefined') {
+						if (city.get_coins() >= condition.coins) {
+							this.achievement(i);
+						}
+					}
+					if (typeof condition.research !== 'undefined') {
+						if (city.get_research() >= condition.research) {
+							this.achievement(i);
+						}
+					}
+					if (typeof condition.prestige !== 'undefined') {
+						if (city.get_prestige() >= condition.prestige) {
+							this.achievement(i);
+						}
+					}
+					if (typeof condition.espionage !== 'undefined') {
+						if (city.get_espionage() >= condition.espionage) {
+							this.achievement(i);
+						}
+					}
+					if (typeof condition.buildings !== 'undefined') {
+						if (typeof condition.buildings === 'object') {
+							var good = true;
+							for (var s = 0; s < condition.buildings.length; s++) {
+								if (!city.is_building_built(condition.buildings[s])) {
+									good = false;
+									break;
+								}
+							}
+							if (good === true) {
+								this.achievement(i);
+							}
+						} else {
+							for (var s = 0; s < city.buildings_list.length; s++) {
+								if (city.buildings_list[s].handle === condition.buildings) {
+									this.achievement(i);
+									break;
+								}
+							}
+						}
+					}
+					if (typeof condition.resources !== 'undefined') {
+						var good = true;
+						for (var s = 0; s < condition.resources.length; s++) {
+							for (var item in condition.resources[s]) {
+								var amount = city.resources[item];
+								if (amount < condition.resources[s][item]) {
+									good = false;
+									break;
+								}
+							}
+						}
+						if (good === true) {
+							this.achievement(i);
+						}
+					}
+				}
+			}
+		}
+		return this;
+	};
+
+	/**
+	 * Perform an achievement notification in the game.
+	 * 
+	 * @public
+	 * @param {Number} achievement_id
+	 * @returns {civitas.game}
+	 */
+	this.achievement = function (achievement_id) {
+		var _achievement = civitas.ACHIEVEMENTS[achievement_id];
+		this.achievements.push({
+			id: achievement_id,
+			date: + new Date()
+		});
+		this._notify({
+			title: 'Achievement Completed',
+			other: true,
+			achievement: true,
+			content: _achievement.description,
+			timeout: false
+		});
+		return this;
+	};
+
+	this.has_achievement = function(id) {
+		for (var i = 0; i < this.achievements.length; i++) {
+			if (this.achievements[i].id === id) {
+				return true;
+			}
+		}
+		return false;
+	};
+
+	this.set_achievements = function(value) {
+		this.achievements = value;
+		return this;
+	};
+
+	this.get_achievements = function() {
+		return this.achievements;
 	};
 
 	// Fire up the constructor

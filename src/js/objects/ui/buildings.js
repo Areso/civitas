@@ -98,7 +98,7 @@ civitas.controls.panel_buildings = function (params) {
 			_t += '</div>';
 		}
 		_t += '</div>' +
-			'</div><div class="right">' +
+			'</div><div class="buildings-info right">' +
 				'<fieldset>' +
 				'<legend>' + civitas.l('Description') + '</legend>' +
 				'<div class="b-desc"></div>' +

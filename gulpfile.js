@@ -28,6 +28,7 @@ gulp.task('app', function() {
 		'src/js/constants/cities.js',
 		'src/js/constants/events.js',
 		'src/js/constants/resources.js',
+		'src/js/constants/achievements.js',
 		'src/js/objects/core/utils.js',
 		/*
 		'src/js/objects/modules/ai.js',

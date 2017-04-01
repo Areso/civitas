@@ -86,6 +86,7 @@ civitas.controls.panel_advisor = function (params) {
 				'<li><a href="#tab-navy">' + civitas.l('Navy') + '</a></li>' +
 				'<li><a href="#tab-mercenary">' + civitas.l('Mercenaries') + '</a></li>' +
 				'<li><a href="#tab-diplomacy">' + civitas.l('Diplomacy') + '</a></li>' +
+				'<li><a href="#tab-achievements">' + civitas.l('Achievements') + '</a></li>' +
 			'</ul>' +
 			'<div id="tab-info">' +
 			'</div>' +
@@ -100,6 +101,9 @@ civitas.controls.panel_advisor = function (params) {
 			'<div id="tab-mercenary">' +
 			'</div>' +
 			'<div id="tab-diplomacy">' +
+			'</div>' +
+			'<div id="tab-achievements">' +
+				'<div class="achievements-list"></div>' +
 			'</div>' +
 		'</div>');
 		this.refresh();
@@ -253,6 +257,7 @@ civitas.controls.panel_advisor = function (params) {
 		this._refresh_navy();
 		this._refresh_mercenaries();
 		this._refresh_diplomacy();
+		this._refresh_achievements();
 		return this;
 	};
 
@@ -331,6 +336,28 @@ civitas.controls.panel_advisor = function (params) {
 		_t += '</table>' +
 				'</div>';
 		$('#panel-' + this.id + ' #tab-diplomacy').empty().append(_t);
+		return this;
+	};
+
+	this._refresh_achievements = function() {
+		var city = this.core.get_city();
+		var achievements = this.core.get_achievements();
+		var _t = '';
+		for (var i = 0; i < achievements.length; i++) {
+			var achievement_data = civitas.ACHIEVEMENTS[achievements[i].id];
+			_t += '<div class="achievement">' +
+				'<div class="left">' +
+					'<div style="background: url(\'../images/ui/icon_achievement.png\')" class="img"></div>' +
+				'</div>' +
+				'<div class="right">' +
+					'<div class="inner">' +
+						'<h2>' + achievement_data.name + '</h2>' +
+						achievement_data.description +
+					'</div>' +
+				'</div>' +
+			'</div>';
+		}
+		$('#panel-' + this.id + ' .achievements-list').empty().append(_t);
 		return this;
 	};
 

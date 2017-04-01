@@ -106,7 +106,6 @@ civitas.objects.building = function(params) {
 		this.working = (typeof params.working !== 'undefined') ? params.working : true;
 		this.handle = params.data.handle;
 		params.data.level = this.get_level();
-		//$('#building-' + this.get_handle()).empty();
 		if (params.hidden !== true) {
 			$('section.game').append(civitas.ui.building_element(params)).on('click', '#building-' + this.get_handle(), function() {
 				self.get_core().open_panel(new civitas.controls.panel_building({
@@ -127,6 +126,9 @@ civitas.objects.building = function(params) {
 			if (this.working === false) {
 				this.problems = true;
 				this.notify(civitas.NOTIFICATION_PRODUCTION_PAUSED);
+			} else {
+				this.problems = false;
+				$('#building-' + this.get_handle()).empty();
 			}
 			this.get_core().refresh_panels();
 		}

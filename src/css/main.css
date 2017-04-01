@@ -183,7 +183,6 @@ header .top-panel span {
 	background: transparent url(../images/ui/bottom.png) no-repeat;
 	position: fixed;
 	bottom: 0;
-	left: 25%;
 	font-family: 'Nova Oval';
 	z-index: 9999;
 }
@@ -374,13 +373,13 @@ header .top-panel span {
 	width: auto;
 }
 
-.panel .contents .left {
+.panel .contents .buildings.left {
 	width: 590px;
 	float: left;
 	position: relative;
 }
 
-.panel .contents div.right {
+.panel .contents .buildings-info.right {
 	display: none;
 	float: left;
 	width: 310px;
@@ -900,7 +899,16 @@ p {
 	z-index: 99999;
 }
 
-.notifications .notty {
+.achievements-notifications {
+	position: fixed;
+	bottom: 70px;
+	width: 340px;
+	z-index: 99999;
+}
+
+.notifications .notty,
+.achievements-notifications .notty,
+.achievement {
 	padding: 10px;
 	margin-bottom: 10px;
 	color: #444;
@@ -909,12 +917,33 @@ p {
 	box-shadow: 0 0 5px #ccc;
 	-webkit-box-shadow: 0 0 5px #ccc;
 	-moz-box-shadow: 0 0 5px #ccc;
-	border-radius: 3px;
-	-moz-border-radius: 3px;
-	-webkit-border-radius: 3px;
 	position: relative;
 	overflow: hidden;
 	opacity: 0.8;
+}
+
+.achievements-list .achievement {
+	width: 324px;
+	float: left;
+	margin-right: 20px;
+}
+
+.achievements-list .achievement:nth-child(even) {
+	margin-right: 0;
+}
+
+.achievements-list {
+	padding: 20px;
+	height: 420px;
+	overflow: auto;
+}
+
+.achievements-notifications .notty,
+.achievement {
+	border-radius: 60px;
+	-moz-border-radius: 60px;
+	-webkit-border-radius: 60px;
+	background-color: #f5f36b;
 }
 
 .notifications .notty.error {
@@ -925,7 +954,8 @@ p {
 	background-color: #c0c5f5;
 }
 
-.notifications .notty .hide {
+.notifications .notty .hide,
+.achievements-notifications .notty .hide {
 	position: absolute;
 	display: inline-block;
 	height: 24px;
@@ -939,11 +969,26 @@ p {
 	margin: 6px;
 }
 
+.achievements-notifications .notty .hide {
+	top: 14px;
+	right: 6px;
+}
+
 .notifications .notty .right,
-.notifications .notty .left {
+.achievements-notifications .notty .right,
+.achievement div.right {
 	width: 79%;
 	height: 100%;
 	float: left;
+	display: block !important;
+}
+
+.notifications .notty .left,
+.achievements-notifications .notty .left,
+.achievement div.left {
+	height: 100%;
+	float: left;
+	display: block !important;
 }
 
 .notifications .notty .time {
@@ -956,11 +1001,15 @@ p {
 	margin-left: 10px;
 }
 
-.notifications .notty .left {
+.notifications .notty .left,
+.achievements-notifications .notty .left,
+.achievement .left {
 	width: 20%;
 }
 
-.notifications .notty .right .inner {
+.notifications .notty .right .inner,
+.achievements-notifications .notty .right .inner,
+.achievement .right .inner {
 	padding-left: 10px;
 }
 
@@ -975,14 +1024,18 @@ p {
 	right: -10px;
 }
 
-.notifications .notty .left .img {
+.notifications .notty .left .img,
+.achievements-notifications .notty .left .img,
+.achievement .left .img {
 	width: 46px;
 	background-size: auto 100%;
 	height: 46px;
 	position: relative;
 }
 
-.notifications .notty:after {
+.notifications .notty:after,
+.achievements-notifications .notty:after,
+.achievement:after {
 	content: "."; 
 	visibility: hidden; 
 	display: block; 
@@ -991,7 +1044,9 @@ p {
 	font-size: 0;
 }
 
-.notifications .notty h2 {
+.notifications .notty h2,
+.achievements-notifications .notty h2,
+.achievement h2 {
 	margin: 0 0 5px 0;
 	font-size: 14px;
 	color: #444;

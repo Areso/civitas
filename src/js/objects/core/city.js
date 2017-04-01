@@ -522,6 +522,7 @@ civitas.objects.city = function(params) {
 			resources: this.get_resources(),
 			trades: this.get_core()._get_neighbours_trades(),
 			buildings: this.buildings_list,
+			achievements: this.get_core().get_achievements(),
 			black_market: this.get_core().get_black_market(),
 			date_time: {
 				day: this.get_core().day,
@@ -551,6 +552,7 @@ civitas.objects.city = function(params) {
 		this.set_avatar(data.avatar);
 		this.set_icon(data.icon);
 		this.set_nationality(data.nationality);
+		this.get_core().set_achievements(data.achievements);
 		this.set_climate(data.climate);
 		this.setup_army(true, data.army);
 		this.setup_navy(true, data.navy);
