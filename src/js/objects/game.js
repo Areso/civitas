@@ -946,37 +946,17 @@ civitas.game = function () {
 		left.appendTo(notty);
 		right.appendTo(notty);
 		hide.appendTo(notty);
-		function time_since(time) {
-			var time_formats = [[2, "One second", "1 second from now"], [60, "seconds", 1], [120, "One minute", "1 minute from now"], [3600, "minutes", 60], [7200, "One hour", "1 hour from now"], [86400, "hours", 3600], [172800, "One day", "tomorrow"], [604800, "days", 86400], [1209600, "One week", "next week"], [2419200, "weeks", 604800], [4838400, "One month", "next month"], [29030400, "months", 2419200], [58060800, "One year", "next year"], [2903040000, "years", 29030400], [5806080000, "One century", "next century"], [58060800000, "centuries", 2903040000]];
-			var seconds = (new Date - time) / 1000;
-			var list_choice = 1;
-			if (seconds < 0) {
-				seconds = Math.abs(seconds);
-				list_choice = 1;
-			}
-			var i = 0, format;
-			while (format = time_formats[i++]) {
-				if (seconds < format[0]) {
-					if (typeof format[2] === "string") {
-						return format[list_choice];
-					} else {
-						return Math.floor(seconds / format[2]) + " " + format[1];
-					}
-				}
-			}
-			return time;
-		}
 		if (settings.achievement === false) {
 			var timestamp = Number(new Date());
 			var timeHTML = $("<div>", {
-				html: "<strong>" + time_since(timestamp) + "</strong> ago"
+				html: "<strong>" + civitas.utils.time_since(timestamp) + "</strong> ago"
 			});
 			timeHTML.addClass("time").attr("title", timestamp);
 			timeHTML.appendTo(right);
 			setInterval(function () {
 				$(".time").each(function () {
 					var timing = $(this).attr("title");
-					$(this).html("<strong>" + time_since(timing) + "</strong> ago");
+					$(this).html("<strong>" + civitas.utils.time_since(timing) + "</strong> ago");
 				});
 			}, 4000);
 		}
@@ -1193,6 +1173,12 @@ civitas.game = function () {
 		return this.difficulty;
 	};
 
+	/**
+	 * Check for any achievements completion.
+	 *
+	 * @public
+	 * @returns {civitas.game}
+	 */
 	this.check_achievements = function() {
 		var achievement;
 		var condition;
@@ -1200,43 +1186,44 @@ civitas.game = function () {
 		for (var i = 0; i < civitas.ACHIEVEMENTS.length; i++) {
 			achievement = civitas.ACHIEVEMENTS[i];
 			for (var z = 0; z < civitas.ACHIEVEMENTS[i].conditions.length; z++) {
-				if (!this.has_achievement(i)) {
-					condition = civitas.ACHIEVEMENTS[i].conditions[z];
+				var id = civitas.ACHIEVEMENTS[i].id;
+				if (!this.has_achievement(achievement)) {
+					condition = achievement.conditions[z];
 					if (typeof condition.city_level !== 'undefined') {
 						if (city.get_level() === condition.city_level) {
-							this.achievement(i);
+							this.achievement(achievement);
 						}
 					}
 					if (typeof condition.soldiers !== 'undefined') {
 						var army = city.get_army_total();
 						if (army.total >= condition.soldiers) {
-							this.achievement(i);
+							this.achievement(achievement);
 						}
 					}
 					if (typeof condition.ships !== 'undefined') {
 						var navy = city.get_navy_total();
 						if (navy.total >= condition.ships) {
-							this.achievement(i);
+							this.achievement(achievement);
 						}
 					}
 					if (typeof condition.coins !== 'undefined') {
 						if (city.get_coins() >= condition.coins) {
-							this.achievement(i);
+							this.achievement(achievement);
 						}
 					}
 					if (typeof condition.research !== 'undefined') {
 						if (city.get_research() >= condition.research) {
-							this.achievement(i);
+							this.achievement(achievement);
 						}
 					}
 					if (typeof condition.prestige !== 'undefined') {
 						if (city.get_prestige() >= condition.prestige) {
-							this.achievement(i);
+							this.achievement(achievement);
 						}
 					}
 					if (typeof condition.espionage !== 'undefined') {
 						if (city.get_espionage() >= condition.espionage) {
-							this.achievement(i);
+							this.achievement(achievement);
 						}
 					}
 					if (typeof condition.buildings !== 'undefined') {
@@ -1249,12 +1236,12 @@ civitas.game = function () {
 								}
 							}
 							if (good === true) {
-								this.achievement(i);
+								this.achievement(achievement);
 							}
 						} else {
 							for (var s = 0; s < city.buildings_list.length; s++) {
 								if (city.buildings_list[s].handle === condition.buildings) {
-									this.achievement(i);
+									this.achievement(achievement);
 									break;
 								}
 							}
@@ -1272,7 +1259,25 @@ civitas.game = function () {
 							}
 						}
 						if (good === true) {
-							this.achievement(i);
+							this.achievement(achievement);
+						}
+					}
+					if (typeof condition.storage !== 'undefined') {
+						if (condition.storage === 0) {
+							if (!city.has_storage_space()) {
+								this.achievement(achievement);
+							}
+						}
+					}
+					if (typeof condition.achievements !== 'undefined') {
+						if (condition.achievements === this.achievements.length) {
+							this.achievement(achievement);
+						}
+					}
+					if (typeof condition.mercenary !== 'undefined') {
+						var merc = city.get_mercenary();
+						if (merc.length >= condition.mercenary) {
+							this.achievement(achievement);
 						}
 					}
 				}
@@ -1285,39 +1290,74 @@ civitas.game = function () {
 	 * Perform an achievement notification in the game.
 	 * 
 	 * @public
-	 * @param {Number} achievement_id
+	 * @param {Object} achievement
 	 * @returns {civitas.game}
 	 */
-	this.achievement = function (achievement_id) {
-		var _achievement = civitas.ACHIEVEMENTS[achievement_id];
+	this.achievement = function (achievement) {
 		this.achievements.push({
-			id: achievement_id,
+			id: achievement.id,
 			date: + new Date()
 		});
 		this._notify({
 			title: 'Achievement Completed',
 			other: true,
 			achievement: true,
-			content: _achievement.description,
+			content: achievement.description,
 			timeout: false
 		});
 		return this;
 	};
 
-	this.has_achievement = function(id) {
+	/**
+	 * Check if the current player has the achievement specified by its id.
+	 *
+	 * @public
+	 * @param {Object} achievement
+	 * @returns {Boolean}
+	 */
+	this.has_achievement = function(achievement) {
 		for (var i = 0; i < this.achievements.length; i++) {
-			if (this.achievements[i].id === id) {
+			if (this.achievements[i].id === achievement.id) {
 				return true;
 			}
 		}
 		return false;
 	};
 
+	/**
+	 * Return a pointer to an existing achievement, searching by id.
+	 *
+	 * @public
+	 * @param {Number} id
+	 * @returns {Object|Boolean}
+	 */
+	this.get_achievement_by_id = function(id) {
+		for (var i = 0; i < civitas.ACHIEVEMENTS.length; i++) {
+			if (civitas.ACHIEVEMENTS[i].id === id) {
+				return civitas.ACHIEVEMENTS[i];
+			}
+		}
+		return false;
+	};
+
+	/**
+	 * Set the achievements to the specified value.
+	 *
+	 * @public
+	 * @param {Array} value
+	 * @returns {civitas.game}
+	 */
 	this.set_achievements = function(value) {
 		this.achievements = value;
 		return this;
 	};
 
+	/**
+	 * Return the completed achievements.
+	 *
+	 * @public
+	 * @returns {Array}
+	 */
 	this.get_achievements = function() {
 		return this.achievements;
 	};

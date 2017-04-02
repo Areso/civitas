@@ -2,7 +2,7 @@
  * Civitas empire-building game.
  *
  * @author sizeof(cat) <sizeofcat AT riseup.net>
- * @version 0.1.0.412017
+ * @version 0.1.0.422017
  * @license MIT
  */ @font-face {
 	font-family: 'Nova Oval';
@@ -572,7 +572,7 @@ table.mercenaries td:nth-child(3) {
 }
 
 .panel ul.advices {
-	max-height: 216px;
+	max-height: 190px;
 	display: block;
 	margin: 0;
 	padding: 0;
@@ -934,6 +934,10 @@ p {
 	margin-right: 20px;
 }
 
+.ach.img {
+	background: transparent url(../images/ui/icon_achievement.png) no-repeat;
+}
+
 .achievements-list .achievement:nth-child(even) {
 	margin-right: 0;
 }
@@ -997,13 +1001,15 @@ p {
 	display: block !important;
 }
 
-.notifications .notty .time {
+.notifications .notty .time,
+.achievement .time {
 	font-size: 9px;
 	position: relative;
 	float: right;
 }
 
-.notifications .notty .right .time {
+.notifications .notty .right .time,
+.achievement .right .time {
 	margin-left: 10px;
 }
 

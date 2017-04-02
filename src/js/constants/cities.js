@@ -138,6 +138,7 @@ civitas.CITIES = {
 				clay: civitas.IMPORTANCE_VITAL
 			},
 			'exports': {
+				herbs: civitas.IMPORTANCE_HIGH,
 				silver: civitas.IMPORTANCE_VITAL,
 				glasses: civitas.IMPORTANCE_LOW,
 				furcoats: civitas.IMPORTANCE_MEDIUM,
@@ -182,6 +183,7 @@ civitas.CITIES = {
 				wheat: civitas.IMPORTANCE_VITAL
 			},
 			'exports': {
+				meat: civitas.IMPORTANCE_VITAL,
 				clothes: civitas.IMPORTANCE_VITAL,
 				fish: civitas.IMPORTANCE_LOW,
 				coffeebeans: civitas.IMPORTANCE_HIGH,
@@ -353,6 +355,7 @@ civitas.CITIES = {
 				furcoats: civitas.IMPORTANCE_VITAL
 			},
 			'exports': {
+				herbs: civitas.IMPORTANCE_VITAL,
 				statues: civitas.IMPORTANCE_VITAL,
 				wax: civitas.IMPORTANCE_LOW,
 				candles: civitas.IMPORTANCE_LOW,
@@ -393,6 +396,7 @@ civitas.CITIES = {
 				wine: civitas.IMPORTANCE_LOW,
 				beer: civitas.IMPORTANCE_LOW,
 				mosaic: civitas.IMPORTANCE_VITAL,
+				woodplanks: civitas.IMPORTANCE_HIGH,
 				silk: civitas.IMPORTANCE_MEDIUM
 			},
 			'exports': {
@@ -447,6 +451,7 @@ civitas.CITIES = {
 			},
 			'exports': {
 				wood: civitas.IMPORTANCE_LOW,
+				meat: civitas.IMPORTANCE_HIGH,
 				stones: civitas.IMPORTANCE_VITAL,
 				wine: civitas.IMPORTANCE_MEDIUM
 			}
@@ -665,6 +670,7 @@ civitas.CITIES = {
 				cider: civitas.IMPORTANCE_LOW,
 				grapes: civitas.IMPORTANCE_LOW,
 				coal: civitas.IMPORTANCE_MEDIUM,
+				woodplanks: civitas.IMPORTANCE_HIGH,
 				ironores: civitas.IMPORTANCE_LOW
 			},
 			'exports': {
@@ -795,6 +801,7 @@ civitas.CITIES = {
 				salt: civitas.IMPORTANCE_MEDIUM,
 				stones: civitas.IMPORTANCE_VITAL,
 				gems: civitas.IMPORTANCE_LOW,
+				woodplanks: civitas.IMPORTANCE_MEDIUM,
 				pearls: civitas.IMPORTANCE_LOW
 			},
 			'exports': {
@@ -802,6 +809,8 @@ civitas.CITIES = {
 				sulphur: civitas.IMPORTANCE_VITAL,
 				silk: civitas.IMPORTANCE_MEDIUM,
 				glass: civitas.IMPORTANCE_HIGH,
+				woodplanks: civitas.IMPORTANCE_MEDIUM,
+				meat: civitas.IMPORTANCE_HIGH,
 				carpets: civitas.IMPORTANCE_LOW,
 				cannons: civitas.IMPORTANCE_LOW
 			}

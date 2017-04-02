@@ -2,7 +2,7 @@
  * Civitas empire-building game.
  *
  * @author sizeof(cat) <sizeofcat AT riseup.net>
- * @version 0.1.0.412017
+ * @version 0.1.0.422017
  * @license MIT
  */ 'use strict';
 
@@ -3597,6 +3597,7 @@ civitas.CITIES = {
 				clay: civitas.IMPORTANCE_VITAL
 			},
 			'exports': {
+				herbs: civitas.IMPORTANCE_HIGH,
 				silver: civitas.IMPORTANCE_VITAL,
 				glasses: civitas.IMPORTANCE_LOW,
 				furcoats: civitas.IMPORTANCE_MEDIUM,
@@ -3641,6 +3642,7 @@ civitas.CITIES = {
 				wheat: civitas.IMPORTANCE_VITAL
 			},
 			'exports': {
+				meat: civitas.IMPORTANCE_VITAL,
 				clothes: civitas.IMPORTANCE_VITAL,
 				fish: civitas.IMPORTANCE_LOW,
 				coffeebeans: civitas.IMPORTANCE_HIGH,
@@ -3812,6 +3814,7 @@ civitas.CITIES = {
 				furcoats: civitas.IMPORTANCE_VITAL
 			},
 			'exports': {
+				herbs: civitas.IMPORTANCE_VITAL,
 				statues: civitas.IMPORTANCE_VITAL,
 				wax: civitas.IMPORTANCE_LOW,
 				candles: civitas.IMPORTANCE_LOW,
@@ -3852,6 +3855,7 @@ civitas.CITIES = {
 				wine: civitas.IMPORTANCE_LOW,
 				beer: civitas.IMPORTANCE_LOW,
 				mosaic: civitas.IMPORTANCE_VITAL,
+				woodplanks: civitas.IMPORTANCE_HIGH,
 				silk: civitas.IMPORTANCE_MEDIUM
 			},
 			'exports': {
@@ -3906,6 +3910,7 @@ civitas.CITIES = {
 			},
 			'exports': {
 				wood: civitas.IMPORTANCE_LOW,
+				meat: civitas.IMPORTANCE_HIGH,
 				stones: civitas.IMPORTANCE_VITAL,
 				wine: civitas.IMPORTANCE_MEDIUM
 			}
@@ -4124,6 +4129,7 @@ civitas.CITIES = {
 				cider: civitas.IMPORTANCE_LOW,
 				grapes: civitas.IMPORTANCE_LOW,
 				coal: civitas.IMPORTANCE_MEDIUM,
+				woodplanks: civitas.IMPORTANCE_HIGH,
 				ironores: civitas.IMPORTANCE_LOW
 			},
 			'exports': {
@@ -4254,6 +4260,7 @@ civitas.CITIES = {
 				salt: civitas.IMPORTANCE_MEDIUM,
 				stones: civitas.IMPORTANCE_VITAL,
 				gems: civitas.IMPORTANCE_LOW,
+				woodplanks: civitas.IMPORTANCE_MEDIUM,
 				pearls: civitas.IMPORTANCE_LOW
 			},
 			'exports': {
@@ -4261,6 +4268,8 @@ civitas.CITIES = {
 				sulphur: civitas.IMPORTANCE_VITAL,
 				silk: civitas.IMPORTANCE_MEDIUM,
 				glass: civitas.IMPORTANCE_HIGH,
+				woodplanks: civitas.IMPORTANCE_MEDIUM,
+				meat: civitas.IMPORTANCE_HIGH,
 				carpets: civitas.IMPORTANCE_LOW,
 				cannons: civitas.IMPORTANCE_LOW
 			}
@@ -4783,9 +4792,15 @@ civitas.MAIN_RESOURCES = [
 	'stones', 'weapons', 'wheat', 'wood', 'woodplanks'
 ];
 
-
+/**
+ * List of all obtainable game achievements.
+ *
+ * @constant
+ * @type {Array}
+ */
 civitas.ACHIEVEMENTS = [
 	{
+		id: 1,
 		description: 'Reach level 10.',
 		name: 'Kid',
 		conditions: [
@@ -4794,6 +4809,7 @@ civitas.ACHIEVEMENTS = [
 			}
 		]
 	}, {
+		id: 2,
 		description: 'Reach level 20.',
 		name: 'Adolescent',
 		conditions: [
@@ -4802,6 +4818,7 @@ civitas.ACHIEVEMENTS = [
 			}
 		]
 	}, {
+		id: 3,
 		description: 'Reach level 30.',
 		name: 'On my own',
 		conditions: [
@@ -4810,6 +4827,7 @@ civitas.ACHIEVEMENTS = [
 			}
 		]
 	}, {
+		id: 4,
 		description: 'Reach level 40.',
 		name: 'Fear me',
 		conditions: [
@@ -4818,6 +4836,7 @@ civitas.ACHIEVEMENTS = [
 			}
 		]
 	}, {
+		id: 5,
 		description: 'Reach level 50.',
 		name: 'Godly',
 		conditions: [
@@ -4826,6 +4845,7 @@ civitas.ACHIEVEMENTS = [
 			}
 		]
 	}, {
+		id: 6,
 		description: 'Reach level 55.',
 		name: 'I am a God!',
 		conditions: [
@@ -4834,6 +4854,7 @@ civitas.ACHIEVEMENTS = [
 			}
 		]
 	}, {
+		id: 7,
 		description: 'Gather 10k coins.',
 		name: 'Coinage',
 		conditions: [
@@ -4842,6 +4863,7 @@ civitas.ACHIEVEMENTS = [
 			}
 		]
 	}, {
+		id: 8,
 		description: 'Gather 50k coins.',
 		name: 'Give me coins',
 		conditions: [
@@ -4850,6 +4872,7 @@ civitas.ACHIEVEMENTS = [
 			}
 		]
 	}, {
+		id: 9,
 		description: 'Gather 100k coins.',
 		name: 'Gatherer',
 		conditions: [
@@ -4858,6 +4881,7 @@ civitas.ACHIEVEMENTS = [
 			}
 		]
 	}, {
+		id: 10,
 		description: 'Gather 1M coins.',
 		name: 'Milionaire',
 		conditions: [
@@ -4866,6 +4890,7 @@ civitas.ACHIEVEMENTS = [
 			}
 		]
 	}, {
+		id: 11,
 		description: 'Gather 10M coins.',
 		name: 'Rockefeller',
 		conditions: [
@@ -4874,6 +4899,7 @@ civitas.ACHIEVEMENTS = [
 			}
 		]
 	}, {
+		id: 12,
 		description: 'Gather 10k stones.',
 		name: 'Stone Age',
 		conditions: [
@@ -4886,6 +4912,7 @@ civitas.ACHIEVEMENTS = [
 			}
 		]
 	}, {
+		id: 13,
 		description: 'Gather 10k wood.',
 		name: 'Woody the Woodpecker',
 		conditions: [
@@ -4898,6 +4925,7 @@ civitas.ACHIEVEMENTS = [
 			}
 		]
 	}, {
+		id: 14,
 		description: 'Gather 10k meat.',
 		name: 'Animal killer',
 		conditions: [
@@ -4910,6 +4938,7 @@ civitas.ACHIEVEMENTS = [
 			}
 		]
 	}, {
+		id: 15,
 		description: 'Recruit 10 soldiers.',
 		name: 'Armed',
 		conditions: [
@@ -4918,6 +4947,7 @@ civitas.ACHIEVEMENTS = [
 			}
 		]
 	}, {
+		id: 16,
 		description: 'Recruit 100 soldiers.',
 		name: 'Recruiter',
 		conditions: [
@@ -4926,6 +4956,7 @@ civitas.ACHIEVEMENTS = [
 			}
 		]
 	}, {
+		id: 17,
 		description: 'Recruit 1000 soldiers.',
 		name: 'Armed to the teeth',
 		conditions: [
@@ -4934,6 +4965,7 @@ civitas.ACHIEVEMENTS = [
 			}
 		]
 	}, {
+		id: 18,
 		description: 'Recruit 10 ships.',
 		name: 'Shipwrecked',
 		conditions: [
@@ -4942,6 +4974,7 @@ civitas.ACHIEVEMENTS = [
 			}
 		]
 	}, {
+		id: 19,
 		description: 'Recruit 100 ships.',
 		name: 'Captain Ahab',
 		conditions: [
@@ -4950,6 +4983,7 @@ civitas.ACHIEVEMENTS = [
 			}
 		]
 	}, {
+		id: 20,
 		description: 'Gather 100 prestige.',
 		name: 'Prestigious',
 		conditions: [
@@ -4958,6 +4992,7 @@ civitas.ACHIEVEMENTS = [
 			}
 		]
 	}, {
+		id: 21,
 		description: 'Gather 500 prestige.',
 		name: 'The God King',
 		conditions: [
@@ -4966,6 +5001,7 @@ civitas.ACHIEVEMENTS = [
 			}
 		]
 	}, {
+		id: 22,
 		description: 'Gather 10 espionage.',
 		name: 'You got Mossad-ed!',
 		conditions: [
@@ -4974,6 +5010,7 @@ civitas.ACHIEVEMENTS = [
 			}
 		]
 	}, {
+		id: 23,
 		description: 'Gather 100 espionage.',
 		name: 'You got Snowden-ed!',
 		conditions: [
@@ -4982,6 +5019,7 @@ civitas.ACHIEVEMENTS = [
 			}
 		]
 	}, {
+		id: 24,
 		description: 'Gather 500 espionage.',
 		name: 'I spy with my own eye',
 		conditions: [
@@ -4990,6 +5028,7 @@ civitas.ACHIEVEMENTS = [
 			}
 		]
 	}, {
+		id: 25,
 		description: 'Gather 1000 espionage.',
 		name: 'Anna Chapman',
 		conditions: [
@@ -4998,6 +5037,7 @@ civitas.ACHIEVEMENTS = [
 			}
 		]
 	}, {
+		id: 26,
 		description: 'Gather 10 research.',
 		name: 'Initiate',
 		conditions: [
@@ -5006,6 +5046,7 @@ civitas.ACHIEVEMENTS = [
 			}
 		]
 	}, {
+		id: 27,
 		description: 'Gather 100 research.',
 		name: 'Researcher',
 		conditions: [
@@ -5014,6 +5055,7 @@ civitas.ACHIEVEMENTS = [
 			}
 		]
 	}, {
+		id: 28,
 		description: 'Gather 500 research.',
 		name: 'Searching',
 		conditions: [
@@ -5022,6 +5064,7 @@ civitas.ACHIEVEMENTS = [
 			}
 		]
 	}, {
+		id: 29,
 		description: 'Gather 1000 research.',
 		name: 'Einstein',
 		conditions: [
@@ -5030,6 +5073,7 @@ civitas.ACHIEVEMENTS = [
 			}
 		]
 	}, {
+		id: 30,
 		description: 'Build a Castle.',
 		name: 'Castlevania',
 		conditions: [
@@ -5038,6 +5082,7 @@ civitas.ACHIEVEMENTS = [
 			}
 		]
 	}, {
+		id: 31,
 		description: 'Build a Church.',
 		name: 'Winston Churchill, got it?',
 		conditions: [
@@ -5046,6 +5091,7 @@ civitas.ACHIEVEMENTS = [
 			}
 		]
 	}, {
+		id: 32,
 		description: 'Build an Academy.',
 		name: 'Academician',
 		conditions: [
@@ -5054,6 +5100,7 @@ civitas.ACHIEVEMENTS = [
 			}
 		]
 	}, {
+		id: 33,
 		description: 'Build each of the mines (Iron, Gold, Copper and Salt).',
 		name: 'All mine!',
 		conditions: [
@@ -5066,6 +5113,55 @@ civitas.ACHIEVEMENTS = [
 				]
 			}
 		]
+	}, {
+		id: 34,
+		description: 'Fill out all your storage space.',
+		name: 'All filled up',
+		conditions: [
+			{
+				storage: 0
+			}
+		]
+	}, {
+		id: 35,
+		description: 'Build 10 catapults.',
+		name: 'Cat-a-pulter',
+		conditions: [
+			{
+				resources: [
+					{
+						catapults: 10
+					}
+				]
+			}
+		]
+	}, {
+		id: 36,
+		description: 'Build an Embassy.',
+		name: 'Gandhi',
+		conditions: [
+			{
+				buildings: 'embassy'
+			}
+		]
+	}, {
+		id: 37,
+		description: 'Get 100 achievements.',
+		name: 'Achivement? Yes please.',
+		conditions: [
+			{
+				achievements: 100
+			}
+		]
+	}, {
+		id: 38,
+		description: 'Recruit a mercenary army.',
+		name: 'Merc',
+		conditions: [
+			{
+				mercenary: 1
+			}
+		]
 	}
 ];
 
@@ -5073,6 +5169,113 @@ civitas.ACHIEVEMENTS = [
  * Utils object.
  */
 civitas.utils = {
+
+	/**
+	 * Format a timestamp to a more human form (x ago).
+	 *
+	 * @public
+	 * @param {Number} time
+	 * @returns {Number}
+	 */
+	time_since: function(time) {
+		var time_formats = [
+			[
+				2, 
+				"One second", 
+				"1 second from now"
+			], 
+			[
+				60, 
+				"seconds", 
+				1
+			], 
+			[
+				120, 
+				"One minute", 
+				"1 minute from now"
+			], 
+			[
+				3600, 
+				"minutes", 
+				60
+			], 
+			[
+				7200, 
+				"One hour", 
+				"1 hour from now"
+			], 
+			[
+				86400, 
+				"hours", 
+				3600
+			], 
+			[
+				172800, 
+				"One day", 
+				"tomorrow"
+			],
+			[
+				604800, 
+				"days", 
+				86400], 
+			[
+				1209600, 
+				"One week", 
+				"next week"
+			], 
+			[
+				2419200, 
+				"weeks", 
+				604800
+			], 
+			[
+				4838400, 
+				"One month", 
+				"next month"
+			], 
+			[
+				29030400, 
+				"months", 
+				2419200], 
+			[
+				58060800, 
+				"One year", 
+				"next year"
+			], 
+			[
+				2903040000, 
+				"years", 
+				29030400
+			], 
+			[
+				5806080000, 
+				"One century", 
+				"next century"
+			], 
+			[
+				58060800000, 
+				"centuries", 
+				2903040000
+			]
+		];
+		var seconds = (new Date - time) / 1000;
+		var list_choice = 1;
+		if (seconds < 0) {
+			seconds = Math.abs(seconds);
+			list_choice = 1;
+		}
+		var i = 0, format;
+		while (format = time_formats[i++]) {
+			if (seconds < format[0]) {
+				if (typeof format[2] === "string") {
+					return format[list_choice];
+				} else {
+					return Math.floor(seconds / format[2]) + " " + format[1];
+				}
+			}
+		}
+		return time;
+	},
 
 	/**
 	 * Round the number to nearest 10.
@@ -6094,7 +6297,7 @@ civitas.objects.city = function(params) {
 	 */
 	this.has_storage_space_for = function(quantity) {
 		var storage = this.get_storage_space();
-		if (!this.has_storage_space()) {
+		if (!this.has_storage_space(true)) {
 			return false;
 		}
 		if ((storage.occupied + quantity) > storage.all) {
@@ -6110,10 +6313,12 @@ civitas.objects.city = function(params) {
 	 * @public
 	 * @returns {Boolean}
 	 */
-	this.has_storage_space = function() {
+	this.has_storage_space = function(alert) {
 		var storage = this.get_storage_space();
 		if (storage.occupied >= storage.all) {
-			this.get_core().error('There is no storage space in your city.');
+			if (alert === true) {
+				this.get_core().error('There is no storage space in your city.');
+			}
 			return false;
 		}
 		return true;
@@ -10470,18 +10675,23 @@ civitas.controls.panel_advisor = function (params) {
 		var achievements = this.core.get_achievements();
 		var _t = '';
 		for (var i = 0; i < achievements.length; i++) {
-			var achievement_data = civitas.ACHIEVEMENTS[achievements[i].id];
-			_t += '<div class="achievement">' +
-				'<div class="left">' +
-					'<div style="background: url(\'../images/ui/icon_achievement.png\')" class="img"></div>' +
-				'</div>' +
-				'<div class="right">' +
-					'<div class="inner">' +
-						'<h2>' + achievement_data.name + '</h2>' +
-						achievement_data.description +
+			var achievement_data = this.core.get_achievement_by_id(achievements[i].id);
+			if (achievement_data !== false) {
+				_t += '<div class="achievement">' +
+					'<div class="left">' +
+						'<div class="ach img"></div>' +
 					'</div>' +
-				'</div>' +
-			'</div>';
+					'<div class="right">' +
+						'<div class="inner">' +
+							'<h2>' + achievement_data.name + '</h2>' +
+							achievement_data.description +
+						'</div>' +
+						'<div class="time" title="' + achievements[i].date + '">' +
+							'<strong>' + civitas.utils.time_since(achievements[i].date) + '</strong> ago' +
+						'</div>' +
+					'</div>' +
+				'</div>';
+			}
 		}
 		$('#panel-' + this.id + ' .achievements-list').empty().append(_t);
 		return this;
@@ -12139,37 +12349,17 @@ civitas.game = function () {
 		left.appendTo(notty);
 		right.appendTo(notty);
 		hide.appendTo(notty);
-		function time_since(time) {
-			var time_formats = [[2, "One second", "1 second from now"], [60, "seconds", 1], [120, "One minute", "1 minute from now"], [3600, "minutes", 60], [7200, "One hour", "1 hour from now"], [86400, "hours", 3600], [172800, "One day", "tomorrow"], [604800, "days", 86400], [1209600, "One week", "next week"], [2419200, "weeks", 604800], [4838400, "One month", "next month"], [29030400, "months", 2419200], [58060800, "One year", "next year"], [2903040000, "years", 29030400], [5806080000, "One century", "next century"], [58060800000, "centuries", 2903040000]];
-			var seconds = (new Date - time) / 1000;
-			var list_choice = 1;
-			if (seconds < 0) {
-				seconds = Math.abs(seconds);
-				list_choice = 1;
-			}
-			var i = 0, format;
-			while (format = time_formats[i++]) {
-				if (seconds < format[0]) {
-					if (typeof format[2] === "string") {
-						return format[list_choice];
-					} else {
-						return Math.floor(seconds / format[2]) + " " + format[1];
-					}
-				}
-			}
-			return time;
-		}
 		if (settings.achievement === false) {
 			var timestamp = Number(new Date());
 			var timeHTML = $("<div>", {
-				html: "<strong>" + time_since(timestamp) + "</strong> ago"
+				html: "<strong>" + civitas.utils.time_since(timestamp) + "</strong> ago"
 			});
 			timeHTML.addClass("time").attr("title", timestamp);
 			timeHTML.appendTo(right);
 			setInterval(function () {
 				$(".time").each(function () {
 					var timing = $(this).attr("title");
-					$(this).html("<strong>" + time_since(timing) + "</strong> ago");
+					$(this).html("<strong>" + civitas.utils.time_since(timing) + "</strong> ago");
 				});
 			}, 4000);
 		}
@@ -12386,6 +12576,12 @@ civitas.game = function () {
 		return this.difficulty;
 	};
 
+	/**
+	 * Check for any achievements completion.
+	 *
+	 * @public
+	 * @returns {civitas.game}
+	 */
 	this.check_achievements = function() {
 		var achievement;
 		var condition;
@@ -12393,43 +12589,44 @@ civitas.game = function () {
 		for (var i = 0; i < civitas.ACHIEVEMENTS.length; i++) {
 			achievement = civitas.ACHIEVEMENTS[i];
 			for (var z = 0; z < civitas.ACHIEVEMENTS[i].conditions.length; z++) {
-				if (!this.has_achievement(i)) {
-					condition = civitas.ACHIEVEMENTS[i].conditions[z];
+				var id = civitas.ACHIEVEMENTS[i].id;
+				if (!this.has_achievement(achievement)) {
+					condition = achievement.conditions[z];
 					if (typeof condition.city_level !== 'undefined') {
 						if (city.get_level() === condition.city_level) {
-							this.achievement(i);
+							this.achievement(achievement);
 						}
 					}
 					if (typeof condition.soldiers !== 'undefined') {
 						var army = city.get_army_total();
 						if (army.total >= condition.soldiers) {
-							this.achievement(i);
+							this.achievement(achievement);
 						}
 					}
 					if (typeof condition.ships !== 'undefined') {
 						var navy = city.get_navy_total();
 						if (navy.total >= condition.ships) {
-							this.achievement(i);
+							this.achievement(achievement);
 						}
 					}
 					if (typeof condition.coins !== 'undefined') {
 						if (city.get_coins() >= condition.coins) {
-							this.achievement(i);
+							this.achievement(achievement);
 						}
 					}
 					if (typeof condition.research !== 'undefined') {
 						if (city.get_research() >= condition.research) {
-							this.achievement(i);
+							this.achievement(achievement);
 						}
 					}
 					if (typeof condition.prestige !== 'undefined') {
 						if (city.get_prestige() >= condition.prestige) {
-							this.achievement(i);
+							this.achievement(achievement);
 						}
 					}
 					if (typeof condition.espionage !== 'undefined') {
 						if (city.get_espionage() >= condition.espionage) {
-							this.achievement(i);
+							this.achievement(achievement);
 						}
 					}
 					if (typeof condition.buildings !== 'undefined') {
@@ -12442,12 +12639,12 @@ civitas.game = function () {
 								}
 							}
 							if (good === true) {
-								this.achievement(i);
+								this.achievement(achievement);
 							}
 						} else {
 							for (var s = 0; s < city.buildings_list.length; s++) {
 								if (city.buildings_list[s].handle === condition.buildings) {
-									this.achievement(i);
+									this.achievement(achievement);
 									break;
 								}
 							}
@@ -12465,7 +12662,25 @@ civitas.game = function () {
 							}
 						}
 						if (good === true) {
-							this.achievement(i);
+							this.achievement(achievement);
+						}
+					}
+					if (typeof condition.storage !== 'undefined') {
+						if (condition.storage === 0) {
+							if (!city.has_storage_space()) {
+								this.achievement(achievement);
+							}
+						}
+					}
+					if (typeof condition.achievements !== 'undefined') {
+						if (condition.achievements === this.achievements.length) {
+							this.achievement(achievement);
+						}
+					}
+					if (typeof condition.mercenary !== 'undefined') {
+						var merc = city.get_mercenary();
+						if (merc.length >= condition.mercenary) {
+							this.achievement(achievement);
 						}
 					}
 				}
@@ -12478,39 +12693,74 @@ civitas.game = function () {
 	 * Perform an achievement notification in the game.
 	 * 
 	 * @public
-	 * @param {Number} achievement_id
+	 * @param {Object} achievement
 	 * @returns {civitas.game}
 	 */
-	this.achievement = function (achievement_id) {
-		var _achievement = civitas.ACHIEVEMENTS[achievement_id];
+	this.achievement = function (achievement) {
 		this.achievements.push({
-			id: achievement_id,
+			id: achievement.id,
 			date: + new Date()
 		});
 		this._notify({
 			title: 'Achievement Completed',
 			other: true,
 			achievement: true,
-			content: _achievement.description,
+			content: achievement.description,
 			timeout: false
 		});
 		return this;
 	};
 
-	this.has_achievement = function(id) {
+	/**
+	 * Check if the current player has the achievement specified by its id.
+	 *
+	 * @public
+	 * @param {Object} achievement
+	 * @returns {Boolean}
+	 */
+	this.has_achievement = function(achievement) {
 		for (var i = 0; i < this.achievements.length; i++) {
-			if (this.achievements[i].id === id) {
+			if (this.achievements[i].id === achievement.id) {
 				return true;
 			}
 		}
 		return false;
 	};
 
+	/**
+	 * Return a pointer to an existing achievement, searching by id.
+	 *
+	 * @public
+	 * @param {Number} id
+	 * @returns {Object|Boolean}
+	 */
+	this.get_achievement_by_id = function(id) {
+		for (var i = 0; i < civitas.ACHIEVEMENTS.length; i++) {
+			if (civitas.ACHIEVEMENTS[i].id === id) {
+				return civitas.ACHIEVEMENTS[i];
+			}
+		}
+		return false;
+	};
+
+	/**
+	 * Set the achievements to the specified value.
+	 *
+	 * @public
+	 * @param {Array} value
+	 * @returns {civitas.game}
+	 */
 	this.set_achievements = function(value) {
 		this.achievements = value;
 		return this;
 	};
 
+	/**
+	 * Return the completed achievements.
+	 *
+	 * @public
+	 * @returns {Array}
+	 */
 	this.get_achievements = function() {
 		return this.achievements;
 	};

@@ -1,6 +1,12 @@
-
+/**
+ * List of all obtainable game achievements.
+ *
+ * @constant
+ * @type {Array}
+ */
 civitas.ACHIEVEMENTS = [
 	{
+		id: 1,
 		description: 'Reach level 10.',
 		name: 'Kid',
 		conditions: [
@@ -9,6 +15,7 @@ civitas.ACHIEVEMENTS = [
 			}
 		]
 	}, {
+		id: 2,
 		description: 'Reach level 20.',
 		name: 'Adolescent',
 		conditions: [
@@ -17,6 +24,7 @@ civitas.ACHIEVEMENTS = [
 			}
 		]
 	}, {
+		id: 3,
 		description: 'Reach level 30.',
 		name: 'On my own',
 		conditions: [
@@ -25,6 +33,7 @@ civitas.ACHIEVEMENTS = [
 			}
 		]
 	}, {
+		id: 4,
 		description: 'Reach level 40.',
 		name: 'Fear me',
 		conditions: [
@@ -33,6 +42,7 @@ civitas.ACHIEVEMENTS = [
 			}
 		]
 	}, {
+		id: 5,
 		description: 'Reach level 50.',
 		name: 'Godly',
 		conditions: [
@@ -41,6 +51,7 @@ civitas.ACHIEVEMENTS = [
 			}
 		]
 	}, {
+		id: 6,
 		description: 'Reach level 55.',
 		name: 'I am a God!',
 		conditions: [
@@ -49,6 +60,7 @@ civitas.ACHIEVEMENTS = [
 			}
 		]
 	}, {
+		id: 7,
 		description: 'Gather 10k coins.',
 		name: 'Coinage',
 		conditions: [
@@ -57,6 +69,7 @@ civitas.ACHIEVEMENTS = [
 			}
 		]
 	}, {
+		id: 8,
 		description: 'Gather 50k coins.',
 		name: 'Give me coins',
 		conditions: [
@@ -65,6 +78,7 @@ civitas.ACHIEVEMENTS = [
 			}
 		]
 	}, {
+		id: 9,
 		description: 'Gather 100k coins.',
 		name: 'Gatherer',
 		conditions: [
@@ -73,6 +87,7 @@ civitas.ACHIEVEMENTS = [
 			}
 		]
 	}, {
+		id: 10,
 		description: 'Gather 1M coins.',
 		name: 'Milionaire',
 		conditions: [
@@ -81,6 +96,7 @@ civitas.ACHIEVEMENTS = [
 			}
 		]
 	}, {
+		id: 11,
 		description: 'Gather 10M coins.',
 		name: 'Rockefeller',
 		conditions: [
@@ -89,6 +105,7 @@ civitas.ACHIEVEMENTS = [
 			}
 		]
 	}, {
+		id: 12,
 		description: 'Gather 10k stones.',
 		name: 'Stone Age',
 		conditions: [
@@ -101,6 +118,7 @@ civitas.ACHIEVEMENTS = [
 			}
 		]
 	}, {
+		id: 13,
 		description: 'Gather 10k wood.',
 		name: 'Woody the Woodpecker',
 		conditions: [
@@ -113,6 +131,7 @@ civitas.ACHIEVEMENTS = [
 			}
 		]
 	}, {
+		id: 14,
 		description: 'Gather 10k meat.',
 		name: 'Animal killer',
 		conditions: [
@@ -125,6 +144,7 @@ civitas.ACHIEVEMENTS = [
 			}
 		]
 	}, {
+		id: 15,
 		description: 'Recruit 10 soldiers.',
 		name: 'Armed',
 		conditions: [
@@ -133,6 +153,7 @@ civitas.ACHIEVEMENTS = [
 			}
 		]
 	}, {
+		id: 16,
 		description: 'Recruit 100 soldiers.',
 		name: 'Recruiter',
 		conditions: [
@@ -141,6 +162,7 @@ civitas.ACHIEVEMENTS = [
 			}
 		]
 	}, {
+		id: 17,
 		description: 'Recruit 1000 soldiers.',
 		name: 'Armed to the teeth',
 		conditions: [
@@ -149,6 +171,7 @@ civitas.ACHIEVEMENTS = [
 			}
 		]
 	}, {
+		id: 18,
 		description: 'Recruit 10 ships.',
 		name: 'Shipwrecked',
 		conditions: [
@@ -157,6 +180,7 @@ civitas.ACHIEVEMENTS = [
 			}
 		]
 	}, {
+		id: 19,
 		description: 'Recruit 100 ships.',
 		name: 'Captain Ahab',
 		conditions: [
@@ -165,6 +189,7 @@ civitas.ACHIEVEMENTS = [
 			}
 		]
 	}, {
+		id: 20,
 		description: 'Gather 100 prestige.',
 		name: 'Prestigious',
 		conditions: [
@@ -173,6 +198,7 @@ civitas.ACHIEVEMENTS = [
 			}
 		]
 	}, {
+		id: 21,
 		description: 'Gather 500 prestige.',
 		name: 'The God King',
 		conditions: [
@@ -181,6 +207,7 @@ civitas.ACHIEVEMENTS = [
 			}
 		]
 	}, {
+		id: 22,
 		description: 'Gather 10 espionage.',
 		name: 'You got Mossad-ed!',
 		conditions: [
@@ -189,6 +216,7 @@ civitas.ACHIEVEMENTS = [
 			}
 		]
 	}, {
+		id: 23,
 		description: 'Gather 100 espionage.',
 		name: 'You got Snowden-ed!',
 		conditions: [
@@ -197,6 +225,7 @@ civitas.ACHIEVEMENTS = [
 			}
 		]
 	}, {
+		id: 24,
 		description: 'Gather 500 espionage.',
 		name: 'I spy with my own eye',
 		conditions: [
@@ -205,6 +234,7 @@ civitas.ACHIEVEMENTS = [
 			}
 		]
 	}, {
+		id: 25,
 		description: 'Gather 1000 espionage.',
 		name: 'Anna Chapman',
 		conditions: [
@@ -213,6 +243,7 @@ civitas.ACHIEVEMENTS = [
 			}
 		]
 	}, {
+		id: 26,
 		description: 'Gather 10 research.',
 		name: 'Initiate',
 		conditions: [
@@ -221,6 +252,7 @@ civitas.ACHIEVEMENTS = [
 			}
 		]
 	}, {
+		id: 27,
 		description: 'Gather 100 research.',
 		name: 'Researcher',
 		conditions: [
@@ -229,6 +261,7 @@ civitas.ACHIEVEMENTS = [
 			}
 		]
 	}, {
+		id: 28,
 		description: 'Gather 500 research.',
 		name: 'Searching',
 		conditions: [
@@ -237,6 +270,7 @@ civitas.ACHIEVEMENTS = [
 			}
 		]
 	}, {
+		id: 29,
 		description: 'Gather 1000 research.',
 		name: 'Einstein',
 		conditions: [
@@ -245,6 +279,7 @@ civitas.ACHIEVEMENTS = [
 			}
 		]
 	}, {
+		id: 30,
 		description: 'Build a Castle.',
 		name: 'Castlevania',
 		conditions: [
@@ -253,6 +288,7 @@ civitas.ACHIEVEMENTS = [
 			}
 		]
 	}, {
+		id: 31,
 		description: 'Build a Church.',
 		name: 'Winston Churchill, got it?',
 		conditions: [
@@ -261,6 +297,7 @@ civitas.ACHIEVEMENTS = [
 			}
 		]
 	}, {
+		id: 32,
 		description: 'Build an Academy.',
 		name: 'Academician',
 		conditions: [
@@ -269,6 +306,7 @@ civitas.ACHIEVEMENTS = [
 			}
 		]
 	}, {
+		id: 33,
 		description: 'Build each of the mines (Iron, Gold, Copper and Salt).',
 		name: 'All mine!',
 		conditions: [
@@ -279,6 +317,55 @@ civitas.ACHIEVEMENTS = [
 					'coppermine',
 					'saltmine'
 				]
+			}
+		]
+	}, {
+		id: 34,
+		description: 'Fill out all your storage space.',
+		name: 'All filled up',
+		conditions: [
+			{
+				storage: 0
+			}
+		]
+	}, {
+		id: 35,
+		description: 'Build 10 catapults.',
+		name: 'Cat-a-pulter',
+		conditions: [
+			{
+				resources: [
+					{
+						catapults: 10
+					}
+				]
+			}
+		]
+	}, {
+		id: 36,
+		description: 'Build an Embassy.',
+		name: 'Gandhi',
+		conditions: [
+			{
+				buildings: 'embassy'
+			}
+		]
+	}, {
+		id: 37,
+		description: 'Get 100 achievements.',
+		name: 'Achivement? Yes please.',
+		conditions: [
+			{
+				achievements: 100
+			}
+		]
+	}, {
+		id: 38,
+		description: 'Recruit a mercenary army.',
+		name: 'Merc',
+		conditions: [
+			{
+				mercenary: 1
 			}
 		]
 	}

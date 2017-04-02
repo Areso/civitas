@@ -658,7 +658,7 @@ civitas.objects.city = function(params) {
 	 */
 	this.has_storage_space_for = function(quantity) {
 		var storage = this.get_storage_space();
-		if (!this.has_storage_space()) {
+		if (!this.has_storage_space(true)) {
 			return false;
 		}
 		if ((storage.occupied + quantity) > storage.all) {
@@ -674,10 +674,12 @@ civitas.objects.city = function(params) {
 	 * @public
 	 * @returns {Boolean}
 	 */
-	this.has_storage_space = function() {
+	this.has_storage_space = function(alert) {
 		var storage = this.get_storage_space();
 		if (storage.occupied >= storage.all) {
-			this.get_core().error('There is no storage space in your city.');
+			if (alert === true) {
+				this.get_core().error('There is no storage space in your city.');
+			}
 			return false;
 		}
 		return true;

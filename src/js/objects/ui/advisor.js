@@ -344,18 +344,23 @@ civitas.controls.panel_advisor = function (params) {
 		var achievements = this.core.get_achievements();
 		var _t = '';
 		for (var i = 0; i < achievements.length; i++) {
-			var achievement_data = civitas.ACHIEVEMENTS[achievements[i].id];
-			_t += '<div class="achievement">' +
-				'<div class="left">' +
-					'<div style="background: url(\'../images/ui/icon_achievement.png\')" class="img"></div>' +
-				'</div>' +
-				'<div class="right">' +
-					'<div class="inner">' +
-						'<h2>' + achievement_data.name + '</h2>' +
-						achievement_data.description +
+			var achievement_data = this.core.get_achievement_by_id(achievements[i].id);
+			if (achievement_data !== false) {
+				_t += '<div class="achievement">' +
+					'<div class="left">' +
+						'<div class="ach img"></div>' +
 					'</div>' +
-				'</div>' +
-			'</div>';
+					'<div class="right">' +
+						'<div class="inner">' +
+							'<h2>' + achievement_data.name + '</h2>' +
+							achievement_data.description +
+						'</div>' +
+						'<div class="time" title="' + achievements[i].date + '">' +
+							'<strong>' + civitas.utils.time_since(achievements[i].date) + '</strong> ago' +
+						'</div>' +
+					'</div>' +
+				'</div>';
+			}
 		}
 		$('#panel-' + this.id + ' .achievements-list').empty().append(_t);
 		return this;
