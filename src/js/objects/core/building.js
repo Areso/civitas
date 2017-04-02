@@ -183,8 +183,13 @@ civitas.objects.building = function(params) {
 						}
 					}
 					++this.level;
+					var building_image = self.get_type();
+					if (self.get_type().slice(0, -1) === 'house') {
+						building_image = self.get_type().slice(0, -1);
+					}
+					var image = (typeof _c.visible_upgrades === 'undefined' || _c.visible_upgrades === false) ? building_image + '1' : building_image + self.get_level();
 					$('section.game .building[data-type=' + this.get_type() + ']').css({
-						'background-image': 'url(./images/buildings/' + ((self.get_type().slice(0, -1) === 'house') ? self.get_type().slice(0, -1) : self.get_type()) + self.get_level() + '.png)'
+						'background-image': 'url(./images/buildings/' + image + '.png)'
 					});
 					this.get_city().buildings_list[bl_id].level = this.get_level();
 					this.get_core().refresh_panels();

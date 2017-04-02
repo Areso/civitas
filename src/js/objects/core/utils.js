@@ -229,5 +229,12 @@ civitas.utils = {
 			return (num / 1000).toFixed(1).replace(/\.0$/, '') + 'K';
 		}
 		return num;
+	},
+
+	get_random_unique: function(from) {
+		var id = civitas.utils.get_random(0, from.length - 1);
+		var element = from[id];
+		from.splice(id, 1);
+		return element;
 	}
 };

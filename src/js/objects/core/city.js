@@ -7,6 +7,8 @@
  */
 civitas.objects.city = function(params) {
 	
+	this.id = null;
+
 	/**
 	 * The name of this city.
 	 * 
@@ -16,7 +18,7 @@ civitas.objects.city = function(params) {
 	this.name = null;
 	
 	/**
-	 * The name of the city ruler.
+	 * The city ruler.
 	 * 
 	 * @private
 	 * @type {String}
@@ -40,10 +42,10 @@ civitas.objects.city = function(params) {
 	this.buildings = [];
 	
 	/**
-	 * Export data of the buildings list.
+	 * List of buildings in a special export format.
 	 *
-	 * @private
 	 * @type {Array}
+	 * @private
 	 */
 	this.buildings_list = [];
 	
@@ -55,24 +57,6 @@ civitas.objects.city = function(params) {
 	 */
 	this.storage = 0;
 
-	/**
-	 * The personality of the city ruler. It affects the relations with the
-	 * other cities of the world.
-	 * 
-	 * @private
-	 * @type {String}
-	 */
-	this.personality = null;
-	
-	/**
-	 * The nationality of the city. It affects the relations with the
-	 * other cities of the world.
-	 * 
-	 * @private
-	 * @type {String}
-	 */
-	this.nationality = null;
-	
 	/**
 	 * The climate of the zone the city resides in. It affects the type of
 	 * the buildings you can construct.
@@ -115,14 +99,20 @@ civitas.objects.city = function(params) {
 	this.mercenary = [];
 	
 	/**
+	 * List of mercenary armies in a special export format.
+	 *
+	 * @type {Array}
+	 * @private
+	 */
+	this.mercenary_list = [];
+
+	/**
 	 * The resources of this city.
 	 * 
 	 * @private
 	 * @type {Object}
 	 */
 	this.resources = {};
-	
-	this.data = null;
 	
 	/**
 	 * The level of the city.
@@ -140,14 +130,6 @@ civitas.objects.city = function(params) {
 	 */
 	this.trades = null;
 	
-	/**
-	 * The avatar of the ruler of this city.
-	 * 
-	 * @type {Number}
-	 * @private
-	 */
-	this.avatar = null;
-
 	/**
 	 * The icon of this city.
 	 * 
@@ -173,21 +155,62 @@ civitas.objects.city = function(params) {
 	 */
 	this.__init = function(params) {
 		this.core = params.core;
+		this.id = params.id;
 		this.name = params.name;
-		this.data = params.data;
 		this.player = (typeof params.player !== 'undefined') ? params.player : false;
-		this.level = (typeof params.data.level !== 'undefined') ? params.data.level : 1;
-		this.resources = this._build_resources(params);
-		this.personality = (typeof params.data.personality !== 'undefined') ? params.data.personality : civitas.PERSONALITY_BALANCED;
-		this.nationality = (typeof params.data.nationality !== 'undefined') ? params.data.nationality : civitas.NATION_ROMAN;
-		this.climate = (typeof params.data.climate !== 'undefined') ? params.data.climate : civitas.CLIMATE_TEMPERATE;
-		this.ruler = (typeof params.data.ruler !== 'undefined') ? params.data.ruler : 0;
-		this.avatar = (typeof params.data.avatar !== 'undefined') ? params.data.avatar : 1;
-		this.icon = (typeof params.data.icon !== 'undefined') ? params.data.icon : 1;
-		this.reset_trades();
+		this.level = (typeof params.level !== 'undefined') ? params.level : 1;
+		this.resources = (typeof params.resources !== 'undefined') ? params.resources : this._build_resources(params);
+		this.climate = (typeof params.climate !== 'undefined') ? params.climate : civitas.CLIMATE_TEMPERATE;
+		this.ruler = params.ruler;
+		this.icon = (typeof params.icon !== 'undefined') ? params.icon : 1;
+		if (typeof params.trades !== 'undefined') {
+			this.trades = params.trades;
+		} else {
+			this.reset_trades();
+		}
+		if (typeof params.army_list !== 'undefined') {
+			this.setup_army(params.army_list);
+		}
+		if (typeof params.navy_list !== 'undefined') {
+			this.setup_navy(params.navy_list);
+		}
+		if (typeof params.mercenary_list !== 'undefined') {
+			this.setup_mercenary(params.mercenary_list);
+		} else {
+			this.mercenary = [];
+		}
+		this.influence = (typeof params.influence !== 'undefined') ? params.influence : {};
 		return this;
 	};
-	
+
+	/**
+	 * Export city data.
+	 *
+	 * @returns {Object}
+	 * @public
+	 */
+	this.export = function() {
+		var data = {
+			id: this.get_id(),
+			name: this.get_name(),
+			player: this.is_player(),
+			level: this.get_level(),
+			climate: this.get_climate().id,
+			ruler: this.get_ruler(),
+			icon: this.get_icon(),
+			trades: this.get_trades(),
+			resources: this.get_resources(),
+			army_list: this.get_army_total().army,
+			navy_list: this.get_navy_total().navy,
+			buildings: this.get_buildings_list(),
+			mercenary_list: this.get_mercenary_list()
+		};
+		if (this.is_player() === true) {
+			data.influence = this.get_influence();
+		}
+		return data;
+	};
+
 	/**
 	 * Adjust the resources according to the city owner.
 	 *
@@ -199,15 +222,15 @@ civitas.objects.city = function(params) {
 		var resources = {};
 		var difficulty = this.get_core().get_difficulty();
 		for (var item in civitas.RESOURCES) {
-			if (this.player === true) {
+			if (this.is_player() === true) {
 				if (typeof civitas.START_RESOURCES[difficulty - 1][item] === 'undefined') {
 					resources[item] = 0;
 				} else {
 					resources[item] = civitas.START_RESOURCES[difficulty - 1][item];
 				}
 			} else {
-				if (typeof params.data.resources[item] !== 'undefined') {
-					resources[item] = params.data.resources[item];
+				if (typeof params.resources[item] !== 'undefined') {
+					resources[item] = params.resources[item];
 				} else {
 					resources[item] = 0;
 				}
@@ -265,7 +288,7 @@ civitas.objects.city = function(params) {
 				_city.inc_coins(city_price);
 				this.add_to_storage(item, amount);
 				this.remove_from_exports(_city, item, amount);
-				this.raise_influence(city, 2);
+				this.raise_influence(_city.get_id(), 2);
 				this.raise_prestige();
 				this.inc_fame(50);
 				this.get_core().refresh_ui();
@@ -361,8 +384,8 @@ civitas.objects.city = function(params) {
 			'imports': {},
 			'exports': {}
 		};
-		if (typeof civitas.CITIES[this.get_name()] !== 'undefined') {
-			var _trades = civitas.CITIES[this.get_name()].trades;
+		if (typeof civitas.CITIES[this.get_id()] !== 'undefined') {
+			var _trades = civitas.CITIES[this.get_id()].trades;
 			for (var goods_type in _trades) {
 				for (var item in _trades[goods_type]) {
 					trades[goods_type][item] = civitas.utils.get_random_by_importance(_trades[goods_type][item]);
@@ -371,6 +394,7 @@ civitas.objects.city = function(params) {
 			this.trades = trades;
 			return true;
 		} else {
+			this.trades = trades;
 			return false;
 		}
 	};
@@ -450,7 +474,7 @@ civitas.objects.city = function(params) {
 					return false;
 				}
 				this.remove_from_imports(_city, item, amount);
-				this.raise_influence(city, 1);
+				this.raise_influence(_city.get_id(), 1);
 				this.raise_prestige();
 				this.inc_fame(50);
 				this.get_core().refresh_ui();
@@ -496,73 +520,6 @@ civitas.objects.city = function(params) {
 	this.remove_from_imports = function(city, item, amount) {
 		city.trades.imports[item] = city.trades.imports[item] - amount;
 		return true;
-	};
-
-	/**
-	 * Export the game data of this city.
-	 * 
-	 * @public
-	 * @param {Boolean} to_local_storage
-	 * @returns {Object}
-	 */
-	this.export_data = function(to_local_storage) {
-		var data = {
-			name: this.get_name(),
-			ruler: this.get_ruler(),
-			level: this.get_level(),
-			climate: this.get_climate().id,
-			nationality: this.get_nationality().id,
-			difficulty: this.get_core().get_difficulty(),
-			avatar: this.get_avatar(),
-			icon: this.get_icon(),
-			influence: this.get_influence(),
-			army: this.get_army_total(),
-			navy: this.get_navy_total(),
-			mercenary: this.get_mercenary(),
-			resources: this.get_resources(),
-			trades: this.get_core()._get_neighbours_trades(),
-			buildings: this.buildings_list,
-			achievements: this.get_core().get_achievements(),
-			black_market: this.get_core().get_black_market(),
-			date_time: {
-				day: this.get_core().day,
-				month: this.get_core().month,
-				year: this.get_core().year,
-				day_of_month: this.get_core().day_of_month
-			},
-			settings: this.get_core().get_settings()
-		};
-		if (to_local_storage === true) {
-			localStorage.setItem('civitas.data', window.btoa(JSON.stringify(data)));
-		}
-		return data;
-	};
-
-	/**
-	 * Import the game data to this city.
-	 * 
-	 * @public
-	 * @param {Object} data
-	 * @returns {civitas.objects.city}
-	 */
-	this.import_data = function(data) {
-		this.set_name(data.name);
-		this.set_ruler(data.ruler);
-		this.set_level(data.level);
-		this.set_avatar(data.avatar);
-		this.set_icon(data.icon);
-		this.set_nationality(data.nationality);
-		this.get_core().set_achievements(data.achievements);
-		this.set_climate(data.climate);
-		this.setup_army(true, data.army);
-		this.setup_navy(true, data.navy);
-		this.set_mercenary(data.mercenary);
-		this.set_resources(data.resources);
-		this.get_core().set_date_time(data.date_time);
-		this.get_core().set_black_market(data.black_market);
-		this.get_core().set_settings_music(data.settings.music);
-		this.get_core().set_settings_console(data.settings.console);
-		return this;
 	};
 
 	/**
@@ -1073,13 +1030,43 @@ civitas.objects.city = function(params) {
 	};
 
 	/**
-	 * Return the ruler name of this city.
+	 * Return the ruler object of this city.
 	 * 
 	 * @public
 	 * @returns {String}
 	 */
 	this.get_ruler = function() {
 		return this.ruler;
+	};
+
+	/**
+	 * Return the ruler name of this city.
+	 * 
+	 * @public
+	 * @returns {String}
+	 */
+	this.get_ruler_name = function() {
+		return this.ruler.name;
+	};
+
+	/**
+	 * Return the ruler personality of this city.
+	 * 
+	 * @public
+	 * @returns {String}
+	 */
+	this.get_ruler_personality = function() {
+		return this.ruler.personality;
+	};
+
+	/**
+	 * Return the ruler nationality of this city.
+	 * 
+	 * @public
+	 * @returns {String}
+	 */
+	this.get_ruler_nationality = function() {
+		return this.ruler.nationality;
 	};
 
 	/**
@@ -1146,8 +1133,8 @@ civitas.objects.city = function(params) {
 	 */
 	this.get_personality = function() {
 		return {
-			id: this.personality,
-			name: civitas.PERSONALITIES[this.personality]
+			id: this.ruler.personality,
+			name: civitas.PERSONALITIES[this.ruler.personality]
 		};
 	};
 	
@@ -1172,8 +1159,8 @@ civitas.objects.city = function(params) {
 	 */
 	this.get_nationality = function() {
 		return {
-			id: this.nationality,
-			name: civitas.NATIONS[this.nationality]
+			id: this.ruler.nationality,
+			name: civitas.NATIONS[this.ruler.nationality]
 		};
 	};
 	
@@ -1205,20 +1192,8 @@ civitas.objects.city = function(params) {
 	 * @public
 	 * @returns {Number}
 	 */
-	this.get_avatar = function() {
-		return this.avatar;
-	};
-	
-	/**
-	 * Set the avatar of the ruler of this city.
-	 * 
-	 * @public
-	 * @returns {civitas.objects.city}
-	 * @param {Number} value
-	 */
-	this.set_avatar = function(value) {
-		this.avatar = value;
-		return this;
+	this.get_ruler_avatar = function() {
+		return this.ruler.avatar;
 	};
 	
 	/**
@@ -1330,6 +1305,58 @@ civitas.objects.city = function(params) {
 	this.assign_spy = function(city) {
 		// TODO
 		return this;
+	};
+
+	/**
+	 * Get the list of city buildings, for export reasons.
+	 *
+	 * @public
+	 * @returns {Array}
+	 */
+	this.get_buildings_list = function() {
+		return this.buildings_list;
+	};
+
+	/**
+	 * Get the list of city mercenary armies, for export reasons.
+	 *
+	 * @public
+	 * @returns {Array}
+	 */
+	this.get_mercenary_list = function() {
+		return this.mercenary_list;
+	};
+
+	/**
+	 * Get the id of this city.
+	 *
+	 * @public
+	 * @returns {Number}
+	 */
+	this.get_id = function() {
+		return this.id;
+	};
+
+	/**
+	 * Set the id of this city.
+	 *
+	 * @public
+	 * @param {Number}
+	 * @returns {civitas.game}
+	 */
+	this.set_id = function(id) {
+		this.id = id;
+		return this;
+	};
+
+	/**
+	 * Check if this city is a player city.
+	 *
+	 * @public
+	 * @returns {Boolean}
+	 */
+	this.is_player = function() {
+		return this.player;
 	};
 
 	// Fire up the constructor

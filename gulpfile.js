@@ -17,7 +17,9 @@ gulp.task('app', function() {
 		'src/js/constants/default.js',
 		'src/js/languages/en.js',
 		'src/js/constants/initial.js',
+		/*
 		'src/js/constants/api.js',
+		*/
 		'src/js/constants/diplomacy.js',
 		'src/js/constants/nation.js',
 		'src/js/constants/climate.js',

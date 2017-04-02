@@ -103,16 +103,13 @@ civitas.controls.panel_rankings = function (params) {
 	this.refresh = function() {
 		var el = '#panel-' + this.id;
 		var ranking_list = [];
-		for (var item in civitas.CITIES) {
+		var cities = this.core.get_cities();
+		for (var i = 0; i < cities.length; i++) {
 			ranking_list.push({
-				name: item,
-				score: this.get_ranking(item)
+				name: cities[i].get_name(),
+				score: cities[i].get_rank()
 			});
 		}
-		ranking_list.push({
-			name: this.core.get_city().get_name(),
-			score: this.get_ranking(this.core.get_city())
-		});
 		ranking_list.sort(function(a, b) {
 		    var keyA = new Date(a.score);
 		    var keyB = new Date(b.score);
@@ -136,24 +133,6 @@ civitas.controls.panel_rankings = function (params) {
 			'</div>';
 		$(el + ' .contents').empty().append(out);
 		return this;
-	};
-	
-	/**
-	 * Retrieve the current ranking score for a city
-	 *
-	 * @public
-	 * @returns {Number}
-	 */
-	this.get_ranking = function(city) {
-		if (typeof city !== 'undefined' && typeof city === 'string') {
-			return this.core.get_city(city).get_rank();
-		}
-		else if (typeof city !== 'undefined' && typeof city === 'object') {
-			return city.get_rank();
-		}
-		else {
-			return this.core.get_city().get_rank();
-		}
 	};
 
 	// Fire up the constructor

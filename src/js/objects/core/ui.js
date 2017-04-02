@@ -52,10 +52,6 @@ civitas.ui = {
 		return out;
 	},
 
-	city_worldmap_element: function (name) {
-		return '<div data-name="' + name + '" class="tips city c' + civitas.CITIES[name].icon + '" title="' + civitas.l('City of') + ' ' + name + '" style="left:' + civitas.CITIES[name].location.x + 'px;top:' + civitas.CITIES[name].location.y + 'px"></div>';
-	},
-
 	army_img: function (name) {
 		return '<img class="tips" title="' + name + '" src="' + civitas.ASSETS_URL + 'images/armies/' + name.toLowerCase().replace(/ /g,"_") + '_small.png" />';
 	},
@@ -137,7 +133,7 @@ civitas.ui = {
 		var building_image = params.type;
 		var description = '<br /><span class="smalldesc">' + params.data.description + '</span>';
 		if (params.type.slice(0, -1) === 'house') {
-			var building_image = params.type.slice(0, -1);
+			building_image = params.type.slice(0, -1);
 		}
 		var image = (typeof params.data.visible_upgrades === 'undefined' || params.data.visible_upgrades === false) ? building_image + '1' : building_image + params.data.level;
 		return '<div data-type="' + params.type + '" data-level="' + params.data.level + '" ' +

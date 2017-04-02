@@ -1,3 +1,10 @@
+civitas.objects.city.prototype.setup_mercenary = function(mercenary_list) {
+	for (var i = 0; i < mercenary_list.length; i++) {
+		this.recruit_mercenary_army(mercenary_list[i], true);
+	}
+	return this;
+};
+
 /**
  * Recruit a soldier for the city's army.
  * 
@@ -5,7 +12,7 @@
  * @param {String} name
  * @returns {Boolean}
  */
-civitas.objects.city.prototype.recruit_mercenary_army = function(name) {
+civitas.objects.city.prototype.recruit_mercenary_army = function(name, hidden) {
 	for (var i = 0; i < civitas.MERCENARIES.length; i++) {
 		if (name === civitas.MERCENARIES[i].handle) {
 			var price = civitas.MERCENARIES[i].cost;
@@ -26,10 +33,13 @@ civitas.objects.city.prototype.recruit_mercenary_army = function(name) {
 				army.army.push(_soldier);
 			}
 			this.mercenary.push(army);
-			this.get_core().notify('The mercenaries of the ' + civitas.MERCENARIES[i].name + ' are now available for skirmish missions for the duration of one year.', 'Mercenaries recruited.');
-			this.get_core().refresh_ui();
-			this.get_core().refresh_panels();
-			this.get_core().save();
+			if (hidden !== true) {
+				//this.mercenary_list.push(name);
+				this.get_core().notify('The mercenaries of the ' + civitas.MERCENARIES[i].name + ' are now available for skirmish missions for the duration of one year.', 'Mercenaries recruited.');
+				this.get_core().refresh_ui();
+				this.get_core().refresh_panels();
+				this.get_core().save();
+			}
 			return true;
 		}
 	}
@@ -80,6 +90,7 @@ civitas.objects.city.prototype.recruit_soldier = function(soldier_name) {
 				return false;
 			}
 			var _soldier = new civitas.objects.soldier({
+				city: this,
 				name: item,
 				data: soldier
 			});
@@ -250,7 +261,10 @@ civitas.objects.city.prototype.release_mercenaries = function() {
  * @param {Object} data
  * @returns {civitas.objects.city}
  */
-civitas.objects.city.prototype.setup_navy = function(hidden, data) {
+civitas.objects.city.prototype.setup_navy = function(data, hidden) {
+	if (typeof hidden === 'undefined') {
+		hidden = true;
+	}
 	if (typeof data === 'undefined') {
 		var navy = this.data.navy;
 		for (var ship in navy) {
@@ -263,7 +277,7 @@ civitas.objects.city.prototype.setup_navy = function(hidden, data) {
 			}
 		}
 	} else {
-		var navy = data.navy;
+		var navy = data;
 		for (var ship in navy) {
 			for (var i = 0; i < navy[ship]; i++) {
 				if (hidden === true) {
@@ -285,7 +299,10 @@ civitas.objects.city.prototype.setup_navy = function(hidden, data) {
  * @param {Object} data
  * @returns {civitas.objects.city}
  */
-civitas.objects.city.prototype.setup_army = function(hidden, data) {
+civitas.objects.city.prototype.setup_army = function(data, hidden) {
+	if (typeof hidden === 'undefined') {
+		hidden = true;
+	}
 	if (typeof data === 'undefined') {
 		var army = this.data.army;
 		for (var soldier in army) {
@@ -298,7 +315,7 @@ civitas.objects.city.prototype.setup_army = function(hidden, data) {
 			}
 		}
 	} else {
-		var army = data.army;
+		var army = data;
 		for (var soldier in army) {
 			for (var i = 0; i < army[soldier]; i++) {
 				if (hidden === true) {

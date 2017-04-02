@@ -22,7 +22,9 @@ civitas.NATIONS = [
 	'russian',
 	'nigerian',
 	'malinese',
-	'mongolian'
+	'mongolian',
+	'tibetan',
+	'persan'
 ];
 
 /**
@@ -154,9 +156,25 @@ civitas.NATION_NIGERIAN = 15;
 civitas.NATION_MALINESE = 16;
 
 /**
- * Mongolian
+ * Mongolians
  * 
  * @constant
  * @type {Number}
  */
 civitas.NATION_MONGOLIAN = 17;
+
+/**
+ * Tibetans
+ * 
+ * @constant
+ * @type {Number}
+ */
+civitas.NATION_TIBETAN = 18;
+
+/**
+ * Persans
+ * 
+ * @constant
+ * @type {Number}
+ */
+civitas.NATION_PERSAN = 19;

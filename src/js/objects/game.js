@@ -220,12 +220,6 @@ civitas.game = function () {
 			}));
 			return false;
 		});
-		$(document).keyup(function(e) {
-			if (e.keyCode == 27 && !civitas.ui.window_exists('#window-options')) {
-				self.show_loader();
-				self.open_options_window();
-			}
-		});
 		$('.console').on('click', '.down', function () {
 			$('.console .contents').scrollTo('+=97px', 500);
 		}).on('click', '.up', function () {
@@ -463,7 +457,7 @@ civitas.game = function () {
 		var data = null;
 		this.difficulty = parseInt(difficulty);
 		if (localStorage.getItem('civitas.data') !== null) {
-			data = this._load_main_city();
+			data = this._load_main_city(this.import());
 		} else {
 			this._setup_main_city(name, cityname, nation, climate, avatar);
 		}
@@ -471,7 +465,7 @@ civitas.game = function () {
 		this.save();
 		$('header .cityname').html(this.get_city().get_name());
 		$('header .cityavatar').css({
-			'background-image': 'url(' + civitas.ASSETS_URL + 'images/avatars/avatar' + this.get_city().get_avatar() + '.png)'
+			'background-image': 'url(' + civitas.ASSETS_URL + 'images/avatars/avatar' + this.get_city().get_ruler_avatar() + '.png)'
 		});
 		this.refresh_ui();
 		setInterval(function () {
@@ -482,6 +476,12 @@ civitas.game = function () {
 		$('.tips').tipsy({
 			gravity: $.fn.tipsy.autoNS,
 			html: true
+		});
+		$(document).keyup(function(e) {
+			if (e.keyCode == 27 && !civitas.ui.window_exists('#window-options')) {
+				self.show_loader();
+				self.open_options_window();
+			}
 		});
 		this.hide_loader();
 		return this;
@@ -596,31 +596,21 @@ civitas.game = function () {
 	};
 
 	/**
-	 * Load the main city data from the browser localStorage.
+	 * Load the main city data.
 	 * 
 	 * @private
-	 * @returns {Object}
+	 * @returns {Object|Boolean}
 	 */
-	this._load_main_city = function () {
-		var data = JSON.parse(window.atob(localStorage.getItem('civitas.data')));
-		this.set_difficulty(data.difficulty);
-		var my_city = new civitas.objects.city({
-			name: data.name,
-			data: {
-				nationality: data.nationality,
-				ruler: data.ruler,
-				climate: data.climate,
-				personality: civitas.PERSONALITY_BALANCED,
-				avatar: data.avatar,
-				level: data.level
-			},
-			player: true,
-			core: this
-		});
-		my_city.import_data(data);
-		this.cities.push(my_city);
-		this.get_city()._create_buildings(data.buildings);
-		return data;
+	this._load_main_city = function (data) {
+		var player_city_data = data.cities[0];
+		if (player_city_data) {
+			player_city_data.core = this;
+			var new_city = new civitas.objects.city(player_city_data);
+			this.cities.push(new_city);
+			new_city._create_buildings(player_city_data.buildings);
+			return data;
+		}
+		return false;
 	};
 
 	/**
@@ -635,21 +625,24 @@ civitas.game = function () {
 	 * @returns {civitas.game}
 	 */
 	this._setup_main_city = function (name, cityname, nation, climate, avatar) {
+		var difficulty = this.get_difficulty();
 		var my_city = new civitas.objects.city({
 			name: cityname,
-			data: {
-				nationality: nation,
-				ruler: name,
-				climate: climate,
-				personality: civitas.PERSONALITY_BALANCED,
-				avatar: avatar
-			},
+			climate: climate,
+			avatar: avatar,
+			id: 99,
 			player: true,
+			ruler: {
+				name: name,
+				title: '',
+				avatar: avatar,
+				nationality: nation,
+				personality: civitas.PERSONALITY_BALANCED
+			},
+			army_list: civitas.START_ARMY[difficulty - 1].army,
+			navy_list: civitas.START_ARMY[difficulty - 1].navy,
 			core: this
 		});
-		var difficulty = this.get_difficulty();
-		my_city.setup_army(true, civitas.START_ARMY[difficulty - 1]);
-		my_city.setup_navy(true, civitas.START_ARMY[difficulty - 1]);
 		this.cities.push(my_city);
 		this.get_city()._create_buildings(civitas.START_BUILDINGS);
 		return this;
@@ -755,7 +748,7 @@ civitas.game = function () {
 	 * @returns {civitas.game}
 	 */
 	this.save = function () {
-		this.get_city().export_data(true);
+		this.export(true);
 		return this;
 	};
 
@@ -799,7 +792,7 @@ civitas.game = function () {
 		var cities = this.get_cities();
 		for (var i = 1; i < cities.length; i++) {
 			cities[i].reset_trades();
-			this.get_city().lower_influence(cities[i].get_name(), civitas.YEARLY_INFLUENCE_LOSS);
+			this.get_city().lower_influence(cities[i].get_id(), civitas.YEARLY_INFLUENCE_LOSS);
 		}
 		this.get_city().release_mercenaries();
 		this.year++;
@@ -1023,12 +1016,14 @@ civitas.game = function () {
 	 */
 	this.refresh_toolbar = function() {
 		var city = this.get_city();
-		var resources = city.get_resources();
-		for (var i = 0; i < civitas.TOOLBAR_RESOURCES.length; i++) {
-			var resource = civitas.TOOLBAR_RESOURCES[i];
-			var el = $('.top-panel .' + resource);
-			if (typeof resources[resource] !== 'undefined') {
-				el.attr('title', resources[resource] + ' ' + civitas.utils.get_resource_name(resource));
+		if (typeof city !== 'undefined') {
+			var resources = city.get_resources();
+			for (var i = 0; i < civitas.TOOLBAR_RESOURCES.length; i++) {
+				var resource = civitas.TOOLBAR_RESOURCES[i];
+				var el = $('.top-panel .' + resource);
+				if (typeof resources[resource] !== 'undefined') {
+					el.attr('title', resources[resource] + ' ' + civitas.utils.get_resource_name(resource));
+				}
 			}
 		}
 		return this;
@@ -1042,18 +1037,20 @@ civitas.game = function () {
 	 */
 	this.refresh_ui = function () {
 		var city = this.get_city();
-		var storage_space = city.get_storage_space();
-		var needed = civitas.LEVELS[city.get_level()];
-		$('.citylevel').html(city.get_level());
-		$('.cityprestige').html(city.get_prestige());
-		this.refresh_toolbar();
-		if (city.get_fame() >= needed) {
-			city.level_up();
-			needed = civitas.LEVELS[city.get_level()];
+		if (typeof city !== 'undefined') {
+			var storage_space = city.get_storage_space();
+			var needed = civitas.LEVELS[city.get_level()];
+			$('.citylevel').html(city.get_level());
+			$('.cityprestige').html(city.get_prestige());
+			this.refresh_toolbar();
+			if (city.get_fame() >= needed) {
+				city.level_up();
+				needed = civitas.LEVELS[city.get_level()];
+			}
+			$('header .cityfame > span').css({
+				width: Math.floor((city.get_fame() * 100) / needed) + '%'
+			});
 		}
-		$('header .cityfame > span').css({
-			width: Math.floor((city.get_fame() * 100) / needed) + '%'
-		});
 		$('.top-panel > span').tipsy({
 			gravity: 'n'
 		});
@@ -1071,6 +1068,55 @@ civitas.game = function () {
 	};
 
 	/**
+	 * Import game data.
+	 *
+	 * @public
+	 * @returns {Object}
+	 */
+	this.import = function() {
+		var data = JSON.parse(window.atob(localStorage.getItem('civitas.data')));
+		this.set_difficulty(data.difficulty);
+		this.set_achievements(data.achievements);
+		this.set_date_time(data.date_time);
+		this.set_black_market(data.black_market);
+		this.set_settings_music(data.settings.music);
+		this.set_settings_console(data.settings.console);
+		return data;
+	};
+
+	/**
+	 * Export game data.
+	 *
+	 * @public
+	 * @param {Boolean} to_local_storage
+	 * @returns {Object}
+	 */
+	this.export = function(to_local_storage) {
+		var city = this.get_city();
+		var cities_list = [];
+		for (var i = 0; i < this.cities.length; i++) {
+			cities_list.push(this.cities[i].export());
+		}
+		var data = {
+			cities: cities_list,
+			difficulty: this.get_difficulty(),
+			achievements: this.get_achievements(),
+			black_market: this.get_black_market(),
+			date_time: {
+				day: this.day,
+				month: this.month,
+				year: this.year,
+				day_of_month: this.day_of_month
+			},
+			settings: this.get_settings()
+		};
+		if (to_local_storage === true) {
+			localStorage.setItem('civitas.data', window.btoa(JSON.stringify(data)));
+		}
+		return data;
+	};
+
+	/**
 	 * Create all the other cities in the world.
 	 * 
 	 * @public
@@ -1079,25 +1125,41 @@ civitas.game = function () {
 	 */
 	this.setup_neighbours = function (data) {
 		var new_city = null;
-		for (var item in civitas.CITIES) {
-			new_city = new civitas.objects.city({
-				name: item,
-				data: civitas.CITIES[item],
-				player: false,
-				core: this
-			});
-			var climate = new_city.get_climate();
-			var climate_buildings = 'CITY_BUILDINGS_' + climate.name.toUpperCase();
-			new_city._create_buildings(civitas[climate_buildings], true);
-			new_city.setup_army(true);
-			new_city.setup_navy(true);
-			if (data !== null) {
-				this.get_city().influence[item] = data.influence[item];
-				new_city.trades = data.trades[item];
-			} else {
-				this.get_city().influence[item] = 50;
+		var city_data = null;
+		if (data !== null) {
+			for (var i = 1; i < data.cities.length; i++) {
+				city_data = data.cities[i];
+				city_data.core = this;
+				new_city = new civitas.objects.city(city_data);
+				var climate = new_city.get_climate();
+				var climate_buildings = 'CITY_BUILDINGS_' + climate.name.toUpperCase();
+				new_city._create_buildings(civitas[climate_buildings], true);
+				this.cities.push(new_city);
 			}
-			this.cities.push(new_city);
+		} else {
+			for (var item in civitas.CITIES) {
+				item = parseInt(item);
+				var ruler = civitas.utils.get_random_unique(civitas.RULERS);
+				city_data = civitas.CITIES[item];
+				new_city = new civitas.objects.city({
+					core: this,
+					id: item,
+					name: civitas.utils.get_random_unique(civitas.CITY_NAMES),
+					player: false,
+					level: city_data.level,
+					climate: city_data.climate,
+					ruler: ruler,
+					resources: city_data.resources,
+					icon: city_data.icon,
+					army_list: city_data.army,
+					navy_list: city_data.navy
+				});
+				var climate = new_city.get_climate();
+				var climate_buildings = 'CITY_BUILDINGS_' + climate.name.toUpperCase();
+				new_city._create_buildings(civitas[climate_buildings], true);
+				this.get_city().influence[item] = 50;
+				this.cities.push(new_city);
+			}
 		}
 		return this;
 	};
@@ -1112,7 +1174,7 @@ civitas.game = function () {
 		var data = {};
 		var cities = this.get_cities();
 		for (var i = 1; i < cities.length; i++) {
-			data[cities[i].get_name()] = cities[i].get_trades();
+			data[cities[i].get_id()] = cities[i].get_trades();
 		}
 		return data;
 	};

@@ -5,13 +5,9 @@
  * @type {Object}
  */
 civitas.CITIES = {
-	'Byblos': {
-		nationality: civitas.NATION_PHOENICIAN,
-		ruler: 'Cronus',
+	1: {
 		icon: 4,
-		avatar: 1,
 		climate: civitas.CLIMATE_TEMPERATE,
-		personality: civitas.PERSONALITY_DIPLOMAT,
 		level: 25,
 		resources: {
 			coins: 230000,
@@ -59,13 +55,9 @@ civitas.CITIES = {
 			y: 190
 		}
 	},
-	'Carthage': {
-		nationality: civitas.NATION_CARTHAGINIAN,
-		ruler: 'Elisa',
-		avatar: 21,
+	2: {
 		icon: 4,
 		climate: civitas.CLIMATE_TROPICAL,
-		personality: civitas.PERSONALITY_DIPLOMAT,
 		level: 50,
 		resources: {
 			coins: 130000,
@@ -111,18 +103,17 @@ civitas.CITIES = {
 			'Crossbowman': 50,
 			'Pikeman': 40
 		},
+		navy: {
+
+		},
 		location: {
 			x: 170,
 			y: 176
 		}
 	},
-	'Karakorum': {
-		nationality: civitas.NATION_MONGOLIAN,
-		ruler: 'Genghis Khan',
-		avatar: 45,
+	3: {
 		icon: 6,
 		climate: civitas.CLIMATE_TEMPERATE,
-		personality: civitas.PERSONALITY_WARLORD,
 		level: 30,
 		resources: {
 			coins: 100000,
@@ -152,18 +143,17 @@ civitas.CITIES = {
 			'Crossbowman': 320,
 			'Pikeman': 300
 		},
+		navy: {
+
+		},
 		location: {
 			x: 710,
 			y: 150
 		}
 	},
-	'Kyrene': {
-		nationality: civitas.NATION_GREEK,
-		ruler: 'Abdul',
-		avatar: 33,
+	4: {
 		icon: 5,
 		climate: civitas.CLIMATE_TROPICAL,
-		personality: civitas.PERSONALITY_WARLORD,
 		level: 22,
 		resources: {
 			coins: 200000,
@@ -197,18 +187,17 @@ civitas.CITIES = {
 			'Crossbowman': 30,
 			'Pikeman': 90
 		},
+		navy: {
+
+		},
 		location: {
 			x: 240,
 			y: 210
 		}
 	},
-	'Menat Khufu': {
-		nationality: civitas.NATION_EGYPTIAN,
-		ruler: 'Khufu',
-		avatar: 34,
+	5: {
 		icon: 7,
 		climate: civitas.CLIMATE_ARID,
-		personality: civitas.PERSONALITY_DIPLOMAT,
 		level: 45,
 		resources: {
 			coins: 200000,
@@ -244,18 +233,17 @@ civitas.CITIES = {
 			'Crossbowman': 30,
 			'Pikeman': 50
 		},
+		navy: {
+
+		},
 		location: {
 			x: 280,
 			y: 250
 		}
 	},
-	'Niani': {
-		nationality: civitas.NATION_MALINESE,
-		ruler: 'Mansa Musa',
-		avatar: 30,
+	6: {
 		icon: 2,
 		climate: civitas.CLIMATE_TROPICAL,
-		personality: civitas.PERSONALITY_WARLORD,
 		level: 21,
 		resources: {
 			coins: 200000,
@@ -285,18 +273,17 @@ civitas.CITIES = {
 			'Militia': 200,
 			'Bowman': 200,
 		},
+		navy: {
+
+		},
 		location: {
 			x: 70,
 			y: 280
 		}
 	},
-	'Niniveh': {
-		nationality: civitas.NATION_ASSYRIAN,
-		ruler: 'Sennacherib',
-		avatar: 37,
+	7: {
 		icon: 4,
 		climate: civitas.CLIMATE_ARID,
-		personality: civitas.PERSONALITY_DIPLOMAT,
 		level: 35,
 		resources: {
 			coins: 130000,
@@ -327,18 +314,17 @@ civitas.CITIES = {
 			'Crossbowman': 10,
 			'Pikeman': 30
 		},
+		navy: {
+
+		},
 		location: {
 			x: 380,
 			y: 130
 		}
 	},
-	'Novgorod': {
-		nationality: civitas.NATION_RUSSIAN,
-		ruler: 'Rurik',
-		avatar: 5,
+	8: {
 		icon: 5,
 		climate: civitas.CLIMATE_POLAR,
-		personality: civitas.PERSONALITY_WARLORD,
 		level: 20,
 		resources: {
 			coins: 30000,
@@ -370,18 +356,17 @@ civitas.CITIES = {
 			'Crossbowman': 10,
 			'Pikeman': 30
 		},
+		navy: {
+
+		},
 		location: {
 			x: 330,
 			y: 10
 		}
 	},
-	'Rome': {
-		nationality: civitas.NATION_ROMAN,
-		ruler: 'Caesar',
-		avatar: 17,
+	9: {
 		icon: 4,
 		climate: civitas.CLIMATE_TEMPERATE,
-		personality: civitas.PERSONALITY_BALANCED,
 		level: 50,
 		resources: {
 			coins: 330000,
@@ -424,18 +409,17 @@ civitas.CITIES = {
 			'Crossbowman': 210,
 			'Pikeman': 90
 		},
+		navy: {
+
+		},
 		location: {
 			x: 190,
 			y: 140
 		}
 	},
-	'Sarmizegetusa': {
-		nationality: civitas.NATION_THRACIAN,
-		ruler: 'Deceballus',
-		avatar: 8,
+	10: {
 		icon: 7,
 		climate: civitas.CLIMATE_CONTINENTAL,
-		personality: civitas.PERSONALITY_WARLORD,
 		level: 18,
 		resources: {
 			coins: 22000,
@@ -464,18 +448,17 @@ civitas.CITIES = {
 			'Crossbowman': 20,
 			'Pikeman': 30
 		},
+		navy: {
+
+		},
 		location: {
 			x: 250,
 			y: 110
 		}
 	},
-	'Sigiriya': {
-		nationality: civitas.NATION_INDIAN,
-		ruler: 'Kashyapa',
-		avatar: 40,
+	11: {
 		icon: 7,
 		climate: civitas.CLIMATE_TROPICAL,
-		personality: civitas.PERSONALITY_BALANCED,
 		level: 22,
 		resources: {
 			coins: 180000,
@@ -516,13 +499,9 @@ civitas.CITIES = {
 			y: 340
 		}
 	},
-	'Selima Oasis': {
-		nationality: civitas.NATION_SUDANESE,
-		ruler: 'Pepi',
-		avatar: 38,
+	12: {
 		icon: 7,
 		climate: civitas.CLIMATE_TROPICAL,
-		personality: civitas.PERSONALITY_WARLORD,
 		level: 18,
 		resources: {
 			coins: 80000,
@@ -558,18 +537,17 @@ civitas.CITIES = {
 			'Crossbowman': 10,
 			'Pikeman': 30
 		},
+		navy: {
+
+		},
 		location: {
 			x: 300,
 			y: 340
 		}
 	},
-	'Taruga': {
-		nationality: civitas.NATION_NIGERIAN,
-		ruler: 'Samun',
-		avatar: 30,
+	13: {
 		icon: 2,
 		climate: civitas.CLIMATE_TROPICAL,
-		personality: civitas.PERSONALITY_WARLORD,
 		level: 16,
 		resources: {
 			coins: 20000,
@@ -599,18 +577,17 @@ civitas.CITIES = {
 			'Militia': 120,
 			'Bowman': 32,
 		},
+		navy: {
+
+		},
 		location: {
 			x: 190,
 			y: 310
 		}
 	},
-	'Thebes': {
-		nationality: civitas.NATION_EGYPTIAN,
-		ruler: 'Hatshepsut',
-		avatar: 36,
+	14: {
 		icon: 4,
 		climate: civitas.CLIMATE_TROPICAL,
-		personality: civitas.PERSONALITY_DIPLOMAT,
 		level: 38,
 		resources: {
 			coins: 280000,
@@ -644,18 +621,17 @@ civitas.CITIES = {
 			'Crossbowman': 10,
 			'Pikeman': 30
 		},
+		navy: {
+
+		},
 		location: {
 			x: 330,
 			y: 300
 		}
 	},
-	'Toledo': {
-		nationality: civitas.NATION_SPANISH,
-		ruler: 'Juan Luiz',
-		avatar: 12,
+	15: {
 		icon: 5,
 		climate: civitas.CLIMATE_TEMPERATE,
-		personality: civitas.PERSONALITY_BALANCED,
 		level: 21,
 		resources: {
 			coins: 110000,
@@ -689,18 +665,17 @@ civitas.CITIES = {
 			'Crossbowman': 10,
 			'Pikeman': 30
 		},
+		navy: {
+
+		},
 		location: {
 			x: 90,
 			y: 150
 		}
 	},
-	'Tournai': {
-		nationality: civitas.NATION_FRANKS,
-		ruler: 'Clovis',
-		avatar: 44,
+	16: {
 		icon: 5,
 		climate: civitas.CLIMATE_CONTINENTAL,
-		personality: civitas.PERSONALITY_WARLORD,
 		level: 22,
 		resources: {
 			coins: 10000,
@@ -734,18 +709,17 @@ civitas.CITIES = {
 			'Crossbowman': 10,
 			'Pikeman': 30
 		},
+		navy: {
+
+		},
 		location: {
 			x: 130,
 			y: 80
 		}
 	},
-	'Uruk': {
-		nationality: civitas.NATION_SUMERIAN,
-		ruler: 'Gilgamesh',
-		avatar: 14,
+	17: {
 		icon: 7,
 		climate: civitas.CLIMATE_TROPICAL,
-		personality: civitas.PERSONALITY_WARLORD,
 		level: 26,
 		resources: {
 			coins: 80000,
@@ -778,18 +752,17 @@ civitas.CITIES = {
 			'Crossbowman': 10,
 			'Pikeman': 30
 		},
+		navy: {
+
+		},
 		location: {
 			x: 400,
 			y: 170
 		}
 	},
-	'Xinjiang': {
-		nationality: civitas.NATION_CHINESE,
-		ruler: 'Gaozu',
-		avatar: 15,
+	18: {
 		icon: 7,
 		climate: civitas.CLIMATE_TEMPERATE,
-		personality: civitas.PERSONALITY_BALANCED,
 		level: 29,
 		resources: {
 			coins: 240000,
@@ -822,18 +795,17 @@ civitas.CITIES = {
 			'Crossbowman': 30,
 			'Pikeman': 10
 		},
+		navy: {
+
+		},
 		location: {
 			x: 600,
 			y: 200
 		}
 	},
-	'Yinxu': {
-		nationality: civitas.NATION_CHINESE,
-		ruler: 'Wu Ding',
-		avatar: 15,
+	19: {
 		icon: 7,
 		climate: civitas.CLIMATE_TEMPERATE,
-		personality: civitas.PERSONALITY_WARLORD,
 		level: 22,
 		resources: {
 			coins: 240000,
@@ -871,9 +843,185 @@ civitas.CITIES = {
 			'Crossbowman': 10,
 			'Pikeman': 30
 		},
+		navy: {
+
+		},
 		location: {
 			x: 760,
 			y: 240
 		}
 	}
 };
+
+/**
+ * List of world rulers.
+ *
+ * @constant
+ * @type {Array}
+ */
+civitas.RULERS = [
+	{
+		name: 'Caesar',
+		title: '',
+		avatar: 1,
+		nationality: civitas.NATION_ROMAN,
+		personality: civitas.PERSONALITY_WARLORD
+	},
+	{
+		name: 'Cronus',
+		title: '',
+		avatar: 3,
+		nationality: civitas.NATION_PHOENICIAN,
+		personality: civitas.PERSONALITY_BALANCED
+	},
+	{
+		name: 'Elisa',
+		title: '',
+		avatar: 41,
+		nationality: civitas.NATION_CARTHAGINIAN,
+		personality: civitas.PERSONALITY_DIPLOMAT
+	},
+	{
+		name: 'Genghis Khan',
+		title: '',
+		avatar: 19,
+		nationality: civitas.NATION_MONGOLIAN,
+		personality: civitas.PERSONALITY_WARLORD
+	},
+	{
+		name: 'Khufu',
+		title: '',
+		avatar: 20,
+		nationality: civitas.NATION_EGYPTIAN,
+		personality: civitas.PERSONALITY_DIPLOMAT
+	},
+	{
+		name: 'Mansa Musa',
+		title: '',
+		avatar: 30,
+		nationality: civitas.NATION_MALINESE,
+		personality: civitas.PERSONALITY_WARLORD
+	},
+	{
+		name: 'Sennacherib',
+		title: '',
+		avatar: 34,
+		nationality: civitas.NATION_ASSYRIAN,
+		personality: civitas.PERSONALITY_BALANCED
+	},
+	{
+		name: 'Pepi',
+		title: '',
+		avatar: 40,
+		nationality: civitas.NATION_SUDANESE,
+		personality: civitas.PERSONALITY_DIPLOMAT
+	},
+	{
+		name: 'Hatshepsut',
+		title: '',
+		avatar: 36,
+		nationality: civitas.NATION_EGYPTIAN,
+		personality: civitas.PERSONALITY_BALANCED
+	},
+	{
+		name: 'Clovis',
+		title: '',
+		avatar: 13,
+		nationality: civitas.NATION_FRANKS,
+		personality: civitas.PERSONALITY_DIPLOMAT
+	},
+	{
+		name: 'Gilgamesh',
+		title: '',
+		avatar: 31,
+		nationality: civitas.NATION_SUMERIAN,
+		personality: civitas.PERSONALITY_WARLORD
+	},
+	{
+		name: 'Dalai Lama',
+		title: '',
+		avatar: 45,
+		nationality: civitas.NATION_TIBETAN,
+		personality: civitas.PERSONALITY_DIPLOMAT
+	},
+	{
+		name: 'Ashoka',
+		title: '',
+		avatar: 28,
+		nationality: civitas.NATION_INDIAN,
+		personality: civitas.PERSONALITY_DIPLOMAT
+	},
+	{
+		name: 'Charlemagne',
+		title: '',
+		avatar: 43,
+		nationality: civitas.NATION_FRANKS,
+		personality: civitas.PERSONALITY_DIPLOMAT
+	},
+	{
+		name: 'Darius',
+		title: '',
+		avatar: 38,
+		nationality: civitas.NATION_PERSAN,
+		personality: civitas.PERSONALITY_WARLORD
+	},
+	{
+		name: 'Ivan III',
+		title: '',
+		avatar: 19,
+		nationality: civitas.NATION_RUSSIAN,
+		personality: civitas.PERSONALITY_WARLORD
+	},
+	{
+		name: 'Qin Shi Huang',
+		title: '',
+		avatar: 45,
+		nationality: civitas.NATION_CHINESE,
+		personality: civitas.PERSONALITY_DIPLOMAT
+	},
+	{
+		name: 'Ozymandias',
+		title: '',
+		avatar: 33,
+		nationality: civitas.NATION_EGYPTIAN,
+		personality: civitas.PERSONALITY_BALANCED
+	},
+	{
+		name: 'Timur',
+		title: '',
+		avatar: 37,
+		nationality: civitas.NATION_PERSAN,
+		personality: civitas.PERSONALITY_WARLORD
+	}
+];
+
+/**
+ * List of world city names.
+ *
+ * @constant
+ * @type {Array}
+ */
+civitas.CITY_NAMES = [
+	'Alexandria',
+	'Rome',
+	'Carthage',
+	'Constantinople',
+	'Karakorum',
+	'Niniveh',
+	'Thebes',
+	'Uruk',
+	'Abydos',
+	'Byblos',
+	'Kyrene',
+	'Menat Khufu',
+	'Niani',
+	'Novgorod',
+	'Sarmizegetusa',
+	'Sigiriya',
+	'Selima Oasis',
+	'Tournai',
+	'Taruga',
+	'Toledo',
+	'Xinjiang',
+	'Yinxu'
+];

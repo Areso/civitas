@@ -303,14 +303,14 @@ civitas.controls.panel_advisor = function (params) {
 				'<table class="normal">';
 		for (var i = 1; i < cities.length; i++) {
 			_t += '<tr>' +
-					'<td class="icon"><img src="' + civitas.ASSETS_URL + 'images/avatars/avatar' + cities[i].get_avatar() + '.png" /></td>' +
+					'<td class="icon"><img src="' + civitas.ASSETS_URL + 'images/avatars/avatar' + cities[i].get_ruler_avatar() + '.png" /></td>' +
 					'<td>' +
 					'<p>' +
 						'<span class="title">' + cities[i].get_name() + '</span> ' +
-						'<span class="description">' + civitas.l('Leader') + ': ' + cities[i].get_ruler() + ' ' + civitas.l('Personality') + ': ' + cities[i].get_personality().name + '</span>' +
+						'<span class="description">' + civitas.l('Leader') + ': ' + cities[i].get_ruler_name() + ' ' + civitas.l('Personality') + ': ' + cities[i].get_personality().name + '</span>' +
 					'</p>';
 			var influence = this.core.get_city().get_influence();
-			influence = influence[cities[i].get_name()];
+			influence = influence[cities[i].get_id()];
 			var _e = '';
 			if (influence < 20) {
 				_e = ' vbad';
@@ -368,10 +368,10 @@ civitas.controls.panel_advisor = function (params) {
 
 	this._refresh_info = function() {
 		var city = this.core.get_city();
-		var _t = '<img class="avatar" src="' + civitas.ASSETS_URL + 'images/avatars/avatar' + city.get_avatar() + '.png" />' +
+		var _t = '<img class="avatar" src="' + civitas.ASSETS_URL + 'images/avatars/avatar' + city.get_ruler_avatar() + '.png" />' +
 				'<dl>' +
 				'<dt>' + civitas.l('Current date') + '</dt><dd class="citydate">' + this.core.get_date() + '</dd>' +
-				'<dt>' + civitas.l('Ruler') + '</dt><dd>' + city.get_ruler() + '</dd>' +
+				'<dt>' + civitas.l('Ruler') + '</dt><dd>' + city.get_ruler_name() + '</dd>' +
 				'<dt>' + civitas.l('Climate') + '</dt><dd>' + city.get_climate().name.capitalize() + '</dd>' +
 				'<dt>' + civitas.l('Personality') + '</dt><dd>' + city.get_personality().name.capitalize() + '</dd>' +
 				'<dt>' + civitas.l('Nationality') + '</dt><dd>' + city.get_nationality().name.capitalize() + '</dd>' +

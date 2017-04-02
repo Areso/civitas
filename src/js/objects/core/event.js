@@ -130,10 +130,10 @@ civitas.objects.event = function (params) {
 				this.core.get_city().inc_coins(this.data.amount);
 				break;
 			case civitas.EVENT_EFFECT_RAISE_INFLUENCE:
-				this.core.get_city().raise_influence(this.core.get_city(this.data.city), this.data.amount);
+				this.core.get_city().raise_influence(this.core.get_city(this.data.city).get_id(), this.data.amount);
 				break;
 			case civitas.EVENT_EFFECT_LOWER_INFLUENCE:
-				this.core.get_city().lower_influence(this.core.get_city(this.data.city), this.data.amount);
+				this.core.get_city().lower_influence(this.core.get_city(this.data.city).get_id(), this.data.amount);
 				break;
 			case civitas.EVENT_EFFECT_GAIN_FAME:
 				this.core.get_city().inc_fame(this.data.amount);
