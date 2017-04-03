@@ -988,7 +988,7 @@ civitas.RULERS = [
 	{
 		name: 'Dalai Lama',
 		title: 'Priest',
-		avatar: 45,
+		avatar: 48,
 		nationality: civitas.NATION_TIBETAN,
 		personality: civitas.PERSONALITY_DIPLOMAT
 	},
@@ -1044,14 +1044,14 @@ civitas.RULERS = [
 	{
 		name: 'Pol Pot',
 		title: 'President',
-		avatar: 30,
+		avatar: 46,
 		nationality: civitas.NATION_KHMER,
 		personality: civitas.PERSONALITY_WARLORD
 	},
 	{
 		name: 'Napoleon',
 		title: 'Emperor',
-		avatar: 30,
+		avatar: 47,
 		nationality: civitas.NATION_FRENCH,
 		personality: civitas.PERSONALITY_WARLORD
 	},

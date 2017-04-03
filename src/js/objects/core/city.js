@@ -414,6 +414,7 @@ civitas.objects.city = function(params) {
 			var price = civitas.utils.calc_price_minus_discount(amount, resource, discount);
 			this.get_core().add_black_market(resource, amount, price);
 			this.get_core().refresh_ui();
+			this.get_core().refresh_panels();
 			this.get_core().notify(this.get_name() + ' placed ' + amount + ' ' + civitas.utils.get_resource_name(resource) + ' on the Black Market and will receive ' + price + ' coins next month.', 'Goods listed');
 			return {
 				seller: this.get_name(),
@@ -745,18 +746,19 @@ civitas.objects.city = function(params) {
 			if ((resources.coins - _c.cost.coins) < 0) {
 				this.get_core().error('You don`t have enough coins to construct this building.');
 				return false;
-			} else {
-				resources.coins = resources.coins - _c.cost.coins;
 			}
+			/*else {
+				resources.coins = resources.coins - _c.cost.coins;
+			}*/
 			for (var item in _c.cost) {
-				if (item !== 'coins') {
+				//if (item !== 'coins') {
 					if ((this.get_resources()[item] - _c.cost[item]) < 0) {
 						this.get_core().error('You don`t have enough ' + item + ' to construct this building.');
 						return false;
 					} else {
 						this.get_resources()[item] = this.get_resources()[item] - _c.cost[item];
 					}
-				}
+				//}
 			}
 			var _building = new civitas.objects.building({
 				city: this,

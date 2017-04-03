@@ -67,7 +67,7 @@ civitas.controls.panel_army = function (params) {
 			.replace(/{id}/g, this.id)
 			.replace(/{title}/g, army.name));
 		$(el + ' .contents').append(civitas.ui.tabs(['Info', 'Soldiers', 'Ships']));
-		$(el + ' #tab-info').append('<img class="avatar" src="' + civitas.ASSETS_URL + 'images/armies/' + army.icon + '.png" />' +
+		$(el + ' #tab-info').append('<img class="avatar" src="' + civitas.ASSETS_URL + 'images/armies/' + ((typeof army.icon !== 'undefined') ? army.icon : '22') + '.png" />' +
 				'<p>' + army.description + '</p>');
 		$(el + ' #tab-soldiers').append(civitas.ui.army_list(army));
 		$(el + ' #tab-ships').append(civitas.ui.navy_list(army));

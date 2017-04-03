@@ -90,7 +90,7 @@ civitas.YEARLY_INFLUENCE_LOSS = 10;
  * @constant
  * @type {Number}
  */
-civitas.AVATARS = 45;
+civitas.AVATARS = 48;
 
 civitas.TRADES_ADDITION = 10;
 
@@ -130,17 +130,18 @@ civitas.TOOLBAR_RESOURCES = [
  * @type {Array}
  */
 civitas.LEVELS = [
-	0, 100, 500, 1000, 2000,
-	3500, 5000, 7000, 10000, 13000,
-	16000, 20000, 25000, 29000, 35000,
-	40000, 45000, 50000, 60000, 70000,
-	80000, 90000, 100000, 120000, 150000,
+	0, 100, 500, 1000, 3000,
+	5500, 8000, 11000, 13000, 16000,
+	19000, 25000, 29000, 35000, 40000,
+	45000, 50000, 60000, 70000, 80000,
+	90000, 100000, 120000, 150000,
 	180000, 200000, 240000, 280000, 350000,
 	400000, 450000, 500000, 550000, 600000,
 	650000, 750000, 850000, 900000, 1000000,
 	1200000, 1400000, 1600000, 1800000, 2000000,
 	2200000, 2400000, 2600000, 2800000, 3000000,
-	3400000, 3800000, 4400000, 5000000, 6000000
+	3400000, 3800000, 4400000, 5000000, 6000000,
+	7000000
 ];
 
 /**
@@ -4468,7 +4469,7 @@ civitas.RULERS = [
 	{
 		name: 'Dalai Lama',
 		title: 'Priest',
-		avatar: 45,
+		avatar: 48,
 		nationality: civitas.NATION_TIBETAN,
 		personality: civitas.PERSONALITY_DIPLOMAT
 	},
@@ -4524,14 +4525,14 @@ civitas.RULERS = [
 	{
 		name: 'Pol Pot',
 		title: 'President',
-		avatar: 30,
+		avatar: 46,
 		nationality: civitas.NATION_KHMER,
 		personality: civitas.PERSONALITY_WARLORD
 	},
 	{
 		name: 'Napoleon',
 		title: 'Emperor',
-		avatar: 30,
+		avatar: 47,
 		nationality: civitas.NATION_FRENCH,
 		personality: civitas.PERSONALITY_WARLORD
 	},
@@ -6464,6 +6465,7 @@ civitas.objects.city = function(params) {
 			var price = civitas.utils.calc_price_minus_discount(amount, resource, discount);
 			this.get_core().add_black_market(resource, amount, price);
 			this.get_core().refresh_ui();
+			this.get_core().refresh_panels();
 			this.get_core().notify(this.get_name() + ' placed ' + amount + ' ' + civitas.utils.get_resource_name(resource) + ' on the Black Market and will receive ' + price + ' coins next month.', 'Goods listed');
 			return {
 				seller: this.get_name(),
@@ -6795,18 +6797,19 @@ civitas.objects.city = function(params) {
 			if ((resources.coins - _c.cost.coins) < 0) {
 				this.get_core().error('You don`t have enough coins to construct this building.');
 				return false;
-			} else {
-				resources.coins = resources.coins - _c.cost.coins;
 			}
+			/*else {
+				resources.coins = resources.coins - _c.cost.coins;
+			}*/
 			for (var item in _c.cost) {
-				if (item !== 'coins') {
+				//if (item !== 'coins') {
 					if ((this.get_resources()[item] - _c.cost[item]) < 0) {
 						this.get_core().error('You don`t have enough ' + item + ' to construct this building.');
 						return false;
 					} else {
 						this.get_resources()[item] = this.get_resources()[item] - _c.cost[item];
 					}
-				}
+				//}
 			}
 			var _building = new civitas.objects.building({
 				city: this,
@@ -11582,7 +11585,7 @@ civitas.controls.panel_army = function (params) {
 			.replace(/{id}/g, this.id)
 			.replace(/{title}/g, army.name));
 		$(el + ' .contents').append(civitas.ui.tabs(['Info', 'Soldiers', 'Ships']));
-		$(el + ' #tab-info').append('<img class="avatar" src="' + civitas.ASSETS_URL + 'images/armies/' + army.icon + '.png" />' +
+		$(el + ' #tab-info').append('<img class="avatar" src="' + civitas.ASSETS_URL + 'images/armies/' + ((typeof army.icon !== 'undefined') ? army.icon : '22') + '.png" />' +
 				'<p>' + army.description + '</p>');
 		$(el + ' #tab-soldiers').append(civitas.ui.army_list(army));
 		$(el + ' #tab-ships').append(civitas.ui.navy_list(army));
@@ -12468,7 +12471,7 @@ civitas.game = function () {
 			if (!self.is_paused()) {
 				self._do_daily();
 			}
-		}, 20000);
+		}, 16000);
 		$('.tips').tipsy({
 			gravity: $.fn.tipsy.autoNS,
 			html: true
