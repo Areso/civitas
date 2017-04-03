@@ -2,7 +2,7 @@
  * Civitas empire-building game.
  *
  * @author sizeof(cat) <sizeofcat AT riseup.net>
- * @version 0.1.0.422017
+ * @version 0.1.0.432017
  * @license MIT
  */ 'use strict';
 
@@ -467,7 +467,10 @@ civitas.NATIONS = [
 	'malinese',
 	'mongolian',
 	'tibetan',
-	'persan'
+	'persan',
+	'khmer',
+	'japanese',
+	'french'
 ];
 
 /**
@@ -621,6 +624,31 @@ civitas.NATION_TIBETAN = 18;
  * @type {Number}
  */
 civitas.NATION_PERSAN = 19;
+
+/**
+ * Khmer
+ * 
+ * @constant
+ * @type {Number}
+ */
+civitas.NATION_KHMER = 20;
+
+/**
+ * Japanese
+ * 
+ * @constant
+ * @type {Number}
+ */
+civitas.NATION_JAPANESE = 21;
+
+/**
+ * French
+ * 
+ * @constant
+ * @type {Number}
+ */
+civitas.NATION_FRENCH = 22;
+
 /**
  * List of the possible climate types.
  * 
@@ -683,8 +711,8 @@ civitas.CLIMATE_POLAR = 5;
  * @type {Object}
  */
 civitas.CITY_LOCATION_TEMPERATE = {
-	x: 530,
-	y: 150
+	x: 500,
+	y: 500
 };
 
 /**
@@ -694,8 +722,8 @@ civitas.CITY_LOCATION_TEMPERATE = {
  * @type {Object}
  */
 civitas.CITY_LOCATION_TROPICAL = {
-	x: 45,
-	y: 250
+	x: 500,
+	y: 450
 };
 
 /**
@@ -705,8 +733,8 @@ civitas.CITY_LOCATION_TROPICAL = {
  * @type {Object}
  */
 civitas.CITY_LOCATION_ARID = {
-	x: 340,
-	y: 130
+	x: 500,
+	y: 300
 };
 
 /**
@@ -716,8 +744,8 @@ civitas.CITY_LOCATION_ARID = {
  * @type {Object}
  */
 civitas.CITY_LOCATION_CONTINENTAL = {
-	x: 540,
-	y: 150
+	x: 500,
+	y: 200
 };
 
 /**
@@ -727,8 +755,8 @@ civitas.CITY_LOCATION_CONTINENTAL = {
  * @type {Object}
  */
 civitas.CITY_LOCATION_POLAR = {
-	x: 490,
-	y: 10
+	x: 500,
+	y: 60
 };
 
 /**
@@ -3458,7 +3486,7 @@ civitas.BUILDINGS = [{
  */
 civitas.CITIES = {
 	1: {
-		icon: 4,
+		icon: 7,
 		climate: civitas.CLIMATE_TEMPERATE,
 		level: 25,
 		resources: {
@@ -3503,7 +3531,7 @@ civitas.CITIES = {
 			'Ship of the Line': 1
 		},
 		location: {
-			x: 310,
+			x: 380,
 			y: 190
 		}
 	},
@@ -3512,7 +3540,7 @@ civitas.CITIES = {
 		climate: civitas.CLIMATE_TROPICAL,
 		level: 50,
 		resources: {
-			coins: 130000,
+			coins: 230000,
 			prestige: 700,
 			espionage: 1200
 		},
@@ -3559,16 +3587,16 @@ civitas.CITIES = {
 
 		},
 		location: {
-			x: 170,
-			y: 176
+			x: 60,
+			y: 500
 		}
 	},
 	3: {
-		icon: 6,
+		icon: 7,
 		climate: civitas.CLIMATE_TEMPERATE,
 		level: 30,
 		resources: {
-			coins: 100000,
+			coins: 160000,
 			prestige: 1000,
 			espionage: 800
 		},
@@ -3599,8 +3627,8 @@ civitas.CITIES = {
 
 		},
 		location: {
-			x: 710,
-			y: 150
+			x: 240,
+			y: 140
 		}
 	},
 	4: {
@@ -3643,12 +3671,12 @@ civitas.CITIES = {
 
 		},
 		location: {
-			x: 240,
-			y: 210
+			x: 890,
+			y: 150
 		}
 	},
 	5: {
-		icon: 7,
+		icon: 5,
 		climate: civitas.CLIMATE_ARID,
 		level: 45,
 		resources: {
@@ -3689,8 +3717,8 @@ civitas.CITIES = {
 
 		},
 		location: {
-			x: 280,
-			y: 250
+			x: 830,
+			y: 530
 		}
 	},
 	6: {
@@ -3698,7 +3726,7 @@ civitas.CITIES = {
 		climate: civitas.CLIMATE_TROPICAL,
 		level: 21,
 		resources: {
-			coins: 200000,
+			coins: 190000,
 			prestige: 100,
 			espionage: 100
 		},
@@ -3729,8 +3757,8 @@ civitas.CITIES = {
 
 		},
 		location: {
-			x: 70,
-			y: 280
+			x: 690,
+			y: 60
 		}
 	},
 	7: {
@@ -3770,16 +3798,16 @@ civitas.CITIES = {
 
 		},
 		location: {
-			x: 380,
-			y: 130
+			x: 300,
+			y: 480
 		}
 	},
 	8: {
-		icon: 5,
+		icon: 7,
 		climate: civitas.CLIMATE_POLAR,
 		level: 20,
 		resources: {
-			coins: 30000,
+			coins: 300000,
 			prestige: 200,
 			espionage: 150
 		},
@@ -3812,8 +3840,8 @@ civitas.CITIES = {
 
 		},
 		location: {
-			x: 330,
-			y: 10
+			x: 40,
+			y: 320
 		}
 	},
 	9: {
@@ -3865,8 +3893,8 @@ civitas.CITIES = {
 
 		},
 		location: {
-			x: 190,
-			y: 140
+			x: 920,
+			y: 440
 		}
 	},
 	10: {
@@ -3874,7 +3902,7 @@ civitas.CITIES = {
 		climate: civitas.CLIMATE_CONTINENTAL,
 		level: 18,
 		resources: {
-			coins: 22000,
+			coins: 220000,
 			prestige: 160,
 			espionage: 500
 		},
@@ -3904,8 +3932,8 @@ civitas.CITIES = {
 
 		},
 		location: {
-			x: 250,
-			y: 110
+			x: 900,
+			y: 30
 		}
 	},
 	11: {
@@ -3947,16 +3975,16 @@ civitas.CITIES = {
 			'Warship': 2
 		},
 		location: {
-			x: 600,
-			y: 340
+			x: 200,
+			y: 300
 		}
 	},
 	12: {
 		icon: 7,
-		climate: civitas.CLIMATE_TROPICAL,
+		climate: civitas.CLIMATE_ARID,
 		level: 18,
 		resources: {
-			coins: 80000,
+			coins: 180000,
 			prestige: 300,
 			espionage: 300
 		},
@@ -3994,15 +4022,15 @@ civitas.CITIES = {
 		},
 		location: {
 			x: 300,
-			y: 340
+			y: 60
 		}
 	},
 	13: {
-		icon: 2,
-		climate: civitas.CLIMATE_TROPICAL,
+		icon: 4,
+		climate: civitas.CLIMATE_TEMPERATE,
 		level: 16,
 		resources: {
-			coins: 20000,
+			coins: 200000,
 			prestige: 10,
 			espionage: 50
 		},
@@ -4033,8 +4061,8 @@ civitas.CITIES = {
 
 		},
 		location: {
-			x: 190,
-			y: 310
+			x: 700,
+			y: 400
 		}
 	},
 	14: {
@@ -4077,8 +4105,8 @@ civitas.CITIES = {
 
 		},
 		location: {
-			x: 330,
-			y: 300
+			x: 680,
+			y: 540
 		}
 	},
 	15: {
@@ -4121,8 +4149,8 @@ civitas.CITIES = {
 
 		},
 		location: {
-			x: 90,
-			y: 150
+			x: 180,
+			y: 530
 		}
 	},
 	16: {
@@ -4130,7 +4158,7 @@ civitas.CITIES = {
 		climate: civitas.CLIMATE_CONTINENTAL,
 		level: 22,
 		resources: {
-			coins: 10000,
+			coins: 100000,
 			prestige: 360,
 			espionage: 500
 		},
@@ -4165,8 +4193,8 @@ civitas.CITIES = {
 
 		},
 		location: {
-			x: 130,
-			y: 80
+			x: 400,
+			y: 340
 		}
 	},
 	17: {
@@ -4174,7 +4202,7 @@ civitas.CITIES = {
 		climate: civitas.CLIMATE_TROPICAL,
 		level: 26,
 		resources: {
-			coins: 80000,
+			coins: 190000,
 			prestige: 400,
 			espionage: 500
 		},
@@ -4208,8 +4236,8 @@ civitas.CITIES = {
 
 		},
 		location: {
-			x: 400,
-			y: 170
+			x: 130,
+			y: 140
 		}
 	},
 	18: {
@@ -4256,7 +4284,7 @@ civitas.CITIES = {
 		}
 	},
 	19: {
-		icon: 7,
+		icon: 5,
 		climate: civitas.CLIMATE_TEMPERATE,
 		level: 22,
 		resources: {
@@ -4299,8 +4327,56 @@ civitas.CITIES = {
 
 		},
 		location: {
-			x: 760,
-			y: 240
+			x: 800,
+			y: 200
+		}
+	},
+	20: {
+		icon: 7,
+		climate: civitas.CLIMATE_ARID,
+		level: 24,
+		resources: {
+			coins: 320000,
+			prestige: 490,
+			espionage: 200
+		},
+		trades: {
+			'imports': {
+				gold: civitas.IMPORTANCE_LOW,
+				goldores: civitas.IMPORTANCE_LOW,
+				weapons: civitas.IMPORTANCE_LOW,
+				salt: civitas.IMPORTANCE_MEDIUM,
+				stones: civitas.IMPORTANCE_VITAL,
+				gems: civitas.IMPORTANCE_LOW,
+				pearls: civitas.IMPORTANCE_LOW
+			},
+			'exports': {
+				donkeys: civitas.IMPORTANCE_VITAL,
+				sulphur: civitas.IMPORTANCE_VITAL,
+				silk: civitas.IMPORTANCE_MEDIUM,
+				glass: civitas.IMPORTANCE_HIGH,
+				roses: civitas.IMPORTANCE_LOW,
+				cattle: civitas.IMPORTANCE_LOW,
+				bread: civitas.IMPORTANCE_LOW,
+				meat: civitas.IMPORTANCE_MEDIUM,
+				carpets: civitas.IMPORTANCE_LOW,
+				cannons: civitas.IMPORTANCE_LOW
+			}
+		},
+		army: {
+			'Militia': 20,
+			'Axeman': 20,
+			'Knight': 20,
+			'Bowman': 20,
+			'Crossbowman': 20,
+			'Pikeman': 20
+		},
+		navy: {
+
+		},
+		location: {
+			x: 30,
+			y: 30
 		}
 	}
 };
@@ -4314,136 +4390,157 @@ civitas.CITIES = {
 civitas.RULERS = [
 	{
 		name: 'Caesar',
-		title: '',
+		title: 'Emperor',
 		avatar: 1,
 		nationality: civitas.NATION_ROMAN,
 		personality: civitas.PERSONALITY_WARLORD
 	},
 	{
 		name: 'Cronus',
-		title: '',
+		title: 'Ruler',
 		avatar: 3,
 		nationality: civitas.NATION_PHOENICIAN,
 		personality: civitas.PERSONALITY_BALANCED
 	},
 	{
-		name: 'Elisa',
-		title: '',
+		name: 'Dido',
+		title: 'Queen',
 		avatar: 41,
 		nationality: civitas.NATION_CARTHAGINIAN,
 		personality: civitas.PERSONALITY_DIPLOMAT
 	},
 	{
-		name: 'Genghis Khan',
-		title: '',
+		name: 'Genghis',
+		title: 'Khan',
 		avatar: 19,
 		nationality: civitas.NATION_MONGOLIAN,
 		personality: civitas.PERSONALITY_WARLORD
 	},
 	{
 		name: 'Khufu',
-		title: '',
+		title: 'Pharaoh',
 		avatar: 20,
 		nationality: civitas.NATION_EGYPTIAN,
 		personality: civitas.PERSONALITY_DIPLOMAT
 	},
 	{
-		name: 'Mansa Musa',
-		title: '',
+		name: 'Musa I',
+		title: 'Mansa',
 		avatar: 30,
 		nationality: civitas.NATION_MALINESE,
 		personality: civitas.PERSONALITY_WARLORD
 	},
 	{
 		name: 'Sennacherib',
-		title: '',
+		title: 'King',
 		avatar: 34,
 		nationality: civitas.NATION_ASSYRIAN,
 		personality: civitas.PERSONALITY_BALANCED
 	},
 	{
 		name: 'Pepi',
-		title: '',
+		title: 'Pharaoh',
 		avatar: 40,
 		nationality: civitas.NATION_SUDANESE,
 		personality: civitas.PERSONALITY_DIPLOMAT
 	},
 	{
 		name: 'Hatshepsut',
-		title: '',
+		title: 'Pharaoh',
 		avatar: 36,
 		nationality: civitas.NATION_EGYPTIAN,
 		personality: civitas.PERSONALITY_BALANCED
 	},
 	{
 		name: 'Clovis',
-		title: '',
+		title: 'King',
 		avatar: 13,
 		nationality: civitas.NATION_FRANKS,
 		personality: civitas.PERSONALITY_DIPLOMAT
 	},
 	{
 		name: 'Gilgamesh',
-		title: '',
+		title: 'King',
 		avatar: 31,
 		nationality: civitas.NATION_SUMERIAN,
 		personality: civitas.PERSONALITY_WARLORD
 	},
 	{
 		name: 'Dalai Lama',
-		title: '',
+		title: 'Priest',
 		avatar: 45,
 		nationality: civitas.NATION_TIBETAN,
 		personality: civitas.PERSONALITY_DIPLOMAT
 	},
 	{
 		name: 'Ashoka',
-		title: '',
+		title: 'Emperor',
 		avatar: 28,
 		nationality: civitas.NATION_INDIAN,
 		personality: civitas.PERSONALITY_DIPLOMAT
 	},
 	{
 		name: 'Charlemagne',
-		title: '',
+		title: 'King',
 		avatar: 43,
 		nationality: civitas.NATION_FRANKS,
 		personality: civitas.PERSONALITY_DIPLOMAT
 	},
 	{
 		name: 'Darius',
-		title: '',
+		title: 'King',
 		avatar: 38,
 		nationality: civitas.NATION_PERSAN,
 		personality: civitas.PERSONALITY_WARLORD
 	},
 	{
 		name: 'Ivan III',
-		title: '',
+		title: 'Tzar',
 		avatar: 19,
 		nationality: civitas.NATION_RUSSIAN,
 		personality: civitas.PERSONALITY_WARLORD
 	},
 	{
 		name: 'Qin Shi Huang',
-		title: '',
+		title: 'Emperor',
 		avatar: 45,
 		nationality: civitas.NATION_CHINESE,
 		personality: civitas.PERSONALITY_DIPLOMAT
 	},
 	{
 		name: 'Ozymandias',
-		title: '',
+		title: 'Pharaoh',
 		avatar: 33,
 		nationality: civitas.NATION_EGYPTIAN,
 		personality: civitas.PERSONALITY_BALANCED
 	},
 	{
 		name: 'Timur',
-		title: '',
+		title: 'Emperor',
 		avatar: 37,
 		nationality: civitas.NATION_PERSAN,
 		personality: civitas.PERSONALITY_WARLORD
+	},
+	{
+		name: 'Pol Pot',
+		title: 'President',
+		avatar: 30,
+		nationality: civitas.NATION_KHMER,
+		personality: civitas.PERSONALITY_WARLORD
+	},
+	{
+		name: 'Napoleon',
+		title: 'Emperor',
+		avatar: 30,
+		nationality: civitas.NATION_FRENCH,
+		personality: civitas.PERSONALITY_WARLORD
+	},
+	{
+		name: 'Hirohito',
+		title: 'Emperor',
+		avatar: 30,
+		nationality: civitas.NATION_JAPANESE,
+		personality: civitas.PERSONALITY_DIPLOMAT
 	}
 ];
 
@@ -4460,11 +4557,21 @@ civitas.CITY_NAMES = [
 	'Constantinople',
 	'Karakorum',
 	'Niniveh',
+	'Damascus',
 	'Thebes',
+	'Men-nefer',
+	'Peshawar',
 	'Uruk',
 	'Abydos',
+	'Chengdu',
+	'Mombasa',
+	'Apullum',
 	'Byblos',
+	'Abu',
+	'Pi-Ramesses',
+	'Djedu',
 	'Kyrene',
+	'Athens',
 	'Menat Khufu',
 	'Niani',
 	'Novgorod',
@@ -4473,10 +4580,148 @@ civitas.CITY_NAMES = [
 	'Selima Oasis',
 	'Tournai',
 	'Taruga',
+	'Amarna',
 	'Toledo',
+	'Mogadishu',
 	'Xinjiang',
 	'Yinxu'
 ];
+
+civitas.SETTLEMENTS = {
+	1: {
+		resources: {
+			coins: 10000,
+			wood: 20,
+			stones: 10,
+			meat: 80
+		},
+		nationality: civitas.NATION_JAPANESE,
+		location: {
+			x: 800,
+			y: 480
+		},
+		prestige: 1,
+		population: 1290,
+		army: {
+			'Militia': 3,
+			'Bowman': 3
+		},
+		navy: {
+
+		}
+	},
+	2: {
+		resources: {
+			coins: 20000,
+			silk: 20,
+			wheat: 10,
+			bread: 20
+		},
+		prestige: 1,
+		population: 610,
+		nationality: civitas.NATION_CHINESE,
+		location: {
+			x: 560,
+			y: 100
+		},
+		army: {
+			'Militia': 3,
+			'Bowman': 2
+		},
+		navy: {
+
+		}
+	},
+	3: {
+		resources: {
+			coins: 20000,
+			silk: 20,
+			wheat: 10,
+			bread: 20
+		},
+		prestige: 1,
+		population: 550,
+		nationality: civitas.NATION_KHMER,
+		location: {
+			x: 900,
+			y: 300
+		},
+		army: {
+			'Militia': 3,
+			'Bowman': 2
+		},
+		navy: {
+
+		}
+	},
+	4: {
+		resources: {
+			coins: 20000,
+			brass: 20,
+			meat: 10,
+			goldores: 20
+		},
+		prestige: 1,
+		population: 820,
+		nationality: civitas.NATION_INDIAN,
+		location: {
+			x: 100,
+			y: 70
+		},
+		army: {
+			'Militia': 3,
+			'Bowman': 2
+		},
+		navy: {
+
+		}
+	},
+	5: {
+		resources: {
+			coins: 20000,
+			copper: 20,
+			flour: 10,
+			ironores: 20
+		},
+		prestige: 1,
+		population: 1600,
+		nationality: civitas.NATION_PERSAN,
+		location: {
+			x: 380,
+			y: 560
+		},
+		army: {
+			'Militia': 3,
+			'Bowman': 2
+		},
+		navy: {
+
+		}
+	},
+	6: {
+		resources: {
+			coins: 2000,
+			silk: 20,
+			wheat: 10,
+			bread: 20,
+			herbs: 10,
+			barrels: 10
+		},
+		prestige: 1,
+		population: 600,
+		nationality: civitas.NATION_MONGOLIAN,
+		location: {
+			x: 570,
+			y: 400
+		},
+		army: {
+			'Militia': 6
+		},
+		navy: {
+
+		}
+	}
+};
 
 /**
  * Event responsable for destroying a building.
@@ -5311,6 +5556,14 @@ civitas.ACHIEVEMENTS = [
  */
 civitas.utils = {
 
+	get_distance: function(source, destination) {
+		return Math.floor(Math.sqrt(Math.pow(destination.x - source.x, 2) + Math.pow(destination.y - source.y, 2)));
+	},
+
+	get_distance_in_days: function(source, destination) {
+		return Math.floor(Math.sqrt(Math.pow(destination.x - source.x, 2) + Math.pow(destination.y - source.y, 2)) / 10);
+	},
+
 	/**
 	 * Format a timestamp to a more human form (x ago).
 	 *
@@ -5558,7 +5811,7 @@ civitas.ui = {
 				'<a class="tips close btn" title="' + civitas.l('Close this panel') + '"></a>' +
 			'</header>' +
 			'<div class="contents"></div>' +
-			'<foooter class="footer">' +
+			'<footer class="footer">' +
 				'<a class="tips demolish btn" title="' + civitas.l('Demolish this building') + '"></a>' +
 				'<a class="tips pause start btn" title="' + civitas.l('Control (start/pause) production') + '"></a>' +
 				'<a class="tips upgrade btn" title="' + civitas.l('Upgrade building') + '"></a>' +
@@ -5576,11 +5829,25 @@ civitas.ui = {
 
 	generic_panel_template: '<div id="panel-{id}" class="panel">' +
 			'<header>' +
-			'<span class="title">{title}</span>' +
-			'<a class="tips btn close" title="' + civitas.l('Close this panel') + '"></a>' +
+				'<span class="title">{title}</span>' +
+				'<a class="tips btn close" title="' + civitas.l('Close this panel') + '"></a>' +
 			'</header>' +
 			'<div class="contents"></div>' +
-			'</div>',
+		'</div>',
+
+	settlement_panel_template: '<div id="panel-{id}" class="panel">' +
+			'<header>' +
+				'<span class="title">{title}</span>' +
+				'<a class="tips btn close" title="' + civitas.l('Close this panel') + '"></a>' +
+			'</header>' +
+			'<div class="contents"></div>' +
+			'<footer class="footer">' +
+					'<a class="tips attack btn" title="' + civitas.l('Attack this settlement') + '"></a>' +
+					'<a class="tips resources btn" title="' + civitas.l('Give resources to this settlement') + '"></a>' +
+					'<a class="tips alliance btn" title="' + civitas.l('Propose alliance to this settlement') + '"></a>' +
+					'<a class="tips help btn" data-ctxt="{context}" data-term="{settlement}" title="' + civitas.l('Info about this settlement') + '"></a>' +
+			'</footer>' +
+		'</div>',
 
 	normal_panel: function (section, contents) {
 		var out = '<fieldset>' +
@@ -8466,6 +8733,7 @@ civitas.objects.building = function(params) {
 			this.get_core().refresh_panels();
 			return true;
 		} else {
+			this.get_core().error('Unable to demolish the specified building `' + this.get_name() + '`!');
 			return false;
 		}
 	};
@@ -9458,8 +9726,6 @@ civitas.controls.panel_building = function (params) {
 					if (!_c.is_upgradable()) {
 						$(el + ' .footer .upgrade').remove();
 					}
-				} else {
-					self.core.error('Unable to upgrade the specified building `' + _c.get_name() + '`!');
 				}
 				return false;
 			});
@@ -9470,8 +9736,6 @@ civitas.controls.panel_building = function (params) {
 			$(el).on('click', '.demolish', function () {
 				if (_c.demolish()) {
 					self.destroy();
-				} else {
-					self.core.error('Unable to demolish the specified building `' + _c.get_name() + '`!');
 				}
 				return false;
 			});
@@ -9982,7 +10246,7 @@ civitas.controls.panel_storage = function (params) {
 };
 
 /**
- * Main Game storage panel object.
+ * Main Game city panel object.
  * 
  * @param {Object} params
  * @class {civitas.controls.panel_city}
@@ -10040,8 +10304,10 @@ civitas.controls.panel_city = function (params) {
 	this.__init = function (params) {
 		var self = this;
 		this.core = params.core;
+		var my_city = this.core.get_city();
 		var el = '#panel-' + this.id;
 		var city = params.data;
+		var location = civitas['CITY_LOCATION_' + my_city.get_climate().name.toUpperCase()];
 		if (civitas.ui.panel_exists(el)) {
 			this.destroy();
 		}
@@ -10054,7 +10320,7 @@ civitas.controls.panel_city = function (params) {
 		$(el + ' #tab-info').append('' +
 				'<img class="avatar" src="' + civitas.ASSETS_URL + 'images/avatars/avatar' + city.get_ruler_avatar() + '.png" />' +
 				'<dl>' +
-				'<dt>' + civitas.l('Ruler') + '</dt><dd>' + city.get_ruler_name() + '</dd>' +
+				'<dt>' + city.get_ruler().title + '</dt><dd>' + city.get_ruler_name() + '</dd>' +
 				'<dt>' + civitas.l('Climate') + '</dt><dd>' + city.get_climate().name.capitalize() + '</dd>' +
 				'<dt>' + civitas.l('Personality') + '</dt><dd>' + city.get_personality().name.capitalize() + '</dd>' +
 				'<dt>' + civitas.l('Nationality') + '</dt><dd>' + city.get_nationality().name.capitalize() + '</dd>' +
@@ -10062,6 +10328,7 @@ civitas.controls.panel_city = function (params) {
 				'<dt>' + civitas.l('Prestige') + '</dt><dd>' + city.get_prestige() + '</dd>' +
 				'<dt>' + civitas.l('Coins') + '</dt><dd>' + civitas.utils.nice_numbers(city.get_coins()) + '</dd>' +
 				'<dt>' + civitas.l('Influence') + '</dt><dd>' + this.core.get_city().get_influence_with_city(city.get_id()) + '</dd>' +
+				'<dt>' + civitas.l('Distance') + '</dt><dd>' + civitas.utils.get_distance(location, civitas.CITIES[city.get_id()].location) + ' miles (' + civitas.utils.get_distance_in_days(location, civitas.CITIES[city.get_id()].location) + ' days)</dd>' +
 				'</dl>');
 		$(el + ' #tab-army').append(civitas.ui.army_list(city.get_army_total()));
 		$(el + ' #tab-navy').append(civitas.ui.navy_list(city.get_navy_total()));
@@ -10096,6 +10363,141 @@ civitas.controls.panel_city = function (params) {
 	 *
 	 * @public
 	 * @returns {civitas.controls.panel_city}
+	 */
+	this.refresh = function() {
+		return this;
+	};
+	
+	// Fire up the constructor
+	return this.__init(params);
+};
+
+/**
+ * Main Game settlement panel object.
+ * 
+ * @param {Object} params
+ * @class {civitas.controls.panel_settlement}
+ * @returns {civitas.controls.panel_settlement}
+ */
+civitas.controls.panel_settlement = function (params) {
+
+	/**
+	 * Reference to the core object.
+	 * 
+	 * @type {civitas.game}
+	 */
+	this.core = null;
+
+	/**
+	 * DOM id of this panel.
+	 * 
+	 * @type {String}
+	 * @constant
+	 */
+	this.id = 'settlement';
+
+	/**
+	 * Object destructor.
+	 * 
+	 * @private
+	 * @returns {Boolean}
+	 */
+	this.__destroy = function () {
+		this.core.console_log('destroying panel with id `' + this.id + '`');
+		var el = '#panel-' + this.id;
+		$(el).remove();
+		this.core.close_panel(this.id);
+		$('.tipsy').remove();
+		return false;
+	};
+
+	/**
+	 * Method for destroying the window/panel.
+	 * 
+	 * @public
+	 * @returns {Boolean}
+	 */
+	this.destroy = function () {
+		return this.__destroy();
+	};
+
+	/**
+	 * Object constructor.
+	 * 
+	 * @private
+	 * @returns {civitas.controls.panel_settlement}
+	 * @param {Object} params
+	 */
+	this.__init = function (params) {
+		var self = this;
+		this.core = params.core;
+		var city = this.core.get_city();
+		var location = civitas['CITY_LOCATION_' + city.get_climate().name.toUpperCase()];
+		var el = '#panel-' + this.id;
+		var settlement = params.data;
+		if (civitas.ui.panel_exists(el)) {
+			this.destroy();
+		}
+		this.core.console_log('creating panel with id `' + this.id + '`');
+		$('.ui').append(civitas.ui.settlement_panel_template
+			.replace(/{id}/g, this.id)
+			.replace(/{title}/g, 'Small Settlement'));
+		$(el + ' .contents').append(civitas.ui.tabs([civitas.l('Info'), civitas.l('Army'), civitas.l('Navy'), civitas.l('Resources')]));
+		$(el + ' #tab-info').append('' +
+				'<img class="avatar" src="' + civitas.ASSETS_URL + 'images/avatars/avatar40.png" />' +
+				'<dl>' +
+				'<dt>' + civitas.l('Nationality') + '</dt><dd>' + civitas.NATIONS[settlement.nationality].capitalize() + '</dd>' +
+				'<dt>' + civitas.l('Population') + '</dt><dd>' + settlement.population + '</dd>' +
+				'<dt>' + civitas.l('Prestige') + '</dt><dd>' + settlement.prestige + '</dd>' +
+				'<dt>' + civitas.l('Coins') + '</dt><dd>' + civitas.utils.nice_numbers(settlement.resources.coins) + '</dd>' +
+				'<dt>' + civitas.l('Distance') + '</dt><dd>' + civitas.utils.get_distance(location, settlement.location) + ' miles (' + civitas.utils.get_distance_in_days(location, settlement.location) + ' days)</dd>' +
+				'</dl>');
+		$(el + ' #tab-army').append(civitas.ui.army_list(settlement));
+		$(el + ' #tab-navy').append(civitas.ui.navy_list(settlement));
+		var out = '<p>This settlement has the the following resources:</p>' +
+			'<dl>';
+		for (var item in settlement.resources) {
+			if ($.inArray(item, civitas.NON_RESOURCES) === -1) {
+				out += '<dt>' + settlement.resources[item] + '</dt>' +
+					'<dd>' + civitas.ui.resource_small_img(item) + '</dd>';
+			}
+		}
+		out += '</dl>';
+		$(el + ' #tab-resources').append(out);
+		$(el).on('click', '.close', function () {
+			self.destroy();
+			return false;
+		}).on('click', '.attack', function () {
+			self.core.error('Not implemented yet.');
+			return false;
+		}).on('click', '.resources', function () {
+			self.core.error('Not implemented yet.');
+			return false;
+		}).on('click', '.alliance', function () {
+			self.core.error('Not implemented yet.');
+			return false;
+		}).draggable({
+			handle: 'header',
+			containment: 'window',
+			snap: '.panel'
+		});
+		$(el + ' .tabs').tabs();
+		$(el + ' .tips').tipsy({
+			gravity: 's'
+		});
+		$(el).css({
+			'left': ($(window).width() / 2) - ($(el).width() / 2),
+			'top': ($(window).height() / 2) - ($(el).height() / 2)
+		});
+		return this;
+	};
+
+	/**
+	 * Callback method called when a function from the core needs to refresh
+	 * information on this panel.
+	 *
+	 * @public
+	 * @returns {civitas.controls.panel_settlement}
 	 */
 	this.refresh = function() {
 		return this;
@@ -10450,6 +10852,15 @@ civitas.controls.panel_world = function (params) {
 			.replace(/{id}/g, this.id));
 		var loc = civitas['CITY_LOCATION_' + city.get_climate().name.toUpperCase()];
 		var out = '<div data-name="yourcity" class="tips city c1" title="' + civitas.l('City of') + ' ' + city.get_name() + '" style="left:' + loc.x + 'px;top:' + loc.y + 'px"></div>';
+		for (var item in civitas.SETTLEMENTS) {
+			var settlement = civitas.SETTLEMENTS[item];
+			out += '<div data-id="' + item + '" class="tips settlement s1" title="' + civitas.l('Small Settlement') + '" style="left:' + settlement.location.x + 'px;top:' + settlement.location.y + 'px"></div>';
+		}
+		// TODO
+		out += '<div data-name="big" class="tips battle b1" title="' + civitas.l('Big Battle') + '" style="left:600px;top:320px"></div>';
+		out += '<div data-name="big" class="tips battle b2" title="' + civitas.l('Big Sea Battle') + '" style="left:900px;top:550px"></div>';
+		out += '<div data-name="big" class="tips battle b3" title="' + civitas.l('Encampment') + '" style="left:300px;top:300px"></div>';
+		// TODO
 		for (var i = 1; i < cities.length; i++) {
 			out += '<div data-name="' + cities[i].get_name() + '" class="tips city c' + civitas.CITIES[cities[i].get_id()].icon + '" title="' + civitas.l('City of') + ' ' + cities[i].get_name() + '" style="left:' + civitas.CITIES[cities[i].get_id()].location.x + 'px;top:' + civitas.CITIES[cities[i].get_id()].location.y + 'px"></div>';
 		}
@@ -10474,6 +10885,14 @@ civitas.controls.panel_world = function (params) {
 					data: _city
 				}));
 			}
+			return false;
+		}).on('click', '.settlement', function () {
+			var id = $(this).data('id');
+			var settlement = civitas.SETTLEMENTS[id];
+			self.core.open_panel(new civitas.controls.panel_settlement({
+				core: self.core,
+				data: settlement
+			}));
 			return false;
 		});
 		$(el + ' .tabs').tabs();
@@ -12033,11 +12452,12 @@ civitas.game = function () {
 		var data = null;
 		this.difficulty = parseInt(difficulty);
 		if (localStorage.getItem('civitas.data') !== null) {
-			data = this._load_main_city(this.import());
+			data = this._load_city(this.import());
 		} else {
-			this._setup_main_city(name, cityname, nation, climate, avatar);
+			this._create_city(name, cityname, nation, climate, avatar);
 		}
 		this.setup_neighbours(data);
+		this.setup_settlements(data);
 		this.save();
 		$('header .cityname').html(this.get_city().get_name());
 		$('header .cityavatar').css({
@@ -12048,7 +12468,7 @@ civitas.game = function () {
 			if (!self.is_paused()) {
 				self._do_daily();
 			}
-		}, 12000);
+		}, 20000);
 		$('.tips').tipsy({
 			gravity: $.fn.tipsy.autoNS,
 			html: true
@@ -12177,7 +12597,7 @@ civitas.game = function () {
 	 * @private
 	 * @returns {Object|Boolean}
 	 */
-	this._load_main_city = function (data) {
+	this._load_city = function (data) {
 		var player_city_data = data.cities[0];
 		if (player_city_data) {
 			player_city_data.core = this;
@@ -12200,7 +12620,7 @@ civitas.game = function () {
 	 * @param {Number} avatar
 	 * @returns {civitas.game}
 	 */
-	this._setup_main_city = function (name, cityname, nation, climate, avatar) {
+	this._create_city = function (name, cityname, nation, climate, avatar) {
 		var difficulty = this.get_difficulty();
 		var my_city = new civitas.objects.city({
 			name: cityname,
@@ -12690,6 +13110,10 @@ civitas.game = function () {
 			localStorage.setItem('civitas.data', window.btoa(JSON.stringify(data)));
 		}
 		return data;
+	};
+
+	this.setup_settlements = function() {
+		//for 
 	};
 
 	/**

@@ -1,5 +1,5 @@
 /**
- * Main Game storage panel object.
+ * Main Game city panel object.
  * 
  * @param {Object} params
  * @class {civitas.controls.panel_city}
@@ -57,8 +57,10 @@ civitas.controls.panel_city = function (params) {
 	this.__init = function (params) {
 		var self = this;
 		this.core = params.core;
+		var my_city = this.core.get_city();
 		var el = '#panel-' + this.id;
 		var city = params.data;
+		var location = civitas['CITY_LOCATION_' + my_city.get_climate().name.toUpperCase()];
 		if (civitas.ui.panel_exists(el)) {
 			this.destroy();
 		}
@@ -71,7 +73,7 @@ civitas.controls.panel_city = function (params) {
 		$(el + ' #tab-info').append('' +
 				'<img class="avatar" src="' + civitas.ASSETS_URL + 'images/avatars/avatar' + city.get_ruler_avatar() + '.png" />' +
 				'<dl>' +
-				'<dt>' + civitas.l('Ruler') + '</dt><dd>' + city.get_ruler_name() + '</dd>' +
+				'<dt>' + city.get_ruler().title + '</dt><dd>' + city.get_ruler_name() + '</dd>' +
 				'<dt>' + civitas.l('Climate') + '</dt><dd>' + city.get_climate().name.capitalize() + '</dd>' +
 				'<dt>' + civitas.l('Personality') + '</dt><dd>' + city.get_personality().name.capitalize() + '</dd>' +
 				'<dt>' + civitas.l('Nationality') + '</dt><dd>' + city.get_nationality().name.capitalize() + '</dd>' +
@@ -79,6 +81,7 @@ civitas.controls.panel_city = function (params) {
 				'<dt>' + civitas.l('Prestige') + '</dt><dd>' + city.get_prestige() + '</dd>' +
 				'<dt>' + civitas.l('Coins') + '</dt><dd>' + civitas.utils.nice_numbers(city.get_coins()) + '</dd>' +
 				'<dt>' + civitas.l('Influence') + '</dt><dd>' + this.core.get_city().get_influence_with_city(city.get_id()) + '</dd>' +
+				'<dt>' + civitas.l('Distance') + '</dt><dd>' + civitas.utils.get_distance(location, civitas.CITIES[city.get_id()].location) + ' miles (' + civitas.utils.get_distance_in_days(location, civitas.CITIES[city.get_id()].location) + ' days)</dd>' +
 				'</dl>');
 		$(el + ' #tab-army').append(civitas.ui.army_list(city.get_army_total()));
 		$(el + ' #tab-navy').append(civitas.ui.navy_list(city.get_navy_total()));

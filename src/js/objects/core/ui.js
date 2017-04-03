@@ -9,7 +9,7 @@ civitas.ui = {
 				'<a class="tips close btn" title="' + civitas.l('Close this panel') + '"></a>' +
 			'</header>' +
 			'<div class="contents"></div>' +
-			'<foooter class="footer">' +
+			'<footer class="footer">' +
 				'<a class="tips demolish btn" title="' + civitas.l('Demolish this building') + '"></a>' +
 				'<a class="tips pause start btn" title="' + civitas.l('Control (start/pause) production') + '"></a>' +
 				'<a class="tips upgrade btn" title="' + civitas.l('Upgrade building') + '"></a>' +
@@ -27,11 +27,25 @@ civitas.ui = {
 
 	generic_panel_template: '<div id="panel-{id}" class="panel">' +
 			'<header>' +
-			'<span class="title">{title}</span>' +
-			'<a class="tips btn close" title="' + civitas.l('Close this panel') + '"></a>' +
+				'<span class="title">{title}</span>' +
+				'<a class="tips btn close" title="' + civitas.l('Close this panel') + '"></a>' +
 			'</header>' +
 			'<div class="contents"></div>' +
-			'</div>',
+		'</div>',
+
+	settlement_panel_template: '<div id="panel-{id}" class="panel">' +
+			'<header>' +
+				'<span class="title">{title}</span>' +
+				'<a class="tips btn close" title="' + civitas.l('Close this panel') + '"></a>' +
+			'</header>' +
+			'<div class="contents"></div>' +
+			'<footer class="footer">' +
+					'<a class="tips attack btn" title="' + civitas.l('Attack this settlement') + '"></a>' +
+					'<a class="tips resources btn" title="' + civitas.l('Give resources to this settlement') + '"></a>' +
+					'<a class="tips alliance btn" title="' + civitas.l('Propose alliance to this settlement') + '"></a>' +
+					'<a class="tips help btn" data-ctxt="{context}" data-term="{settlement}" title="' + civitas.l('Info about this settlement') + '"></a>' +
+			'</footer>' +
+		'</div>',
 
 	normal_panel: function (section, contents) {
 		var out = '<fieldset>' +

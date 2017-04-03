@@ -68,6 +68,15 @@ civitas.controls.panel_world = function (params) {
 			.replace(/{id}/g, this.id));
 		var loc = civitas['CITY_LOCATION_' + city.get_climate().name.toUpperCase()];
 		var out = '<div data-name="yourcity" class="tips city c1" title="' + civitas.l('City of') + ' ' + city.get_name() + '" style="left:' + loc.x + 'px;top:' + loc.y + 'px"></div>';
+		for (var item in civitas.SETTLEMENTS) {
+			var settlement = civitas.SETTLEMENTS[item];
+			out += '<div data-id="' + item + '" class="tips settlement s1" title="' + civitas.l('Small Settlement') + '" style="left:' + settlement.location.x + 'px;top:' + settlement.location.y + 'px"></div>';
+		}
+		// TODO
+		out += '<div data-name="big" class="tips battle b1" title="' + civitas.l('Big Battle') + '" style="left:600px;top:320px"></div>';
+		out += '<div data-name="big" class="tips battle b2" title="' + civitas.l('Big Sea Battle') + '" style="left:900px;top:550px"></div>';
+		out += '<div data-name="big" class="tips battle b3" title="' + civitas.l('Encampment') + '" style="left:300px;top:300px"></div>';
+		// TODO
 		for (var i = 1; i < cities.length; i++) {
 			out += '<div data-name="' + cities[i].get_name() + '" class="tips city c' + civitas.CITIES[cities[i].get_id()].icon + '" title="' + civitas.l('City of') + ' ' + cities[i].get_name() + '" style="left:' + civitas.CITIES[cities[i].get_id()].location.x + 'px;top:' + civitas.CITIES[cities[i].get_id()].location.y + 'px"></div>';
 		}
@@ -92,6 +101,14 @@ civitas.controls.panel_world = function (params) {
 					data: _city
 				}));
 			}
+			return false;
+		}).on('click', '.settlement', function () {
+			var id = $(this).data('id');
+			var settlement = civitas.SETTLEMENTS[id];
+			self.core.open_panel(new civitas.controls.panel_settlement({
+				core: self.core,
+				data: settlement
+			}));
 			return false;
 		});
 		$(el + ' .tabs').tabs();

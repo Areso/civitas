@@ -86,8 +86,6 @@ civitas.controls.panel_building = function (params) {
 					if (!_c.is_upgradable()) {
 						$(el + ' .footer .upgrade').remove();
 					}
-				} else {
-					self.core.error('Unable to upgrade the specified building `' + _c.get_name() + '`!');
 				}
 				return false;
 			});
@@ -98,8 +96,6 @@ civitas.controls.panel_building = function (params) {
 			$(el).on('click', '.demolish', function () {
 				if (_c.demolish()) {
 					self.destroy();
-				} else {
-					self.core.error('Unable to demolish the specified building `' + _c.get_name() + '`!');
 				}
 				return false;
 			});

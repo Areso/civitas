@@ -57,6 +57,7 @@ gulp.task('app', function() {
 		'src/js/objects/ui/buildings.js',
 		'src/js/objects/ui/storage.js',
 		'src/js/objects/ui/city.js',
+		'src/js/objects/ui/settlement.js',
 		'src/js/objects/ui/help.js',
 		'src/js/objects/ui/rankings.js',
 		/*

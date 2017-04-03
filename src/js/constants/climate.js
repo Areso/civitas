@@ -60,8 +60,8 @@ civitas.CLIMATE_POLAR = 5;
  * @type {Object}
  */
 civitas.CITY_LOCATION_TEMPERATE = {
-	x: 530,
-	y: 150
+	x: 500,
+	y: 500
 };
 
 /**
@@ -71,8 +71,8 @@ civitas.CITY_LOCATION_TEMPERATE = {
  * @type {Object}
  */
 civitas.CITY_LOCATION_TROPICAL = {
-	x: 45,
-	y: 250
+	x: 500,
+	y: 450
 };
 
 /**
@@ -82,8 +82,8 @@ civitas.CITY_LOCATION_TROPICAL = {
  * @type {Object}
  */
 civitas.CITY_LOCATION_ARID = {
-	x: 340,
-	y: 130
+	x: 500,
+	y: 300
 };
 
 /**
@@ -93,8 +93,8 @@ civitas.CITY_LOCATION_ARID = {
  * @type {Object}
  */
 civitas.CITY_LOCATION_CONTINENTAL = {
-	x: 540,
-	y: 150
+	x: 500,
+	y: 200
 };
 
 /**
@@ -104,6 +104,6 @@ civitas.CITY_LOCATION_CONTINENTAL = {
  * @type {Object}
  */
 civitas.CITY_LOCATION_POLAR = {
-	x: 490,
-	y: 10
+	x: 500,
+	y: 60
 };

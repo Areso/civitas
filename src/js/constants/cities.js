@@ -6,7 +6,7 @@
  */
 civitas.CITIES = {
 	1: {
-		icon: 4,
+		icon: 7,
 		climate: civitas.CLIMATE_TEMPERATE,
 		level: 25,
 		resources: {
@@ -51,7 +51,7 @@ civitas.CITIES = {
 			'Ship of the Line': 1
 		},
 		location: {
-			x: 310,
+			x: 380,
 			y: 190
 		}
 	},
@@ -60,7 +60,7 @@ civitas.CITIES = {
 		climate: civitas.CLIMATE_TROPICAL,
 		level: 50,
 		resources: {
-			coins: 130000,
+			coins: 230000,
 			prestige: 700,
 			espionage: 1200
 		},
@@ -107,16 +107,16 @@ civitas.CITIES = {
 
 		},
 		location: {
-			x: 170,
-			y: 176
+			x: 60,
+			y: 500
 		}
 	},
 	3: {
-		icon: 6,
+		icon: 7,
 		climate: civitas.CLIMATE_TEMPERATE,
 		level: 30,
 		resources: {
-			coins: 100000,
+			coins: 160000,
 			prestige: 1000,
 			espionage: 800
 		},
@@ -147,8 +147,8 @@ civitas.CITIES = {
 
 		},
 		location: {
-			x: 710,
-			y: 150
+			x: 240,
+			y: 140
 		}
 	},
 	4: {
@@ -191,12 +191,12 @@ civitas.CITIES = {
 
 		},
 		location: {
-			x: 240,
-			y: 210
+			x: 890,
+			y: 150
 		}
 	},
 	5: {
-		icon: 7,
+		icon: 5,
 		climate: civitas.CLIMATE_ARID,
 		level: 45,
 		resources: {
@@ -237,8 +237,8 @@ civitas.CITIES = {
 
 		},
 		location: {
-			x: 280,
-			y: 250
+			x: 830,
+			y: 530
 		}
 	},
 	6: {
@@ -246,7 +246,7 @@ civitas.CITIES = {
 		climate: civitas.CLIMATE_TROPICAL,
 		level: 21,
 		resources: {
-			coins: 200000,
+			coins: 190000,
 			prestige: 100,
 			espionage: 100
 		},
@@ -277,8 +277,8 @@ civitas.CITIES = {
 
 		},
 		location: {
-			x: 70,
-			y: 280
+			x: 690,
+			y: 60
 		}
 	},
 	7: {
@@ -318,16 +318,16 @@ civitas.CITIES = {
 
 		},
 		location: {
-			x: 380,
-			y: 130
+			x: 300,
+			y: 480
 		}
 	},
 	8: {
-		icon: 5,
+		icon: 7,
 		climate: civitas.CLIMATE_POLAR,
 		level: 20,
 		resources: {
-			coins: 30000,
+			coins: 300000,
 			prestige: 200,
 			espionage: 150
 		},
@@ -360,8 +360,8 @@ civitas.CITIES = {
 
 		},
 		location: {
-			x: 330,
-			y: 10
+			x: 40,
+			y: 320
 		}
 	},
 	9: {
@@ -413,8 +413,8 @@ civitas.CITIES = {
 
 		},
 		location: {
-			x: 190,
-			y: 140
+			x: 920,
+			y: 440
 		}
 	},
 	10: {
@@ -422,7 +422,7 @@ civitas.CITIES = {
 		climate: civitas.CLIMATE_CONTINENTAL,
 		level: 18,
 		resources: {
-			coins: 22000,
+			coins: 220000,
 			prestige: 160,
 			espionage: 500
 		},
@@ -452,8 +452,8 @@ civitas.CITIES = {
 
 		},
 		location: {
-			x: 250,
-			y: 110
+			x: 900,
+			y: 30
 		}
 	},
 	11: {
@@ -495,16 +495,16 @@ civitas.CITIES = {
 			'Warship': 2
 		},
 		location: {
-			x: 600,
-			y: 340
+			x: 200,
+			y: 300
 		}
 	},
 	12: {
 		icon: 7,
-		climate: civitas.CLIMATE_TROPICAL,
+		climate: civitas.CLIMATE_ARID,
 		level: 18,
 		resources: {
-			coins: 80000,
+			coins: 180000,
 			prestige: 300,
 			espionage: 300
 		},
@@ -542,15 +542,15 @@ civitas.CITIES = {
 		},
 		location: {
 			x: 300,
-			y: 340
+			y: 60
 		}
 	},
 	13: {
-		icon: 2,
-		climate: civitas.CLIMATE_TROPICAL,
+		icon: 4,
+		climate: civitas.CLIMATE_TEMPERATE,
 		level: 16,
 		resources: {
-			coins: 20000,
+			coins: 200000,
 			prestige: 10,
 			espionage: 50
 		},
@@ -581,8 +581,8 @@ civitas.CITIES = {
 
 		},
 		location: {
-			x: 190,
-			y: 310
+			x: 700,
+			y: 400
 		}
 	},
 	14: {
@@ -625,8 +625,8 @@ civitas.CITIES = {
 
 		},
 		location: {
-			x: 330,
-			y: 300
+			x: 680,
+			y: 540
 		}
 	},
 	15: {
@@ -669,8 +669,8 @@ civitas.CITIES = {
 
 		},
 		location: {
-			x: 90,
-			y: 150
+			x: 180,
+			y: 530
 		}
 	},
 	16: {
@@ -678,7 +678,7 @@ civitas.CITIES = {
 		climate: civitas.CLIMATE_CONTINENTAL,
 		level: 22,
 		resources: {
-			coins: 10000,
+			coins: 100000,
 			prestige: 360,
 			espionage: 500
 		},
@@ -713,8 +713,8 @@ civitas.CITIES = {
 
 		},
 		location: {
-			x: 130,
-			y: 80
+			x: 400,
+			y: 340
 		}
 	},
 	17: {
@@ -722,7 +722,7 @@ civitas.CITIES = {
 		climate: civitas.CLIMATE_TROPICAL,
 		level: 26,
 		resources: {
-			coins: 80000,
+			coins: 190000,
 			prestige: 400,
 			espionage: 500
 		},
@@ -756,8 +756,8 @@ civitas.CITIES = {
 
 		},
 		location: {
-			x: 400,
-			y: 170
+			x: 130,
+			y: 140
 		}
 	},
 	18: {
@@ -804,7 +804,7 @@ civitas.CITIES = {
 		}
 	},
 	19: {
-		icon: 7,
+		icon: 5,
 		climate: civitas.CLIMATE_TEMPERATE,
 		level: 22,
 		resources: {
@@ -847,8 +847,56 @@ civitas.CITIES = {
 
 		},
 		location: {
-			x: 760,
-			y: 240
+			x: 800,
+			y: 200
+		}
+	},
+	20: {
+		icon: 7,
+		climate: civitas.CLIMATE_ARID,
+		level: 24,
+		resources: {
+			coins: 320000,
+			prestige: 490,
+			espionage: 200
+		},
+		trades: {
+			'imports': {
+				gold: civitas.IMPORTANCE_LOW,
+				goldores: civitas.IMPORTANCE_LOW,
+				weapons: civitas.IMPORTANCE_LOW,
+				salt: civitas.IMPORTANCE_MEDIUM,
+				stones: civitas.IMPORTANCE_VITAL,
+				gems: civitas.IMPORTANCE_LOW,
+				pearls: civitas.IMPORTANCE_LOW
+			},
+			'exports': {
+				donkeys: civitas.IMPORTANCE_VITAL,
+				sulphur: civitas.IMPORTANCE_VITAL,
+				silk: civitas.IMPORTANCE_MEDIUM,
+				glass: civitas.IMPORTANCE_HIGH,
+				roses: civitas.IMPORTANCE_LOW,
+				cattle: civitas.IMPORTANCE_LOW,
+				bread: civitas.IMPORTANCE_LOW,
+				meat: civitas.IMPORTANCE_MEDIUM,
+				carpets: civitas.IMPORTANCE_LOW,
+				cannons: civitas.IMPORTANCE_LOW
+			}
+		},
+		army: {
+			'Militia': 20,
+			'Axeman': 20,
+			'Knight': 20,
+			'Bowman': 20,
+			'Crossbowman': 20,
+			'Pikeman': 20
+		},
+		navy: {
+
+		},
+		location: {
+			x: 30,
+			y: 30
 		}
 	}
 };
@@ -862,136 +910,157 @@ civitas.CITIES = {
 civitas.RULERS = [
 	{
 		name: 'Caesar',
-		title: '',
+		title: 'Emperor',
 		avatar: 1,
 		nationality: civitas.NATION_ROMAN,
 		personality: civitas.PERSONALITY_WARLORD
 	},
 	{
 		name: 'Cronus',
-		title: '',
+		title: 'Ruler',
 		avatar: 3,
 		nationality: civitas.NATION_PHOENICIAN,
 		personality: civitas.PERSONALITY_BALANCED
 	},
 	{
-		name: 'Elisa',
-		title: '',
+		name: 'Dido',
+		title: 'Queen',
 		avatar: 41,
 		nationality: civitas.NATION_CARTHAGINIAN,
 		personality: civitas.PERSONALITY_DIPLOMAT
 	},
 	{
-		name: 'Genghis Khan',
-		title: '',
+		name: 'Genghis',
+		title: 'Khan',
 		avatar: 19,
 		nationality: civitas.NATION_MONGOLIAN,
 		personality: civitas.PERSONALITY_WARLORD
 	},
 	{
 		name: 'Khufu',
-		title: '',
+		title: 'Pharaoh',
 		avatar: 20,
 		nationality: civitas.NATION_EGYPTIAN,
 		personality: civitas.PERSONALITY_DIPLOMAT
 	},
 	{
-		name: 'Mansa Musa',
-		title: '',
+		name: 'Musa I',
+		title: 'Mansa',
 		avatar: 30,
 		nationality: civitas.NATION_MALINESE,
 		personality: civitas.PERSONALITY_WARLORD
 	},
 	{
 		name: 'Sennacherib',
-		title: '',
+		title: 'King',
 		avatar: 34,
 		nationality: civitas.NATION_ASSYRIAN,
 		personality: civitas.PERSONALITY_BALANCED
 	},
 	{
 		name: 'Pepi',
-		title: '',
+		title: 'Pharaoh',
 		avatar: 40,
 		nationality: civitas.NATION_SUDANESE,
 		personality: civitas.PERSONALITY_DIPLOMAT
 	},
 	{
 		name: 'Hatshepsut',
-		title: '',
+		title: 'Pharaoh',
 		avatar: 36,
 		nationality: civitas.NATION_EGYPTIAN,
 		personality: civitas.PERSONALITY_BALANCED
 	},
 	{
 		name: 'Clovis',
-		title: '',
+		title: 'King',
 		avatar: 13,
 		nationality: civitas.NATION_FRANKS,
 		personality: civitas.PERSONALITY_DIPLOMAT
 	},
 	{
 		name: 'Gilgamesh',
-		title: '',
+		title: 'King',
 		avatar: 31,
 		nationality: civitas.NATION_SUMERIAN,
 		personality: civitas.PERSONALITY_WARLORD
 	},
 	{
 		name: 'Dalai Lama',
-		title: '',
+		title: 'Priest',
 		avatar: 45,
 		nationality: civitas.NATION_TIBETAN,
 		personality: civitas.PERSONALITY_DIPLOMAT
 	},
 	{
 		name: 'Ashoka',
-		title: '',
+		title: 'Emperor',
 		avatar: 28,
 		nationality: civitas.NATION_INDIAN,
 		personality: civitas.PERSONALITY_DIPLOMAT
 	},
 	{
 		name: 'Charlemagne',
-		title: '',
+		title: 'King',
 		avatar: 43,
 		nationality: civitas.NATION_FRANKS,
 		personality: civitas.PERSONALITY_DIPLOMAT
 	},
 	{
 		name: 'Darius',
-		title: '',
+		title: 'King',
 		avatar: 38,
 		nationality: civitas.NATION_PERSAN,
 		personality: civitas.PERSONALITY_WARLORD
 	},
 	{
 		name: 'Ivan III',
-		title: '',
+		title: 'Tzar',
 		avatar: 19,
 		nationality: civitas.NATION_RUSSIAN,
 		personality: civitas.PERSONALITY_WARLORD
 	},
 	{
 		name: 'Qin Shi Huang',
-		title: '',
+		title: 'Emperor',
 		avatar: 45,
 		nationality: civitas.NATION_CHINESE,
 		personality: civitas.PERSONALITY_DIPLOMAT
 	},
 	{
 		name: 'Ozymandias',
-		title: '',
+		title: 'Pharaoh',
 		avatar: 33,
 		nationality: civitas.NATION_EGYPTIAN,
 		personality: civitas.PERSONALITY_BALANCED
 	},
 	{
 		name: 'Timur',
-		title: '',
+		title: 'Emperor',
 		avatar: 37,
 		nationality: civitas.NATION_PERSAN,
 		personality: civitas.PERSONALITY_WARLORD
+	},
+	{
+		name: 'Pol Pot',
+		title: 'President',
+		avatar: 30,
+		nationality: civitas.NATION_KHMER,
+		personality: civitas.PERSONALITY_WARLORD
+	},
+	{
+		name: 'Napoleon',
+		title: 'Emperor',
+		avatar: 30,
+		nationality: civitas.NATION_FRENCH,
+		personality: civitas.PERSONALITY_WARLORD
+	},
+	{
+		name: 'Hirohito',
+		title: 'Emperor',
+		avatar: 30,
+		nationality: civitas.NATION_JAPANESE,
+		personality: civitas.PERSONALITY_DIPLOMAT
 	}
 ];
 
@@ -1008,11 +1077,21 @@ civitas.CITY_NAMES = [
 	'Constantinople',
 	'Karakorum',
 	'Niniveh',
+	'Damascus',
 	'Thebes',
+	'Men-nefer',
+	'Peshawar',
 	'Uruk',
 	'Abydos',
+	'Chengdu',
+	'Mombasa',
+	'Apullum',
 	'Byblos',
+	'Abu',
+	'Pi-Ramesses',
+	'Djedu',
 	'Kyrene',
+	'Athens',
 	'Menat Khufu',
 	'Niani',
 	'Novgorod',
@@ -1021,7 +1100,145 @@ civitas.CITY_NAMES = [
 	'Selima Oasis',
 	'Tournai',
 	'Taruga',
+	'Amarna',
 	'Toledo',
+	'Mogadishu',
 	'Xinjiang',
 	'Yinxu'
 ];
+
+civitas.SETTLEMENTS = {
+	1: {
+		resources: {
+			coins: 10000,
+			wood: 20,
+			stones: 10,
+			meat: 80
+		},
+		nationality: civitas.NATION_JAPANESE,
+		location: {
+			x: 800,
+			y: 480
+		},
+		prestige: 1,
+		population: 1290,
+		army: {
+			'Militia': 3,
+			'Bowman': 3
+		},
+		navy: {
+
+		}
+	},
+	2: {
+		resources: {
+			coins: 20000,
+			silk: 20,
+			wheat: 10,
+			bread: 20
+		},
+		prestige: 1,
+		population: 610,
+		nationality: civitas.NATION_CHINESE,
+		location: {
+			x: 560,
+			y: 100
+		},
+		army: {
+			'Militia': 3,
+			'Bowman': 2
+		},
+		navy: {
+
+		}
+	},
+	3: {
+		resources: {
+			coins: 20000,
+			silk: 20,
+			wheat: 10,
+			bread: 20
+		},
+		prestige: 1,
+		population: 550,
+		nationality: civitas.NATION_KHMER,
+		location: {
+			x: 900,
+			y: 300
+		},
+		army: {
+			'Militia': 3,
+			'Bowman': 2
+		},
+		navy: {
+
+		}
+	},
+	4: {
+		resources: {
+			coins: 20000,
+			brass: 20,
+			meat: 10,
+			goldores: 20
+		},
+		prestige: 1,
+		population: 820,
+		nationality: civitas.NATION_INDIAN,
+		location: {
+			x: 100,
+			y: 70
+		},
+		army: {
+			'Militia': 3,
+			'Bowman': 2
+		},
+		navy: {
+
+		}
+	},
+	5: {
+		resources: {
+			coins: 20000,
+			copper: 20,
+			flour: 10,
+			ironores: 20
+		},
+		prestige: 1,
+		population: 1600,
+		nationality: civitas.NATION_PERSAN,
+		location: {
+			x: 380,
+			y: 560
+		},
+		army: {
+			'Militia': 3,
+			'Bowman': 2
+		},
+		navy: {
+
+		}
+	},
+	6: {
+		resources: {
+			coins: 2000,
+			silk: 20,
+			wheat: 10,
+			bread: 20,
+			herbs: 10,
+			barrels: 10
+		},
+		prestige: 1,
+		population: 600,
+		nationality: civitas.NATION_MONGOLIAN,
+		location: {
+			x: 570,
+			y: 400
+		},
+		army: {
+			'Militia': 6
+		},
+		navy: {
+
+		}
+	}
+};

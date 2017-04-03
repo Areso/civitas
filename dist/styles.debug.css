@@ -2,7 +2,7 @@
  * Civitas empire-building game.
  *
  * @author sizeof(cat) <sizeofcat AT riseup.net>
- * @version 0.1.0.422017
+ * @version 0.1.0.432017
  * @license MIT
  */ @font-face {
 	font-family: 'Nova Oval';
@@ -334,7 +334,7 @@ header .top-panel span {
 }
 
 .ui .panel footer {
-	border-top: 1px solid #777;
+	border-top: 1px solid #ccc;
 	padding-top: 10px;
 	margin-top: 10px;
 }
@@ -476,7 +476,24 @@ header .top-panel span {
 
 #panel-world {
 	max-width: 1100px;
-	max-height: 534px;
+	max-height: 660px;
+}
+
+.panel .worldmap {
+	width: 1024px;
+	height: 600px;
+	background: transparent url(../images/ui/worldmap.png) no-repeat;
+	background-size: auto 100%;
+	position: relative;
+}
+
+.panel .worldmap .city,
+.panel .worldmap .battle,
+.panel .worldmap .settlement {
+	position: absolute;
+	width: 32px;
+	height: 32px;
+	cursor: pointer;
 }
 
 /* World Trades panel */
@@ -631,12 +648,15 @@ table.mercenaries td:nth-child(3) {
 
 /* City info panel */
 
-#panel-city {
-	width: 460px;
-	max-width: 460px;
+#panel-city,
+#panel-settlement {
+	width: 360px;
+	max-width: 360px;
+	opacity: 0.8;
 }
 
-#panel-city .ui-tabs-panel {
+#panel-city .ui-tabs-panel,
+#panel-settlement .ui-tabs-panel {
 	padding: 0 10px;
 }
 
@@ -1619,6 +1639,18 @@ footer .do-help {
 	background: transparent url(../images/ui/icon_demolish.png) no-repeat;
 }
 
+.panel .footer .btn.attack {
+	background: transparent url(../images/ui/icon_attack.png) no-repeat;
+}
+
+.panel .footer .btn.alliance {
+	background: transparent url(../images/ui/icon_alliance.png) no-repeat;
+}
+
+.panel .footer .btn.resources {
+	background: transparent url(../images/ui/icon_resources.png) no-repeat;
+}
+
 .panel .footer .btn.upgrade {
 	background: transparent url(../images/ui/icon_upgrade.png) no-repeat;
 }
@@ -1629,18 +1661,20 @@ footer .do-help {
 	margin-right: 0;
 }
 
-.panel .worldmap {
-	width: 972px;
-	height: 501px;
-	background: transparent url(../images/ui/worldmap.jpg) no-repeat;
-	position: relative;
+.panel .worldmap .battle.b1 {
+	background: transparent url(../images/ui/battle1.png) no-repeat;
 }
 
-.panel .worldmap .city {
-	position: absolute;
-	width: 40px;
-	height: 40px;
-	cursor: pointer;
+.panel .worldmap .battle.b2 {
+	background: transparent url(../images/ui/battle2.png) no-repeat;
+}
+
+.panel .worldmap .battle.b3 {
+	background: transparent url(../images/ui/battle3.png) no-repeat;
+}
+
+.panel .worldmap .settlement.s1 {
+	background: transparent url(../images/ui/settlement1.png) no-repeat;
 }
 
 .panel .worldmap .city.c1 {

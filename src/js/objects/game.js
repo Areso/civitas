@@ -457,11 +457,12 @@ civitas.game = function () {
 		var data = null;
 		this.difficulty = parseInt(difficulty);
 		if (localStorage.getItem('civitas.data') !== null) {
-			data = this._load_main_city(this.import());
+			data = this._load_city(this.import());
 		} else {
-			this._setup_main_city(name, cityname, nation, climate, avatar);
+			this._create_city(name, cityname, nation, climate, avatar);
 		}
 		this.setup_neighbours(data);
+		this.setup_settlements(data);
 		this.save();
 		$('header .cityname').html(this.get_city().get_name());
 		$('header .cityavatar').css({
@@ -472,7 +473,7 @@ civitas.game = function () {
 			if (!self.is_paused()) {
 				self._do_daily();
 			}
-		}, 12000);
+		}, 20000);
 		$('.tips').tipsy({
 			gravity: $.fn.tipsy.autoNS,
 			html: true
@@ -601,7 +602,7 @@ civitas.game = function () {
 	 * @private
 	 * @returns {Object|Boolean}
 	 */
-	this._load_main_city = function (data) {
+	this._load_city = function (data) {
 		var player_city_data = data.cities[0];
 		if (player_city_data) {
 			player_city_data.core = this;
@@ -624,7 +625,7 @@ civitas.game = function () {
 	 * @param {Number} avatar
 	 * @returns {civitas.game}
 	 */
-	this._setup_main_city = function (name, cityname, nation, climate, avatar) {
+	this._create_city = function (name, cityname, nation, climate, avatar) {
 		var difficulty = this.get_difficulty();
 		var my_city = new civitas.objects.city({
 			name: cityname,
@@ -1114,6 +1115,10 @@ civitas.game = function () {
 			localStorage.setItem('civitas.data', window.btoa(JSON.stringify(data)));
 		}
 		return data;
+	};
+
+	this.setup_settlements = function() {
+		//for 
 	};
 
 	/**

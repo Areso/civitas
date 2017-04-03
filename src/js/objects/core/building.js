@@ -315,6 +315,7 @@ civitas.objects.building = function(params) {
 			this.get_core().refresh_panels();
 			return true;
 		} else {
+			this.get_core().error('Unable to demolish the specified building `' + this.get_name() + '`!');
 			return false;
 		}
 	};

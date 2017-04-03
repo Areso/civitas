@@ -328,7 +328,7 @@ header .top-panel span {
 }
 
 .ui .panel footer {
-	border-top: 1px solid #777;
+	border-top: 1px solid #ccc;
 	padding-top: 10px;
 	margin-top: 10px;
 }
@@ -470,7 +470,24 @@ header .top-panel span {
 
 #panel-world {
 	max-width: 1100px;
-	max-height: 534px;
+	max-height: 660px;
+}
+
+.panel .worldmap {
+	width: 1024px;
+	height: 600px;
+	background: transparent url(../images/ui/worldmap.png) no-repeat;
+	background-size: auto 100%;
+	position: relative;
+}
+
+.panel .worldmap .city,
+.panel .worldmap .battle,
+.panel .worldmap .settlement {
+	position: absolute;
+	width: 32px;
+	height: 32px;
+	cursor: pointer;
 }
 
 /* World Trades panel */
@@ -625,12 +642,15 @@ table.mercenaries td:nth-child(3) {
 
 /* City info panel */
 
-#panel-city {
-	width: 460px;
-	max-width: 460px;
+#panel-city,
+#panel-settlement {
+	width: 360px;
+	max-width: 360px;
+	opacity: 0.8;
 }
 
-#panel-city .ui-tabs-panel {
+#panel-city .ui-tabs-panel,
+#panel-settlement .ui-tabs-panel {
 	padding: 0 10px;
 }
 
