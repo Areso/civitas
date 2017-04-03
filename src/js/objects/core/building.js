@@ -504,7 +504,7 @@ civitas.objects.building = function(params) {
 		var building = this.get_building_data();
 		var prd = building.production;
 		var amount = prd.fame * this.get_level();
-		this.get_city().inc_fame(amount);
+		this.get_city().raise_fame(amount);
 		this.get_core().log(this.get_name() + ' raised city fame by ' + amount + '.');
 		return this.get_city().get_fame();
 	};
@@ -522,7 +522,7 @@ civitas.objects.building = function(params) {
 		var prd = building.production;
 		if (this.get_city().has_coins(mat.coins)) {
 			var amount = prd.fame * this.get_level();
-			this.get_city().inc_fame(amount);
+			this.get_city().raise_fame(amount);
 			this.get_city().dec_coins(mat.coins);
 			this.get_core().log(this.get_name() + ' raised city fame with ' + amount + ' at the cost of ' + mat.coins + ' coins.');
 		}

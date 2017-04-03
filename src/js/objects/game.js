@@ -710,9 +710,7 @@ civitas.game = function () {
 		this.log('day ' + this.day_of_month + ' month ' + this.month + ' year ' + this.year);
 		this.process_all_buildings();
 		this.check_for_events();
-		this.check_achievements();
 		this.calc_storage();
-		this.refresh_ui();
 		this.day_of_month++;
 		if (this.day_of_month > 30) {
 			this._do_monthly();
@@ -722,8 +720,10 @@ civitas.game = function () {
 			this.day = 1;
 			this.month = 1;
 		}
+		this.check_achievements();
 		this.save();
 		this.refresh_panels();
+		this.refresh_ui();
 		return this;
 	};
 
@@ -1076,12 +1076,17 @@ civitas.game = function () {
 	 */
 	this.import = function() {
 		var data = JSON.parse(window.atob(localStorage.getItem('civitas.data')));
-		this.set_difficulty(data.difficulty);
-		this.set_achievements(data.achievements);
-		this.set_date_time(data.date_time);
-		this.set_black_market(data.black_market);
-		this.set_settings_music(data.settings.music);
-		this.set_settings_console(data.settings.console);
+		if (data) {
+			this.set_difficulty(data.difficulty);
+			this.set_achievements(data.achievements);
+			this.set_date_time(data.date_time);
+			this.set_black_market(data.black_market);
+			this.set_settings_music(data.settings.music);
+			this.set_settings_console(data.settings.console);
+		} else {
+			this.error('There was a problem loading the game data, it is probably corrupted');
+			return false;
+		}
 		return data;
 	};
 

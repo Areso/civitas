@@ -290,7 +290,7 @@ civitas.objects.city = function(params) {
 				this.remove_from_exports(_city, item, amount);
 				this.raise_influence(_city.get_id(), 2);
 				this.raise_prestige();
-				this.inc_fame(50);
+				this.raise_fame(50);
 				this.get_core().refresh_ui();
 				this.get_core().notify(this.get_name() + ' bought ' + amount + ' ' + civitas.utils.get_resource_name(item) + ' from ' + city + ' for ' + item_discount_price + ' coins each, for a total of ' + price + ' coins.', 'Transaction done');
 				this.get_core().refresh_panels();
@@ -477,7 +477,7 @@ civitas.objects.city = function(params) {
 				this.remove_from_imports(_city, item, amount);
 				this.raise_influence(_city.get_id(), 1);
 				this.raise_prestige();
-				this.inc_fame(50);
+				this.raise_fame(50);
 				this.get_core().refresh_ui();
 				this.get_core().notify(this.get_name() + ' sold ' + amount + ' ' + civitas.utils.get_resource_name(item) + ' to ' + city + ' for ' + item_discount_price + ' coins each, for a total of ' + price + ' coins.', 'Transaction done');
 				this.get_core().refresh_panels();

@@ -6341,7 +6341,7 @@ civitas.objects.city = function(params) {
 				this.remove_from_exports(_city, item, amount);
 				this.raise_influence(_city.get_id(), 2);
 				this.raise_prestige();
-				this.inc_fame(50);
+				this.raise_fame(50);
 				this.get_core().refresh_ui();
 				this.get_core().notify(this.get_name() + ' bought ' + amount + ' ' + civitas.utils.get_resource_name(item) + ' from ' + city + ' for ' + item_discount_price + ' coins each, for a total of ' + price + ' coins.', 'Transaction done');
 				this.get_core().refresh_panels();
@@ -6528,7 +6528,7 @@ civitas.objects.city = function(params) {
 				this.remove_from_imports(_city, item, amount);
 				this.raise_influence(_city.get_id(), 1);
 				this.raise_prestige();
-				this.inc_fame(50);
+				this.raise_fame(50);
 				this.get_core().refresh_ui();
 				this.get_core().notify(this.get_name() + ' sold ' + amount + ' ' + civitas.utils.get_resource_name(item) + ' to ' + city + ' for ' + item_discount_price + ' coins each, for a total of ' + price + ' coins.', 'Transaction done');
 				this.get_core().refresh_panels();
@@ -7540,11 +7540,11 @@ civitas.objects.city.prototype.get_fame = function() {
  * Set the fame of the city.
  * 
  * @public
- * @param {Object} value
+ * @param {Object} amount
  * @returns {civitas.objects.city}
  */
-civitas.objects.city.prototype.set_fame = function(value) {
-	this.resources.fame = value;
+civitas.objects.city.prototype.set_fame = function(amount) {
+	this.resources.fame = amount;
 	return this;
 };
 
@@ -7552,34 +7552,59 @@ civitas.objects.city.prototype.set_fame = function(value) {
  * Increase this city's fame by the specified amount.
  * 
  * @public
- * @param {Number} value
+ * @param {Number} amount
  * @returns {Number}
  */
-civitas.objects.city.prototype.inc_fame = function(value) {
-	return this.set_fame(this.get_fame() + value);
+civitas.objects.city.prototype.raise_fame = function(amount) {
+	if (typeof amount === 'undefined') {
+		amount = 1;
+	}
+	this.set_fame(this.get_fame() + amount);
+	return this.get_fame();
 };
 
 /**
  * Decrease this city's fame by the specified amount.
  * 
  * @public
- * @param {Number} value
+ * @param {Number} amount
  * @returns {Number}
  */
-civitas.objects.city.prototype.dec_fame = function(value) {
-	return this.set_fame(this.get_fame() - value);
+civitas.objects.city.prototype.lower_fame = function(amount) {
+	if (typeof amount === 'undefined') {
+		amount = 1;
+	}
+	if ((this.resources.fame - amount) >= 1) {
+		this.set_fame(this.get_fame() - amount);
+	}
+	return this.get_fame();
 };
 
 /**
  * Set this city's fame to the specified value.
  * 
  * @public
- * @param {Number} value
+ * @param {Number} amount
  * @returns {Number}
  */
-civitas.objects.city.prototype.set_fame = function(value) {
-	this.resources.fame = value;
-	return value;
+civitas.objects.city.prototype.set_fame = function(amount) {
+	var needed = civitas.LEVELS[this.get_level()];
+	this.resources.fame = amount;
+	$('header .cityfame > span').css({
+		width: Math.floor((this.get_fame() * 100) / needed) + '%'
+	});
+	return amount;
+};
+
+/**
+ * Reset the fame of this city to 1.
+ * 
+ * @returns {civitas.objects.city}
+ * @public
+ */
+civitas.objects.city.prototype.reset_fame = function() {
+	this.resources.fame = 1;
+	return this;
 };
 
 /**
@@ -7600,14 +7625,12 @@ civitas.objects.city.prototype.get_espionage = function() {
  * @returns {Number}
  */
 civitas.objects.city.prototype.raise_espionage = function(amount) {
-	if (typeof amount !== 'undefined') {
-		this.resources.espionage += amount;
-	} else {
-		++this.resources.espionage;
+	if (typeof amount === 'undefined') {
+		amount = 1;
 	}
-	$('.cityespionage').html(this.get_espionage());
+	this.set_espionage(this.get_espionage() + amount);
 	this.get_core().notify('The espionage of your city raised.');
-	return this.resources.espionage;
+	return this.get_espionage();
 };
 
 /**
@@ -7618,79 +7641,39 @@ civitas.objects.city.prototype.raise_espionage = function(amount) {
  * @returns {Number}
  */
 civitas.objects.city.prototype.lower_espionage = function(amount) {
-	if (typeof amount !== 'undefined') {
-		if ((this.resources.espionage - amount) >= 1) {
-			this.resources.espionage -= amount;
-			this.get_core().notify('The espionage of your city lowered.');
-		}
-	} else {
-		if ((this.resources.espionage - 1) >= 1) {
-			--this.resources.espionage;
-			this.get_core().notify('The espionage of your city lowered.');
-		}
+	if (typeof amount === 'undefined') {
+		amount = 1;
 	}
-	$('.cityespionage').html(this.get_espionage());
-	return this.resources.espionage;
+	if ((this.resources.espionage - amount) >= 1) {
+		this.set_espionage(this.get_espionage() - amount);
+		this.get_core().notify('The espionage of your city lowered.');
+	}
+	return this.get_espionage();
 };
 
 /**
  * Reset the espionage of this city to 1.
  * 
- * @returns {civitas.objects.city}
+ * @returns {Number}
  * @public
  */
 civitas.objects.city.prototype.reset_espionage = function() {
-	this.resources.espionage = 1;
-	$('.cityespionage').html(this.get_espionage());
-	return this;
+	return this.set_espionage(1);
 };
 
 /**
  * Set the espionage of this city.
  * 
  * @public
- * @returns {civitas.objects.city}
- * @param {Number} value
+ * @returns {Number}
+ * @param {Number} amount
  */
-civitas.objects.city.prototype.set_espionage = function(value) {
-	this.resources.espionage = value;
+civitas.objects.city.prototype.set_espionage = function(amount) {
+	this.resources.espionage = amount;
 	$('.cityespionage').html(this.get_espionage());
-	return this;
+	return amount;
 };
 
-/**
- * Increase this city's espionage by the specified amount.
- * 
- * @public
- * @param {Number} value
- * @returns {Number}
- */
-civitas.objects.city.prototype.inc_espionage = function(value) {
-	return this.set_espionage(this.get_espionage() + value);
-};
-
-/**
- * Decrease this city's espionage by the specified amount.
- * 
- * @public
- * @param {Number} value
- * @returns {Number}
- */
-civitas.objects.city.prototype.dec_espionage = function(value) {
-	return this.set_espionage(this.get_espionage() - value);
-};
-
-/**
- * Set this city's espionage to the specified value.
- * 
- * @public
- * @param {Number} value
- * @returns {Number}
- */
-civitas.objects.city.prototype.set_espionage = function(value) {
-	this.resources.espionage = value;
-	return value;
-};
 
 /**
  * Return the value of this city's prestige.
@@ -8384,6 +8367,7 @@ civitas.objects.event = function (params) {
 	 */
 	this._process = function () {
 		this.notify();
+		var with_city = this.core.get_city(this.data.city);
 		switch (this.effect) {
 			case civitas.EVENT_EFFECT_LOSE_COINS:
 				this.core.get_city().dec_coins(this.data.amount);
@@ -8392,22 +8376,22 @@ civitas.objects.event = function (params) {
 				this.core.get_city().inc_coins(this.data.amount);
 				break;
 			case civitas.EVENT_EFFECT_RAISE_INFLUENCE:
-				this.core.get_city().raise_influence(this.core.get_city(this.data.city).get_id(), this.data.amount);
+				this.core.get_city().raise_influence(with_city.get_id(), this.data.amount);
 				break;
 			case civitas.EVENT_EFFECT_LOWER_INFLUENCE:
-				this.core.get_city().lower_influence(this.core.get_city(this.data.city).get_id(), this.data.amount);
+				this.core.get_city().lower_influence(with_city.get_id(), this.data.amount);
 				break;
 			case civitas.EVENT_EFFECT_GAIN_FAME:
-				this.core.get_city().inc_fame(this.data.amount);
+				this.core.get_city().raise_fame(this.data.amount);
 				break;
 			case civitas.EVENT_EFFECT_LOSE_FAME:
-				this.core.get_city().dec_fame(this.data.amount);
+				this.core.get_city().lower_fame(this.data.amount);
 				break;
 			case civitas.EVENT_EFFECT_GAIN_ESPIONAGE:
-				this.core.get_city().inc_espionage(this.data.amount);
+				this.core.get_city().raise_espionage(this.data.amount);
 				break;
 			case civitas.EVENT_EFFECT_LOSE_ESPIONAGE:
-				this.core.get_city().dec_espionage(this.data.amount);
+				this.core.get_city().lower_espionage(this.data.amount);
 				break;
 			case civitas.EVENT_EFFECT_DESTROY_BUILDING:
 				break;
@@ -8925,7 +8909,7 @@ civitas.objects.building = function(params) {
 		var building = this.get_building_data();
 		var prd = building.production;
 		var amount = prd.fame * this.get_level();
-		this.get_city().inc_fame(amount);
+		this.get_city().raise_fame(amount);
 		this.get_core().log(this.get_name() + ' raised city fame by ' + amount + '.');
 		return this.get_city().get_fame();
 	};
@@ -8943,7 +8927,7 @@ civitas.objects.building = function(params) {
 		var prd = building.production;
 		if (this.get_city().has_coins(mat.coins)) {
 			var amount = prd.fame * this.get_level();
-			this.get_city().inc_fame(amount);
+			this.get_city().raise_fame(amount);
 			this.get_city().dec_coins(mat.coins);
 			this.get_core().log(this.get_name() + ' raised city fame with ' + amount + ' at the cost of ' + mat.coins + ' coins.');
 		}
@@ -12708,9 +12692,7 @@ civitas.game = function () {
 		this.log('day ' + this.day_of_month + ' month ' + this.month + ' year ' + this.year);
 		this.process_all_buildings();
 		this.check_for_events();
-		this.check_achievements();
 		this.calc_storage();
-		this.refresh_ui();
 		this.day_of_month++;
 		if (this.day_of_month > 30) {
 			this._do_monthly();
@@ -12720,8 +12702,10 @@ civitas.game = function () {
 			this.day = 1;
 			this.month = 1;
 		}
+		this.check_achievements();
 		this.save();
 		this.refresh_panels();
+		this.refresh_ui();
 		return this;
 	};
 
@@ -13074,12 +13058,17 @@ civitas.game = function () {
 	 */
 	this.import = function() {
 		var data = JSON.parse(window.atob(localStorage.getItem('civitas.data')));
-		this.set_difficulty(data.difficulty);
-		this.set_achievements(data.achievements);
-		this.set_date_time(data.date_time);
-		this.set_black_market(data.black_market);
-		this.set_settings_music(data.settings.music);
-		this.set_settings_console(data.settings.console);
+		if (data) {
+			this.set_difficulty(data.difficulty);
+			this.set_achievements(data.achievements);
+			this.set_date_time(data.date_time);
+			this.set_black_market(data.black_market);
+			this.set_settings_music(data.settings.music);
+			this.set_settings_console(data.settings.console);
+		} else {
+			this.error('There was a problem loading the game data, it is probably corrupted');
+			return false;
+		}
 		return data;
 	};
 

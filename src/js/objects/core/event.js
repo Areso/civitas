@@ -122,6 +122,7 @@ civitas.objects.event = function (params) {
 	 */
 	this._process = function () {
 		this.notify();
+		var with_city = this.core.get_city(this.data.city);
 		switch (this.effect) {
 			case civitas.EVENT_EFFECT_LOSE_COINS:
 				this.core.get_city().dec_coins(this.data.amount);
@@ -130,22 +131,22 @@ civitas.objects.event = function (params) {
 				this.core.get_city().inc_coins(this.data.amount);
 				break;
 			case civitas.EVENT_EFFECT_RAISE_INFLUENCE:
-				this.core.get_city().raise_influence(this.core.get_city(this.data.city).get_id(), this.data.amount);
+				this.core.get_city().raise_influence(with_city.get_id(), this.data.amount);
 				break;
 			case civitas.EVENT_EFFECT_LOWER_INFLUENCE:
-				this.core.get_city().lower_influence(this.core.get_city(this.data.city).get_id(), this.data.amount);
+				this.core.get_city().lower_influence(with_city.get_id(), this.data.amount);
 				break;
 			case civitas.EVENT_EFFECT_GAIN_FAME:
-				this.core.get_city().inc_fame(this.data.amount);
+				this.core.get_city().raise_fame(this.data.amount);
 				break;
 			case civitas.EVENT_EFFECT_LOSE_FAME:
-				this.core.get_city().dec_fame(this.data.amount);
+				this.core.get_city().lower_fame(this.data.amount);
 				break;
 			case civitas.EVENT_EFFECT_GAIN_ESPIONAGE:
-				this.core.get_city().inc_espionage(this.data.amount);
+				this.core.get_city().raise_espionage(this.data.amount);
 				break;
 			case civitas.EVENT_EFFECT_LOSE_ESPIONAGE:
-				this.core.get_city().dec_espionage(this.data.amount);
+				this.core.get_city().lower_espionage(this.data.amount);
 				break;
 			case civitas.EVENT_EFFECT_DESTROY_BUILDING:
 				break;
