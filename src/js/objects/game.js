@@ -130,6 +130,14 @@ civitas.game = function () {
 	this.panels = [];
 
 	/**
+	 * Game mode, single player or multi player.
+	 *
+	 * @type {Number}
+	 * @private
+	 */
+	this.mode = civitas.MODE_SINGLEPLAYER;
+
+	/**
 	 * Object constructor.
 	 * 
 	 * @private
@@ -225,11 +233,13 @@ civitas.game = function () {
 		}).on('click', '.up', function () {
 			$('.console .contents').scrollTo('-=97px', 500);
 		});
+		/*
 		window.addEventListener("beforeunload", function (e) {
 			var message = civitas.l('Are you sure you want to leave your city?');
 			(e || window.event).returnValue = message;
 			return message;
 		});
+		*/
 		/*
 		this.api = new civitas.modules.api({
 			core: this
@@ -1499,6 +1509,27 @@ civitas.game = function () {
 	this.open_window = function(window_data) {
 		window_data.core = this;
 		return new civitas.controls.window(window_data);
+	};
+
+	/**
+	 * Return the game mode.
+	 *
+	 * @public
+	 * @returns {Number}
+	 */
+	this.get_mode = function() {
+		return this.mode;
+	};
+
+	/**
+	 * Set the game mode.
+	 *
+	 * @public
+	 * @param {Number} value
+	 * @returns {civitas.game}
+	 */
+	this.set_mode = function(value) {
+		this.mode = value;
 	};
 
 	// Fire up the constructor

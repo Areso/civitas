@@ -239,3 +239,19 @@ civitas.NOTIFICATION_PRODUCTION_PAUSED = 2;
  * @type {Number}
  */
 civitas.NOTIFICATION_CITY_LOW_LEVEL = 3;
+
+/**
+ * Game type as single player (campaign, local).
+ *
+ * @constant
+ * @type {Number}
+ */
+civitas.MODE_SINGLEPLAYER = 0;
+
+/**
+ * Game type as multi player (networked).
+ *
+ * @constant
+ * @type {Number}
+ */
+civitas.MODE_MULTIPLAYER = 1;
