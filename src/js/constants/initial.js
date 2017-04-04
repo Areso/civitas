@@ -81,7 +81,7 @@ civitas.START_RESOURCES = [
 	/* Easy difficulty */
 	{
 		coins: 50000,
-		fame: 10,
+		fame: 0,
 		prestige: 1,
 		espionage: 1,
 		research: 1,
@@ -96,7 +96,7 @@ civitas.START_RESOURCES = [
 	/* Medium difficulty */
 	{
 		coins: 20000,
-		fame: 1,
+		fame: 0,
 		prestige: 1,
 		espionage: 1,
 		research: 1,
@@ -111,7 +111,7 @@ civitas.START_RESOURCES = [
 	/* Hard difficulty */
 	{
 		coins: 10000,
-		fame: 1,
+		fame: 0,
 		prestige: 1,
 		espionage: 1,
 		research: 1,
@@ -125,7 +125,7 @@ civitas.START_RESOURCES = [
 	/* Hardcore difficulty */
 	{
 		coins: 5000,
-		fame: 1,
+		fame: 0,
 		prestige: 1,
 		espionage: 1,
 		research: 1,

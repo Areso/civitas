@@ -527,7 +527,7 @@ civitas.game = function () {
 			if (!self.is_paused()) {
 				self._do_daily();
 			}
-		}, 16000);
+		}, 10000);
 		$('.tips').tipsy({
 			gravity: $.fn.tipsy.autoNS,
 			html: true

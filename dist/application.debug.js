@@ -362,7 +362,7 @@ civitas.START_RESOURCES = [
 	/* Easy difficulty */
 	{
 		coins: 50000,
-		fame: 10,
+		fame: 0,
 		prestige: 1,
 		espionage: 1,
 		research: 1,
@@ -377,7 +377,7 @@ civitas.START_RESOURCES = [
 	/* Medium difficulty */
 	{
 		coins: 20000,
-		fame: 1,
+		fame: 0,
 		prestige: 1,
 		espionage: 1,
 		research: 1,
@@ -392,7 +392,7 @@ civitas.START_RESOURCES = [
 	/* Hard difficulty */
 	{
 		coins: 10000,
-		fame: 1,
+		fame: 0,
 		prestige: 1,
 		espionage: 1,
 		research: 1,
@@ -406,7 +406,7 @@ civitas.START_RESOURCES = [
 	/* Hardcore difficulty */
 	{
 		coins: 5000,
-		fame: 1,
+		fame: 0,
 		prestige: 1,
 		espionage: 1,
 		research: 1,
@@ -6864,7 +6864,7 @@ civitas.objects.city = function(params) {
 		var half_level = Math.round(level / 2);
 		return Math.floor(
 			(
-				(this.get_fame() / half_level)
+				((this.get_fame() > 0 ? this.get_fame() : 1) / half_level)
 				+ (this.get_prestige() / half_level)
 				+ (this.get_espionage() / half_level)
 				+ ((this.get_army_total().total > 0 ? this.get_army_total().total : 1) / half_level)
@@ -12527,7 +12527,7 @@ civitas.game = function () {
 			if (!self.is_paused()) {
 				self._do_daily();
 			}
-		}, 16000);
+		}, 10000);
 		$('.tips').tipsy({
 			gravity: $.fn.tipsy.autoNS,
 			html: true

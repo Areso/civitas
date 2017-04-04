@@ -797,7 +797,7 @@ civitas.objects.city = function(params) {
 		var half_level = Math.round(level / 2);
 		return Math.floor(
 			(
-				(this.get_fame() / half_level)
+				((this.get_fame() > 0 ? this.get_fame() : 1) / half_level)
 				+ (this.get_prestige() / half_level)
 				+ (this.get_espionage() / half_level)
 				+ ((this.get_army_total().total > 0 ? this.get_army_total().total : 1) / half_level)
