@@ -2,7 +2,7 @@
  * Civitas empire-building game.
  *
  * @author sizeof(cat) <sizeofcat AT riseup.net>
- * @version 0.1.0.432017
+ * @version 0.1.0.442017
  * @license MIT
  */ 'use strict';
 
@@ -12129,7 +12129,7 @@ civitas.game = function () {
 			core: this
 		});
 		*/
-		if (localStorage.getItem('civitas.data') === null) {
+		if (this.get_storage_data() === false) {
 			this.open_start_window();
 		}
 		this.setup_audio();
@@ -12156,7 +12156,7 @@ civitas.game = function () {
 			$(window).scrollLeft($(window).scrollLeft() + (clickX - e.pageX));
 		};
 		this._setup_toolbar();
-		if (localStorage.getItem('civitas.data') !== null) {
+		if (this.get_storage_data() !== false) {
 			this.start_game();
 		}
 		$('.toolbar').on('click', '.do-options', function () {
@@ -12292,7 +12292,7 @@ civitas.game = function () {
 	 * @returns {civitas.game}
 	 */
 	this.set_storage_data = function (key, value) {
-		localStorage.setItem(civitas.STORAGE_KEY + '.' + key, value);
+		localStorage.setItem(civitas.STORAGE_KEY + '.' + key, window.btoa(JSON.stringify(value)));
 		return this;
 	};
 
@@ -12304,7 +12304,14 @@ civitas.game = function () {
 	 * @returns {Mixed}
 	 */
 	this.get_storage_data = function (key) {
-		return localStorage.getItem(civitas.STORAGE_KEY + '.' + key);
+		if (typeof key === 'undefined') {
+			key = 'live';
+		}
+		if (localStorage.getItem(civitas.STORAGE_KEY + '.' + key) !== null) {
+			return JSON.parse(window.atob(localStorage.getItem(civitas.STORAGE_KEY + '.' + key)));
+		} else {
+			return false;
+		}
 	};
 
 	/**
@@ -12438,7 +12445,7 @@ civitas.game = function () {
 		var self = this;
 		var data = null;
 		this.difficulty = parseInt(difficulty);
-		if (localStorage.getItem('civitas.data') !== null) {
+		if (this.get_storage_data() !== false) {
 			data = this._load_city(this.import());
 		} else {
 			this._create_city(name, cityname, nation, climate, avatar);
@@ -13057,8 +13064,8 @@ civitas.game = function () {
 	 * @returns {Object}
 	 */
 	this.import = function() {
-		var data = JSON.parse(window.atob(localStorage.getItem('civitas.data')));
-		if (data) {
+		var data = this.get_storage_data();
+		if (data !== false) {
 			this.set_difficulty(data.difficulty);
 			this.set_achievements(data.achievements);
 			this.set_date_time(data.date_time);
@@ -13099,7 +13106,7 @@ civitas.game = function () {
 			settings: this.get_settings()
 		};
 		if (to_local_storage === true) {
-			localStorage.setItem('civitas.data', window.btoa(JSON.stringify(data)));
+			this.set_storage_data('live', data);
 		}
 		return data;
 	};
