@@ -2,68 +2,68 @@
 civitas.WINDOW_OPTIONS = {
 	id: 'options',
 	template: '<section id="window-options" class="window">' +
-			'<div class="logo">Civitas</div>' +
-			'<fieldset>' +
-				'<div class="new-game">' +
-					'<p>' + civitas.l('Choose your city details well, climate changes and game difficulty affects your building options and resources.') + '</p>' +
-					'<dl>' +
-						'<dt class="clearfix">' + civitas.l('Your Name') + ':</dt>' +
-						'<dd><input type="text" class="name text-input" /></dd>' +
-						'<dt class="clearfix">' + civitas.l('City Name') + ':</dt>' +
-						'<dd><input type="text" class="cityname text-input" /></dd>' +
-						'<dt class="clearfix">' + civitas.l('Nationality') + ':</dt>' +
-						'<dd>' +
-							'<select class="nation text-input"></select>' +
-						'</dd>' +
-						'<dt class="clearfix">' + civitas.l('Climate') + ':</dt>' +
-						'<dd>' +
-							'<select class="climate text-input"></select>' +
-						'</dd>' +
-						'<dt class="clearfix">' + civitas.l('Difficulty') + ':</dt>' +
-						'<dd>' +
-							'<select class="difficulty text-input">' +
-								'<option value="1">' + civitas.l('Easy') + '</option>' +
-								'<option value="2">' + civitas.l('Medium') + '</option>' +
-								'<option value="3">' + civitas.l('Hard') + '</option>' +
-								'<option value="4">' + civitas.l('Hardcore') + '</option>' +
-							'</select>' +
-						'</dd>' +
-						'<dt class="clearfix">' + civitas.l('Avatar') + ':</dt>' +
-						'<dd class="avatar-select-container">' +
-							'<div class="avatar-select"></div>' +
-							'<div class="scrollbar">' +
-								'<div class="up"></div>' +
-								'<div class="down"></div>' +
-							'</div>' +
-						'</dd>' +
-					'</dl>' +
-					'<a href="#" class="do-start highlight button">' + civitas.l('Start Playing') + '</a>' +
-				'</div>' +
-				'<a href="#" class="do-about button">' + civitas.l('About') + '</a>' +
-				'<div class="about-game">' +
-					'<a class="github" href="https://github.com/sizeofcat/civitas"><img class="tips" title="' + civitas.l('Visit the project page on GitHub') + '" src="../images/ui/github.png" /></a>' +
-					'<p>' + civitas.l('Civitas is written by <a href="https://sizeof.cat">sizeof(cat)</a>.') + '</p>' +
-					'<p>' + civitas.l('Big thanks to') + ':</p>' +
-					'<ul>' +
-						'<li><a href="https://soundcloud.com/shantifax">Shantifax</a> for the music (Glandula Pinealis).</li>' +
-						'<li>Brendan Eich for Javascript.</li>' +
-						'<li><a href="http://bluebyte.com">Blue Byte</a> for Anno 1404.</li>' +
-					'</ul>' +
-				'</div>' +
-				'<a href="#" class="do-options button">' + civitas.l('Options') + '</a>' +
-				'<div class="options-game"></div>' +
-				'<a href="#" class="do-pause button">' + civitas.l('Pause') + '</a>' +
-				'<a href="#" class="do-restart button">' + civitas.l('Restart') + '</a>' +
-				'<a href="#" class="do-save button">' + civitas.l('Save / Load') + '</a>' +
-				'<ul class="save-slots">' +
-					'<li data-id="1"><span class="date">' + civitas.l('empty save game') + '</span><span title="' + civitas.l('Delete this save game') + '" class="tips delete"></span><span title="' + civitas.l('Save your game here') + '" class="tips save"></span><span title="' + civitas.l('Load this save game') + '" class="tips load"></span></a>' +
-					'<li data-id="2"><span class="date">' + civitas.l('empty save game') + '</span><span title="' + civitas.l('Delete this save game') + '" class="tips delete"></span><span title="' + civitas.l('Save your game here') + '" class="tips save"></span><span title="' + civitas.l('Load this save game') + '" class="tips load"></span></a>' +
-					'<li data-id="3"><span class="date">' + civitas.l('empty save game') + '</span><span title="' + civitas.l('Delete this save game') + '" class="tips delete"></span><span title="' + civitas.l('Save your game here') + '" class="tips save"></span><span title="' + civitas.l('Load this save game') + '" class="tips load"></span></a>' +
+		'<div class="logo">Civitas</div>' +
+		'<fieldset>' +
+			'<div class="new-game">' +
+				'<p>' + civitas.l('Choose your city details well, climate changes and game difficulty affects your building options and resources.') + '</p>' +
+				'<dl>' +
+					'<dt class="clearfix">' + civitas.l('Your Name') + ':</dt>' +
+					'<dd><input type="text" class="name text-input" /></dd>' +
+					'<dt class="clearfix">' + civitas.l('City Name') + ':</dt>' +
+					'<dd><input type="text" class="cityname text-input" /></dd>' +
+					'<dt class="clearfix">' + civitas.l('Nationality') + ':</dt>' +
+					'<dd>' +
+						'<select class="nation text-input"></select>' +
+					'</dd>' +
+					'<dt class="clearfix">' + civitas.l('Climate') + ':</dt>' +
+					'<dd>' +
+						'<select class="climate text-input"></select>' +
+					'</dd>' +
+					'<dt class="clearfix">' + civitas.l('Difficulty') + ':</dt>' +
+					'<dd>' +
+						'<select class="difficulty text-input">' +
+							'<option value="1">' + civitas.l('Easy') + '</option>' +
+							'<option value="2">' + civitas.l('Medium') + '</option>' +
+							'<option value="3">' + civitas.l('Hard') + '</option>' +
+							'<option value="4">' + civitas.l('Hardcore') + '</option>' +
+						'</select>' +
+					'</dd>' +
+					'<dt class="clearfix">' + civitas.l('Avatar') + ':</dt>' +
+					'<dd class="avatar-select-container">' +
+						'<div class="avatar-select"></div>' +
+						'<div class="scrollbar">' +
+							'<div class="up"></div>' +
+							'<div class="down"></div>' +
+						'</div>' +
+					'</dd>' +
+				'</dl>' +
+				'<a href="#" class="do-start highlight button">' + civitas.l('Start Playing') + '</a>' +
+			'</div>' +
+			'<a href="#" class="do-about button">' + civitas.l('About') + '</a>' +
+			'<div class="about-game">' +
+				'<a class="github" href="https://github.com/sizeofcat/civitas"><img class="tips" title="' + civitas.l('Visit the project page on GitHub') + '" src="../images/ui/github.png" /></a>' +
+				'<p>' + civitas.l('Civitas is written by <a href="https://sizeof.cat">sizeof(cat)</a>.') + '</p>' +
+				'<p>' + civitas.l('Big thanks to') + ':</p>' +
+				'<ul>' +
+					'<li><a href="https://soundcloud.com/shantifax">Shantifax</a> for the music (Glandula Pinealis).</li>' +
+					'<li>Brendan Eich for Javascript.</li>' +
+					'<li><a href="http://bluebyte.com">Blue Byte</a> for Anno 1404.</li>' +
 				'</ul>' +
-				'<br />' +
-				'<a href="#" class="do-resume button">' + civitas.l('Resume Playing') + '</a>' +
-			'</fieldset>' +
-		'</section>',
+			'</div>' +
+			'<a href="#" class="do-options button">' + civitas.l('Options') + '</a>' +
+			'<div class="options-game"></div>' +
+			'<a href="#" class="do-pause button">' + civitas.l('Pause') + '</a>' +
+			'<a href="#" class="do-restart button">' + civitas.l('Restart') + '</a>' +
+			'<a href="#" class="do-save button">' + civitas.l('Save / Load') + '</a>' +
+			'<ul class="save-slots">' +
+				'<li data-id="1"><span class="date">' + civitas.l('empty save game') + '</span><span title="' + civitas.l('Delete this save game') + '" class="tips delete"></span><span title="' + civitas.l('Save your game here') + '" class="tips save"></span><span title="' + civitas.l('Load this save game') + '" class="tips load"></span></a>' +
+				'<li data-id="2"><span class="date">' + civitas.l('empty save game') + '</span><span title="' + civitas.l('Delete this save game') + '" class="tips delete"></span><span title="' + civitas.l('Save your game here') + '" class="tips save"></span><span title="' + civitas.l('Load this save game') + '" class="tips load"></span></a>' +
+				'<li data-id="3"><span class="date">' + civitas.l('empty save game') + '</span><span title="' + civitas.l('Delete this save game') + '" class="tips delete"></span><span title="' + civitas.l('Save your game here') + '" class="tips save"></span><span title="' + civitas.l('Load this save game') + '" class="tips load"></span></a>' +
+			'</ul>' +
+			'<br />' +
+			'<a href="#" class="do-resume button">' + civitas.l('Resume Playing') + '</a>' +
+		'</fieldset>' +
+	'</section>',
 	on_show: function() {
 		var self = this;
 		var avatar = 1;
@@ -167,9 +167,9 @@ civitas.WINDOW_OPTIONS = {
 			var id = parseInt(el.data('id'));
 			if (id >= 1 && id <= 3) {
 				if (confirm(civitas.l('Are you sure you want to save the game in this slot? An already existing save will be overwritten!')) === true) {
-					core.export(true, id);
+					var data = core.export(true, id);
 					el.children('span.load, span.delete').show();
-					el.children('span.date').html(civitas.utils.time_since(Number(new Date())) + ' ago');
+					el.children('span.date').html(civitas.utils.time_since(data.date) + ' ago');
 				}
 			}
 			return false;
@@ -180,7 +180,7 @@ civitas.WINDOW_OPTIONS = {
 				if (confirm(civitas.l('Are you sure you want to delete the save game from this slot? All data from that game will be lost!')) === true) {
 					core.reset_storage_data('save' + id);
 					el.children('span.load, span.delete').hide();
-					el.children('span.date').html('empty save game');
+					el.children('span.date').html(civitas.l('empty save game'));
 					el.children('span.save').show();
 				}
 			}
@@ -196,7 +196,7 @@ civitas.WINDOW_OPTIONS = {
 						core.error('There was a problem loading the game data, it is probably corrupted. Save game data will be deleted now.');
 						core.reset_storage_data('save' + id);
 						el.children('span.load, span.delete').hide();
-						el.children('span.date').html('empty save game');
+						el.children('span.date').html(civitas.l('empty save game'));
 						el.children('span.save').show();
 					}
 				}

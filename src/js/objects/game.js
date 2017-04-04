@@ -225,6 +225,11 @@ civitas.game = function () {
 		}).on('click', '.up', function () {
 			$('.console .contents').scrollTo('-=97px', 500);
 		});
+		window.addEventListener("beforeunload", function (e) {
+			var message = civitas.l('Are you sure you want to leave your city?');
+			(e || window.event).returnValue = message;
+			return message;
+		});
 		/*
 		this.api = new civitas.modules.api({
 			core: this
@@ -1166,8 +1171,10 @@ civitas.game = function () {
 			} else {
 				this.set_storage_data('live', new_data);
 			}
+			return new_data;
+		} else {
+			return data;
 		}
-		return data;
 	};
 
 	this.setup_settlements = function() {
