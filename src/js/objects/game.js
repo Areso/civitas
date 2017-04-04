@@ -148,7 +148,7 @@ civitas.game = function () {
 		});
 		*/
 		if (this.get_storage_data() === false) {
-			this.open_start_window();
+			this.open_window(civitas.WINDOW_OPTIONS);
 		}
 		this.setup_audio();
 		$('.game').on({
@@ -1480,6 +1480,18 @@ civitas.game = function () {
 	 */
 	this.get_achievements = function() {
 		return this.achievements;
+	};
+
+	/**
+	 * Open a UI window.
+	 *
+	 * @public
+	 * @param {Object} window_data
+	 * @returns {civitas.controls.window}
+	 */
+	this.open_window = function(window_data) {
+		window_data.core = this;
+		return new civitas.controls.window(window_data);
 	};
 
 	// Fire up the constructor

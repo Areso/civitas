@@ -69,7 +69,6 @@ gulp.task('app', function() {
 		'src/js/objects/ui/army.js',
 		'src/js/objects/ui/trades.js',
 		'src/js/objects/game.js',
-		'src/js/objects/core/window/start.js',
 		'src/js/objects/core/window/options.js'
   	])
     .pipe(concat('application.debug.js'))
