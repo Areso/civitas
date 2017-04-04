@@ -12502,7 +12502,7 @@ civitas.game = function () {
 		$(document).keyup(function(e) {
 			if (e.keyCode == 27 && !civitas.ui.window_exists('#window-options')) {
 				self.show_loader();
-				self.open_options_window();
+				self.open_window(civitas.WINDOW_OPTIONS);
 			}
 		});
 		this.hide_loader();
