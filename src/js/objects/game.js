@@ -302,6 +302,38 @@ civitas.game = function () {
 	};
 
 	/**
+	 * Swap game storage data between two keys.
+	 * 
+	 * @param {String} from
+	 * @param {String} to
+	 * @public
+	 * @returns {Boolean}
+	 */
+	this.swap_storage_data = function(from, to) {
+		var data = this.get_storage_data(from);
+		if (data !== false) {
+			this.set_storage_data(to, data);
+			return true;
+		}
+		return false;
+	};
+
+	/**
+	 * Reset (empty) game storage data.
+	 * 
+	 * @param {String} key
+	 * @public
+	 * @returns {civitas.game}
+	 */
+	this.reset_storage_data = function(key) {
+		if (typeof key === 'undefined') {
+			key = 'live';
+		}
+		localStorage.removeItem(civitas.STORAGE_KEY + '.' + key);
+		return this;
+	};
+
+	/**
 	 * Set game storage data.
 	 * 
 	 * @param {String} key
@@ -1082,7 +1114,7 @@ civitas.game = function () {
 	 * @returns {Object}
 	 */
 	this.import = function() {
-		var data = this.get_storage_data();
+		var data = this.get_storage_data().data;
 		if (data !== false) {
 			this.set_difficulty(data.difficulty);
 			this.set_achievements(data.achievements);
@@ -1102,9 +1134,10 @@ civitas.game = function () {
 	 *
 	 * @public
 	 * @param {Boolean} to_local_storage
+	 * @param {Number} slot
 	 * @returns {Object}
 	 */
-	this.export = function(to_local_storage) {
+	this.export = function(to_local_storage, slot) {
 		var city = this.get_city();
 		var cities_list = [];
 		for (var i = 0; i < this.cities.length; i++) {
@@ -1124,7 +1157,15 @@ civitas.game = function () {
 			settings: this.get_settings()
 		};
 		if (to_local_storage === true) {
-			this.set_storage_data('live', data);
+			var new_data = {
+				date: Number(new Date()),
+				data: data
+			}
+			if (typeof slot !== 'undefined') {
+				this.set_storage_data('save' + slot, new_data);
+			} else {
+				this.set_storage_data('live', new_data);
+			}
 		}
 		return data;
 	};

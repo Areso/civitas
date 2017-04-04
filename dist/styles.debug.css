@@ -2,7 +2,7 @@
  * Civitas empire-building game.
  *
  * @author sizeof(cat) <sizeofcat AT riseup.net>
- * @version 0.1.0.442017
+ * @version 0.1.0.452017
  * @license MIT
  */ @font-face {
 	font-family: 'Nova Oval';
@@ -773,9 +773,63 @@ p {
 }
 
 #window-options .about-game,
-#window-options .options-game {
+#window-options .options-game,
+#window-options ul.save-slots {
 	position: relative;
 	display: none;
+	padding: 10px 0;
+	margin: 0;
+}
+
+#window-options .save-slots li {
+	border: 1px solid #444;
+	margin: 2px 0;
+	padding: 3px 10px;
+	font-size: 12px;
+	clear: both;
+}
+
+#window-options .save-slots li:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+#window-options .save-slots li:hover {
+	background-color: #444;
+}
+
+#window-options .save-slots li span.save:hover,
+#window-options .save-slots li span.load:hover,
+#window-options .save-slots li span.delete:hover {
+	background-color: #ccc;
+	border-radius: 50%;
+}
+#window-options .save-slots li span.load,
+#window-options .save-slots li span.save,
+#window-options .save-slots li span.delete {
+	width: 30px;
+	height: 30px;
+	display: inline-block;
+	float: right;
+	cursor: pointer;
+	padding: 2px;
+}
+
+#window-options .save-slots li span.load {
+	background: transparent url(../images/ui/icon_back.png) no-repeat center;
+}
+
+#window-options .save-slots li span.save {
+	background: transparent url(../images/ui/icon_start_production.png) no-repeat center;
+}
+
+#window-options .save-slots li span.delete {
+	background: transparent url(../images/ui/icon_demolish.png) no-repeat center;
+}
+
+#window-options .save-slots li span.date {
+	float: left;
 	padding: 10px 0;
 }
 

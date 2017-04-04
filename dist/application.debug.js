@@ -2,7 +2,7 @@
  * Civitas empire-building game.
  *
  * @author sizeof(cat) <sizeofcat AT riseup.net>
- * @version 0.1.0.442017
+ * @version 0.1.0.452017
  * @license MIT
  */ 'use strict';
 
@@ -12284,6 +12284,38 @@ civitas.game = function () {
 	};
 
 	/**
+	 * Swap game storage data between two keys.
+	 * 
+	 * @param {String} from
+	 * @param {String} to
+	 * @public
+	 * @returns {Boolean}
+	 */
+	this.swap_storage_data = function(from, to) {
+		var data = this.get_storage_data(from);
+		if (data !== false) {
+			this.set_storage_data(to, data);
+			return true;
+		}
+		return false;
+	};
+
+	/**
+	 * Reset (empty) game storage data.
+	 * 
+	 * @param {String} key
+	 * @public
+	 * @returns {civitas.game}
+	 */
+	this.reset_storage_data = function(key) {
+		if (typeof key === 'undefined') {
+			key = 'live';
+		}
+		localStorage.removeItem(civitas.STORAGE_KEY + '.' + key);
+		return this;
+	};
+
+	/**
 	 * Set game storage data.
 	 * 
 	 * @param {String} key
@@ -13064,7 +13096,7 @@ civitas.game = function () {
 	 * @returns {Object}
 	 */
 	this.import = function() {
-		var data = this.get_storage_data();
+		var data = this.get_storage_data().data;
 		if (data !== false) {
 			this.set_difficulty(data.difficulty);
 			this.set_achievements(data.achievements);
@@ -13084,9 +13116,10 @@ civitas.game = function () {
 	 *
 	 * @public
 	 * @param {Boolean} to_local_storage
+	 * @param {Number} slot
 	 * @returns {Object}
 	 */
-	this.export = function(to_local_storage) {
+	this.export = function(to_local_storage, slot) {
 		var city = this.get_city();
 		var cities_list = [];
 		for (var i = 0; i < this.cities.length; i++) {
@@ -13106,7 +13139,15 @@ civitas.game = function () {
 			settings: this.get_settings()
 		};
 		if (to_local_storage === true) {
-			this.set_storage_data('live', data);
+			var new_data = {
+				date: Number(new Date()),
+				data: data
+			}
+			if (typeof slot !== 'undefined') {
+				this.set_storage_data('save' + slot, new_data);
+			} else {
+				this.set_storage_data('live', new_data);
+			}
 		}
 		return data;
 	};
@@ -13529,11 +13570,6 @@ civitas.game.prototype.open_options_window = function() {
 		template: '<section id="window-options" class="window">' +
 			'<div class="logo">Civitas</div>' +
 			'<fieldset>' +
-				'<p>' + civitas.l('Your game is not paused during this time unless you press Pause! When you Resume, game is unpaused automatically.') + '</p>' +
-				'<a href="#" class="do-options button">' + civitas.l('Options') + '</a>' +
-				'<div class="options-game"></div>' +
-				'<a href="#" class="do-pause button">' + civitas.l('Pause') + '</a>' +
-				'<a href="#" class="do-restart button">' + civitas.l('Restart') + '</a>' +
 				'<a href="#" class="do-about button">' + civitas.l('About') + '</a>' +
 				'<div class="about-game">' +
 					'<a class="github" href="https://github.com/sizeofcat/civitas"><img class="tips" title="' + civitas.l('Visit the project page on GitHub') + '" src="../images/ui/github.png" /></a>' +
@@ -13545,6 +13581,16 @@ civitas.game.prototype.open_options_window = function() {
 						'<li><a href="http://bluebyte.com">Blue Byte</a> for Anno 1404.</li>' +
 					'</ul>' +
 				'</div>' +
+				'<a href="#" class="do-options button">' + civitas.l('Options') + '</a>' +
+				'<div class="options-game"></div>' +
+				'<a href="#" class="do-pause button">' + civitas.l('Pause') + '</a>' +
+				'<a href="#" class="do-restart button">' + civitas.l('Restart') + '</a>' +
+				'<a href="#" class="do-save button">' + civitas.l('Save / Load') + '</a>' +
+				'<ul class="save-slots">' +
+					'<li data-id="1"><span class="date">empty save game</span><span title="Delete this save game" class="tips delete"></span><span title="Save your game here" class="tips save"></span><span title="Load this save game" class="tips load"></span></a>' +
+					'<li data-id="2"><span class="date">empty save game</span><span title="Delete this save game" class="tips delete"></span><span title="Save your game here" class="tips save"></span><span title="Load this save game" class="tips load"></span></a>' +
+					'<li data-id="3"><span class="date">empty save game</span><span title="Delete this save game" class="tips delete"></span><span title="Save your game here" class="tips save"></span><span title="Load this save game" class="tips load"></span></a>' +
+				'</ul>' +
 				'<br />' +
 				'<a href="#" class="do-resume button">' + civitas.l('Resume Playing') + '</a>' +
 			'</fieldset>' +
@@ -13562,6 +13608,15 @@ civitas.game.prototype.open_options_window = function() {
 				'<a href="#" class="console-control ui-control ' + ((this.core.get_settings('console') === true) ? 'on' : 'off') + '">' + civitas.l('toggle console') + '</a>' +
 				'</div>');
 			$(el + ' .tabs').tabs();
+			for (var i = 1; i <= 3; i++) {
+				var data;
+				if (data = core.get_storage_data('save' + i)) {
+					$('.save-slots > li[data-id=' + i + '] > span.load').show();
+					$('.save-slots > li[data-id=' + i + '] > span.date').html(civitas.utils.time_since(data.date) + ' ago');
+				} else {
+					$('.save-slots > li[data-id=' + i + '] > span.load, .save-slots > li[data-id=' + i + '] > span.delete').hide();
+				}
+			}
 			$(el).on('click', '.do-resume', function () {
 				core.hide_loader();
 				core.unpause();
@@ -13586,8 +13641,51 @@ civitas.game.prototype.open_options_window = function() {
 				return false;
 			}).on('click', '.do-restart', function () {
 				if (confirm('Are you sure you want to restart the game? You wll lose all progress!') === true) {
-					localStorage.removeItem(civitas.STORAGE_KEY + '.data');
+					core.reset_storage_data();
 					document.location.reload();
+				}
+				return false;
+			}).on('click', '.do-save', function () {
+				$(el + ' .save-slots').slideToggle();
+				return false;
+			}).on('click', '.save-slots > li > .save', function () {
+				var el = $(this).parent();
+				var id = parseInt(el.data('id'));
+				if (id >= 1 && id <= 3) {
+					if (confirm('Are you sure you want to save the game in this slot? An already existing save will be overwritten!') === true) {
+						core.export(true, id);
+						el.children('span.load, span.delete').show();
+						el.children('span.date').html(civitas.utils.time_since(Number(new Date())) + ' ago');
+					}
+				}
+				return false;
+			}).on('click', '.save-slots > li > .delete', function () {
+				var el = $(this).parent();
+				var id = parseInt(el.data('id'));
+				if (id >= 1 && id <= 3) {
+					if (confirm('Are you sure you want to delete the save game from this slot? All data from that game will be lost!') === true) {
+						core.reset_storage_data('save' + id);
+						el.children('span.load, span.delete').hide();
+						el.children('span.date').html('empty save game');
+						el.children('span.save').show();
+					}
+				}
+				return false;
+			}).on('click', '.save-slots > li > .load', function () {
+				var el = $(this).parent();
+				var id = parseInt(el.data('id'));
+				if (id >= 1 && id <= 3) {
+					if (confirm('Are you sure you want to load the game from this slot? An already existing game will be lost!') === true) {
+						if (core.swap_storage_data('save' + id, 'live') !== false) {
+							document.location.reload();
+						} else {
+							core.error('There was a problem loading the game data, it is probably corrupted. Save game data will be deleted now.');
+							core.reset_storage_data('save' + id);
+							el.children('span.load, span.delete').hide();
+							el.children('span.date').html('empty save game');
+							el.children('span.save').show();
+						}
+					}
 				}
 				return false;
 			}).on('click', '.music-control', function () {
