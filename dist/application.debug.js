@@ -6246,6 +6246,9 @@ civitas.objects.city = function(params) {
 		} else {
 			this.mercenary = [];
 		}
+		if (this.is_player() === false) {
+			this.resources.fame = civitas.LEVELS[this.get_level()];
+		}
 		this.influence = (typeof params.influence !== 'undefined') ? params.influence : {};
 		return this;
 	};
@@ -6301,7 +6304,6 @@ civitas.objects.city = function(params) {
 				} else {
 					resources[item] = 0;
 				}
-				resources.fame = civitas.LEVELS[this.get_level()];
 			}
 		}
 		return resources;
