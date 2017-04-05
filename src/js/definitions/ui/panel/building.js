@@ -38,9 +38,11 @@ civitas.PANEL_BUILDING = {
 			$(el + ' .footer .upgrade').remove();
 		} else {
 			$(el).on('click', '.upgrade', function () {
-				if (_c.upgrade()) {
-					if (!_c.is_upgradable()) {
-						$(el + ' .footer .upgrade').remove();
+				if (confirm(civitas.l('Are you sure you want to upgrade this building?')) === true) {
+					if (_c.upgrade()) {
+						if (!_c.is_upgradable()) {
+							$(el + ' .footer .upgrade').remove();
+						}
 					}
 				}
 				return false;
@@ -50,9 +52,11 @@ civitas.PANEL_BUILDING = {
 			$(el + ' .footer .demolish').remove();
 		} else {
 			$(el).on('click', '.demolish', function () {
-				if (_c.demolish()) {
-					self.destroy();
-					core.refresh_panels();
+				if (confirm(civitas.l('Are you sure you want to demolish this building?')) === true) {
+					if (_c.demolish()) {
+						self.destroy();
+						core.refresh_panels();
+					}
 				}
 				return false;
 			});
