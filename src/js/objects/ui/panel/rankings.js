@@ -47,5 +47,8 @@ civitas.PANEL_RANKINGS = {
 		_t += '</dl>' +
 			'</div>';
 		$(this.handle + ' .contents').empty().append(_t);
+		$(this.handle + ' .tips').tipsy({
+			gravity: 's'
+		});
 	}
 }

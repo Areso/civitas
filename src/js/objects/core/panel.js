@@ -37,7 +37,7 @@ civitas.controls.panel = function (params) {
 	this.title = null;
 
 	/**
-	 * Callback function when the panel is shown (created).
+	 * Callback function when the panel is shown.
 	 *
 	 * @public
 	 * @type {Function}
@@ -121,11 +121,12 @@ civitas.controls.panel = function (params) {
 			this.destroy();
 		}
 		this.get_core().console_log('creating panel with id `' + this.id + '`');
-		$('.ui').append(params.template);
+		if (params.on_template instanceof Function) {
+			$('.ui').append(params.on_template.call(this, params));
+		} else {
+			$('.ui').append(params.template);
+		}
 		this.on_show.call(this, params);
-		$(this.handle + ' .tips').tipsy({
-			gravity: 's'
-		});
 		$(this.handle).on('click', '.close', function () {
 			self.destroy();
 			return false;
@@ -148,6 +149,9 @@ civitas.controls.panel = function (params) {
 		$(this.handle).css({
 			'left': ($(window).width() / 2) - ($(this.handle).width() / 2),
 			'top': ($(window).height() / 2) - ($(this.handle).height() / 2)
+		});
+		$(this.handle + ' .tips').tipsy({
+			gravity: 's'
 		});
 		return this;
 	};

@@ -15,7 +15,7 @@ civitas.PANEL_SETTLEMENT = {
 					'<a class="tips attack btn" title="' + civitas.l('Attack this settlement') + '"></a>' +
 					'<a class="tips resources btn" title="' + civitas.l('Give resources to this settlement') + '"></a>' +
 					'<a class="tips alliance btn" title="' + civitas.l('Propose alliance to this settlement') + '"></a>' +
-					'<a class="tips help btn" data-ctxt="{context}" data-term="{settlement}" title="' + civitas.l('Info about this settlement') + '"></a>' +
+					'<a class="tips help btn" data-context="settlement" data-term="general" title="' + civitas.l('Info about this settlement') + '"></a>' +
 			'</footer>' +
 		'</div>',
 	id: 'settlement',
@@ -55,6 +55,11 @@ civitas.PANEL_SETTLEMENT = {
 			return false;
 		}).on('click', '.alliance', function () {
 			core.error('Not implemented yet.');
+			return false;
+		}).on('click', '.help', function () {
+			var term = $(this).data('term');
+			var context = $(this).data('context');
+			core.help(context, term);
 			return false;
 		});
 	}

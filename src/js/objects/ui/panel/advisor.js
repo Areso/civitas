@@ -22,35 +22,36 @@ civitas.PANEL_ADVISOR = {
 		var can_diplomacy = city.is_building_built('embassy');
 		var can_build_ships = city.is_building_built('shipyard');
 		var can_recruit_soldiers = city.is_building_built('camp') || city.is_building_built('castle');
-		$(el + ' .contents').append('<div class="tabs">' +
-			'<ul>' +
-				'<li><a href="#tab-info">' + civitas.l('Info') + '</a></li>' +
-				'<li><a href="#tab-production">' + civitas.l('Production') + '</a></li>' +
-				'<li><a href="#tab-housing">' + civitas.l('Housing') + '</a></li>' +
-				'<li><a href="#tab-army">' + civitas.l('Army') + '</a></li>' +
-				'<li><a href="#tab-navy">' + civitas.l('Navy') + '</a></li>' +
-				'<li><a href="#tab-mercenary">' + civitas.l('Mercenaries') + '</a></li>' +
-				'<li><a href="#tab-diplomacy">' + civitas.l('Diplomacy') + '</a></li>' +
-				'<li><a href="#tab-achievements">' + civitas.l('Achievements') + '</a></li>' +
-			'</ul>' +
-			'<div id="tab-info">' +
-			'</div>' +
-			'<div id="tab-production">' +
-			'</div>' +
-			'<div id="tab-housing">' +
-			'</div>' +
-			'<div id="tab-army">' +
-			'</div>' +
-			'<div id="tab-navy">' +
-			'</div>' +
-			'<div id="tab-mercenary">' +
-			'</div>' +
-			'<div id="tab-diplomacy">' +
-			'</div>' +
-			'<div id="tab-achievements">' +
-				'<div class="achievements-list"></div>' +
-			'</div>' +
-		'</div>');
+		$(el + ' .contents').append('' +
+			'<div class="tabs">' +
+				'<ul>' +
+					'<li><a href="#tab-info">' + civitas.l('Info') + '</a></li>' +
+					'<li><a href="#tab-production">' + civitas.l('Production') + '</a></li>' +
+					'<li><a href="#tab-housing">' + civitas.l('Housing') + '</a></li>' +
+					'<li><a href="#tab-army">' + civitas.l('Army') + '</a></li>' +
+					'<li><a href="#tab-navy">' + civitas.l('Navy') + '</a></li>' +
+					'<li><a href="#tab-mercenary">' + civitas.l('Mercenaries') + '</a></li>' +
+					'<li><a href="#tab-diplomacy">' + civitas.l('Diplomacy') + '</a></li>' +
+					'<li><a href="#tab-achievements">' + civitas.l('Achievements') + '</a></li>' +
+				'</ul>' +
+				'<div id="tab-info">' +
+				'</div>' +
+				'<div id="tab-production">' +
+				'</div>' +
+				'<div id="tab-housing">' +
+				'</div>' +
+				'<div id="tab-army">' +
+				'</div>' +
+				'<div id="tab-navy">' +
+				'</div>' +
+				'<div id="tab-mercenary">' +
+				'</div>' +
+				'<div id="tab-diplomacy">' +
+				'</div>' +
+				'<div id="tab-achievements">' +
+					'<div class="achievements-list"></div>' +
+				'</div>' +
+			'</div>');
 		this.on_refresh();
 		$(el).on('click', '.pact', function () {
 			if (can_diplomacy === true) {
@@ -438,5 +439,8 @@ civitas.PANEL_ADVISOR = {
 				civitas.ui.navy_list(city.get_navy_total(), true) +
 				'</fieldset>';
 		$(el + ' .navy-list').empty().append(_t);
+		$(this.handle + ' .tips').tipsy({
+			gravity: 's'
+		});
 	}
 }

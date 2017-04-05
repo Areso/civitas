@@ -9643,7 +9643,7 @@ civitas.controls.panel = function (params) {
 	this.title = null;
 
 	/**
-	 * Callback function when the panel is shown (created).
+	 * Callback function when the panel is shown.
 	 *
 	 * @public
 	 * @type {Function}
@@ -9727,11 +9727,12 @@ civitas.controls.panel = function (params) {
 			this.destroy();
 		}
 		this.get_core().console_log('creating panel with id `' + this.id + '`');
-		$('.ui').append(params.template);
+		if (params.on_template instanceof Function) {
+			$('.ui').append(params.on_template.call(this, params));
+		} else {
+			$('.ui').append(params.template);
+		}
 		this.on_show.call(this, params);
-		$(this.handle + ' .tips').tipsy({
-			gravity: 's'
-		});
 		$(this.handle).on('click', '.close', function () {
 			self.destroy();
 			return false;
@@ -9754,6 +9755,9 @@ civitas.controls.panel = function (params) {
 		$(this.handle).css({
 			'left': ($(window).width() / 2) - ($(this.handle).width() / 2),
 			'top': ($(window).height() / 2) - ($(this.handle).height() / 2)
+		});
+		$(this.handle + ' .tips').tipsy({
+			gravity: 's'
 		});
 		return this;
 	};
@@ -11374,6 +11378,9 @@ civitas.PANEL_HELP = {
 				var data = core.get_city().get_building_by_handle(this.term);
 				title = data.get_name();
 				break;
+			case 'settlement':
+				title = 'Settlements';
+				break;
 		}
 		$(this.handle + ' header .title').html(title !== '' ? civitas.l('Help about ') + title : civitas.l('Help'));
 		$(this.handle + ' .contents').append('');
@@ -11396,26 +11403,24 @@ civitas.PANEL_BUILDING = {
 				'<a class="tips demolish btn" title="' + civitas.l('Demolish this building') + '"></a>' +
 				'<a class="tips pause start btn" title="' + civitas.l('Control (start/pause) production') + '"></a>' +
 				'<a class="tips upgrade btn" title="' + civitas.l('Upgrade building') + '"></a>' +
-				'<a class="tips help btn" data-ctxt="{context}" data-term="{building}" title="' + civitas.l('Info about this building') + '"></a>' +
+				'<a class="tips help btn" data-context="{context}" data-term="{building}" title="' + civitas.l('Info about this building') + '"></a>' +
 			'</footer>' +
 		'</div>',
 	term: null,
 	context: null,
 	id: 'building',
+	on_template: function(params) {
+		this.params_data = params.data;
+		return params.template.replace(/{building}/g, this.params_data.handle)
+			.replace(/{context}/g, 'building');
+	},
 	on_show: function(params) {
 		var self = this;
 		var core = this.get_core();
-		this.params_data = params.data;
-		var title = '';
 		var el = this.handle;
-		var _c = core.get_city().get_building_by_handle(params.data.handle);
+		var _c = core.get_city().get_building_by_handle(this.params_data.handle);
 		var level = _c.get_level();
-/*
-		var _t = this.template.replace(/{building}/g, params.data.handle)
-			.replace(/{context}/g, 'building');
-		$(el + ' footer').html();
-*/
-		$(el + ' header .title').html(params.data.name);
+		$(el + ' header .title').html(this.params_data.name);
 		this.on_refresh();
 		if (!_c.is_upgradable()) {
 			$(el + ' .footer .upgrade').remove();
@@ -11459,8 +11464,8 @@ civitas.PANEL_BUILDING = {
 		}
 		$(el).on('click', '.help', function () {
 			var term = $(this).data('term');
-			var ctxt = $(this).data('ctxt');
-			core.help(ctxt, term);
+			var context = $(this).data('context');
+			core.help(context, term);
 			return false;
 		});
 	},
@@ -11478,7 +11483,9 @@ civitas.PANEL_BUILDING = {
 				civitas.ui.storage_panel(this.params_data.storage, level) +
 			'</dl>';
 		$('#panel-' + this.id + ' .contents').empty().append(_t);
-		return this;
+		$(this.handle + ' .tips').tipsy({
+			gravity: 's'
+		});
 	}
 }
 /**
@@ -11543,6 +11550,9 @@ civitas.PANEL_STORAGE = {
 		if (this.expanded === true) {
 			$(this.handle + ' .toggle-storage').trigger('click');
 		}
+		$(this.handle + ' .tips').tipsy({
+			gravity: 's'
+		});
 	}
 }
 /**
@@ -11645,6 +11655,9 @@ civitas.PANEL_RANKINGS = {
 		_t += '</dl>' +
 			'</div>';
 		$(this.handle + ' .contents').empty().append(_t);
+		$(this.handle + ' .tips').tipsy({
+			gravity: 's'
+		});
 	}
 }
 /**
@@ -11671,35 +11684,36 @@ civitas.PANEL_ADVISOR = {
 		var can_diplomacy = city.is_building_built('embassy');
 		var can_build_ships = city.is_building_built('shipyard');
 		var can_recruit_soldiers = city.is_building_built('camp') || city.is_building_built('castle');
-		$(el + ' .contents').append('<div class="tabs">' +
-			'<ul>' +
-				'<li><a href="#tab-info">' + civitas.l('Info') + '</a></li>' +
-				'<li><a href="#tab-production">' + civitas.l('Production') + '</a></li>' +
-				'<li><a href="#tab-housing">' + civitas.l('Housing') + '</a></li>' +
-				'<li><a href="#tab-army">' + civitas.l('Army') + '</a></li>' +
-				'<li><a href="#tab-navy">' + civitas.l('Navy') + '</a></li>' +
-				'<li><a href="#tab-mercenary">' + civitas.l('Mercenaries') + '</a></li>' +
-				'<li><a href="#tab-diplomacy">' + civitas.l('Diplomacy') + '</a></li>' +
-				'<li><a href="#tab-achievements">' + civitas.l('Achievements') + '</a></li>' +
-			'</ul>' +
-			'<div id="tab-info">' +
-			'</div>' +
-			'<div id="tab-production">' +
-			'</div>' +
-			'<div id="tab-housing">' +
-			'</div>' +
-			'<div id="tab-army">' +
-			'</div>' +
-			'<div id="tab-navy">' +
-			'</div>' +
-			'<div id="tab-mercenary">' +
-			'</div>' +
-			'<div id="tab-diplomacy">' +
-			'</div>' +
-			'<div id="tab-achievements">' +
-				'<div class="achievements-list"></div>' +
-			'</div>' +
-		'</div>');
+		$(el + ' .contents').append('' +
+			'<div class="tabs">' +
+				'<ul>' +
+					'<li><a href="#tab-info">' + civitas.l('Info') + '</a></li>' +
+					'<li><a href="#tab-production">' + civitas.l('Production') + '</a></li>' +
+					'<li><a href="#tab-housing">' + civitas.l('Housing') + '</a></li>' +
+					'<li><a href="#tab-army">' + civitas.l('Army') + '</a></li>' +
+					'<li><a href="#tab-navy">' + civitas.l('Navy') + '</a></li>' +
+					'<li><a href="#tab-mercenary">' + civitas.l('Mercenaries') + '</a></li>' +
+					'<li><a href="#tab-diplomacy">' + civitas.l('Diplomacy') + '</a></li>' +
+					'<li><a href="#tab-achievements">' + civitas.l('Achievements') + '</a></li>' +
+				'</ul>' +
+				'<div id="tab-info">' +
+				'</div>' +
+				'<div id="tab-production">' +
+				'</div>' +
+				'<div id="tab-housing">' +
+				'</div>' +
+				'<div id="tab-army">' +
+				'</div>' +
+				'<div id="tab-navy">' +
+				'</div>' +
+				'<div id="tab-mercenary">' +
+				'</div>' +
+				'<div id="tab-diplomacy">' +
+				'</div>' +
+				'<div id="tab-achievements">' +
+					'<div class="achievements-list"></div>' +
+				'</div>' +
+			'</div>');
 		this.on_refresh();
 		$(el).on('click', '.pact', function () {
 			if (can_diplomacy === true) {
@@ -12087,6 +12101,9 @@ civitas.PANEL_ADVISOR = {
 				civitas.ui.navy_list(city.get_navy_total(), true) +
 				'</fieldset>';
 		$(el + ' .navy-list').empty().append(_t);
+		$(this.handle + ' .tips').tipsy({
+			gravity: 's'
+		});
 	}
 }
 /**
@@ -12322,7 +12339,7 @@ civitas.PANEL_SETTLEMENT = {
 					'<a class="tips attack btn" title="' + civitas.l('Attack this settlement') + '"></a>' +
 					'<a class="tips resources btn" title="' + civitas.l('Give resources to this settlement') + '"></a>' +
 					'<a class="tips alliance btn" title="' + civitas.l('Propose alliance to this settlement') + '"></a>' +
-					'<a class="tips help btn" data-ctxt="{context}" data-term="{settlement}" title="' + civitas.l('Info about this settlement') + '"></a>' +
+					'<a class="tips help btn" data-context="settlement" data-term="general" title="' + civitas.l('Info about this settlement') + '"></a>' +
 			'</footer>' +
 		'</div>',
 	id: 'settlement',
@@ -12362,6 +12379,11 @@ civitas.PANEL_SETTLEMENT = {
 			return false;
 		}).on('click', '.alliance', function () {
 			core.error('Not implemented yet.');
+			return false;
+		}).on('click', '.help', function () {
+			var term = $(this).data('term');
+			var context = $(this).data('context');
+			core.help(context, term);
 			return false;
 		});
 	}
@@ -12588,6 +12610,9 @@ civitas.PANEL_TRADES = {
 				'</tfoot>' +
 			'</table>';
 		$('#tab-exports > .contents').empty().append(out);
+		$(this.handle + ' .tips').tipsy({
+			gravity: 's'
+		});
 	}
 }
 /**

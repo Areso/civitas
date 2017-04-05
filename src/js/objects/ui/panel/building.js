@@ -15,26 +15,24 @@ civitas.PANEL_BUILDING = {
 				'<a class="tips demolish btn" title="' + civitas.l('Demolish this building') + '"></a>' +
 				'<a class="tips pause start btn" title="' + civitas.l('Control (start/pause) production') + '"></a>' +
 				'<a class="tips upgrade btn" title="' + civitas.l('Upgrade building') + '"></a>' +
-				'<a class="tips help btn" data-ctxt="{context}" data-term="{building}" title="' + civitas.l('Info about this building') + '"></a>' +
+				'<a class="tips help btn" data-context="{context}" data-term="{building}" title="' + civitas.l('Info about this building') + '"></a>' +
 			'</footer>' +
 		'</div>',
 	term: null,
 	context: null,
 	id: 'building',
+	on_template: function(params) {
+		this.params_data = params.data;
+		return params.template.replace(/{building}/g, this.params_data.handle)
+			.replace(/{context}/g, 'building');
+	},
 	on_show: function(params) {
 		var self = this;
 		var core = this.get_core();
-		this.params_data = params.data;
-		var title = '';
 		var el = this.handle;
-		var _c = core.get_city().get_building_by_handle(params.data.handle);
+		var _c = core.get_city().get_building_by_handle(this.params_data.handle);
 		var level = _c.get_level();
-/*
-		var _t = this.template.replace(/{building}/g, params.data.handle)
-			.replace(/{context}/g, 'building');
-		$(el + ' footer').html();
-*/
-		$(el + ' header .title').html(params.data.name);
+		$(el + ' header .title').html(this.params_data.name);
 		this.on_refresh();
 		if (!_c.is_upgradable()) {
 			$(el + ' .footer .upgrade').remove();
@@ -78,8 +76,8 @@ civitas.PANEL_BUILDING = {
 		}
 		$(el).on('click', '.help', function () {
 			var term = $(this).data('term');
-			var ctxt = $(this).data('ctxt');
-			core.help(ctxt, term);
+			var context = $(this).data('context');
+			core.help(context, term);
 			return false;
 		});
 	},
@@ -97,6 +95,8 @@ civitas.PANEL_BUILDING = {
 				civitas.ui.storage_panel(this.params_data.storage, level) +
 			'</dl>';
 		$('#panel-' + this.id + ' .contents').empty().append(_t);
-		return this;
+		$(this.handle + ' .tips').tipsy({
+			gravity: 's'
+		});
 	}
 }

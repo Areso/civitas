@@ -220,5 +220,8 @@ civitas.PANEL_TRADES = {
 				'</tfoot>' +
 			'</table>';
 		$('#tab-exports > .contents').empty().append(out);
+		$(this.handle + ' .tips').tipsy({
+			gravity: 's'
+		});
 	}
 }
