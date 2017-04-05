@@ -492,9 +492,5 @@ civitas.PANEL_ADVISOR = {
 				civitas.ui.navy_list(city.get_navy_total(), true) +
 				'</fieldset>';
 		$(el + ' .navy-list').empty().append(_t);
-		$('.tipsy').remove();
-		$(this.handle + ' .tips').tipsy({
-			gravity: 's'
-		});
 	}
 }

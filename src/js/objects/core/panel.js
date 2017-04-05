@@ -150,8 +150,10 @@ civitas.controls.panel = function (params) {
 			'left': ($(window).width() / 2) - ($(this.handle).width() / 2),
 			'top': ($(window).height() / 2) - ($(this.handle).height() / 2)
 		});
-		$(this.handle + ' .tips').tipsy({
-			gravity: 's'
+		$('.tipsy').remove();
+		$('.tips').tipsy({
+			gravity: $.fn.tipsy.autoNS,
+			html: true
 		});
 		return this;
 	};

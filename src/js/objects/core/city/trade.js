@@ -49,9 +49,8 @@ civitas.objects.city.prototype.buy_from_city = function(city, resource, amount) 
 			this.raise_influence(_city.get_id(), 2, 'city');
 			this.raise_prestige();
 			this.raise_fame(50);
-			this.get_core().refresh_ui();
+			this.get_core().refresh();
 			this.get_core().notify(this.get_name() + ' bought ' + amount + ' ' + civitas.utils.get_resource_name(item) + ' from ' + city + ' for ' + item_discount_price + ' coins each, for a total of ' + price + ' coins.', 'Transaction done');
-			this.get_core().refresh_panels();
 			return {
 				buyer: this.get_name(),
 				amount: amount,
@@ -107,8 +106,7 @@ civitas.objects.city.prototype.list_black_market = function(resource, amount) {
 		var discount = Math.ceil((civitas.RESOURCES[resource].price * civitas.BLACK_MARKET_DISCOUNT) / 100);
 		var price = civitas.utils.calc_price_minus_discount(amount, resource, discount);
 		this.get_core().add_black_market(resource, amount, price);
-		this.get_core().refresh_ui();
-		this.get_core().refresh_panels();
+		this.get_core().refresh();
 		this.get_core().notify(this.get_name() + ' placed ' + amount + ' ' + civitas.utils.get_resource_name(resource) + ' on the Black Market and will receive ' + price + ' coins next month.', 'Goods listed');
 		return {
 			seller: this.get_name(),
@@ -172,9 +170,8 @@ civitas.objects.city.prototype.sell_to_city = function(city, resource, amount) {
 			this.raise_influence(_city.get_id(), 1, 'city');
 			this.raise_prestige();
 			this.raise_fame(50);
-			this.get_core().refresh_ui();
+			this.get_core().refresh();
 			this.get_core().notify(this.get_name() + ' sold ' + amount + ' ' + civitas.utils.get_resource_name(item) + ' to ' + city + ' for ' + item_discount_price + ' coins each, for a total of ' + price + ' coins.', 'Transaction done');
-			this.get_core().refresh_panels();
 			return {
 				seller: this.get_name(),
 				amount: amount,

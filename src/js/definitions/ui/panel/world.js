@@ -48,11 +48,5 @@ civitas.PANEL_WORLD = {
 			core.open_panel(civitas.PANEL_VILLAGE, civitas.VILLAGES[id]);
 			return false;
 		});
-	},
-	on_refresh: function() {
-		$('.tipsy').remove();
-		$(this.handle + ' .tips').tipsy({
-			gravity: 's'
-		});
 	}
 }

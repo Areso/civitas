@@ -126,7 +126,7 @@ civitas.objects.building = function(params) {
 				this.problems = false;
 				$('#building-' + this.get_handle()).empty();
 			}
-			this.get_core().refresh_panels();
+			this.get_core().refresh();
 		}
 		return this;
 	};
@@ -188,8 +188,7 @@ civitas.objects.building = function(params) {
 						'background-image': 'url(./images/buildings/' + image + '.png)'
 					});
 					this.get_city().buildings_list[bl_id].level = this.get_level();
-					this.get_core().refresh_panels();
-					this.get_core().save();
+					this.get_core().save_and_refresh();
 					this.get_core().notify(this.get_name() + ' upgraded to level ' + this.get_level());
 					return true;
 				}
@@ -210,13 +209,10 @@ civitas.objects.building = function(params) {
 			if (bl_id !== false) {
 				--this.level;
 				this.get_city().buildings_list[bl_id].level = this.get_level();
-				this.get_core().refresh_panels();
-				this.get_core().save();
+				this.get_core().save_and_refresh();
 				this.get_core().notify(this.get_name() + ' downgraded to level ' + this.get_level());
 				return true;
 			}
-			this.get_core().refresh_panels();
-			return true;
 		}
 		return false;
 	};
@@ -276,8 +272,7 @@ civitas.objects.building = function(params) {
 				this.get_city().buildings_list[bl_id].working = true;
 				this.working = true;
 				this.problems = false;
-				this.get_core().save();
-				this.get_core().refresh_panels();
+				this.get_core().save_and_refresh();
 				$('#building-' + this.get_handle()).empty();
 				return true;
 			}
@@ -299,8 +294,7 @@ civitas.objects.building = function(params) {
 				this.get_city().buildings_list[bl_id].working = false;
 				this.working = false;
 				this.problems = true;
-				this.get_core().save();
-				this.get_core().refresh_panels();
+				this.get_core().save_and_refresh();
 				this.notify(civitas.NOTIFICATION_PRODUCTION_PAUSED);
 				return true;
 			}

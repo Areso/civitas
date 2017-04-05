@@ -24,8 +24,7 @@ civitas.objects.city.prototype.diplomacy = function(city, mode, with_who) {
 	} else {
 
 	}
-	this.get_core().refresh_panels();
-	this.get_core().save();
+	this.get_core().save_and_refresh();
 	return this;
 };
 

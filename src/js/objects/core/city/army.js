@@ -74,8 +74,7 @@ civitas.objects.city.prototype.recruit_mercenary_army = function(name, hidden) {
 			if (hidden !== true) {
 				//this.mercenary_list.push(name);
 				this.get_core().notify('The mercenaries of the ' + civitas.MERCENARIES[i].name + ' are now available for skirmish missions for the duration of one year.', 'Mercenaries recruited.');
-				this.get_core().refresh_ui();
-				this.get_core().refresh_panels();
+				this.get_core().refresh();
 				this.get_core().save();
 			}
 			return true;
@@ -104,8 +103,7 @@ civitas.objects.city.prototype.recruit_ship = function(ship_name) {
 				city: this
 			});
 			this.navy.push(_ship);
-			this.get_core().refresh_ui();
-			this.get_core().refresh_panels();
+			this.get_core().refresh();
 			this.get_core().notify('A new ' + ship_name + ' ship has been constructed.', 'New ship');
 			this.get_core().save();
 			return true;
@@ -134,10 +132,8 @@ civitas.objects.city.prototype.recruit_soldier = function(soldier_name) {
 				data: soldier
 			});
 			this.army.push(_soldier);
-			this.get_core().refresh_ui();
-			this.get_core().refresh_panels();
+			this.get_core().save_and_refresh();
 			this.get_core().notify('A new ' + soldier_name + ' has been recruited.', 'New soldier');
-			this.get_core().save();
 			return true;
 		}
 	}

@@ -89,7 +89,7 @@ civitas.objects.event = function (params) {
 	 */
 	this.process = function () {
 		var random = Math.random().toFixed(4);
-		if (random < this.chance) {
+		if (random <= this.chance) {
 			this._process();
 			return true;
 		}

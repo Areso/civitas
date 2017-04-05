@@ -175,9 +175,6 @@ civitas.PANEL_BUILDINGS = {
 			} else {
 				$(el + ' .toolbar').append(civitas.l('You already constructed this building.'));
 			}
-			$(el + ' .tips').tipsy({
-				gravity: 's'
-			});
 			$(el + ' .right').show();
 			return false;
 		}).on('click', '.btn.build', function () {

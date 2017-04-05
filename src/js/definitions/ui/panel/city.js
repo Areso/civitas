@@ -85,9 +85,5 @@ civitas.PANEL_CITY = {
 		$(this.handle + ' #tab-exports').empty().append('' +
 				'<p>' + civitas.l('Below are the goods this city will be selling this year.') + '</p>' +
 				civitas.ui.trades_list(trades, 'exports'));
-		$('.tipsy').remove();
-		$(this.handle + ' .tips').tipsy({
-			gravity: 's'
-		});
 	}
 }

@@ -54,7 +54,7 @@ ul, li {
 }
 
 .hr {
-	border-top: 1px solid #777;
+	border-top: 1px solid #ccc;
 	padding-top: 5px;
 	margin-top: 5px;
 	clear: both;
@@ -1013,7 +1013,7 @@ p {
 
 .achievements-list {
 	padding: 20px;
-	height: 420px;
+	max-height: 420px;
 	overflow: auto;
 }
 

@@ -146,10 +146,8 @@ civitas.objects.city = function(params) {
 	 */
 	this.status = {
 		city: {
-
 		},
 		village: {
-
 		}
 	};
 
@@ -255,23 +253,6 @@ civitas.objects.city = function(params) {
 	};
 
 	/**
-	 * Remove a specified amount of a resource from the storage of this city.
-	 * 
-	 * @public
-	 * @param {String} item
-	 * @param {Number} amount
-	 * @returns {Boolean}
-	 */
-	this.remove_resource = function(item, amount) {
-		var res = this.get_resources();
-		if (!this.has_resources(item, amount)) {
-			return false;
-		}
-		res[item] = res[item] - amount;
-		return true;
-	};
-	
-	/**
 	 * Add a specified amount of a resource to the storage of this city.
 	 * 
 	 * @public
@@ -367,9 +348,11 @@ civitas.objects.city = function(params) {
 	 * @returns {civitas.objects.city}
 	 */
 	this.level_up = function() {
+		var level = this.get_level();
+		this.set_fame(civitas.LEVELS[level]);
 		this.level++;
-		$('.citylevel').html(this.get_level());
-		this.get_core().notify('The city of ' + this.get_name() + ' is now level ' + this.get_level() + '.');
+		$('.citylevel').html(level);
+		this.get_core().notify('The city of ' + this.get_name() + ' is now level ' + level + '.');
 		return this;
 	};
 
@@ -395,8 +378,10 @@ civitas.objects.city = function(params) {
 	this.is_building_built = function(handle) {
 		var buildings = this.get_buildings();
 		for (var i = 0; i < buildings.length; i++) {
-			if (buildings[i].type === handle) {
-				return true;
+			if (typeof buildings[i] !== 'undefined') {
+				if (buildings[i].type === handle) {
+					return true;
+				}
 			}
 		}
 		return false;
@@ -572,9 +557,7 @@ civitas.objects.city = function(params) {
 				level: 1,
 				stopped: false
 			});
-			this.get_core().refresh_ui();
-			this.get_core().refresh_panels();
-			this.get_core().save();
+			this.get_core().save_and_refresh();
 			this.get_core().notify('New building constructed: ' + _building.get_name());
 			$('.tips').tipsy({
 				gravity: $.fn.tipsy.autoNS,
@@ -616,8 +599,10 @@ civitas.objects.city = function(params) {
 	this.get_building_by_handle = function(handle) {
 		var buildings = this.get_buildings();
 		for (var i = 0; i < buildings.length; i++) {
-			if (buildings[i].get_type() === handle) {
-				return buildings[i];
+			if (typeof buildings[i] !== 'undefined') {
+				if (buildings[i].get_type() === handle) {
+					return buildings[i];
+				}
 			}
 		}
 		return false;
@@ -627,14 +612,16 @@ civitas.objects.city = function(params) {
 	 * Demolish a city building
 	 * 
 	 * @public
-	 * @TODO
-	 * @param {Number} id
-	 * @returns {civitas.objects.city}
+	 * @param {Number|String} id
+	 * @returns {Boolean}
 	 */
 	this.demolish = function(id) {
 		if (typeof id === 'number') {
-			this.buildings.splice(id, 1);
-			return true;
+			if (id > 0) {
+				this.buildings.splice(id, 1);
+				this.buildings_list.splice(id, 1);
+				return true;
+			}
 		} else if (typeof id === 'string') {
 			if (id !== 'marketplace') {
 				for (var i = 0; i < this.buildings.length; i++) {
@@ -648,12 +635,8 @@ civitas.objects.city = function(params) {
 				}
 				this.get_core().save();
 				return true;
-			} else {
-				return false;
 			}
- 		} else {
-			// TODO
-		}
+ 		}
 		return false;
 	};
 	
@@ -787,9 +770,9 @@ civitas.objects.city = function(params) {
 			advices.push('You seem to be losing coins fast, sell some goods or upgrade ' +
 				'your houses to get better taxes.');
 		}
-		if (resources.wood < 100 || resources.stones < 100) {
-			advices.push('You are lacking construction materials, buy some stones and/or ' +
-				'wood off the World Trade Market.');
+		if (resources.wood < 100 || resources.stones < 100 || resources.woodplanks < 50) {
+			advices.push('You are lacking construction materials, buy some stones, wood ' +
+				'planks and/or wood off the World Trade Market.');
 		}
 		if (resources.coins > 100000) {
 			advices.push('You have lots of coins, why not invest some in goods?');
@@ -809,7 +792,7 @@ civitas.objects.city = function(params) {
 			}
 		}
 		if (_buildings.length > 0) {
-			advices.push('Several of your buildings (' + _buildings.join(', ') + ') are not working due to a shortage of materials. Buy more goods.');
+			advices.push((_buildings.length === 1 ? 'One' : 'Several') + ' of your buildings (' + _buildings.join(', ') + ') ' + (_buildings.length === 1 ? 'is' : 'are') + ' not working due to a shortage of materials. Buy more goods.');
 		}
 		return advices;
 	};

@@ -55,7 +55,7 @@ civitas.PANEL_BUILDING = {
 				if (confirm(civitas.l('Are you sure you want to demolish this building?')) === true) {
 					if (_c.demolish()) {
 						self.destroy();
-						core.refresh_panels();
+						core.refresh();
 					}
 				}
 				return false;
@@ -100,9 +100,5 @@ civitas.PANEL_BUILDING = {
 				civitas.ui.storage_panel(this.params_data.storage, level) +
 			'</dl>';
 		$('#panel-' + this.id + ' .contents').empty().append(_t);
-		$('.tipsy').remove();
-		$(this.handle + ' .tips').tipsy({
-			gravity: 's'
-		});
 	}
 }
