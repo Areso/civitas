@@ -348,30 +348,30 @@ header .top-panel span {
 }
 
 .panel .toolbar .btn {
-	border: 1px solid #908c68;
 	-webkit-border-radius: 3px;
 	-moz-border-radius: 3px;
 	border-radius: 3px;
 	padding: 10px 10px 10px 10px;
 	text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
 	color: #fff;
-	background-color: #a9a588;
-	background-image: -webkit-gradient(linear, left top, left bottom, from(#a9a588), to(#8e865b));
-	background-image: -webkit-linear-gradient(top, #a9a588, #8e865b);
-	background-image: -moz-linear-gradient(top, #a9a588, #8e865b);
-	background-image: linear-gradient(to bottom, #a9a588, #8e865b);
 	text-transform: uppercase;
 	text-align: center;
 	display: block;
+	background-color: #694224;
+	border: 1px solid #694224;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#9b6b46), to(#694224));
+	background-image: -webkit-linear-gradient(top, #9b6b46, #694224);
+	background-image: -moz-linear-gradient(top, #9b6b46, #694224);
+	background-image: linear-gradient(to bottom, #9b6b46, #694224);
 }
 
 .panel .toolbar .btn:hover {
-	border: 1px solid #767255;
-	background-color: #938e6b;
-	background-image: -webkit-gradient(linear, left top, left bottom, from(#938e6b), to(#6f6947));
-	background-image: -webkit-linear-gradient(top, #938e6b, #6f6947);
-	background-image: -moz-linear-gradient(top, #938e6b, #6f6947);
-	background-image: linear-gradient(to bottom, #938e6b, #6f6947);
+	background-color: #422712;
+	border: 1px solid #422712;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#694224), to(#422712));
+	background-image: -webkit-linear-gradient(top, #694224, #422712);
+	background-image: -moz-linear-gradient(top, #694224, #422712);
+	background-image: linear-gradient(to bottom, #694224, #422712);
 }
 
 .panel .toolbar .btn.iblock {
@@ -526,7 +526,7 @@ table.mercenaries td:nth-child(3) {
 
 #tab-production {
 	overflow: auto;
-	height: 460px;
+	max-height: 460px;
 }
 
 .panel .army-recruiter,
@@ -937,6 +937,7 @@ p {
 	background-image: linear-gradient(to bottom, #9b6b46, #694224);
 }
 
+.panel .toolbar .btn:hover,
 #window-options .button.highlight:hover {
 	background-color: #422712;
 	border: 1px solid #422712;
@@ -1296,7 +1297,12 @@ td.icon {
 }
 
 .tabs ul li.ui-tabs-active {
-	background-color: #555;
+	background-color: #694224;
+	border: 1px solid #694224;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#9b6b46), to(#694224));
+	background-image: -webkit-linear-gradient(top, #9b6b46, #694224);
+	background-image: -moz-linear-gradient(top, #9b6b46, #694224);
+	background-image: linear-gradient(to bottom, #9b6b46, #694224);
 }
 
 .tabs ul li.ui-tabs-active a {
@@ -1306,12 +1312,17 @@ td.icon {
 .tabs table td {
 	text-align: left;
 	vertical-align: middle;
-	padding: 4px 10px;
+	padding: 10px;
 }
 
 .tabs table thead td,
 .tabs table tfoot td {
-	background-color: #555;
+	background-color: #694224;
+	border: 1px solid #694224;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#9b6b46), to(#694224));
+	background-image: -webkit-linear-gradient(top, #9b6b46, #694224);
+	background-image: -moz-linear-gradient(top, #9b6b46, #694224);
+	background-image: linear-gradient(to bottom, #9b6b46, #694224);
 	color: #fff;
 	padding: 10px;
 }
@@ -1330,32 +1341,35 @@ dt img {
 }
 
 table tbody tr:hover {
-	background-color: #8A8955;
+	background-color: #ba8a65;
 	color: #fff;
-	opacity: 0.9;
-}
-
-table tr:hover td:last-child a {
-	background-color: #8A8955 !important;
-	border: 1px solid #fff !important;
+	opacity: 1;
 }
 
 table tr td:last-child a {
-	border: 1px solid #908c68;
 	-webkit-border-radius: 3px;
 	-moz-border-radius: 3px;
 	border-radius: 3px;
 	padding: 4px 10px;
 	text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
 	color: #fff !important;
-	background-color: #a9a588;
-	background-image: -webkit-gradient(linear, left top, left bottom, from(#a9a588), to(#8e865b));
-	background-image: -webkit-linear-gradient(top, #a9a588, #8e865b);
-	background-image: -moz-linear-gradient(top, #a9a588, #8e865b);
-	background-image: linear-gradient(to bottom, #a9a588, #8e865b);
 	text-transform: uppercase;
 	text-align: center;
+	background-color: #694224;
+	border: 1px solid #694224;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#9b6b46), to(#694224));
+	background-image: -webkit-linear-gradient(top, #9b6b46, #694224);
+	background-image: -moz-linear-gradient(top, #9b6b46, #694224);
+	background-image: linear-gradient(to bottom, #9b6b46, #694224);
+}
 
+table tr td:last-child a:hover {
+	background-color: #422712;
+	border: 1px solid #422712;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#694224), to(#422712));
+	background-image: -webkit-linear-gradient(top, #694224, #422712);
+	background-image: -moz-linear-gradient(top, #694224, #422712);
+	background-image: linear-gradient(to bottom, #694224, #422712);
 }
 
 table tr td a.disabled {

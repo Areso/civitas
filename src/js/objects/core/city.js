@@ -139,13 +139,11 @@ civitas.objects.city = function(params) {
 	this.icon = null;
 
 	/**
-	 * The influence of this city.
+	 * The diplomatic status of this city.
 	 *
 	 * @type {Object}
 	 * @private
 	 */
-	this.influence = {};
-	
 	this.status = {
 		city: {
 
@@ -544,12 +542,23 @@ civitas.objects.city = function(params) {
 				this.get_core().error('You don`t have enough coins to construct this building.');
 				return false;
 			}
+			if (typeof _c.requires.buildings !== 'undefined') {
+				var required = _c.requires.buildings;
+				for (var i = 0; i < required.length; i++) {
+					if (!this.is_building_built(required[i])) {
+						var _z = civitas.BUILDINGS.findIndexM(required[i]);
+						_z = civitas.BUILDINGS[_z];
+						this.get_core().error('You don`t have the required building ' + _z.name + '.');
+						return false;
+					}
+				}
+			}
 			for (var item in _c.cost) {
-				if ((this.get_resources()[item] - _c.cost[item]) < 0) {
+				if ((resources[item] - _c.cost[item]) < 0) {
 					this.get_core().error('You don`t have enough ' + item + ' to construct this building.');
 					return false;
 				} else {
-					this.get_resources()[item] = this.get_resources()[item] - _c.cost[item];
+					this.resources[item] = this.resources[item] - _c.cost[item];
 				}
 			}
 			var _building = new civitas.objects.building({

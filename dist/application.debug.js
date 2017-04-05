@@ -1629,6 +1629,7 @@ civitas.BUILDINGS = [{
 		description: 'The marketplace is the main building of your city and provides a place ' +
 			'for the inhabitants of your settlement to gather. It cannot be demolished.',
 		storage: 100000,
+		is_municipal: true,
 		levels: 4,
 		visible_upgrades: true,
 		production: {
@@ -1816,7 +1817,7 @@ civitas.BUILDINGS = [{
 		},
 		requires: {
 			city_level: 16,
-			buildings: 'academy'
+			buildings: ['academy']
 		}
 	}, {
 		name: 'Shipyard',
@@ -1862,7 +1863,7 @@ civitas.BUILDINGS = [{
 		},
 		requires: {
 			city_level: 8,
-			buildings: 'provisions'
+			buildings: ['provisions']
 		}
 	}, {
 		name: 'Castle',
@@ -2390,7 +2391,7 @@ civitas.BUILDINGS = [{
 		},
 		requires: {
 			city_level: 16,
-			buildings: 'tradingpost'
+			buildings: ['tradingpost']
 		}
 	}, {
 		name: 'Sugar Mill',
@@ -2415,7 +2416,7 @@ civitas.BUILDINGS = [{
 		},
 		requires: {
 			city_level: 16,
-			buildings: 'tradingpost'
+			buildings: ['tradingpost']
 		}
 	}, {
 		name: 'Winery',
@@ -2423,7 +2424,7 @@ civitas.BUILDINGS = [{
 		description: 'The Winery uses the grapes from your Grapes Farm and processes them into wine.',
 		is_production: true,
 		production: {
-			wine: 1
+			wine: 2
 		},
 		materials: {
 			grapes: 4,
@@ -2541,7 +2542,7 @@ civitas.BUILDINGS = [{
 		},
 		requires: {
 			city_level: 20,
-			buildings: 'tradingpost'
+			buildings: ['tradingpost']
 		}
 	}, {
 		name: 'Redsmith`s Workshop',
@@ -2640,7 +2641,7 @@ civitas.BUILDINGS = [{
 		},
 		requires: {
 			city_level: 20,
-			buildings: 'tradingpost'
+			buildings: ['tradingpost']
 		}
 	}, {
 		name: 'Silk Weaver',
@@ -2667,7 +2668,7 @@ civitas.BUILDINGS = [{
 		},
 		requires: {
 			city_level: 20,
-			buildings: 'tradingpost'
+			buildings: ['tradingpost']
 		}
 	}, {
 		name: 'Quartz factory',
@@ -2931,7 +2932,7 @@ civitas.BUILDINGS = [{
 		visible_upgrades: true,
 		requires: {
 			city_level: 6,
-			buildings: 'church'
+			buildings: ['church']
 		}
 	}, {
 		name: 'House',
@@ -2957,7 +2958,7 @@ civitas.BUILDINGS = [{
 		visible_upgrades: true,
 		requires: {
 			city_level: 10,
-			buildings: 'church'
+			buildings: ['church']
 		}
 	}, {
 		name: 'House',
@@ -2983,7 +2984,7 @@ civitas.BUILDINGS = [{
 		visible_upgrades: true,
 		requires: {
 			city_level: 16,
-			buildings: 'church'
+			buildings: ['church']
 		}
 	}, {
 		name: 'House',
@@ -3010,7 +3011,7 @@ civitas.BUILDINGS = [{
 		visible_upgrades: true,
 		requires: {
 			city_level: 20,
-			buildings: 'academy'
+			buildings: ['academy']
 		}
 	}, {
 		name: 'House',
@@ -3038,7 +3039,7 @@ civitas.BUILDINGS = [{
 		visible_upgrades: true,
 		requires: {
 			city_level: 25,
-			buildings: 'academy'
+			buildings: ['academy']
 		}
 	}, {
 		name: 'House',
@@ -3069,7 +3070,7 @@ civitas.BUILDINGS = [{
 		visible_upgrades: true,
 		requires: {
 			city_level: 30,
-			buildings: 'castle'
+			buildings: ['castle']
 		}
 	}, {
 		name: 'Cider Farm',
@@ -3092,7 +3093,7 @@ civitas.BUILDINGS = [{
 		},
 		requires: {
 			city_level: 4,
-			buildings: 'ciderfield'
+			buildings: ['ciderfield']
 		}
 	}, {
 		name: 'Cider field',
@@ -3130,7 +3131,7 @@ civitas.BUILDINGS = [{
 		},
 		requires: {
 			city_level: 16,
-			buildings: 'almondsfield'
+			buildings: ['almondsfield']
 		}
 	}, {
 		name: 'Almonds field',
@@ -3173,7 +3174,7 @@ civitas.BUILDINGS = [{
 		},
 		requires: {
 			city_level: 2,
-			buildings: 'cattlefield'
+			buildings: ['cattlefield']
 		}
 	}, {
 		name: 'Cattle field',
@@ -3216,7 +3217,7 @@ civitas.BUILDINGS = [{
 		},
 		requires: {
 			city_level: 3,
-			buildings: 'pigfield'
+			buildings: ['church', 'pigfield']
 		}
 	}, {
 		name: 'Pig field',
@@ -3256,7 +3257,7 @@ civitas.BUILDINGS = [{
 		},
 		requires: {
 			city_level: 2,
-			buildings: 'grainfield'
+			buildings: ['grainfield']
 		}
 	}, {
 		name: 'Grain field',
@@ -3295,7 +3296,7 @@ civitas.BUILDINGS = [{
 		},
 		requires: {
 			city_level: 10,
-			buildings: 'grapesfield'
+			buildings: ['grapesfield']
 		}
 	}, {
 		name: 'Grapes field',
@@ -3334,7 +3335,7 @@ civitas.BUILDINGS = [{
 		},
 		requires: {
 			city_level: 16,
-			buildings: 'coffeefield'
+			buildings: ['coffeefield']
 		}
 	}, {
 		name: 'Coffee field',
@@ -3373,7 +3374,7 @@ civitas.BUILDINGS = [{
 		},
 		requires: {
 			city_level: 6,
-			buildings: 'hempfield'
+			buildings: ['hempfield']
 		}
 	}, {
 		name: 'Hemp field',
@@ -3411,7 +3412,7 @@ civitas.BUILDINGS = [{
 		},
 		requires: {
 			city_level: 20,
-			buildings: 'silkfield'
+			buildings: ['silkfield']
 		}
 	}, {
 		name: 'Silk field',
@@ -3450,7 +3451,7 @@ civitas.BUILDINGS = [{
 		},
 		requires: {
 			city_level: 20,
-			buildings: 'sugarfield'
+			buildings: ['academy', 'sugarfield']
 		}
 	}, {
 		name: 'Sugar field',
@@ -6033,8 +6034,12 @@ civitas.ui = {
 		var out = '';
 		if (typeof requires.buildings !== 'undefined') {
 			out += '<dt>' + civitas.l('Requires') + '</dt>';
-			var b = civitas.BUILDINGS[civitas.BUILDINGS.findIndexM(requires.buildings)];
-			out += '<dd>' + b.name + '</span>';
+			out += '<dd>';
+			for (var i = 0; i <requires.buildings.length; i++) {
+				var b = civitas.BUILDINGS[civitas.BUILDINGS.findIndexM(requires.buildings[i])];
+				out += b.name + '<br />'
+			}
+			out += '</dd>';
 		}
 		return out;
 	},
@@ -6203,13 +6208,11 @@ civitas.objects.city = function(params) {
 	this.icon = null;
 
 	/**
-	 * The influence of this city.
+	 * The diplomatic status of this city.
 	 *
 	 * @type {Object}
 	 * @private
 	 */
-	this.influence = {};
-	
 	this.status = {
 		city: {
 
@@ -6608,12 +6611,23 @@ civitas.objects.city = function(params) {
 				this.get_core().error('You don`t have enough coins to construct this building.');
 				return false;
 			}
+			if (typeof _c.requires.buildings !== 'undefined') {
+				var required = _c.requires.buildings;
+				for (var i = 0; i < required.length; i++) {
+					if (!this.is_building_built(required[i])) {
+						var _z = civitas.BUILDINGS.findIndexM(required[i]);
+						_z = civitas.BUILDINGS[_z];
+						this.get_core().error('You don`t have the required building ' + _z.name + '.');
+						return false;
+					}
+				}
+			}
 			for (var item in _c.cost) {
-				if ((this.get_resources()[item] - _c.cost[item]) < 0) {
+				if ((resources[item] - _c.cost[item]) < 0) {
 					this.get_core().error('You don`t have enough ' + item + ' to construct this building.');
 					return false;
 				} else {
-					this.get_resources()[item] = this.get_resources()[item] - _c.cost[item];
+					this.resources[item] = this.resources[item] - _c.cost[item];
 				}
 			}
 			var _building = new civitas.objects.building({
@@ -8842,7 +8856,6 @@ civitas.objects.building = function(params) {
 		if (this.get_city().demolish(this.get_type())) {
 			$('section.game .building[data-type=' + this.get_type() + ']').remove();
 			this.get_core().notify(this.get_name() + ' demolished successfully!');
-			this.get_core().refresh_panels();
 			return true;
 		} else {
 			this.get_core().error('Unable to demolish the specified building `' + this.get_name() + '`!');
@@ -9040,6 +9053,29 @@ civitas.objects.building = function(params) {
 	};
 
 	/**
+	 * Raise the research of the city this building is located in by converting
+	 * coins into research.
+	 * 
+	 * @public
+	 * @returns {Object}
+	 */
+	this.adjust_city_research_for_coins = function() {
+		var building = this.get_building_data();
+		var mat = building.materials;
+		var prd = building.production;
+		if (this.get_city().has_coins(mat.coins)) {
+			var amount = prd.research * this.get_level();
+			this.get_city().raise_research(amount);
+			this.get_city().dec_coins(mat.coins);
+			this.get_core().log(this.get_name() + ' raised city research with ' + amount + ' at the cost of ' + mat.coins + ' coins.');
+		}
+		return {
+			research: this.get_city().get_research(),
+			coins: this.get_city().get_coins()
+		};
+	};
+
+	/**
 	 * Raise the fame of the city this building is located in by converting
 	 * coins into fame.
 	 * 
@@ -9097,20 +9133,10 @@ civitas.objects.building = function(params) {
 		var building = this.get_building_data();
 		if (typeof building.requires.buildings !== 'undefined') {
 			var required = building.requires.buildings;
-			if (typeof required === 'object') {
-				for (var i = 0; i < required.length; i++) {
-					if (!this.get_city().is_building_built(required[i])) {
-						good = false;
-						var req = civitas.BUILDINGS[civitas.BUILDINGS.findIndexM(required[i])];
-						this.get_core().log(this.get_name() + ' doesn`t have the required buildings: ' + req.name + '.', true);
-						this.notify(civitas.NOTIFICATION_MISSING_RESOURCES);
-						this.problems = true;
-					}
-				}
-			} else {
-				if (!this.get_city().is_building_built(required)) {
+			for (var i = 0; i < required.length; i++) {
+				if (!this.get_city().is_building_built(required[i])) {
 					good = false;
-					var req = civitas.BUILDINGS[civitas.BUILDINGS.findIndexM(required)];
+					var req = civitas.BUILDINGS[civitas.BUILDINGS.findIndexM(required[i])];
 					this.get_core().log(this.get_name() + ' doesn`t have the required buildings: ' + req.name + '.', true);
 					this.notify(civitas.NOTIFICATION_MISSING_RESOURCES);
 					this.problems = true;
@@ -9123,9 +9149,6 @@ civitas.objects.building = function(params) {
 				this.notify(civitas.NOTIFICATION_CITY_LOW_LEVEL);
 				good = false;
 				this.problems = true;
-			} else {
-				good = true;
-				this.problems = false;
 			}
 		}
 		return good;
@@ -9160,7 +9183,7 @@ civitas.objects.building = function(params) {
 				for (var item in prd) {
 					_p.push(item);
 				}
-				if (this.has_requirements()) {
+				if (this.has_requirements() === true) {
 					if (_m.length > 0) {
 						if (this.has_materials(_m)) {
 							this.use_material(_m);
@@ -9171,6 +9194,8 @@ civitas.objects.building = function(params) {
 						this.produce_material(_p);
 						this.problems = false;
 					}
+				} else {
+					this.problems = true;
 				}
 			} else {
 				this.get_core().log(this.get_name() + ' production is stopped.');
@@ -9205,6 +9230,9 @@ civitas.objects.building = function(params) {
 		var res = this.get_city_resources();
 		var prd = building.production;
 		var mat = building.materials;
+		if (this.has_requirements() === false) {
+			return false;
+		}
 		switch (this.get_type()) {
 			/* STORAGE */
 			case 'marketplace':
@@ -9225,6 +9253,9 @@ civitas.objects.building = function(params) {
 				break;
 			case 'monastery':
 				this.adjust_city_fame_for_coins();
+				break;
+			case 'academy':
+				this.adjust_city_research_for_coins();
 				break;
 			case 'tavern':
 				this.adjust_city_fame_for_coins();
@@ -11653,6 +11684,7 @@ civitas.PANEL_BUILDING = {
 			$(el).on('click', '.demolish', function () {
 				if (_c.demolish()) {
 					self.destroy();
+					core.refresh_panels();
 				}
 				return false;
 			});

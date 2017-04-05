@@ -318,7 +318,6 @@ civitas.objects.building = function(params) {
 		if (this.get_city().demolish(this.get_type())) {
 			$('section.game .building[data-type=' + this.get_type() + ']').remove();
 			this.get_core().notify(this.get_name() + ' demolished successfully!');
-			this.get_core().refresh_panels();
 			return true;
 		} else {
 			this.get_core().error('Unable to demolish the specified building `' + this.get_name() + '`!');
@@ -516,6 +515,29 @@ civitas.objects.building = function(params) {
 	};
 
 	/**
+	 * Raise the research of the city this building is located in by converting
+	 * coins into research.
+	 * 
+	 * @public
+	 * @returns {Object}
+	 */
+	this.adjust_city_research_for_coins = function() {
+		var building = this.get_building_data();
+		var mat = building.materials;
+		var prd = building.production;
+		if (this.get_city().has_coins(mat.coins)) {
+			var amount = prd.research * this.get_level();
+			this.get_city().raise_research(amount);
+			this.get_city().dec_coins(mat.coins);
+			this.get_core().log(this.get_name() + ' raised city research with ' + amount + ' at the cost of ' + mat.coins + ' coins.');
+		}
+		return {
+			research: this.get_city().get_research(),
+			coins: this.get_city().get_coins()
+		};
+	};
+
+	/**
 	 * Raise the fame of the city this building is located in by converting
 	 * coins into fame.
 	 * 
@@ -573,20 +595,10 @@ civitas.objects.building = function(params) {
 		var building = this.get_building_data();
 		if (typeof building.requires.buildings !== 'undefined') {
 			var required = building.requires.buildings;
-			if (typeof required === 'object') {
-				for (var i = 0; i < required.length; i++) {
-					if (!this.get_city().is_building_built(required[i])) {
-						good = false;
-						var req = civitas.BUILDINGS[civitas.BUILDINGS.findIndexM(required[i])];
-						this.get_core().log(this.get_name() + ' doesn`t have the required buildings: ' + req.name + '.', true);
-						this.notify(civitas.NOTIFICATION_MISSING_RESOURCES);
-						this.problems = true;
-					}
-				}
-			} else {
-				if (!this.get_city().is_building_built(required)) {
+			for (var i = 0; i < required.length; i++) {
+				if (!this.get_city().is_building_built(required[i])) {
 					good = false;
-					var req = civitas.BUILDINGS[civitas.BUILDINGS.findIndexM(required)];
+					var req = civitas.BUILDINGS[civitas.BUILDINGS.findIndexM(required[i])];
 					this.get_core().log(this.get_name() + ' doesn`t have the required buildings: ' + req.name + '.', true);
 					this.notify(civitas.NOTIFICATION_MISSING_RESOURCES);
 					this.problems = true;
@@ -599,9 +611,6 @@ civitas.objects.building = function(params) {
 				this.notify(civitas.NOTIFICATION_CITY_LOW_LEVEL);
 				good = false;
 				this.problems = true;
-			} else {
-				good = true;
-				this.problems = false;
 			}
 		}
 		return good;
@@ -636,7 +645,7 @@ civitas.objects.building = function(params) {
 				for (var item in prd) {
 					_p.push(item);
 				}
-				if (this.has_requirements()) {
+				if (this.has_requirements() === true) {
 					if (_m.length > 0) {
 						if (this.has_materials(_m)) {
 							this.use_material(_m);
@@ -647,6 +656,8 @@ civitas.objects.building = function(params) {
 						this.produce_material(_p);
 						this.problems = false;
 					}
+				} else {
+					this.problems = true;
 				}
 			} else {
 				this.get_core().log(this.get_name() + ' production is stopped.');
@@ -681,6 +692,9 @@ civitas.objects.building = function(params) {
 		var res = this.get_city_resources();
 		var prd = building.production;
 		var mat = building.materials;
+		if (this.has_requirements() === false) {
+			return false;
+		}
 		switch (this.get_type()) {
 			/* STORAGE */
 			case 'marketplace':
@@ -701,6 +715,9 @@ civitas.objects.building = function(params) {
 				break;
 			case 'monastery':
 				this.adjust_city_fame_for_coins();
+				break;
+			case 'academy':
+				this.adjust_city_research_for_coins();
 				break;
 			case 'tavern':
 				this.adjust_city_fame_for_coins();

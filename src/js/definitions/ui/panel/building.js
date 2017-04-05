@@ -52,6 +52,7 @@ civitas.PANEL_BUILDING = {
 			$(el).on('click', '.demolish', function () {
 				if (_c.demolish()) {
 					self.destroy();
+					core.refresh_panels();
 				}
 				return false;
 			});

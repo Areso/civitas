@@ -326,6 +326,7 @@ civitas.BUILDINGS = [{
 		description: 'The marketplace is the main building of your city and provides a place ' +
 			'for the inhabitants of your settlement to gather. It cannot be demolished.',
 		storage: 100000,
+		is_municipal: true,
 		levels: 4,
 		visible_upgrades: true,
 		production: {
@@ -513,7 +514,7 @@ civitas.BUILDINGS = [{
 		},
 		requires: {
 			city_level: 16,
-			buildings: 'academy'
+			buildings: ['academy']
 		}
 	}, {
 		name: 'Shipyard',
@@ -559,7 +560,7 @@ civitas.BUILDINGS = [{
 		},
 		requires: {
 			city_level: 8,
-			buildings: 'provisions'
+			buildings: ['provisions']
 		}
 	}, {
 		name: 'Castle',
@@ -1087,7 +1088,7 @@ civitas.BUILDINGS = [{
 		},
 		requires: {
 			city_level: 16,
-			buildings: 'tradingpost'
+			buildings: ['tradingpost']
 		}
 	}, {
 		name: 'Sugar Mill',
@@ -1112,7 +1113,7 @@ civitas.BUILDINGS = [{
 		},
 		requires: {
 			city_level: 16,
-			buildings: 'tradingpost'
+			buildings: ['tradingpost']
 		}
 	}, {
 		name: 'Winery',
@@ -1120,7 +1121,7 @@ civitas.BUILDINGS = [{
 		description: 'The Winery uses the grapes from your Grapes Farm and processes them into wine.',
 		is_production: true,
 		production: {
-			wine: 1
+			wine: 2
 		},
 		materials: {
 			grapes: 4,
@@ -1238,7 +1239,7 @@ civitas.BUILDINGS = [{
 		},
 		requires: {
 			city_level: 20,
-			buildings: 'tradingpost'
+			buildings: ['tradingpost']
 		}
 	}, {
 		name: 'Redsmith`s Workshop',
@@ -1337,7 +1338,7 @@ civitas.BUILDINGS = [{
 		},
 		requires: {
 			city_level: 20,
-			buildings: 'tradingpost'
+			buildings: ['tradingpost']
 		}
 	}, {
 		name: 'Silk Weaver',
@@ -1364,7 +1365,7 @@ civitas.BUILDINGS = [{
 		},
 		requires: {
 			city_level: 20,
-			buildings: 'tradingpost'
+			buildings: ['tradingpost']
 		}
 	}, {
 		name: 'Quartz factory',
@@ -1628,7 +1629,7 @@ civitas.BUILDINGS = [{
 		visible_upgrades: true,
 		requires: {
 			city_level: 6,
-			buildings: 'church'
+			buildings: ['church']
 		}
 	}, {
 		name: 'House',
@@ -1654,7 +1655,7 @@ civitas.BUILDINGS = [{
 		visible_upgrades: true,
 		requires: {
 			city_level: 10,
-			buildings: 'church'
+			buildings: ['church']
 		}
 	}, {
 		name: 'House',
@@ -1680,7 +1681,7 @@ civitas.BUILDINGS = [{
 		visible_upgrades: true,
 		requires: {
 			city_level: 16,
-			buildings: 'church'
+			buildings: ['church']
 		}
 	}, {
 		name: 'House',
@@ -1707,7 +1708,7 @@ civitas.BUILDINGS = [{
 		visible_upgrades: true,
 		requires: {
 			city_level: 20,
-			buildings: 'academy'
+			buildings: ['academy']
 		}
 	}, {
 		name: 'House',
@@ -1735,7 +1736,7 @@ civitas.BUILDINGS = [{
 		visible_upgrades: true,
 		requires: {
 			city_level: 25,
-			buildings: 'academy'
+			buildings: ['academy']
 		}
 	}, {
 		name: 'House',
@@ -1766,7 +1767,7 @@ civitas.BUILDINGS = [{
 		visible_upgrades: true,
 		requires: {
 			city_level: 30,
-			buildings: 'castle'
+			buildings: ['castle']
 		}
 	}, {
 		name: 'Cider Farm',
@@ -1789,7 +1790,7 @@ civitas.BUILDINGS = [{
 		},
 		requires: {
 			city_level: 4,
-			buildings: 'ciderfield'
+			buildings: ['ciderfield']
 		}
 	}, {
 		name: 'Cider field',
@@ -1827,7 +1828,7 @@ civitas.BUILDINGS = [{
 		},
 		requires: {
 			city_level: 16,
-			buildings: 'almondsfield'
+			buildings: ['almondsfield']
 		}
 	}, {
 		name: 'Almonds field',
@@ -1870,7 +1871,7 @@ civitas.BUILDINGS = [{
 		},
 		requires: {
 			city_level: 2,
-			buildings: 'cattlefield'
+			buildings: ['cattlefield']
 		}
 	}, {
 		name: 'Cattle field',
@@ -1913,7 +1914,7 @@ civitas.BUILDINGS = [{
 		},
 		requires: {
 			city_level: 3,
-			buildings: 'pigfield'
+			buildings: ['church', 'pigfield']
 		}
 	}, {
 		name: 'Pig field',
@@ -1953,7 +1954,7 @@ civitas.BUILDINGS = [{
 		},
 		requires: {
 			city_level: 2,
-			buildings: 'grainfield'
+			buildings: ['grainfield']
 		}
 	}, {
 		name: 'Grain field',
@@ -1992,7 +1993,7 @@ civitas.BUILDINGS = [{
 		},
 		requires: {
 			city_level: 10,
-			buildings: 'grapesfield'
+			buildings: ['grapesfield']
 		}
 	}, {
 		name: 'Grapes field',
@@ -2031,7 +2032,7 @@ civitas.BUILDINGS = [{
 		},
 		requires: {
 			city_level: 16,
-			buildings: 'coffeefield'
+			buildings: ['coffeefield']
 		}
 	}, {
 		name: 'Coffee field',
@@ -2070,7 +2071,7 @@ civitas.BUILDINGS = [{
 		},
 		requires: {
 			city_level: 6,
-			buildings: 'hempfield'
+			buildings: ['hempfield']
 		}
 	}, {
 		name: 'Hemp field',
@@ -2108,7 +2109,7 @@ civitas.BUILDINGS = [{
 		},
 		requires: {
 			city_level: 20,
-			buildings: 'silkfield'
+			buildings: ['silkfield']
 		}
 	}, {
 		name: 'Silk field',
@@ -2147,7 +2148,7 @@ civitas.BUILDINGS = [{
 		},
 		requires: {
 			city_level: 20,
-			buildings: 'sugarfield'
+			buildings: ['academy', 'sugarfield']
 		}
 	}, {
 		name: 'Sugar field',

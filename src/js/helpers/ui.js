@@ -173,8 +173,12 @@ civitas.ui = {
 		var out = '';
 		if (typeof requires.buildings !== 'undefined') {
 			out += '<dt>' + civitas.l('Requires') + '</dt>';
-			var b = civitas.BUILDINGS[civitas.BUILDINGS.findIndexM(requires.buildings)];
-			out += '<dd>' + b.name + '</span>';
+			out += '<dd>';
+			for (var i = 0; i <requires.buildings.length; i++) {
+				var b = civitas.BUILDINGS[civitas.BUILDINGS.findIndexM(requires.buildings[i])];
+				out += b.name + '<br />'
+			}
+			out += '</dd>';
 		}
 		return out;
 	},
