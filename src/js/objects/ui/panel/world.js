@@ -4,20 +4,22 @@
  * @type {Object}
  */
 civitas.PANEL_WORLD = {
-	template: '<div id="panel-world" class="panel">' +
-		'<header>' +
-			'<span class="title">' + civitas.l('World Map') + '</span>' +
-			'<a class="tips btn close" title="' + civitas.l('Close this panel') + '"></a>' +
-		'</header>' +
-		'<div class="contents"><div class="worldmap"></div></div>' +
-	'</div>',
+	template: '' +
+		'<div id="panel-world" class="panel">' +
+			'<header>' +
+				'<span class="title">' + civitas.l('World Map') + '</span>' +
+				'<a class="tips btn close" title="' + civitas.l('Close this panel') + '"></a>' +
+			'</header>' +
+			'<div class="contents">' +
+				'<div class="worldmap"></div>' +
+			'</div>' +
+		'</div>',
 	id: 'world',
 	on_show: function(params) {
 		var self = this;
 		var core = this.get_core();
 		var city = core.get_city();
 		var cities = core.get_cities();
-		var el = this.handle;
 		var loc = civitas['CITY_LOCATION_' + city.get_climate().name.toUpperCase()];
 		var out = '<div data-name="yourcity" class="tips city c1" title="' + civitas.l('City of') + ' ' + city.get_name() + '" style="left:' + loc.x + 'px;top:' + loc.y + 'px"></div>';
 		for (var item in civitas.SETTLEMENTS) {
@@ -31,8 +33,8 @@ civitas.PANEL_WORLD = {
 		for (var i = 1; i < cities.length; i++) {
 			out += '<div data-name="' + cities[i].get_name() + '" class="tips city c' + civitas.CITIES[cities[i].get_id()].icon + '" title="' + civitas.l('City of') + ' ' + cities[i].get_name() + '" style="left:' + civitas.CITIES[cities[i].get_id()].location.x + 'px;top:' + civitas.CITIES[cities[i].get_id()].location.y + 'px"></div>';
 		}
-		$(el + ' .contents .worldmap').empty().append(out);
-		$(el).on('click', '.city', function () {
+		$(this.handle + ' .contents .worldmap').empty().append(out);
+		$(this.handle).on('click', '.city', function () {
 			var city_name = $(this).data('name');
 			if (city_name === 'yourcity') {
 				core.open_panel(civitas.PANEL_ADVISOR);

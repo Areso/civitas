@@ -28,6 +28,7 @@ civitas.objects.city.prototype.recruit_mercenary_army = function(name, hidden) {
 				var soldier = civitas.SOLDIERS[item];
 				var _soldier = new civitas.objects.soldier({
 					name: item,
+					city: this,
 					data: soldier
 				});
 				army.army.push(_soldier);
@@ -62,7 +63,8 @@ civitas.objects.city.prototype.recruit_ship = function(ship_name) {
 			}
 			var _ship = new civitas.objects.ship({
 				name: item,
-				data: ship
+				data: ship,
+				city: this
 			});
 			this.navy.push(_ship);
 			this.get_core().refresh_ui();
@@ -118,7 +120,8 @@ civitas.objects.city.prototype._recruit_ship = function(ship_name) {
 			var ship = civitas.SHIPS[item];
 			var _ship = new civitas.objects.ship({
 				name: item,
-				data: ship
+				data: ship,
+				city: this
 			});
 			this.navy.push(_ship);
 		}
@@ -139,7 +142,8 @@ civitas.objects.city.prototype._recruit_soldier = function(soldier_name) {
 			var soldier = civitas.SOLDIERS[item];
 			var _soldier = new civitas.objects.soldier({
 				name: item,
-				data: soldier
+				data: soldier,
+				city: this
 			});
 			this.army.push(_soldier);
 		}

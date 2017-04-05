@@ -4,13 +4,14 @@
  * @type {Object}
  */
 civitas.PANEL_STORAGE = {
-	template: '<div id="panel-storage" class="panel">' +
-		'<header>' +
-			'<span class="title">' + civitas.l('City Storage') + '</span>' +
-			'<a class="tips btn close" title="' + civitas.l('Close this panel') + '"></a>' +
-		'</header>' +
-		'<div class="contents"></div>' +
-	'</div>',
+	template: '' +
+		'<div id="panel-storage" class="panel">' +
+			'<header>' +
+				'<span class="title">' + civitas.l('City Storage') + '</span>' +
+				'<a class="tips btn close" title="' + civitas.l('Close this panel') + '"></a>' +
+			'</header>' +
+			'<div class="contents"></div>' +
+		'</div>',
 	expanded: false,
 	id: 'storage',
 	on_show: function(params) {

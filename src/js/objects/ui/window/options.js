@@ -5,69 +5,70 @@
  */
 civitas.WINDOW_OPTIONS = {
 	id: 'options',
-	template: '<section id="window-options" class="window">' +
-		'<div class="logo">Civitas</div>' +
-		'<fieldset>' +
-			'<div class="new-game">' +
-				'<p>' + civitas.l('Choose your city details well, climate changes and game difficulty affects your building options and resources.') + '</p>' +
-				'<dl>' +
-					'<dt class="clearfix">' + civitas.l('Your Name') + ':</dt>' +
-					'<dd><input type="text" class="name text-input" /></dd>' +
-					'<dt class="clearfix">' + civitas.l('City Name') + ':</dt>' +
-					'<dd><input type="text" class="cityname text-input" /></dd>' +
-					'<dt class="clearfix">' + civitas.l('Nationality') + ':</dt>' +
-					'<dd>' +
-						'<select class="nation text-input"></select>' +
-					'</dd>' +
-					'<dt class="clearfix">' + civitas.l('Climate') + ':</dt>' +
-					'<dd>' +
-						'<select class="climate text-input"></select>' +
-					'</dd>' +
-					'<dt class="clearfix">' + civitas.l('Difficulty') + ':</dt>' +
-					'<dd>' +
-						'<select class="difficulty text-input">' +
-							'<option value="1">' + civitas.l('Easy') + '</option>' +
-							'<option value="2">' + civitas.l('Medium') + '</option>' +
-							'<option value="3">' + civitas.l('Hard') + '</option>' +
-							'<option value="4">' + civitas.l('Hardcore') + '</option>' +
-						'</select>' +
-					'</dd>' +
-					'<dt class="clearfix">' + civitas.l('Avatar') + ':</dt>' +
-					'<dd class="avatar-select-container">' +
-						'<div class="avatar-select"></div>' +
-						'<div class="scrollbar">' +
-							'<div class="up"></div>' +
-							'<div class="down"></div>' +
-						'</div>' +
-					'</dd>' +
-				'</dl>' +
-				'<a href="#" class="do-start highlight button">' + civitas.l('Start Playing') + '</a>' +
-			'</div>' +
-			'<a href="#" class="do-pause button">' + civitas.l('Pause') + '</a>' +
-			'<a href="#" class="do-restart button">' + civitas.l('Restart') + '</a>' +
-			'<a href="#" class="do-save button">' + civitas.l('Save / Load') + '</a>' +
-			'<ul class="save-slots">' +
-				'<li data-id="1"><span class="date">' + civitas.l('empty save game') + '</span><span title="' + civitas.l('Delete this save game') + '" class="tips delete"></span><span title="' + civitas.l('Save your game here') + '" class="tips save"></span><span title="' + civitas.l('Load this save game') + '" class="tips load"></span></a>' +
-				'<li data-id="2"><span class="date">' + civitas.l('empty save game') + '</span><span title="' + civitas.l('Delete this save game') + '" class="tips delete"></span><span title="' + civitas.l('Save your game here') + '" class="tips save"></span><span title="' + civitas.l('Load this save game') + '" class="tips load"></span></a>' +
-				'<li data-id="3"><span class="date">' + civitas.l('empty save game') + '</span><span title="' + civitas.l('Delete this save game') + '" class="tips delete"></span><span title="' + civitas.l('Save your game here') + '" class="tips save"></span><span title="' + civitas.l('Load this save game') + '" class="tips load"></span></a>' +
-			'</ul>' +
-			'<a href="#" class="do-options button">' + civitas.l('Options') + '</a>' +
-			'<div class="options-game"></div>' +
-			'<a href="#" class="do-about button">' + civitas.l('About') + '</a>' +
-			'<div class="about-game">' +
-				'<a class="github" href="https://github.com/sizeofcat/civitas"><img class="tips" title="' + civitas.l('Visit the project page on GitHub') + '" src="../images/ui/github.png" /></a>' +
-				'<p>' + civitas.l('Civitas is written by <a href="https://sizeof.cat">sizeof(cat)</a>.') + '</p>' +
-				'<p>' + civitas.l('Big thanks to') + ':</p>' +
-				'<ul>' +
-					'<li><a href="https://soundcloud.com/shantifax">Shantifax</a> for the music (Glandula Pinealis).</li>' +
-					'<li>Brendan Eich for Javascript.</li>' +
-					'<li><a href="http://bluebyte.com">Blue Byte</a> for Anno 1404.</li>' +
+	template: '' +
+		'<section id="window-options" class="window">' +
+			'<div class="logo">Civitas</div>' +
+			'<fieldset>' +
+				'<div class="new-game">' +
+					'<p>' + civitas.l('Choose your city details well, climate changes and game difficulty affects your building options and resources.') + '</p>' +
+					'<dl>' +
+						'<dt class="clearfix">' + civitas.l('Your Name') + ':</dt>' +
+						'<dd><input type="text" class="name text-input" /></dd>' +
+						'<dt class="clearfix">' + civitas.l('City Name') + ':</dt>' +
+						'<dd><input type="text" class="cityname text-input" /></dd>' +
+						'<dt class="clearfix">' + civitas.l('Nationality') + ':</dt>' +
+						'<dd>' +
+							'<select class="nation text-input"></select>' +
+						'</dd>' +
+						'<dt class="clearfix">' + civitas.l('Climate') + ':</dt>' +
+						'<dd>' +
+							'<select class="climate text-input"></select>' +
+						'</dd>' +
+						'<dt class="clearfix">' + civitas.l('Difficulty') + ':</dt>' +
+						'<dd>' +
+							'<select class="difficulty text-input">' +
+								'<option value="1">' + civitas.l('Easy') + '</option>' +
+								'<option value="2">' + civitas.l('Medium') + '</option>' +
+								'<option value="3">' + civitas.l('Hard') + '</option>' +
+								'<option value="4">' + civitas.l('Hardcore') + '</option>' +
+							'</select>' +
+						'</dd>' +
+						'<dt class="clearfix">' + civitas.l('Avatar') + ':</dt>' +
+						'<dd class="avatar-select-container">' +
+							'<div class="avatar-select"></div>' +
+							'<div class="scrollbar">' +
+								'<div class="up"></div>' +
+								'<div class="down"></div>' +
+							'</div>' +
+						'</dd>' +
+					'</dl>' +
+					'<a href="#" class="do-start highlight button">' + civitas.l('Start Playing') + '</a>' +
+				'</div>' +
+				'<a href="#" class="do-pause button">' + civitas.l('Pause') + '</a>' +
+				'<a href="#" class="do-restart button">' + civitas.l('Restart') + '</a>' +
+				'<a href="#" class="do-save button">' + civitas.l('Save / Load') + '</a>' +
+				'<ul class="save-slots">' +
+					'<li data-id="1"><span class="date">' + civitas.l('empty save game') + '</span><span title="' + civitas.l('Delete this save game') + '" class="tips delete"></span><span title="' + civitas.l('Save your game here') + '" class="tips save"></span><span title="' + civitas.l('Load this save game') + '" class="tips load"></span></a>' +
+					'<li data-id="2"><span class="date">' + civitas.l('empty save game') + '</span><span title="' + civitas.l('Delete this save game') + '" class="tips delete"></span><span title="' + civitas.l('Save your game here') + '" class="tips save"></span><span title="' + civitas.l('Load this save game') + '" class="tips load"></span></a>' +
+					'<li data-id="3"><span class="date">' + civitas.l('empty save game') + '</span><span title="' + civitas.l('Delete this save game') + '" class="tips delete"></span><span title="' + civitas.l('Save your game here') + '" class="tips save"></span><span title="' + civitas.l('Load this save game') + '" class="tips load"></span></a>' +
 				'</ul>' +
-			'</div>' +
-			'<br />' +
-			'<a href="#" class="do-resume button">' + civitas.l('Resume Playing') + '</a>' +
-		'</fieldset>' +
-	'</section>',
+				'<a href="#" class="do-options button">' + civitas.l('Options') + '</a>' +
+				'<div class="options-game"></div>' +
+				'<a href="#" class="do-about button">' + civitas.l('About') + '</a>' +
+				'<div class="about-game">' +
+					'<a class="github" href="https://github.com/sizeofcat/civitas"><img class="tips" title="' + civitas.l('Visit the project page on GitHub') + '" src="../images/ui/github.png" /></a>' +
+					'<p>' + civitas.l('Civitas is written by <a href="https://sizeof.cat">sizeof(cat)</a>.') + '</p>' +
+					'<p>' + civitas.l('Big thanks to') + ':</p>' +
+					'<ul>' +
+						'<li><a href="https://soundcloud.com/shantifax">Shantifax</a> for the music (Glandula Pinealis).</li>' +
+						'<li>Brendan Eich for Javascript.</li>' +
+						'<li><a href="http://bluebyte.com">Blue Byte</a> for Anno 1404.</li>' +
+					'</ul>' +
+				'</div>' +
+				'<br />' +
+				'<a href="#" class="do-resume button">' + civitas.l('Resume Playing') + '</a>' +
+			'</fieldset>' +
+		'</section>',
 	on_show: function() {
 		var self = this;
 		var avatar = 1;

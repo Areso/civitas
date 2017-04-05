@@ -4,13 +4,14 @@
  * @type {Object}
  */
 civitas.PANEL_ADVISOR = {
-	template: '<div id="panel-advisor" class="panel">' +
-		'<header>' +
-			'<span class="title">' + civitas.l('Your City Advisor') + '</span>' +
-			'<a class="tips btn close" title="' + civitas.l('Close this panel') + '"></a>' +
-		'</header>' +
-		'<div class="contents"></div>' +
-	'</div>',
+	template: '' +
+		'<div id="panel-advisor" class="panel">' +
+			'<header>' +
+				'<span class="title">' + civitas.l('Your City Advisor') + '</span>' +
+				'<a class="tips btn close" title="' + civitas.l('Close this panel') + '"></a>' +
+			'</header>' +
+			'<div class="contents"></div>' +
+		'</div>',
 	id: 'advisor',
 	on_show: function(params) {
 		var self = this;

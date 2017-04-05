@@ -8,6 +8,13 @@
 civitas.controls.window = function (params) {
 
 	/**
+	 * DOM handle of this window.
+	 *
+	 * @type {String}
+	 */
+	this.handle = null;
+
+	/**
 	 * Reference to the core object.
 	 * 
 	 * @type {civitas.game}
@@ -53,8 +60,7 @@ civitas.controls.window = function (params) {
 	 */
 	this.__destroy = function () {
 		this.get_core().console_log('destroying window with id `' + this.id + '`');
-		var el = '#window-' + this.id;
-		$(el).remove();
+		$(this.handle).remove();
 		$('.tipsy').remove();
 		this.on_hide.call(this);
 		return false;
@@ -78,10 +84,9 @@ civitas.controls.window = function (params) {
 	 * @param {Object} params
 	 */
 	this.__init = function (params) {
-		var self = this;
 		this.core = params.core;
 		this.id = params.id;
-		var el = '#window-' + this.id;
+		this.handle = '#window-' + this.id;
 		if (params.on_show instanceof Function) {
 			this.on_show = params.on_show;
 		} else {
@@ -92,13 +97,13 @@ civitas.controls.window = function (params) {
 		} else {
 			this.on_hide = function() {};
 		}
-		if (civitas.ui.window_exists(el)) {
+		if (civitas.ui.window_exists(this.handle)) {
 			this.destroy();
 		}
 		this.get_core().console_log('creating window with id `' + this.id + '`');
 		$('body').append(params.template);
 		this.on_show.call(this);
-		$(el + ' .tips').tipsy({
+		$(this.handle + ' .tips').tipsy({
 			gravity: 's'
 		});
 		return this;

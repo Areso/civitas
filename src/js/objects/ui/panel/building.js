@@ -4,7 +4,8 @@
  * @type {Object}
  */
 civitas.PANEL_BUILDING = {
-	template: '<div id="panel-building" class="panel pb">' +
+	template: '' +
+		'<div id="panel-building" class="panel pb">' +
 			'<header>' +
 				'<span class="title"></span>' +
 				'<a class="tips close btn" title="' + civitas.l('Close this panel') + '"></a>' +

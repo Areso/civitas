@@ -7789,6 +7789,7 @@ civitas.objects.city.prototype.recruit_mercenary_army = function(name, hidden) {
 				var soldier = civitas.SOLDIERS[item];
 				var _soldier = new civitas.objects.soldier({
 					name: item,
+					city: this,
 					data: soldier
 				});
 				army.army.push(_soldier);
@@ -7823,7 +7824,8 @@ civitas.objects.city.prototype.recruit_ship = function(ship_name) {
 			}
 			var _ship = new civitas.objects.ship({
 				name: item,
-				data: ship
+				data: ship,
+				city: this
 			});
 			this.navy.push(_ship);
 			this.get_core().refresh_ui();
@@ -7879,7 +7881,8 @@ civitas.objects.city.prototype._recruit_ship = function(ship_name) {
 			var ship = civitas.SHIPS[item];
 			var _ship = new civitas.objects.ship({
 				name: item,
-				data: ship
+				data: ship,
+				city: this
 			});
 			this.navy.push(_ship);
 		}
@@ -7900,7 +7903,8 @@ civitas.objects.city.prototype._recruit_soldier = function(soldier_name) {
 			var soldier = civitas.SOLDIERS[item];
 			var _soldier = new civitas.objects.soldier({
 				name: item,
-				data: soldier
+				data: soldier,
+				city: this
 			});
 			this.army.push(_soldier);
 		}
@@ -9485,6 +9489,13 @@ civitas.objects.ship = function (params) {
 civitas.controls.window = function (params) {
 
 	/**
+	 * DOM handle of this window.
+	 *
+	 * @type {String}
+	 */
+	this.handle = null;
+
+	/**
 	 * Reference to the core object.
 	 * 
 	 * @type {civitas.game}
@@ -9530,8 +9541,7 @@ civitas.controls.window = function (params) {
 	 */
 	this.__destroy = function () {
 		this.get_core().console_log('destroying window with id `' + this.id + '`');
-		var el = '#window-' + this.id;
-		$(el).remove();
+		$(this.handle).remove();
 		$('.tipsy').remove();
 		this.on_hide.call(this);
 		return false;
@@ -9555,10 +9565,9 @@ civitas.controls.window = function (params) {
 	 * @param {Object} params
 	 */
 	this.__init = function (params) {
-		var self = this;
 		this.core = params.core;
 		this.id = params.id;
-		var el = '#window-' + this.id;
+		this.handle = '#window-' + this.id;
 		if (params.on_show instanceof Function) {
 			this.on_show = params.on_show;
 		} else {
@@ -9569,13 +9578,13 @@ civitas.controls.window = function (params) {
 		} else {
 			this.on_hide = function() {};
 		}
-		if (civitas.ui.window_exists(el)) {
+		if (civitas.ui.window_exists(this.handle)) {
 			this.destroy();
 		}
 		this.get_core().console_log('creating window with id `' + this.id + '`');
 		$('body').append(params.template);
 		this.on_show.call(this);
-		$(el + ' .tips').tipsy({
+		$(this.handle + ' .tips').tipsy({
 			gravity: 's'
 		});
 		return this;
@@ -11293,7 +11302,8 @@ $(document).ready(function () {
  * @type {Object}
  */
 civitas.PANEL_CITY = {
-	template: '<div id="panel-city" class="panel">' +
+	template: '' +
+		'<div id="panel-city" class="panel">' +
 			'<header>' +
 				'<span class="title"></span>' +
 				'<a class="tips btn close" title="' + civitas.l('Close this panel') + '"></a>' +
@@ -11340,13 +11350,14 @@ civitas.PANEL_CITY = {
  * @type {Object}
  */
 civitas.PANEL_HELP = {
-	template: '<div id="panel-help" class="panel">' +
-		'<header>' +
-			'<span class="title"></span>' +
-			'<a class="tips btn close" title="' + civitas.l('Close this panel') + '"></a>' +
-		'</header>' +
-		'<div class="contents"></div>' +
-	'</div>',
+	template: '' +
+		'<div id="panel-help" class="panel">' +
+			'<header>' +
+				'<span class="title"></span>' +
+				'<a class="tips btn close" title="' + civitas.l('Close this panel') + '"></a>' +
+			'</header>' +
+			'<div class="contents"></div>' +
+		'</div>',
 	term: null,
 	context: null,
 	id: 'help',
@@ -11358,15 +11369,14 @@ civitas.PANEL_HELP = {
 			this.context = params.data.context;
 		}
 		var title = '';
-		var el = this.handle;
 		switch (this.context) {
 			case 'building':
 				var data = core.get_city().get_building_by_handle(this.term);
 				title = data.get_name();
 				break;
 		}
-		$(el + ' header .title').html(title !== '' ? civitas.l('Help about ') + title : civitas.l('Help'));
-		$(el + ' .contents').append('');
+		$(this.handle + ' header .title').html(title !== '' ? civitas.l('Help about ') + title : civitas.l('Help'));
+		$(this.handle + ' .contents').append('');
 	}
 }
 /**
@@ -11375,7 +11385,8 @@ civitas.PANEL_HELP = {
  * @type {Object}
  */
 civitas.PANEL_BUILDING = {
-	template: '<div id="panel-building" class="panel pb">' +
+	template: '' +
+		'<div id="panel-building" class="panel pb">' +
 			'<header>' +
 				'<span class="title"></span>' +
 				'<a class="tips close btn" title="' + civitas.l('Close this panel') + '"></a>' +
@@ -11476,13 +11487,14 @@ civitas.PANEL_BUILDING = {
  * @type {Object}
  */
 civitas.PANEL_STORAGE = {
-	template: '<div id="panel-storage" class="panel">' +
-		'<header>' +
-			'<span class="title">' + civitas.l('City Storage') + '</span>' +
-			'<a class="tips btn close" title="' + civitas.l('Close this panel') + '"></a>' +
-		'</header>' +
-		'<div class="contents"></div>' +
-	'</div>',
+	template: '' +
+		'<div id="panel-storage" class="panel">' +
+			'<header>' +
+				'<span class="title">' + civitas.l('City Storage') + '</span>' +
+				'<a class="tips btn close" title="' + civitas.l('Close this panel') + '"></a>' +
+			'</header>' +
+			'<div class="contents"></div>' +
+		'</div>',
 	expanded: false,
 	id: 'storage',
 	on_show: function(params) {
@@ -11539,20 +11551,22 @@ civitas.PANEL_STORAGE = {
  * @type {Object}
  */
 civitas.PANEL_WORLD = {
-	template: '<div id="panel-world" class="panel">' +
-		'<header>' +
-			'<span class="title">' + civitas.l('World Map') + '</span>' +
-			'<a class="tips btn close" title="' + civitas.l('Close this panel') + '"></a>' +
-		'</header>' +
-		'<div class="contents"><div class="worldmap"></div></div>' +
-	'</div>',
+	template: '' +
+		'<div id="panel-world" class="panel">' +
+			'<header>' +
+				'<span class="title">' + civitas.l('World Map') + '</span>' +
+				'<a class="tips btn close" title="' + civitas.l('Close this panel') + '"></a>' +
+			'</header>' +
+			'<div class="contents">' +
+				'<div class="worldmap"></div>' +
+			'</div>' +
+		'</div>',
 	id: 'world',
 	on_show: function(params) {
 		var self = this;
 		var core = this.get_core();
 		var city = core.get_city();
 		var cities = core.get_cities();
-		var el = this.handle;
 		var loc = civitas['CITY_LOCATION_' + city.get_climate().name.toUpperCase()];
 		var out = '<div data-name="yourcity" class="tips city c1" title="' + civitas.l('City of') + ' ' + city.get_name() + '" style="left:' + loc.x + 'px;top:' + loc.y + 'px"></div>';
 		for (var item in civitas.SETTLEMENTS) {
@@ -11566,8 +11580,8 @@ civitas.PANEL_WORLD = {
 		for (var i = 1; i < cities.length; i++) {
 			out += '<div data-name="' + cities[i].get_name() + '" class="tips city c' + civitas.CITIES[cities[i].get_id()].icon + '" title="' + civitas.l('City of') + ' ' + cities[i].get_name() + '" style="left:' + civitas.CITIES[cities[i].get_id()].location.x + 'px;top:' + civitas.CITIES[cities[i].get_id()].location.y + 'px"></div>';
 		}
-		$(el + ' .contents .worldmap').empty().append(out);
-		$(el).on('click', '.city', function () {
+		$(this.handle + ' .contents .worldmap').empty().append(out);
+		$(this.handle).on('click', '.city', function () {
 			var city_name = $(this).data('name');
 			if (city_name === 'yourcity') {
 				core.open_panel(civitas.PANEL_ADVISOR);
@@ -11588,13 +11602,14 @@ civitas.PANEL_WORLD = {
  * @type {Object}
  */
 civitas.PANEL_RANKINGS = {
-	template: '<div id="panel-rankings" class="panel">' +
-		'<header>' +
-			'<span class="title">' + civitas.l('World Rankings') + '</span>' +
-			'<a class="tips btn close" title="' + civitas.l('Close this panel') + '"></a>' +
-		'</header>' +
-		'<div class="contents"></div>' +
-	'</div>',
+	template: '' +
+		'<div id="panel-rankings" class="panel">' +
+			'<header>' +
+				'<span class="title">' + civitas.l('World Rankings') + '</span>' +
+				'<a class="tips btn close" title="' + civitas.l('Close this panel') + '"></a>' +
+			'</header>' +
+			'<div class="contents"></div>' +
+		'</div>',
 	id: 'rankings',
 	on_show: function(params) {
 		this.on_refresh();
@@ -11638,13 +11653,14 @@ civitas.PANEL_RANKINGS = {
  * @type {Object}
  */
 civitas.PANEL_ADVISOR = {
-	template: '<div id="panel-advisor" class="panel">' +
-		'<header>' +
-			'<span class="title">' + civitas.l('Your City Advisor') + '</span>' +
-			'<a class="tips btn close" title="' + civitas.l('Close this panel') + '"></a>' +
-		'</header>' +
-		'<div class="contents"></div>' +
-	'</div>',
+	template: '' +
+		'<div id="panel-advisor" class="panel">' +
+			'<header>' +
+				'<span class="title">' + civitas.l('Your City Advisor') + '</span>' +
+				'<a class="tips btn close" title="' + civitas.l('Close this panel') + '"></a>' +
+			'</header>' +
+			'<div class="contents"></div>' +
+		'</div>',
 	id: 'advisor',
 	on_show: function(params) {
 		var self = this;
@@ -12079,24 +12095,22 @@ civitas.PANEL_ADVISOR = {
  * @type {Object}
  */
 civitas.PANEL_ARMY = {
-	template: '<div id="panel-army" class="panel">' +
-		'<header>' +
-			'<span class="title"></span>' +
-			'<a class="tips btn close" title="' + civitas.l('Close this panel') + '"></a>' +
-		'</header>' +
-		'<div class="contents"></div>' +
-	'</div>',
+	template: '' +
+		'<div id="panel-army" class="panel">' +
+			'<header>' +
+				'<span class="title"></span>' +
+				'<a class="tips btn close" title="' + civitas.l('Close this panel') + '"></a>' +
+			'</header>' +
+			'<div class="contents"></div>' +
+		'</div>',
 	id: 'army',
 	on_show: function(params) {
-		var self = this;
 		var army = params.data;
-		var el = this.handle;
-		$(el + ' header .title').html(army.name);
-		$(el + ' .contents').append(civitas.ui.tabs(['Info', 'Soldiers', 'Ships']));
-		$(el + ' #tab-info').append('<img class="avatar" src="' + civitas.ASSETS_URL + 'images/armies/' + ((typeof army.icon !== 'undefined') ? army.icon : '22') + '.png" />' +
-				'<p>' + army.description + '</p>');
-		$(el + ' #tab-soldiers').append(civitas.ui.army_list(army));
-		$(el + ' #tab-ships').append(civitas.ui.navy_list(army));
+		$(this.handle + ' header .title').html(army.name);
+		$(this.handle + ' .contents').append(civitas.ui.tabs(['Info', 'Soldiers', 'Ships']));
+		$(this.handle + ' #tab-info').append('<img class="avatar" src="' + civitas.ASSETS_URL + 'images/armies/' + ((typeof army.icon !== 'undefined') ? army.icon : '22') + '.png" /><p>' + army.description + '</p>');
+		$(this.handle + ' #tab-soldiers').append(civitas.ui.army_list(army));
+		$(this.handle + ' #tab-ships').append(civitas.ui.navy_list(army));
 	}
 }
 /**
@@ -12105,13 +12119,14 @@ civitas.PANEL_ARMY = {
  * @type {Object}
  */
 civitas.PANEL_BUILDINGS = {
-	template: '<div id="panel-buildings" class="panel">' +
-		'<header>' +
-			'<span class="title">' + civitas.l('City Buildings') + '</span>' +
-			'<a class="tips btn close" title="' + civitas.l('Close this panel') + '"></a>' +
-		'</header>' +
-		'<div class="contents"></div>' +
-	'</div>',
+	template: '' +
+		'<div id="panel-buildings" class="panel">' +
+			'<header>' +
+				'<span class="title">' + civitas.l('City Buildings') + '</span>' +
+				'<a class="tips btn close" title="' + civitas.l('Close this panel') + '"></a>' +
+			'</header>' +
+			'<div class="contents"></div>' +
+		'</div>',
 	id: 'buildings',
 	on_show: function(params) {
 		var self = this;
@@ -12186,7 +12201,7 @@ civitas.PANEL_BUILDINGS = {
 			$(el + ' .b-chance, ' + el + ' .b-tax, ' + el + ' .b-store, ' + el + ' .b-req, ' + el + ' .b-cost, ' + el + ' .b-name, ' + el + ' .b-desc, ' + el + ' .b-mats, ' + el + ' .b-prod, ' + el + ' .toolbar').empty();
 			var handle = $(this).data('handle');
 			var building = civitas.BUILDINGS[civitas.BUILDINGS.findIndexM(handle)];
-			$(el + ' header .title').html(self.title + ' - ' + building.name);
+			$(el + ' header .title').html(civitas.l('City Buildings') + ' - ' + building.name);
 			$(el + ' .b-desc').html(building.description);
 			var _z = '<dl class="nomg">';
 			for (var y in building.cost) {
@@ -12296,7 +12311,8 @@ civitas.PANEL_BUILDINGS = {
  * @type {Object}
  */
 civitas.PANEL_SETTLEMENT = {
-	template: '<div id="panel-settlement" class="panel">' +
+	template: '' +
+		'<div id="panel-settlement" class="panel">' +
 			'<header>' +
 				'<span class="title">' + civitas.l('Small Settlement') + '</span>' +
 				'<a class="tips btn close" title="' + civitas.l('Close this panel') + '"></a>' +
@@ -12356,13 +12372,14 @@ civitas.PANEL_SETTLEMENT = {
  * @type {Object}
  */
 civitas.PANEL_TRADES = {
-	template: '<div id="panel-trades" class="panel">' +
-		'<header>' +
-			'<span class="title">' + civitas.l('World Market Trades') + '</span>' +
-			'<a class="tips btn close" title="' + civitas.l('Close this panel') + '"></a>' +
-		'</header>' +
-		'<div class="contents"></div>' +
-	'</div>',
+	template: '' +
+		'<div id="panel-trades" class="panel">' +
+			'<header>' +
+				'<span class="title">' + civitas.l('World Market Trades') + '</span>' +
+				'<a class="tips btn close" title="' + civitas.l('Close this panel') + '"></a>' +
+			'</header>' +
+			'<div class="contents"></div>' +
+		'</div>',
 	id: 'trades',
 	on_show: function(params) {
 		var self = this;
@@ -12580,69 +12597,70 @@ civitas.PANEL_TRADES = {
  */
 civitas.WINDOW_OPTIONS = {
 	id: 'options',
-	template: '<section id="window-options" class="window">' +
-		'<div class="logo">Civitas</div>' +
-		'<fieldset>' +
-			'<div class="new-game">' +
-				'<p>' + civitas.l('Choose your city details well, climate changes and game difficulty affects your building options and resources.') + '</p>' +
-				'<dl>' +
-					'<dt class="clearfix">' + civitas.l('Your Name') + ':</dt>' +
-					'<dd><input type="text" class="name text-input" /></dd>' +
-					'<dt class="clearfix">' + civitas.l('City Name') + ':</dt>' +
-					'<dd><input type="text" class="cityname text-input" /></dd>' +
-					'<dt class="clearfix">' + civitas.l('Nationality') + ':</dt>' +
-					'<dd>' +
-						'<select class="nation text-input"></select>' +
-					'</dd>' +
-					'<dt class="clearfix">' + civitas.l('Climate') + ':</dt>' +
-					'<dd>' +
-						'<select class="climate text-input"></select>' +
-					'</dd>' +
-					'<dt class="clearfix">' + civitas.l('Difficulty') + ':</dt>' +
-					'<dd>' +
-						'<select class="difficulty text-input">' +
-							'<option value="1">' + civitas.l('Easy') + '</option>' +
-							'<option value="2">' + civitas.l('Medium') + '</option>' +
-							'<option value="3">' + civitas.l('Hard') + '</option>' +
-							'<option value="4">' + civitas.l('Hardcore') + '</option>' +
-						'</select>' +
-					'</dd>' +
-					'<dt class="clearfix">' + civitas.l('Avatar') + ':</dt>' +
-					'<dd class="avatar-select-container">' +
-						'<div class="avatar-select"></div>' +
-						'<div class="scrollbar">' +
-							'<div class="up"></div>' +
-							'<div class="down"></div>' +
-						'</div>' +
-					'</dd>' +
-				'</dl>' +
-				'<a href="#" class="do-start highlight button">' + civitas.l('Start Playing') + '</a>' +
-			'</div>' +
-			'<a href="#" class="do-pause button">' + civitas.l('Pause') + '</a>' +
-			'<a href="#" class="do-restart button">' + civitas.l('Restart') + '</a>' +
-			'<a href="#" class="do-save button">' + civitas.l('Save / Load') + '</a>' +
-			'<ul class="save-slots">' +
-				'<li data-id="1"><span class="date">' + civitas.l('empty save game') + '</span><span title="' + civitas.l('Delete this save game') + '" class="tips delete"></span><span title="' + civitas.l('Save your game here') + '" class="tips save"></span><span title="' + civitas.l('Load this save game') + '" class="tips load"></span></a>' +
-				'<li data-id="2"><span class="date">' + civitas.l('empty save game') + '</span><span title="' + civitas.l('Delete this save game') + '" class="tips delete"></span><span title="' + civitas.l('Save your game here') + '" class="tips save"></span><span title="' + civitas.l('Load this save game') + '" class="tips load"></span></a>' +
-				'<li data-id="3"><span class="date">' + civitas.l('empty save game') + '</span><span title="' + civitas.l('Delete this save game') + '" class="tips delete"></span><span title="' + civitas.l('Save your game here') + '" class="tips save"></span><span title="' + civitas.l('Load this save game') + '" class="tips load"></span></a>' +
-			'</ul>' +
-			'<a href="#" class="do-options button">' + civitas.l('Options') + '</a>' +
-			'<div class="options-game"></div>' +
-			'<a href="#" class="do-about button">' + civitas.l('About') + '</a>' +
-			'<div class="about-game">' +
-				'<a class="github" href="https://github.com/sizeofcat/civitas"><img class="tips" title="' + civitas.l('Visit the project page on GitHub') + '" src="../images/ui/github.png" /></a>' +
-				'<p>' + civitas.l('Civitas is written by <a href="https://sizeof.cat">sizeof(cat)</a>.') + '</p>' +
-				'<p>' + civitas.l('Big thanks to') + ':</p>' +
-				'<ul>' +
-					'<li><a href="https://soundcloud.com/shantifax">Shantifax</a> for the music (Glandula Pinealis).</li>' +
-					'<li>Brendan Eich for Javascript.</li>' +
-					'<li><a href="http://bluebyte.com">Blue Byte</a> for Anno 1404.</li>' +
+	template: '' +
+		'<section id="window-options" class="window">' +
+			'<div class="logo">Civitas</div>' +
+			'<fieldset>' +
+				'<div class="new-game">' +
+					'<p>' + civitas.l('Choose your city details well, climate changes and game difficulty affects your building options and resources.') + '</p>' +
+					'<dl>' +
+						'<dt class="clearfix">' + civitas.l('Your Name') + ':</dt>' +
+						'<dd><input type="text" class="name text-input" /></dd>' +
+						'<dt class="clearfix">' + civitas.l('City Name') + ':</dt>' +
+						'<dd><input type="text" class="cityname text-input" /></dd>' +
+						'<dt class="clearfix">' + civitas.l('Nationality') + ':</dt>' +
+						'<dd>' +
+							'<select class="nation text-input"></select>' +
+						'</dd>' +
+						'<dt class="clearfix">' + civitas.l('Climate') + ':</dt>' +
+						'<dd>' +
+							'<select class="climate text-input"></select>' +
+						'</dd>' +
+						'<dt class="clearfix">' + civitas.l('Difficulty') + ':</dt>' +
+						'<dd>' +
+							'<select class="difficulty text-input">' +
+								'<option value="1">' + civitas.l('Easy') + '</option>' +
+								'<option value="2">' + civitas.l('Medium') + '</option>' +
+								'<option value="3">' + civitas.l('Hard') + '</option>' +
+								'<option value="4">' + civitas.l('Hardcore') + '</option>' +
+							'</select>' +
+						'</dd>' +
+						'<dt class="clearfix">' + civitas.l('Avatar') + ':</dt>' +
+						'<dd class="avatar-select-container">' +
+							'<div class="avatar-select"></div>' +
+							'<div class="scrollbar">' +
+								'<div class="up"></div>' +
+								'<div class="down"></div>' +
+							'</div>' +
+						'</dd>' +
+					'</dl>' +
+					'<a href="#" class="do-start highlight button">' + civitas.l('Start Playing') + '</a>' +
+				'</div>' +
+				'<a href="#" class="do-pause button">' + civitas.l('Pause') + '</a>' +
+				'<a href="#" class="do-restart button">' + civitas.l('Restart') + '</a>' +
+				'<a href="#" class="do-save button">' + civitas.l('Save / Load') + '</a>' +
+				'<ul class="save-slots">' +
+					'<li data-id="1"><span class="date">' + civitas.l('empty save game') + '</span><span title="' + civitas.l('Delete this save game') + '" class="tips delete"></span><span title="' + civitas.l('Save your game here') + '" class="tips save"></span><span title="' + civitas.l('Load this save game') + '" class="tips load"></span></a>' +
+					'<li data-id="2"><span class="date">' + civitas.l('empty save game') + '</span><span title="' + civitas.l('Delete this save game') + '" class="tips delete"></span><span title="' + civitas.l('Save your game here') + '" class="tips save"></span><span title="' + civitas.l('Load this save game') + '" class="tips load"></span></a>' +
+					'<li data-id="3"><span class="date">' + civitas.l('empty save game') + '</span><span title="' + civitas.l('Delete this save game') + '" class="tips delete"></span><span title="' + civitas.l('Save your game here') + '" class="tips save"></span><span title="' + civitas.l('Load this save game') + '" class="tips load"></span></a>' +
 				'</ul>' +
-			'</div>' +
-			'<br />' +
-			'<a href="#" class="do-resume button">' + civitas.l('Resume Playing') + '</a>' +
-		'</fieldset>' +
-	'</section>',
+				'<a href="#" class="do-options button">' + civitas.l('Options') + '</a>' +
+				'<div class="options-game"></div>' +
+				'<a href="#" class="do-about button">' + civitas.l('About') + '</a>' +
+				'<div class="about-game">' +
+					'<a class="github" href="https://github.com/sizeofcat/civitas"><img class="tips" title="' + civitas.l('Visit the project page on GitHub') + '" src="../images/ui/github.png" /></a>' +
+					'<p>' + civitas.l('Civitas is written by <a href="https://sizeof.cat">sizeof(cat)</a>.') + '</p>' +
+					'<p>' + civitas.l('Big thanks to') + ':</p>' +
+					'<ul>' +
+						'<li><a href="https://soundcloud.com/shantifax">Shantifax</a> for the music (Glandula Pinealis).</li>' +
+						'<li>Brendan Eich for Javascript.</li>' +
+						'<li><a href="http://bluebyte.com">Blue Byte</a> for Anno 1404.</li>' +
+					'</ul>' +
+				'</div>' +
+				'<br />' +
+				'<a href="#" class="do-resume button">' + civitas.l('Resume Playing') + '</a>' +
+			'</fieldset>' +
+		'</section>',
 	on_show: function() {
 		var self = this;
 		var avatar = 1;

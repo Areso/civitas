@@ -4,13 +4,14 @@
  * @type {Object}
  */
 civitas.PANEL_RANKINGS = {
-	template: '<div id="panel-rankings" class="panel">' +
-		'<header>' +
-			'<span class="title">' + civitas.l('World Rankings') + '</span>' +
-			'<a class="tips btn close" title="' + civitas.l('Close this panel') + '"></a>' +
-		'</header>' +
-		'<div class="contents"></div>' +
-	'</div>',
+	template: '' +
+		'<div id="panel-rankings" class="panel">' +
+			'<header>' +
+				'<span class="title">' + civitas.l('World Rankings') + '</span>' +
+				'<a class="tips btn close" title="' + civitas.l('Close this panel') + '"></a>' +
+			'</header>' +
+			'<div class="contents"></div>' +
+		'</div>',
 	id: 'rankings',
 	on_show: function(params) {
 		this.on_refresh();
