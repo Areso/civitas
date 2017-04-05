@@ -12666,24 +12666,30 @@ civitas.WINDOW_OPTIONS = {
 		var avatar = 1;
 		var core = this.get_core();
 		var el = '#window-' + this.id;
+		var game_started = core.get_storage_data();
 		if (core.get_mode() !== civitas.MODE_SINGLEPLAYER) {
 			$('.do-save').hide();
 		} else {
-			if (core.get_storage_data() !== false) {
+			if (game_started !== false) {
 				$('.new-game').hide();
 				$('.do-pause, .do-restart, .do-resume, .do-options, .save-slots > li span.save').show();
 			} else {
 				$('.new-game').show();
 				$('.do-pause, .do-restart, .do-resume, .do-options, .save-slots > li span.save').hide();
 			}
+			var saved_slots = false;
 			for (var i = 1; i <= 3; i++) {
 				var data;
 				if (data = core.get_storage_data('save' + i)) {
 					$('.save-slots > li[data-id=' + i + '] > span.load').show();
 					$('.save-slots > li[data-id=' + i + '] > span.date').html(civitas.utils.time_since(data.date) + ' ago');
+					saved_slots = true;
 				} else {
 					$('.save-slots > li[data-id=' + i + '] > span.load, .save-slots > li[data-id=' + i + '] > span.delete').hide();
 				}
+			}
+			if (saved_slots === false && game_started === false) {
+				$('.do-save, .save-slots').hide();
 			}
 		}
 		for (var i = 1; i < civitas.CLIMATES.length; i++) {

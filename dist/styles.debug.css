@@ -652,7 +652,6 @@ table.mercenaries td:nth-child(3) {
 #panel-settlement {
 	width: 360px;
 	max-width: 360px;
-	opacity: 0.8;
 }
 
 #panel-city .ui-tabs-panel,
