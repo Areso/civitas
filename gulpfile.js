@@ -31,14 +31,14 @@ gulp.task('app', function() {
 		'src/js/constants/events.js',
 		'src/js/constants/resources.js',
 		'src/js/constants/achievements.js',
-		'src/js/objects/core/utils.js',
+		'src/js/helpers/utils.js',
 		/*
 		'src/js/objects/modules/ai.js',
 		'src/js/objects/modules/api.js',
 		'src/js/objects/modules/jailer.js',
 		'src/js/objects/modules/history.js',
 		*/
-		'src/js/objects/core/ui.js',
+		'src/js/helpers/ui.js',
 		'src/js/objects/core/city.js',
 		'src/js/objects/core/city/research.js',
 		'src/js/objects/core/city/fame.js',
@@ -55,18 +55,18 @@ gulp.task('app', function() {
 		'src/js/objects/core/army.js',
 		*/
 		'src/js/objects/game.js',
-		'src/js/objects/ui/panel/city.js',
-		'src/js/objects/ui/panel/help.js',
-		'src/js/objects/ui/panel/building.js',
-		'src/js/objects/ui/panel/storage.js',
-		'src/js/objects/ui/panel/world.js',
-		'src/js/objects/ui/panel/rankings.js',
-		'src/js/objects/ui/panel/advisor.js',
-		'src/js/objects/ui/panel/army.js',
-		'src/js/objects/ui/panel/buildings.js',
-		'src/js/objects/ui/panel/settlement.js',
-		'src/js/objects/ui/panel/trades.js',
-		'src/js/objects/ui/window/options.js'
+		'src/js/definitions/ui/panel/city.js',
+		'src/js/definitions/ui/panel/help.js',
+		'src/js/definitions/ui/panel/building.js',
+		'src/js/definitions/ui/panel/storage.js',
+		'src/js/definitions/ui/panel/world.js',
+		'src/js/definitions/ui/panel/rankings.js',
+		'src/js/definitions/ui/panel/advisor.js',
+		'src/js/definitions/ui/panel/army.js',
+		'src/js/definitions/ui/panel/buildings.js',
+		'src/js/definitions/ui/panel/settlement.js',
+		'src/js/definitions/ui/panel/trades.js',
+		'src/js/definitions/ui/window/options.js'
   	])
     .pipe(concat('application.debug.js'))
     .pipe(header(fs.readFileSync('HEADER', 'utf8'), { pkg: pkg } ))
