@@ -444,7 +444,7 @@ civitas.BUILDINGS = [{
 		is_production: true, 
 		production: {
 			fame: 20,
-			espionage: 5
+			espionage: 2
 		},
 		materials: {
 			coins: 50

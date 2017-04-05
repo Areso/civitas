@@ -1747,7 +1747,7 @@ civitas.BUILDINGS = [{
 		is_production: true, 
 		production: {
 			fame: 20,
-			espionage: 5
+			espionage: 2
 		},
 		materials: {
 			coins: 50
@@ -8125,7 +8125,7 @@ civitas.objects.city.prototype.assign_spy = function(city) {
  * Buy the specified goods from a city.
  * 
  * @public
- * @param {civitas.objects.city|String} city
+ * @param {civitas.objects.city|String|Number} city
  * @param {String} resource
  * @param {Number} amount
  * @returns {Object|Boolean}
@@ -8133,7 +8133,7 @@ civitas.objects.city.prototype.assign_spy = function(city) {
 civitas.objects.city.prototype.buy_from_city = function(city, resource, amount) {
 	var resources = this.get_resources();
 	var _city;
-	if (typeof city === 'string') {
+	if (typeof city === 'string' || typeof city === 'number') {
 		_city = this.get_core().get_city(city);
 		if (city === false) {
 			this.get_core().error(city + ' does not exist.');
@@ -8248,7 +8248,7 @@ civitas.objects.city.prototype.list_black_market = function(resource, amount) {
  * Sell the specified goods to a city.
  * 
  * @public
- * @param {civitas.objects.city|String} city
+ * @param {civitas.objects.city|String|Number} city
  * @param {String} resource
  * @param {Number} amount
  * @returns {Object|Boolean}
@@ -8256,7 +8256,7 @@ civitas.objects.city.prototype.list_black_market = function(resource, amount) {
 civitas.objects.city.prototype.sell_to_city = function(city, resource, amount) {
 	var resources = this.get_resources();
 	var _city;
-	if (typeof city === 'string') {
+	if (typeof city === 'string' || typeof city === 'number') {
 		_city = this.get_core().get_city(city);
 		if (city === false) {
 			this.get_core().error(city + ' does not exist.');
@@ -12192,7 +12192,7 @@ civitas.PANEL_ADVISOR = {
 					'<td>';
 					if (building_data.production) {
 						for (var item in building_data.production) {
-							total_benefits[item] += buildings[l].get_level() * building_data.production[item];
+							total_benefits[item] += (buildings[l].has_problems() === false) ? buildings[l].get_level() * building_data.production[item] : 0;
 							_t += ' +' + buildings[l].get_level() * building_data.production[item] + ' ' + civitas.ui.resource_small_img(item);
 						}
 					}
@@ -12200,7 +12200,7 @@ civitas.PANEL_ADVISOR = {
 					'<td>';
 					if (building_data.materials) {
 						for (var item in building_data.materials) {
-							total_costs += building_data.materials[item];
+							total_costs += (buildings[l].has_problems() === false) ? building_data.materials[item] : 0;
 							_t += ' -' + building_data.materials[item] + ' ' + civitas.ui.resource_small_img(item);
 						}
 					}
@@ -12242,7 +12242,7 @@ civitas.PANEL_ADVISOR = {
 					'<td class="center">' + buildings[l].get_level() + '</td>' +
 					'<td>';
 					if (building_data.tax) {
-						total_tax += buildings[l].get_level() * building_data.tax;
+						total_tax += (buildings[l].has_problems() === false) ? buildings[l].get_level() * building_data.tax : 0;
 						_t += ' +' + buildings[l].get_level() * building_data.tax + ' ' + civitas.ui.resource_small_img('coins');
 					}
 				_t += '</td>' +

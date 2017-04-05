@@ -2,7 +2,7 @@
  * Buy the specified goods from a city.
  * 
  * @public
- * @param {civitas.objects.city|String} city
+ * @param {civitas.objects.city|String|Number} city
  * @param {String} resource
  * @param {Number} amount
  * @returns {Object|Boolean}
@@ -10,7 +10,7 @@
 civitas.objects.city.prototype.buy_from_city = function(city, resource, amount) {
 	var resources = this.get_resources();
 	var _city;
-	if (typeof city === 'string') {
+	if (typeof city === 'string' || typeof city === 'number') {
 		_city = this.get_core().get_city(city);
 		if (city === false) {
 			this.get_core().error(city + ' does not exist.');
@@ -125,7 +125,7 @@ civitas.objects.city.prototype.list_black_market = function(resource, amount) {
  * Sell the specified goods to a city.
  * 
  * @public
- * @param {civitas.objects.city|String} city
+ * @param {civitas.objects.city|String|Number} city
  * @param {String} resource
  * @param {Number} amount
  * @returns {Object|Boolean}
@@ -133,7 +133,7 @@ civitas.objects.city.prototype.list_black_market = function(resource, amount) {
 civitas.objects.city.prototype.sell_to_city = function(city, resource, amount) {
 	var resources = this.get_resources();
 	var _city;
-	if (typeof city === 'string') {
+	if (typeof city === 'string' || typeof city === 'number') {
 		_city = this.get_core().get_city(city);
 		if (city === false) {
 			this.get_core().error(city + ' does not exist.');
