@@ -1,4 +1,8 @@
-
+/**
+ * Army panel data.
+ *
+ * @type {Object}
+ */
 civitas.PANEL_ARMY = {
 	template: '<div id="panel-army" class="panel">' +
 		'<header>' +

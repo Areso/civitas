@@ -1,8 +1,12 @@
-
+/**
+ * Rankings panel data.
+ *
+ * @type {Object}
+ */
 civitas.PANEL_RANKINGS = {
 	template: '<div id="panel-rankings" class="panel">' +
 		'<header>' +
-			'<span class="title">Rankings</span>' +
+			'<span class="title">' + civitas.l('World Rankings') + '</span>' +
 			'<a class="tips btn close" title="' + civitas.l('Close this panel') + '"></a>' +
 		'</header>' +
 		'<div class="contents"></div>' +
@@ -12,7 +16,6 @@ civitas.PANEL_RANKINGS = {
 		this.on_refresh();
 	},
 	on_refresh: function() {
-		var el = this.handle;
 		var ranking_list = [];
 		var cities = this.get_core().get_cities();
 		for (var i = 0; i < cities.length; i++) {
@@ -32,16 +35,16 @@ civitas.PANEL_RANKINGS = {
 		    }
 		    return 0;
 		});
-		var out = '<div class="rankings-list">' +
+		var _t = '<div class="rankings-list">' +
 			'<dl>' +
 			'<dt>' + civitas.l('City') + '</dt>' + 
 			'<dd>' + civitas.l('Score') + '</dd>' +
 			'</dl>';
 		for (var i = 0; i < ranking_list.length; i++) {
-			out += '<dt>' + ranking_list[i].name + '</dt><dd>' + ranking_list[i].score + '</dd>';
+			_t += '<dt>' + ranking_list[i].name + '</dt><dd>' + ranking_list[i].score + '</dd>';
 		}
-		out += '</dl>' +
+		_t += '</dl>' +
 			'</div>';
-		$(el + ' .contents').empty().append(out);
+		$(this.handle + ' .contents').empty().append(_t);
 	}
 }

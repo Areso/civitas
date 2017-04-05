@@ -1,19 +1,23 @@
-
+/**
+ * Storage panel data.
+ *
+ * @type {Object}
+ */
 civitas.PANEL_STORAGE = {
 	template: '<div id="panel-storage" class="panel">' +
 		'<header>' +
-			'<span class="title">City Storage</span>' +
+			'<span class="title">' + civitas.l('City Storage') + '</span>' +
 			'<a class="tips btn close" title="' + civitas.l('Close this panel') + '"></a>' +
 		'</header>' +
 		'<div class="contents"></div>' +
 	'</div>',
+	expanded: false,
 	id: 'storage',
 	on_show: function(params) {
 		var self = this;
 		var core = this.get_core();
-		var el = this.handle;
 		this.on_refresh();
-		$(el).on('click', '.toggle-storage', function () {
+		$(this.handle).on('click', '.toggle-storage', function () {
 			if ($('.toggle-storage').html() === civitas.l('Show Less Goods')) {
 				self.expanded = false;
 				$('.toggle-storage').html(civitas.l('Show More Goods'));
@@ -29,7 +33,6 @@ civitas.PANEL_STORAGE = {
 		var city = this.get_core().get_city();
 		var resources = city.get_resources();
 		var storage_space = city.get_storage_space();
-		var el = '#panel-' + this.id;
 		var out = '<div class="main-storage">';
 		var main_storage = '';
 		var extra_storage = '';
@@ -52,9 +55,9 @@ civitas.PANEL_STORAGE = {
 		'<div class="toolbar">' +
 			'<a class="btn iblock toggle-storage" href="#">' + civitas.l('Show More Goods') + '</a>' +
 		'</div>';
-		$(el + ' .contents').empty().append(out);
+		$(this.handle + ' .contents').empty().append(out);
 		if (this.expanded === true) {
-			$('.toggle-storage').trigger('click');
+			$(this.handle + ' .toggle-storage').trigger('click');
 		}
 	}
 }

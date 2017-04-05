@@ -1,8 +1,12 @@
-
+/**
+ * Advisor panel data.
+ *
+ * @type {Object}
+ */
 civitas.PANEL_ADVISOR = {
 	template: '<div id="panel-advisor" class="panel">' +
 		'<header>' +
-			'<span class="title">Your City Advisor</span>' +
+			'<span class="title">' + civitas.l('Your City Advisor') + '</span>' +
 			'<a class="tips btn close" title="' + civitas.l('Close this panel') + '"></a>' +
 		'</header>' +
 		'<div class="contents"></div>' +

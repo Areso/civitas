@@ -1,8 +1,12 @@
-
+/**
+ * Buildings panel data.
+ *
+ * @type {Object}
+ */
 civitas.PANEL_BUILDINGS = {
 	template: '<div id="panel-buildings" class="panel">' +
 		'<header>' +
-			'<span class="title">City Buildings</span>' +
+			'<span class="title">' + civitas.l('City Buildings') + '</span>' +
 			'<a class="tips btn close" title="' + civitas.l('Close this panel') + '"></a>' +
 		'</header>' +
 		'<div class="contents"></div>' +

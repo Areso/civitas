@@ -1,8 +1,12 @@
-
+/**
+ * World panel data.
+ *
+ * @type {Object}
+ */
 civitas.PANEL_WORLD = {
 	template: '<div id="panel-world" class="panel">' +
 		'<header>' +
-			'<span class="title">World Map</span>' +
+			'<span class="title">' + civitas.l('World Map') + '</span>' +
 			'<a class="tips btn close" title="' + civitas.l('Close this panel') + '"></a>' +
 		'</header>' +
 		'<div class="contents"><div class="worldmap"></div></div>' +
@@ -17,8 +21,7 @@ civitas.PANEL_WORLD = {
 		var loc = civitas['CITY_LOCATION_' + city.get_climate().name.toUpperCase()];
 		var out = '<div data-name="yourcity" class="tips city c1" title="' + civitas.l('City of') + ' ' + city.get_name() + '" style="left:' + loc.x + 'px;top:' + loc.y + 'px"></div>';
 		for (var item in civitas.SETTLEMENTS) {
-			var settlement = civitas.SETTLEMENTS[item];
-			out += '<div data-id="' + item + '" class="tips settlement s1" title="' + civitas.l('Small Settlement') + '" style="left:' + settlement.location.x + 'px;top:' + settlement.location.y + 'px"></div>';
+			out += '<div data-id="' + item + '" class="tips settlement s1" title="' + civitas.l('Small Settlement') + '" style="left:' + civitas.SETTLEMENTS[item].location.x + 'px;top:' + civitas.SETTLEMENTS[item].location.y + 'px"></div>';
 		}
 		// TODO
 		out += '<div data-name="big" class="tips battle b1" title="' + civitas.l('Big Battle') + '" style="left:600px;top:320px"></div>';
@@ -34,14 +37,12 @@ civitas.PANEL_WORLD = {
 			if (city_name === 'yourcity') {
 				core.open_panel(civitas.PANEL_ADVISOR);
 			} else {
-				var _city = self.core.get_city(city_name);
-				core.open_panel(civitas.PANEL_CITY, _city);
+				core.open_panel(civitas.PANEL_CITY, core.get_city(city_name));
 			}
 			return false;
 		}).on('click', '.settlement', function () {
 			var id = parseInt($(this).data('id'));
-			var settlement = civitas.SETTLEMENTS[id];
-			core.open_panel(civitas.PANEL_SETTLEMENT, settlement);
+			core.open_panel(civitas.PANEL_SETTLEMENT, civitas.SETTLEMENTS[id]);
 			return false;
 		});
 	}

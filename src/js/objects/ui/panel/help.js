@@ -1,4 +1,8 @@
-
+/**
+ * Panel panel data.
+ *
+ * @type {Object}
+ */
 civitas.PANEL_HELP = {
 	template: '<div id="panel-help" class="panel">' +
 		'<header>' +

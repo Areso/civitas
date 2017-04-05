@@ -1,12 +1,22 @@
-
+/**
+ * Settlement panel data.
+ *
+ * @type {Object}
+ */
 civitas.PANEL_SETTLEMENT = {
 	template: '<div id="panel-settlement" class="panel">' +
-		'<header>' +
-			'<span class="title">Small Settlement</span>' +
-			'<a class="tips btn close" title="' + civitas.l('Close this panel') + '"></a>' +
-		'</header>' +
-		'<div class="contents"></div>' +
-	'</div>',
+			'<header>' +
+				'<span class="title">' + civitas.l('Small Settlement') + '</span>' +
+				'<a class="tips btn close" title="' + civitas.l('Close this panel') + '"></a>' +
+			'</header>' +
+			'<div class="contents"></div>' +
+			'<footer class="footer">' +
+					'<a class="tips attack btn" title="' + civitas.l('Attack this settlement') + '"></a>' +
+					'<a class="tips resources btn" title="' + civitas.l('Give resources to this settlement') + '"></a>' +
+					'<a class="tips alliance btn" title="' + civitas.l('Propose alliance to this settlement') + '"></a>' +
+					'<a class="tips help btn" data-ctxt="{context}" data-term="{settlement}" title="' + civitas.l('Info about this settlement') + '"></a>' +
+			'</footer>' +
+		'</div>',
 	id: 'settlement',
 	on_show: function(params) {
 		var self = this;
@@ -14,9 +24,8 @@ civitas.PANEL_SETTLEMENT = {
 		var city = core.get_city();
 		var settlement = params.data;
 		var location = civitas['CITY_LOCATION_' + city.get_climate().name.toUpperCase()];
-		var el = this.handle;
-		$(el + ' .contents').append(civitas.ui.tabs([civitas.l('Info'), civitas.l('Army'), civitas.l('Navy'), civitas.l('Resources')]));
-		$(el + ' #tab-info').append('' +
+		$(this.handle + ' .contents').append(civitas.ui.tabs([civitas.l('Info'), civitas.l('Army'), civitas.l('Navy'), civitas.l('Resources')]));
+		$(this.handle + ' #tab-info').append('' +
 				'<img class="avatar" src="' + civitas.ASSETS_URL + 'images/avatars/avatar40.png" />' +
 				'<dl>' +
 				'<dt>' + civitas.l('Nationality') + '</dt><dd>' + civitas.NATIONS[settlement.nationality].capitalize() + '</dd>' +
@@ -25,8 +34,8 @@ civitas.PANEL_SETTLEMENT = {
 				'<dt>' + civitas.l('Coins') + '</dt><dd>' + civitas.utils.nice_numbers(settlement.resources.coins) + '</dd>' +
 				'<dt>' + civitas.l('Distance') + '</dt><dd>' + civitas.utils.get_distance(location, settlement.location) + ' miles (' + civitas.utils.get_distance_in_days(location, settlement.location) + ' days)</dd>' +
 				'</dl>');
-		$(el + ' #tab-army').append(civitas.ui.army_list(settlement));
-		$(el + ' #tab-navy').append(civitas.ui.navy_list(settlement));
+		$(this.handle + ' #tab-army').append(civitas.ui.army_list(settlement));
+		$(this.handle + ' #tab-navy').append(civitas.ui.navy_list(settlement));
 		var out = '<p>This settlement has the the following resources:</p>' +
 			'<dl>';
 		for (var item in settlement.resources) {
@@ -36,8 +45,8 @@ civitas.PANEL_SETTLEMENT = {
 			}
 		}
 		out += '</dl>';
-		$(el + ' #tab-resources').append(out);
-		$(el).on('click', '.attack', function () {
+		$(this.handle + ' #tab-resources').append(out);
+		$(this.handle).on('click', '.attack', function () {
 			core.error('Not implemented yet.');
 			return false;
 		}).on('click', '.resources', function () {

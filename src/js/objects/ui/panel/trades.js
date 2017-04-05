@@ -1,8 +1,12 @@
-
+/**
+ * Trades panel data.
+ *
+ * @type {Object}
+ */
 civitas.PANEL_TRADES = {
 	template: '<div id="panel-trades" class="panel">' +
 		'<header>' +
-			'<span class="title">World Market Trades</span>' +
+			'<span class="title">' + civitas.l('World Market Trades') + '</span>' +
 			'<a class="tips btn close" title="' + civitas.l('Close this panel') + '"></a>' +
 		'</header>' +
 		'<div class="contents"></div>' +

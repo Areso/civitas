@@ -5822,50 +5822,6 @@ civitas.utils = {
  */
 civitas.ui = {
 
-	building_panel_template: '<div id="panel-{id}" class="panel pb">' +
-			'<header>' +
-				'<span class="title"></span>' +
-				'<a class="tips close btn" title="' + civitas.l('Close this panel') + '"></a>' +
-			'</header>' +
-			'<div class="contents"></div>' +
-			'<footer class="footer">' +
-				'<a class="tips demolish btn" title="' + civitas.l('Demolish this building') + '"></a>' +
-				'<a class="tips pause start btn" title="' + civitas.l('Control (start/pause) production') + '"></a>' +
-				'<a class="tips upgrade btn" title="' + civitas.l('Upgrade building') + '"></a>' +
-				'<a class="tips help btn" data-ctxt="{context}" data-term="{building}" title="' + civitas.l('Info about this building') + '"></a>' +
-			'</footer>' +
-		'</div>',
-
-	worldmap_panel_template: '<div id="panel-{id}" class="panel">' +
-			'<header>' +
-				'<span class="title">' + civitas.l('World Map') + '</span>' +
-				'<a class="tips btn close" title="' + civitas.l('Close this panel') + '"></a>' +
-			'</header>' +
-			'<div class="contents"><div class="worldmap"></div></div>' +
-		'</div>',
-
-	generic_panel_template: '<div id="panel-{id}" class="panel">' +
-			'<header>' +
-				'<span class="title">{title}</span>' +
-				'<a class="tips btn close" title="' + civitas.l('Close this panel') + '"></a>' +
-			'</header>' +
-			'<div class="contents"></div>' +
-		'</div>',
-
-	settlement_panel_template: '<div id="panel-{id}" class="panel">' +
-			'<header>' +
-				'<span class="title">{title}</span>' +
-				'<a class="tips btn close" title="' + civitas.l('Close this panel') + '"></a>' +
-			'</header>' +
-			'<div class="contents"></div>' +
-			'<footer class="footer">' +
-					'<a class="tips attack btn" title="' + civitas.l('Attack this settlement') + '"></a>' +
-					'<a class="tips resources btn" title="' + civitas.l('Give resources to this settlement') + '"></a>' +
-					'<a class="tips alliance btn" title="' + civitas.l('Propose alliance to this settlement') + '"></a>' +
-					'<a class="tips help btn" data-ctxt="{context}" data-term="{settlement}" title="' + civitas.l('Info about this settlement') + '"></a>' +
-			'</footer>' +
-		'</div>',
-
 	normal_panel: function (section, contents) {
 		var out = '<fieldset>' +
 				'<legend>' + section + '</legend>' +
@@ -11331,11 +11287,15 @@ $(document).ready(function () {
 	new civitas.game();
 });
 
-
+/**
+ * City panel data.
+ *
+ * @type {Object}
+ */
 civitas.PANEL_CITY = {
 	template: '<div id="panel-city" class="panel">' +
 			'<header>' +
-				'<span class="title">{title}</span>' +
+				'<span class="title"></span>' +
 				'<a class="tips btn close" title="' + civitas.l('Close this panel') + '"></a>' +
 			'</header>' +
 			'<div class="contents"></div>' +
@@ -11343,15 +11303,14 @@ civitas.PANEL_CITY = {
 	id: 'city',
 	on_show: function(params) {
 		var self = this;
-		var el = this.handle;
 		var core = this.get_core();
 		var my_city = core.get_city();
 		var city = params.data;
 		var trades = city.get_trades();
 		var location = civitas['CITY_LOCATION_' + my_city.get_climate().name.toUpperCase()];
-		$(el + ' header .title').html('City of ' + city.get_name());
-		$(el + ' .contents').append(civitas.ui.tabs([civitas.l('Info'), civitas.l('Army'), civitas.l('Navy'), civitas.l('Imports'), civitas.l('Exports')]));
-		$(el + ' #tab-info').append('' +
+		$(this.handle + ' header .title').html('City of ' + city.get_name());
+		$(this.handle + ' .contents').append(civitas.ui.tabs([civitas.l('Info'), civitas.l('Army'), civitas.l('Navy'), civitas.l('Imports'), civitas.l('Exports')]));
+		$(this.handle + ' #tab-info').append('' +
 				'<img class="avatar" src="' + civitas.ASSETS_URL + 'images/avatars/avatar' + city.get_ruler_avatar() + '.png" />' +
 				'<dl>' +
 				'<dt>' + city.get_ruler().title + '</dt><dd>' + city.get_ruler_name() + '</dd>' +
@@ -11364,18 +11323,22 @@ civitas.PANEL_CITY = {
 				'<dt>' + civitas.l('Influence') + '</dt><dd>' + my_city.get_influence_with_city(city.get_id()) + '</dd>' +
 				'<dt>' + civitas.l('Distance') + '</dt><dd>' + civitas.utils.get_distance(location, civitas.CITIES[city.get_id()].location) + ' miles (' + civitas.utils.get_distance_in_days(location, civitas.CITIES[city.get_id()].location) + ' days)</dd>' +
 				'</dl>');
-		$(el + ' #tab-army').append(civitas.ui.army_list(city.get_army_total()));
-		$(el + ' #tab-navy').append(civitas.ui.navy_list(city.get_navy_total()));
-		$(el + ' #tab-imports').append('' +
+		$(this.handle + ' #tab-army').append(civitas.ui.army_list(city.get_army_total()));
+		$(this.handle + ' #tab-navy').append(civitas.ui.navy_list(city.get_navy_total()));
+		$(this.handle + ' #tab-imports').append('' +
 				'<p>' + civitas.l('Below are the goods this city will be buying this year.') + '</p>' +
 				civitas.ui.trades_list(trades, 'imports'));
-		$(el + ' #tab-exports').append('' +
+		$(this.handle + ' #tab-exports').append('' +
 				'<p>' + civitas.l('Below are the goods this city will be selling this year.') + '</p>' +
 				civitas.ui.trades_list(trades, 'exports'));
 		
 	}
 }
-
+/**
+ * Panel panel data.
+ *
+ * @type {Object}
+ */
 civitas.PANEL_HELP = {
 	template: '<div id="panel-help" class="panel">' +
 		'<header>' +
@@ -11406,7 +11369,11 @@ civitas.PANEL_HELP = {
 		$(el + ' .contents').append('');
 	}
 }
-
+/**
+ * Building panel data.
+ *
+ * @type {Object}
+ */
 civitas.PANEL_BUILDING = {
 	template: '<div id="panel-building" class="panel pb">' +
 			'<header>' +
@@ -11503,22 +11470,26 @@ civitas.PANEL_BUILDING = {
 		return this;
 	}
 }
-
+/**
+ * Storage panel data.
+ *
+ * @type {Object}
+ */
 civitas.PANEL_STORAGE = {
 	template: '<div id="panel-storage" class="panel">' +
 		'<header>' +
-			'<span class="title">City Storage</span>' +
+			'<span class="title">' + civitas.l('City Storage') + '</span>' +
 			'<a class="tips btn close" title="' + civitas.l('Close this panel') + '"></a>' +
 		'</header>' +
 		'<div class="contents"></div>' +
 	'</div>',
+	expanded: false,
 	id: 'storage',
 	on_show: function(params) {
 		var self = this;
 		var core = this.get_core();
-		var el = this.handle;
 		this.on_refresh();
-		$(el).on('click', '.toggle-storage', function () {
+		$(this.handle).on('click', '.toggle-storage', function () {
 			if ($('.toggle-storage').html() === civitas.l('Show Less Goods')) {
 				self.expanded = false;
 				$('.toggle-storage').html(civitas.l('Show More Goods'));
@@ -11534,7 +11505,6 @@ civitas.PANEL_STORAGE = {
 		var city = this.get_core().get_city();
 		var resources = city.get_resources();
 		var storage_space = city.get_storage_space();
-		var el = '#panel-' + this.id;
 		var out = '<div class="main-storage">';
 		var main_storage = '';
 		var extra_storage = '';
@@ -11557,17 +11527,21 @@ civitas.PANEL_STORAGE = {
 		'<div class="toolbar">' +
 			'<a class="btn iblock toggle-storage" href="#">' + civitas.l('Show More Goods') + '</a>' +
 		'</div>';
-		$(el + ' .contents').empty().append(out);
+		$(this.handle + ' .contents').empty().append(out);
 		if (this.expanded === true) {
-			$('.toggle-storage').trigger('click');
+			$(this.handle + ' .toggle-storage').trigger('click');
 		}
 	}
 }
-
+/**
+ * World panel data.
+ *
+ * @type {Object}
+ */
 civitas.PANEL_WORLD = {
 	template: '<div id="panel-world" class="panel">' +
 		'<header>' +
-			'<span class="title">World Map</span>' +
+			'<span class="title">' + civitas.l('World Map') + '</span>' +
 			'<a class="tips btn close" title="' + civitas.l('Close this panel') + '"></a>' +
 		'</header>' +
 		'<div class="contents"><div class="worldmap"></div></div>' +
@@ -11582,8 +11556,7 @@ civitas.PANEL_WORLD = {
 		var loc = civitas['CITY_LOCATION_' + city.get_climate().name.toUpperCase()];
 		var out = '<div data-name="yourcity" class="tips city c1" title="' + civitas.l('City of') + ' ' + city.get_name() + '" style="left:' + loc.x + 'px;top:' + loc.y + 'px"></div>';
 		for (var item in civitas.SETTLEMENTS) {
-			var settlement = civitas.SETTLEMENTS[item];
-			out += '<div data-id="' + item + '" class="tips settlement s1" title="' + civitas.l('Small Settlement') + '" style="left:' + settlement.location.x + 'px;top:' + settlement.location.y + 'px"></div>';
+			out += '<div data-id="' + item + '" class="tips settlement s1" title="' + civitas.l('Small Settlement') + '" style="left:' + civitas.SETTLEMENTS[item].location.x + 'px;top:' + civitas.SETTLEMENTS[item].location.y + 'px"></div>';
 		}
 		// TODO
 		out += '<div data-name="big" class="tips battle b1" title="' + civitas.l('Big Battle') + '" style="left:600px;top:320px"></div>';
@@ -11599,23 +11572,25 @@ civitas.PANEL_WORLD = {
 			if (city_name === 'yourcity') {
 				core.open_panel(civitas.PANEL_ADVISOR);
 			} else {
-				var _city = self.core.get_city(city_name);
-				core.open_panel(civitas.PANEL_CITY, _city);
+				core.open_panel(civitas.PANEL_CITY, core.get_city(city_name));
 			}
 			return false;
 		}).on('click', '.settlement', function () {
 			var id = parseInt($(this).data('id'));
-			var settlement = civitas.SETTLEMENTS[id];
-			core.open_panel(civitas.PANEL_SETTLEMENT, settlement);
+			core.open_panel(civitas.PANEL_SETTLEMENT, civitas.SETTLEMENTS[id]);
 			return false;
 		});
 	}
 }
-
+/**
+ * Rankings panel data.
+ *
+ * @type {Object}
+ */
 civitas.PANEL_RANKINGS = {
 	template: '<div id="panel-rankings" class="panel">' +
 		'<header>' +
-			'<span class="title">Rankings</span>' +
+			'<span class="title">' + civitas.l('World Rankings') + '</span>' +
 			'<a class="tips btn close" title="' + civitas.l('Close this panel') + '"></a>' +
 		'</header>' +
 		'<div class="contents"></div>' +
@@ -11625,7 +11600,6 @@ civitas.PANEL_RANKINGS = {
 		this.on_refresh();
 	},
 	on_refresh: function() {
-		var el = this.handle;
 		var ranking_list = [];
 		var cities = this.get_core().get_cities();
 		for (var i = 0; i < cities.length; i++) {
@@ -11645,24 +11619,28 @@ civitas.PANEL_RANKINGS = {
 		    }
 		    return 0;
 		});
-		var out = '<div class="rankings-list">' +
+		var _t = '<div class="rankings-list">' +
 			'<dl>' +
 			'<dt>' + civitas.l('City') + '</dt>' + 
 			'<dd>' + civitas.l('Score') + '</dd>' +
 			'</dl>';
 		for (var i = 0; i < ranking_list.length; i++) {
-			out += '<dt>' + ranking_list[i].name + '</dt><dd>' + ranking_list[i].score + '</dd>';
+			_t += '<dt>' + ranking_list[i].name + '</dt><dd>' + ranking_list[i].score + '</dd>';
 		}
-		out += '</dl>' +
+		_t += '</dl>' +
 			'</div>';
-		$(el + ' .contents').empty().append(out);
+		$(this.handle + ' .contents').empty().append(_t);
 	}
 }
-
+/**
+ * Advisor panel data.
+ *
+ * @type {Object}
+ */
 civitas.PANEL_ADVISOR = {
 	template: '<div id="panel-advisor" class="panel">' +
 		'<header>' +
-			'<span class="title">Your City Advisor</span>' +
+			'<span class="title">' + civitas.l('Your City Advisor') + '</span>' +
 			'<a class="tips btn close" title="' + civitas.l('Close this panel') + '"></a>' +
 		'</header>' +
 		'<div class="contents"></div>' +
@@ -12095,7 +12073,11 @@ civitas.PANEL_ADVISOR = {
 		$(el + ' .navy-list').empty().append(_t);
 	}
 }
-
+/**
+ * Army panel data.
+ *
+ * @type {Object}
+ */
 civitas.PANEL_ARMY = {
 	template: '<div id="panel-army" class="panel">' +
 		'<header>' +
@@ -12117,11 +12099,15 @@ civitas.PANEL_ARMY = {
 		$(el + ' #tab-ships').append(civitas.ui.navy_list(army));
 	}
 }
-
+/**
+ * Buildings panel data.
+ *
+ * @type {Object}
+ */
 civitas.PANEL_BUILDINGS = {
 	template: '<div id="panel-buildings" class="panel">' +
 		'<header>' +
-			'<span class="title">City Buildings</span>' +
+			'<span class="title">' + civitas.l('City Buildings') + '</span>' +
 			'<a class="tips btn close" title="' + civitas.l('Close this panel') + '"></a>' +
 		'</header>' +
 		'<div class="contents"></div>' +
@@ -12304,15 +12290,25 @@ civitas.PANEL_BUILDINGS = {
 		});
 	}
 }
-
+/**
+ * Settlement panel data.
+ *
+ * @type {Object}
+ */
 civitas.PANEL_SETTLEMENT = {
 	template: '<div id="panel-settlement" class="panel">' +
-		'<header>' +
-			'<span class="title">Small Settlement</span>' +
-			'<a class="tips btn close" title="' + civitas.l('Close this panel') + '"></a>' +
-		'</header>' +
-		'<div class="contents"></div>' +
-	'</div>',
+			'<header>' +
+				'<span class="title">' + civitas.l('Small Settlement') + '</span>' +
+				'<a class="tips btn close" title="' + civitas.l('Close this panel') + '"></a>' +
+			'</header>' +
+			'<div class="contents"></div>' +
+			'<footer class="footer">' +
+					'<a class="tips attack btn" title="' + civitas.l('Attack this settlement') + '"></a>' +
+					'<a class="tips resources btn" title="' + civitas.l('Give resources to this settlement') + '"></a>' +
+					'<a class="tips alliance btn" title="' + civitas.l('Propose alliance to this settlement') + '"></a>' +
+					'<a class="tips help btn" data-ctxt="{context}" data-term="{settlement}" title="' + civitas.l('Info about this settlement') + '"></a>' +
+			'</footer>' +
+		'</div>',
 	id: 'settlement',
 	on_show: function(params) {
 		var self = this;
@@ -12320,9 +12316,8 @@ civitas.PANEL_SETTLEMENT = {
 		var city = core.get_city();
 		var settlement = params.data;
 		var location = civitas['CITY_LOCATION_' + city.get_climate().name.toUpperCase()];
-		var el = this.handle;
-		$(el + ' .contents').append(civitas.ui.tabs([civitas.l('Info'), civitas.l('Army'), civitas.l('Navy'), civitas.l('Resources')]));
-		$(el + ' #tab-info').append('' +
+		$(this.handle + ' .contents').append(civitas.ui.tabs([civitas.l('Info'), civitas.l('Army'), civitas.l('Navy'), civitas.l('Resources')]));
+		$(this.handle + ' #tab-info').append('' +
 				'<img class="avatar" src="' + civitas.ASSETS_URL + 'images/avatars/avatar40.png" />' +
 				'<dl>' +
 				'<dt>' + civitas.l('Nationality') + '</dt><dd>' + civitas.NATIONS[settlement.nationality].capitalize() + '</dd>' +
@@ -12331,8 +12326,8 @@ civitas.PANEL_SETTLEMENT = {
 				'<dt>' + civitas.l('Coins') + '</dt><dd>' + civitas.utils.nice_numbers(settlement.resources.coins) + '</dd>' +
 				'<dt>' + civitas.l('Distance') + '</dt><dd>' + civitas.utils.get_distance(location, settlement.location) + ' miles (' + civitas.utils.get_distance_in_days(location, settlement.location) + ' days)</dd>' +
 				'</dl>');
-		$(el + ' #tab-army').append(civitas.ui.army_list(settlement));
-		$(el + ' #tab-navy').append(civitas.ui.navy_list(settlement));
+		$(this.handle + ' #tab-army').append(civitas.ui.army_list(settlement));
+		$(this.handle + ' #tab-navy').append(civitas.ui.navy_list(settlement));
 		var out = '<p>This settlement has the the following resources:</p>' +
 			'<dl>';
 		for (var item in settlement.resources) {
@@ -12342,8 +12337,8 @@ civitas.PANEL_SETTLEMENT = {
 			}
 		}
 		out += '</dl>';
-		$(el + ' #tab-resources').append(out);
-		$(el).on('click', '.attack', function () {
+		$(this.handle + ' #tab-resources').append(out);
+		$(this.handle).on('click', '.attack', function () {
 			core.error('Not implemented yet.');
 			return false;
 		}).on('click', '.resources', function () {
@@ -12355,11 +12350,15 @@ civitas.PANEL_SETTLEMENT = {
 		});
 	}
 }
-
+/**
+ * Trades panel data.
+ *
+ * @type {Object}
+ */
 civitas.PANEL_TRADES = {
 	template: '<div id="panel-trades" class="panel">' +
 		'<header>' +
-			'<span class="title">World Market Trades</span>' +
+			'<span class="title">' + civitas.l('World Market Trades') + '</span>' +
 			'<a class="tips btn close" title="' + civitas.l('Close this panel') + '"></a>' +
 		'</header>' +
 		'<div class="contents"></div>' +
