@@ -185,47 +185,26 @@ civitas.game = function () {
 		if (this.get_storage_data() !== false) {
 			this.start_game();
 		}
-		$('.toolbar').on('click', '.do-options', function () {
-			self.open_panel(new civitas.controls.panel_settings({
-				core: self,
-				id: 'settings',
-				header: 'Game Settings'
-			}));
-			return false;
-		}).on('click', '.do-worldmap', function () {
-			self.open_panel(civitas.controls.panel_world({
-				core: self
-			}));
+		$('.toolbar').on('click', '.do-worldmap', function () {
+			self.open_panel(civitas.PANEL_WORLD);
 			return false;
 		}).on('click', '.do-help', function () {
-			self.open_panel(new civitas.controls.panel_help({
-				core: self
-			}));
+			self.open_panel(civitas.PANEL_HELP);
 			return false;
 		}).on('click', '.do-trades', function () {
-			self.open_panel(new civitas.controls.panel_trades({
-				core: self
-			}));
+			self.open_panel(civitas.PANEL_TRADES);
 			return false;
 		}).on('click', '.do-rankings', function () {
-			self.open_panel(new civitas.controls.panel_rankings({
-				core: self
-			}));
+			self.open_panel(civitas.PANEL_RANKINGS);
 			return false;
 		}).on('click', '.do-advisor', function () {
-			self.open_panel(new civitas.controls.panel_advisor({
-				core: self
-			}));
+			self.open_panel(civitas.PANEL_ADVISOR);
 			return false;
 		}).on('click', '.do-storage', function () {
-			self.open_panel(new civitas.controls.panel_storage({
-				core: self
-			}));
+			self.open_panel(civitas.PANEL_STORAGE);
 			return false;
 		}).on('click', '.do-build', function () {
-			self.open_panel(new civitas.controls.panel_buildings({
-				core: self
-			}));
+			self.open_panel(civitas.PANEL_BUILDINGS);
 			return false;
 		});
 		$('.console').on('click', '.down', function () {
@@ -245,18 +224,6 @@ civitas.game = function () {
 			core: this
 		});
 		*/
-		return this;
-	};
-
-	/**
-	 * Open the UI panel.
-	 *
-	 * @param {civitas.panel} panel
-	 * @public
-	 * @returns {civitas.game}
-	 */
-	this.open_panel = function(panel) {
-		this.panels.push(panel);
 		return this;
 	};
 
@@ -790,7 +757,7 @@ civitas.game = function () {
 	this.refresh_panels = function() {
 		var panels = this.get_panels();
 		for (var x = 0; x < panels.length; x++) {
-			panels[x].refresh();
+			panels[x].on_refresh();
 		}
 		this.refresh_toolbar();
 		return this;
@@ -816,11 +783,10 @@ civitas.game = function () {
 	 * @returns {civitas_game} 
 	 */
 	this.help = function(context, term) {
-		this.open_panel(civitas.controls.panel_help({
-			core: this,
+		this.open_panel(civitas.PANEL_HELP, {
 			context: context,
 			term: term
-		}));
+		});
 		return this;
 	};
 
@@ -1497,6 +1463,22 @@ civitas.game = function () {
 	 */
 	this.get_achievements = function() {
 		return this.achievements;
+	};
+
+	/**
+	 * Open a UI panel.
+	 *
+	 * @public
+	 * @param {Object} panel_data
+	 * @param {Object} extra_data
+	 * @returns {civitas.controls.panel}
+	 */
+	this.open_panel = function(panel_data, extra_data) {
+		panel_data.core = this;
+		panel_data.data = extra_data;
+		var panel = new civitas.controls.panel(panel_data);
+		this.panels.push(panel);
+		return panel;
 	};
 
 	/**

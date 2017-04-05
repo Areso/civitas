@@ -50,26 +50,23 @@ gulp.task('app', function() {
 		'src/js/objects/core/soldier.js',
 		'src/js/objects/core/ship.js',
 		'src/js/objects/core/window.js',
+		'src/js/objects/core/panel.js',
 		/*
 		'src/js/objects/core/army.js',
 		*/
-		'src/js/objects/ui/building.js',
-		'src/js/objects/ui/buildings.js',
-		'src/js/objects/ui/storage.js',
-		'src/js/objects/ui/city.js',
-		'src/js/objects/ui/settlement.js',
-		'src/js/objects/ui/help.js',
-		'src/js/objects/ui/rankings.js',
-		/*
-		'src/js/objects/ui/send_goods.js',
-		'src/js/objects/ui/declare_war.js',
-		*/
-		'src/js/objects/ui/world.js',
-		'src/js/objects/ui/advisor.js',
-		'src/js/objects/ui/army.js',
-		'src/js/objects/ui/trades.js',
 		'src/js/objects/game.js',
-		'src/js/objects/core/window/options.js'
+		'src/js/objects/ui/panel/city.js',
+		'src/js/objects/ui/panel/help.js',
+		'src/js/objects/ui/panel/building.js',
+		'src/js/objects/ui/panel/storage.js',
+		'src/js/objects/ui/panel/world.js',
+		'src/js/objects/ui/panel/rankings.js',
+		'src/js/objects/ui/panel/advisor.js',
+		'src/js/objects/ui/panel/army.js',
+		'src/js/objects/ui/panel/buildings.js',
+		'src/js/objects/ui/panel/settlement.js',
+		'src/js/objects/ui/panel/trades.js',
+		'src/js/objects/ui/window/options.js'
   	])
     .pipe(concat('application.debug.js'))
     .pipe(header(fs.readFileSync('HEADER', 'utf8'), { pkg: pkg } ))

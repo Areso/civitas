@@ -1,82 +1,22 @@
-/**
- * Main Game city advisor panel object.
- * 
- * @param {Object} params
- * @class {civitas.controls.panel_advisor}
- * @returns {civitas.controls.panel_advisor}
- */
-civitas.controls.panel_advisor = function (params) {
 
-	/**
-	 * Reference to the core object.
-	 * 
-	 * @type {civitas.game}
-	 */
-	this.core = null;
-
-	/**
-	 * DOM id of this panel.
-	 * 
-	 * @type {String}
-	 * @constant
-	 */
-	this.id = 'advisor';
-
-	/**
-	 * Localized title of the panel.
-	 * 
-	 * @type {String}
-	 */
-	this.title = civitas.l('Your City Advisor');
-
-	/**
-	 * Object destructor.
-	 * 
-	 * @private
-	 * @returns {Boolean}
-	 */
-	this.__destroy = function () {
-		this.core.console_log('destroying panel with id `' + this.id + '`');
-		var el = '#panel-' + this.id;
-		$(el).remove();
-		this.core.close_panel(this.id);
-		$('.tipsy').remove();
-		return false;
-	};
-
-	/**
-	 * Method for destroying the window/panel.
-	 * 
-	 * @public
-	 * @returns {Boolean}
-	 */
-	this.destroy = function () {
-		return this.__destroy();
-	};
-
-	/**
-	 * Object constructor.
-	 * 
-	 * @private
-	 * @returns {civitas.controls.panel_advisor}
-	 * @param {Object} params
-	 */
-	this.__init = function (params) {
-		this.core = params.core;
-		var el = '#panel-' + this.id;
+civitas.PANEL_ADVISOR = {
+	template: '<div id="panel-advisor" class="panel">' +
+		'<header>' +
+			'<span class="title">Your City Advisor</span>' +
+			'<a class="tips btn close" title="' + civitas.l('Close this panel') + '"></a>' +
+		'</header>' +
+		'<div class="contents"></div>' +
+	'</div>',
+	id: 'advisor',
+	on_show: function(params) {
 		var self = this;
-		if (civitas.ui.panel_exists(el)) {
-			this.destroy();
-		}
-		this.core.console_log('creating panel with id `' + this.id + '`');
-		var city = this.core.get_city();
+		var core = this.get_core();
+		var el = this.handle;
+		var city = core.get_city();
 		var buildings = city.get_buildings();
 		var can_diplomacy = city.is_building_built('embassy');
 		var can_build_ships = city.is_building_built('shipyard');
 		var can_recruit_soldiers = city.is_building_built('camp') || city.is_building_built('castle');
-		$('.ui').append(civitas.ui.generic_panel_template
-			.replace(/{id}/g, this.id)
-			.replace(/{title}/g, this.title));
 		$(el + ' .contents').append('<div class="tabs">' +
 			'<ul>' +
 				'<li><a href="#tab-info">' + civitas.l('Info') + '</a></li>' +
@@ -106,163 +46,131 @@ civitas.controls.panel_advisor = function (params) {
 				'<div class="achievements-list"></div>' +
 			'</div>' +
 		'</div>');
-		this.refresh();
+		this.on_refresh();
 		$(el).on('click', '.pact', function () {
 			if (can_diplomacy === true) {
 				var city = $(this).data('name');
-				var influence = self.core.get_city().get_influence_with_city(city);
+				var influence = core.get_city().get_influence_with_city(city);
 				if (influence >= 50) {
-					self.core.error('Not implemented yet.');
+					core.error('Not implemented yet.');
 					/*
-					if (self.core.get_city().propose_pact(city) === true) {
+					if (core.get_city().propose_pact(city) === true) {
 						// TODO
 					}
 					*/
-
 				} else {
-					self.core.error(civitas.l('Your influence on') + ' ' + city + ' ' + civitas.l('is too low to propose a pact.'));
+					core.error(civitas.l('Your influence on') + ' ' + city + ' ' + civitas.l('is too low to propose a pact.'));
 				}
 			} else {
-				self.core.error(civitas.l('You will need to construct an Embassy before being able to propose treaties and pacts to other cities.'));
+				core.error(civitas.l('You will need to construct an Embassy before being able to propose treaties and pacts to other cities.'));
 			}
 			return false;
 		}).on('click', '.spy', function () {
 			if (can_diplomacy === true) {
 				var city = $(this).data('name');
-				self.core.error(civitas.l('Not implemented yet.'));
+				core.error(civitas.l('Not implemented yet.'));
 				/*
-				if (self.core.get_city().assign_spy(city) === true) {
+				if (core.get_city().assign_spy(city) === true) {
 					// TODO
 				}
 				*/
 			} else {
-				self.core.error(civitas.l('You will need to construct an Embassy before being able to assign spies to other cities.'));
+				core.error(civitas.l('You will need to construct an Embassy before being able to assign spies to other cities.'));
 			}
 			return false;
 		}).on('click', '.recruit-ship', function () {
 			if (can_build_ships === true) {
 				var ship = $(this).data('handle');
-				self.core.error(civitas.l('Not implemented yet.'));
+				core.error(civitas.l('Not implemented yet.'));
 				/*
-				if (self.core.get_city().recruit_ship(ship) === true) {
+				if (core.get_city().recruit_ship(ship) === true) {
 					self._refresh_navy();
 				}
 				*/
 			} else {
-				self.core.error(civitas.l('You will need to construct a Shipyard before being able to construct ships in your city.'));
+				core.error(civitas.l('You will need to construct a Shipyard before being able to construct ships in your city.'));
 			}
 			return false;
 		}).on('click', '.declare-war', function () {
 			if (can_diplomacy === true) {
 				var name = $(this).data('name');
-				var _city = self.core.get_city(name);
-				self.core.error(civitas.l('Not implemented yet.'));
+				var _city = core.get_city(name);
+				core.error(civitas.l('Not implemented yet.'));
 				/*
-				self.core.open_panel(new civitas.controls.panel_declare_war({
-					core: self.core,
+				core.open_panel(new civitas.controls.panel_declare_war({
+					core: core,
 					data: _city
 				}));
 				*/
 			} else {
-				self.core.error(civitas.l('You will need to construct an Embassy before being able to declare war to other cities.'));
+				core.error(civitas.l('You will need to construct an Embassy before being able to declare war to other cities.'));
 			}
 			return false;
 		}).on('click', '.send-goods', function () {
 			if (can_diplomacy === true) {
 				var name = $(this).data('name');
-				var _city = self.core.get_city(name);
-				self.core.error(civitas.l('Not implemented yet.'));
+				var _city = core.get_city(name);
+				core.error(civitas.l('Not implemented yet.'));
 				/*
-				self.core.open_panel(new civitas.controls.panel_send_goods({
-					core: self.core,
+				core.open_panel(new civitas.controls.panel_send_goods({
+					core: core,
 					data: _city
 				}));
 				*/
 			} else {
-				self.core.error(civitas.l('You will need to construct an Embassy before being able to send goods to other cities.'));
+				core.error(civitas.l('You will need to construct an Embassy before being able to send goods to other cities.'));
 			}
 			return false;
 		}).on('click', '.view-city', function () {
 			var name = $(this).data('name');
-			var _city = self.core.get_city(name);
-			self.core.open_panel(new civitas.controls.panel_city({
-				core: self.core,
-				data: _city
-			}));
+			var _city = core.get_city(name);
+			core.open_panel(civitas.PANEL_CITY, _city);
 			return false;
 		}).on('click', '.recruit-soldier', function () {
 			if (can_recruit_soldiers === true) {
 				var soldier = $(this).data('handle');
-				if (self.core.get_city().recruit_soldier(soldier) === true) {
+				if (core.get_city().recruit_soldier(soldier) === true) {
 					self._refresh_army();
 				}
 			} else {
-				self.core.error(civitas.l('You will need to construct a Military Camp or Castle before recruiting soldiers in your city.'));
+				core.error(civitas.l('You will need to construct a Military Camp or Castle before recruiting soldiers in your city.'));
 			}
 			return false;
 		}).on('click', '.view-merc', function () {
 			var _army = $(this).data('id');
 			var data = civitas.MERCENARIES[_army];
-			self.core.open_panel(new civitas.controls.panel_army({
-				core: self.core,
-				data: data
-			}));
+			core.open_panel(civitas.PANEL_ARMY, data);
 			return false;
 		}).on('click', '.raid-merc', function () {
 			var _army = $(this).data('id');
 			var data = civitas.MERCENARIES[_army];
-			self.core.error('Not implemented yet.');
+			core.error('Not implemented yet.');
 			return false;
 		}).on('click', '.campaign-merc', function () {
 			var _army = $(this).data('id');
 			var data = civitas.MERCENARIES[_army];
-			self.core.error('Not implemented yet.');
+			core.error('Not implemented yet.');
 			return false;
 		}).on('click', '.disband-merc', function () {
 			var _army = $(this).data('id');
 			var data = civitas.MERCENARIES[_army];
-			self.core.error('Not implemented yet.');
+			core.error('Not implemented yet.');
 			return false;
-		}).on('click', '.close', function () {
-			self.destroy();
-			return false;
-		}).draggable({
-			handle: 'header',
-			containment: 'window',
-			snap: '.panel'
 		});
-		$(el + ' .tabs').tabs();
-		$(el + ' .tips').tipsy({
-			gravity: 's'
-		});
-		$(el).css({
-			'left': ($(window).width() / 2) - ($(el).width() / 2),
-			'top': ($(window).height() / 2) - ($(el).height() / 2)
-		});
-		return this;
-	};
-
-	/**
-	 * Callback method called when a function from the core needs to refresh
-	 * information on this panel.
-	 *
-	 * @public
-	 * @returns {civitas.controls.panel_advisor}
-	 */
-	this.refresh = function() {
-		this._refresh_info();
-		this._refresh_production();
-		this._refresh_housing();
-		this._refresh_army();
-		this._refresh_navy();
-		this._refresh_mercenaries();
-		this._refresh_diplomacy();
-		this._refresh_achievements();
-		return this;
-	};
-
-	this._refresh_mercenaries = function() {
-		var city = this.core.get_city();
+	},
+	on_refresh: function() {
+		var el = '#panel-' + this.id;
+		var core = this.get_core();
+		var city = core.get_city();
+		var cities = core.get_cities();
+		var buildings = city.get_buildings();
+		var resources = city.get_resources();
+		var can_diplomacy = city.is_building_built('embassy');
+		var can_build_ships = city.is_building_built('shipyard');
+		var achievements = core.get_achievements();
+		var advices = city.call_advisor();
+		var el = '#panel-' + this.id;
+		var can_recruit_soldiers = city.is_building_built('camp') || city.is_building_built('castle');
 		var _t = '<p>' + civitas.l('Mercenary armies are available to hire for a fixed price, they do not cost additional resources but they are only available for raiding and campaign missions, they do not participate in the defense of your city.') + '</p>' +
 				'<p>' + civitas.l('Also, keep in mind that once a mercenary army is hired, they are at your disposal until the end of the current year.') + '</p>' +
 				'<div class="hired-mercenaries-list">';
@@ -288,17 +196,11 @@ civitas.controls.panel_advisor = function (params) {
 		}
 		_t += '</div>';
 		$('#panel-' + this.id + ' #tab-mercenary').empty().append(_t);
-		return this;
-	};
 
-	this._refresh_diplomacy = function() {
-		var city = this.core.get_city();
-		var _t = '';
-		var can_diplomacy = this.core.get_city().is_building_built('embassy');
+		_t = '';
 		if (can_diplomacy !== true) {
 			_t += '<p>' + civitas.l('You will need to construct an Embassy before being able to propose treaties and pacts to other cities.') + '</p>';
 		}
-		var cities = this.core.get_cities();
 		_t += '<div class="cities-list">' +
 				'<table class="normal">';
 		for (var i = 1; i < cities.length; i++) {
@@ -309,7 +211,7 @@ civitas.controls.panel_advisor = function (params) {
 						'<span class="title">' + cities[i].get_name() + '</span> ' +
 						'<span class="description">' + civitas.l('Leader') + ': ' + cities[i].get_ruler_name() + ' ' + civitas.l('Personality') + ': ' + cities[i].get_personality().name + '</span>' +
 					'</p>';
-			var influence = this.core.get_city().get_influence();
+			var influence = city.get_influence();
 			influence = influence[cities[i].get_id()];
 			var _e = '';
 			if (influence < 20) {
@@ -336,15 +238,9 @@ civitas.controls.panel_advisor = function (params) {
 		_t += '</table>' +
 				'</div>';
 		$('#panel-' + this.id + ' #tab-diplomacy').empty().append(_t);
-		return this;
-	};
-
-	this._refresh_achievements = function() {
-		var city = this.core.get_city();
-		var achievements = this.core.get_achievements();
-		var _t = '';
+		_t = '';
 		for (var i = 0; i < achievements.length; i++) {
-			var achievement_data = this.core.get_achievement_by_id(achievements[i].id);
+			var achievement_data = core.get_achievement_by_id(achievements[i].id);
 			if (achievement_data !== false) {
 				_t += '<div class="achievement">' +
 					'<div class="left">' +
@@ -363,14 +259,9 @@ civitas.controls.panel_advisor = function (params) {
 			}
 		}
 		$('#panel-' + this.id + ' .achievements-list').empty().append(_t);
-		return this;
-	};
-
-	this._refresh_info = function() {
-		var city = this.core.get_city();
-		var _t = '<img class="avatar" src="' + civitas.ASSETS_URL + 'images/avatars/avatar' + city.get_ruler_avatar() + '.png" />' +
+		_t = '<img class="avatar" src="' + civitas.ASSETS_URL + 'images/avatars/avatar' + city.get_ruler_avatar() + '.png" />' +
 				'<dl>' +
-				'<dt>' + civitas.l('Current date') + '</dt><dd class="citydate">' + this.core.get_date() + '</dd>' +
+				'<dt>' + civitas.l('Current date') + '</dt><dd class="citydate">' + core.get_date() + '</dd>' +
 				'<dt>' + civitas.l('Ruler') + '</dt><dd>' + city.get_ruler_name() + '</dd>' +
 				'<dt>' + civitas.l('Climate') + '</dt><dd>' + city.get_climate().name.capitalize() + '</dd>' +
 				'<dt>' + civitas.l('Personality') + '</dt><dd>' + city.get_personality().name.capitalize() + '</dd>' +
@@ -380,7 +271,6 @@ civitas.controls.panel_advisor = function (params) {
 				'<dt>' + civitas.l('Espionage') + '</dt><dd class="cityespionage">' + city.get_espionage() + '</dd>' +
 				'<dt>' + civitas.l('Research') + '</dt><dd class="cityresearch">' + city.get_research() + '</dd>' +
 				'</dl>';
-		var advices = city.call_advisor();
 		if (advices.length > 0) {
 			_t += '<p>' + civitas.l('Your City Advisor recommends you to:') + '</p>' +
 					'<ul class="advices">';
@@ -390,13 +280,7 @@ civitas.controls.panel_advisor = function (params) {
 			_t += '</ul>';
 		}
 		$('#panel-' + this.id + ' #tab-info').empty().append(_t);
-		return this;
-	};
-
-	this._refresh_housing = function() {
-		var city = this.core.get_city();
-		var buildings = city.get_buildings();
-		var _t = '<table class="normal">' +
+		_t = '<table class="normal">' +
 					'<thead>' +
 					'<tr>' +
 						'<td></td>' +
@@ -438,13 +322,7 @@ civitas.controls.panel_advisor = function (params) {
 						'</tfoot>' +
 					'</table>';
 		$('#panel-' + this.id + ' #tab-housing').empty().append(_t);
-		return this;
-	};
-
-	this._refresh_production = function() {
-		var city = this.core.get_city();
-		var buildings = city.get_buildings();
-		var _t = '<table class="normal">' +
+		_t = '<table class="normal">' +
 					'<thead>' +
 					'<tr>' +
 						'<td></td>' +
@@ -489,20 +367,7 @@ civitas.controls.panel_advisor = function (params) {
 				'</tfoot>' +
 			'</table>';
 		$('#panel-' + this.id + ' #tab-production').empty().append(_t);
-		return this;
-	};
-
-	/**
-	 * Internal function for refreshing the Army tab.
-	 * 
-	 * @private
-	 * @returns {civitas.controls.panel_advisor}
-	 */
-	this._refresh_army = function () {
-		var city = this.core.get_city();
-		var resources = city.get_resources();
-		var _t = '';
-		var can_recruit_soldiers = this.core.get_city().is_building_built('camp') || this.core.get_city().is_building_built('castle');
+		_t = '';
 		if (can_recruit_soldiers !== true) {
 			_t += '<p>' + civitas.l('You will need to construct a Military Camp or Castle before being able to recruit soldiers in your city.') + '</p>';
 		}
@@ -530,26 +395,12 @@ civitas.controls.panel_advisor = function (params) {
 		}
 		_t += '</div>';
 		$('#panel-' + this.id + ' #tab-army').empty().append(_t);
-		var el = '#panel-' + this.id;
-		var _tt = '<fieldset>' +
+		_t = '<fieldset>' +
 				'<legend>' + civitas.l('Current Army') + '</legend>' +
 				civitas.ui.army_list(city.get_army_total(), true) +
 				'</fieldset>';
-		$(el + ' .army-list').empty().append(_tt);
-		return this;
-	};
-
-	/**
-	 * Internal function for refreshing the Navy tab.
-	 * 
-	 * @private
-	 * @returns {civitas.controls.panel_advisor}
-	 */
-	this._refresh_navy = function () {
-		var city = this.core.get_city();
-		var resources = city.get_resources();
-		var _t = '';
-		var can_build_ships = this.core.get_city().is_building_built('shipyard');
+		$(el + ' .army-list').empty().append(_t);
+		_t = '';
 		if (can_build_ships !== true) {
 			_t += '<p>' + civitas.l('You will need to construct a Shipyard before being able to construct ships in your city.') + '</p>';
 		}
@@ -577,15 +428,10 @@ civitas.controls.panel_advisor = function (params) {
 		}
 		_t += '</div>';
 		$('#panel-' + this.id + ' #tab-navy').empty().append(_t);
-		var el = '#panel-' + this.id;
-		var _tt = '<fieldset>' +
+		_t = '<fieldset>' +
 				'<legend>' + civitas.l('Current Navy') + '</legend>' +
 				civitas.ui.navy_list(city.get_navy_total(), true) +
 				'</fieldset>';
-		$(el + ' .navy-list').empty().append(_tt);
-		return this;
-	};
-
-	// Fire up the constructor
-	return this.__init(params);
-};
+		$(el + ' .navy-list').empty().append(_t);
+	}
+}

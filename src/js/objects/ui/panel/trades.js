@@ -1,98 +1,38 @@
-/**
- * Main Game trades panel object.
- * 
- * @param {Object} params
- * @class {civitas.controls.panel_trades}
- * @returns {civitas.controls.panel_trades}
- */
-civitas.controls.panel_trades = function (params) {
 
-	/**
-	 * Reference to the core object.
-	 * 
-	 * @type {civitas.game}
-	 */
-	this.core = null;
-
-	/**
-	 * DOM id of this panel.
-	 * 
-	 * @type {String}
-	 * @constant
-	 */
-	this.id = 'trades';
-
-	/**
-	 * Localized title of the panel.
-	 * 
-	 * @type {String}
-	 */
-	this.title = civitas.l('World Market Trades');
-
-	/**
-	 * Object destructor.
-	 * 
-	 * @private
-	 * @returns {Boolean}
-	 */
-	this.__destroy = function () {
-		this.core.console_log('destroying panel with id `' + this.id + '`');
-		var el = '#panel-' + this.id;
-		$(el).remove();
-		this.core.close_panel(this.id);
-		$('.tipsy').remove();
-		return false;
-	};
-
-	/**
-	 * Method for destroying the window/panel.
-	 * 
-	 * @public
-	 * @returns {Boolean}
-	 */
-	this.destroy = function () {
-		return this.__destroy();
-	};
-
-	/**
-	 * Object constructor.
-	 * 
-	 * @private
-	 * @returns {civitas.controls.panel_trades}
-	 * @param {Object} params
-	 */
-	this.__init = function (params) {
-		this.core = params.core;
-		var el = '#panel-' + this.id;
+civitas.PANEL_TRADES = {
+	template: '<div id="panel-trades" class="panel">' +
+		'<header>' +
+			'<span class="title">World Market Trades</span>' +
+			'<a class="tips btn close" title="' + civitas.l('Close this panel') + '"></a>' +
+		'</header>' +
+		'<div class="contents"></div>' +
+	'</div>',
+	id: 'trades',
+	on_show: function(params) {
 		var self = this;
-		if (civitas.ui.panel_exists(el)) {
-			this.destroy();
-		}
-		this.core.console_log('creating panel with id `' + this.id + '`');
-		var city = this.core.get_city();
+		var core = this.get_core();
+		var city = core.get_city();
+		var el = this.handle;
 		var _t = '';
-		$('.ui').append(civitas.ui.generic_panel_template
-			.replace(/{id}/g, this.id)
-			.replace(/{title}/g, this.title));
 		_t += civitas.ui.tabs([civitas.l('Imports'), civitas.l('Exports'), civitas.l('Mercenaries'), civitas.l('BlackMarket')]);
 		$(el + ' .contents').append(_t);
 		$(el + ' #tab-imports').append('<p>' + civitas.l('Below is a list of goods that the other cities in the world are looking to buy. The goods replenish yearly, so plan accordingly.') + '</p><div class="contents"></div>');
 		$(el + ' #tab-exports').append('<p>' + civitas.l('Below is a list of goods that the other cities in the world are looking to sell. The goods replenish yearly, so plan accordingly.') + '</p><div class="contents"></div>');
 		$(el + ' #tab-mercenaries').append('<p>' + civitas.l('Below is a list of mercenary armies that are looking for hire. Mercenaries are available only for raiding and conquest missions, they do not join your city so they will not participate in defense.') + '</p><div class="contents"></div>');
 		$(el + ' #tab-blackmarket').append('<p>' + civitas.l('The Black Market is a way to dump your excess materials when you`re in need of emptying your warehouses, but expect a steep price drop (you get ') + (100 - civitas.BLACK_MARKET_DISCOUNT) + civitas.l('% of the actual price). The goods will be taken immediately from your warehouses but you will receive the coins next month. Also, you get no prestige from Black Market trades.') + '</p><div class="contents"></div>');
-		this.refresh();
+		this.on_refresh();
 		$(el).on('click', '.buy:not(.disabled)', function () {
 			var handle = $(this).data('city');
 			var resource = $(this).data('resource');
 			if (city.buy_from_city(handle, resource) !== false) {
-				self._refresh_exports();
+				self.on_refresh();
 			}
 			return false;
 		}).on('click', '.sell:not(.disabled)', function () {
 			var handle = $(this).data('city');
 			var resource = $(this).data('resource');
 			if (city.sell_to_city(handle, resource) !== false) {
-				self._refresh_imports();
+				self.on_refresh();
 			}
 			return false;
 		}).on('click', '.bmarket', function () {
@@ -100,66 +40,27 @@ civitas.controls.panel_trades = function (params) {
 			var amount = $('.bm-quantity').val();
 			if (resource !== '0') {
 				city.list_black_market(resource, amount);
-				self._refresh_black_market();
+				self.on_refresh();
 				$('.bm-quantity').val('');
 			}
 			return false;
 		}).on('click', '.recruit:not(.disabled)', function () {
 			var handle = $(this).data('handle');
 			if (city.recruit_mercenary_army(handle) !== false) {
-				self._refresh_mercenaries();
+				self.on_refresh();
 			}
 			return false;
 		}).on('click', '.view-army:not(.disabled)', function () {
 			var army = $(this).data('id');
 			var army_data = civitas.MERCENARIES[army];
-			self.core.open_panel(new civitas.controls.panel_army({
-				core: self.core,
-				data: army_data
-			}));
+			core.open_panel(civitas.PANEL_ARMY, army_data);
 			return false;
-		}).on('click', '.close', function () {
-			self.destroy();
-			return false;
-		}).draggable({
-			handle: 'header',
-			containment: 'window',
-			snap: '.panel'
 		});
-		$(el + ' .tabs').tabs();
-		$(el + ' .tips').tipsy({
-			gravity: 's'
-		});
-		$(el).css({
-			'left': ($(window).width() / 2) - ($(el).width() / 2),
-			'top': ($(window).height() / 2) - ($(el).height() / 2)
-		});
-		return this;
-	};
-
-	/**
-	 * Callback method called when a function from the core needs to refresh
-	 * information on this panel.
-	 *
-	 * @public
-	 * @returns {civitas.controls.panel_trades}
-	 */
-	this.refresh = function() {
-		this._refresh_imports();
-		this._refresh_exports();
-		this._refresh_mercenaries();
-		this._build_black_market();
-		return this;
-	};
-
-	/**
-	 * Internal function for building the Black Market panel.
-	 * 
-	 * @returns {civitas.controls.panel_trades}
-	 * @private
-	 */
-	this._build_black_market = function () {
-		var cities = this.core.get_cities();
+	},
+	on_refresh: function() {
+		var core = this.get_core();
+		var city = core.get_city();
+		var cities = core.get_cities();
 		var out = '<table class="normal">';
 		out += '<thead>' +
 				'<tr>' +
@@ -172,20 +73,9 @@ civitas.controls.panel_trades = function (params) {
 				'</tbody>' +
 				'</table>';
 		$('#tab-blackmarket > .contents').empty().append(out);
-		this._refresh_black_market_materials();
-		this._refresh_black_market();
-		return this;
-	};
 
-	/**
-	 * Internal function for refreshing the Black Market panel.
-	 * 
-	 * @returns {civitas.controls.panel_trades}
-	 * @private
-	 */
-	this._refresh_black_market = function () {
 		var out = '';
-		var bm = this.core.get_black_market();
+		var bm = core.get_black_market();
 		for (var item in bm) {
 			out += '<tr>' +
 					'<td>' + civitas.l('Amount') + ': ' + bm[item].amount + civitas.ui.resource_small_img(item) + '</td>' +
@@ -194,18 +84,8 @@ civitas.controls.panel_trades = function (params) {
 					'</tr>';
 		}
 		$('#tab-blackmarket > .contents > table > tbody').empty().append(out);
-		return this;
-	};
 
-	/**
-	 * Internal function for refreshing the Black Market resources dropbox.
-	 * 
-	 * @returns {civitas.controls.panel_trades}
-	 * @private
-	 */
-	this._refresh_black_market_materials = function () {
 		var out = '<option value="0">-- ' + civitas.l('select') + ' --</option>';
-		var city = this.core.get_city();
 		var resources = city.get_resources();
 		for (var item in resources) {
 			if ($.inArray(item, civitas.NON_RESOURCES) === -1) {
@@ -213,17 +93,7 @@ civitas.controls.panel_trades = function (params) {
 			}
 		}
 		$('.bm-materials').empty().append(out);
-		return this;
-	};
 
-	/**
-	 * Internal function for refreshing the Imports panel.
-	 * 
-	 * @returns {civitas.controls.panel_trades}
-	 * @private
-	 */
-	this._refresh_imports = function () {
-		var cities = this.core.get_cities();
 		var out = '<table class="normal">' +
 					'<thead>' +
 					'<tr>' +
@@ -273,16 +143,7 @@ civitas.controls.panel_trades = function (params) {
 				'</tfoot>' +
 			'</table>';
 		$('#tab-imports > .contents').empty().append(out);
-		return this;
-	};
 
-	/**
-	 * Internal function for refreshing the Mercenaries panel.
-	 * 
-	 * @returns {civitas.controls.panel_trades}
-	 * @private
-	 */
-	this._refresh_mercenaries = function () {
 		var out = '<table class="mercenaries">';
 		for (var i = 0; i < civitas.MERCENARIES.length; i++) {
 			out += '<tr>' +
@@ -298,23 +159,13 @@ civitas.controls.panel_trades = function (params) {
 					'</td>' +
 					'<td class="medium">' +
 						'<a title="' + civitas.l('View info on this mercenary army') + '" data-id="' + i + '" class="tips view-army" href="#">view</a> ' +
-						civitas.ui.panel_btn('recruit', civitas.l('Recruit this mercenary army'), civitas.MERCENARIES[i].handle, 'recruit', this.core.get_city().is_mercenary_recruited(civitas.MERCENARIES[i].handle)) +
+						civitas.ui.panel_btn('recruit', civitas.l('Recruit this mercenary army'), civitas.MERCENARIES[i].handle, 'recruit', city.is_mercenary_recruited(civitas.MERCENARIES[i].handle)) +
 					'</td>' +
 				'</tr>';
 		}
 		out += '</table>';
 		$('#tab-mercenaries > .contents').empty().append(out);
-		return this;
-	};
 
-	/**
-	 * Internal function for refreshing the Exports panel.
-	 * 
-	 * @returns {civitas.controls.panel_trades}
-	 * @private
-	 */
-	this._refresh_exports = function () {
-		var cities = this.core.get_cities();
 		var out = '<table class="normal">' +
 					'<thead>' +
 					'<tr>' +
@@ -364,9 +215,5 @@ civitas.controls.panel_trades = function (params) {
 				'</tfoot>' +
 			'</table>';
 		$('#tab-exports > .contents').empty().append(out);
-		return this;
-	};
-
-	// Fire up the constructor
-	return this.__init(params);
-};
+	}
+}

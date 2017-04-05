@@ -1,79 +1,19 @@
-/**
- * Main Game buildings panel object.
- * 
- * @param {Object} params
- * @class {civitas.controls.panel_buildings}
- * @returns {civitas.controls.panel_buildings}
- */
-civitas.controls.panel_buildings = function (params) {
 
-	/**
-	 * Reference to the core object.
-	 * 
-	 * @type {civitas.game}
-	 */
-	this.core = null;
-	
-	/**
-	 * DOM id of this panel.
-	 * 
-	 * @type {String}
-	 * @constant
-	 */
-	this.id = 'buildings';
-
-	/**
-	 * Localized title of the panel.
-	 * 
-	 * @type {String}
-	 */
-	this.title = civitas.l('City Buildings');
-
-	/**
-	 * Object destructor.
-	 * 
-	 * @private
-	 * @returns {Boolean}
-	 */
-	this.__destroy = function () {
-		this.core.console_log('destroying panel with id `' + this.id + '`');
-		var el = '#panel-' + this.id;
-		$(el).remove();
-		this.core.close_panel(this.id);
-		$('.tipsy').remove();
-		return false;
-	};
-
-	/**
-	 * Method for destroying the window/panel.
-	 * 
-	 * @public
-	 * @returns {Boolean}
-	 */
-	this.destroy = function () {
-		return this.__destroy();
-	};
-
-	/**
-	 * Object constructor.
-	 * 
-	 * @private
-	 * @returns {civitas.controls.panel_buildings}
-	 * @param {Object} params
-	 */
-	this.__init = function (params) {
-		this.core = params.core;
+civitas.PANEL_BUILDINGS = {
+	template: '<div id="panel-buildings" class="panel">' +
+		'<header>' +
+			'<span class="title">City Buildings</span>' +
+			'<a class="tips btn close" title="' + civitas.l('Close this panel') + '"></a>' +
+		'</header>' +
+		'<div class="contents"></div>' +
+	'</div>',
+	id: 'buildings',
+	on_show: function(params) {
 		var self = this;
-		var el = '#panel-' + this.id;
-		if (civitas.ui.panel_exists(el)) {
-			this.destroy();
-		}
-		this.core.console_log('creating panel with id `' + this.id + '`');
-		var city = this.core.get_city();
+		var core = this.get_core();
+		var city = core.get_city();
 		var resources = city.get_resources();
-		$('.ui').append(civitas.ui.generic_panel_template
-			.replace(/{id}/g, this.id)
-			.replace(/{title}/g, this.title));
+		var el = this.handle;
 		var _t = '<div class="left buildings">';
 		var available_buildings = civitas['CITY_BUILDINGS_' + city.get_climate().name.toUpperCase()];
 		_t += '<div class="tabs">' +
@@ -154,10 +94,10 @@ civitas.controls.panel_buildings = function (params) {
 				if (typeof building.requires.buildings !== 'undefined') {
 					if (typeof building.requires.buildings === 'object') {
 						for (var i = 0; i < building.requires.buildings.length; i++) {
-							_z += '<dt>' + civitas.l('Building') + '</dt><dd>' + self.core.get_building_config_data(building.requires.buildings[i]).name + '</dd>';
+							_z += '<dt>' + civitas.l('Building') + '</dt><dd>' + core.get_building_config_data(building.requires.buildings[i]).name + '</dd>';
 						}
 					} else {
-						_z += '<dt>' + civitas.l('Building') + '</dt><dd>' + self.core.get_building_config_data(building.requires.buildings).name + '</dd>';
+						_z += '<dt>' + civitas.l('Building') + '</dt><dd>' + core.get_building_config_data(building.requires.buildings).name + '</dd>';
 					}
 				}
 				_z += '<dt>City level</dt><dd>' + building.requires.city_level + '</dd>' +
@@ -242,36 +182,6 @@ civitas.controls.panel_buildings = function (params) {
 				$(el + ' .toolbar').empty().append(civitas.l('You already have this building.'));
 			}
 			return false;
-		}).on('click', '.close', function () {
-			self.destroy();
-			return false;
-		}).draggable({
-			handle: 'header',
-			containment: 'window',
-			snap: '.panel'
 		});
-		$(el + ' .tabs').tabs();
-		$(el + ' .tips').tipsy({
-			gravity: 's'
-		});
-		$(el).css({
-			'left': ($(window).width() / 2) - ($(el).width() / 2),
-			'top': ($(window).height() / 2) - ($(el).height() / 2)
-		});
-		return this;
-	};
-
-	/**
-	 * Callback method called when a function from the core needs to refresh
-	 * information on this panel.
-	 *
-	 * @public
-	 * @returns {civitas.controls.panel_building}
-	 */
-	this.refresh = function() {
-		return this;
-	};
-	
-	// Fire up the constructor
-	return this.__init(params);
-};
+	}
+}

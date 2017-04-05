@@ -1,4 +1,8 @@
-
+/**
+ * Options window data.
+ *
+ * @type {Object}
+ */
 civitas.WINDOW_OPTIONS = {
 	id: 'options',
 	template: '<section id="window-options" class="window">' +
@@ -241,6 +245,6 @@ civitas.WINDOW_OPTIONS = {
 		});
 	},
 	on_hide: function() {
-			this.get_core().hide_loader();
+		this.get_core().hide_loader();
 	}
 };

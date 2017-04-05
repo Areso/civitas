@@ -108,11 +108,7 @@ civitas.objects.building = function(params) {
 		params.data.level = this.get_level();
 		if (params.hidden !== true) {
 			$('section.game').append(civitas.ui.building_element(params)).on('click', '#building-' + this.get_handle(), function() {
-				self.get_core().open_panel(new civitas.controls.panel_building({
-					core: self.get_core(),
-					header: self.get_name(),
-					data: params.data
-				}));
+				self.get_core().open_panel(civitas.PANEL_BUILDING, params.data);
 			});
 		}
 		var building = this.get_building_data();
