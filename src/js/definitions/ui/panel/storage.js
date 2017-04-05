@@ -60,6 +60,7 @@ civitas.PANEL_STORAGE = {
 		if (this.expanded === true) {
 			$(this.handle + ' .toggle-storage').trigger('click');
 		}
+		$('.tipsy').remove();
 		$(this.handle + ' .tips').tipsy({
 			gravity: 's'
 		});

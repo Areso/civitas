@@ -295,7 +295,7 @@ header .top-panel span {
 	position: fixed;
 	top: 30%;
 	left: 30%;
-	z-index: 99999;
+	z-index: 99997;
 	background-color: #fff;
 	min-width: 220px;
 	max-width: 300px;
@@ -462,7 +462,7 @@ header .top-panel span {
 #panel-help {
 	max-width: 800px;
 	width: 800px;
-	height: 400px;
+	height: auto;
 	max-height: 400px;
 }
 
@@ -483,7 +483,7 @@ header .top-panel span {
 
 .panel .worldmap .city,
 .panel .worldmap .battle,
-.panel .worldmap .settlement {
+.panel .worldmap .village {
 	position: absolute;
 	width: 32px;
 	height: 32px;
@@ -496,7 +496,7 @@ header .top-panel span {
 	width: 700px;
 	max-width: 700px;
 	max-height: 460px;
-	height: 460px;
+	height: auto;
 }
 
 table.mercenaries td:nth-child(3) {
@@ -509,7 +509,7 @@ table.mercenaries td:nth-child(3) {
 #panel-advisor {
 	width: 750px;
 	max-width: 750px;
-	height: 520px;
+	height: auto;
 	max-height: 520px;
 }
 
@@ -609,6 +609,7 @@ table.mercenaries td:nth-child(3) {
 #panel-storage {
 	max-width: 756px;
 	max-height: 640px;
+	height: auto;
 }
 
 .panel .storage-item {
@@ -643,13 +644,14 @@ table.mercenaries td:nth-child(3) {
 /* City info panel */
 
 #panel-city,
-#panel-settlement {
+#panel-village {
 	width: 360px;
 	max-width: 360px;
+	height: auto;
 }
 
 #panel-city .ui-tabs-panel,
-#panel-settlement .ui-tabs-panel {
+#panel-village .ui-tabs-panel {
 	padding: 0 10px;
 }
 
@@ -657,8 +659,8 @@ table.mercenaries td:nth-child(3) {
 
 #panel-buildings {
 	max-width: 940px;
-	max-height: 610px;
-	height: 610px;
+	max-height: 640px;
+	height: auto;
 	width: 590px;
 }
 
@@ -1260,7 +1262,7 @@ td.icon {
 .bldg-tabs {
 	padding: 10px 0 0 0;
 	overflow: auto;
-	height: 534px;
+	max-height: 534px;
 }
 
 .tabs > ul > li {

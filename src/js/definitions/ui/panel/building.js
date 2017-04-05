@@ -95,6 +95,7 @@ civitas.PANEL_BUILDING = {
 				civitas.ui.storage_panel(this.params_data.storage, level) +
 			'</dl>';
 		$('#panel-' + this.id + ' .contents').empty().append(_t);
+		$('.tipsy').remove();
 		$(this.handle + ' .tips').tipsy({
 			gravity: 's'
 		});

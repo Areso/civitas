@@ -611,6 +611,14 @@ civitas.game = function () {
 					return city;
 				}
 			}
+		} else if (typeof name !== 'undefined' && typeof name === 'number') {
+			var cities = this.get_cities();
+			for (var i = 0; i < cities.length; i++) {
+				var city = cities[i];
+				if (city.get_id() === name.toLowerCase()) {
+					return city;
+				}
+			}
 		} else {
 			return this.cities[0];
 		}
@@ -813,7 +821,7 @@ civitas.game = function () {
 		var cities = this.get_cities();
 		for (var i = 1; i < cities.length; i++) {
 			cities[i].reset_trades();
-			this.get_city().lower_influence(cities[i].get_id(), civitas.YEARLY_INFLUENCE_LOSS);
+			this.get_city().lower_influence(cities[i].get_id(), civitas.YEARLY_INFLUENCE_LOSS, 'city');
 		}
 		this.get_city().release_mercenaries();
 		this.year++;
@@ -1198,8 +1206,17 @@ civitas.game = function () {
 				var climate = new_city.get_climate();
 				var climate_buildings = 'CITY_BUILDINGS_' + climate.name.toUpperCase();
 				new_city._create_buildings(civitas[climate_buildings], true);
-				this.get_city().influence[item] = 50;
+				this.get_city().status.city[item] = {
+					influence: 50,
+					status: civitas.DIPLOMACY_TRUCE
+				}
 				this.cities.push(new_city);
+			}
+			for (var item in civitas.VILLAGES) {
+				this.get_city().status.village[item] = {
+					influence: 0,
+					status: civitas.DIPLOMACY_TRUCE
+				}
 			}
 		}
 		return this;

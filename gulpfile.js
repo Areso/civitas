@@ -45,6 +45,8 @@ gulp.task('app', function() {
 		'src/js/objects/core/city/espionage.js',
 		'src/js/objects/core/city/prestige.js',
 		'src/js/objects/core/city/army.js',
+		'src/js/objects/core/city/diplomacy.js',
+		'src/js/objects/core/city/trade.js',
 		'src/js/objects/core/event.js',
 		'src/js/objects/core/building.js',
 		'src/js/objects/core/soldier.js',
@@ -64,7 +66,7 @@ gulp.task('app', function() {
 		'src/js/definitions/ui/panel/advisor.js',
 		'src/js/definitions/ui/panel/army.js',
 		'src/js/definitions/ui/panel/buildings.js',
-		'src/js/definitions/ui/panel/settlement.js',
+		'src/js/definitions/ui/panel/village.js',
 		'src/js/definitions/ui/panel/trades.js',
 		'src/js/definitions/ui/window/options.js'
   	])

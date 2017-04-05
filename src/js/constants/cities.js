@@ -1107,7 +1107,7 @@ civitas.CITY_NAMES = [
 	'Yinxu'
 ];
 
-civitas.SETTLEMENTS = {
+civitas.VILLAGES = {
 	1: {
 		resources: {
 			coins: 10000,

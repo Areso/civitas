@@ -146,6 +146,15 @@ civitas.objects.city = function(params) {
 	 */
 	this.influence = {};
 	
+	this.status = {
+		city: {
+
+		},
+		village: {
+
+		}
+	};
+
 	/**
 	 * Object constructor.
 	 * 
@@ -182,7 +191,12 @@ civitas.objects.city = function(params) {
 		if (this.is_player() === false) {
 			this.resources.fame = civitas.LEVELS[this.get_level()];
 		}
-		this.influence = (typeof params.influence !== 'undefined') ? params.influence : {};
+		this.status = (typeof params.status !== 'undefined') ? params.status : {
+			city: {
+			},
+			village: {
+			}
+		};
 		return this;
 	};
 
@@ -209,7 +223,7 @@ civitas.objects.city = function(params) {
 			mercenary_list: this.get_mercenary_list()
 		};
 		if (this.is_player() === true) {
-			data.influence = this.get_influence();
+			data.status = this.get_status();
 		}
 		return data;
 	};
@@ -242,74 +256,6 @@ civitas.objects.city = function(params) {
 		return resources;
 	};
 
-	/**
-	 * Buy the specified goods from a city.
-	 * 
-	 * @public
-	 * @param {civitas.objects.city|String} city
-	 * @param {String} resource
-	 * @param {Number} amount
-	 * @returns {Object|Boolean}
-	 */
-	this.buy_from_city = function(city, resource, amount) {
-		var resources = this.get_resources();
-		var _city;
-		if (typeof city === 'string') {
-			_city = this.get_core().get_city(city);
-			if (city === false) {
-				this.get_core().error(city + ' does not exist.');
-				return false;
-			}
-		} else {
-			_city = city;
-		}
-		var trades = _city.get_trades();
-		if (trades === null) {
-			this.get_core().error(city + ' does not trade any goods.');
-			return false;
-		}
-		if (typeof trades.exports === 'undefined') {
-			this.get_core().error(city + ' does not export any goods.');
-			return false;
-		}
-		for (var item in trades.exports) {
-			if (item === resource) {
-				if (typeof amount === 'undefined') {
-					amount = trades.exports[item];
-				}
-				var discount = Math.ceil((civitas.RESOURCES[item].price * civitas.TRADES_ADDITION) / 100);
-				var price = civitas.utils.calc_price_plus_discount(amount, item, discount);
-				var city_price = civitas.utils.calc_price(amount, item);
-				var item_discount_price = Math.ceil(civitas.RESOURCES[item].price + discount);
-				if (!this.has_storage_space_for(amount)) {
-					return false;
-				}
-				if (this.dec_coins(price) === false) {
-					return false;
-				}
-				_city.inc_coins(city_price);
-				this.add_to_storage(item, amount);
-				this.remove_from_exports(_city, item, amount);
-				this.raise_influence(_city.get_id(), 2);
-				this.raise_prestige();
-				this.raise_fame(50);
-				this.get_core().refresh_ui();
-				this.get_core().notify(this.get_name() + ' bought ' + amount + ' ' + civitas.utils.get_resource_name(item) + ' from ' + city + ' for ' + item_discount_price + ' coins each, for a total of ' + price + ' coins.', 'Transaction done');
-				this.get_core().refresh_panels();
-				return {
-					buyer: this.get_name(),
-					amount: amount,
-					goods: civitas.utils.get_resource_name(item),
-					seller: city,
-					price: Math.round(civitas.RESOURCES[item].price + discount),
-					totalPrice: price
-				};
-			}
-		}
-		this.get_core().error(city + ' does not export the requested goods.');
-		return false;
-	};
-	
 	/**
 	 * Remove a specified amount of a resource from the storage of this city.
 	 * 
@@ -371,157 +317,6 @@ civitas.objects.city = function(params) {
 			this.get_core().error(this.get_name() + ' does not have enough ' + civitas.utils.get_resource_name(resource) + '.');
 			return false;
 		}
-		return true;
-	};
-	
-	/**
-	 * Perform a trades reset (resets all amounts of resources available
-	 * for trade and randomize the amount.
-	 * 
-	 * @public
-	 * @returns {Boolean}
-	 */
-	this.reset_trades = function() {
-		var trades = {
-			'imports': {},
-			'exports': {}
-		};
-		if (typeof civitas.CITIES[this.get_id()] !== 'undefined') {
-			var _trades = civitas.CITIES[this.get_id()].trades;
-			for (var goods_type in _trades) {
-				for (var item in _trades[goods_type]) {
-					trades[goods_type][item] = civitas.utils.get_random_by_importance(_trades[goods_type][item]);
-				}
-			}
-			this.trades = trades;
-			return true;
-		} else {
-			this.trades = trades;
-			return false;
-		}
-	};
-	
-	/**
-	 * List the specified goods onto the Black Market.
-	 * 
-	 * @public
-	 * @param {String} resource
-	 * @param {Number} amount
-	 * @returns {Object|Boolean}
-	 */
-	this.list_black_market = function(resource, amount) {
-		var resources = this.get_resources();
-		if (this.remove_resource(resource, amount)) {
-			var discount = Math.ceil((civitas.RESOURCES[resource].price * civitas.BLACK_MARKET_DISCOUNT) / 100);
-			var price = civitas.utils.calc_price_minus_discount(amount, resource, discount);
-			this.get_core().add_black_market(resource, amount, price);
-			this.get_core().refresh_ui();
-			this.get_core().refresh_panels();
-			this.get_core().notify(this.get_name() + ' placed ' + amount + ' ' + civitas.utils.get_resource_name(resource) + ' on the Black Market and will receive ' + price + ' coins next month.', 'Goods listed');
-			return {
-				seller: this.get_name(),
-				amount: amount,
-				goods: civitas.utils.get_resource_name(resource),
-				price: price,
-				discount: discount
-			};
-		}
-		return false;
-	};
-	
-	/**
-	 * Sell the specified goods to a city.
-	 * 
-	 * @public
-	 * @param {civitas.objects.city|String} city
-	 * @param {String} resource
-	 * @param {Number} amount
-	 * @returns {Object|Boolean}
-	 */
-	this.sell_to_city = function(city, resource, amount) {
-		var resources = this.get_resources();
-		var _city;
-		if (typeof city === 'string') {
-			_city = this.get_core().get_city(city);
-			if (city === false) {
-				this.get_core().error(city + ' does not exist.');
-				return false;
-			}
-		} else {
-			_city = city;
-		}
-		var trades = _city.get_trades();
-		if (trades === null) {
-			this.get_core().error(city + ' does not trade any goods.');
-			return false;
-		}
-		if (typeof trades.imports === 'undefined') {
-			this.get_core().error(city + ' does not import any goods.');
-			return false;
-		}
-		for (var item in trades.imports) {
-			if (item === resource) {
-				if (typeof amount === 'undefined') {
-					amount = trades.imports[item];
-				}
-				var discount = Math.ceil((civitas.RESOURCES[item].price * civitas.TRADES_DISCOUNT) / 100);
-				var price = civitas.utils.calc_price_minus_discount(amount, item, discount);
-				var city_price = civitas.utils.calc_price(amount, item);
-				var item_discount_price = Math.ceil(civitas.RESOURCES[item].price - discount);
-				if (!this.remove_resource(item, amount)) {
-					return false;
-				}
-				this.inc_coins(price);
-				if (!_city.dec_coins(city_price)) {
-					this.get_core().error(city + ' does not have enough coins.');
-					return false;
-				}
-				this.remove_from_imports(_city, item, amount);
-				this.raise_influence(_city.get_id(), 1);
-				this.raise_prestige();
-				this.raise_fame(50);
-				this.get_core().refresh_ui();
-				this.get_core().notify(this.get_name() + ' sold ' + amount + ' ' + civitas.utils.get_resource_name(item) + ' to ' + city + ' for ' + item_discount_price + ' coins each, for a total of ' + price + ' coins.', 'Transaction done');
-				this.get_core().refresh_panels();
-				return {
-					seller: this.get_name(),
-					amount: amount,
-					goods: civitas.utils.get_resource_name(item),
-					buyer: city,
-					price: Math.round(civitas.RESOURCES[item].price - discount),
-					totalPrice: price
-				};
-			}
-		}
-		this.get_core().error(city + ' does not import the specified goods.');
-		return false;
-	};
-	
-	/**
-	 * Remove a specified amount of a resource from the trade exports of a city.
-	 * 
-	 * @public
-	 * @param {civitas.objects.city} city
-	 * @param {String} item
-	 * @param {Number} amount
-	 * @returns {Boolean}
-	 */
-	this.remove_from_exports = function(city, item, amount) {
-		city.trades.exports[item] = city.trades.exports[item] - amount;
-		return true;
-	};
-
-	/**
-	 * Remove a specified amount of a resource from the trade imports of a city.
-	 * 
-	 * @public
-	 * @param {civitas.objects.city} city
-	 * @param {String} item
-	 * @param {Number} amount
-	 * @returns {Boolean}
-	 */
-	this.remove_from_imports = function(city, item, amount) {
-		city.trades.imports[item] = city.trades.imports[item] - amount;
 		return true;
 	};
 
@@ -749,18 +544,13 @@ civitas.objects.city = function(params) {
 				this.get_core().error('You don`t have enough coins to construct this building.');
 				return false;
 			}
-			/*else {
-				resources.coins = resources.coins - _c.cost.coins;
-			}*/
 			for (var item in _c.cost) {
-				//if (item !== 'coins') {
-					if ((this.get_resources()[item] - _c.cost[item]) < 0) {
-						this.get_core().error('You don`t have enough ' + item + ' to construct this building.');
-						return false;
-					} else {
-						this.get_resources()[item] = this.get_resources()[item] - _c.cost[item];
-					}
-				//}
+				if ((this.get_resources()[item] - _c.cost[item]) < 0) {
+					this.get_core().error('You don`t have enough ' + item + ' to construct this building.');
+					return false;
+				} else {
+					this.get_resources()[item] = this.get_resources()[item] - _c.cost[item];
+				}
 			}
 			var _building = new civitas.objects.building({
 				city: this,
@@ -978,15 +768,19 @@ civitas.objects.city = function(params) {
 			advices.push('You have a small navy, try to construct some more ships.');
 		}
 		if (storage.occupied >= storage.all) {
-			advices.push('You have no storage space to store your new goods and they will be lost. Sell some goods or build a warehouse.');
+			advices.push('You have no storage space to store your new goods and they ' +
+				'will be lost. Sell some goods or build a warehouse.');
 		} else if ((storage.all - storage.occupied) < 100) {
-			advices.push('You will soon run out of storage space and all goods produced will be lost. Sell some goods or build a warehouse.');
+			advices.push('You will soon run out of storage space and all goods produced ' +
+				'will be lost. Sell some goods or build a warehouse.');
 		}
 		if (resources.coins < 1000) {
-			advices.push('You seem to be losing coins fast, sell some goods or upgrade your houses to get better taxes.');
+			advices.push('You seem to be losing coins fast, sell some goods or upgrade ' +
+				'your houses to get better taxes.');
 		}
 		if (resources.wood < 100 || resources.stones < 100) {
-			advices.push('You are lacking construction materials, buy some stones and/or wood off the World Trade Market.');
+			advices.push('You are lacking construction materials, buy some stones and/or ' +
+				'wood off the World Trade Market.');
 		}
 		if (resources.coins > 100000) {
 			advices.push('You have lots of coins, why not invest some in goods?');
@@ -1106,29 +900,7 @@ civitas.objects.city = function(params) {
 	this.get_level = function() {
 		return this.level;
 	};
-	
-	/**
-	 * Get the imports and exports of this city.
-	 * 
-	 * @public
-	 * @returns {Object}
-	 */
-	this.get_trades = function() {
-		return this.trades;
-	};
-	
-	/**
-	 * Set the imports and exports of this city.
-	 * 
-	 * @public
-	 * @param {Object} value
-	 * @returns {civitas.objects.city}
-	 */
-	this.set_trades = function(value) {
-		this.trades = value;
-		return this;
-	};
-	
+
 	/**
 	 * Return the personality of the ruler of this city.
 	 * 
@@ -1141,7 +913,7 @@ civitas.objects.city = function(params) {
 			name: civitas.PERSONALITIES[this.ruler.personality]
 		};
 	};
-	
+
 	/**
 	 * Return the climate of the area of this city.
 	 * 
@@ -1154,7 +926,7 @@ civitas.objects.city = function(params) {
 			name: civitas.CLIMATES[this.climate]
 		};
 	};
-	
+
 	/**
 	 * Return the nationality of this city.
 	 * 
@@ -1167,7 +939,7 @@ civitas.objects.city = function(params) {
 			name: civitas.NATIONS[this.ruler.nationality]
 		};
 	};
-	
+
 	/**
 	 * Get the icon of this city.
 	 * 
@@ -1201,69 +973,6 @@ civitas.objects.city = function(params) {
 	};
 	
 	/**
-	 * Decrease the influence of this city.
-	 * 
-	 * @public
-	 * @param {String} city
-	 * @param {Number} value
-	 * @returns {Number}
-	 */
-	this.lower_influence = function(city, value) {
-		if (this.influence[city] - value >= 0) {
-			this.influence[city] = this.influence[city] - value;
-		}
-		return this.influence[city];
-	};
-	
-	/**
-	 * Increase the influence of this city.
-	 * 
-	 * @public
-	 * @param {String} city
-	 * @param {Number} value
-	 * @returns {Number}
-	 */
-	this.raise_influence = function(city, value) {
-		if (this.influence[city] + value <= 100) {
-			this.influence[city] = this.influence[city] + value;
-		}
-		return this.influence[city];
-	};
-	
-	/**
-	 * Return all the influence of this city with all the other cities.
-	 * 
-	 * @public
-	 * @returns {Object}
-	 */
-	this.get_influence = function() {
-		return this.influence;
-	};
-	
-	/**
-	 * Returns the influenceof this city with a specific city.
-	 * 
-	 * @public
-	 * @param {String} city
-	 * @returns {Number}
-	 */
-	this.get_influence_with_city = function(city) {
-		return this.influence[city];
-	};
-	
-	/**
-	 * Set the influence of this city.
-	 * 
-	 * @public
-	 * @returns {civitas.objects.city}
-	 * @param {Object} value
-	 */
-	this.set_influence = function(value) {
-		this.influence = value;
-		return this;
-	};
-	
-	/**
 	 * Set the climate of this city.
 	 * 
 	 * @public
@@ -1288,30 +997,6 @@ civitas.objects.city = function(params) {
 	};
 	
 	/**
-	 * Propose a pact to the specified city.
-	 *
-	 * @public
-	 * @returns {civitas.objects.city}
-	 * @param {civitas.objects.city}
-	 */
-	this.propose_pact = function(city) {
-		// TODO
-		return this;
-	};
-
-	/**
-	 * Assign a spy to the specified city.
-	 *
-	 * @public
-	 * @returns {civitas.objects.city}
-	 * @param {civitas.objects.city}
-	 */
-	this.assign_spy = function(city) {
-		// TODO
-		return this;
-	};
-
-	/**
 	 * Get the list of city buildings, for export reasons.
 	 *
 	 * @public
@@ -1319,16 +1004,6 @@ civitas.objects.city = function(params) {
 	 */
 	this.get_buildings_list = function() {
 		return this.buildings_list;
-	};
-
-	/**
-	 * Get the list of city mercenary armies, for export reasons.
-	 *
-	 * @public
-	 * @returns {Array}
-	 */
-	this.get_mercenary_list = function() {
-		return this.mercenary_list;
 	};
 
 	/**

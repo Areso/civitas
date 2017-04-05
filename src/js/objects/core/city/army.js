@@ -1,8 +1,45 @@
+/**
+ * Setup mercenary armies.
+ *
+ * @public
+ * @param {Array} mercenary_list
+ * @returns {civitas.objects.city}
+ */
 civitas.objects.city.prototype.setup_mercenary = function(mercenary_list) {
 	for (var i = 0; i < mercenary_list.length; i++) {
 		this.recruit_mercenary_army(mercenary_list[i], true);
 	}
 	return this;
+};
+
+/**
+ * Get the list of city mercenary armies, for export reasons.
+ *
+ * @public
+ * @returns {Array}
+ */
+civitas.objects.city.prototype.get_mercenary_list = function() {
+	return this.mercenary_list;
+};
+
+/**
+ * Check if this city can build ships.
+ *
+ * @public
+ * @returns {Boolean}
+ */
+civitas.objects.city.prototype.can_build_ships = function() {
+	return this.is_building_built('shipyard');
+};
+
+/**
+ * Check if this city can recruit soldiers.
+ *
+ * @public
+ * @returns {Boolean}
+ */
+civitas.objects.city.prototype.can_recruit_soldiers = function() {
+	return this.is_building_built('camp') || this.is_building_built('castle');
 };
 
 /**

@@ -64,4 +64,3 @@ civitas.objects.city.prototype.set_espionage = function(amount) {
 	$('.cityespionage').html(this.get_espionage());
 	return amount;
 };
-

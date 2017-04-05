@@ -232,6 +232,16 @@ civitas.objects.building = function(params) {
 	};
 
 	/**
+	 * Check if this building is a municipal building.
+	 * 
+	 * @public
+	 * @returns {Boolean}
+	 */
+	this.is_municipal_building = function() {
+		return this.is_municipal;
+	};
+
+	/**
 	 * Check if this building is a production building (its production can be
 	 * started and stopped).
 	 * 
