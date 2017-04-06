@@ -27,17 +27,25 @@ civitas.PANEL_TRADES = {
 		$(el + ' #tab-blackmarket').append('<p>' + civitas.l('The Black Market is a way to dump your excess materials when you`re in need of emptying your warehouses, but expect a steep price drop (you get ') + (100 - civitas.BLACK_MARKET_DISCOUNT) + civitas.l('% of the actual price). The goods will be taken immediately from your warehouses but you will receive the coins next month. Also, you get no prestige from Black Market trades.') + '</p><div class="contents"></div>');
 		this.on_refresh();
 		$(el).on('click', '.buy:not(.disabled)', function () {
-			var handle = $(this).data('settlement');
-			var resource = $(this).data('resource');
-			if (settlement.buy_from_settlement(handle, resource) !== false) {
-				self.on_refresh();
+			if (settlement.can_trade()) {
+				var handle = $(this).data('settlement');
+				var resource = $(this).data('resource');
+				if (settlement.buy_from_settlement(handle, resource) !== false) {
+					self.on_refresh();
+				}
+			} else {
+				core.error(civitas.l('You will need to construct a Trading Post before being able to trade resources with other settlements.'));
 			}
 			return false;
 		}).on('click', '.sell:not(.disabled)', function () {
-			var handle = $(this).data('settlement');
-			var resource = $(this).data('resource');
-			if (settlement.sell_to_settlement(handle, resource) !== false) {
-				self.on_refresh();
+			if (settlement.can_trade()) {
+				var handle = $(this).data('settlement');
+				var resource = $(this).data('resource');
+				if (settlement.sell_to_settlement(handle, resource) !== false) {
+					self.on_refresh();
+				}
+			} else {
+				core.error(civitas.l('You will need to construct a Trading Post before being able to trade resources with other settlements.'));
 			}
 			return false;
 		}).on('click', '.bmarket', function () {
@@ -56,7 +64,7 @@ civitas.PANEL_TRADES = {
 			}
 			return false;
 		}).on('click', '.view-army:not(.disabled)', function () {
-			var army = $(this).data('id');
+			var army = parseInt($(this).data('id'));
 			var army_data = civitas.MERCENARIES[army];
 			core.open_panel(civitas.PANEL_ARMY, army_data);
 			return false;

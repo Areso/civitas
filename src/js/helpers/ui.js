@@ -22,6 +22,20 @@ civitas.ui = {
 		return out;
 	},
 
+	progress: function(value) {
+		var _e = '';
+		if (value < 20) {
+			_e = ' vbad';
+		} else if (value >= 20 && value < 50) {
+			_e = ' bad';
+		} else if (value >= 50 && value < 80) {
+			_e = ' good';
+		} else if (value >= 80) {
+			_e = ' vgood';
+		}
+		return '<div class="progress small"><span class="bar' + _e + '" style="width:' + value + '%">' + value + '</span></div>';
+	},
+
 	army_img: function (name) {
 		return '<img class="tips" title="' + name + '" src="' + civitas.ASSETS_URL + 'images/armies/' + name.toLowerCase().replace(/ /g,"_") + '_small.png" />';
 	},

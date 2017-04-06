@@ -76,6 +76,14 @@ civitas.TRADES_ADDITION = 10;
 civitas.TRADES_DISCOUNT = 20;
 
 /**
+ * Total number of world maps.
+ *
+ * @constant
+ * @type {Number}
+ */
+civitas.WORLDMAPS = 4;
+
+/**
  * The black market discount.
  * 
  * @constant

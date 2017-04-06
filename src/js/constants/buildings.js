@@ -356,7 +356,7 @@ civitas.BUILDINGS = [{
 	}, {
 		name: 'Trading Post',
 		handle: 'tradingpost',
-		description: 'The Trading Post allows you to trade resources with other cities.',
+		description: 'The Trading Post allows you to trade resources with other settlements.',
 		is_municipal: true,
 		position: {
 			x: 1590,
@@ -364,9 +364,9 @@ civitas.BUILDINGS = [{
 		},
 		levels: 3,
 		cost: {
-			coins: 50000,
-			wood: 10,
-			woodplanks: 40,
+			coins: 30000,
+			wood: 20,
+			woodplanks: 30,
 			stones: 40
 		},
 		requires: {

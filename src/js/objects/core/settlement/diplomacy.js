@@ -4,24 +4,27 @@
  * @public
  * @param {Number|civitas.objects.settlement|String} settlement
  * @param {Number} mode
- * @returns {civitas.objects.settlement}
+ * @returns {Boolean}
  */
 civitas.objects.settlement.prototype.diplomacy = function(settlement, mode) {
-	if (typeof settlement === 'number') {
-		this.status[settlement].status = mode;
-		if (mode === civitas.DIPLOMACY_WAR) {
-			this.status[settlement].influence = 0;
-		}
-	} else if (typeof settlement === 'object') {
-		this.status[settlement.get_id()].status = mode;
-		if (mode === civitas.DIPLOMACY_WAR) {
-			this.status[settlement].influence = 0;
-		}
-	} else {
+	if (this.can_diplomacy() === true) {
+		if (typeof settlement === 'number') {
+			this.status[settlement].status = mode;
+			if (mode === civitas.DIPLOMACY_WAR) {
+				this.status[settlement].influence = 0;
+			}
+		} else if (typeof settlement === 'object') {
+			this.status[settlement.get_id()].status = mode;
+			if (mode === civitas.DIPLOMACY_WAR) {
+				this.status[settlement].influence = 0;
+			}
+		} else {
 
+		}
+		this.get_core().save_and_refresh();
+		return true;
 	}
-	this.get_core().save_and_refresh();
-	return this;
+	return false;
 };
 
 /**
@@ -73,8 +76,9 @@ civitas.objects.settlement.prototype.set_status = function(value) {
  * @returns {Number}
  */
 civitas.objects.settlement.prototype.lower_influence = function(settlement, value) {
-	if (this.status[settlement].influence - value >= 0) {
-		this.status[settlement].influence = this.status[settlement].influence - value;
+	this.status[settlement].influence = this.status[settlement].influence - value;
+	if (this.status[settlement].influence < 0) {
+		this.status[settlement].influence = 0;
 	}
 	return this.status[settlement].influence;
 };
@@ -88,8 +92,10 @@ civitas.objects.settlement.prototype.lower_influence = function(settlement, valu
  * @returns {Number}
  */
 civitas.objects.settlement.prototype.raise_influence = function(settlement, value) {
-	if (this.status[settlement].influence + value <= 100) {
-		this.status[settlement].influence = this.status[settlement].influence + value;
+	console.log(value);
+	this.status[settlement].influence = this.status[settlement].influence + value;
+	if (this.status[settlement].influence > 100) {
+		this.status[settlement].influence = 100;
 	}
 	return this.status[settlement].influence;
 };
@@ -125,8 +131,11 @@ civitas.objects.settlement.prototype.get_diplomacy_status = function(settlement)
  * @param {civitas.objects.settlement}
  */
 civitas.objects.settlement.prototype.propose_pact = function(settlement) {
-	// TODO
-	return this;
+	if (this.can_diplomacy() === true) {
+		// TODO
+		return true;
+	}
+	return false
 };
 
 /**
@@ -137,6 +146,9 @@ civitas.objects.settlement.prototype.propose_pact = function(settlement) {
  * @param {civitas.objects.settlement}
  */
 civitas.objects.settlement.prototype.assign_spy = function(settlement) {
-	// TODO
-	return this;
+	if (this.can_diplomacy() === true) {
+		// TODO
+		return true;
+	}
+	return false
 };

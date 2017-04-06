@@ -272,7 +272,11 @@ civitas.objects.settlement = function(params) {
 	 */
 	this.add_to_storage = function(item, amount) {
 		var res = this.get_resources();
-		res[item] = res[item] + amount;
+		if (typeof res[item] !== 'undefined') {
+			res[item] = res[item] + amount;
+		} else {
+			res[item] = amount;
+		}
 		return true;
 	};
 	
@@ -1058,6 +1062,26 @@ civitas.objects.settlement = function(params) {
 	 */
 	this.get_population = function() {
 		return this.population;
+	};
+
+	/**
+	 * Check if this settlement is a city.
+	 *
+	 * @public
+	 * @returns {Boolean}
+	 */
+	this.is_city = function() {
+		return this.settlement_type === civitas.CITY;
+	};
+
+	/**
+	 * Check if this settlement is a village.
+	 *
+	 * @public
+	 * @returns {Boolean}
+	 */
+	this.is_village = function() {
+		return this.settlement_type === civitas.VILLAGE;
 	};
 
 	// Fire up the constructor

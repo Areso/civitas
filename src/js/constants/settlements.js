@@ -134,8 +134,8 @@ civitas.SETTLEMENTS = {
 
 		},
 		location: {
-			x: 60,
-			y: 500
+			x: 140,
+			y: 400
 		}
 	},
 	3: {
@@ -369,8 +369,8 @@ civitas.SETTLEMENTS = {
 			'Pikeman': 30
 		},
 		location: {
-			x: 40,
-			y: 320
+			x: 700,
+			y: 280
 		}
 	},
 	9: {
@@ -498,8 +498,8 @@ civitas.SETTLEMENTS = {
 			'Warship': 2
 		},
 		location: {
-			x: 200,
-			y: 300
+			x: 144,
+			y: 290
 		}
 	},
 	12: {

@@ -13,6 +13,7 @@ civitas.PANEL_SETTLEMENT = {
 			'<div class="contents"></div>' +
 			'<footer class="footer">' +
 					'<a class="tips attack btn" title="' + civitas.l('Attack this settlement') + '"></a>' +
+					'<a class="tips caravan btn" title="' + civitas.l('Send a caravan to this settlement') + '"></a>' +
 					'<a class="tips resources btn" title="' + civitas.l('Give resources to this settlement') + '"></a>' +
 					'<a class="tips alliance btn" title="' + civitas.l('Propose alliance to this settlement') + '"></a>' +
 					'<a class="tips help btn" data-context="settlement" data-term="general" title="' + civitas.l('Info about this settlement') + '"></a>' +
@@ -29,35 +30,68 @@ civitas.PANEL_SETTLEMENT = {
 		this.params_data = params;
 		var trades = settlement.get_trades();
 		var location = civitas['SETTLEMENT_LOCATION_' + my_settlement.get_climate().name.toUpperCase()];
-		$(this.handle + ' header .title').html((settlement_type === civitas.CITY ? 'City of ' : 'Village of ') + settlement.get_name());
-		if (settlement_type === civitas.CITY) {
+		$(this.handle + ' header .title').html((settlement.is_city() ? 'City of ' : 'Village of ') + settlement.get_name());
+		if (settlement.is_city()) {
 			$(this.handle + ' .contents').append(civitas.ui.tabs([civitas.l('Info'), civitas.l('Army'), civitas.l('Navy'), civitas.l('Imports'), civitas.l('Exports')]));
 		} else {
-			$(this.handle + ' .contents').append(civitas.ui.tabs([civitas.l('Info'), civitas.l('Army'), civitas.l('Resources')]));
+			$(this.handle + ' .contents').append(civitas.ui.tabs([civitas.l('Info'), civitas.l('Army'), civitas.l('Navy'), civitas.l('Resources')]));
 		}
 		this.on_refresh();
-		$(this.handle).on('click', '.attack', function () {
-			if (my_settlement.can_diplomacy() === true) {
-				my_settlement.diplomacy(settlement.get_id(), civitas.DIPLOMACY_WAR, civitas.SETTLEMENT_TYPES[settlement_type]);
-				core.error('Not implemented yet.');
-			} else {
+		$(this.handle).on('click', '.caravan', function () {
+			if (!my_settlement.can_diplomacy()) {
 				core.error(civitas.l('You will need to construct an Embassy before being able to propose treaties and pacts to other settlements.'));
+				return false;
 			}
+			core.add_campaign(my_settlement, settlement, civitas.CAMPAIGN_CARAVAN, {
+				resources: {
+					coins: 100000,
+					wood: 10,
+					stones: 20,
+					silk: 10,
+					weapons: 100
+				}
+			});
+			self.destroy();
+			return false;
+		}).on('click', '.attack', function () {
+			if (!my_settlement.can_diplomacy()) {
+				core.error(civitas.l('You will need to construct an Embassy before being able to propose treaties and pacts to other settlements.'));
+				return false;
+			}
+			my_settlement.diplomacy(settlement.get_id(), civitas.DIPLOMACY_WAR, civitas.SETTLEMENT_TYPES[settlement_type]);
+			core.add_campaign(my_settlement, settlement, civitas.CAMPAIGN_ARMY, {
+				army: {
+					'Militia': 40,
+					'Axeman': 30,
+					'Knight': 10,
+					'Bowman': 20,
+					'Crossbowman': 10,
+					'Pikeman': 30
+				},
+				navy: {
+					'Corsair': 4,
+					'Caravel': 2,
+					'Galleon': 2,
+					'Warship': 6,
+					'Ship of the Line': 1
+				}
+			});
+			self.destroy();
 			return false;
 		}).on('click', '.alliance', function () {
-			if (my_settlement.can_diplomacy() === true) {
-				my_settlement.diplomacy(settlement.get_id(), civitas.DIPLOMACY_PROPOSE_ALLIANCE, civitas.SETTLEMENT_TYPES[settlement_type]);
-				core.error('Not implemented yet.');
-			} else {
+			if (!my_settlement.can_diplomacy()) {
 				core.error(civitas.l('You will need to construct an Embassy before being able to propose treaties and pacts to other settlements.'));
+				return false;
 			}
+			my_settlement.diplomacy(settlement.get_id(), civitas.DIPLOMACY_PROPOSE_ALLIANCE, civitas.SETTLEMENT_TYPES[settlement_type]);
+			core.error('Not implemented yet.');
 			return false;
 		}).on('click', '.resources', function () {
-			if (my_settlement.can_diplomacy() === true) {
-				core.error('Not implemented yet.');
-			} else {
+			if (!my_settlement.can_diplomacy()) {
 				core.error(civitas.l('You will need to construct an Embassy before being able to send goods to other settlements.'));
+				return false;
 			}
+			core.error('Not implemented yet.');
 			return false;
 		});
 	},
@@ -76,17 +110,19 @@ civitas.PANEL_SETTLEMENT = {
 				'<dt>' + civitas.l('Climate') + '</dt><dd>' + settlement.get_climate().name.capitalize() + '</dd>' +
 				'<dt>' + civitas.l('Personality') + '</dt><dd>' + settlement.get_personality().name.capitalize() + '</dd>' +
 				'<dt>' + civitas.l('Nationality') + '</dt><dd>' + settlement.get_nationality().name.capitalize() + '</dd>' +
+				(settlement.is_city() ? 
 				'<dt>' + civitas.l('Level') + '</dt><dd>' + settlement.get_level() + '</dd>' +
-				'<dt>' + civitas.l('Prestige') + '</dt><dd>' + settlement.get_prestige() + '</dd>' +
+				'<dt>' + civitas.l('Prestige') + '</dt><dd>' + settlement.get_prestige() + '</dd>' 
+				: '' ) + 
 				'<dt>' + civitas.l('Coins') + '</dt><dd>' + civitas.utils.nice_numbers(settlement.get_coins()) + '</dd>' +
 				'<dt>' + civitas.l('Population') + '</dt><dd>' + civitas.utils.nice_numbers(settlement.get_population()) + '</dd>' +
-				'<dt>' + civitas.l('Influence') + '</dt><dd>' + my_settlement.get_influence_with_settlement(settlement.get_id()) + '</dd>' +
+				'<dt>' + civitas.l('Influence') + '</dt><dd>' + civitas.ui.progress(my_settlement.get_influence_with_settlement(settlement.get_id())) + '</dd>' +
 				'<dt>' + civitas.l('Diplomatic Status') + '</dt><dd>' + my_settlement.get_diplomacy_status(settlement.get_id()).name.capitalize() + '</dd>' +
 				'<dt>' + civitas.l('Distance') + '</dt><dd>' + civitas.utils.get_distance(location, civitas.SETTLEMENTS[settlement.get_id()].location) + ' miles (' + civitas.utils.get_distance_in_days(location, civitas.SETTLEMENTS[settlement.get_id()].location) + ' days)</dd>' +
 				'</dl>');
 		$(this.handle + ' #tab-army').empty().append(civitas.ui.army_list(settlement.get_army_total()));
-		if (settlement_type === civitas.CITY) {
-			$(this.handle + ' #tab-navy').empty().append(civitas.ui.navy_list(settlement.get_navy_total()));
+		$(this.handle + ' #tab-navy').empty().append(civitas.ui.navy_list(settlement.get_navy_total()));
+		if (settlement.is_city()) {
 			$(this.handle + ' #tab-imports').empty().append('' +
 				'<p>' + civitas.l('Below are the goods this city will be buying this year.') + '</p>' +
 				civitas.ui.trades_list(trades, 'imports'));

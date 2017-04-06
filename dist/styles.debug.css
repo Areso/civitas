@@ -482,13 +482,13 @@ header .top-panel span {
 .panel .worldmap {
 	width: 1024px;
 	height: 600px;
-	background: transparent url(../images/ui/worldmap.png) no-repeat;
 	background-size: auto 100%;
 	position: relative;
 }
 
 .panel .worldmap .settlement,
-.panel .worldmap .battle {
+.panel .worldmap .army,
+.panel .worldmap .caravan {
 	position: absolute;
 	width: 32px;
 	height: 32px;
@@ -1217,12 +1217,21 @@ td.icon {
 }
 
 .progress {
-	width: 300px;
-	height: 12px;
+	height: 20px;
 	-webkit-box-shadow: inset 0 0 8px 0 rgba(0, 0, 0, 0.75);
 	-moz-box-shadow: inset 0 0 8px 0 rgba(0, 0, 0, 0.75);
 	box-shadow: inset 0 0 8px 0 rgba(0, 0, 0, 0.75);
 	border-radius: 3px;
+	line-height: 100%;
+	display: inline-block;
+}
+
+.progress.small {
+	width: 170px;
+}
+
+.progress.big {
+	width: 300px;
 }
 
 .progress .bar {
@@ -1231,8 +1240,12 @@ td.icon {
 	background: -webkit-linear-gradient(top,#472e18 0%, #ffffff 49%, #25140a 100%);
 	background: linear-gradient(top,#472e18 0%, #ffffff 49%, #25140a 100%);
 	display: inline-block;
-	height: 12px;
+	height: 16px;
+	padding: 4px 0 0 0;
 	border-radius: 3px;
+	text-align: center;
+	color: #fff;
+	font-size: 10px;
 }
 
 .progress .bar.good {
@@ -1704,6 +1717,10 @@ footer .do-help {
 	background: transparent url(../images/ui/icon_demolish.png) no-repeat;
 }
 
+.panel .footer .btn.caravan {
+	background: transparent url(../images/ui/icon_caravan.png) no-repeat;
+}
+
 .panel .footer .btn.attack {
 	background: transparent url(../images/ui/icon_attack.png) no-repeat;
 }
@@ -1726,8 +1743,8 @@ footer .do-help {
 	margin-right: 0;
 }
 
-.panel .worldmap .battle.b1 {
-	background: transparent url(../images/ui/battle1.png) no-repeat;
+.panel .worldmap .army {
+	background: transparent url(../images/ui/army.png) no-repeat;
 }
 
 .panel .worldmap .battle.b2 {
@@ -1736,6 +1753,10 @@ footer .do-help {
 
 .panel .worldmap .battle.b3 {
 	background: transparent url(../images/ui/battle3.png) no-repeat;
+}
+
+.panel .worldmap .caravan {
+	background: transparent url(../images/ui/caravan.png) no-repeat;
 }
 
 .panel .worldmap .settlement.v1 {
@@ -1772,4 +1793,20 @@ footer .do-help {
 
 .game {
 	background: #000 url(../images/ui/citymap.jpg) no-repeat;
+}
+
+.panel .worldmap.w1 {
+	background: transparent url(../images/world/worldmap1.png) no-repeat;
+}
+
+.panel .worldmap.w2 {
+	background: transparent url(../images/world/worldmap2.png) no-repeat;
+}
+
+.panel .worldmap.w3 {
+	background: transparent url(../images/world/worldmap3.png) no-repeat;
+}
+
+.panel .worldmap.w4 {
+	background: transparent url(../images/world/worldmap4.png) no-repeat;
 }

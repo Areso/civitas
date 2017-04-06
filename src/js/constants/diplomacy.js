@@ -15,6 +15,10 @@ civitas.DIPLOMACIES = [
 	'cease fire proposed'
 ];
 
+civitas.CAMPAIGN_ARMY = 1;
+
+civitas.CAMPAIGN_CARAVAN = 2;
+
 /**
  * Just met, temporary trucem can declare war, can trade.
  * 

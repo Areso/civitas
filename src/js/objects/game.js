@@ -114,6 +114,14 @@ civitas.game = function () {
 	this.panels = [];
 
 	/**
+	 * Game worldmap.
+	 *
+	 * @type {Number}
+	 * @private
+	 */
+	this.worldmap = 1;
+
+	/**
 	 * Game mode, single player or multi player.
 	 *
 	 * @type {Number}
@@ -136,6 +144,23 @@ civitas.game = function () {
 			this.start_game();
 		}
 		return this;
+	};
+
+	/**
+	 * Return the UI panel specified by its id.
+	 *
+	 * @public
+	 * @param {String} id
+	 * @returns {civitas.game}
+	 */
+	this.get_panel = function(id) {
+		var panels = this.get_panels();
+		for (var i = 0; i < panels.length; i++) {
+			if (panels[i].id === id) {
+				return panels[i];
+			}
+		}
+		return false;
 	};
 
 	/**
@@ -368,6 +393,7 @@ civitas.game = function () {
 		var self = this;
 		var data = null;
 		this.difficulty = parseInt(difficulty);
+		this.worldmap = civitas.utils.get_random(1, civitas.WORLDMAPS);
 		if (this.get_storage_data() !== false) {
 			data = this._load_settlement(this.import());
 		} else {
@@ -622,6 +648,7 @@ civitas.game = function () {
 		this.process_all_buildings();
 		this._check_for_events();
 		this.calc_storage();
+		this.advance_campaigns();
 		this.day_of_month++;
 		if (this.day_of_month > 30) {
 			this._do_monthly();
@@ -1028,6 +1055,8 @@ civitas.game = function () {
 		var data = this.get_storage_data().data;
 		if (data !== false) {
 			this.set_difficulty(data.difficulty);
+			this.set_worldmap(data.worldmap);
+			this.set_campaigns(data.campaigns);
 			this.set_achievements(data.achievements);
 			this.set_date_time(data.date_time);
 			this.set_black_market(data.black_market);
@@ -1065,6 +1094,8 @@ civitas.game = function () {
 				year: this.year,
 				day_of_month: this.day_of_month
 			},
+			campaigns: this.get_campaigns(),
+			worldmap: this.get_worldmap(),
 			settings: this.get_settings()
 		};
 		if (to_local_storage === true) {
@@ -1534,6 +1565,129 @@ civitas.game = function () {
 	 */
 	this.set_mode = function(value) {
 		this.mode = value;
+	};
+
+	/**
+	 * Return the id of the current worldmap.
+	 *
+	 * @public
+	 * @returns {Number}
+	 */
+	this.get_worldmap = function() {
+		return this.worldmap;
+	};
+
+	/**
+	 * Set the id of the current worldmap.
+	 *
+	 * @public
+	 * @param {Number} value
+	 * @returns {civitas.game}
+	 */
+	this.set_worldmap = function(value) {
+		this.worldmap = value;
+		return this;
+	};
+
+	/**
+	 * Set the world campaigns.
+	 *
+	 * @public
+	 * @param {Array} value
+	 * @returns {civitas.game}
+	 */
+	this.set_campaigns = function(value) {
+		this.campaigns = value;
+		return this;
+	};
+
+	/**
+	 * Return the world campaigns.
+	 *
+	 * @public
+	 * @returns {Array}
+	 */
+	this.get_campaigns = function() {
+		return this.campaigns;
+	};
+
+	this.advance_campaigns = function() {
+		if (this.get_settlement().can_diplomacy() === true) {
+			for (var i = 0; i < this.campaigns.length; i++) {
+				if (this.campaigns[i].passed === this.campaigns[i].duration - 1) {
+					this.notify('The ' + (this.campaigns[i].type === civitas.CAMPAIGN_ARMY ? 'army' : 'caravan') + ' you sent ' + this.campaigns[i].duration + ' days ago reached its destination.');
+					this.process_campaign(i);
+				} else {
+					this.campaigns[i].passed++;
+				}
+			}
+			return this;
+		}
+		return false;
+	};
+
+	this.process_campaign = function(id) {
+		var campaign = this.campaigns[id];
+		if (this.get_settlement().can_diplomacy() === true) {
+			switch (campaign.type) {
+				case civitas.CAMPAIGN_ARMY:
+					break
+				case civitas.CAMPAIGN_CARAVAN:
+					var total = 0;
+					var destination_settlement = this.get_settlement(campaign.destination.id);
+					if (typeof campaign.data.resources !== 'undefined') {
+						for (var item in campaign.data.resources) {
+							if ($.inArray(item, civitas.NON_RESOURCES) === -1) {
+								total += civitas.utils.calc_price(campaign.data.resources[item], item);
+							} else if (item === 'coins') {
+								total += campaign.data.resources[item];
+							}
+							destination_settlement.add_to_storage(item, campaign.data.resources[item]);
+						}
+						this.get_settlement().raise_influence(campaign.destination.id, 5);
+					}
+					break;
+			}
+		}
+		this.remove_campaign(id);
+		return this;
+	};
+
+	this.add_campaign = function(source_settlement, destination_settlement, type, data) {
+		if (this.get_settlement().can_diplomacy() === true) {
+			var s_loc = civitas['SETTLEMENT_LOCATION_' + source_settlement.get_climate().name.toUpperCase()];
+			var d_loc = civitas.SETTLEMENTS[destination_settlement.get_id()].location;
+			var duration = civitas.utils.get_distance_in_days(s_loc, d_loc);
+			var campaign = {
+				source: {
+					x: s_loc.x,
+					y: s_loc.y,
+					id: source_settlement.get_id()
+				},
+				destination: {
+					x: d_loc.x,
+					y: d_loc.y,
+					id: destination_settlement.get_id()
+				},
+				duration: duration,
+				passed: 0,
+				type: type,
+				data: data
+			};
+			this.campaigns.push(campaign);
+			this.notify('Your ' + (type === civitas.CAMPAIGN_ARMY ? 'army' : 'caravan') + ' was dispatched towards ' + destination_settlement.get_name() + ' and will reach its destination in ' + duration + ' days.');
+			return campaign;
+		}
+		return false;
+	};
+
+	this.remove_campaign = function(id) {
+		var panel;
+		if (panel = this.get_panel('campaign')) {
+			panel.destroy()
+		}
+		this.campaigns.splice(id, 1);
+		return this;
 	};
 
 	// Fire up the constructor

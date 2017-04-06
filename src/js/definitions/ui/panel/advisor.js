@@ -53,78 +53,78 @@ civitas.PANEL_ADVISOR = {
 			'</div>');
 		this.on_refresh();
 		$(el).on('click', '.pact', function () {
-			if (settlement.can_diplomacy() === true) {
-				var _settlement = $(this).data('name');
-				var influence = core.get_settlement().get_influence_with_settlement(_settlement);
-				if (influence >= 50) {
-					core.error('Not implemented yet.');
-					/*
-					if (core.get_settlement().propose_pact(_settlement) === true) {
-						// TODO
-					}
-					*/
-				} else {
-					core.error(civitas.l('Your influence on') + ' ' + _settlement + ' ' + civitas.l('is too low to propose a pact.'));
-				}
-			} else {
+			if (!settlement.can_diplomacy()) {
 				core.error(civitas.l('You will need to construct an Embassy before being able to propose treaties and pacts to other settlements.'));
+				return false;
 			}
-			return false;
-		}).on('click', '.spy', function () {
-			if (settlement.can_diplomacy() === true) {
-				var _settlement = $(this).data('name');
-				core.error(civitas.l('Not implemented yet.'));
+			var _settlement = $(this).data('name');
+			var influence = core.get_settlement().get_influence_with_settlement(_settlement);
+			if (influence >= 50) {
+				core.error('Not implemented yet.');
 				/*
-				if (core.get_settlement().assign_spy(_settlement) === true) {
+				if (core.get_settlement().propose_pact(_settlement) === true) {
 					// TODO
 				}
 				*/
 			} else {
-				core.error(civitas.l('You will need to construct an Embassy before being able to assign spies to other settlements.'));
+				core.error(civitas.l('Your influence on') + ' ' + _settlement + ' ' + civitas.l('is too low to propose a pact.'));
 			}
+			return false;
+		}).on('click', '.spy', function () {
+			if (!settlement.can_diplomacy()) {
+				core.error(civitas.l('You will need to construct an Embassy before being able to assign spies to other settlements.'));
+				return false;
+			}
+			var _settlement = $(this).data('name');
+			core.error(civitas.l('Not implemented yet.'));
+			/*
+			if (core.get_settlement().assign_spy(_settlement) === true) {
+				// TODO
+			}
+			*/	
 			return false;
 		}).on('click', '.recruit-ship', function () {
-			if (settlement.can_build_ships() === true) {
-				var ship = $(this).data('handle');
-				core.error(civitas.l('Not implemented yet.'));
-				/*
-				if (core.get_settlement().recruit_ship(ship) === true) {
-					self._refresh_navy();
-				}
-				*/
-			} else {
+			if (!settlement.can_build_ships()) {
 				core.error(civitas.l('You will need to construct a Shipyard before being able to construct ships in your city.'));
+				return false;
 			}
+			var ship = $(this).data('handle');
+			core.error(civitas.l('Not implemented yet.'));
+			/*
+			if (core.get_settlement().recruit_ship(ship) === true) {
+				self._refresh_navy();
+			}
+			*/
 			return false;
 		}).on('click', '.declare-war', function () {
-			if (settlement.can_diplomacy() === true) {
-				var name = $(this).data('name');
-				var _settlement = core.get_settlement(name);
-				core.error(civitas.l('Not implemented yet.'));
-				/*
-				core.open_panel(new civitas.controls.panel_declare_war({
-					core: core,
-					data: _settlement
-				}));
-				*/
-			} else {
+			if (!settlement.can_diplomacy()) {
 				core.error(civitas.l('You will need to construct an Embassy before being able to declare war to other settlements.'));
+				return false;
 			}
+			var name = $(this).data('name');
+			var _settlement = core.get_settlement(name);
+			core.error(civitas.l('Not implemented yet.'));
+			/*
+			core.open_panel(new civitas.controls.panel_declare_war({
+				core: core,
+				data: _settlement
+			}));
+			*/
 			return false;
 		}).on('click', '.send-goods', function () {
-			if (settlement.can_diplomacy() === true) {
-				var name = $(this).data('name');
-				var _settlement = core.get_settlement(name);
-				core.error(civitas.l('Not implemented yet.'));
-				/*
-				core.open_panel(new civitas.controls.panel_send_goods({
-					core: core,
-					data: _settlement
-				}));
-				*/
-			} else {
+			if (!settlement.can_diplomacy()) {
 				core.error(civitas.l('You will need to construct an Embassy before being able to send goods to other settlements.'));
+				return false;
 			}
+			var name = $(this).data('name');
+			var _settlement = core.get_settlement(name);
+			core.error(civitas.l('Not implemented yet.'));
+			/*
+			core.open_panel(new civitas.controls.panel_send_goods({
+				core: core,
+				data: _settlement
+			}));
+			*/
 			return false;
 		}).on('click', '.view-settlement', function () {
 			var name = $(this).data('name');
@@ -132,32 +132,32 @@ civitas.PANEL_ADVISOR = {
 			core.open_panel(civitas.PANEL_SETTLEMENT, _settlement);
 			return false;
 		}).on('click', '.recruit-soldier', function () {
-			if (settlement.can_recruit_soldiers() === true) {
-				var soldier = $(this).data('handle');
-				if (core.get_settlement().recruit_soldier(soldier) === true) {
-					self._refresh_army();
-				}
-			} else {
+			if (!settlement.can_recruit_soldiers()) {
 				core.error(civitas.l('You will need to construct a Military Camp or Castle before recruiting soldiers in your city.'));
+				return false;
 			}
+			var soldier = $(this).data('handle');
+			if (core.get_settlement().recruit_soldier(soldier)) {
+				self._refresh_army();
+			}	
 			return false;
 		}).on('click', '.view-merc', function () {
-			var _army = $(this).data('id');
+			var _army = parseInt($(this).data('id'));
 			var data = civitas.MERCENARIES[_army];
 			core.open_panel(civitas.PANEL_ARMY, data);
 			return false;
 		}).on('click', '.raid-merc', function () {
-			var _army = $(this).data('id');
+			var _army = parseInt($(this).data('id'));
 			var data = civitas.MERCENARIES[_army];
 			core.error('Not implemented yet.');
 			return false;
 		}).on('click', '.campaign-merc', function () {
-			var _army = $(this).data('id');
+			var _army = parseInt($(this).data('id'));
 			var data = civitas.MERCENARIES[_army];
 			core.error('Not implemented yet.');
 			return false;
 		}).on('click', '.disband-merc', function () {
-			var _army = $(this).data('id');
+			var _army = parseInt($(this).data('id'));
 			var data = civitas.MERCENARIES[_army];
 			core.error('Not implemented yet.');
 			return false;
@@ -200,7 +200,7 @@ civitas.PANEL_ADVISOR = {
 		$('#panel-' + this.id + ' #tab-mercenary').empty().append(_t);
 
 		_t = '';
-		if (settlement.can_diplomacy() !== true) {
+		if (!settlement.can_diplomacy()) {
 			_t += '<p>' + civitas.l('You will need to construct an Embassy before being able to propose treaties and pacts to other cities.') + '</p>';
 		}
 		_t += '<div class="settlements-list">' +
@@ -225,7 +225,7 @@ civitas.PANEL_ADVISOR = {
 			} else if (influence >= 80) {
 				_e = ' vgood';
 			}
-			_t += '<div class="progress"><span style="width:' + influence + '%" class="bar' + _e + '"></span></div>';
+			_t += '<div class="progress big"><span style="width:' + influence + '%" class="bar' + _e + '">' + influence + '</span></div>';
 			_t += '</td>' +
 					'<td class="large">' +
 					'<a data-name="' + settlements[i].get_name() + '" title="' + civitas.l('View info about this settlement.') + '" class="tips view-settlement" href="#">' + civitas.l('view') + '</a> ' +
@@ -298,7 +298,7 @@ civitas.PANEL_ADVISOR = {
 			research: 0
 		}
 		for (var l = 0; l < buildings.length; l++) {
-			if (buildings[l].is_municipal_building() === true) {
+			if (buildings[l].is_municipal_building()) {
 				var building_data = buildings[l].get_building_data();
 				_t += '<tr' + ((buildings[l].has_problems() === false) ? '' : ' class="notify"') +'>' +
 					'<td>' + buildings[l].get_name() + '</td>' +
@@ -350,7 +350,7 @@ civitas.PANEL_ADVISOR = {
 					'</thead>';
 		var total_tax = 0;
 		for (var l = 0; l < buildings.length; l++) {
-			if (buildings[l].is_housing_building() === true) {
+			if (buildings[l].is_housing_building()) {
 				var building_data = buildings[l].get_building_data();
 				_t += '<tr' + ((buildings[l].has_problems() === false) ? '' : ' class="notify"') +'>' +
 					'<td>' + buildings[l].get_name() + '</td>' +
@@ -392,7 +392,7 @@ civitas.PANEL_ADVISOR = {
 					'</tr>' +
 					'</thead>';
 		for (var l = 0; l < buildings.length; l++) {
-			if (buildings[l].is_production_building() === true && buildings[l].is_municipal_building() === false) {
+			if (buildings[l].is_production_building() && buildings[l].is_municipal_building() === false) {
 				var building_data = buildings[l].get_building_data();
 				_t += '<tr' + ((buildings[l].has_problems() === false) ? '' : ' class="notify"') +'>' +
 					'<td>' + buildings[l].get_name() + '</td>' +
@@ -427,7 +427,7 @@ civitas.PANEL_ADVISOR = {
 			'</table>';
 		$('#panel-' + this.id + ' #tab-production').empty().append(_t);
 		_t = '';
-		if (settlement.can_recruit_soldiers() !== true) {
+		if (!settlement.can_recruit_soldiers()) {
 			_t += '<p>' + civitas.l('You will need to construct a Military Camp or Castle before being able to recruit soldiers in your city.') + '</p>';
 		}
 		_t += '<div class="army-list">' +
@@ -460,7 +460,7 @@ civitas.PANEL_ADVISOR = {
 				'</fieldset>';
 		$(el + ' .army-list').empty().append(_t);
 		_t = '';
-		if (settlement.can_build_ships() !== true) {
+		if (!settlement.can_build_ships()) {
 			_t += '<p>' + civitas.l('You will need to construct a Shipyard before being able to construct ships in your city.') + '</p>';
 		}
 		_t += '<div class="navy-list">' +

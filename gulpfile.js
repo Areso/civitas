@@ -60,6 +60,7 @@ gulp.task('app', function() {
 		'src/js/definitions/ui/panel/settlement.js',
 		'src/js/definitions/ui/panel/help.js',
 		'src/js/definitions/ui/panel/building.js',
+		'src/js/definitions/ui/panel/campaign.js',
 		'src/js/definitions/ui/panel/storage.js',
 		'src/js/definitions/ui/panel/world.js',
 		'src/js/definitions/ui/panel/rankings.js',
