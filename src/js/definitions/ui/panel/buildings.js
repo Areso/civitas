@@ -16,11 +16,11 @@ civitas.PANEL_BUILDINGS = {
 	on_show: function(params) {
 		var self = this;
 		var core = this.get_core();
-		var city = core.get_city();
-		var resources = city.get_resources();
+		var settlement = core.get_settlement();
+		var resources = settlement.get_resources();
 		var el = this.handle;
 		var _t = '<div class="left buildings">';
-		var available_buildings = civitas['CITY_BUILDINGS_' + city.get_climate().name.toUpperCase()];
+		var available_buildings = civitas['SETTLEMENT_BUILDINGS_' + settlement.get_climate().name.toUpperCase()];
 		_t += '<div class="tabs">' +
 				'<ul>';
 		for (var category in civitas.BUILDINGS_CATEGORIES) {
@@ -33,7 +33,7 @@ civitas.PANEL_BUILDINGS = {
 				var building = civitas.BUILDINGS_CATEGORIES[category][i];
 				if ($.inArray(building, available_buildings) !== -1) {
 					var building_data = civitas.BUILDINGS[civitas.BUILDINGS.findIndexM(building)];
-					var _i = city.is_building_built(building_data.handle);
+					var _i = settlement.is_building_built(building_data.handle);
 					_t += '<div data-handle="' + building_data.handle + '" class="building-item' + ((_i === true) ? ' disabled' : '') + '">' +
 							'<span class="title">' + building_data.name + '</span>' +
 							'<img class="building" src="' + civitas.ASSETS_URL + 'images/buildings/' + ((building_data.handle.slice(0, -1) === 'house') ? building_data.handle.slice(0, -1) : building_data.handle) + '1.png" />' +
@@ -105,7 +105,7 @@ civitas.PANEL_BUILDINGS = {
 						_z += '<dt>' + civitas.l('Building') + '</dt><dd>' + core.get_building_config_data(building.requires.buildings).name + '</dd>';
 					}
 				}
-				_z += '<dt>City level</dt><dd>' + building.requires.city_level + '</dd>' +
+				_z += '<dt>' + civitas.l('City level') + '</dt><dd>' + building.requires.settlement_level + '</dd>' +
 						'</dl>';
 				$(el + ' .b-req').append(_z);
 			}
@@ -169,7 +169,7 @@ civitas.PANEL_BUILDINGS = {
 			} else {
 				$('fieldset.taxes, fieldset.production, fieldset.materials, fieldset.storage').hide();
 			}
-			var _i = city.is_building_built(building.handle);
+			var _i = settlement.is_building_built(building.handle);
 			if (_i !== true) {
 				$(el + ' .toolbar').append('<a href="#" class="btn build" data-handle="' + building.handle + '">' + civitas.l('Build') + '</a>');
 			} else {
@@ -179,7 +179,7 @@ civitas.PANEL_BUILDINGS = {
 			return false;
 		}).on('click', '.btn.build', function () {
 			var handle = $(this).data('handle');
-			if (city.build(handle) !== false) {
+			if (settlement.build(handle) !== false) {
 				$(el + ' .building-item[data-handle=' + handle + ']').addClass('disabled');
 				$(el + ' .toolbar').empty().append(civitas.l('You already have this building.'));
 			}

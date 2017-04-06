@@ -40,12 +40,12 @@ civitas.l = function (value) {
 civitas.AUTOSTART_MUSIC = false;
 
 /**
- * Max level a city can have.
+ * Max level a settlement can have.
  * 
  * @constant
  * @type {Number}
  */
-civitas.MAX_CITY_LEVEL = 55;
+civitas.MAX_SETTLEMENT_LEVEL = 55;
 
 /**
  * URL to the game assets
@@ -238,7 +238,7 @@ civitas.NOTIFICATION_PRODUCTION_PAUSED = 2;
  * @constant
  * @type {Number}
  */
-civitas.NOTIFICATION_CITY_LOW_LEVEL = 3;
+civitas.NOTIFICATION_SETTLEMENT_LOW_LEVEL = 3;
 
 /**
  * Game type as single player (campaign, local).

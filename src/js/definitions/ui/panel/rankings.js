@@ -18,12 +18,14 @@ civitas.PANEL_RANKINGS = {
 	},
 	on_refresh: function() {
 		var ranking_list = [];
-		var cities = this.get_core().get_cities();
-		for (var i = 0; i < cities.length; i++) {
-			ranking_list.push({
-				name: cities[i].get_name(),
-				score: cities[i].get_rank()
-			});
+		var settlements = this.get_core().get_settlements();
+		for (var i = 0; i < settlements.length; i++) {
+			if (settlements[i].get_settlement_type() === civitas.CITY) {
+				ranking_list.push({
+					name: settlements[i].get_name(),
+					score: settlements[i].get_rank()
+				});
+			}
 		}
 		ranking_list.sort(function(a, b) {
 		    var keyA = new Date(a.score);

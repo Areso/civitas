@@ -31,9 +31,9 @@ civitas.PANEL_STORAGE = {
 		});
 	},
 	on_refresh: function() {
-		var city = this.get_core().get_city();
-		var resources = city.get_resources();
-		var storage_space = city.get_storage_space();
+		var settlement = this.get_core().get_settlement();
+		var resources = settlement.get_resources();
+		var storage_space = settlement.get_storage_space();
 		var out = '<div class="main-storage">';
 		var main_storage = '';
 		var extra_storage = '';

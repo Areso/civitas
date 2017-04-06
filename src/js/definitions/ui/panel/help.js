@@ -31,7 +31,7 @@ civitas.PANEL_HELP = {
 	on_show: function(params) {
 		var self = this;
 		var core = this.get_core();
-		var city = core.get_city();
+		var settlement = core.get_settlement();
 		if (typeof params.data !== 'undefined') {
 			this.term = params.data.term;
 			this.context = params.data.context;
@@ -39,7 +39,7 @@ civitas.PANEL_HELP = {
 		var title = '';
 		switch (this.context) {
 			case 'building':
-				var data = core.get_city().get_building_by_handle(this.term);
+				var data = core.get_settlement().get_building_by_handle(this.term);
 				title = data.get_name();
 				break;
 			case 'settlement':
@@ -50,27 +50,27 @@ civitas.PANEL_HELP = {
 		//$(this.handle + ' .contents').append();
 		if (civitas.DEBUG === true) {
 			$(this.handle).on('click', '.one', function() {
-				city.inc_coins(10000);
+				settlement.inc_coins(10000);
 				core.refresh();
 				return false;
 			}).on('click', '.two', function() {
-				city.add_to_storage('wood', 100);
+				settlement.add_to_storage('wood', 100);
 				core.refresh();
 				return false;
 			}).on('click', '.three', function() {
-				city.add_to_storage('stones', 100);
+				settlement.add_to_storage('stones', 100);
 				core.refresh();
 				return false;
 			}).on('click', '.four', function() {
-				city.add_to_storage('woodplanks', 100);
+				settlement.add_to_storage('woodplanks', 100);
 				core.refresh();
 				return false;
 			}).on('click', '.five', function() {
-				city.level_up();
+				settlement.level_up();
 				core.refresh();
 				return false;
 			}).on('click', '.six', function() {
-				city.raise_fame(1000);
+				settlement.raise_fame(1000);
 				core.refresh();
 				return false;
 			}).on('click', '.seven', function() {

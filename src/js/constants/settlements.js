@@ -1,10 +1,37 @@
 /**
- * List of all the cities in the world.
+ * Settlement types.
+ *
+ * @constant
+ * @type {Array}
+ */
+civitas.SETTLEMENT_TYPES = [
+	'city',
+	'village'
+];
+
+/**
+ * City settlement.
+ *
+ * @constant
+ * @type {Number}
+ */
+civitas.CITY = 0;
+
+/**
+ * Village settlement.
+ *
+ * @constant
+ * @type {Number}
+ */
+civitas.VILLAGE = 1;
+
+/**
+ * List of all the settlements in the world.
  * 
  * @constant
  * @type {Object}
  */
-civitas.CITIES = {
+civitas.SETTLEMENTS = {
 	1: {
 		icon: 7,
 		climate: civitas.CLIMATE_TEMPERATE,
@@ -143,9 +170,6 @@ civitas.CITIES = {
 			'Crossbowman': 320,
 			'Pikeman': 300
 		},
-		navy: {
-
-		},
 		location: {
 			x: 240,
 			y: 140
@@ -186,9 +210,6 @@ civitas.CITIES = {
 			'Bowman': 50,
 			'Crossbowman': 30,
 			'Pikeman': 90
-		},
-		navy: {
-
 		},
 		location: {
 			x: 890,
@@ -233,9 +254,6 @@ civitas.CITIES = {
 			'Crossbowman': 30,
 			'Pikeman': 50
 		},
-		navy: {
-
-		},
 		location: {
 			x: 830,
 			y: 530
@@ -272,9 +290,6 @@ civitas.CITIES = {
 		army: {
 			'Militia': 200,
 			'Bowman': 200,
-		},
-		navy: {
-
 		},
 		location: {
 			x: 690,
@@ -314,9 +329,6 @@ civitas.CITIES = {
 			'Crossbowman': 10,
 			'Pikeman': 30
 		},
-		navy: {
-
-		},
 		location: {
 			x: 300,
 			y: 480
@@ -355,9 +367,6 @@ civitas.CITIES = {
 			'Bowman': 20,
 			'Crossbowman': 10,
 			'Pikeman': 30
-		},
-		navy: {
-
 		},
 		location: {
 			x: 40,
@@ -409,9 +418,6 @@ civitas.CITIES = {
 			'Crossbowman': 210,
 			'Pikeman': 90
 		},
-		navy: {
-
-		},
 		location: {
 			x: 920,
 			y: 440
@@ -419,7 +425,7 @@ civitas.CITIES = {
 	},
 	10: {
 		icon: 7,
-		climate: civitas.CLIMATE_CONTINENTAL,
+		climate: civitas.CLIMATE_TEMPERATE,
 		level: 18,
 		resources: {
 			coins: 220000,
@@ -447,9 +453,6 @@ civitas.CITIES = {
 			'Bowman': 20,
 			'Crossbowman': 20,
 			'Pikeman': 30
-		},
-		navy: {
-
 		},
 		location: {
 			x: 900,
@@ -537,9 +540,6 @@ civitas.CITIES = {
 			'Crossbowman': 10,
 			'Pikeman': 30
 		},
-		navy: {
-
-		},
 		location: {
 			x: 300,
 			y: 60
@@ -576,9 +576,6 @@ civitas.CITIES = {
 		army: {
 			'Militia': 120,
 			'Bowman': 32,
-		},
-		navy: {
-
 		},
 		location: {
 			x: 700,
@@ -621,9 +618,6 @@ civitas.CITIES = {
 			'Crossbowman': 10,
 			'Pikeman': 30
 		},
-		navy: {
-
-		},
 		location: {
 			x: 680,
 			y: 540
@@ -665,9 +659,6 @@ civitas.CITIES = {
 			'Crossbowman': 10,
 			'Pikeman': 30
 		},
-		navy: {
-
-		},
 		location: {
 			x: 180,
 			y: 530
@@ -675,7 +666,7 @@ civitas.CITIES = {
 	},
 	16: {
 		icon: 5,
-		climate: civitas.CLIMATE_CONTINENTAL,
+		climate: civitas.CLIMATE_TEMPERATE,
 		level: 22,
 		resources: {
 			coins: 100000,
@@ -708,9 +699,6 @@ civitas.CITIES = {
 			'Bowman': 20,
 			'Crossbowman': 10,
 			'Pikeman': 30
-		},
-		navy: {
-
 		},
 		location: {
 			x: 400,
@@ -752,9 +740,6 @@ civitas.CITIES = {
 			'Crossbowman': 10,
 			'Pikeman': 30
 		},
-		navy: {
-
-		},
 		location: {
 			x: 130,
 			y: 140
@@ -794,9 +779,6 @@ civitas.CITIES = {
 			'Bowman': 10,
 			'Crossbowman': 30,
 			'Pikeman': 10
-		},
-		navy: {
-
 		},
 		location: {
 			x: 600,
@@ -843,9 +825,6 @@ civitas.CITIES = {
 			'Crossbowman': 10,
 			'Pikeman': 30
 		},
-		navy: {
-
-		},
 		location: {
 			x: 800,
 			y: 200
@@ -891,12 +870,130 @@ civitas.CITIES = {
 			'Crossbowman': 20,
 			'Pikeman': 20
 		},
-		navy: {
-
-		},
 		location: {
 			x: 30,
 			y: 30
+		}
+	},
+	21: {
+		settlement_type: civitas.VILLAGE,
+		resources: {
+			prestige: 1,
+			coins: 10000,
+			wood: 20,
+			stones: 10,
+			meat: 80
+		},
+		nationality: civitas.NATION_JAPANESE,
+		location: {
+			x: 800,
+			y: 480
+		},
+		population: 1290,
+		army: {
+			'Militia': 3,
+			'Bowman': 3
+		}
+	},
+	22: {
+		settlement_type: civitas.VILLAGE,
+		resources: {
+			prestige: 1,
+			coins: 20000,
+			silk: 20,
+			wheat: 10,
+			bread: 20
+		},
+		population: 610,
+		nationality: civitas.NATION_CHINESE,
+		location: {
+			x: 560,
+			y: 100
+		},
+		army: {
+			'Militia': 3,
+			'Bowman': 2
+		}
+	},
+	23: {
+		settlement_type: civitas.VILLAGE,
+		resources: {
+			prestige: 1,
+			coins: 20000,
+			silk: 20,
+			wheat: 10,
+			bread: 20
+		},
+		population: 550,
+		nationality: civitas.NATION_KHMER,
+		location: {
+			x: 900,
+			y: 300
+		},
+		army: {
+			'Militia': 3,
+			'Bowman': 2
+		}
+	},
+	24: {
+		settlement_type: civitas.VILLAGE,
+		resources: {
+			prestige: 1,
+			coins: 20000,
+			brass: 20,
+			meat: 10,
+			goldores: 20
+		},
+		population: 820,
+		nationality: civitas.NATION_INDIAN,
+		location: {
+			x: 100,
+			y: 70
+		},
+		army: {
+			'Militia': 3,
+			'Bowman': 2
+		}
+	},
+	25: {
+		settlement_type: civitas.VILLAGE,
+		resources: {
+			prestige: 1,
+			coins: 20000,
+			copper: 20,
+			flour: 10,
+			ironores: 20
+		},
+		population: 1600,
+		nationality: civitas.NATION_PERSAN,
+		location: {
+			x: 380,
+			y: 560
+		},
+		army: {
+			'Militia': 3,
+			'Bowman': 2
+		}
+	},
+	26: {
+		settlement_type: civitas.VILLAGE,
+		resources: {
+			prestige: 1,
+			coins: 2000,
+			silk: 20,
+			wheat: 10,
+			bread: 20,
+			herbs: 10,
+			barrels: 10
+		},
+		population: 600,
+		nationality: civitas.NATION_MONGOLIAN,
+		location: {
+			x: 570,
+			y: 400
+		},
+		army: {
+			'Militia': 6
 		}
 	}
 };
@@ -1065,12 +1162,12 @@ civitas.RULERS = [
 ];
 
 /**
- * List of world city names.
+ * List of world settlement names.
  *
  * @constant
  * @type {Array}
  */
-civitas.CITY_NAMES = [
+civitas.SETTLEMENT_NAMES = [
 	'Alexandria',
 	'Rome',
 	'Carthage',
@@ -1104,141 +1201,112 @@ civitas.CITY_NAMES = [
 	'Toledo',
 	'Mogadishu',
 	'Xinjiang',
-	'Yinxu'
+	'Yinxu',
+	'Bublidrus',
+	'Mylyra',
+	'Ialezus',
+	'Thebeia',
+	'Demaphos',
+	'Smyrnione',
+	'Dimonassa',
+	'Cyrarnassus',
+	'Posigeneia',
+	'Kasmigeneia',
+	'Khemdjumunein',
+	'Sakpi',
+	'Kersatennu',
+	'Farsou',
+	'Dehsa',
+	'Djasumar',
+	'Absaitunis',
+	'Avsi',
+	'Wasvarmeru',
+	'Behdju',
+	'Galamia',
+	'Pekies',
+	'VyVyrodari',
+	'Viasseto',
+	'Messibria',
+	'Molfeserta',
+	'Quanes',
+	'Braga',
+	'Seicer',
+	'Legara',
+	'Albadolid',
+	'Getastela',
+	'Drepanum',
+	'Canusium',
+	'Mogontiacum',
+	'Leucarum',
+	'Pautalia',
+	'Scallabis',
+	'Chernogan',
+	'Yelatrov',
+	'Novomoksary',
+	'Chistongelsk',
+	'Timaryevsk',
+	'Naberkuta',
+	'Koloyevka',
+	'Obnirodvinsk',
+	'Beloredimir',
+	'Kaspikarino',
+	'Troten',
+	'Neunsee',
+	'Weveltals',
+	'Oudenhout',
+	'Plailimar',
+	'Puciennes',
+	'Bernsloh',
+	'Geiselkau',
+	'Waterlina',
+	'Clonkenny',
+	'Terbommel',
+	'Drachnisse',
+	'Werdenthal',
+	'Erzell',
+	'Arrabona',
+	'Ugernum',
+	'Bulla Regia',
+	'Umbracum',
+	'Aquae Armenetiae',
+	'Isara',
+	'Regium Lepidum',
+	'Aquisgranium',
+	'Gerasa'
 ];
 
-civitas.VILLAGES = {
-	1: {
-		resources: {
-			coins: 10000,
-			wood: 20,
-			stones: 10,
-			meat: 80
-		},
-		nationality: civitas.NATION_JAPANESE,
-		location: {
-			x: 800,
-			y: 480
-		},
-		prestige: 1,
-		population: 1290,
-		army: {
-			'Militia': 3,
-			'Bowman': 3
-		},
-		navy: {
-
-		}
-	},
-	2: {
-		resources: {
-			coins: 20000,
-			silk: 20,
-			wheat: 10,
-			bread: 20
-		},
-		prestige: 1,
-		population: 610,
-		nationality: civitas.NATION_CHINESE,
-		location: {
-			x: 560,
-			y: 100
-		},
-		army: {
-			'Militia': 3,
-			'Bowman': 2
-		},
-		navy: {
-
-		}
-	},
-	3: {
-		resources: {
-			coins: 20000,
-			silk: 20,
-			wheat: 10,
-			bread: 20
-		},
-		prestige: 1,
-		population: 550,
-		nationality: civitas.NATION_KHMER,
-		location: {
-			x: 900,
-			y: 300
-		},
-		army: {
-			'Militia': 3,
-			'Bowman': 2
-		},
-		navy: {
-
-		}
-	},
-	4: {
-		resources: {
-			coins: 20000,
-			brass: 20,
-			meat: 10,
-			goldores: 20
-		},
-		prestige: 1,
-		population: 820,
-		nationality: civitas.NATION_INDIAN,
-		location: {
-			x: 100,
-			y: 70
-		},
-		army: {
-			'Militia': 3,
-			'Bowman': 2
-		},
-		navy: {
-
-		}
-	},
-	5: {
-		resources: {
-			coins: 20000,
-			copper: 20,
-			flour: 10,
-			ironores: 20
-		},
-		prestige: 1,
-		population: 1600,
-		nationality: civitas.NATION_PERSAN,
-		location: {
-			x: 380,
-			y: 560
-		},
-		army: {
-			'Militia': 3,
-			'Bowman': 2
-		},
-		navy: {
-
-		}
-	},
-	6: {
-		resources: {
-			coins: 2000,
-			silk: 20,
-			wheat: 10,
-			bread: 20,
-			herbs: 10,
-			barrels: 10
-		},
-		prestige: 1,
-		population: 600,
-		nationality: civitas.NATION_MONGOLIAN,
-		location: {
-			x: 570,
-			y: 400
-		},
-		army: {
-			'Militia': 6
-		},
-		navy: {
-
-		}
-	}
-};
+/**
+ * List of random ruler names for settlements and various other obscure reasons.
+ *
+ * @type {Array}
+ * @constant
+ */
+civitas.NAMES = [
+	'Pan',
+	'Victor',
+	'Lekan',
+	'Sheamus',
+	'Itumeleng',
+	'Varya',
+	'Gervas',
+	'Stefanija',
+	'Meera',
+	'Sethunya',
+	'Qadir',
+	'Lim',
+	'Yami',
+	'Veasna',
+	'Baadur',
+	'Sharar',
+	'Yuuta',
+	'Hallie',
+	'Anson',
+	'Davis',
+	'Ondina',
+	'Zan',
+	'Gibs',
+	'Soth',
+	'Naoki',
+	'Hachirou',
+	'Irmhild'
+];

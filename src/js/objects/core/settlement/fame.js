@@ -1,33 +1,33 @@
 /**
- * Get the fame this city has.
+ * Get the fame this settlement has.
  * 
  * @public
  * @returns {Object}
  */
-civitas.objects.city.prototype.get_fame = function() {
+civitas.objects.settlement.prototype.get_fame = function() {
 	return this.resources.fame;
 };
 
 /**
- * Set the fame of the city.
+ * Set the fame of the settlement.
  * 
  * @public
  * @param {Object} amount
- * @returns {civitas.objects.city}
+ * @returns {civitas.objects.settlement}
  */
-civitas.objects.city.prototype.set_fame = function(amount) {
+civitas.objects.settlement.prototype.set_fame = function(amount) {
 	this.resources.fame = amount;
 	return this;
 };
 
 /**
- * Increase this city's fame by the specified amount.
+ * Increase this settlement's fame by the specified amount.
  * 
  * @public
  * @param {Number} amount
  * @returns {Number}
  */
-civitas.objects.city.prototype.raise_fame = function(amount) {
+civitas.objects.settlement.prototype.raise_fame = function(amount) {
 	if (typeof amount === 'undefined') {
 		amount = 1;
 	}
@@ -36,13 +36,13 @@ civitas.objects.city.prototype.raise_fame = function(amount) {
 };
 
 /**
- * Decrease this city's fame by the specified amount.
+ * Decrease this settlement's fame by the specified amount.
  * 
  * @public
  * @param {Number} amount
  * @returns {Number}
  */
-civitas.objects.city.prototype.lower_fame = function(amount) {
+civitas.objects.settlement.prototype.lower_fame = function(amount) {
 	if (typeof amount === 'undefined') {
 		amount = 1;
 	}
@@ -53,13 +53,13 @@ civitas.objects.city.prototype.lower_fame = function(amount) {
 };
 
 /**
- * Set this city's fame to the specified value.
+ * Set this settlement's fame to the specified value.
  * 
  * @public
  * @param {Number} amount
  * @returns {Number}
  */
-civitas.objects.city.prototype.set_fame = function(amount) {
+civitas.objects.settlement.prototype.set_fame = function(amount) {
 	var needed = civitas.LEVELS[this.get_level()];
 	this.resources.fame = amount;
 	$('header .cityfame > span').css({
@@ -69,12 +69,12 @@ civitas.objects.city.prototype.set_fame = function(amount) {
 };
 
 /**
- * Reset the fame of this city to 1.
+ * Reset the fame of this settlement to 1.
  * 
- * @returns {civitas.objects.city}
+ * @returns {civitas.objects.settlement}
  * @public
  */
-civitas.objects.city.prototype.reset_fame = function() {
+civitas.objects.settlement.prototype.reset_fame = function() {
 	this.resources.fame = 1;
 	return this;
 };

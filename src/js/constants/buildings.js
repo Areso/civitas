@@ -4,7 +4,7 @@
  * @constant
  * @type {Array}
  */
-civitas.CITY_BUILDINGS_TROPICAL = [
+civitas.SETTLEMENT_BUILDINGS_TROPICAL = [
 
 	/* Municipal */
 	'marketplace', 'warehouse', 'tradingpost', 'church', 'monastery', 'camp', 'castle',
@@ -44,7 +44,7 @@ civitas.CITY_BUILDINGS_TROPICAL = [
  * @constant
  * @type {Array}
  */
-civitas.CITY_BUILDINGS_POLAR = [
+civitas.SETTLEMENT_BUILDINGS_POLAR = [
 
 	/* Municipal */
 	'marketplace', 'warehouse', 'tradingpost', 'church', 'monastery', 'camp', 'castle',
@@ -77,7 +77,7 @@ civitas.CITY_BUILDINGS_POLAR = [
  * @constant
  * @type {Array}
  */
-civitas.CITY_BUILDINGS_ARID = [
+civitas.SETTLEMENT_BUILDINGS_ARID = [
 
 	/* Municipal */
 	'marketplace', 'warehouse', 'tradingpost', 'church', 'monastery', 'camp', 'castle',
@@ -108,51 +108,12 @@ civitas.CITY_BUILDINGS_ARID = [
 ];
 
 /**
- * Buildings native to the continental climate.
- * 
- * @constant
- * @type {Array}
- */
-civitas.CITY_BUILDINGS_CONTINENTAL = [
-
-	/* Municipal */
-	'marketplace', 'warehouse', 'tradingpost', 'church', 'monastery', 'camp', 'castle',
-	'shipyard', 'embassy', 'academy',
-
-	/* Housing */
-	'house1', 'house2', 'house3', 'house4', 'house5', 'house6', 'house7', 'house8',
-	'house9',
-
-	/* Food Production */
-	'mill', 'bakery', 'butcher',
-
-	/* Mines */
-	'coppermine', 'goldmine', 'ironmine', 'saltmine',
-
-	/* Smelters */
-	'goldsmelter', 'coppersmelter', 'ironsmelter',
-
-	/* Industry */
-	'lumberjack', 'stone', 'trapper', 'tannery', 'furrier', 'armory', 'coffeeroaster',
-	'quartzfactory', 'winery', 'saltworks',
-	'charcoalburnerhut', 'opticiansworkshop', 'papermill', 'printingpress',
-	'redsmithsworkshop', 'ropeyard', 'glassworks', 'silkweaver', 'marzipanworkshop',
-	'apiary', 'barrelcooperage', 'brewery', 'candlemakersworkshop', 'sugarmill',
-	'perfumery', 'weaver', 'provisions', 'carpenter', 'catapultworkshop',
-
-	/* Farms */
-	'cattlefarm', 'cattlefield', 'ciderfarm', 'ciderfield', 'grainfarm', 'grainfield',
-	'grapesfarm', 'grapesfield',
-	'hempfarm', 'hempfield', 'pigfarm', 'pigfield', 'silkfarm', 'silkfield', 'rosenursery'
-];
-
-/**
  * Buildings native to the temperate climate.
  * 
  * @constant
  * @type {Array}
  */
-civitas.CITY_BUILDINGS_TEMPERATE = [
+civitas.SETTLEMENT_BUILDINGS_TEMPERATE = [
 
 	/* Municipal */
 	'marketplace', 'warehouse', 'tradingpost', 'church', 'monastery', 'camp', 'castle',
@@ -340,7 +301,7 @@ civitas.BUILDINGS = [{
 			y: 515
 		},
 		requires: {
-			city_level: 1
+			settlement_level: 1
 		}
 	}, {
 		name: 'Warehouse',
@@ -362,7 +323,7 @@ civitas.BUILDINGS = [{
 			stones: 500
 		},
 		requires: {
-			city_level: 10
+			settlement_level: 10
 		}
 	}, {
 		name: 'Church',
@@ -390,7 +351,7 @@ civitas.BUILDINGS = [{
 			stones: 20
 		},
 		requires: {
-			city_level: 3
+			settlement_level: 3
 		}
 	}, {
 		name: 'Trading Post',
@@ -409,7 +370,7 @@ civitas.BUILDINGS = [{
 			stones: 40
 		},
 		requires: {
-			city_level: 6
+			settlement_level: 6
 		}
 	}, {
 		name: 'Academy',
@@ -434,7 +395,7 @@ civitas.BUILDINGS = [{
 			stones: 1000
 		},
 		requires: {
-			city_level: 10
+			settlement_level: 10
 		}
 	}, {
 		name: 'Embassy',
@@ -461,7 +422,7 @@ civitas.BUILDINGS = [{
 			stones: 100
 		},
 		requires: {
-			city_level: 10
+			settlement_level: 10
 		}
 	}, {
 		name: 'Provision House',
@@ -488,7 +449,7 @@ civitas.BUILDINGS = [{
 			woodplanks: 100
 		},
 		requires: {
-			city_level: 8
+			settlement_level: 8
 		}
 	}, {
 		name: 'Monastery',
@@ -513,7 +474,7 @@ civitas.BUILDINGS = [{
 			stones: 200
 		},
 		requires: {
-			city_level: 16,
+			settlement_level: 16,
 			buildings: ['academy']
 		}
 	}, {
@@ -540,7 +501,7 @@ civitas.BUILDINGS = [{
 			fish: 4
 		},
 		requires: {
-			city_level: 10
+			settlement_level: 10
 		}
 	}, {
 		name: 'Military Camp',
@@ -559,7 +520,7 @@ civitas.BUILDINGS = [{
 			stones: 160
 		},
 		requires: {
-			city_level: 8,
+			settlement_level: 8,
 			buildings: ['provisions']
 		}
 	}, {
@@ -588,7 +549,7 @@ civitas.BUILDINGS = [{
 			stones: 500
 		},
 		requires: {
-			city_level: 20
+			settlement_level: 20
 		}
 	}, {
 		name: 'Lumberjack',
@@ -609,7 +570,7 @@ civitas.BUILDINGS = [{
 			stones: 20
 		},
 		requires: {
-			city_level: 1
+			settlement_level: 1
 		}
 	}, {
 		name: 'Carpenter',
@@ -633,7 +594,7 @@ civitas.BUILDINGS = [{
 			stones: 10
 		},
 		requires: {
-			city_level: 3
+			settlement_level: 3
 		}
 	}, {
 		name: 'Stone Quarry',
@@ -658,7 +619,7 @@ civitas.BUILDINGS = [{
 			mosaic: 0.001
 		},
 		requires: {
-			city_level: 1
+			settlement_level: 1
 		}
 	}, {
 		name: 'Gold Mine',
@@ -684,7 +645,7 @@ civitas.BUILDINGS = [{
 			stones: 20
 		},
 		requires: {
-			city_level: 6
+			settlement_level: 6
 		}
 	}, {
 		name: 'Iron Mine',
@@ -710,7 +671,7 @@ civitas.BUILDINGS = [{
 			stones: 20
 		},
 		requires: {
-			city_level: 3
+			settlement_level: 3
 		}
 	}, {
 		name: 'Salt Mine',
@@ -733,7 +694,7 @@ civitas.BUILDINGS = [{
 			stones: 20
 		},
 		requires: {
-			city_level: 3
+			settlement_level: 3
 		}
 	}, {
 		name: 'Copper Mine',
@@ -759,7 +720,7 @@ civitas.BUILDINGS = [{
 			stones: 20
 		},
 		requires: {
-			city_level: 5
+			settlement_level: 5
 		}
 	}, {
 		name: 'Salt Works',
@@ -786,7 +747,7 @@ civitas.BUILDINGS = [{
 			stones: 20
 		},
 		requires: {
-			city_level: 3
+			settlement_level: 3
 		}
 	}, {
 		name: 'Mill',
@@ -810,7 +771,7 @@ civitas.BUILDINGS = [{
 			stones: 20
 		},
 		requires: {
-			city_level: 3
+			settlement_level: 3
 		}
 	}, {
 		name: 'Bakery',
@@ -835,7 +796,7 @@ civitas.BUILDINGS = [{
 			stones: 30
 		},
 		requires: {
-			city_level: 3
+			settlement_level: 3
 		}
 	}, {
 		name: 'Armory',
@@ -863,7 +824,7 @@ civitas.BUILDINGS = [{
 			stones: 100
 		},
 		requires: {
-			city_level: 6
+			settlement_level: 6
 		}
 	}, {
 		name: 'Butcher',
@@ -890,7 +851,7 @@ civitas.BUILDINGS = [{
 			stones: 40
 		},
 		requires: {
-			city_level: 3
+			settlement_level: 3
 		}
 	}, {
 		name: 'Iron smelter',
@@ -916,7 +877,7 @@ civitas.BUILDINGS = [{
 			stones: 50
 		},
 		requires: {
-			city_level: 4
+			settlement_level: 4
 		}
 	}, {
 		name: 'Copper smelter',
@@ -941,7 +902,7 @@ civitas.BUILDINGS = [{
 			stones: 50
 		},
 		requires: {
-			city_level: 6
+			settlement_level: 6
 		}
 	}, {
 		name: 'Gold smelter',
@@ -966,7 +927,7 @@ civitas.BUILDINGS = [{
 			stones: 55
 		},
 		requires: {
-			city_level: 6
+			settlement_level: 6
 		}
 	}, {
 		name: 'Trapper`s Lodge',
@@ -987,7 +948,7 @@ civitas.BUILDINGS = [{
 			stones: 40
 		},
 		requires: {
-			city_level: 6
+			settlement_level: 6
 		}
 	}, {
 		name: 'Furrier`s Workshop',
@@ -1013,7 +974,7 @@ civitas.BUILDINGS = [{
 			stones: 40
 		},
 		requires: {
-			city_level: 6
+			settlement_level: 6
 		}
 	}, {
 		name: 'Weaver`s Hut',
@@ -1037,7 +998,7 @@ civitas.BUILDINGS = [{
 			stones: 40
 		},
 		requires: {
-			city_level: 6
+			settlement_level: 6
 		}
 	}, {
 		name: 'Tannery',
@@ -1062,7 +1023,7 @@ civitas.BUILDINGS = [{
 			stones: 40
 		},
 		requires: {
-			city_level: 6
+			settlement_level: 6
 		}
 	}, {
 		name: 'Coffee roaster',
@@ -1087,7 +1048,7 @@ civitas.BUILDINGS = [{
 			stones: 60
 		},
 		requires: {
-			city_level: 16,
+			settlement_level: 16,
 			buildings: ['tradingpost']
 		}
 	}, {
@@ -1112,7 +1073,7 @@ civitas.BUILDINGS = [{
 			stones: 60
 		},
 		requires: {
-			city_level: 16,
+			settlement_level: 16,
 			buildings: ['tradingpost']
 		}
 	}, {
@@ -1138,7 +1099,7 @@ civitas.BUILDINGS = [{
 			stones: 40
 		},
 		requires: {
-			city_level: 10
+			settlement_level: 10
 		}
 	}, {
 		name: 'Optician`s Shop',
@@ -1163,7 +1124,7 @@ civitas.BUILDINGS = [{
 			stones: 70
 		},
 		requires: {
-			city_level: 20
+			settlement_level: 20
 		}
 	}, {
 		name: 'Paper Mill',
@@ -1188,7 +1149,7 @@ civitas.BUILDINGS = [{
 			stones: 50
 		},
 		requires: {
-			city_level: 16
+			settlement_level: 16
 		}
 	}, {
 		name: 'Printing Press',
@@ -1213,7 +1174,7 @@ civitas.BUILDINGS = [{
 			stones: 100
 		},
 		requires: {
-			city_level: 20
+			settlement_level: 20
 		}
 	}, {
 		name: 'Perfumery',
@@ -1238,7 +1199,7 @@ civitas.BUILDINGS = [{
 			stones: 40
 		},
 		requires: {
-			city_level: 20,
+			settlement_level: 20,
 			buildings: ['tradingpost']
 		}
 	}, {
@@ -1264,7 +1225,7 @@ civitas.BUILDINGS = [{
 			stones: 50
 		},
 		requires: {
-			city_level: 20
+			settlement_level: 20
 		}
 	}, {
 		name: 'Ropeyard',
@@ -1288,7 +1249,7 @@ civitas.BUILDINGS = [{
 			stones: 60
 		},
 		requires: {
-			city_level: 10
+			settlement_level: 10
 		}
 	}, {
 		name: 'Glassworks',
@@ -1312,7 +1273,7 @@ civitas.BUILDINGS = [{
 			stones: 80
 		},
 		requires: {
-			city_level: 16
+			settlement_level: 16
 		}
 	}, {
 		name: 'Marzipan Workshop',
@@ -1337,7 +1298,7 @@ civitas.BUILDINGS = [{
 			stones: 80
 		},
 		requires: {
-			city_level: 20,
+			settlement_level: 20,
 			buildings: ['tradingpost']
 		}
 	}, {
@@ -1364,7 +1325,7 @@ civitas.BUILDINGS = [{
 			stones: 80
 		},
 		requires: {
-			city_level: 20,
+			settlement_level: 20,
 			buildings: ['tradingpost']
 		}
 	}, {
@@ -1386,7 +1347,7 @@ civitas.BUILDINGS = [{
 			stones: 90
 		},
 		requires: {
-			city_level: 8
+			settlement_level: 8
 		}
 	}, {
 		name: 'Apiary',
@@ -1407,7 +1368,7 @@ civitas.BUILDINGS = [{
 			stones: 40
 		},
 		requires: {
-			city_level: 10
+			settlement_level: 10
 		}
 	}, {
 		name: 'Barrel Cooperage',
@@ -1432,7 +1393,7 @@ civitas.BUILDINGS = [{
 			stones: 70
 		},
 		requires: {
-			city_level: 9
+			settlement_level: 9
 		}
 	}, {
 		name: 'Brewery',
@@ -1457,7 +1418,7 @@ civitas.BUILDINGS = [{
 			stones: 70
 		},
 		requires: {
-			city_level: 9
+			settlement_level: 9
 		}
 	}, {
 		name: 'Candlemaker`s Hut',
@@ -1482,7 +1443,7 @@ civitas.BUILDINGS = [{
 			stones: 60
 		},
 		requires: {
-			city_level: 20
+			settlement_level: 20
 		}
 	}, {
 		name: 'Catapult Workshop',
@@ -1511,7 +1472,7 @@ civitas.BUILDINGS = [{
 			stones: 300
 		},
 		requires: {
-			city_level: 15
+			settlement_level: 15
 		}
 	}, {
 		name: 'Charcoal Burner`s Hut',
@@ -1536,7 +1497,7 @@ civitas.BUILDINGS = [{
 			stones: 50
 		},
 		requires: {
-			city_level: 3
+			settlement_level: 3
 		}
 	}, {
 		name: 'House',
@@ -1558,7 +1519,7 @@ civitas.BUILDINGS = [{
 		levels: 5,
 		visible_upgrades: true,
 		requires: {
-			city_level: 1
+			settlement_level: 1
 		}
 	}, {
 		name: 'House',
@@ -1580,7 +1541,7 @@ civitas.BUILDINGS = [{
 		levels: 5,
 		visible_upgrades: true,
 		requires: {
-			city_level: 1
+			settlement_level: 1
 		}
 	}, {
 		name: 'House',
@@ -1604,7 +1565,7 @@ civitas.BUILDINGS = [{
 		levels: 5,
 		visible_upgrades: true,
 		requires: {
-			city_level: 3
+			settlement_level: 3
 		}
 	}, {
 		name: 'House',
@@ -1628,7 +1589,7 @@ civitas.BUILDINGS = [{
 		levels: 5,
 		visible_upgrades: true,
 		requires: {
-			city_level: 6,
+			settlement_level: 6,
 			buildings: ['church']
 		}
 	}, {
@@ -1654,7 +1615,7 @@ civitas.BUILDINGS = [{
 		levels: 5,
 		visible_upgrades: true,
 		requires: {
-			city_level: 10,
+			settlement_level: 10,
 			buildings: ['church']
 		}
 	}, {
@@ -1680,7 +1641,7 @@ civitas.BUILDINGS = [{
 		levels: 5,
 		visible_upgrades: true,
 		requires: {
-			city_level: 16,
+			settlement_level: 16,
 			buildings: ['church']
 		}
 	}, {
@@ -1707,7 +1668,7 @@ civitas.BUILDINGS = [{
 		levels: 5,
 		visible_upgrades: true,
 		requires: {
-			city_level: 20,
+			settlement_level: 20,
 			buildings: ['academy']
 		}
 	}, {
@@ -1735,7 +1696,7 @@ civitas.BUILDINGS = [{
 		levels: 5,
 		visible_upgrades: true,
 		requires: {
-			city_level: 25,
+			settlement_level: 25,
 			buildings: ['academy']
 		}
 	}, {
@@ -1766,7 +1727,7 @@ civitas.BUILDINGS = [{
 		levels: 5,
 		visible_upgrades: true,
 		requires: {
-			city_level: 30,
+			settlement_level: 30,
 			buildings: ['castle']
 		}
 	}, {
@@ -1789,7 +1750,7 @@ civitas.BUILDINGS = [{
 			stones: 30
 		},
 		requires: {
-			city_level: 4,
+			settlement_level: 4,
 			buildings: ['ciderfield']
 		}
 	}, {
@@ -1806,7 +1767,7 @@ civitas.BUILDINGS = [{
 			clay: 10
 		},
 		requires: {
-			city_level: 4
+			settlement_level: 4
 		}
 	}, {
 		name: 'Almonds farm',
@@ -1827,7 +1788,7 @@ civitas.BUILDINGS = [{
 			stones: 30
 		},
 		requires: {
-			city_level: 16,
+			settlement_level: 16,
 			buildings: ['almondsfield']
 		}
 	}, {
@@ -1844,7 +1805,7 @@ civitas.BUILDINGS = [{
 			clay: 10
 		},
 		requires: {
-			city_level: 16
+			settlement_level: 16
 		}
 	}, {
 		name: 'Cattle Farm',
@@ -1870,7 +1831,7 @@ civitas.BUILDINGS = [{
 			stones: 20
 		},
 		requires: {
-			city_level: 2,
+			settlement_level: 2,
 			buildings: ['cattlefield']
 		}
 	}, {
@@ -1887,7 +1848,7 @@ civitas.BUILDINGS = [{
 			clay: 10
 		},
 		requires: {
-			city_level: 2
+			settlement_level: 2
 		}
 	}, {
 		name: 'Pig Farm',
@@ -1913,7 +1874,7 @@ civitas.BUILDINGS = [{
 			stones: 20
 		},
 		requires: {
-			city_level: 3,
+			settlement_level: 3,
 			buildings: ['church', 'pigfield']
 		}
 	}, {
@@ -1930,7 +1891,7 @@ civitas.BUILDINGS = [{
 			clay: 10
 		},
 		requires: {
-			city_level: 3
+			settlement_level: 3
 		}
 	}, {
 		name: 'Grain farm',
@@ -1953,7 +1914,7 @@ civitas.BUILDINGS = [{
 			stones: 20
 		},
 		requires: {
-			city_level: 2,
+			settlement_level: 2,
 			buildings: ['grainfield']
 		}
 	}, {
@@ -1970,7 +1931,7 @@ civitas.BUILDINGS = [{
 			clay: 5
 		},
 		requires: {
-			city_level: 2
+			settlement_level: 2
 		}
 	}, {
 		name: 'Grapes farm',
@@ -1992,7 +1953,7 @@ civitas.BUILDINGS = [{
 			stones: 20
 		},
 		requires: {
-			city_level: 10,
+			settlement_level: 10,
 			buildings: ['grapesfield']
 		}
 	}, {
@@ -2009,7 +1970,7 @@ civitas.BUILDINGS = [{
 			clay: 10
 		},
 		requires: {
-			city_level: 10
+			settlement_level: 10
 		}
 	}, {
 		name: 'Coffee farm',
@@ -2031,7 +1992,7 @@ civitas.BUILDINGS = [{
 			stones: 20
 		},
 		requires: {
-			city_level: 16,
+			settlement_level: 16,
 			buildings: ['coffeefield']
 		}
 	}, {
@@ -2048,7 +2009,7 @@ civitas.BUILDINGS = [{
 			clay: 10
 		},
 		requires: {
-			city_level: 16
+			settlement_level: 16
 		}
 	}, {
 		name: 'Hemp farm',
@@ -2070,7 +2031,7 @@ civitas.BUILDINGS = [{
 			stones: 20
 		},
 		requires: {
-			city_level: 6,
+			settlement_level: 6,
 			buildings: ['hempfield']
 		}
 	}, {
@@ -2087,7 +2048,7 @@ civitas.BUILDINGS = [{
 			clay: 10
 		},
 		requires: {
-			city_level: 6
+			settlement_level: 6
 		}
 	}, {
 		name: 'Silk farm',
@@ -2108,7 +2069,7 @@ civitas.BUILDINGS = [{
 			stones: 20
 		},
 		requires: {
-			city_level: 20,
+			settlement_level: 20,
 			buildings: ['silkfield']
 		}
 	}, {
@@ -2125,7 +2086,7 @@ civitas.BUILDINGS = [{
 			clay: 10
 		},
 		requires: {
-			city_level: 20
+			settlement_level: 20
 		}
 	}, {
 		name: 'Sugar farm',
@@ -2147,7 +2108,7 @@ civitas.BUILDINGS = [{
 			stones: 20
 		},
 		requires: {
-			city_level: 20,
+			settlement_level: 20,
 			buildings: ['academy', 'sugarfield']
 		}
 	}, {
@@ -2164,7 +2125,7 @@ civitas.BUILDINGS = [{
 			clay: 10
 		},
 		requires: {
-			city_level: 20
+			settlement_level: 20
 		}
 	}, {
 		name: 'Indigo farm',
@@ -2186,7 +2147,7 @@ civitas.BUILDINGS = [{
 			clay: 30
 		},
 		requires: {
-			city_level: 16
+			settlement_level: 16
 		}
 	}, {
 		name: 'Rose Nursery',
@@ -2208,7 +2169,7 @@ civitas.BUILDINGS = [{
 			clay: 50
 		},
 		requires: {
-			city_level: 20
+			settlement_level: 20
 		}
 	}, {
 		name: 'Spice Farm',
@@ -2230,6 +2191,6 @@ civitas.BUILDINGS = [{
 			clay: 60
 		},
 		requires: {
-			city_level: 20
+			settlement_level: 20
 		}
 	}];

@@ -106,7 +106,7 @@ civitas.objects.event = function (params) {
 		this.core._notify({
 			title: 'Event occured: ' + this.name,
 			content: this.description
-				.replace(/CITY/g, this.data.city)
+				.replace(/SETTLEMENT/g, this.data.settlement)
 				.replace(/AMOUNT/g, this.data.amount),
 			timeout: false,
 			other: true
@@ -122,31 +122,31 @@ civitas.objects.event = function (params) {
 	 */
 	this._process = function () {
 		this.notify();
-		var with_city = this.core.get_city(this.data.city);
+		var with_settlement = this.core.get_settlement(this.data.settlement);
 		switch (this.effect) {
 			case civitas.EVENT_EFFECT_LOSE_COINS:
-				this.core.get_city().dec_coins(this.data.amount);
+				this.core.get_settlement().dec_coins(this.data.amount);
 				break;
 			case civitas.EVENT_EFFECT_GAIN_COINS:
-				this.core.get_city().inc_coins(this.data.amount);
+				this.core.get_settlement().inc_coins(this.data.amount);
 				break;
 			case civitas.EVENT_EFFECT_RAISE_INFLUENCE:
-				this.core.get_city().raise_influence(with_city.get_id(), this.data.amount, 'city');
+				this.core.get_settlement().raise_influence(with_settlement.get_id(), this.data.amount, 'city');
 				break;
 			case civitas.EVENT_EFFECT_LOWER_INFLUENCE:
-				this.core.get_city().lower_influence(with_city.get_id(), this.data.amount, 'city');
+				this.core.get_settlement().lower_influence(with_settlement.get_id(), this.data.amount, 'city');
 				break;
 			case civitas.EVENT_EFFECT_GAIN_FAME:
-				this.core.get_city().raise_fame(this.data.amount);
+				this.core.get_settlement().raise_fame(this.data.amount);
 				break;
 			case civitas.EVENT_EFFECT_LOSE_FAME:
-				this.core.get_city().lower_fame(this.data.amount);
+				this.core.get_settlement().lower_fame(this.data.amount);
 				break;
 			case civitas.EVENT_EFFECT_GAIN_ESPIONAGE:
-				this.core.get_city().raise_espionage(this.data.amount);
+				this.core.get_settlement().raise_espionage(this.data.amount);
 				break;
 			case civitas.EVENT_EFFECT_LOSE_ESPIONAGE:
-				this.core.get_city().lower_espionage(this.data.amount);
+				this.core.get_settlement().lower_espionage(this.data.amount);
 				break;
 			case civitas.EVENT_EFFECT_DESTROY_BUILDING:
 				break;

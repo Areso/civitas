@@ -16,7 +16,7 @@ civitas.PANEL_TRADES = {
 	on_show: function(params) {
 		var self = this;
 		var core = this.get_core();
-		var city = core.get_city();
+		var settlement = core.get_settlement();
 		var el = this.handle;
 		var _t = '';
 		_t += civitas.ui.tabs([civitas.l('Imports'), civitas.l('Exports'), civitas.l('Mercenaries'), civitas.l('BlackMarket')]);
@@ -27,16 +27,16 @@ civitas.PANEL_TRADES = {
 		$(el + ' #tab-blackmarket').append('<p>' + civitas.l('The Black Market is a way to dump your excess materials when you`re in need of emptying your warehouses, but expect a steep price drop (you get ') + (100 - civitas.BLACK_MARKET_DISCOUNT) + civitas.l('% of the actual price). The goods will be taken immediately from your warehouses but you will receive the coins next month. Also, you get no prestige from Black Market trades.') + '</p><div class="contents"></div>');
 		this.on_refresh();
 		$(el).on('click', '.buy:not(.disabled)', function () {
-			var handle = $(this).data('city');
+			var handle = $(this).data('settlement');
 			var resource = $(this).data('resource');
-			if (city.buy_from_city(handle, resource) !== false) {
+			if (settlement.buy_from_settlement(handle, resource) !== false) {
 				self.on_refresh();
 			}
 			return false;
 		}).on('click', '.sell:not(.disabled)', function () {
-			var handle = $(this).data('city');
+			var handle = $(this).data('settlement');
 			var resource = $(this).data('resource');
-			if (city.sell_to_city(handle, resource) !== false) {
+			if (settlement.sell_to_settlement(handle, resource) !== false) {
 				self.on_refresh();
 			}
 			return false;
@@ -44,14 +44,14 @@ civitas.PANEL_TRADES = {
 			var resource = $('.bm-materials').val();
 			var amount = $('.bm-quantity').val();
 			if (resource !== '0') {
-				city.list_black_market(resource, amount);
+				settlement.list_black_market(resource, amount);
 				self.on_refresh();
 				$('.bm-quantity').val('');
 			}
 			return false;
 		}).on('click', '.recruit:not(.disabled)', function () {
 			var handle = $(this).data('handle');
-			if (city.recruit_mercenary_army(handle) !== false) {
+			if (settlement.recruit_mercenary_army(handle) !== false) {
 				self.on_refresh();
 			}
 			return false;
@@ -64,8 +64,8 @@ civitas.PANEL_TRADES = {
 	},
 	on_refresh: function() {
 		var core = this.get_core();
-		var city = core.get_city();
-		var cities = core.get_cities();
+		var settlement = core.get_settlement();
+		var settlements = core.get_settlements();
 		var out = '<table class="normal">';
 		out += '<thead>' +
 				'<tr>' +
@@ -91,7 +91,7 @@ civitas.PANEL_TRADES = {
 		$('#tab-blackmarket > .contents > table > tbody').empty().append(out);
 
 		var out = '<option value="0">-- ' + civitas.l('select') + ' --</option>';
-		var resources = city.get_resources();
+		var resources = settlement.get_resources();
 		for (var item in resources) {
 			if ($.inArray(item, civitas.NON_RESOURCES) === -1) {
 				out += '<option value="' + item + '"> ' + civitas.utils.get_resource_name(item) + '</option>';
@@ -102,7 +102,7 @@ civitas.PANEL_TRADES = {
 		var out = '<table class="normal">' +
 					'<thead>' +
 					'<tr>' +
-						'<td>City</td>' +
+						'<td>' + civitas.l('City') + '</td>' +
 						'<td class="center">' + civitas.l('Goods') + '</td>' +
 						'<td class="center">' + civitas.l('Amount') + '</td>' +
 						'<td class="center">' + civitas.l('Price') + '</td>' +
@@ -112,31 +112,31 @@ civitas.PANEL_TRADES = {
 						'<td></td>' +
 					'</tr>' +
 					'</thead>';
-		for (var z = 0; z < cities.length; z++) {
-			var city = cities[z];
-			var trades = cities[z].get_trades();
-			var resources = city.get_resources();
+		for (var z = 0; z < settlements.length; z++) {
+			var settlement = settlements[z];
+			var trades = settlements[z].get_trades();
+			var resources = settlement.get_resources();
 			if (trades !== null) {
 				var imports = trades.imports;
 				for (var item in imports) {
 					var discount = Math.ceil((civitas.RESOURCES[item].price * civitas.TRADES_DISCOUNT) / 100);
 					var discount_price = Math.ceil(civitas.RESOURCES[item].price - discount);
 					out += '<tr>' +
-							'<td>' + cities[z].get_name() + '</td>' +
+							'<td>' + settlements[z].get_name() + '</td>' +
 							'<td class="center">' + civitas.ui.resource_small_img(item) + '</td>' +
 							'<td class="center">' + imports[item] + '</td>' +
 							'<td class="center">' + civitas.RESOURCES[item].price + civitas.ui.resource_small_img('coins') + '</td>' +
 							'<td class="center">' + discount + civitas.ui.resource_small_img('coins') + '</td>' +
 							'<td class="center">' + discount_price + civitas.ui.resource_small_img('coins') + '</td>' +
 							'<td class="center">' + Math.ceil(discount_price * imports[item]) + civitas.ui.resource_small_img('coins') + '</td>' +
-							'<td class="center"><a title="' + civitas.l('Sell those goods') + '" data-resource="' + item + '" data-city="' + cities[z].get_name() + '" class="tips sell' + (imports[item] === 0 ? ' disabled' : '') + '" href="#">' + civitas.l('sell') + '</a></td>' +
+							'<td class="center"><a title="' + civitas.l('Sell those goods') + '" data-resource="' + item + '" data-settlement="' + settlements[z].get_name() + '" class="tips sell' + (imports[item] === 0 ? ' disabled' : '') + '" href="#">' + civitas.l('sell') + '</a></td>' +
 							'</tr>';
 				}
 			}
 		}
 		out += '<tfoot>' +
 					'<tr>' +
-						'<td>City</td>' +
+						'<td>' + civitas.l('City') + '</td>' +
 						'<td class="center">' + civitas.l('Goods') + '</td>' +
 						'<td class="center">' + civitas.l('Amount') + '</td>' +
 						'<td class="center">' + civitas.l('Price') + '</td>' +
@@ -164,7 +164,7 @@ civitas.PANEL_TRADES = {
 					'</td>' +
 					'<td class="medium">' +
 						'<a title="' + civitas.l('View info on this mercenary army') + '" data-id="' + i + '" class="tips view-army" href="#">view</a> ' +
-						civitas.ui.panel_btn('recruit', civitas.l('Recruit this mercenary army'), civitas.MERCENARIES[i].handle, 'recruit', city.is_mercenary_recruited(civitas.MERCENARIES[i].handle)) +
+						civitas.ui.panel_btn('recruit', civitas.l('Recruit this mercenary army'), civitas.MERCENARIES[i].handle, 'recruit', settlement.is_mercenary_recruited(civitas.MERCENARIES[i].handle)) +
 					'</td>' +
 				'</tr>';
 		}
@@ -174,7 +174,7 @@ civitas.PANEL_TRADES = {
 		var out = '<table class="normal">' +
 					'<thead>' +
 					'<tr>' +
-						'<td>City</td>' +
+						'<td>' + civitas.l('City') + '</td>' +
 						'<td class="center">' + civitas.l('Goods') + '</td>' +
 						'<td class="center">' + civitas.l('Amount') + '</td>' +
 						'<td class="center">' + civitas.l('Price') + '</td>' +
@@ -184,31 +184,31 @@ civitas.PANEL_TRADES = {
 						'<td></td>' +
 					'</tr>' +
 					'</thead>';
-		for (var z = 0; z < cities.length; z++) {
-			var city = cities[z];
-			var trades = cities[z].get_trades();
-			var resources = city.get_resources();
+		for (var z = 0; z < settlements.length; z++) {
+			var settlement = settlements[z];
+			var trades = settlements[z].get_trades();
+			var resources = settlement.get_resources();
 			if (trades !== null) {
 				var exports = trades.exports;
 				for (var item in exports) {
 					var discount = Math.ceil((civitas.RESOURCES[item].price * civitas.TRADES_ADDITION) / 100);
 					var discount_price = Math.ceil(civitas.RESOURCES[item].price + discount);
 					out += '<tr>' +
-							'<td>' + cities[z].get_name() + '</td>' +
+							'<td>' + settlements[z].get_name() + '</td>' +
 							'<td class="center">' + civitas.ui.resource_small_img(item) + '</td>' +
 							'<td class="center">' + exports[item] + '</td>' +
 							'<td class="center">' + civitas.RESOURCES[item].price + civitas.ui.resource_small_img('coins') + '</td>' +
 							'<td class="center">' + discount + civitas.ui.resource_small_img('coins') + '</td>' +
 							'<td class="center">' + discount_price + civitas.ui.resource_small_img('coins') + '</td>' +
 							'<td class="center">' + Math.ceil(discount_price * exports[item]) + civitas.ui.resource_small_img('coins') + '</td>' +
-							'<td class="center"><a title="' + civitas.l('Buy those goods') + '" data-resource="' + item + '" data-city="' + cities[z].get_name() + '" class="tips buy' + (exports[item] === 0 ? ' disabled' : '') + '" href="#">' + civitas.l('buy') + '</a></td>' +
+							'<td class="center"><a title="' + civitas.l('Buy those goods') + '" data-resource="' + item + '" data-settlement="' + settlements[z].get_name() + '" class="tips buy' + (exports[item] === 0 ? ' disabled' : '') + '" href="#">' + civitas.l('buy') + '</a></td>' +
 							'</tr>';
 				}
 			}
 		}
 		out += '<tfoot>' +
 					'<tr>' +
-						'<td>City</td>' +
+						'<td>' + civitas.l('City') + '</td>' +
 						'<td class="center">' + civitas.l('Goods') + '</td>' +
 						'<td class="center">' + civitas.l('Amount') + '</td>' +
 						'<td class="center">' + civitas.l('Price') + '</td>' +

@@ -11,7 +11,7 @@ civitas.ACHIEVEMENTS = [
 		name: 'Kid',
 		conditions: [
 			{
-				city_level: 10
+				settlement_level: 10
 			}
 		]
 	}, {
@@ -20,7 +20,7 @@ civitas.ACHIEVEMENTS = [
 		name: 'Adolescent',
 		conditions: [
 			{
-				city_level: 20
+				settlement_level: 20
 			}
 		]
 	}, {
@@ -29,7 +29,7 @@ civitas.ACHIEVEMENTS = [
 		name: 'On my own',
 		conditions: [
 			{
-				city_level: 30
+				settlement_level: 30
 			}
 		]
 	}, {
@@ -38,7 +38,7 @@ civitas.ACHIEVEMENTS = [
 		name: 'Fear me',
 		conditions: [
 			{
-				city_level: 40
+				settlement_level: 40
 			}
 		]
 	}, {
@@ -47,7 +47,7 @@ civitas.ACHIEVEMENTS = [
 		name: 'Godly',
 		conditions: [
 			{
-				city_level: 50
+				settlement_level: 50
 			}
 		]
 	}, {
@@ -56,7 +56,7 @@ civitas.ACHIEVEMENTS = [
 		name: 'I am a God!',
 		conditions: [
 			{
-				city_level: 55
+				settlement_level: 55
 			}
 		]
 	}, {

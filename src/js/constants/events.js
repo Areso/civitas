@@ -88,12 +88,12 @@ civitas.EVENTS = [{
 }, {
 	name: 'Royal marriage',
 	handle: 'marriage',
-	description: 'A marriage was arranged between a member of your family and the royal family of CITY. This raises your influence on CITY. Good job!',
+	description: 'A marriage was arranged between a member of your family and the royal family of SETTLEMENT. This raises your influence on SETTLEMENT. Good job!',
 	chance: 0.003,
 	effect: civitas.EVENT_EFFECT_RAISE_INFLUENCE,
 	data: {
 		amount: 50,
-		city: 'Rome'
+		settlement: 'Rome'
 	}
 }, {
 	name: 'Raiders attack',
@@ -116,21 +116,21 @@ civitas.EVENTS = [{
 }, {
 	name: 'Spy Found',
 	handle: 'spyfound',
-	description: 'A spy from CITY was found hiding in your city, as a reward for finding him you gain AMOUNT espionage.',
+	description: 'A spy from SETTLEMENT was found hiding in your city, as a reward for finding him you gain AMOUNT espionage.',
 	chance: 0.010,
 	effect: civitas.EVENT_EFFECT_GAIN_ESPIONAGE,
 	data: {
 		amount: 10,
-		city: 'Uruk'
+		settlement: 'Uruk'
 	}
 }, {
 	name: 'Discovery',
 	handle: 'spydiscovered',
-	description: 'One of your spies in CITY was discovered, CITY`s ruler is angry so you lose AMOUNT espionage.',
+	description: 'One of your spies in SETTLEMENT was discovered, SETTLEMENT`s ruler is angry so you lose AMOUNT espionage.',
 	chance: 0.010,
 	effect: civitas.EVENT_EFFECT_LOSE_ESPIONAGE,
 	data: {
 		amount: 10,
-		city: 'Carthage'
+		settlement: 'Carthage'
 	}
 }];

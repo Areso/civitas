@@ -1,16 +1,24 @@
 /**
- * Main Game city object.
+ * Main Game settlement object.
  * 
  * @param {type} params
- * @class {civitas.objects.city}
- * @returns {civitas.objects.city}
+ * @class {civitas.objects.settlement}
+ * @returns {civitas.objects.settlement}
  */
-civitas.objects.city = function(params) {
+civitas.objects.settlement = function(params) {
 	
 	this.id = null;
 
 	/**
-	 * The name of this city.
+	 * Settlement type.
+	 *
+	 * @private
+	 * @type {Number}
+	 */
+	this.settlement_type = null;
+
+	/**
+	 * The name of this settlement.
 	 * 
 	 * @private
 	 * @type {String}
@@ -18,7 +26,7 @@ civitas.objects.city = function(params) {
 	this.name = null;
 	
 	/**
-	 * The city ruler.
+	 * The settlement ruler.
 	 * 
 	 * @private
 	 * @type {String}
@@ -34,7 +42,7 @@ civitas.objects.city = function(params) {
 	this.core = null;
 	
 	/**
-	 * List of the buildings in this city.
+	 * List of the buildings in this settlement.
 	 * 
 	 * @private
 	 * @type {Array}
@@ -50,7 +58,7 @@ civitas.objects.city = function(params) {
 	this.buildings_list = [];
 	
 	/**
-	 * Storage space available in this city.
+	 * Storage space available in this settlement.
 	 * 
 	 * @private
 	 * @type {Number}
@@ -58,7 +66,15 @@ civitas.objects.city = function(params) {
 	this.storage = 0;
 
 	/**
-	 * The climate of the zone the city resides in. It affects the type of
+	 * Settlement population.
+	 *
+	 * @private
+	 * @type {Number}
+	 */
+	this.population = 1;
+
+	/**
+	 * The climate of the zone the settlement resides in. It affects the type of
 	 * the buildings you can construct.
 	 * 
 	 * @private
@@ -67,7 +83,7 @@ civitas.objects.city = function(params) {
 	this.climate = null;
 	
 	/**
-	 * Soldiers headquartered in this city.
+	 * Soldiers headquartered in this settlement.
 	 * 
 	 * @private
 	 * @type {Number}
@@ -75,7 +91,7 @@ civitas.objects.city = function(params) {
 	this.army = [];
 	
 	/**
-	 * Flag whether this city belongs to a player or is AI-controlled.
+	 * Flag whether this settlement belongs to a player or is AI-controlled.
 	 *
 	 * @private
 	 * @type {Boolean}
@@ -83,7 +99,7 @@ civitas.objects.city = function(params) {
 	this.player = false;
 
 	/**
-	 * Ships built in this city.
+	 * Ships built in this settlement.
 	 * 
 	 * @private
 	 * @type {Number}
@@ -91,7 +107,7 @@ civitas.objects.city = function(params) {
 	this.navy = [];
 
 	/**
-	 * Mercenary armies available for this city.
+	 * Mercenary armies available for this settlement.
 	 * 
 	 * @private
 	 * @type {Number}
@@ -107,7 +123,7 @@ civitas.objects.city = function(params) {
 	this.mercenary_list = [];
 
 	/**
-	 * The resources of this city.
+	 * The resources of this settlement.
 	 * 
 	 * @private
 	 * @type {Object}
@@ -115,7 +131,7 @@ civitas.objects.city = function(params) {
 	this.resources = {};
 	
 	/**
-	 * The level of the city.
+	 * The level of the settlement.
 	 * 
 	 * @private
 	 * @type {Number}
@@ -123,7 +139,7 @@ civitas.objects.city = function(params) {
 	this.level = 1;
 	
 	/**
-	 * List of the imports and exports of this city.
+	 * List of the imports and exports of this settlement.
 	 * 
 	 * @private
 	 * @type {Object}
@@ -131,7 +147,7 @@ civitas.objects.city = function(params) {
 	this.trades = null;
 	
 	/**
-	 * The icon of this city.
+	 * The icon of this settlement.
 	 * 
 	 * @type {Number}
 	 * @private
@@ -139,23 +155,18 @@ civitas.objects.city = function(params) {
 	this.icon = null;
 
 	/**
-	 * The diplomatic status of this city.
+	 * The diplomatic status of this settlement.
 	 *
 	 * @type {Object}
 	 * @private
 	 */
-	this.status = {
-		city: {
-		},
-		village: {
-		}
-	};
+	this.status = null;
 
 	/**
 	 * Object constructor.
 	 * 
 	 * @private
-	 * @returns {civitas.objects.city}
+	 * @returns {civitas.objects.settlement}
 	 * @param {Object} params
 	 */
 	this.__init = function(params) {
@@ -168,6 +179,8 @@ civitas.objects.city = function(params) {
 		this.climate = (typeof params.climate !== 'undefined') ? params.climate : civitas.CLIMATE_TEMPERATE;
 		this.ruler = params.ruler;
 		this.icon = (typeof params.icon !== 'undefined') ? params.icon : 1;
+		this.population = (typeof params.population !== 'undefined') ? params.population : this.level * 230000;
+		this.settlement_type = (typeof params.settlement_type !== 'undefined') ? params.settlement_type : civitas.CITY;
 		if (typeof params.trades !== 'undefined') {
 			this.trades = params.trades;
 		} else {
@@ -187,17 +200,12 @@ civitas.objects.city = function(params) {
 		if (this.is_player() === false) {
 			this.resources.fame = civitas.LEVELS[this.get_level()];
 		}
-		this.status = (typeof params.status !== 'undefined') ? params.status : {
-			city: {
-			},
-			village: {
-			}
-		};
+		this.status = (typeof params.status !== 'undefined') ? params.status : {};
 		return this;
 	};
 
 	/**
-	 * Export city data.
+	 * Export settlement data.
 	 *
 	 * @returns {Object}
 	 * @public
@@ -216,6 +224,8 @@ civitas.objects.city = function(params) {
 			army_list: this.get_army_total().army,
 			navy_list: this.get_navy_total().navy,
 			buildings: this.get_buildings_list(),
+			settlement_type: this.get_settlement_type(),
+			population: this.get_population(),
 			mercenary_list: this.get_mercenary_list()
 		};
 		if (this.is_player() === true) {
@@ -225,7 +235,7 @@ civitas.objects.city = function(params) {
 	};
 
 	/**
-	 * Adjust the resources according to the city owner.
+	 * Adjust the resources according to the settlement owner.
 	 *
 	 * @private
 	 * @param {Object} params
@@ -253,7 +263,7 @@ civitas.objects.city = function(params) {
 	};
 
 	/**
-	 * Add a specified amount of a resource to the storage of this city.
+	 * Add a specified amount of a resource to the storage of this settlement.
 	 * 
 	 * @public
 	 * @param {String} item
@@ -267,7 +277,7 @@ civitas.objects.city = function(params) {
 	};
 	
 	/**
-	 * Check if the city has the required coins to create this building.
+	 * Check if the settlement has the required coins to create this building.
 	 * 
 	 * @public
 	 * @param {Number} coins
@@ -283,7 +293,7 @@ civitas.objects.city = function(params) {
 	};
 	
 	/**
-	 * Check if this city has the specified goods in storage.
+	 * Check if this settlement has the specified goods in storage.
 	 * 
 	 * @public
 	 * @param {String} resource
@@ -300,7 +310,7 @@ civitas.objects.city = function(params) {
 	};
 
 	/**
-	 * Get the list of all the buildings in this city.
+	 * Get the list of all the buildings in this settlement.
 	 * 
 	 * @public
 	 * @returns {Array}
@@ -310,7 +320,7 @@ civitas.objects.city = function(params) {
 	};
 
 	/**
-	 * Get the name of this city.
+	 * Get the name of this settlement.
 	 * 
 	 * @public
 	 * @returns {String}
@@ -320,11 +330,11 @@ civitas.objects.city = function(params) {
 	};
 
 	/**
-	 * Set the name of this city.
+	 * Set the name of this settlement.
 	 * 
 	 * @public
 	 * @param {String} value
-	 * @returns {civitas.objects.city}
+	 * @returns {civitas.objects.settlement}
 	 */
 	this.set_name = function(value) {
 		this.name = value;
@@ -342,26 +352,26 @@ civitas.objects.city = function(params) {
 	};
 
 	/**
-	 * Raise the level of this city.
+	 * Raise the level of this settlement.
 	 * 
 	 * @public
-	 * @returns {civitas.objects.city}
+	 * @returns {civitas.objects.settlement}
 	 */
 	this.level_up = function() {
 		var level = this.get_level();
 		this.set_fame(civitas.LEVELS[level]);
 		this.level++;
-		$('.citylevel').html(level);
-		this.get_core().notify('The city of ' + this.get_name() + ' is now level ' + level + '.');
+		$('.citylevel').html(this.level);
+		this.get_core().notify('The city of ' + this.get_name() + ' is now level ' + this.level + '.');
 		return this;
 	};
 
 	/**
-	 * Rename this city.
+	 * Rename this settlement.
 	 * 
 	 * @public
 	 * @param {String} value
-	 * @returns {civitas.objects.city}
+	 * @returns {civitas.objects.settlement}
 	 */
 	this.rename = function(value) {
 		this.name = value;
@@ -388,7 +398,7 @@ civitas.objects.city = function(params) {
 	};
 
 	/**
-	 * Check if the city has a specific storage space.
+	 * Check if the settlement has a specific storage space.
 	 * 
 	 * @public
 	 * @param {Number} quantity
@@ -407,7 +417,7 @@ civitas.objects.city = function(params) {
 	};
 	
 	/**
-	 * Check if this city has enough storage space.
+	 * Check if this settlement has enough storage space.
 	 * 
 	 * @public
 	 * @returns {Boolean}
@@ -424,7 +434,7 @@ civitas.objects.city = function(params) {
 	};
 	
 	/**
-	 * Get the storage space of this city.
+	 * Get the storage space of this settlement.
 	 * 
 	 * @public
 	 * @returns {Object}
@@ -465,7 +475,7 @@ civitas.objects.city = function(params) {
 						_c.level = level;
 					}
 					var _building = new civitas.objects.building({
-						city: this,
+						settlement: this,
 						type: handle,
 						data: _c,
 						hidden: hidden,
@@ -490,7 +500,7 @@ civitas.objects.city = function(params) {
 					_c.level = level;
 				}
 				var _building = new civitas.objects.building({
-					city: this,
+					settlement: this,
 					type: handle,
 					data: _c,
 					hidden: hidden,
@@ -519,7 +529,7 @@ civitas.objects.city = function(params) {
 		var resources = this.get_resources();
 		if (_b !== false) {
 			var _c = civitas.BUILDINGS[_b];
-			if ((typeof _c.requires.city_level !== 'undefined') && (this.level < _c.requires.city_level)) {
+			if ((typeof _c.requires.settlement_level !== 'undefined') && (this.level < _c.requires.settlement_level)) {
 				this.get_core().error('Your city level is too low to construct this building.');
 				return false;
 			}
@@ -547,7 +557,7 @@ civitas.objects.city = function(params) {
 				}
 			}
 			var _building = new civitas.objects.building({
-				city: this,
+				settlement: this,
 				type: building_type,
 				data: _c
 			});
@@ -569,7 +579,7 @@ civitas.objects.city = function(params) {
 	};
 	
 	/**
-	 * Get the rank of this city
+	 * Get the rank of this settlement
 	 * 
 	 * @public
 	 * @returns {Number}
@@ -589,7 +599,7 @@ civitas.objects.city = function(params) {
 	};
 	
 	/**
-	 * Return a pointer to the specified building in this city by the specified
+	 * Return a pointer to the specified building in this settlement by the specified
 	 * handle.
 	 * 
 	 * @public
@@ -609,7 +619,7 @@ civitas.objects.city = function(params) {
 	};
 	
 	/**
-	 * Demolish a city building
+	 * Demolish a settlement building
 	 * 
 	 * @public
 	 * @param {Number|String} id
@@ -641,7 +651,7 @@ civitas.objects.city = function(params) {
 	};
 	
 	/**
-	 * Get the coins this city has. This is the coins object.
+	 * Get the coins this settlement has. This is the coins object.
 	 * 
 	 * @public
 	 * @returns {Object}
@@ -651,7 +661,7 @@ civitas.objects.city = function(params) {
 	};
 	
 	/**
-	 * Increase this city's coins by the specified amount.
+	 * Increase this settlement's coins by the specified amount.
 	 * 
 	 * @public
 	 * @param {Number} value
@@ -662,7 +672,7 @@ civitas.objects.city = function(params) {
 	};
 	
 	/**
-	 * Decrease this city's coins by the specified amount.
+	 * Decrease this settlement's coins by the specified amount.
 	 * 
 	 * @public
 	 * @param {Number} value
@@ -677,7 +687,7 @@ civitas.objects.city = function(params) {
 	};
 	
 	/**
-	 * Set this city's coins to the specified value.
+	 * Set this settlement's coins to the specified value.
 	 * 
 	 * @public
 	 * @param {Number} value
@@ -689,11 +699,11 @@ civitas.objects.city = function(params) {
 	};
 	
 	/**
-	 * Set the coins of the city.
+	 * Set the coins of the settlement.
 	 * 
 	 * @public
 	 * @param {Object} value
-	 * @returns {civitas.objects.city}
+	 * @returns {civitas.objects.settlement}
 	 */
 	this.set_coins = function(value) {
 		this.resources.coins = value;
@@ -701,7 +711,7 @@ civitas.objects.city = function(params) {
 	};
 	
 	/**
-	 * Remove a specific amount of a resource from this city's storage.
+	 * Remove a specific amount of a resource from this settlement's storage.
 	 * 
 	 * @public
 	 * @param {String} resource
@@ -718,7 +728,7 @@ civitas.objects.city = function(params) {
 	};
 	
 	/**
-	 * Remove resources from this city's storage.
+	 * Remove resources from this settlement's storage.
 	 * 
 	 * @public
 	 * @param {Object} resources
@@ -798,7 +808,7 @@ civitas.objects.city = function(params) {
 	};
 	
 	/**
-	 * Get the resources available in this city.
+	 * Get the resources available in this settlement.
 	 * 
 	 * @public
 	 * @returns {Object}
@@ -808,11 +818,11 @@ civitas.objects.city = function(params) {
 	};
 	
 	/**
-	 * Set the resources of the city.
+	 * Set the resources of the settlement.
 	 * 
 	 * @public
 	 * @param {Object} value
-	 * @returns {civitas.objects.city}
+	 * @returns {civitas.objects.settlement}
 	 */
 	this.set_resources = function(value) {
 		this.resources = value;
@@ -820,7 +830,7 @@ civitas.objects.city = function(params) {
 	};
 
 	/**
-	 * Return the ruler object of this city.
+	 * Return the ruler object of this settlement.
 	 * 
 	 * @public
 	 * @returns {String}
@@ -830,7 +840,7 @@ civitas.objects.city = function(params) {
 	};
 
 	/**
-	 * Return the ruler name of this city.
+	 * Return the ruler name of this settlement.
 	 * 
 	 * @public
 	 * @returns {String}
@@ -840,7 +850,7 @@ civitas.objects.city = function(params) {
 	};
 
 	/**
-	 * Return the ruler personality of this city.
+	 * Return the ruler personality of this settlement.
 	 * 
 	 * @public
 	 * @returns {String}
@@ -850,7 +860,7 @@ civitas.objects.city = function(params) {
 	};
 
 	/**
-	 * Return the ruler nationality of this city.
+	 * Return the ruler nationality of this settlement.
 	 * 
 	 * @public
 	 * @returns {String}
@@ -860,11 +870,11 @@ civitas.objects.city = function(params) {
 	};
 
 	/**
-	 * Set the ruler name of the city.
+	 * Set the ruler name of the settlement.
 	 * 
 	 * @public
 	 * @param {String} value
-	 * @returns {civitas.objects.city}
+	 * @returns {civitas.objects.settlement}
 	 */
 	this.set_ruler = function(value) {
 		this.ruler = value;
@@ -872,11 +882,11 @@ civitas.objects.city = function(params) {
 	};
 	
 	/**
-	 * Set the level of the city.
+	 * Set the level of the settlement.
 	 * 
 	 * @public
 	 * @param {Number} value
-	 * @returns {civitas.objects.city}
+	 * @returns {civitas.objects.settlement}
 	 */
 	this.set_level = function(value) {
 		this.level = value;
@@ -884,7 +894,7 @@ civitas.objects.city = function(params) {
 	};
 	
 	/**
-	 * Return the level of this city.
+	 * Return the level of this settlement.
 	 * 
 	 * @public
 	 * @returns {Number}
@@ -894,7 +904,7 @@ civitas.objects.city = function(params) {
 	};
 
 	/**
-	 * Return the personality of the ruler of this city.
+	 * Return the personality of the ruler of this settlement.
 	 * 
 	 * @public
 	 * @returns {Object}
@@ -907,7 +917,7 @@ civitas.objects.city = function(params) {
 	};
 
 	/**
-	 * Return the climate of the area of this city.
+	 * Return the climate of the area of this settlement.
 	 * 
 	 * @public
 	 * @returns {Object}
@@ -920,7 +930,7 @@ civitas.objects.city = function(params) {
 	};
 
 	/**
-	 * Return the nationality of this city.
+	 * Return the nationality of this settlement.
 	 * 
 	 * @public
 	 * @returns {Object}
@@ -933,7 +943,7 @@ civitas.objects.city = function(params) {
 	};
 
 	/**
-	 * Get the icon of this city.
+	 * Get the icon of this settlement.
 	 * 
 	 * @public
 	 * @returns {Number}
@@ -943,10 +953,10 @@ civitas.objects.city = function(params) {
 	};
 	
 	/**
-	 * Set the icon of this city.
+	 * Set the icon of this settlement.
 	 * 
 	 * @public
-	 * @returns {civitas.objects.city}
+	 * @returns {civitas.objects.settlement}
 	 * @param {Number} value
 	 */
 	this.set_icon = function(value) {
@@ -955,7 +965,7 @@ civitas.objects.city = function(params) {
 	};
 
 	/**
-	 * Get the avatar of the ruler of this city.
+	 * Get the avatar of the ruler of this settlement.
 	 * 
 	 * @public
 	 * @returns {Number}
@@ -965,10 +975,10 @@ civitas.objects.city = function(params) {
 	};
 	
 	/**
-	 * Set the climate of this city.
+	 * Set the climate of this settlement.
 	 * 
 	 * @public
-	 * @returns {civitas.objects.city}
+	 * @returns {civitas.objects.settlement}
 	 * @param {Number} value
 	 */
 	this.set_climate = function(value) {
@@ -977,10 +987,10 @@ civitas.objects.city = function(params) {
 	};
 	
 	/**
-	 * Set the nationality of this city.
+	 * Set the nationality of this settlement.
 	 * 
 	 * @public
-	 * @returns {civitas.objects.city}
+	 * @returns {civitas.objects.settlement}
 	 * @param {Number} value
 	 */
 	this.set_nationality = function(value) {
@@ -989,7 +999,7 @@ civitas.objects.city = function(params) {
 	};
 	
 	/**
-	 * Get the list of city buildings, for export reasons.
+	 * Get the list of settlement buildings, for export reasons.
 	 *
 	 * @public
 	 * @returns {Array}
@@ -999,7 +1009,7 @@ civitas.objects.city = function(params) {
 	};
 
 	/**
-	 * Get the id of this city.
+	 * Get the id of this settlement.
 	 *
 	 * @public
 	 * @returns {Number}
@@ -1009,7 +1019,7 @@ civitas.objects.city = function(params) {
 	};
 
 	/**
-	 * Set the id of this city.
+	 * Set the id of this settlement.
 	 *
 	 * @public
 	 * @param {Number}
@@ -1021,13 +1031,33 @@ civitas.objects.city = function(params) {
 	};
 
 	/**
-	 * Check if this city is a player city.
+	 * Check if this settlement is a player settlement.
 	 *
 	 * @public
 	 * @returns {Boolean}
 	 */
 	this.is_player = function() {
 		return this.player;
+	};
+
+	/**
+	 * Return the type of this settlement.
+	 *
+	 * @public
+	 * @returns {Number}
+	 */
+	this.get_settlement_type = function() {
+		return this.settlement_type;
+	};
+
+	/**
+	 * Return the population of this settlement.
+	 *
+	 * @public
+	 * @returns {Number}
+	 */
+	this.get_population = function() {
+		return this.population;
 	};
 
 	// Fire up the constructor

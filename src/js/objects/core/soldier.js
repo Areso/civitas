@@ -8,12 +8,12 @@
 civitas.objects.soldier = function (params) {
 
 	/**
-	 * Pointer to the city this sodier is located in.
+	 * Pointer to the settlement this sodier is located in.
 	 * 
-	 * @type {civitas.objects.city}
+	 * @type {civitas.objects.settlement}
 	 * @private
 	 */
-	this.city = null;
+	this.settlement = null;
 
 	/**
 	 * Attack rating of this soldier.
@@ -75,7 +75,7 @@ civitas.objects.soldier = function (params) {
 	 * @param {Object} params
 	 */
 	this.__init = function (params) {
-		this.city = params.city;
+		this.settlement = params.settlement;
 		this.name = params.name;
 		this.attack = params.data.attack;
 		this.defense = params.data.defense;
@@ -114,13 +114,13 @@ civitas.objects.soldier = function (params) {
 	};
 
 	/**
-	 * Get the city this soldier is located into.
+	 * Get the settlement this soldier is located into.
 	 * 
 	 * @public
-	 * @returns {civitas.objects.city}
+	 * @returns {civitas.objects.settlement}
 	 */
-	this.get_city = function () {
-		return this.city;
+	this.get_settlement = function () {
+		return this.settlement;
 	};
 
 	/**
@@ -140,7 +140,7 @@ civitas.objects.soldier = function (params) {
 	 * @returns {civitas.game}
 	 */
 	this.get_core = function () {
-		return this.get_city().get_core();
+		return this.get_settlement().get_core();
 	};
 
 	// Fire up the constructor

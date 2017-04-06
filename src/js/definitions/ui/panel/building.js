@@ -30,7 +30,7 @@ civitas.PANEL_BUILDING = {
 		var self = this;
 		var core = this.get_core();
 		var el = this.handle;
-		var _c = core.get_city().get_building_by_handle(this.params_data.handle);
+		var _c = core.get_settlement().get_building_by_handle(this.params_data.handle);
 		var level = _c.get_level();
 		$(el + ' header .title').html(this.params_data.name);
 		this.on_refresh();
@@ -87,7 +87,7 @@ civitas.PANEL_BUILDING = {
 		});
 	},
 	on_refresh: function() {
-		var _c = this.get_core().get_city().get_building_by_handle(this.params_data.handle);
+		var _c = this.get_core().get_settlement().get_building_by_handle(this.params_data.handle);
 		var level = _c.get_level();
 		var _t = '<p class="smalldesc">' + this.params_data.description + '</p>' +
 			'<dl>' +

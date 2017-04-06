@@ -8,12 +8,12 @@
 civitas.objects.army = function (params) {
 
 	/**
-	 * Pointer to the city this army is located in.
+	 * Pointer to the settlement this army is located in.
 	 * 
-	 * @type {civitas.objects.city}
+	 * @type {civitas.objects.settlement}
 	 * @private
 	 */
-	this.city = null;
+	this.settlement = null;
 
 	/**
 	 * Requirements of this ship.
@@ -75,20 +75,20 @@ civitas.objects.army = function (params) {
 	 * @param {Object} params
 	 */
 	this.__init = function (params) {
-		this.city = params.city;
+		this.settlement = params.settlement;
 		this.name = params.name;
 		this.cost = params.data.cost;
 		return this;
 	};
 
 	/**
-	 * Get the city this army is located into.
+	 * Get the settlement this army is located into.
 	 * 
 	 * @public
-	 * @returns {civitas.objects.city}
+	 * @returns {civitas.objects.settlement}
 	 */
-	this.get_city = function () {
-		return this.city;
+	this.get_settlement = function () {
+		return this.settlement;
 	};
 
 	/**
@@ -108,7 +108,7 @@ civitas.objects.army = function (params) {
 	 * @returns {civitas.game}
 	 */
 	this.get_core = function () {
-		return this.get_city().get_core();
+		return this.get_settlement().get_core();
 	};
 
 	// Fire up the constructor

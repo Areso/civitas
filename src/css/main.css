@@ -481,9 +481,8 @@ header .top-panel span {
 	position: relative;
 }
 
-.panel .worldmap .city,
-.panel .worldmap .battle,
-.panel .worldmap .village {
+.panel .worldmap .settlement,
+.panel .worldmap .battle {
 	position: absolute;
 	width: 32px;
 	height: 32px;
@@ -528,11 +527,11 @@ table.mercenaries td:nth-child(3) {
 	width: 600px;
 	float: right;
 	padding: 10px 0 0 0;
-	height: 410px;
+	max-height: 410px;
 	overflow: auto;
 }
 
-.panel .cities-list {
+.panel .settlements-list {
 	overflow: auto;
 	max-height: 415px;
 }
@@ -643,15 +642,13 @@ table.mercenaries td:nth-child(3) {
 
 /* City info panel */
 
-#panel-city,
-#panel-village {
+#panel-settlement {
 	width: 360px;
 	max-width: 360px;
 	height: auto;
 }
 
-#panel-city .ui-tabs-panel,
-#panel-village .ui-tabs-panel {
+#panel-settlement .ui-tabs-panel {
 	padding: 0 10px;
 }
 

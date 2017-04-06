@@ -487,9 +487,8 @@ header .top-panel span {
 	position: relative;
 }
 
-.panel .worldmap .city,
-.panel .worldmap .battle,
-.panel .worldmap .village {
+.panel .worldmap .settlement,
+.panel .worldmap .battle {
 	position: absolute;
 	width: 32px;
 	height: 32px;
@@ -534,11 +533,11 @@ table.mercenaries td:nth-child(3) {
 	width: 600px;
 	float: right;
 	padding: 10px 0 0 0;
-	height: 410px;
+	max-height: 410px;
 	overflow: auto;
 }
 
-.panel .cities-list {
+.panel .settlements-list {
 	overflow: auto;
 	max-height: 415px;
 }
@@ -649,15 +648,13 @@ table.mercenaries td:nth-child(3) {
 
 /* City info panel */
 
-#panel-city,
-#panel-village {
+#panel-settlement {
 	width: 360px;
 	max-width: 360px;
 	height: auto;
 }
 
-#panel-city .ui-tabs-panel,
-#panel-village .ui-tabs-panel {
+#panel-settlement .ui-tabs-panel {
 	padding: 0 10px;
 }
 
@@ -1741,35 +1738,35 @@ footer .do-help {
 	background: transparent url(../images/ui/battle3.png) no-repeat;
 }
 
-.panel .worldmap .village.s1 {
+.panel .worldmap .settlement.v1 {
 	background: transparent url(../images/ui/settlement1.png) no-repeat;
 }
 
-.panel .worldmap .city.c1 {
+.panel .worldmap .settlement.c1 {
 	background: transparent url(../images/ui/city1.png) no-repeat;
 }
 
-.panel .worldmap .city.c2 {
+.panel .worldmap .settlement.c2 {
 	background: transparent url(../images/ui/city2.png) no-repeat;
 }
 
-.panel .worldmap .city.c3 {
+.panel .worldmap .settlement.c3 {
 	background: transparent url(../images/ui/city3.png) no-repeat;
 }
 
-.panel .worldmap .city.c4 {
+.panel .worldmap .settlement.c4 {
 	background: transparent url(../images/ui/city4.png) no-repeat;
 }
 
-.panel .worldmap .city.c5 {
+.panel .worldmap .settlement.c5 {
 	background: transparent url(../images/ui/city5.png) no-repeat;
 }
 
-.panel .worldmap .city.c6 {
+.panel .worldmap .settlement.c6 {
 	background: transparent url(../images/ui/city6.png) no-repeat;
 }
 
-.panel .worldmap .city.c7 {
+.panel .worldmap .settlement.c7 {
 	background: transparent url(../images/ui/city7.png) no-repeat;
 }
 

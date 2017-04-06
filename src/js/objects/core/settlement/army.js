@@ -3,9 +3,9 @@
  *
  * @public
  * @param {Array} mercenary_list
- * @returns {civitas.objects.city}
+ * @returns {civitas.objects.settlement}
  */
-civitas.objects.city.prototype.setup_mercenary = function(mercenary_list) {
+civitas.objects.settlement.prototype.setup_mercenary = function(mercenary_list) {
 	for (var i = 0; i < mercenary_list.length; i++) {
 		this.recruit_mercenary_army(mercenary_list[i], true);
 	}
@@ -13,43 +13,43 @@ civitas.objects.city.prototype.setup_mercenary = function(mercenary_list) {
 };
 
 /**
- * Get the list of city mercenary armies, for export reasons.
+ * Get the list of settlement mercenary armies, for export reasons.
  *
  * @public
  * @returns {Array}
  */
-civitas.objects.city.prototype.get_mercenary_list = function() {
+civitas.objects.settlement.prototype.get_mercenary_list = function() {
 	return this.mercenary_list;
 };
 
 /**
- * Check if this city can build ships.
+ * Check if this settlement can build ships.
  *
  * @public
  * @returns {Boolean}
  */
-civitas.objects.city.prototype.can_build_ships = function() {
+civitas.objects.settlement.prototype.can_build_ships = function() {
 	return this.is_building_built('shipyard');
 };
 
 /**
- * Check if this city can recruit soldiers.
+ * Check if this settlement can recruit soldiers.
  *
  * @public
  * @returns {Boolean}
  */
-civitas.objects.city.prototype.can_recruit_soldiers = function() {
+civitas.objects.settlement.prototype.can_recruit_soldiers = function() {
 	return this.is_building_built('camp') || this.is_building_built('castle');
 };
 
 /**
- * Recruit a soldier for the city's army.
+ * Recruit a soldier for the settlement's army.
  * 
  * @public
  * @param {String} name
  * @returns {Boolean}
  */
-civitas.objects.city.prototype.recruit_mercenary_army = function(name, hidden) {
+civitas.objects.settlement.prototype.recruit_mercenary_army = function(name, hidden) {
 	for (var i = 0; i < civitas.MERCENARIES.length; i++) {
 		if (name === civitas.MERCENARIES[i].handle) {
 			var price = civitas.MERCENARIES[i].cost;
@@ -65,7 +65,7 @@ civitas.objects.city.prototype.recruit_mercenary_army = function(name, hidden) {
 				var soldier = civitas.SOLDIERS[item];
 				var _soldier = new civitas.objects.soldier({
 					name: item,
-					city: this,
+					settlement: this,
 					data: soldier
 				});
 				army.army.push(_soldier);
@@ -84,13 +84,13 @@ civitas.objects.city.prototype.recruit_mercenary_army = function(name, hidden) {
 };
 
 /**
- * Construct a ship for the city's navy.
+ * Construct a ship for the settlement's navy.
  * 
  * @public
  * @param {String} ship_name
  * @returns {Boolean}
  */
-civitas.objects.city.prototype.recruit_ship = function(ship_name) {
+civitas.objects.settlement.prototype.recruit_ship = function(ship_name) {
 	for (var item in civitas.SHIPS) {
 		if (ship_name === item) {
 			var ship = civitas.SHIPS[item];
@@ -100,7 +100,7 @@ civitas.objects.city.prototype.recruit_ship = function(ship_name) {
 			var _ship = new civitas.objects.ship({
 				name: item,
 				data: ship,
-				city: this
+				settlement: this
 			});
 			this.navy.push(_ship);
 			this.get_core().refresh();
@@ -113,13 +113,13 @@ civitas.objects.city.prototype.recruit_ship = function(ship_name) {
 };
 
 /**
- * Recruit a soldier for the city's army.
+ * Recruit a soldier for the settlement's army.
  * 
  * @public
  * @param {String} soldier_name
  * @returns {Boolean}
  */
-civitas.objects.city.prototype.recruit_soldier = function(soldier_name) {
+civitas.objects.settlement.prototype.recruit_soldier = function(soldier_name) {
 	for (var item in civitas.SOLDIERS) {
 		if (soldier_name === item) {
 			var soldier = civitas.SOLDIERS[item];
@@ -127,7 +127,7 @@ civitas.objects.city.prototype.recruit_soldier = function(soldier_name) {
 				return false;
 			}
 			var _soldier = new civitas.objects.soldier({
-				city: this,
+				settlement: this,
 				name: item,
 				data: soldier
 			});
@@ -141,20 +141,20 @@ civitas.objects.city.prototype.recruit_soldier = function(soldier_name) {
 };
 
 /**
- * Internal function for recruiting a ship for the city's navy.
+ * Internal function for recruiting a ship for the settlement's navy.
  * 
  * @public
  * @param {String} ship_name
- * @returns {civitas.objects.city}
+ * @returns {civitas.objects.settlement}
  */
-civitas.objects.city.prototype._recruit_ship = function(ship_name) {
+civitas.objects.settlement.prototype._recruit_ship = function(ship_name) {
 	for (var item in civitas.SHIPS) {
 		if (ship_name === item) {
 			var ship = civitas.SHIPS[item];
 			var _ship = new civitas.objects.ship({
 				name: item,
 				data: ship,
-				city: this
+				settlement: this
 			});
 			this.navy.push(_ship);
 		}
@@ -163,20 +163,20 @@ civitas.objects.city.prototype._recruit_ship = function(ship_name) {
 };
 
 /**
- * Internal function for recruiting a soldier for the city's army.
+ * Internal function for recruiting a soldier for the settlement's army.
  * 
  * @public
  * @param {String} soldier_name
- * @returns {civitas.objects.city}
+ * @returns {civitas.objects.settlement}
  */
-civitas.objects.city.prototype._recruit_soldier = function(soldier_name) {
+civitas.objects.settlement.prototype._recruit_soldier = function(soldier_name) {
 	for (var item in civitas.SOLDIERS) {
 		if (soldier_name === item) {
 			var soldier = civitas.SOLDIERS[item];
 			var _soldier = new civitas.objects.soldier({
 				name: item,
 				data: soldier,
-				city: this
+				settlement: this
 			});
 			this.army.push(_soldier);
 		}
@@ -185,33 +185,33 @@ civitas.objects.city.prototype._recruit_soldier = function(soldier_name) {
 };
 
 /**
- * Get the navy size of this city.
+ * Get the navy size of this settlement.
  * 
  * @public
  * @returns {Number}
  */
-civitas.objects.city.prototype.get_navy_size = function() {
+civitas.objects.settlement.prototype.get_navy_size = function() {
 	return this.get_navy().length;
 };
 
 /**
- * Get the army size of this city.
+ * Get the army size of this settlement.
  * 
  * @public
  * @returns {Number}
  */
-civitas.objects.city.prototype.get_army_size = function() {
+civitas.objects.settlement.prototype.get_army_size = function() {
 	return this.get_army().length;
 };
 
 /**
- * Disband a ship from the city's navy.
+ * Disband a ship from the settlement's navy.
  * 
  * @public
  * @param {String} ship_name
  * @returns {Boolean}
  */
-civitas.objects.city.prototype.disband_ship = function(ship_name) {
+civitas.objects.settlement.prototype.disband_ship = function(ship_name) {
 	var navy = this.get_navy();
 	for (var i = 0; i < navy.length; i++) {
 		var ship = navy[i];
@@ -224,13 +224,13 @@ civitas.objects.city.prototype.disband_ship = function(ship_name) {
 };
 
 /**
- * Disband a soldier from the city's army.
+ * Disband a soldier from the settlement's army.
  * 
  * @public
  * @param {String} soldier_name
  * @returns {Boolean}
  */
-civitas.objects.city.prototype.disband_soldier = function(soldier_name) {
+civitas.objects.settlement.prototype.disband_soldier = function(soldier_name) {
 	var army = this.get_army();
 	for (var i = 0; i < army.length; i++) {
 		var soldier = army[i];
@@ -243,37 +243,37 @@ civitas.objects.city.prototype.disband_soldier = function(soldier_name) {
 };
 
 /**
- * Set the mercenaries of the city.
+ * Set the mercenaries of the settlement.
  * 
  * @public
  * @param {Number} value
- * @returns {civitas.objects.city}
+ * @returns {civitas.objects.settlement}
  */
-civitas.objects.city.prototype.set_mercenary = function(value) {
+civitas.objects.settlement.prototype.set_mercenary = function(value) {
 	this.mercenary = value;
 	return this;
 };
 
 /**
- * Set the navy of the city.
+ * Set the navy of the settlement.
  * 
  * @public
  * @param {Number} value
- * @returns {civitas.objects.city}
+ * @returns {civitas.objects.settlement}
  */
-civitas.objects.city.prototype.set_navy = function(value) {
+civitas.objects.settlement.prototype.set_navy = function(value) {
 	this.navy = value;
 	return this;
 };
 
 /**
- * Set the soldiers of the city.
+ * Set the soldiers of the settlement.
  * 
  * @public
  * @param {Number} value
- * @returns {civitas.objects.city}
+ * @returns {civitas.objects.settlement}
  */
-civitas.objects.city.prototype.set_army = function(value) {
+civitas.objects.settlement.prototype.set_army = function(value) {
 	this.army = value;
 	return this;
 };
@@ -282,23 +282,23 @@ civitas.objects.city.prototype.set_army = function(value) {
  * Release all the mercenary armies.
  * 
  * @public
- * @returns {civitas.objects.city}
+ * @returns {civitas.objects.settlement}
  */
-civitas.objects.city.prototype.release_mercenaries = function() {
+civitas.objects.settlement.prototype.release_mercenaries = function() {
 	this.mercenary = [];
 	this.get_core().notify('At the end of the year, mercenaries from your city have been released.');
 	return this;
 };
 
 /**
- * Setup the navy of this city.
+ * Setup the navy of this settlement.
  * 
  * @public
  * @param {Boolean} hidden
  * @param {Object} data
- * @returns {civitas.objects.city}
+ * @returns {civitas.objects.settlement}
  */
-civitas.objects.city.prototype.setup_navy = function(data, hidden) {
+civitas.objects.settlement.prototype.setup_navy = function(data, hidden) {
 	if (typeof hidden === 'undefined') {
 		hidden = true;
 	}
@@ -329,14 +329,14 @@ civitas.objects.city.prototype.setup_navy = function(data, hidden) {
 };
 
 /**
- * Setup the army of this city.
+ * Setup the army of this settlement.
  * 
  * @public
  * @param {Boolean} hidden
  * @param {Object} data
- * @returns {civitas.objects.city}
+ * @returns {civitas.objects.settlement}
  */
-civitas.objects.city.prototype.setup_army = function(data, hidden) {
+civitas.objects.settlement.prototype.setup_army = function(data, hidden) {
 	if (typeof hidden === 'undefined') {
 		hidden = true;
 	}
@@ -367,42 +367,42 @@ civitas.objects.city.prototype.setup_army = function(data, hidden) {
 };
 
 /**
- * Get the total number of soldiers available in this city.
+ * Get the total number of soldiers available in this settlement.
  * 
  * @public
  * @returns {Number}
  */
-civitas.objects.city.prototype.get_army = function() {
+civitas.objects.settlement.prototype.get_army = function() {
 	return this.army;
 };
 	
 /**
- * Get the total number of ships available in this city.
+ * Get the total number of ships available in this settlement.
  * 
  * @public
  * @returns {Number}
  */
-civitas.objects.city.prototype.get_navy = function() {
+civitas.objects.settlement.prototype.get_navy = function() {
 	return this.navy;
 };
 
 /**
- * Get the total number of mercenaries available for this city.
+ * Get the total number of mercenaries available for this settlement.
  * 
  * @public
  * @returns {Number}
  */
-civitas.objects.city.prototype.get_mercenary = function() {
+civitas.objects.settlement.prototype.get_mercenary = function() {
 	return this.mercenary;
 };
 
 /**
- * Get the navy of this city in an object format.
+ * Get the navy of this settlement in an object format.
  * 
  * @public
  * @returns {Object}
  */
-civitas.objects.city.prototype.get_navy_total = function() {
+civitas.objects.settlement.prototype.get_navy_total = function() {
 	var total = 0;
 	var total_navy = {};
 	for (var item in civitas.SHIPS) {
@@ -424,12 +424,12 @@ civitas.objects.city.prototype.get_navy_total = function() {
 };
 
 /**
- * Get the army of this city in an object format.
+ * Get the army of this settlement in an object format.
  * 
  * @public
  * @returns {Object}
  */
-civitas.objects.city.prototype.get_army_total = function() {
+civitas.objects.settlement.prototype.get_army_total = function() {
 	var total = 0;
 	var total_army = {};
 	for (var item in civitas.SOLDIERS) {
@@ -451,12 +451,12 @@ civitas.objects.city.prototype.get_army_total = function() {
 };
 
 /**
- * Get the mercenaries of this city in an object format.
+ * Get the mercenaries of this settlement in an object format.
  * 
  * @public
  * @returns {Object}
  */
-civitas.objects.city.prototype.get_mercenary_total = function() {
+civitas.objects.settlement.prototype.get_mercenary_total = function() {
 	var total = 0;
 	var total_army = {};
 	for (var item in civitas.SOLDIERS) {
@@ -484,7 +484,7 @@ civitas.objects.city.prototype.get_mercenary_total = function() {
  * @param {String} handle
  * @returns {Boolean}
  */
-civitas.objects.city.prototype.is_mercenary_recruited = function(handle) {
+civitas.objects.settlement.prototype.is_mercenary_recruited = function(handle) {
 	for (var i = 0; i < this.mercenary.length; i++) {
 		if (this.mercenary[i].handle === handle) {
 			return true;

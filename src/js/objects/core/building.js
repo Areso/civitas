@@ -16,12 +16,12 @@ civitas.objects.building = function(params) {
 	this.level = 1;
 
 	/**
-	 * Pointer to the city this building is located in.
+	 * Pointer to the settlement this building is located in.
 	 * 
-	 * @type {civitas.objects.city}
+	 * @type {civitas.objects.settlement}
 	 * @private
 	 */
-	this.city = null;
+	this.settlement = null;
 
 	/**
 	 * The name of this building.
@@ -96,7 +96,7 @@ civitas.objects.building = function(params) {
 	 */
 	this.__init = function(params) {
 		var self = this;
-		this.city = params.city;
+		this.settlement = params.settlement;
 		this.type = params.type;
 		this.name = params.data.name;
 		this.is_production = (typeof params.data.is_production !== 'undefined' && params.data.is_production === true) ? true : false;
@@ -115,7 +115,7 @@ civitas.objects.building = function(params) {
 		switch (this.get_type()) {
 			case 'marketplace':
 			case 'warehouse':
-				this.get_city().storage = this.get_city().storage + (building.storage * this.get_level());
+				this.get_settlement().storage = this.get_settlement().storage + (building.storage * this.get_level());
 				break;
 		}
 		if (params.hidden !== true) {
@@ -153,14 +153,14 @@ civitas.objects.building = function(params) {
 	 */
 	this.upgrade = function() {
 		var self = this;
-		var city = this.get_city();
-		var resources = city.get_resources();
+		var settlement = this.get_settlement();
+		var resources = settlement.get_resources();
 		var next_level = this.get_level() + 1;
 		var _b = civitas.BUILDINGS.findIndexM(this.get_type());
 		if (_b !== false) {
 			var _c = civitas.BUILDINGS[_b];
 			if (this.is_upgradable() === true) {
-				var bl_id = city.buildings_list.findIndexM(this.get_type());
+				var bl_id = settlement.buildings_list.findIndexM(this.get_type());
 				if (bl_id !== false) {
 					if ((resources.coins - (_c.cost.coins * next_level)) < 0) {
 						this.get_core().error('You don`t have enough coins to upgrade this building.');
@@ -170,11 +170,11 @@ civitas.objects.building = function(params) {
 					}
 					for (var item in _c.cost) {
 						if (item !== 'coins') {
-							if ((city.get_resources()[item] - (_c.cost[item] * next_level)) < 0) {
+							if ((settlement.get_resources()[item] - (_c.cost[item] * next_level)) < 0) {
 								this.get_core().error('You don`t have enough ' + item + ' to upgrade this building.');
 								return false;
 							} else {
-								city.get_resources()[item] = city.get_resources()[item] - (_c.cost[item] * next_level);
+								settlement.get_resources()[item] = settlement.get_resources()[item] - (_c.cost[item] * next_level);
 							}
 						}
 					}
@@ -187,7 +187,7 @@ civitas.objects.building = function(params) {
 					$('section.game .building[data-type=' + this.get_type() + ']').css({
 						'background-image': 'url(./images/buildings/' + image + '.png)'
 					});
-					this.get_city().buildings_list[bl_id].level = this.get_level();
+					this.get_settlement().buildings_list[bl_id].level = this.get_level();
 					this.get_core().save_and_refresh();
 					this.get_core().notify(this.get_name() + ' upgraded to level ' + this.get_level());
 					return true;
@@ -205,10 +205,10 @@ civitas.objects.building = function(params) {
 	 */
 	this.downgrade = function() {
 		if (this.get_level() > 1) {
-			var bl_id = this.get_city().buildings_list.findIndexM(this.get_type());
+			var bl_id = this.get_settlement().buildings_list.findIndexM(this.get_type());
 			if (bl_id !== false) {
 				--this.level;
-				this.get_city().buildings_list[bl_id].level = this.get_level();
+				this.get_settlement().buildings_list[bl_id].level = this.get_level();
 				this.get_core().save_and_refresh();
 				this.get_core().notify(this.get_name() + ' downgraded to level ' + this.get_level());
 				return true;
@@ -265,11 +265,11 @@ civitas.objects.building = function(params) {
 	 * @returns {Boolean}
 	 */
 	this.start_production = function() {
-		var bl_id = this.get_city().buildings_list.findIndexM(this.get_type());
+		var bl_id = this.get_settlement().buildings_list.findIndexM(this.get_type());
 		if (bl_id !== false) {
 			if (this.is_production_building()) {
 				this.get_core().notify(this.get_name() + '`s production started.');
-				this.get_city().buildings_list[bl_id].working = true;
+				this.get_settlement().buildings_list[bl_id].working = true;
 				this.working = true;
 				this.problems = false;
 				this.get_core().save_and_refresh();
@@ -287,11 +287,11 @@ civitas.objects.building = function(params) {
 	 * @returns {Boolean}
 	 */
 	this.stop_production = function() {
-		var bl_id = this.get_city().buildings_list.findIndexM(this.get_type());
+		var bl_id = this.get_settlement().buildings_list.findIndexM(this.get_type());
 		if (bl_id !== false) {
 			if (this.is_production_building()) {
 				this.get_core().notify(this.get_name() + '`s production stopped.');
-				this.get_city().buildings_list[bl_id].working = false;
+				this.get_settlement().buildings_list[bl_id].working = false;
 				this.working = false;
 				this.problems = true;
 				this.get_core().save_and_refresh();
@@ -309,7 +309,7 @@ civitas.objects.building = function(params) {
 	 * @returns {boolean}
 	 */
 	this.demolish = function() {
-		if (this.get_city().demolish(this.get_type())) {
+		if (this.get_settlement().demolish(this.get_type())) {
 			$('section.game .building[data-type=' + this.get_type() + ']').remove();
 			this.get_core().notify(this.get_name() + ' demolished successfully!');
 			return true;
@@ -320,7 +320,7 @@ civitas.objects.building = function(params) {
 	};
 
 	/**
-	 * Check if the city has the required materials to create this building.
+	 * Check if the settlement has the required materials to create this building.
 	 * 
 	 * @public
 	 * @param {Array|String} mats
@@ -328,7 +328,7 @@ civitas.objects.building = function(params) {
 	 */
 	this.has_materials = function(mats) {
 		var building = this.get_building_data();
-		var res = this.get_city_resources();
+		var res = this.get_settlement_resources();
 		var mat = building.materials;
 		if (typeof mats === 'object') {
 			for (var i = 0; i < mats.length; i++) {
@@ -364,11 +364,11 @@ civitas.objects.building = function(params) {
 		var mat = building.materials;
 		if (typeof material === 'object') {
 			for (var i = 0; i < material.length; i++) {
-				this.get_city().remove_resource(material[i], mat[material[i]]);
+				this.get_settlement().remove_resource(material[i], mat[material[i]]);
 				this.get_core().log(this.get_name() + ' used ' + mat[material[i]] + ' ' + material[i] + '.');
 			}
 		} else {
-			this.get_city().remove_resource(material, mat[material]);
+			this.get_settlement().remove_resource(material, mat[material]);
 			this.get_core().log(this.get_name() + ' used ' + mat[material] + ' ' + material + '.');
 		}
 		return this;
@@ -395,13 +395,13 @@ civitas.objects.building = function(params) {
 	};
 
 	/**
-	 * Get the city resources object
+	 * Get the settlement resources object
 	 * 
 	 * @public
 	 * @returns {Object}
 	 */
-	this.get_city_resources = function() {
-		return this.get_city().get_resources();
+	this.get_settlement_resources = function() {
+		return this.get_settlement().get_resources();
 	};
 
 	/**
@@ -412,8 +412,8 @@ civitas.objects.building = function(params) {
 	 * @returns {civitas.objects.building}
 	 */
 	this.produce_material = function(material) {
-		var city = this.get_city();
-		var resources = city.get_resources();
+		var settlement = this.get_settlement();
+		var resources = settlement.get_resources();
 		var building = this.get_building_data();
 		var prd = building.production;
 		if (typeof material === 'object') {
@@ -422,14 +422,14 @@ civitas.objects.building = function(params) {
 					return this;
 				}
 				var amount = prd[material[i]] * this.get_level();
-				if (this.get_city().has_storage_space_for(amount)) {
-					this.get_city().add_to_storage(material[i], amount);
+				if (this.get_settlement().has_storage_space_for(amount)) {
+					this.get_settlement().add_to_storage(material[i], amount);
 					if (typeof building.chance !== 'undefined') {
 						for (var item in building.chance) {
 							var rnd = Math.random();
 							if (rnd < building.chance[item] * this.get_level()) {
 								this.get_core().log(this.get_name() + ' procced extra ' + civitas.utils.get_resource_name(item) + '.');
-								this.get_city().add_to_storage(item, 1);
+								this.get_settlement().add_to_storage(item, 1);
 							}
 						}
 					}
@@ -438,17 +438,17 @@ civitas.objects.building = function(params) {
 			}
 		} else {
 			var amount = prd[material] * this.get_level();
-			if (this.get_city().has_storage_space_for(amount)) {
+			if (this.get_settlement().has_storage_space_for(amount)) {
 				if (!this.is_producing()) {
 					return this;
 				}
-				this.get_city().add_to_storage(material, amount);
+				this.get_settlement().add_to_storage(material, amount);
 				if (typeof building.chance !== 'undefined') {
 					for (var item in building.chance) {
 						var rnd = Math.random();
 						if (rnd < building.chance[item]) {
 							this.get_core().log(this.get_name() + ' procced extra ' + civitas.utils.get_resource_name(item) + '.');
-							this.get_city().add_to_storage(item, 1);
+							this.get_settlement().add_to_storage(item, 1);
 						}
 					}
 				}
@@ -479,78 +479,78 @@ civitas.objects.building = function(params) {
 	};
 
 	/**
-	 * Raise the prestige of the city this building is located in.
+	 * Raise the prestige of the settlement this building is located in.
 	 * 
 	 * @public
 	 * @returns {Number}
 	 */
-	this.adjust_city_prestige = function() {
+	this.adjust_settlement_prestige = function() {
 		var building = this.get_building_data();
 		var prd = building.production;
 		var amount = prd.prestige;
-		this.get_city().inc_prestige(amount);
+		this.get_settlement().inc_prestige(amount);
 		this.get_core().log(this.get_name() + ' raised city prestige by ' + amount + '.');
-		return this.get_city().get_prestige();
+		return this.get_settlement().get_prestige();
 	};
 
 	/**
-	 * Raise the fame of the city this building is located in.
+	 * Raise the fame of the settlement this building is located in.
 	 * 
 	 * @public
 	 * @returns {Number}
 	 */
-	this.adjust_city_fame = function() {
+	this.adjust_settlement_fame = function() {
 		var building = this.get_building_data();
 		var prd = building.production;
 		var amount = prd.fame * this.get_level();
-		this.get_city().raise_fame(amount);
+		this.get_settlement().raise_fame(amount);
 		this.get_core().log(this.get_name() + ' raised city fame by ' + amount + '.');
-		return this.get_city().get_fame();
+		return this.get_settlement().get_fame();
 	};
 
 	/**
-	 * Raise the research of the city this building is located in by converting
+	 * Raise the research of the settlement this building is located in by converting
 	 * coins into research.
 	 * 
 	 * @public
 	 * @returns {Object}
 	 */
-	this.adjust_city_research_for_coins = function() {
+	this.adjust_settlement_research_for_coins = function() {
 		var building = this.get_building_data();
 		var mat = building.materials;
 		var prd = building.production;
-		if (this.get_city().has_coins(mat.coins)) {
+		if (this.get_settlement().has_coins(mat.coins)) {
 			var amount = prd.research * this.get_level();
-			this.get_city().raise_research(amount);
-			this.get_city().dec_coins(mat.coins);
+			this.get_settlement().raise_research(amount);
+			this.get_settlement().dec_coins(mat.coins);
 			this.get_core().log(this.get_name() + ' raised city research with ' + amount + ' at the cost of ' + mat.coins + ' coins.');
 		}
 		return {
-			research: this.get_city().get_research(),
-			coins: this.get_city().get_coins()
+			research: this.get_settlement().get_research(),
+			coins: this.get_settlement().get_coins()
 		};
 	};
 
 	/**
-	 * Raise the fame of the city this building is located in by converting
+	 * Raise the fame of the settlement this building is located in by converting
 	 * coins into fame.
 	 * 
 	 * @public
 	 * @returns {Object}
 	 */
-	this.adjust_city_fame_for_coins = function() {
+	this.adjust_settlement_fame_for_coins = function() {
 		var building = this.get_building_data();
 		var mat = building.materials;
 		var prd = building.production;
-		if (this.get_city().has_coins(mat.coins)) {
+		if (this.get_settlement().has_coins(mat.coins)) {
 			var amount = prd.fame * this.get_level();
-			this.get_city().raise_fame(amount);
-			this.get_city().dec_coins(mat.coins);
+			this.get_settlement().raise_fame(amount);
+			this.get_settlement().dec_coins(mat.coins);
 			this.get_core().log(this.get_name() + ' raised city fame with ' + amount + ' at the cost of ' + mat.coins + ' coins.');
 		}
 		return {
-			fame: this.get_city().get_fame(),
-			coins: this.get_city().get_coins()
+			fame: this.get_settlement().get_fame(),
+			coins: this.get_settlement().get_coins()
 		};
 	};
 
@@ -571,7 +571,7 @@ civitas.objects.building = function(params) {
 			if (this.has_materials(_m)) {
 				this.use_material(_m);
 				var amount = building.tax * this.get_level();
-				this.get_city().inc_coins(amount);
+				this.get_settlement().inc_coins(amount);
 				this.get_core().log(this.get_name() + ' gave ' + amount + ' coins via tax.');
 			}
 		}
@@ -590,7 +590,7 @@ civitas.objects.building = function(params) {
 		if (typeof building.requires.buildings !== 'undefined') {
 			var required = building.requires.buildings;
 			for (var i = 0; i < required.length; i++) {
-				if (!this.get_city().is_building_built(required[i])) {
+				if (!this.get_settlement().is_building_built(required[i])) {
 					good = false;
 					var req = civitas.BUILDINGS[civitas.BUILDINGS.findIndexM(required[i])];
 					this.get_core().log(this.get_name() + ' doesn`t have the required buildings: ' + req.name + '.', true);
@@ -599,10 +599,10 @@ civitas.objects.building = function(params) {
 				}
 			}
 		}
-		if (typeof building.requires.city_level !== 'undefined') {
-			if (building.requires.city_level > this.get_city().get_level()) {
+		if (typeof building.requires.settlement_level !== 'undefined') {
+			if (building.requires.settlement_level > this.get_settlement().get_level()) {
 				this.get_core().log('Your city level is too low for ' + this.get_name() + ' to be active.', true);
-				this.notify(civitas.NOTIFICATION_CITY_LOW_LEVEL);
+				this.notify(civitas.NOTIFICATION_SETTLEMENT_LOW_LEVEL);
 				good = false;
 				this.problems = true;
 			}
@@ -629,7 +629,7 @@ civitas.objects.building = function(params) {
 				if (this.has_materials(_m)) {
 					this.use_material(_m);
 					var amount = building.tax * this.get_level();
-					this.get_city().inc_coins(amount);
+					this.get_settlement().inc_coins(amount);
 					this.get_core().log(this.get_name() + ' gave ' + amount + ' coins via tax.');
 				}
 			}
@@ -683,7 +683,7 @@ civitas.objects.building = function(params) {
 	 */
 	this.process = function() {
 		var building = this.get_building_data();
-		var res = this.get_city_resources();
+		var res = this.get_settlement_resources();
 		var prd = building.production;
 		var mat = building.materials;
 		if (this.has_requirements() === false) {
@@ -692,7 +692,7 @@ civitas.objects.building = function(params) {
 		switch (this.get_type()) {
 			/* STORAGE */
 			case 'marketplace':
-				this.adjust_city_fame();
+				this.adjust_settlement_fame();
 				break;
 			case 'warehouse':
 				break;
@@ -700,21 +700,21 @@ civitas.objects.building = function(params) {
 			case 'camp':
 				break;
 			case 'castle':
-				this.adjust_city_fame_for_coins();
-				this.adjust_city_prestige();
+				this.adjust_settlement_fame_for_coins();
+				this.adjust_settlement_prestige();
 				break;
 			/* MUNICIPAL */
 			case 'church':
-				this.adjust_city_fame_for_coins();
+				this.adjust_settlement_fame_for_coins();
 				break;
 			case 'monastery':
-				this.adjust_city_fame_for_coins();
+				this.adjust_settlement_fame_for_coins();
 				break;
 			case 'academy':
-				this.adjust_city_research_for_coins();
+				this.adjust_settlement_research_for_coins();
 				break;
 			case 'tavern':
-				this.adjust_city_fame_for_coins();
+				this.adjust_settlement_fame_for_coins();
 				break;
 			/* ALL OTHER */
 			default:
@@ -725,13 +725,13 @@ civitas.objects.building = function(params) {
 	};
 
 	/**
-	 * Get the city this building is located into
+	 * Get the settlement this building is located into
 	 * 
 	 * @public
-	 * @returns {civitas.objects.city}
+	 * @returns {civitas.objects.settlement}
 	 */
-	this.get_city = function() {
-		return this.city;
+	this.get_settlement = function() {
+		return this.settlement;
 	};
 
 	/**
@@ -741,7 +741,7 @@ civitas.objects.building = function(params) {
 	 * @returns {civitas.game}
 	 */
 	this.get_core = function() {
-		return this.get_city().get_core();
+		return this.get_settlement().get_core();
 	};
 
 	/**

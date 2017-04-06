@@ -9,7 +9,6 @@ civitas.CLIMATES = [
 	'temperate',
 	'tropical',
 	'arid',
-	'continental',
 	'polar'
 ];
 
@@ -38,20 +37,12 @@ civitas.CLIMATE_TROPICAL = 2;
 civitas.CLIMATE_ARID = 3;
 
 /**
- * Continental climate, no sea access.
- * 
- * @constant
- * @type {Number}
- */
-civitas.CLIMATE_CONTINENTAL = 4;
-
-/**
  * Polar climate, very extreme.
  * 
  * @constant
  * @type {Number}
  */
-civitas.CLIMATE_POLAR = 5;
+civitas.CLIMATE_POLAR = 4;
 
 /**
  * Worldmap position of city when the climate is temperate.
@@ -59,7 +50,7 @@ civitas.CLIMATE_POLAR = 5;
  * @constant
  * @type {Object}
  */
-civitas.CITY_LOCATION_TEMPERATE = {
+civitas.SETTLEMENT_LOCATION_TEMPERATE = {
 	x: 500,
 	y: 500
 };
@@ -70,7 +61,7 @@ civitas.CITY_LOCATION_TEMPERATE = {
  * @constant
  * @type {Object}
  */
-civitas.CITY_LOCATION_TROPICAL = {
+civitas.SETTLEMENT_LOCATION_TROPICAL = {
 	x: 500,
 	y: 450
 };
@@ -81,20 +72,9 @@ civitas.CITY_LOCATION_TROPICAL = {
  * @constant
  * @type {Object}
  */
-civitas.CITY_LOCATION_ARID = {
+civitas.SETTLEMENT_LOCATION_ARID = {
 	x: 500,
 	y: 300
-};
-
-/**
- * Worldmap position of city when the climate is continental.
- * 
- * @constant
- * @type {Object}
- */
-civitas.CITY_LOCATION_CONTINENTAL = {
-	x: 500,
-	y: 200
 };
 
 /**
@@ -103,7 +83,7 @@ civitas.CITY_LOCATION_CONTINENTAL = {
  * @constant
  * @type {Object}
  */
-civitas.CITY_LOCATION_POLAR = {
+civitas.SETTLEMENT_LOCATION_POLAR = {
 	x: 500,
 	y: 60
 };
