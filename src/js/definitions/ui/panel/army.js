@@ -21,4 +21,4 @@ civitas.PANEL_ARMY = {
 		$(this.handle + ' #tab-soldiers').append(civitas.ui.army_list(army));
 		$(this.handle + ' #tab-ships').append(civitas.ui.navy_list(army));
 	}
-}
+};

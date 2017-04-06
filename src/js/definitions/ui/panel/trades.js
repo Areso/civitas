@@ -221,4 +221,4 @@ civitas.PANEL_TRADES = {
 			'</table>';
 		$('#tab-exports > .contents').empty().append(out);
 	}
-}
+};

@@ -48,4 +48,4 @@ civitas.PANEL_RANKINGS = {
 			'</div>';
 		$(this.handle + ' .contents').empty().append(_t);
 	}
-}
+};

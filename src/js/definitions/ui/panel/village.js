@@ -86,4 +86,4 @@ civitas.PANEL_VILLAGE = {
 		out += '</dl>';
 		$(this.handle + ' #tab-resources').empty().append(out);
 	}
-}
+};

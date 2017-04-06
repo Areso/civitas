@@ -101,4 +101,4 @@ civitas.PANEL_BUILDING = {
 			'</dl>';
 		$('#panel-' + this.id + ' .contents').empty().append(_t);
 	}
-}
+};

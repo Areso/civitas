@@ -61,4 +61,4 @@ civitas.PANEL_STORAGE = {
 			$(this.handle + ' .toggle-storage').trigger('click');
 		}
 	}
-}
+};

@@ -11537,7 +11537,8 @@ civitas.PANEL_CITY = {
 				'<p>' + civitas.l('Below are the goods this city will be selling this year.') + '</p>' +
 				civitas.ui.trades_list(trades, 'exports'));
 	}
-}
+};
+
 /**
  * Panel panel data.
  *
@@ -11620,7 +11621,8 @@ civitas.PANEL_HELP = {
 			});
 		}
 	}
-}
+};
+
 /**
  * Building panel data.
  *
@@ -11724,7 +11726,8 @@ civitas.PANEL_BUILDING = {
 			'</dl>';
 		$('#panel-' + this.id + ' .contents').empty().append(_t);
 	}
-}
+};
+
 /**
  * Storage panel data.
  *
@@ -11788,7 +11791,8 @@ civitas.PANEL_STORAGE = {
 			$(this.handle + ' .toggle-storage').trigger('click');
 		}
 	}
-}
+};
+
 /**
  * World panel data.
  *
@@ -11840,7 +11844,8 @@ civitas.PANEL_WORLD = {
 			return false;
 		});
 	}
-}
+};
+
 /**
  * Rankings panel data.
  *
@@ -11891,7 +11896,8 @@ civitas.PANEL_RANKINGS = {
 			'</div>';
 		$(this.handle + ' .contents').empty().append(_t);
 	}
-}
+};
+
 /**
  * Advisor panel data.
  *
@@ -12387,7 +12393,8 @@ civitas.PANEL_ADVISOR = {
 				'</fieldset>';
 		$(el + ' .navy-list').empty().append(_t);
 	}
-}
+};
+
 /**
  * Army panel data.
  *
@@ -12411,7 +12418,8 @@ civitas.PANEL_ARMY = {
 		$(this.handle + ' #tab-soldiers').append(civitas.ui.army_list(army));
 		$(this.handle + ' #tab-ships').append(civitas.ui.navy_list(army));
 	}
-}
+};
+
 /**
  * Buildings panel data.
  *
@@ -12600,7 +12608,8 @@ civitas.PANEL_BUILDINGS = {
 			return false;
 		});
 	}
-}
+};
+
 /**
  * Village panel data.
  *
@@ -12689,7 +12698,8 @@ civitas.PANEL_VILLAGE = {
 		out += '</dl>';
 		$(this.handle + ' #tab-resources').empty().append(out);
 	}
-}
+};
+
 /**
  * Trades panel data.
  *
@@ -12913,7 +12923,8 @@ civitas.PANEL_TRADES = {
 			'</table>';
 		$('#tab-exports > .contents').empty().append(out);
 	}
-}
+};
+
 /**
  * Options window data.
  *

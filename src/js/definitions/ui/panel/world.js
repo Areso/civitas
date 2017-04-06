@@ -49,4 +49,4 @@ civitas.PANEL_WORLD = {
 			return false;
 		});
 	}
-}
+};

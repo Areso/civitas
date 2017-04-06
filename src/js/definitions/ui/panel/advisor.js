@@ -493,4 +493,4 @@ civitas.PANEL_ADVISOR = {
 				'</fieldset>';
 		$(el + ' .navy-list').empty().append(_t);
 	}
-}
+};

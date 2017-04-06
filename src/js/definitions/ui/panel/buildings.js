@@ -186,4 +186,4 @@ civitas.PANEL_BUILDINGS = {
 			return false;
 		});
 	}
-}
+};

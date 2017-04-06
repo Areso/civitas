@@ -86,4 +86,4 @@ civitas.PANEL_CITY = {
 				'<p>' + civitas.l('Below are the goods this city will be selling this year.') + '</p>' +
 				civitas.ui.trades_list(trades, 'exports'));
 	}
-}
+};

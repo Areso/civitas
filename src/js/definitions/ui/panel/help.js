@@ -80,4 +80,4 @@ civitas.PANEL_HELP = {
 			});
 		}
 	}
-}
+};
