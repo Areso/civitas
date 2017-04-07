@@ -1,18 +1,18 @@
 /**
- * Advisor panel data.
+ * City Council panel data.
  *
  * @type {Object}
  */
-civitas.PANEL_ADVISOR = {
+civitas.PANEL_COUNCIL = {
 	template: '' +
-		'<div id="panel-advisor" class="panel">' +
+		'<div id="panel-council" class="panel">' +
 			'<header>' +
-				'<span class="title">' + civitas.l('Your City Advisor') + '</span>' +
+				'<span class="title">' + civitas.l('City Council') + '</span>' +
 				'<a class="tips btn close" title="' + civitas.l('Close this panel') + '"></a>' +
 			'</header>' +
 			'<div class="contents"></div>' +
 		'</div>',
-	id: 'advisor',
+	id: 'council',
 	on_show: function(params) {
 		var self = this;
 		var core = this.get_core();
@@ -174,7 +174,7 @@ civitas.PANEL_ADVISOR = {
 		var buildings = settlement.get_buildings();
 		var resources = settlement.get_resources();
 		var achievements = core.get_achievements();
-		var advices = settlement.call_advisor();
+		var advices = settlement.city_council();
 		var el = '#panel-' + this.id;
 		var _t = '<p>' + civitas.l('Mercenary armies are available to hire for a fixed price, they do not cost additional resources but they are only available for raiding and campaign missions, they do not participate in the defense of your city.') + '</p>' +
 				'<p>' + civitas.l('Also, keep in mind that once a mercenary army is hired, they are at your disposal until the end of the current year.') + '</p>' +
@@ -221,8 +221,8 @@ civitas.PANEL_ADVISOR = {
 					'<td class="icon"><img src="' + civitas.ASSETS_URL + 'images/avatars/avatar' + settlements[i].get_ruler_avatar() + '.png" /></td>' +
 					'<td>' +
 					'<p>' +
-						'<span class="title">' + settlements[i].get_name() + '</span> ' +
-						'<span class="description">' + civitas.l('Leader') + ': ' + settlements[i].get_ruler_name() + ' ' + civitas.l('Personality') + ': ' + settlements[i].get_personality().name + '</span>' +
+						'<span class="title">' + (settlements[i].is_city() ? 'City of' : 'Village of') + ' ' + settlements[i].get_name() + '</span> ' +
+						'<span class="description">' + civitas.l('Leader') + ': ' + settlements[i].get_ruler_name() + '</span>' +
 					'</p>';
 			var status = settlement.get_status();
 			var influence = status[settlements[i].get_id()].influence;
@@ -272,25 +272,28 @@ civitas.PANEL_ADVISOR = {
 			}
 		}
 		$('#panel-' + this.id + ' .achievements-list').empty().append(_t);
-		_t = '<img class="avatar" src="' + civitas.ASSETS_URL + 'images/avatars/avatar' + settlement.get_ruler_avatar() + '.png" />' +
-				'<dl>' +
+		_t = '<div class="column">' +
+			'<dl>' +
 				'<dt>' + civitas.l('Current date') + '</dt><dd class="citydate">' + core.get_date() + '</dd>' +
 				'<dt>' + civitas.l('Ruler') + '</dt><dd>' + settlement.get_ruler_name() + '</dd>' +
 				'<dt>' + civitas.l('Climate') + '</dt><dd>' + settlement.get_climate().name.capitalize() + '</dd>' +
 				'<dt>' + civitas.l('Personality') + '</dt><dd>' + settlement.get_personality().name.capitalize() + '</dd>' +
 				'<dt>' + civitas.l('Nationality') + '</dt><dd>' + settlement.get_nationality().name.capitalize() + '</dd>' +
 				'<dt>' + civitas.l('Level') + '</dt><dd class="citylevel">' + settlement.get_level() + '</dd>' +
+				'<dt>' + civitas.l('Population') + '</dt><dd>' + civitas.utils.nice_numbers(settlement.get_population()) + '</dd>' +
 				'<dt>' + civitas.l('Prestige') + '</dt><dd class="cityprestige">' + settlement.get_prestige() + '</dd>' +
 				'<dt>' + civitas.l('Espionage') + '</dt><dd class="cityespionage">' + settlement.get_espionage() + '</dd>' +
 				'<dt>' + civitas.l('Research') + '</dt><dd class="cityresearch">' + settlement.get_research() + '</dd>' +
-				'</dl>';
+			'</dl>' +
+		'</div>';
 		if (advices.length > 0) {
-			_t += '<p>' + civitas.l('Your City Advisor recommends you to:') + '</p>' +
-					'<ul class="advices">';
+			_t += '<div class="column">' +
+				'<ul class="advices">';
 			for (var z = 0; z < advices.length; z++) {
 				_t += '<li>' + advices[z] + '</li>';
 			}
-			_t += '</ul>';
+			_t += '</ul>' +
+				'</div>';
 		}
 		$('#panel-' + this.id + ' #tab-info').empty().append(_t);
 		_t = '<table class="normal">' +

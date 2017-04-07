@@ -321,7 +321,8 @@ civitas.NON_RESOURCES = [
  * @type {Array}
  */
 civitas.MAIN_RESOURCES = [
-	'bread', 'brass', 'cannons', 'cattle', 'cider', 'clay', 'clothes', 'coal', 'copper',
-	'fish', 'flour', 'furs', 'herbs', 'hides', 'iron', 'ironores', 'meat', 'milk', 'salt',
-	'stones', 'weapons', 'wheat', 'wood', 'woodplanks'
+	'beer', 'bread', 'brass', 'brine', 'cannons', 'cattle', 'cider', 'clay', 'clothes', 
+	'coal', 'copper', 'fish', 'flour', 'furs', 'gold', 'goldores', 'herbs', 'hides',
+	'iron', 'ironores', 'meat', 'milk', 'ropes', 'salt', 'stones', 'weapons', 'wheat',
+	'wine', 'wood', 'woodplanks'
 ];

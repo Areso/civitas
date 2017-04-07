@@ -65,7 +65,7 @@ civitas.objects.settlement.prototype.buy_from_settlement = function(settlement, 
 				this.raise_prestige();
 				this.raise_fame(50);
 				this.get_core().refresh();
-				this.get_core().notify(this.get_name() + ' bought ' + amount + ' ' + civitas.utils.get_resource_name(item) + ' from ' + settlement + ' for ' + item_discount_price + ' coins each, for a total of ' + price + ' coins.', 'Transaction done');
+				this.get_core().notify(this.get_name() + ' bought ' + amount + ' ' + civitas.utils.get_resource_name(item) + ' from ' + settlement + ' for ' + item_discount_price + ' coins each, for a total of ' + price + ' coins.', civitas.l('World Market'));
 				return {
 					buyer: this.get_name(),
 					amount: amount,
@@ -127,7 +127,7 @@ civitas.objects.settlement.prototype.list_black_market = function(resource, amou
 		var price = civitas.utils.calc_price_minus_discount(amount, resource, discount);
 		this.get_core().add_black_market(resource, amount, price);
 		this.get_core().refresh();
-		this.get_core().notify(this.get_name() + ' placed ' + amount + ' ' + civitas.utils.get_resource_name(resource) + ' on the Black Market and will receive ' + price + ' coins next month.', 'Goods listed');
+		this.get_core().notify(this.get_name() + ' placed ' + amount + ' ' + civitas.utils.get_resource_name(resource) + ' on the Black Market and will receive ' + price + ' coins next month.', civitas.l('Black Market'));
 		return {
 			seller: this.get_name(),
 			amount: amount,
@@ -196,7 +196,7 @@ civitas.objects.settlement.prototype.sell_to_settlement = function(settlement, r
 				this.raise_prestige();
 				this.raise_fame(50);
 				this.get_core().refresh();
-				this.get_core().notify(this.get_name() + ' sold ' + amount + ' ' + civitas.utils.get_resource_name(item) + ' to ' + settlement + ' for ' + item_discount_price + ' coins each, for a total of ' + price + ' coins.', 'Transaction done');
+				this.get_core().notify(this.get_name() + ' sold ' + amount + ' ' + civitas.utils.get_resource_name(item) + ' to ' + settlement + ' for ' + item_discount_price + ' coins each, for a total of ' + price + ' coins.', civitas.l('World Market'));
 				return {
 					seller: this.get_name(),
 					amount: amount,

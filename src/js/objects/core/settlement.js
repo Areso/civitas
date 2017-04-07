@@ -545,10 +545,12 @@ civitas.objects.settlement = function(params) {
 				this.get_core().error('Your city level is too low to construct this building.');
 				return false;
 			}
+			/*
 			if ((resources.coins - _c.cost.coins) < 0) {
 				this.get_core().error('You don`t have enough coins to construct this building.');
 				return false;
 			}
+			*/
 			if (typeof _c.requires.buildings !== 'undefined') {
 				var required = _c.requires.buildings;
 				for (var i = 0; i < required.length; i++) {
@@ -564,7 +566,10 @@ civitas.objects.settlement = function(params) {
 				if ((resources[item] - _c.cost[item]) < 0) {
 					this.get_core().error('You don`t have enough ' + item + ' to construct this building.');
 					return false;
-				} else {
+				}
+			}
+			for (var item in _c.cost) {
+				if ((resources[item] - _c.cost[item]) >= 0) {
 					this.resources[item] = this.resources[item] - _c.cost[item];
 				}
 			}
@@ -599,15 +604,20 @@ civitas.objects.settlement = function(params) {
 	this.get_rank = function() {
 		var level = this.get_level();
 		var half_level = Math.round(level / 2);
-		return Math.floor(
-			(
+		return {
+			fame: this.get_fame(),
+			prestige: this.get_prestige(),
+			espionage: this.get_espionage(),
+			army: this.get_army_total().total,
+			navy: this.get_navy_total().total,
+			score: Math.floor((
 				((this.get_fame() > 0 ? this.get_fame() : 1) / half_level)
 				+ (this.get_prestige() / half_level)
 				+ (this.get_espionage() / half_level)
 				+ ((this.get_army_total().total > 0 ? this.get_army_total().total : 1) / half_level)
 				+ ((this.get_navy_total().total > 0 ? this.get_navy_total().total : 1) / (half_level / 2))
-			) / half_level
-		);
+			) / half_level)
+		};
 	};
 	
 	/**
@@ -760,12 +770,12 @@ civitas.objects.settlement = function(params) {
 	};
 	
 	/**
-	 * Ask the City Advisor for tips.
+	 * Ask the City Council for tips.
 	 * 
 	 * @public
 	 * @returns {Array}
 	 */
-	this.call_advisor = function() {
+	this.city_council = function() {
 		var resources = this.get_resources();
 		var storage = this.get_storage_space();
 		var advices = [];

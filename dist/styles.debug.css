@@ -135,6 +135,37 @@ ul, li {
 	top: 22px;
 }
 
+.ui header .cityclock {
+	position: absolute;
+	left: 84px;
+	top: 28px;
+	width: 50px;
+	height: 50px;
+	background-color: #222;
+	-webkit-border-radius: 100%;
+	-moz-border-radius: 100%;
+	border-radius: 100%;
+}
+
+.ui header .cityclock .hand {
+	background: #aaa;
+	height: 40%;
+	left: 49%;
+	position: absolute;
+	top: 10%;
+	transform-origin: 50% 100%;
+	width: 5%;
+}
+
+.ui header .cityclock .container {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	animation: none;
+}
+
 .ui header .cityprestige {
 	color: #bbb;
 	font-size: 20px;
@@ -445,7 +476,7 @@ header .top-panel span {
 	margin-bottom: 5px;
 }
 
-#panel-advisor .contents dd {
+#panel-council .contents dd {
 	width: auto;
 }
 
@@ -509,18 +540,27 @@ table.mercenaries td:nth-child(3) {
 	text-align: right;
 }
 
-/* City Advisor panel */
+/* City Council panel */
 
-#panel-advisor {
+#panel-council {
 	width: 750px;
 	max-width: 750px;
 	height: auto;
 	max-height: 520px;
 }
 
-#panel-advisor img.avatar {
-	margin-right: 10px;
-	margin-top: 10px;
+#panel-council img.avatar {
+	left: 10px;
+}
+
+#panel-council .column {
+	float: left;
+	width: 370px;
+	position: relative;
+}
+
+#panel-council .column:last-child {
+	margin-left: 10px;
 }
 
 #tab-production {
@@ -588,17 +628,17 @@ table.mercenaries td:nth-child(3) {
 }
 
 .panel ul.advices {
-	max-height: 190px;
+	max-height: 250px;
 	display: block;
 	margin: 0;
-	padding: 0;
+	padding: 10px 0 0 0;
 	overflow: auto;
 }
 
 .panel ul.advices li {
 	line-height: 30px;
 	padding-left: 50px;
-	background: transparent url(../images/ui/check.png) no-repeat left center;
+	background: transparent url(../images/ui/check.png) no-repeat left top;
 }
 
 .panel .hired-mercenaries-list {
@@ -609,7 +649,7 @@ table.mercenaries td:nth-child(3) {
 /* City Storage panel */
 
 #panel-storage {
-	max-width: 756px;
+	max-width: 840px;
 	max-height: 640px;
 	height: auto;
 }
@@ -648,6 +688,7 @@ table.mercenaries td:nth-child(3) {
 #panel-settlement {
 	width: 360px;
 	max-width: 360px;
+	max-height: 600px;
 	height: auto;
 }
 
@@ -662,6 +703,10 @@ table.mercenaries td:nth-child(3) {
 	max-height: 640px;
 	height: auto;
 	width: 590px;
+}
+
+#panel-buildings .b-desc {
+	margin-bottom: 10px;
 }
 
 #panel-buildings.expanded {
@@ -726,7 +771,8 @@ table.mercenaries td:nth-child(3) {
 }
 
 img.avatar {
-	float: right;
+	position: absolute;
+	top: 10px;
 }
 
 p {
@@ -1247,6 +1293,10 @@ p span.description {
 	font-size: 10px;
 }
 
+.ui-tabs-panel {
+	position: relative;
+}
+
 .ui-tabs-panel > span {
 	display: inline-block;
 	padding: 4px 10px;
@@ -1363,14 +1413,14 @@ td.icon {
 	color: #fff !important;
 }
 
-.tabs table td {
+table td {
 	text-align: left;
 	vertical-align: middle;
 	padding: 10px;
 }
 
-.tabs table thead td,
-.tabs table tfoot td {
+table thead td,
+table tfoot td {
 	background-color: #694224;
 	border: 1px solid #694224;
 	background-image: -webkit-gradient(linear, left top, left bottom, from(#9b6b46), to(#694224));
@@ -1384,11 +1434,12 @@ td.icon {
 table tr.notify {
 	background-color: #f5c0c0;
 }
-.tabs table td.center {
+
+table td.center {
 	text-align: center;
 }
 
-.tabs table td img,
+table td img,
 dd img,
 dt img {
 	vertical-align: middle;
@@ -1430,7 +1481,11 @@ table tr td a.disabled {
 	display: none;
 }
 
-.rankings-list {
+#panel-ranks {
+	width: 300px;
+}
+
+.ranks-list {
 	height: 300px;
 	overflow: auto;
 }
@@ -1669,6 +1724,13 @@ a.disabled {
 	display: none;
 }
 
+@keyframes rotate {
+	100% {
+		transform: rotateZ(360deg);
+	}
+}
+
+
 /* Top panel with resources */
 
 .top-panel span.coins {
@@ -1729,16 +1791,16 @@ footer .do-build {
 	background: transparent url(../images/ui/toolbar/buildings.png) no-repeat;
 }
 
-footer .do-advisor {
-	background: transparent url(../images/ui/toolbar/advisor.png) no-repeat;
+footer .do-council {
+	background: transparent url(../images/ui/toolbar/council.png) no-repeat;
 }
 
 footer .do-worldmap {
 	background: transparent url(../images/ui/toolbar/worldmap.png) no-repeat;
 }
 
-footer .do-rankings {
-	background: transparent url(../images/ui/toolbar/rankings.png) no-repeat;
+footer .do-ranks {
+	background: transparent url(../images/ui/toolbar/ranks.png) no-repeat;
 }
 
 footer .do-help {

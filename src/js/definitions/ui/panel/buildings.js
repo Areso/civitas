@@ -44,10 +44,7 @@ civitas.PANEL_BUILDINGS = {
 		}
 		_t += '</div>' +
 			'</div><div class="buildings-info right">' +
-				'<fieldset>' +
-				'<legend>' + civitas.l('Description') + '</legend>' +
 				'<div class="b-desc"></div>' +
-				'</fieldset>' +
 				'<fieldset>' +
 				'<legend>' + civitas.l('Cost') + '</legend>' +
 				'<div class="b-cost"></div>' +

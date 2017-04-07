@@ -22,7 +22,7 @@ civitas.PANEL_WORLD = {
 		$(this.handle).on('click', '.settlement', function () {
 			var settlement_name = $(this).data('name');
 			if (settlement_name === 'yoursettlement') {
-				core.open_panel(civitas.PANEL_ADVISOR);
+				core.open_panel(civitas.PANEL_COUNCIL);
 			} else {
 				core.open_panel(civitas.PANEL_SETTLEMENT, core.get_settlement(settlement_name));
 			}

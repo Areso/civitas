@@ -98,7 +98,7 @@ civitas.EVENTS = [{
 }, {
 	name: 'Raiders attack',
 	handle: 'raiders',
-	description: 'A band of raiders attacked the outskirts of your city. Repairing the affected buildings costed AMOUNT coins.',
+	description: 'A band of raiders attacked the outskirts of your settlement. Repairing the affected buildings costs your settlement AMOUNT coins.',
 	chance: 0.001,
 	effect: civitas.EVENT_EFFECT_LOSE_COINS,
 	data: {
@@ -107,16 +107,16 @@ civitas.EVENTS = [{
 }, {
 	name: 'Discovery',
 	handle: 'discovery',
-	description: 'The engineers in your city made a great discovery which made your city more famous, thus gaining AMOUNT fame.',
+	description: 'The engineers in your settlement made a great discovery which made you more famous, thus gaining AMOUNT fame.',
 	chance: 0.008,
 	effect: civitas.EVENT_EFFECT_GAIN_FAME,
 	data: {
 		amount: 100,
 	}
 }, {
-	name: 'Spy Found',
+	name: 'Spy found',
 	handle: 'spyfound',
-	description: 'A spy from SETTLEMENT was found hiding in your city, as a reward for finding him you gain AMOUNT espionage.',
+	description: 'A spy from SETTLEMENT was found hiding in your settlement, as a reward for finding him you gain AMOUNT espionage.',
 	chance: 0.010,
 	effect: civitas.EVENT_EFFECT_GAIN_ESPIONAGE,
 	data: {
@@ -124,7 +124,7 @@ civitas.EVENTS = [{
 		settlement: 'Uruk'
 	}
 }, {
-	name: 'Discovery',
+	name: 'Spy uncovered',
 	handle: 'spydiscovered',
 	description: 'One of your spies in SETTLEMENT was discovered, SETTLEMENT`s ruler is angry so you lose AMOUNT espionage.',
 	chance: 0.010,

@@ -85,7 +85,7 @@ civitas.SETTLEMENTS = {
 	2: {
 		icon: 4,
 		climate: civitas.CLIMATE_TROPICAL,
-		level: 50,
+		level: 40,
 		resources: {
 			coins: 230000,
 			prestige: 700,
@@ -141,7 +141,7 @@ civitas.SETTLEMENTS = {
 	3: {
 		icon: 7,
 		climate: civitas.CLIMATE_TEMPERATE,
-		level: 30,
+		level: 20,
 		resources: {
 			coins: 160000,
 			prestige: 1000,
@@ -178,7 +178,7 @@ civitas.SETTLEMENTS = {
 	4: {
 		icon: 5,
 		climate: civitas.CLIMATE_TROPICAL,
-		level: 22,
+		level: 18,
 		resources: {
 			coins: 200000,
 			prestige: 500,
@@ -219,7 +219,7 @@ civitas.SETTLEMENTS = {
 	5: {
 		icon: 5,
 		climate: civitas.CLIMATE_ARID,
-		level: 45,
+		level: 39,
 		resources: {
 			coins: 200000,
 			prestige: 800,
@@ -299,7 +299,7 @@ civitas.SETTLEMENTS = {
 	7: {
 		icon: 4,
 		climate: civitas.CLIMATE_ARID,
-		level: 35,
+		level: 22,
 		resources: {
 			coins: 130000,
 			prestige: 780,
@@ -313,6 +313,7 @@ civitas.SETTLEMENTS = {
 				meat: civitas.IMPORTANCE_MEDIUM
 			},
 			'exports': {
+				ropes: civitas.IMPORTANCE_MEDIUM,
 				gold: civitas.IMPORTANCE_LOW,
 				iron: civitas.IMPORTANCE_VITAL,
 				ironores: civitas.IMPORTANCE_MEDIUM,
@@ -337,7 +338,7 @@ civitas.SETTLEMENTS = {
 	8: {
 		icon: 7,
 		climate: civitas.CLIMATE_POLAR,
-		level: 20,
+		level: 19,
 		resources: {
 			coins: 300000,
 			prestige: 200,
@@ -376,7 +377,7 @@ civitas.SETTLEMENTS = {
 	9: {
 		icon: 4,
 		climate: civitas.CLIMATE_TEMPERATE,
-		level: 50,
+		level: 40,
 		resources: {
 			coins: 330000,
 			prestige: 900,
@@ -426,7 +427,7 @@ civitas.SETTLEMENTS = {
 	10: {
 		icon: 7,
 		climate: civitas.CLIMATE_TEMPERATE,
-		level: 18,
+		level: 28,
 		resources: {
 			coins: 220000,
 			prestige: 160,
@@ -462,7 +463,7 @@ civitas.SETTLEMENTS = {
 	11: {
 		icon: 7,
 		climate: civitas.CLIMATE_TROPICAL,
-		level: 22,
+		level: 23,
 		resources: {
 			coins: 180000,
 			prestige: 200,
@@ -505,7 +506,7 @@ civitas.SETTLEMENTS = {
 	12: {
 		icon: 7,
 		climate: civitas.CLIMATE_ARID,
-		level: 18,
+		level: 27,
 		resources: {
 			coins: 180000,
 			prestige: 300,
@@ -626,7 +627,7 @@ civitas.SETTLEMENTS = {
 	15: {
 		icon: 5,
 		climate: civitas.CLIMATE_TEMPERATE,
-		level: 21,
+		level: 27,
 		resources: {
 			coins: 110000,
 			prestige: 180,
@@ -689,7 +690,8 @@ civitas.SETTLEMENTS = {
 				wax: civitas.IMPORTANCE_MEDIUM,
 				candles: civitas.IMPORTANCE_LOW,
 				salt: civitas.IMPORTANCE_VITAL,
-				pearls: civitas.IMPORTANCE_MEDIUM
+				pearls: civitas.IMPORTANCE_MEDIUM,
+				ropes: civitas.IMPORTANCE_MEDIUM
 			}
 		},
 		army: {
@@ -855,6 +857,7 @@ civitas.SETTLEMENTS = {
 				silk: civitas.IMPORTANCE_MEDIUM,
 				glass: civitas.IMPORTANCE_HIGH,
 				roses: civitas.IMPORTANCE_LOW,
+				ropes: civitas.IMPORTANCE_MEDIUM,
 				cattle: civitas.IMPORTANCE_LOW,
 				bread: civitas.IMPORTANCE_LOW,
 				meat: civitas.IMPORTANCE_MEDIUM,

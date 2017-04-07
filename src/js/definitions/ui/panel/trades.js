@@ -7,7 +7,7 @@ civitas.PANEL_TRADES = {
 	template: '' +
 		'<div id="panel-trades" class="panel">' +
 			'<header>' +
-				'<span class="title">' + civitas.l('World Market Trades') + '</span>' +
+				'<span class="title">' + civitas.l('World Market') + '</span>' +
 				'<a class="tips btn close" title="' + civitas.l('Close this panel') + '"></a>' +
 			'</header>' +
 			'<div class="contents"></div>' +
@@ -19,13 +19,13 @@ civitas.PANEL_TRADES = {
 		var settlement = core.get_settlement();
 		var el = this.handle;
 		var _t = '';
-		_t += civitas.ui.tabs([civitas.l('Imports'), civitas.l('Exports'), civitas.l('Mercenaries'), civitas.l('BlackMarket'), civitas.l('Prices')]);
+		_t += civitas.ui.tabs([civitas.l('Export'), civitas.l('Import'), civitas.l('Mercenaries'), civitas.l('BlackMarket'), civitas.l('Prices')]);
 		$(el + ' .contents').append(_t);
-		$(el + ' #tab-imports').append('<p>' + civitas.l('Below is a list of goods that the other cities in the world are looking to buy. The goods replenish every three months, so plan accordingly. You will need to build a Trading Post before being able to sell goods.') + '</p><div class="contents"></div>');
-		$(el + ' #tab-exports').append('<p>' + civitas.l('Below is a list of goods that the other cities in the world are looking to sell. The goods replenish every three months, so plan accordingly. You will need to build a Trading Post before being able to buy goods.') + '</p><div class="contents"></div>');
+		$(el + ' #tab-import').append('<p>' + civitas.l('Below is a list of goods that the other cities in the world are looking to sell. The goods replenish every three months, so plan accordingly. You will need to build a Trading Post before being able to sell goods.') + '</p><div class="contents"></div>');
+		$(el + ' #tab-export').append('<p>' + civitas.l('Below is a list of goods that the other cities in the world are looking to buy. The goods replenish every three months, so plan accordingly. You will need to build a Trading Post before being able to buy goods.') + '</p><div class="contents"></div>');
 		$(el + ' #tab-mercenaries').append('<p>' + civitas.l('Below is a list of mercenary armies that are looking for hire. Mercenaries are available only for raiding and conquest missions, they do not join your city so they will not participate in defense.') + '</p><div class="contents"></div>');
-		$(el + ' #tab-blackmarket').append('<p>' + civitas.l('The Black Market is a way to dump your excess materials when you`re in need of emptying your warehouses, but expect a steep price drop (<strong>you get ') + (100 - civitas.BLACK_MARKET_DISCOUNT) + civitas.l('% of the actual price</strong>). The goods will be taken immediately from your warehouses but you will receive the coins at the <strong>start of the next month</strong>. Also, you get <strong>no prestige</strong> from Black Market trades.') + '</p><div class="contents"></div>');
-		$(el + ' #tab-prices').append('<p>' + civitas.l('Below are the prices for the goods traded in Civitas. Keep in mind that those are the minted prices, they get altered by taxes (<strong>-' + civitas.TRADES_DISCOUNT + '%</strong>) when you export a resource and by discounts (<strong>+' + civitas.TRADES_ADDITION + '%</strong>) when you import one. Also, if the resource is listed as produced, that possibility depends on the location and climate of your settlement (ex. tropical settlements can build Sugar Farms).') + '</p><div class="contents"></div>');
+		$(el + ' #tab-blackmarket').append('<p>' + civitas.l('The Black Market is a way to dump your excess materials when you`re in need of emptying your warehouses, but expect a steep price drop (taxes for all Black Market trades are <strong>') + civitas.BLACK_MARKET_DISCOUNT + civitas.l('%</strong>). The goods will be taken immediately from your warehouses but you will receive the coins at the <strong>start of the next month</strong>. Also, you get <strong>no prestige</strong> from Black Market trades.') + '</p><div class="contents"></div>');
+		$(el + ' #tab-prices').append('<div class="contents"></div>');
 		this.on_refresh();
 		$(el).on('click', '.buy:not(.disabled)', function () {
 			if (!settlement.can_trade()) {
@@ -169,7 +169,7 @@ civitas.PANEL_TRADES = {
 					'</tr>' +
 				'</tfoot>' +
 			'</table>';
-		$('#tab-imports > .contents').empty().append(out);
+		$('#tab-export > .contents').empty().append(out);
 
 		var out = '<table class="mercenaries">';
 		for (var i = 0; i < civitas.MERCENARIES.length; i++) {
@@ -241,7 +241,7 @@ civitas.PANEL_TRADES = {
 					'</tr>' +
 				'</tfoot>' +
 			'</table>';
-		$('#tab-exports > .contents').empty().append(out);
+		$('#tab-import > .contents').empty().append(out);
 
 		var out = '<table class="normal">' +
 					'<thead>' +
@@ -249,21 +249,24 @@ civitas.PANEL_TRADES = {
 						'<td>' + civitas.l('Resource') + '</td>' +
 						'<td class="center">' + civitas.l('Icon') + '</td>' +
 						'<td class="center">' + civitas.l('Price') + '</td>' +
-						'<td class="center">' + civitas.l('Sell Price') + '</td>' +
-						'<td class="center">' + civitas.l('Buy Price') + '</td>' +
-						'<td class="center">' + civitas.l('Type') + '</td>' +
+						'<td class="center tips" title="This is the price you get for selling one unit of the resource to another settlement, minus the <strong>' + civitas.TRADES_DISCOUNT + '%</strong> export taxes.">' + civitas.l('Sell Price') + '</td>' +
+						'<td class="center tips" title="This is the price you get for buying one unit of the resource from another settlement, plus the <strong>' + civitas.TRADES_ADDITION + '%</strong> import taxes.">' + civitas.l('Buy Price') + '</td>' +
+						'<td class="center tips" title="This is the price you get for placing one unit of the resource on the Black Market, minus the <strong>' + civitas.BLACK_MARKET_DISCOUNT + '%</strong> taxes.">' + civitas.l('BM Price') + '</td>' +
+						'<td class="center tips" title="If the resource is listed as produced, that possibility depends on the location and climate of your settlement (ex. tropical settlements can build <strong>Sugar Farms</strong> and produce <strong>Sugar</strong>).">' + civitas.l('Type') + '</td>' +
 					'</tr>' +
 					'</thead>';
 		for (var item in civitas.RESOURCES) {
 			if ($.inArray(item, civitas.NON_RESOURCES) === -1) {
 				var discount = Math.ceil((civitas.RESOURCES[item].price * civitas.TRADES_ADDITION) / 100);
 				var tax = Math.ceil((civitas.RESOURCES[item].price * civitas.TRADES_DISCOUNT) / 100);
+				var bm_tax = Math.ceil((civitas.RESOURCES[item].price * civitas.BLACK_MARKET_DISCOUNT) / 100);
 				out += '<tr>' +
 					'<td>' + civitas.RESOURCES[item].name + '</td>' +
 					'<td class="center">' + civitas.ui.resource_small_img(item) + '</td>' +
 					'<td class="center">' + civitas.RESOURCES[item].price + civitas.ui.resource_small_img('coins') + '</td>' +
 					'<td class="center">' + (civitas.RESOURCES[item].price - tax) + civitas.ui.resource_small_img('coins') + '</td>' +
 					'<td class="center">' + (civitas.RESOURCES[item].price + discount) + civitas.ui.resource_small_img('coins') + '</td>' +
+					'<td class="center">' + (civitas.RESOURCES[item].price - bm_tax) + civitas.ui.resource_small_img('coins') + '</td>' +
 					'<td class="center">' + ((civitas.RESOURCES[item].imported === true) ? civitas.l('imported') : civitas.l('produced')) + '</td>' +
 				'</tr>';
 			}
@@ -275,6 +278,7 @@ civitas.PANEL_TRADES = {
 						'<td class="center">' + civitas.l('Price') + '</td>' +
 						'<td class="center">' + civitas.l('Sell Price') + '</td>' +
 						'<td class="center">' + civitas.l('Buy Price') + '</td>' +
+						'<td class="center">' + civitas.l('BM Price') + '</td>' +
 						'<td class="center">' + civitas.l('Type') + '</td>' +
 					'</tr>' +
 				'</tfoot>' +

@@ -45,7 +45,7 @@ civitas.AUTOSTART_MUSIC = false;
  * @constant
  * @type {Number}
  */
-civitas.MAX_SETTLEMENT_LEVEL = 55;
+civitas.MAX_SETTLEMENT_LEVEL = 40;
 
 /**
  * URL to the game assets
@@ -61,8 +61,9 @@ civitas.ASSETS_URL = './';
  * @constant
  * @type {Number}
  */
-civitas.YEARLY_INFLUENCE_LOSS = 10;
+civitas.YEARLY_INFLUENCE_LOSS = 2;
 
+civitas.SECONDS_TO_DAY = 10;
 /**
  * Number of city ruler avatars available to choose.
  * 
@@ -76,20 +77,20 @@ civitas.TRADES_ADDITION = 10;
 civitas.TRADES_DISCOUNT = 20;
 
 /**
- * Total number of world maps.
- *
- * @constant
- * @type {Number}
- */
-civitas.WORLDMAPS = 4;
-
-/**
  * The black market discount.
  * 
  * @constant
  * @type {Number}
  */
 civitas.BLACK_MARKET_DISCOUNT = 80;
+
+/**
+ * Total number of world maps.
+ *
+ * @constant
+ * @type {Number}
+ */
+civitas.WORLDMAPS = 4;
 
 /**
  * The resources that will be shown on the toolbar.
@@ -118,17 +119,13 @@ civitas.TOOLBAR_RESOURCES = [
  */
 civitas.LEVELS = [
 	0, 100, 500, 1000, 3000,
-	5500, 8000, 11000, 13000, 16000,
-	19000, 25000, 29000, 35000, 40000,
-	45000, 50000, 60000, 70000, 80000,
-	90000, 100000, 120000, 150000,
-	180000, 200000, 240000, 280000, 350000,
-	400000, 450000, 500000, 550000, 600000,
-	650000, 750000, 850000, 900000, 1000000,
-	1200000, 1400000, 1600000, 1800000, 2000000,
-	2200000, 2400000, 2600000, 2800000, 3000000,
-	3400000, 3800000, 4400000, 5000000, 6000000,
-	7000000
+	6500, 12000, 20000, 30000, 45000,
+	60000, 85000, 100000, 140000, 180000,
+	220000, 290000, 350000, 400000, 500000,
+	610000, 730000, 800000, 930000, 1100000,
+	1300000, 1500000, 1800000, 2500000, 3000000, 
+	4000000, 5500000, 6500000, 8000000, 9000000, 
+	10000000, 12000000, 16000000, 20000000, 50000000
 ];
 
 /**

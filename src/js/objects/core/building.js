@@ -162,18 +162,25 @@ civitas.objects.building = function(params) {
 			if (this.is_upgradable() === true) {
 				var bl_id = settlement.buildings_list.findIndexM(this.get_type());
 				if (bl_id !== false) {
+					/*
 					if ((resources.coins - (_c.cost.coins * next_level)) < 0) {
 						this.get_core().error('You don`t have enough coins to upgrade this building.');
 						return false;
 					} else {
 						resources.coins = resources.coins - (_c.cost.coins * next_level);
 					}
+					*/
 					for (var item in _c.cost) {
 						if (item !== 'coins') {
 							if ((settlement.get_resources()[item] - (_c.cost[item] * next_level)) < 0) {
 								this.get_core().error('You don`t have enough ' + item + ' to upgrade this building.');
 								return false;
-							} else {
+							}
+						}
+					}
+					for (var item in _c.cost) {
+						if (item !== 'coins') {
+							if ((settlement.get_resources()[item] - (_c.cost[item] * next_level)) >= 0) {
 								settlement.get_resources()[item] = settlement.get_resources()[item] - (_c.cost[item] * next_level);
 							}
 						}
@@ -187,6 +194,9 @@ civitas.objects.building = function(params) {
 					$('section.game .building[data-type=' + this.get_type() + ']').css({
 						'background-image': 'url(./images/buildings/' + image + '.png)'
 					});
+					if (typeof _c.storage !== 'undefined') {
+						this.get_settlement().storage = this.get_settlement().storage + _c.storage;
+					}
 					this.get_settlement().buildings_list[bl_id].level = this.get_level();
 					this.get_core().save_and_refresh();
 					this.get_core().notify(this.get_name() + ' upgraded to level ' + this.get_level());

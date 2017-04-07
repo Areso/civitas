@@ -14,8 +14,6 @@ civitas.PANEL_SETTLEMENT = {
 			'<footer class="footer">' +
 					'<a class="tips attack btn" title="' + civitas.l('Attack this settlement') + '"></a>' +
 					'<a class="tips caravan btn" title="' + civitas.l('Send a caravan to this settlement') + '"></a>' +
-					'<a class="tips resources btn" title="' + civitas.l('Give resources to this settlement') + '"></a>' +
-					'<a class="tips alliance btn" title="' + civitas.l('Propose alliance to this settlement') + '"></a>' +
 					'<a class="tips help btn" data-context="settlement" data-term="general" title="' + civitas.l('Info about this settlement') + '"></a>' +
 			'</footer>' +
 		'</div>',
@@ -77,21 +75,6 @@ civitas.PANEL_SETTLEMENT = {
 				}
 			});
 			self.destroy();
-			return false;
-		}).on('click', '.alliance', function () {
-			if (!my_settlement.can_diplomacy()) {
-				core.error(civitas.l('You will need to construct an Embassy before being able to propose treaties and pacts to other settlements.'));
-				return false;
-			}
-			my_settlement.diplomacy(settlement.get_id(), civitas.DIPLOMACY_PROPOSE_ALLIANCE, civitas.SETTLEMENT_TYPES[settlement_type]);
-			core.error('Not implemented yet.');
-			return false;
-		}).on('click', '.resources', function () {
-			if (!my_settlement.can_diplomacy()) {
-				core.error(civitas.l('You will need to construct an Embassy before being able to send goods to other settlements.'));
-				return false;
-			}
-			core.error('Not implemented yet.');
 			return false;
 		});
 	},

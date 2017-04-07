@@ -363,13 +363,11 @@ civitas.BUILDINGS = [{
 			x: 1590,
 			y: 200
 		},
-		levels: 3,
 		cost: {
 			coins: 30000,
 			wood: 20,
 			woodplanks: 30,
-			stones: 40,
-			donkeys: 50,
+			stones: 40
 		},
 		requires: {
 			settlement_level: 6
@@ -482,7 +480,7 @@ civitas.BUILDINGS = [{
 	}, {
 		name: 'Tavern',
 		handle: 'tavern',
-		description: '.',
+		description: 'The tavern is the place where heroes of the known (and unknown) world hang around. If you are looking to recruit Achilles, build a Tavern. He might show up.',
 		is_municipal: true,
 		production: {
 			fame: 20
@@ -559,7 +557,7 @@ civitas.BUILDINGS = [{
 		name: 'Castle',
 		handle: 'castle',
 		description: 'The castle is your main base of operations. It provides your city with ' +
-			'soldiers and some extra fame.',
+			'soldiers, prestige and some extra fame.',
 		is_production: true,
 		production: {
 			fame: 100,

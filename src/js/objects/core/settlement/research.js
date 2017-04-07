@@ -32,7 +32,7 @@ civitas.objects.settlement.prototype.raise_research = function(amount) {
 		++this.resources.research;
 	}
 	$('.cityresearch').html(this.get_research());
-	this.get_core().notify('The research of your city raised.');
+	//this.get_core().notify('The research of your city raised.');
 	return this.resources.research;
 };
 
