@@ -5,21 +5,6 @@
  * @constant
  */
 civitas.SHIPS = {
-	'Caravel': {
-		id: civitas.SHIP_CARAVEL,
-		attack: 10,
-		defense: 10,
-		cost: {
-			coins: 3000,
-			wood: 400,
-			leather: 60,
-			iron: 80,
-			provisions: 60,
-			clothes: 60,
-			ropes: 30,
-			cannons: 20
-		}
-	},
 	'Corsair': {
 		id: civitas.SHIP_CORSAIR,
 		attack: 5,
@@ -30,10 +15,27 @@ civitas.SHIPS = {
 			leather: 50,
 			iron: 50,
 			provisions: 50,
+			pottery: 10,
 			clothes: 50,
 			ropes: 10,
 			cannons: 5,
 			weapons: 10
+		}
+	},
+	'Caravel': {
+		id: civitas.SHIP_CARAVEL,
+		attack: 10,
+		defense: 10,
+		cost: {
+			coins: 3000,
+			wood: 400,
+			leather: 60,
+			iron: 80,
+			provisions: 60,
+			pottery: 20,
+			clothes: 60,
+			ropes: 30,
+			cannons: 20
 		}
 	},
 	'Frigate': {
@@ -46,6 +48,7 @@ civitas.SHIPS = {
 			leather: 60,
 			iron: 80,
 			provisions: 60,
+			pottery: 30,
 			clothes: 60,
 			ropes: 30,
 			cannons: 20,
@@ -62,6 +65,7 @@ civitas.SHIPS = {
 			leather: 70,
 			iron: 120,
 			provisions: 100,
+			pottery: 50,
 			clothes: 70,
 			ropes: 80,
 			cannons: 30,
@@ -78,6 +82,7 @@ civitas.SHIPS = {
 			leather: 200,
 			iron: 500,
 			provisions: 200,
+			pottery: 100,
 			clothes: 200,
 			ropes: 100,
 			cannons: 50,
@@ -96,6 +101,7 @@ civitas.SHIPS = {
 			leather: 400,
 			iron: 1500,
 			provisions: 200,
+			pottery: 140,
 			barrels: 100,
 			clothes: 200,
 			ropes: 100,

@@ -112,8 +112,6 @@ footer .do-help {
 
 .panel .footer .btn.help {
 	background: transparent url(../images/ui/icon_help.png) no-repeat;
-	float: right;
-	margin-right: 0;
 }
 
 .panel .worldmap .army {
@@ -182,4 +180,65 @@ footer .do-help {
 
 .panel .worldmap.w4 {
 	background: transparent url(../images/world/worldmap4.png) no-repeat;
+}
+
+.game .building .notification.error {
+	background: transparent url(../images/ui/error_small.png) no-repeat;
+}
+
+.game .building .notification.paused {
+	background: transparent url(../images/ui/pause_small.png) no-repeat;
+}
+
+#window-options .save-slots li span.load {
+	background: transparent url(../images/ui/icon_back.png) no-repeat center;
+}
+
+#window-options .save-slots li span.save {
+	background: transparent url(../images/ui/icon_start_production.png) no-repeat center;
+}
+
+#window-options .save-slots li span.delete {
+	background: transparent url(../images/ui/icon_demolish.png) no-repeat center;
+}
+
+.ach.img {
+	background: transparent url(../images/ui/icon_achievement.png) no-repeat;
+}
+
+.res.img {
+	background: transparent url(../images/ui/icon_research.png) no-repeat;
+}
+
+.scrollbar .up {
+	background: transparent url(../images/ui/up.png) no-repeat;
+}
+
+.scrollbar .down {
+	background: transparent url(../images/ui/down.png) no-repeat;
+}
+
+.loading {
+	background: transparent url(../images/ui/loading.svg) no-repeat;
+}
+
+.ui .console {
+	background: transparent url(../images/ui/console.jpg) no-repeat;
+}
+
+.notifications .notty .hide,
+.achievements-notifications .notty .hide {
+	background: transparent url(../images/ui/close.png) no-repeat;
+}
+
+.ui > header {
+	background: transparent url(../images/ui/header.png) no-repeat;
+}
+
+.ui > footer {
+	background: transparent url(../images/ui/bottom.png) no-repeat;
+}
+
+.panel ul.advices li {
+	background: transparent url(../images/ui/check.png) no-repeat left top;
 }

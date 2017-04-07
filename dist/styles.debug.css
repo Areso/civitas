@@ -87,7 +87,6 @@ ul, li {
 .ui > header {
 	width: 220px;
 	height: 112px;
-	background: transparent url(../images/ui/header.png) no-repeat;
 	left: 0;
 	z-index: 9999;
 	top: 0;
@@ -217,7 +216,6 @@ header .top-panel span {
 .ui > footer {
 	width: 584px;
 	height: 100px;
-	background: transparent url(../images/ui/bottom.png) no-repeat;
 	position: fixed;
 	bottom: 0;
 	font-family: 'Nova Oval';
@@ -265,14 +263,6 @@ header .top-panel span {
 	position: absolute;
 	top: 0;
 	right: 0;
-}
-
-.game .building .notification.error {
-	background: transparent url(../images/ui/error_small.png) no-repeat;
-}
-
-.game .building .notification.paused {
-	background: transparent url(../images/ui/pause_small.png) no-repeat;
 }
 
 .game .slots {
@@ -383,26 +373,9 @@ header .top-panel span {
 	-moz-border-radius: 3px;
 	border-radius: 3px;
 	padding: 10px 10px 10px 10px;
-	text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
-	color: #fff;
 	text-transform: uppercase;
 	text-align: center;
 	display: block;
-	background-color: #694224;
-	border: 1px solid #694224;
-	background-image: -webkit-gradient(linear, left top, left bottom, from(#9b6b46), to(#694224));
-	background-image: -webkit-linear-gradient(top, #9b6b46, #694224);
-	background-image: -moz-linear-gradient(top, #9b6b46, #694224);
-	background-image: linear-gradient(to bottom, #9b6b46, #694224);
-}
-
-.panel .toolbar .btn:hover {
-	background-color: #422712;
-	border: 1px solid #422712;
-	background-image: -webkit-gradient(linear, left top, left bottom, from(#694224), to(#422712));
-	background-image: -webkit-linear-gradient(top, #694224, #422712);
-	background-image: -moz-linear-gradient(top, #694224, #422712);
-	background-image: linear-gradient(to bottom, #694224, #422712);
 }
 
 .panel .toolbar .btn.iblock {
@@ -635,10 +608,18 @@ table.mercenaries td:nth-child(3) {
 	overflow: auto;
 }
 
+.panel .footer .btn.help {
+	float: right;
+	margin-right: 0;
+}
+
+.scrollbar .up {
+	margin-bottom: 5px;
+}
+
 .panel ul.advices li {
 	line-height: 30px;
 	padding-left: 50px;
-	background: transparent url(../images/ui/check.png) no-repeat left top;
 }
 
 .panel .hired-mercenaries-list {
@@ -718,6 +699,8 @@ table.mercenaries td:nth-child(3) {
 	display: block;
 	border: 0;
 	background-color: #777;
+	-webkit-border-radius: 0;
+	-moz-border-radius: 0;
 	border-radius: 0;
 	margin-top: 5px;
 }
@@ -844,7 +827,9 @@ p {
 #window-options .save-slots li span.load:hover,
 #window-options .save-slots li span.delete:hover {
 	background-color: #ccc;
-	border-radius: 50%;
+	-webkit-border-radius: 100%;
+	-moz-border-radius: 100%;
+	border-radius: 100%;
 }
 #window-options .save-slots li span.load,
 #window-options .save-slots li span.save,
@@ -855,18 +840,6 @@ p {
 	float: right;
 	cursor: pointer;
 	padding: 2px;
-}
-
-#window-options .save-slots li span.load {
-	background: transparent url(../images/ui/icon_back.png) no-repeat center;
-}
-
-#window-options .save-slots li span.save {
-	background: transparent url(../images/ui/icon_start_production.png) no-repeat center;
-}
-
-#window-options .save-slots li span.delete {
-	background: transparent url(../images/ui/icon_demolish.png) no-repeat center;
 }
 
 #window-options .save-slots li span.date {
@@ -882,7 +855,7 @@ p {
 #window-options .github {
 	position: absolute;
 	top: 10px;
-	right: 0px;
+	right: 0;
 }
 
 #window-options .ui-tabs-panel > div {
@@ -971,25 +944,6 @@ input[type=text].small {
 	text-align: center;
 }
 
-#window-options .button.highlight {
-	background-color: #694224;
-	border: 1px solid #694224;
-	background-image: -webkit-gradient(linear, left top, left bottom, from(#9b6b46), to(#694224));
-	background-image: -webkit-linear-gradient(top, #9b6b46, #694224);
-	background-image: -moz-linear-gradient(top, #9b6b46, #694224);
-	background-image: linear-gradient(to bottom, #9b6b46, #694224);
-}
-
-.panel .toolbar .btn:hover,
-#window-options .button.highlight:hover {
-	background-color: #422712;
-	border: 1px solid #422712;
-	background-image: -webkit-gradient(linear, left top, left bottom, from(#694224), to(#422712));
-	background-image: -webkit-linear-gradient(top, #694224, #422712);
-	background-image: -moz-linear-gradient(top, #694224, #422712);
-	background-image: linear-gradient(to bottom, #694224, #422712);
-}
-
 #window-options .button:hover {
 	border: 1px solid #767255;
 	background-color: #938e6b;
@@ -1059,14 +1013,6 @@ input[type=text].small {
 	margin-right: 20px;
 }
 
-.ach.img {
-	background: transparent url(../images/ui/icon_achievement.png) no-repeat;
-}
-
-.res.img {
-	background: transparent url(../images/ui/icon_research.png) no-repeat;
-}
-
 .research-list .research:nth-child(even),
 .achievements-list .achievement:nth-child(even) {
 	margin-right: 0;
@@ -1095,12 +1041,6 @@ input[type=text].small {
 	border-radius: 60px;
 	-moz-border-radius: 60px;
 	-webkit-border-radius: 60px;
-	background-color: #422712;
-	background-image: -webkit-gradient(linear, left top, left bottom, from(#694224), to(#422712));
-	background-image: -webkit-linear-gradient(top, #694224, #422712);
-	background-image: -moz-linear-gradient(top, #694224, #422712);
-	background-image: linear-gradient(to bottom, #694224, #422712);
-	color: #fff;
 }
 
 .notifications .notty.error {
@@ -1122,7 +1062,6 @@ input[type=text].small {
 	padding: 0;
 	cursor: pointer;
 	display: none;
-	background: url(../images/ui/close.png) no-repeat;
 	margin: 6px;
 }
 
@@ -1241,6 +1180,8 @@ input[type=range]::-webkit-slider-runnable-track {
     height: 5px;
     background: #ddd;
     border: none;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
     border-radius: 3px;
 }
 
@@ -1249,6 +1190,8 @@ input[type=range]::-webkit-slider-thumb {
     border: none;
     height: 16px;
     width: 16px;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
     border-radius: 50%;
     background: #908c68;
     margin-top: -4px;
@@ -1267,6 +1210,8 @@ input[type=range]::-moz-range-track {
     height: 5px;
     background: #ddd;
     border: none;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
     border-radius: 3px;
 }
 
@@ -1274,6 +1219,8 @@ input[type=range]::-moz-range-thumb {
     border: none;
     height: 16px;
     width: 16px;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
     border-radius: 50%;
     background: #908c68;
 }
@@ -1315,6 +1262,8 @@ td.icon {
 	-webkit-box-shadow: inset 0 0 8px 0 rgba(0, 0, 0, 0.75);
 	-moz-box-shadow: inset 0 0 8px 0 rgba(0, 0, 0, 0.75);
 	box-shadow: inset 0 0 8px 0 rgba(0, 0, 0, 0.75);
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
 	border-radius: 3px;
 	line-height: 100%;
 	display: inline-block;
@@ -1336,6 +1285,8 @@ td.icon {
 	display: inline-block;
 	height: 16px;
 	padding: 4px 0 0 0;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
 	border-radius: 3px;
 	text-align: center;
 	color: #fff;
@@ -1400,15 +1351,6 @@ td.icon {
 	margin: 0 20px;
 }
 
-.tabs ul li.ui-tabs-active {
-	background-color: #694224;
-	border: 1px solid #694224;
-	background-image: -webkit-gradient(linear, left top, left bottom, from(#9b6b46), to(#694224));
-	background-image: -webkit-linear-gradient(top, #9b6b46, #694224);
-	background-image: -moz-linear-gradient(top, #9b6b46, #694224);
-	background-image: linear-gradient(to bottom, #9b6b46, #694224);
-}
-
 .tabs ul li.ui-tabs-active a {
 	color: #fff !important;
 }
@@ -1421,13 +1363,6 @@ table td {
 
 table thead td,
 table tfoot td {
-	background-color: #694224;
-	border: 1px solid #694224;
-	background-image: -webkit-gradient(linear, left top, left bottom, from(#9b6b46), to(#694224));
-	background-image: -webkit-linear-gradient(top, #9b6b46, #694224);
-	background-image: -moz-linear-gradient(top, #9b6b46, #694224);
-	background-image: linear-gradient(to bottom, #9b6b46, #694224);
-	color: #fff;
 	padding: 10px;
 }
 
@@ -1456,25 +1391,9 @@ table tr td:last-child a {
 	-moz-border-radius: 3px;
 	border-radius: 3px;
 	padding: 4px 10px;
-	text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3);
 	color: #fff !important;
 	text-transform: uppercase;
 	text-align: center;
-	background-color: #694224;
-	border: 1px solid #694224;
-	background-image: -webkit-gradient(linear, left top, left bottom, from(#9b6b46), to(#694224));
-	background-image: -webkit-linear-gradient(top, #9b6b46, #694224);
-	background-image: -moz-linear-gradient(top, #9b6b46, #694224);
-	background-image: linear-gradient(to bottom, #9b6b46, #694224);
-}
-
-table tr td:last-child a:hover {
-	background-color: #422712;
-	border: 1px solid #422712;
-	background-image: -webkit-gradient(linear, left top, left bottom, from(#694224), to(#422712));
-	background-image: -webkit-linear-gradient(top, #694224, #422712);
-	background-image: -moz-linear-gradient(top, #694224, #422712);
-	background-image: linear-gradient(to bottom, #694224, #422712);
 }
 
 table tr td a.disabled {
@@ -1510,7 +1429,6 @@ a.disabled {
 }
 
 .ui .console {
-	background: transparent url(../images/ui/console.jpg) no-repeat;
 	height: 137px;
 	width: 494px;
 	position: fixed;
@@ -1551,15 +1469,6 @@ a.disabled {
 	cursor: pointer;
 }
 
-.scrollbar .up {
-	background: transparent url(../images/ui/up.png) no-repeat;
-	margin-bottom: 5px;
-}
-
-.scrollbar .down {
-	background: transparent url(../images/ui/down.png) no-repeat;
-}
-
 .console .separator {
 	margin-top: 5px;
 	padding-top: 5px;
@@ -1587,7 +1496,6 @@ a.disabled {
 	height: 46px;
 	width: 46px;
 	z-index: 99999999;
-	background: transparent url(../images/ui/loading.svg) no-repeat;
 }
 
 /* Tipsy */
@@ -1645,7 +1553,7 @@ a.disabled {
 }
 
 .tipsy-n .tipsy-arrow {
-	top: 0px;
+	top: 0;
 	left: 50%;
 	margin-left: -5px;
 	border-bottom-style: solid;
@@ -1730,6 +1638,33 @@ a.disabled {
 	}
 }
 
+table tr td:last-child a,
+#window-options .button.highlight,
+.tabs ul li.ui-tabs-active,
+.panel .toolbar .btn,
+table thead td,
+table tfoot td {
+	background-color: #694224;
+	border: 1px solid #694224;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#9b6b46), to(#694224));
+	background-image: -webkit-linear-gradient(top, #9b6b46, #694224);
+	background-image: -moz-linear-gradient(top, #9b6b46, #694224);
+	background-image: linear-gradient(to bottom, #9b6b46, #694224);
+	color: #fff;
+}
+
+table tr td:last-child a:hover,
+.panel .toolbar .btn:hover,
+#window-options .button.highlight:hover,
+.research {
+	background-color: #422712;
+	border: 1px solid #422712;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#694224), to(#422712));
+	background-image: -webkit-linear-gradient(top, #694224, #422712);
+	background-image: -moz-linear-gradient(top, #694224, #422712);
+	background-image: linear-gradient(to bottom, #694224, #422712);
+	color: #fff;
+}
 
 /* Top panel with resources */
 
@@ -1845,8 +1780,6 @@ footer .do-help {
 
 .panel .footer .btn.help {
 	background: transparent url(../images/ui/icon_help.png) no-repeat;
-	float: right;
-	margin-right: 0;
 }
 
 .panel .worldmap .army {
@@ -1915,4 +1848,65 @@ footer .do-help {
 
 .panel .worldmap.w4 {
 	background: transparent url(../images/world/worldmap4.png) no-repeat;
+}
+
+.game .building .notification.error {
+	background: transparent url(../images/ui/error_small.png) no-repeat;
+}
+
+.game .building .notification.paused {
+	background: transparent url(../images/ui/pause_small.png) no-repeat;
+}
+
+#window-options .save-slots li span.load {
+	background: transparent url(../images/ui/icon_back.png) no-repeat center;
+}
+
+#window-options .save-slots li span.save {
+	background: transparent url(../images/ui/icon_start_production.png) no-repeat center;
+}
+
+#window-options .save-slots li span.delete {
+	background: transparent url(../images/ui/icon_demolish.png) no-repeat center;
+}
+
+.ach.img {
+	background: transparent url(../images/ui/icon_achievement.png) no-repeat;
+}
+
+.res.img {
+	background: transparent url(../images/ui/icon_research.png) no-repeat;
+}
+
+.scrollbar .up {
+	background: transparent url(../images/ui/up.png) no-repeat;
+}
+
+.scrollbar .down {
+	background: transparent url(../images/ui/down.png) no-repeat;
+}
+
+.loading {
+	background: transparent url(../images/ui/loading.svg) no-repeat;
+}
+
+.ui .console {
+	background: transparent url(../images/ui/console.jpg) no-repeat;
+}
+
+.notifications .notty .hide,
+.achievements-notifications .notty .hide {
+	background: transparent url(../images/ui/close.png) no-repeat;
+}
+
+.ui > header {
+	background: transparent url(../images/ui/header.png) no-repeat;
+}
+
+.ui > footer {
+	background: transparent url(../images/ui/bottom.png) no-repeat;
+}
+
+.panel ul.advices li {
+	background: transparent url(../images/ui/check.png) no-repeat left top;
 }

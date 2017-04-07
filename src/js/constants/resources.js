@@ -24,6 +24,10 @@ civitas.RESOURCES = {
 		name: 'Almonds',
 		price: 200
 	},
+	'armor': {
+		name: 'Armor',
+		price: 200
+	},
 	'barrels': {
 		name: 'Barrels',
 		price: 60
@@ -208,6 +212,10 @@ civitas.RESOURCES = {
 	'perfume': {
 		name: 'Perfume',
 		price: 305
+	},
+	'pottery': {
+		name: 'Pottery',
+		price: 60
 	},
 	'provisions': {
 		name: 'Provisions',

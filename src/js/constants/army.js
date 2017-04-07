@@ -49,7 +49,8 @@ civitas.SOLDIERS = {
 			beer: 1,
 			iron: 1,
 			leather: 1,
-			weapons: 5
+			weapons: 5,
+			armor: 1
 		}
 	},
 	'Crossbowman': {
@@ -63,7 +64,8 @@ civitas.SOLDIERS = {
 			beer: 1,
 			clothes: 1,
 			iron: 1,
-			weapons: 7
+			weapons: 7,
+			armor: 1
 		}
 	},
 	'Knight': {
@@ -75,7 +77,8 @@ civitas.SOLDIERS = {
 			provisions: 1,
 			clothes: 1,
 			iron: 1,
-			weapons: 9
+			weapons: 9,
+			armor: 4
 		}
 	}
 };

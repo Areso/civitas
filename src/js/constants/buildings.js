@@ -25,7 +25,7 @@ civitas.SETTLEMENT_BUILDINGS_TROPICAL = [
 
 	/* Industry */
 	'lumberjack', 'stone', 'trapper', 'tannery', 'furrier', 'armory', 'coffeeroaster',
-	'quartzfactory', 'winery', 'saltworks',
+	'quartzfactory', 'winery', 'saltworks', 'pottery',
 	'charcoalburnerhut', 'opticiansworkshop', 'papermill', 'printingpress',
 	'redsmithsworkshop', 'ropeyard', 'glassworks', 'silkweaver',
 	'apiary', 'barrelcooperage', 'brewery', 'candlemakersworkshop', 'sugarmill',
@@ -64,7 +64,7 @@ civitas.SETTLEMENT_BUILDINGS_POLAR = [
 
 	/* Industry */
 	'lumberjack', 'stone', 'trapper', 'tannery', 'furrier', 'armory', 'coffeeroaster',
-	'quartzfactory', 'winery', 'saltworks',
+	'quartzfactory', 'winery', 'saltworks', 'pottery',
 	'charcoalburnerhut', 'opticiansworkshop', 'papermill', 'printingpress',
 	'redsmithsworkshop', 'ropeyard', 'glassworks', 'silkweaver', 'marzipanworkshop',
 	'apiary', 'barrelcooperage', 'brewery', 'candlemakersworkshop', 'sugarmill',
@@ -97,7 +97,7 @@ civitas.SETTLEMENT_BUILDINGS_ARID = [
 
 	/* Industry */
 	'lumberjack', 'stone', 'trapper', 'tannery', 'furrier', 'armory', 'coffeeroaster',
-	'quartzfactory', 'winery', 'saltworks',
+	'quartzfactory', 'winery', 'saltworks', 'pottery',
 	'charcoalburnerhut', 'opticiansworkshop', 'papermill', 'printingpress',
 	'redsmithsworkshop', 'ropeyard', 'glassworks', 'silkweaver',
 	'apiary', 'barrelcooperage', 'brewery', 'candlemakersworkshop', 'sugarmill',
@@ -134,7 +134,7 @@ civitas.SETTLEMENT_BUILDINGS_TEMPERATE = [
 
 	/* Industry */
 	'lumberjack', 'stone', 'trapper', 'tannery', 'furrier', 'armory', 'coffeeroaster',
-	'quartzfactory', 'winery', 'saltworks',
+	'quartzfactory', 'winery', 'saltworks', 'pottery',
 	'charcoalburnerhut', 'opticiansworkshop', 'papermill', 'printingpress',
 	'redsmithsworkshop', 'ropeyard', 'glassworks', 'silkweaver', 'marzipanworkshop',
 	'apiary', 'barrelcooperage', 'brewery', 'candlemakersworkshop', 'sugarmill',
@@ -162,7 +162,7 @@ civitas.BUILDINGS_ALL = [
 	'coppermine', 'goldmine', 'goldsmelter', 'coppersmelter', 'armory', 'coffeefarm',
 	'coffeefield', 'hempfarm', 'hempfield', 'sugarfarm',
 	'sugarfield', 'silkfarm', 'silkfield', 'coffeeroaster', 'quartzfactory', 'grapesfarm',
-	'grapesfield', 'winery', 'saltworks', 'carpenter',
+	'grapesfield', 'winery', 'saltworks', 'carpenter', 'pottery',
 	'charcoalburnerhut', 'monastery', 'opticiansworkshop', 'papermill', 'printingpress',
 	'redsmithsworkshop', 'ropeyard', 'glassworks', 'provisions', 'silkweaver',
 	'apiary', 'barrelcooperage', 'brewery', 'candlemakersworkshop', 'indigofarm',
@@ -247,6 +247,7 @@ civitas.BUILDINGS_CATEGORIES = {
 		'lumberjack',
 		'opticiansworkshop',
 		'papermill',
+		'pottery',
 		'printingpress',
 		'quartzfactory',
 		'redsmithsworkshop',
@@ -285,7 +286,7 @@ civitas.BUILDINGS_CATEGORIES = {
 civitas.BUILDINGS = [{
 		name: 'Marketplace',
 		handle: 'marketplace',
-		description: 'The marketplace is the main building of your city and provides a place ' +
+		description: 'The Marketplace is the main building of your city and provides a place ' +
 			'for the inhabitants of your settlement to gather. It cannot be demolished.',
 		storage: 100000,
 		is_municipal: true,
@@ -307,8 +308,8 @@ civitas.BUILDINGS = [{
 	}, {
 		name: 'Warehouse',
 		handle: 'warehouse',
-		description: 'The warehouse is a trade building that provides market carts that pick up ' +
-			'goods from production buildings. A warehouse also adds extra storage space for the ' +
+		description: 'The Warehouse is a trade building that provides market carts that pick up ' +
+			'goods from production buildings. A Warehouse also adds extra storage space for the ' +
 			'materials in your city.',
 		storage: 100000,
 		levels: 3,
@@ -329,7 +330,7 @@ civitas.BUILDINGS = [{
 	}, {
 		name: 'Church',
 		handle: 'church',
-		description: 'A church provides a massive fame boost to your settlement by using coins and ' +
+		description: 'A Church provides a massive fame boost to your settlement by using coins and ' +
 			'converting them to fame.',
 		is_municipal: true,
 		is_production: true,
@@ -375,7 +376,7 @@ civitas.BUILDINGS = [{
 	}, {
 		name: 'Academy',
 		handle: 'academy',
-		description: 'The academy provides research for the city it is built into, at the expense of coins.',
+		description: 'The Academy provides research for the settlement it is built into, at the expense of coins.',
 		is_municipal: true,
 		is_production: true, 
 		production: {
@@ -427,7 +428,7 @@ civitas.BUILDINGS = [{
 	}, {
 		name: 'Provision House',
 		handle: 'provisions',
-		description: 'The provision house requires various goods to produce provisions for military units.',
+		description: 'The Provision House requires various goods to produce provisions for military units.',
 		is_production: true,
 		production: {
 			provisions: 2
@@ -480,7 +481,7 @@ civitas.BUILDINGS = [{
 	}, {
 		name: 'Tavern',
 		handle: 'tavern',
-		description: 'The tavern is the place where heroes of the known (and unknown) world hang around. If you are looking to recruit Achilles, build a Tavern. He might show up.',
+		description: 'The Tavern is the place where heroes of the known (and unknown) world hang around. If you are looking to recruit Achilles, build a Tavern. He might show up.',
 		is_municipal: true,
 		production: {
 			fame: 20
@@ -508,8 +509,8 @@ civitas.BUILDINGS = [{
 	}, {
 		name: 'Shipyard',
 		handle: 'shipyard',
-		description: 'The shipyard helps you expand your settlement overseas by providing you ' +
-			'with ships and an ultra-small chance to gather pearls.',
+		description: 'The Shipyard helps you expand your settlement overseas by housing your ' +
+			'ships and providing you with fish and an ultra-small chance to gather pearls.',
 		is_production: true,
 		position: {
 			x: 1746,
@@ -556,8 +557,8 @@ civitas.BUILDINGS = [{
 	}, {
 		name: 'Castle',
 		handle: 'castle',
-		description: 'The castle is your main base of operations. It provides your city with ' +
-			'soldiers, prestige and some extra fame.',
+		description: 'The Castle is your main base of operations. It houses your ' +
+			'settlement`s soldiers and provides you with prestige and some extra fame.',
 		is_production: true,
 		production: {
 			fame: 100,
@@ -756,8 +757,8 @@ civitas.BUILDINGS = [{
 		name: 'Salt Works',
 		handle: 'saltworks',
 		description: 'Salt Works requires coal and brine, and it produces salt. Salt is used for ' +
-			'leather jerkins by the tannery, meat by the butcher`s shop and fur coats by the ' +
-			'furrier`s workshop.',
+			'leather jerkins by the Tannery, meat by the Butcher`s Shop and fur coats by the ' +
+			'Furrier`s Workshop.',
 		is_production: true,
 		production: {
 			salt: 4
@@ -829,19 +830,46 @@ civitas.BUILDINGS = [{
 			settlement_level: 3
 		}
 	}, {
-		name: 'Armory',
-		handle: 'armory',
-		description: 'The Armory is a major building that produces weapons. If you want to conquer ' +
-			'others, you will need one.',
+		name: 'Pottery Workshop',
+		handle: 'pottery',
+		description: 'The pottery workshop uses a high-temperature kiln and clay to create ' +
+			'pottery for the inhabitants of your settlement.',
 		is_production: true,
 		production: {
-			weapons: 1
+			pottery: 4
 		},
 		materials: {
-			iron: 2,
+			clay: 6
+		},
+		position: {
+			x: 1360,
+			y: 630
+		},
+		levels: 3,
+		cost: {
+			coins: 30000,
+			woodplanks: 30,
+			stones: 30,
+			clay: 100
+		},
+		requires: {
+			settlement_level: 6
+		}
+	}, {
+		name: 'Armory',
+		handle: 'armory',
+		description: 'The Armory is a major building that produces weapons and armor for ' +
+			'your soldiers. If you want to conquer other settlements, you will need one.',
+		is_production: true,
+		production: {
+			weapons: 1,
+			armor: 1
+		},
+		materials: {
+			iron: 10,
 			wood: 2,
-			leather: 1,
-			brass: 1
+			leather: 8,
+			brass: 4
 		},
 		position: {
 			x: 863,
@@ -859,7 +887,7 @@ civitas.BUILDINGS = [{
 	}, {
 		name: 'Butcher',
 		handle: 'butcher',
-		description: 'The butcher slaughters cattle for meat, providing food that is more ' +
+		description: 'The Butcher slaughters cattle for meat, providing food that is more ' +
 			'nutritious. Hides will be processed at the Tannery.',
 		is_production: true,
 		production: {
@@ -1478,7 +1506,7 @@ civitas.BUILDINGS = [{
 	}, {
 		name: 'Catapult Workshop',
 		handle: 'catapultworkshop',
-		description: '.',
+		description: 'The Catapult Workshop builds catapults, which are the ultimate siege weapons.',
 		is_production: true,
 		production: {
 			catapults: 1
@@ -1610,7 +1638,8 @@ civitas.BUILDINGS = [{
 		},
 		materials: {
 			bread: 1,
-			meat: 1
+			meat: 1,
+			pottery: 1
 		},
 		position: {
 			x: 860,
@@ -1636,6 +1665,7 @@ civitas.BUILDINGS = [{
 		materials: {
 			fish: 2,
 			meat: 2,
+			pottery: 1,
 			beer: 1
 		},
 		position: {
@@ -1662,6 +1692,7 @@ civitas.BUILDINGS = [{
 		materials: {
 			fish: 2,
 			meat: 2,
+			pottery: 1,
 			wine: 1
 		},
 		position: {
@@ -1689,6 +1720,7 @@ civitas.BUILDINGS = [{
 			fish: 2,
 			meat: 2,
 			wine: 1,
+			pottery: 1,
 			candlesticks: 1
 		},
 		position: {
@@ -1716,6 +1748,7 @@ civitas.BUILDINGS = [{
 			fish: 2,
 			meat: 2,
 			wine: 1,
+			pottery: 1,
 			candlesticks: 1,
 			furcoats: 1
 		},
@@ -1744,6 +1777,7 @@ civitas.BUILDINGS = [{
 			fish: 2,
 			meat: 2,
 			wine: 1,
+			pottery: 1,
 			candlesticks: 1,
 			furcoats: 1,
 			perfume: 1,

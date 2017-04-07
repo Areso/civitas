@@ -35,7 +35,7 @@ civitas.SETTLEMENTS = {
 	1: {
 		icon: 7,
 		climate: civitas.CLIMATE_TEMPERATE,
-		level: 25,
+		level: 35,
 		resources: {
 			coins: 230000,
 			prestige: 700,
@@ -57,6 +57,8 @@ civitas.SETTLEMENTS = {
 			'exports': {
 				hemp: civitas.IMPORTANCE_VITAL,
 				indigo: civitas.IMPORTANCE_LOW,
+				armor: civitas.IMPORTANCE_MEDIUM,
+				barrels: civitas.IMPORTANCE_MEDIUM,
 				paper: civitas.IMPORTANCE_HIGH,
 				woodplanks: civitas.IMPORTANCE_MEDIUM,
 				stones: civitas.IMPORTANCE_LOW
@@ -85,7 +87,7 @@ civitas.SETTLEMENTS = {
 	2: {
 		icon: 4,
 		climate: civitas.CLIMATE_TROPICAL,
-		level: 40,
+		level: 32,
 		resources: {
 			coins: 230000,
 			prestige: 700,
@@ -94,6 +96,7 @@ civitas.SETTLEMENTS = {
 		trades: {
 			'imports': {
 				wax: civitas.IMPORTANCE_LOW,
+				pottery: civitas.IMPORTANCE_HIGH,
 				sugar: civitas.IMPORTANCE_VITAL,
 				sugarcane: civitas.IMPORTANCE_MEDIUM,
 				glasses: civitas.IMPORTANCE_LOW,
@@ -141,7 +144,7 @@ civitas.SETTLEMENTS = {
 	3: {
 		icon: 7,
 		climate: civitas.CLIMATE_TEMPERATE,
-		level: 20,
+		level: 30,
 		resources: {
 			coins: 160000,
 			prestige: 1000,
@@ -151,6 +154,7 @@ civitas.SETTLEMENTS = {
 			'imports': {
 				wheat: civitas.IMPORTANCE_VITAL,
 				wood: civitas.IMPORTANCE_HIGH,
+				barrels: civitas.IMPORTANCE_MEDIUM,
 				sugar: civitas.IMPORTANCE_LOW,
 				sugarcane: civitas.IMPORTANCE_LOW,
 				clay: civitas.IMPORTANCE_VITAL
@@ -161,6 +165,7 @@ civitas.SETTLEMENTS = {
 				glasses: civitas.IMPORTANCE_LOW,
 				furcoats: civitas.IMPORTANCE_MEDIUM,
 				indigo: civitas.IMPORTANCE_LOW,
+				pottery: civitas.IMPORTANCE_HIGH,
 				wheat: civitas.IMPORTANCE_LOW
 			}
 		},
@@ -178,7 +183,7 @@ civitas.SETTLEMENTS = {
 	4: {
 		icon: 5,
 		climate: civitas.CLIMATE_TROPICAL,
-		level: 18,
+		level: 28,
 		resources: {
 			coins: 200000,
 			prestige: 500,
@@ -200,6 +205,8 @@ civitas.SETTLEMENTS = {
 				meat: civitas.IMPORTANCE_VITAL,
 				clothes: civitas.IMPORTANCE_VITAL,
 				fish: civitas.IMPORTANCE_LOW,
+				armor: civitas.IMPORTANCE_MEDIUM,
+				pottery: civitas.IMPORTANCE_HIGH,
 				coffeebeans: civitas.IMPORTANCE_HIGH,
 				silk: civitas.IMPORTANCE_LOW
 			}
@@ -262,7 +269,7 @@ civitas.SETTLEMENTS = {
 	6: {
 		icon: 2,
 		climate: civitas.CLIMATE_TROPICAL,
-		level: 21,
+		level: 29,
 		resources: {
 			coins: 190000,
 			prestige: 100,
@@ -283,6 +290,7 @@ civitas.SETTLEMENTS = {
 				clothes: civitas.IMPORTANCE_LOW,
 				glass: civitas.IMPORTANCE_HIGH,
 				wheat: civitas.IMPORTANCE_VITAL,
+				pottery: civitas.IMPORTANCE_HIGH,
 				hides: civitas.IMPORTANCE_LOW,
 				paper: civitas.IMPORTANCE_LOW
 			}
@@ -310,6 +318,7 @@ civitas.SETTLEMENTS = {
 				silk: civitas.IMPORTANCE_LOW,
 				clothes: civitas.IMPORTANCE_HIGH,
 				leather: civitas.IMPORTANCE_LOW,
+				pottery: civitas.IMPORTANCE_HIGH,
 				meat: civitas.IMPORTANCE_MEDIUM
 			},
 			'exports': {
@@ -338,7 +347,7 @@ civitas.SETTLEMENTS = {
 	8: {
 		icon: 7,
 		climate: civitas.CLIMATE_POLAR,
-		level: 19,
+		level: 29,
 		resources: {
 			coins: 300000,
 			prestige: 200,
@@ -357,7 +366,9 @@ civitas.SETTLEMENTS = {
 				herbs: civitas.IMPORTANCE_VITAL,
 				statues: civitas.IMPORTANCE_VITAL,
 				wax: civitas.IMPORTANCE_LOW,
+				barrels: civitas.IMPORTANCE_MEDIUM,
 				candles: civitas.IMPORTANCE_LOW,
+				armor: civitas.IMPORTANCE_HIGH,
 				salt: civitas.IMPORTANCE_MEDIUM
 			}
 		},
@@ -377,7 +388,7 @@ civitas.SETTLEMENTS = {
 	9: {
 		icon: 4,
 		climate: civitas.CLIMATE_TEMPERATE,
-		level: 40,
+		level: 30,
 		resources: {
 			coins: 330000,
 			prestige: 900,
@@ -437,6 +448,7 @@ civitas.SETTLEMENTS = {
 			'imports': {
 				flour: civitas.IMPORTANCE_LOW,
 				bread: civitas.IMPORTANCE_LOW,
+				armor: civitas.IMPORTANCE_HIGH,
 				brass: civitas.IMPORTANCE_MEDIUM,
 				coal: civitas.IMPORTANCE_VITAL
 			},
@@ -479,6 +491,7 @@ civitas.SETTLEMENTS = {
 			'exports': {
 				spyglasses: civitas.IMPORTANCE_VITAL,
 				wax: civitas.IMPORTANCE_LOW,
+				armor: civitas.IMPORTANCE_HIGH,
 				candles: civitas.IMPORTANCE_LOW,
 				salt: civitas.IMPORTANCE_MEDIUM,
 				sugarcane: civitas.IMPORTANCE_HIGH
@@ -516,6 +529,7 @@ civitas.SETTLEMENTS = {
 			'imports': {
 				cider: civitas.IMPORTANCE_LOW,
 				ropes: civitas.IMPORTANCE_LOW,
+				armor: civitas.IMPORTANCE_HIGH,
 				wax: civitas.IMPORTANCE_MEDIUM,
 				sugar: civitas.IMPORTANCE_LOW,
 				wood: civitas.IMPORTANCE_VITAL,
@@ -549,7 +563,7 @@ civitas.SETTLEMENTS = {
 	13: {
 		icon: 4,
 		climate: civitas.CLIMATE_TEMPERATE,
-		level: 16,
+		level: 36,
 		resources: {
 			coins: 200000,
 			prestige: 10,
@@ -568,6 +582,7 @@ civitas.SETTLEMENTS = {
 			'exports': {
 				brine: civitas.IMPORTANCE_MEDIUM,
 				clothes: civitas.IMPORTANCE_LOW,
+				armor: civitas.IMPORTANCE_HIGH,
 				glass: civitas.IMPORTANCE_HIGH,
 				wheat: civitas.IMPORTANCE_VITAL,
 				hides: civitas.IMPORTANCE_LOW,
@@ -627,7 +642,7 @@ civitas.SETTLEMENTS = {
 	15: {
 		icon: 5,
 		climate: civitas.CLIMATE_TEMPERATE,
-		level: 27,
+		level: 29,
 		resources: {
 			coins: 110000,
 			prestige: 180,
@@ -648,6 +663,7 @@ civitas.SETTLEMENTS = {
 				wine: civitas.IMPORTANCE_HIGH,
 				silk: civitas.IMPORTANCE_LOW,
 				wood: civitas.IMPORTANCE_MEDIUM,
+				armor: civitas.IMPORTANCE_MEDIUM,
 				cattle: civitas.IMPORTANCE_LOW,
 				statues: civitas.IMPORTANCE_VITAL
 			}
@@ -760,6 +776,7 @@ civitas.SETTLEMENTS = {
 			'imports': {
 				salt: civitas.IMPORTANCE_MEDIUM,
 				stones: civitas.IMPORTANCE_VITAL,
+				armor: civitas.IMPORTANCE_MEDIUM,
 				gems: civitas.IMPORTANCE_LOW,
 				woodplanks: civitas.IMPORTANCE_MEDIUM,
 				pearls: civitas.IMPORTANCE_LOW
@@ -790,7 +807,7 @@ civitas.SETTLEMENTS = {
 	19: {
 		icon: 5,
 		climate: civitas.CLIMATE_TEMPERATE,
-		level: 22,
+		level: 27,
 		resources: {
 			coins: 240000,
 			prestige: 420,
@@ -835,7 +852,7 @@ civitas.SETTLEMENTS = {
 	20: {
 		icon: 7,
 		climate: civitas.CLIMATE_ARID,
-		level: 24,
+		level: 34,
 		resources: {
 			coins: 320000,
 			prestige: 490,
