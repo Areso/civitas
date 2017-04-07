@@ -3,6 +3,15 @@
  */
 civitas.utils = {
 
+	resource_exists: function(resource) {
+		for (var item in civitas.RESOURCES) {
+			if (item === resource) {
+				return true;
+			}
+		}
+		return false;
+	},
+
 	get_distance: function(source, destination) {
 		return Math.floor(Math.sqrt(Math.pow(destination.x - source.x, 2) + Math.pow(destination.y - source.y, 2)));
 	},

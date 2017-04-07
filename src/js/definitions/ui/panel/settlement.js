@@ -38,8 +38,8 @@ civitas.PANEL_SETTLEMENT = {
 		}
 		this.on_refresh();
 		$(this.handle).on('click', '.caravan', function () {
-			if (!my_settlement.can_diplomacy()) {
-				core.error(civitas.l('You will need to construct an Embassy before being able to propose treaties and pacts to other settlements.'));
+			if (!my_settlement.can_trade()) {
+				core.error(civitas.l('You will need to construct a Trading Post before being able to trade resources with other settlements.'));
 				return false;
 			}
 			core.add_campaign(my_settlement, settlement, civitas.CAMPAIGN_CARAVAN, {

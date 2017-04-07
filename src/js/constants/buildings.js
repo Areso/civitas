@@ -8,7 +8,7 @@ civitas.SETTLEMENT_BUILDINGS_TROPICAL = [
 
 	/* Municipal */
 	'marketplace', 'warehouse', 'tradingpost', 'church', 'monastery', 'camp', 'castle',
-	'shipyard', 'embassy', 'academy',
+	'shipyard', 'embassy', 'academy', 'tavern',
 
 	/* Housing */
 	'house1', 'house2', 'house3', 'house4', 'house5', 'house6', 'house7', 'house8',
@@ -48,7 +48,7 @@ civitas.SETTLEMENT_BUILDINGS_POLAR = [
 
 	/* Municipal */
 	'marketplace', 'warehouse', 'tradingpost', 'church', 'monastery', 'camp', 'castle',
-	'shipyard', 'embassy', 'academy',
+	'shipyard', 'embassy', 'academy', 'tavern',
 
 	/* Housing */
 	'house1', 'house2', 'house3', 'house4', 'house5', 'house6', 'house7',
@@ -81,7 +81,7 @@ civitas.SETTLEMENT_BUILDINGS_ARID = [
 
 	/* Municipal */
 	'marketplace', 'warehouse', 'tradingpost', 'church', 'monastery', 'camp', 'castle',
-	'shipyard', 'embassy', 'academy',
+	'shipyard', 'embassy', 'academy', 'tavern',
 
 	/* Housing */
 	'house1', 'house2', 'house3', 'house4', 'house5', 'house6', 'house7',
@@ -117,7 +117,7 @@ civitas.SETTLEMENT_BUILDINGS_TEMPERATE = [
 
 	/* Municipal */
 	'marketplace', 'warehouse', 'tradingpost', 'church', 'monastery', 'camp', 'castle',
-	'shipyard', 'embassy', 'academy',
+	'shipyard', 'embassy', 'academy', 'tavern',
 
 	/* Housing */
 	'house1', 'house2', 'house3', 'house4', 'house5', 'house6', 'house7', 'house8',
@@ -154,7 +154,7 @@ civitas.SETTLEMENT_BUILDINGS_TEMPERATE = [
  */
 civitas.BUILDINGS_ALL = [
 	'marketplace', 'lumberjack', 'camp', 'warehouse', 'mill', 'castle', 'stone',
-	'ironmine', 'trapper', 'almondsfarm', 'almondsfield',
+	'ironmine', 'trapper', 'almondsfarm', 'almondsfield', 'tavern',
 	'shipyard', 'pigfarm', 'cattlefarm', 'pigfield', 'cattlefield', 'house1', 'house2',
 	'house3', 'house4', 'house5', 'house6', 'house7',
 	'house8', 'house9', 'church', 'bakery', 'butcher', 'grainfarm', 'grainfield',
@@ -185,7 +185,8 @@ civitas.BUILDINGS_CATEGORIES = {
 		'monastery',
 		'shipyard',
 		'tradingpost',
-		'warehouse'
+		'warehouse',
+		'tavern'
 	],
 	'Housing': [
 		'house1',
@@ -367,7 +368,8 @@ civitas.BUILDINGS = [{
 			coins: 30000,
 			wood: 20,
 			woodplanks: 30,
-			stones: 40
+			stones: 40,
+			donkeys: 50,
 		},
 		requires: {
 			settlement_level: 6
@@ -478,6 +480,34 @@ civitas.BUILDINGS = [{
 			buildings: ['academy']
 		}
 	}, {
+		name: 'Tavern',
+		handle: 'tavern',
+		description: '.',
+		is_municipal: true,
+		production: {
+			fame: 20
+		},
+		materials: {
+			coins: 20
+		},
+		position: {
+			x: 1380,
+			y: 180
+		},
+		levels: 3,
+		cost: {
+			coins: 100000,
+			woodplanks: 200,
+			stones: 200,
+			wood: 200,
+			wine: 100,
+			meat: 100
+		},
+		requires: {
+			settlement_level: 16,
+			buildings: ['academy', 'castle']
+		}
+	}, {
 		name: 'Shipyard',
 		handle: 'shipyard',
 		description: 'The shipyard helps you expand your settlement overseas by providing you ' +
@@ -495,7 +525,9 @@ civitas.BUILDINGS = [{
 			coins: 200000,
 			wood: 200,
 			woodplanks: 200,
-			stones: 100
+			stones: 100,
+			ropes: 10,
+			barrels: 10
 		},
 		production: {
 			fish: 4
@@ -1764,7 +1796,7 @@ civitas.BUILDINGS = [{
 		cost: {
 			coins: 2000,
 			wood: 10,
-			clay: 10
+			clay: 20
 		},
 		requires: {
 			settlement_level: 4
@@ -1802,7 +1834,7 @@ civitas.BUILDINGS = [{
 		cost: {
 			coins: 5000,
 			wood: 10,
-			clay: 10
+			clay: 20
 		},
 		requires: {
 			settlement_level: 16
@@ -1845,7 +1877,7 @@ civitas.BUILDINGS = [{
 		cost: {
 			coins: 1000,
 			wood: 10,
-			clay: 10
+			clay: 20
 		},
 		requires: {
 			settlement_level: 2
@@ -1888,7 +1920,7 @@ civitas.BUILDINGS = [{
 		cost: {
 			coins: 1500,
 			wood: 10,
-			clay: 10
+			clay: 20
 		},
 		requires: {
 			settlement_level: 3
@@ -1928,7 +1960,7 @@ civitas.BUILDINGS = [{
 		cost: {
 			coins: 1000,
 			wood: 10,
-			clay: 5
+			clay: 20
 		},
 		requires: {
 			settlement_level: 2
@@ -1967,7 +1999,7 @@ civitas.BUILDINGS = [{
 		cost: {
 			coins: 1500,
 			wood: 10,
-			clay: 10
+			clay: 20
 		},
 		requires: {
 			settlement_level: 10
@@ -2006,7 +2038,7 @@ civitas.BUILDINGS = [{
 		cost: {
 			coins: 6000,
 			wood: 10,
-			clay: 10
+			clay: 40
 		},
 		requires: {
 			settlement_level: 16
@@ -2045,7 +2077,7 @@ civitas.BUILDINGS = [{
 		cost: {
 			coins: 2000,
 			wood: 10,
-			clay: 10
+			clay: 20
 		},
 		requires: {
 			settlement_level: 6
@@ -2083,7 +2115,7 @@ civitas.BUILDINGS = [{
 		cost: {
 			coins: 8000,
 			wood: 10,
-			clay: 10
+			clay: 100
 		},
 		requires: {
 			settlement_level: 20
@@ -2122,7 +2154,7 @@ civitas.BUILDINGS = [{
 		cost: {
 			coins: 10000,
 			wood: 10,
-			clay: 10
+			clay: 100
 		},
 		requires: {
 			settlement_level: 20

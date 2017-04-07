@@ -58,11 +58,13 @@ civitas.RESOURCES = {
 	},
 	'cannons': {
 		name: 'Cannons',
-		price: 700
+		price: 700,
+		imported: true
 	},
 	'carpets': {
 		name: 'Carpets',
-		price: 400
+		price: 400,
+		imported: true
 	},
 	'catapults': {
 		name: 'Catapults',
@@ -102,11 +104,13 @@ civitas.RESOURCES = {
 	},
 	'dates': {
 		name: 'Dates',
-		price: 140
+		price: 140,
+		imported: true
 	},
 	'donkeys': {
 		name: 'Donkeys',
-		price: 90
+		price: 90,
+		imported: true
 	},
 	'fish': {
 		name: 'Fish',
@@ -178,7 +182,8 @@ civitas.RESOURCES = {
 	},
 	'marzipan': {
 		name: 'Marzipan',
-		price: 280
+		price: 280,
+		imported: true
 	},
 	'meat': {
 		name: 'Meat',
@@ -234,7 +239,8 @@ civitas.RESOURCES = {
 	},
 	'silver': {
 		name: 'Silver',
-		price: 300
+		price: 300,
+		imported: true
 	},
 	'spices': {
 		name: 'Spices',
@@ -242,11 +248,13 @@ civitas.RESOURCES = {
 	},
 	'spyglasses': {
 		name: 'Spyglasses',
-		price: 280
+		price: 280,
+		imported: true
 	},
 	'statues': {
 		name: 'Statues',
-		price: 800
+		price: 800,
+		imported: true
 	},
 	'stones': {
 		name: 'Stones',
@@ -262,11 +270,13 @@ civitas.RESOURCES = {
 	},
 	'sulphur': {
 		name: 'Sulphur',
-		price: 180
+		price: 180,
+		imported: true
 	},
 	'tools': {
 		name: 'Tools',
-		price: 35
+		price: 35,
+		imported: true
 	},
 	'wax': {
 		name: 'Wax',

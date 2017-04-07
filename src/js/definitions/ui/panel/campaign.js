@@ -20,7 +20,7 @@ civitas.PANEL_CAMPAIGN = {
 		var my_settlement = core.get_settlement();
 		var campaign = params.data;
 		this.params_data = params;
-		$(this.handle + ' .title').empty().html((campaign.type === civitas.CAMPAIGN_ARMY ? 'Army' : 'Caravan'));
+		$(this.handle + ' .title').empty().html((campaign.type === civitas.CAMPAIGN_ARMY ? civitas.l('Army') : civitas.l('Caravan')));
 		if (campaign.type === civitas.CAMPAIGN_ARMY) {
 			$(this.handle + ' .contents').append(civitas.ui.tabs([civitas.l('Info'), civitas.l('Army'), civitas.l('Navy')]));
 		} else {
@@ -34,12 +34,13 @@ civitas.PANEL_CAMPAIGN = {
 		var my_settlement = core.get_settlement();
 		var campaign = this.params_data.data;
 		var out = '';
+		var source = core.get_settlement(campaign.source.id);
 		var destination = core.get_settlement(campaign.destination.id);
 		var distance = civitas.utils.get_distance(campaign.source, campaign.destination);
 		$(this.handle + ' #tab-info').empty().append('' +
-			'<img class="avatar" src="' + civitas.ASSETS_URL + 'images/avatars/avatar' + my_settlement.get_ruler_avatar() + '.png" />' +
+			'<img class="avatar" src="' + civitas.ASSETS_URL + 'images/avatars/avatar' + source.get_ruler_avatar() + '.png" />' +
 			'<dl>' +
-				'<dt>' + civitas.l('Sent By') + '</dt><dd>' + my_settlement.get_name() + '</dd>' +
+				'<dt>' + civitas.l('Sent By') + '</dt><dd>' + source.get_name() + '</dd>' +
 				'<dt>' + civitas.l('Destination') + '</dt><dd>' + destination.get_name() + '</dd>' +
 				'<dt>s</dt><dd>d</dd>' +
 				'<dt>' + civitas.l('Distance') + '</dt><dd>' + distance + ' miles (' + campaign.duration + ' ' + civitas.l('days') + ')</dd>' +
@@ -50,7 +51,7 @@ civitas.PANEL_CAMPAIGN = {
 			$(this.handle + ' #tab-navy').empty().append(civitas.ui.navy_list(campaign.data));
 		} else {
 			if (typeof campaign.data.resources !== 'undefined') {
-				out = '<p>This caravan has the the following resources:</p>' +
+				out = '<p>' + civitas.l('This caravan has the the following resources:') + '</p>' +
 				'<dl>';
 				for (var item in campaign.data.resources) {
 					out += '<dt>' + campaign.data.resources[item] + '</dt>' +
@@ -58,7 +59,7 @@ civitas.PANEL_CAMPAIGN = {
 				}
 				out += '</dl>';
 			} else {
-				out = '<p>This is an empty caravan with no resources.</p>';
+				out = '<p>' + civitas.l('This is an empty caravan with no resources.') + '</p>';
 			}
 			$(this.handle + ' #tab-resources').empty().append(out);
 		}

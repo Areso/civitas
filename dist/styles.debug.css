@@ -2,7 +2,7 @@
  * Civitas empire-building game.
  *
  * @author sizeof(cat) <sizeofcat AT riseup.net>
- * @version 0.1.0.462017
+ * @version 0.1.0.472017
  * @license MIT
  */ @font-face {
 	font-family: 'Nova Oval';
@@ -309,12 +309,12 @@ header .top-panel span {
 	max-height: 400px;
 	color: #444;
 	padding: 10px;
-	box-shadow: 0 0 5px #ccc;
-	-webkit-box-shadow: 0 0 5px #ccc;
-	-moz-box-shadow: 0 0 5px #ccc;
-	border-radius: 3px;
-	-moz-border-radius: 3px;
-	-webkit-border-radius: 3px;
+	box-shadow: 0 0 50px #000;
+	-webkit-box-shadow: 0 0 50px #000;
+	-moz-box-shadow: 0 0 50px #000;
+	border-radius: 0;
+	-moz-border-radius: 0;
+	-webkit-border-radius: 0;
 }
 
 .ui .panel.black {
@@ -500,7 +500,7 @@ header .top-panel span {
 #panel-trades {
 	width: 700px;
 	max-width: 700px;
-	max-height: 460px;
+	max-height: 500px;
 	height: auto;
 }
 
@@ -606,9 +606,6 @@ table.mercenaries td:nth-child(3) {
 	overflow: auto;
 }
 
-.panel .bm-quantity {
-	width: 60px;
-}
 /* City Storage panel */
 
 #panel-storage {
@@ -887,6 +884,9 @@ p {
 	width: 360px;
 	border: 0;
 }
+input[type=text].small {
+	width: 40px;
+}
 
 #window-options input[type=text],
 #window-options select {
@@ -986,7 +986,8 @@ p {
 
 .notifications .notty,
 .achievements-notifications .notty,
-.achievement {
+.achievement,
+.research {
 	padding: 10px;
 	margin-bottom: 10px;
 	color: #444;
@@ -1000,6 +1001,12 @@ p {
 	opacity: 0.8;
 }
 
+.achievement,
+.research {
+	opacity: 1;
+}
+
+.research-list .research,
 .achievements-list .achievement {
 	width: 324px;
 	float: left;
@@ -1010,10 +1017,16 @@ p {
 	background: transparent url(../images/ui/icon_achievement.png) no-repeat;
 }
 
+.res.img {
+	background: transparent url(../images/ui/icon_research.png) no-repeat;
+}
+
+.research-list .research:nth-child(even),
 .achievements-list .achievement:nth-child(even) {
 	margin-right: 0;
 }
 
+.research-list,
 .achievements-list {
 	padding: 20px;
 	max-height: 420px;
@@ -1025,7 +1038,23 @@ p {
 	border-radius: 60px;
 	-moz-border-radius: 60px;
 	-webkit-border-radius: 60px;
-	background-color: #f5f36b;
+	background-color: #c6c438;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#f5f36b), to(#c6c438));
+	background-image: -webkit-linear-gradient(top, #f5f36b, #c6c438);
+	background-image: -moz-linear-gradient(top, #f5f36b, #c6c438);
+	background-image: linear-gradient(to bottom, #f5f36b, #c6c438);
+}
+
+.research {
+	border-radius: 60px;
+	-moz-border-radius: 60px;
+	-webkit-border-radius: 60px;
+	background-color: #422712;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#694224), to(#422712));
+	background-image: -webkit-linear-gradient(top, #694224, #422712);
+	background-image: -moz-linear-gradient(top, #694224, #422712);
+	background-image: linear-gradient(to bottom, #694224, #422712);
+	color: #fff;
 }
 
 .notifications .notty.error {
@@ -1058,7 +1087,8 @@ p {
 
 .notifications .notty .right,
 .achievements-notifications .notty .right,
-.achievement div.right {
+.achievement div.right,
+.research div.right {
 	width: 79%;
 	height: 100%;
 	float: left;
@@ -1067,33 +1097,38 @@ p {
 
 .notifications .notty .left,
 .achievements-notifications .notty .left,
-.achievement div.left {
+.achievement div.left,
+.research div.left {
 	height: 100%;
 	float: left;
 	display: block !important;
 }
 
 .notifications .notty .time,
-.achievement .time {
+.achievement .time,
+.research .time {
 	font-size: 9px;
 	position: relative;
 	float: right;
 }
 
 .notifications .notty .right .time,
-.achievement .right .time {
-	margin-left: 10px;
+.achievement .right .time,
+.research .right .time {
+	margin-right: 10px;
 }
 
 .notifications .notty .left,
 .achievements-notifications .notty .left,
-.achievement .left {
+.achievement .left,
+.research .left {
 	width: 20%;
 }
 
 .notifications .notty .right .inner,
 .achievements-notifications .notty .right .inner,
-.achievement .right .inner {
+.achievement .right .inner,
+.research .right .inner {
 	padding-left: 10px;
 }
 
@@ -1110,7 +1145,8 @@ p {
 
 .notifications .notty .left .img,
 .achievements-notifications .notty .left .img,
-.achievement .left .img {
+.achievement .left .img,
+.research .left .img {
 	width: 46px;
 	background-size: auto 100%;
 	height: 46px;
@@ -1119,7 +1155,8 @@ p {
 
 .notifications .notty:after,
 .achievements-notifications .notty:after,
-.achievement:after {
+.achievement:after,
+.research:after {
 	content: "."; 
 	visibility: hidden; 
 	display: block; 
@@ -1134,6 +1171,13 @@ p {
 	margin: 0 0 5px 0;
 	font-size: 14px;
 	color: #444;
+	text-transform: uppercase;
+}
+
+.research h2 {
+	margin: 0 0 5px 0;
+	font-size: 14px;
+	color: #fff;
 	text-transform: uppercase;
 }
 

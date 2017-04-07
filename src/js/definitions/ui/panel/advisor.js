@@ -25,6 +25,7 @@ civitas.PANEL_ADVISOR = {
 					'<li><a href="#tab-production">' + civitas.l('Production') + '</a></li>' +
 					'<li><a href="#tab-housing">' + civitas.l('Housing') + '</a></li>' +
 					'<li><a href="#tab-municipal">' + civitas.l('Municipal') + '</a></li>' +
+					'<li><a href="#tab-research">' + civitas.l('Research') + '</a></li>' +
 					'<li><a href="#tab-army">' + civitas.l('Army') + '</a></li>' +
 					'<li><a href="#tab-navy">' + civitas.l('Navy') + '</a></li>' +
 					'<li><a href="#tab-mercenary">' + civitas.l('Mercenaries') + '</a></li>' +
@@ -38,6 +39,8 @@ civitas.PANEL_ADVISOR = {
 				'<div id="tab-housing">' +
 				'</div>' +
 				'<div id="tab-municipal">' +
+				'</div>' +
+				'<div id="tab-research">' +
 				'</div>' +
 				'<div id="tab-army">' +
 				'</div>' +
@@ -198,6 +201,14 @@ civitas.PANEL_ADVISOR = {
 		}
 		_t += '</div>';
 		$('#panel-' + this.id + ' #tab-mercenary').empty().append(_t);
+
+		_t = '';
+		if (!settlement.can_research()) {
+			_t += '<p>' + civitas.l('You will need to construct an Academy before being able to research technologies in your settlement.') + '</p>';
+		}
+		_t += '<div class="research-list">' +
+				'</div>';
+		$('#panel-' + this.id + ' #tab-research').empty().append(_t);
 
 		_t = '';
 		if (!settlement.can_diplomacy()) {

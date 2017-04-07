@@ -271,6 +271,10 @@ civitas.objects.settlement = function(params) {
 	 * @returns {Boolean}
 	 */
 	this.add_to_storage = function(item, amount) {
+		if (!civitas.utils.resource_exists(item)) {
+			this.get_core().error('The resource you specified does not exist.');
+			return false;
+		}
 		var res = this.get_resources();
 		if (typeof res[item] !== 'undefined') {
 			res[item] = res[item] + amount;
@@ -305,6 +309,10 @@ civitas.objects.settlement = function(params) {
 	 * @returns {Boolean}
 	 */
 	this.has_resources = function(resource, amount) {
+		if (!civitas.utils.resource_exists(resource)) {
+			this.get_core().error('The resource you specified does not exist.');
+			return false;
+		}
 		var res = this.get_resources();
 		if ((res[resource] - amount) < 0) {
 			this.get_core().error(this.get_name() + ' does not have enough ' + civitas.utils.get_resource_name(resource) + '.');

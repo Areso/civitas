@@ -2,7 +2,7 @@
  * Civitas empire-building game.
  *
  * @author sizeof(cat) <sizeofcat AT riseup.net>
- * @version 0.1.0.462017
+ * @version 0.1.0.472017
  * @license MIT
  */ 'use strict';
 
@@ -1303,7 +1303,7 @@ civitas.SETTLEMENT_BUILDINGS_TROPICAL = [
 
 	/* Municipal */
 	'marketplace', 'warehouse', 'tradingpost', 'church', 'monastery', 'camp', 'castle',
-	'shipyard', 'embassy', 'academy',
+	'shipyard', 'embassy', 'academy', 'tavern',
 
 	/* Housing */
 	'house1', 'house2', 'house3', 'house4', 'house5', 'house6', 'house7', 'house8',
@@ -1343,7 +1343,7 @@ civitas.SETTLEMENT_BUILDINGS_POLAR = [
 
 	/* Municipal */
 	'marketplace', 'warehouse', 'tradingpost', 'church', 'monastery', 'camp', 'castle',
-	'shipyard', 'embassy', 'academy',
+	'shipyard', 'embassy', 'academy', 'tavern',
 
 	/* Housing */
 	'house1', 'house2', 'house3', 'house4', 'house5', 'house6', 'house7',
@@ -1376,7 +1376,7 @@ civitas.SETTLEMENT_BUILDINGS_ARID = [
 
 	/* Municipal */
 	'marketplace', 'warehouse', 'tradingpost', 'church', 'monastery', 'camp', 'castle',
-	'shipyard', 'embassy', 'academy',
+	'shipyard', 'embassy', 'academy', 'tavern',
 
 	/* Housing */
 	'house1', 'house2', 'house3', 'house4', 'house5', 'house6', 'house7',
@@ -1412,7 +1412,7 @@ civitas.SETTLEMENT_BUILDINGS_TEMPERATE = [
 
 	/* Municipal */
 	'marketplace', 'warehouse', 'tradingpost', 'church', 'monastery', 'camp', 'castle',
-	'shipyard', 'embassy', 'academy',
+	'shipyard', 'embassy', 'academy', 'tavern',
 
 	/* Housing */
 	'house1', 'house2', 'house3', 'house4', 'house5', 'house6', 'house7', 'house8',
@@ -1449,7 +1449,7 @@ civitas.SETTLEMENT_BUILDINGS_TEMPERATE = [
  */
 civitas.BUILDINGS_ALL = [
 	'marketplace', 'lumberjack', 'camp', 'warehouse', 'mill', 'castle', 'stone',
-	'ironmine', 'trapper', 'almondsfarm', 'almondsfield',
+	'ironmine', 'trapper', 'almondsfarm', 'almondsfield', 'tavern',
 	'shipyard', 'pigfarm', 'cattlefarm', 'pigfield', 'cattlefield', 'house1', 'house2',
 	'house3', 'house4', 'house5', 'house6', 'house7',
 	'house8', 'house9', 'church', 'bakery', 'butcher', 'grainfarm', 'grainfield',
@@ -1480,7 +1480,8 @@ civitas.BUILDINGS_CATEGORIES = {
 		'monastery',
 		'shipyard',
 		'tradingpost',
-		'warehouse'
+		'warehouse',
+		'tavern'
 	],
 	'Housing': [
 		'house1',
@@ -1662,7 +1663,8 @@ civitas.BUILDINGS = [{
 			coins: 30000,
 			wood: 20,
 			woodplanks: 30,
-			stones: 40
+			stones: 40,
+			donkeys: 50,
 		},
 		requires: {
 			settlement_level: 6
@@ -1773,6 +1775,34 @@ civitas.BUILDINGS = [{
 			buildings: ['academy']
 		}
 	}, {
+		name: 'Tavern',
+		handle: 'tavern',
+		description: '.',
+		is_municipal: true,
+		production: {
+			fame: 20
+		},
+		materials: {
+			coins: 20
+		},
+		position: {
+			x: 1380,
+			y: 180
+		},
+		levels: 3,
+		cost: {
+			coins: 100000,
+			woodplanks: 200,
+			stones: 200,
+			wood: 200,
+			wine: 100,
+			meat: 100
+		},
+		requires: {
+			settlement_level: 16,
+			buildings: ['academy', 'castle']
+		}
+	}, {
 		name: 'Shipyard',
 		handle: 'shipyard',
 		description: 'The shipyard helps you expand your settlement overseas by providing you ' +
@@ -1790,7 +1820,9 @@ civitas.BUILDINGS = [{
 			coins: 200000,
 			wood: 200,
 			woodplanks: 200,
-			stones: 100
+			stones: 100,
+			ropes: 10,
+			barrels: 10
 		},
 		production: {
 			fish: 4
@@ -3059,7 +3091,7 @@ civitas.BUILDINGS = [{
 		cost: {
 			coins: 2000,
 			wood: 10,
-			clay: 10
+			clay: 20
 		},
 		requires: {
 			settlement_level: 4
@@ -3097,7 +3129,7 @@ civitas.BUILDINGS = [{
 		cost: {
 			coins: 5000,
 			wood: 10,
-			clay: 10
+			clay: 20
 		},
 		requires: {
 			settlement_level: 16
@@ -3140,7 +3172,7 @@ civitas.BUILDINGS = [{
 		cost: {
 			coins: 1000,
 			wood: 10,
-			clay: 10
+			clay: 20
 		},
 		requires: {
 			settlement_level: 2
@@ -3183,7 +3215,7 @@ civitas.BUILDINGS = [{
 		cost: {
 			coins: 1500,
 			wood: 10,
-			clay: 10
+			clay: 20
 		},
 		requires: {
 			settlement_level: 3
@@ -3223,7 +3255,7 @@ civitas.BUILDINGS = [{
 		cost: {
 			coins: 1000,
 			wood: 10,
-			clay: 5
+			clay: 20
 		},
 		requires: {
 			settlement_level: 2
@@ -3262,7 +3294,7 @@ civitas.BUILDINGS = [{
 		cost: {
 			coins: 1500,
 			wood: 10,
-			clay: 10
+			clay: 20
 		},
 		requires: {
 			settlement_level: 10
@@ -3301,7 +3333,7 @@ civitas.BUILDINGS = [{
 		cost: {
 			coins: 6000,
 			wood: 10,
-			clay: 10
+			clay: 40
 		},
 		requires: {
 			settlement_level: 16
@@ -3340,7 +3372,7 @@ civitas.BUILDINGS = [{
 		cost: {
 			coins: 2000,
 			wood: 10,
-			clay: 10
+			clay: 20
 		},
 		requires: {
 			settlement_level: 6
@@ -3378,7 +3410,7 @@ civitas.BUILDINGS = [{
 		cost: {
 			coins: 8000,
 			wood: 10,
-			clay: 10
+			clay: 100
 		},
 		requires: {
 			settlement_level: 20
@@ -3417,7 +3449,7 @@ civitas.BUILDINGS = [{
 		cost: {
 			coins: 10000,
 			wood: 10,
-			clay: 10
+			clay: 100
 		},
 		requires: {
 			settlement_level: 20
@@ -5000,11 +5032,13 @@ civitas.RESOURCES = {
 	},
 	'cannons': {
 		name: 'Cannons',
-		price: 700
+		price: 700,
+		imported: true
 	},
 	'carpets': {
 		name: 'Carpets',
-		price: 400
+		price: 400,
+		imported: true
 	},
 	'catapults': {
 		name: 'Catapults',
@@ -5044,11 +5078,13 @@ civitas.RESOURCES = {
 	},
 	'dates': {
 		name: 'Dates',
-		price: 140
+		price: 140,
+		imported: true
 	},
 	'donkeys': {
 		name: 'Donkeys',
-		price: 90
+		price: 90,
+		imported: true
 	},
 	'fish': {
 		name: 'Fish',
@@ -5120,7 +5156,8 @@ civitas.RESOURCES = {
 	},
 	'marzipan': {
 		name: 'Marzipan',
-		price: 280
+		price: 280,
+		imported: true
 	},
 	'meat': {
 		name: 'Meat',
@@ -5176,7 +5213,8 @@ civitas.RESOURCES = {
 	},
 	'silver': {
 		name: 'Silver',
-		price: 300
+		price: 300,
+		imported: true
 	},
 	'spices': {
 		name: 'Spices',
@@ -5184,11 +5222,13 @@ civitas.RESOURCES = {
 	},
 	'spyglasses': {
 		name: 'Spyglasses',
-		price: 280
+		price: 280,
+		imported: true
 	},
 	'statues': {
 		name: 'Statues',
-		price: 800
+		price: 800,
+		imported: true
 	},
 	'stones': {
 		name: 'Stones',
@@ -5204,11 +5244,13 @@ civitas.RESOURCES = {
 	},
 	'sulphur': {
 		name: 'Sulphur',
-		price: 180
+		price: 180,
+		imported: true
 	},
 	'tools': {
 		name: 'Tools',
-		price: 35
+		price: 35,
+		imported: true
 	},
 	'wax': {
 		name: 'Wax',
@@ -5635,6 +5677,15 @@ civitas.ACHIEVEMENTS = [
  * Utils object.
  */
 civitas.utils = {
+
+	resource_exists: function(resource) {
+		for (var item in civitas.RESOURCES) {
+			if (item === resource) {
+				return true;
+			}
+		}
+		return false;
+	},
 
 	get_distance: function(source, destination) {
 		return Math.floor(Math.sqrt(Math.pow(destination.x - source.x, 2) + Math.pow(destination.y - source.y, 2)));
@@ -6375,6 +6426,10 @@ civitas.objects.settlement = function(params) {
 	 * @returns {Boolean}
 	 */
 	this.add_to_storage = function(item, amount) {
+		if (!civitas.utils.resource_exists(item)) {
+			this.get_core().error('The resource you specified does not exist.');
+			return false;
+		}
 		var res = this.get_resources();
 		if (typeof res[item] !== 'undefined') {
 			res[item] = res[item] + amount;
@@ -6409,6 +6464,10 @@ civitas.objects.settlement = function(params) {
 	 * @returns {Boolean}
 	 */
 	this.has_resources = function(resource, amount) {
+		if (!civitas.utils.resource_exists(resource)) {
+			this.get_core().error('The resource you specified does not exist.');
+			return false;
+		}
 		var res = this.get_resources();
 		if ((res[resource] - amount) < 0) {
 			this.get_core().error(this.get_name() + ' does not have enough ' + civitas.utils.get_resource_name(resource) + '.');
@@ -7193,6 +7252,16 @@ civitas.objects.settlement = function(params) {
 };
 
 /**
+ * Check if this settlement can recruit soldiers.
+ *
+ * @public
+ * @returns {Boolean}
+ */
+civitas.objects.settlement.prototype.can_research = function() {
+	return this.is_building_built('academy');
+};
+
+/**
  * Return the value of this settlement's research.
  * 
  * @public
@@ -7474,7 +7543,7 @@ civitas.objects.settlement.prototype.raise_prestige = function(amount) {
 		++this.resources.prestige;
 	}
 	$('.cityprestige').html(this.get_prestige());
-	this.get_core().notify('The prestige of your city raised.');
+	//this.get_core().notify('The prestige of your city raised.');
 	return this.resources.prestige;
 };
 
@@ -7489,12 +7558,12 @@ civitas.objects.settlement.prototype.lower_prestige = function(amount) {
 	if (typeof amount !== 'undefined') {
 		if ((this.resources.prestige - amount) >= 1) {
 			this.resources.prestige -= amount;
-			this.get_core().notify('The prestige of your city lowered.');
+			//this.get_core().notify('The prestige of your city lowered.');
 		}
 	} else {
 		if ((this.resources.prestige - 1) >= 1) {
 			--this.resources.prestige;
-			this.get_core().notify('The prestige of your city lowered.');
+			//this.get_core().notify('The prestige of your city lowered.');
 		}
 	}
 	$('.cityprestige').html(this.get_prestige());
@@ -8230,6 +8299,10 @@ civitas.objects.settlement.prototype.can_trade = function() {
  * @returns {Object|Boolean}
  */
 civitas.objects.settlement.prototype.buy_from_settlement = function(settlement, resource, amount) {
+	if (!civitas.utils.resource_exists(resource)) {
+		this.get_core().error('The resource you specified does not exist.');
+		return false;
+	}
 	if (this.can_trade()) {
 		var resources = this.get_resources();
 		var _settlement;
@@ -8325,6 +8398,10 @@ civitas.objects.settlement.prototype.reset_trades = function() {
  * @returns {Object|Boolean}
  */
 civitas.objects.settlement.prototype.list_black_market = function(resource, amount) {
+	if (!civitas.utils.resource_exists(resource)) {
+		this.get_core().error('The resource you specified does not exist.');
+		return false;
+	}
 	var resources = this.get_resources();
 	if (this.remove_resource(resource, amount)) {
 		var discount = Math.ceil((civitas.RESOURCES[resource].price * civitas.BLACK_MARKET_DISCOUNT) / 100);
@@ -8353,6 +8430,10 @@ civitas.objects.settlement.prototype.list_black_market = function(resource, amou
  * @returns {Object|Boolean}
  */
 civitas.objects.settlement.prototype.sell_to_settlement = function(settlement, resource, amount) {
+	if (!civitas.utils.resource_exists(resource)) {
+		this.get_core().error('The resource you specified does not exist.');
+		return false;
+	}
 	if (settlement.can_trade()) {
 		var resources = this.get_resources();
 		var _settlement;
@@ -10707,6 +10788,27 @@ civitas.game = function () {
 	};
 
 	/**
+	 * Method that gets called each 'month'.
+	 * 
+	 * @private
+	 * @returns {civitas.game}
+	 */
+	this._do_monthly = function () {
+		this.day_of_month = 1;
+		this.month++;
+		if (this.month === 3 || this.month === 6 || this.month === 9 || this.month === 12) {
+			this._do_quarterly();
+		}
+		this._reset_black_market();
+		return this;
+	};
+
+	this._do_quarterly = function() {
+		this.refresh_trades();
+		return this;
+	};
+
+	/**
 	 * Refresh the UI, panels and save game.
 	 *
 	 * @public
@@ -10826,19 +10928,6 @@ civitas.game = function () {
 	};
 
 	/**
-	 * Method that gets called each 'month'.
-	 * 
-	 * @private
-	 * @returns {civitas.game}
-	 */
-	this._do_monthly = function () {
-		this.day_of_month = 1;
-		this.month++;
-		this._reset_black_market();
-		return this;
-	};
-
-	/**
 	 * Refresh the world trades.
 	 * 
 	 * @public
@@ -10847,9 +10936,11 @@ civitas.game = function () {
 	this.refresh_trades = function() {
 		var settlements = this.get_settlements();
 		for (var i = 1; i < settlements.length; i++) {
-			if (typeof settlements[i] !== 'undefined') {
-				settlements[i].reset_trades();
-				this.get_settlement().lower_influence(settlements[i].get_id(), civitas.YEARLY_INFLUENCE_LOSS);
+			if (settlements[i].is_city()) {
+				if (typeof settlements[i] !== 'undefined') {
+					settlements[i].reset_trades();
+					this.get_settlement().lower_influence(settlements[i].get_id(), civitas.YEARLY_INFLUENCE_LOSS);
+				}
 			}
 		}
 		return this;
@@ -10862,7 +10953,6 @@ civitas.game = function () {
 	 * @returns {civitas.game}
 	 */
 	this._do_yearly = function () {
-		this.refresh_trades();
 		this.get_settlement().release_mercenaries();
 		this.year++;
 		return this;
@@ -11780,8 +11870,8 @@ civitas.PANEL_SETTLEMENT = {
 		}
 		this.on_refresh();
 		$(this.handle).on('click', '.caravan', function () {
-			if (!my_settlement.can_diplomacy()) {
-				core.error(civitas.l('You will need to construct an Embassy before being able to propose treaties and pacts to other settlements.'));
+			if (!my_settlement.can_trade()) {
+				core.error(civitas.l('You will need to construct a Trading Post before being able to trade resources with other settlements.'));
 				return false;
 			}
 			core.add_campaign(my_settlement, settlement, civitas.CAMPAIGN_CARAVAN, {
@@ -11939,31 +12029,31 @@ civitas.PANEL_HELP = {
 		if (civitas.DEBUG === true) {
 			$(this.handle).on('click', '.one', function() {
 				settlement.inc_coins(10000);
-				core.refresh();
+				core.save_and_refresh();
 				return false;
 			}).on('click', '.two', function() {
 				settlement.add_to_storage('wood', 100);
-				core.refresh();
+				core.save_and_refresh();
 				return false;
 			}).on('click', '.three', function() {
 				settlement.add_to_storage('stones', 100);
-				core.refresh();
+				core.save_and_refresh();
 				return false;
 			}).on('click', '.four', function() {
 				settlement.add_to_storage('woodplanks', 100);
-				core.refresh();
+				core.save_and_refresh();
 				return false;
 			}).on('click', '.five', function() {
 				settlement.level_up();
-				core.refresh();
+				core.save_and_refresh();
 				return false;
 			}).on('click', '.six', function() {
 				settlement.raise_fame(1000);
-				core.refresh();
+				core.save_and_refresh();
 				return false;
 			}).on('click', '.seven', function() {
 				core.refresh_trades();
-				core.refresh();
+				core.save_and_refresh();
 				return false;
 			});
 		}
@@ -12097,7 +12187,7 @@ civitas.PANEL_CAMPAIGN = {
 		var my_settlement = core.get_settlement();
 		var campaign = params.data;
 		this.params_data = params;
-		$(this.handle + ' .title').empty().html((campaign.type === civitas.CAMPAIGN_ARMY ? 'Army' : 'Caravan'));
+		$(this.handle + ' .title').empty().html((campaign.type === civitas.CAMPAIGN_ARMY ? civitas.l('Army') : civitas.l('Caravan')));
 		if (campaign.type === civitas.CAMPAIGN_ARMY) {
 			$(this.handle + ' .contents').append(civitas.ui.tabs([civitas.l('Info'), civitas.l('Army'), civitas.l('Navy')]));
 		} else {
@@ -12111,12 +12201,13 @@ civitas.PANEL_CAMPAIGN = {
 		var my_settlement = core.get_settlement();
 		var campaign = this.params_data.data;
 		var out = '';
+		var source = core.get_settlement(campaign.source.id);
 		var destination = core.get_settlement(campaign.destination.id);
 		var distance = civitas.utils.get_distance(campaign.source, campaign.destination);
 		$(this.handle + ' #tab-info').empty().append('' +
-			'<img class="avatar" src="' + civitas.ASSETS_URL + 'images/avatars/avatar' + my_settlement.get_ruler_avatar() + '.png" />' +
+			'<img class="avatar" src="' + civitas.ASSETS_URL + 'images/avatars/avatar' + source.get_ruler_avatar() + '.png" />' +
 			'<dl>' +
-				'<dt>' + civitas.l('Sent By') + '</dt><dd>' + my_settlement.get_name() + '</dd>' +
+				'<dt>' + civitas.l('Sent By') + '</dt><dd>' + source.get_name() + '</dd>' +
 				'<dt>' + civitas.l('Destination') + '</dt><dd>' + destination.get_name() + '</dd>' +
 				'<dt>s</dt><dd>d</dd>' +
 				'<dt>' + civitas.l('Distance') + '</dt><dd>' + distance + ' miles (' + campaign.duration + ' ' + civitas.l('days') + ')</dd>' +
@@ -12127,7 +12218,7 @@ civitas.PANEL_CAMPAIGN = {
 			$(this.handle + ' #tab-navy').empty().append(civitas.ui.navy_list(campaign.data));
 		} else {
 			if (typeof campaign.data.resources !== 'undefined') {
-				out = '<p>This caravan has the the following resources:</p>' +
+				out = '<p>' + civitas.l('This caravan has the the following resources:') + '</p>' +
 				'<dl>';
 				for (var item in campaign.data.resources) {
 					out += '<dt>' + campaign.data.resources[item] + '</dt>' +
@@ -12135,7 +12226,7 @@ civitas.PANEL_CAMPAIGN = {
 				}
 				out += '</dl>';
 			} else {
-				out = '<p>This is an empty caravan with no resources.</p>';
+				out = '<p>' + civitas.l('This is an empty caravan with no resources.') + '</p>';
 			}
 			$(this.handle + ' #tab-resources').empty().append(out);
 		}
@@ -12352,6 +12443,7 @@ civitas.PANEL_ADVISOR = {
 					'<li><a href="#tab-production">' + civitas.l('Production') + '</a></li>' +
 					'<li><a href="#tab-housing">' + civitas.l('Housing') + '</a></li>' +
 					'<li><a href="#tab-municipal">' + civitas.l('Municipal') + '</a></li>' +
+					'<li><a href="#tab-research">' + civitas.l('Research') + '</a></li>' +
 					'<li><a href="#tab-army">' + civitas.l('Army') + '</a></li>' +
 					'<li><a href="#tab-navy">' + civitas.l('Navy') + '</a></li>' +
 					'<li><a href="#tab-mercenary">' + civitas.l('Mercenaries') + '</a></li>' +
@@ -12365,6 +12457,8 @@ civitas.PANEL_ADVISOR = {
 				'<div id="tab-housing">' +
 				'</div>' +
 				'<div id="tab-municipal">' +
+				'</div>' +
+				'<div id="tab-research">' +
 				'</div>' +
 				'<div id="tab-army">' +
 				'</div>' +
@@ -12525,6 +12619,14 @@ civitas.PANEL_ADVISOR = {
 		}
 		_t += '</div>';
 		$('#panel-' + this.id + ' #tab-mercenary').empty().append(_t);
+
+		_t = '';
+		if (!settlement.can_research()) {
+			_t += '<p>' + civitas.l('You will need to construct an Academy before being able to research technologies in your settlement.') + '</p>';
+		}
+		_t += '<div class="research-list">' +
+				'</div>';
+		$('#panel-' + this.id + ' #tab-research').empty().append(_t);
 
 		_t = '';
 		if (!settlement.can_diplomacy()) {
@@ -13058,42 +13160,47 @@ civitas.PANEL_TRADES = {
 		var settlement = core.get_settlement();
 		var el = this.handle;
 		var _t = '';
-		_t += civitas.ui.tabs([civitas.l('Imports'), civitas.l('Exports'), civitas.l('Mercenaries'), civitas.l('BlackMarket')]);
+		_t += civitas.ui.tabs([civitas.l('Imports'), civitas.l('Exports'), civitas.l('Mercenaries'), civitas.l('BlackMarket'), civitas.l('Prices')]);
 		$(el + ' .contents').append(_t);
-		$(el + ' #tab-imports').append('<p>' + civitas.l('Below is a list of goods that the other cities in the world are looking to buy. The goods replenish yearly, so plan accordingly.') + '</p><div class="contents"></div>');
-		$(el + ' #tab-exports').append('<p>' + civitas.l('Below is a list of goods that the other cities in the world are looking to sell. The goods replenish yearly, so plan accordingly.') + '</p><div class="contents"></div>');
+		$(el + ' #tab-imports').append('<p>' + civitas.l('Below is a list of goods that the other cities in the world are looking to buy. The goods replenish every three months, so plan accordingly. You will need to build a Trading Post before being able to sell goods.') + '</p><div class="contents"></div>');
+		$(el + ' #tab-exports').append('<p>' + civitas.l('Below is a list of goods that the other cities in the world are looking to sell. The goods replenish every three months, so plan accordingly. You will need to build a Trading Post before being able to buy goods.') + '</p><div class="contents"></div>');
 		$(el + ' #tab-mercenaries').append('<p>' + civitas.l('Below is a list of mercenary armies that are looking for hire. Mercenaries are available only for raiding and conquest missions, they do not join your city so they will not participate in defense.') + '</p><div class="contents"></div>');
-		$(el + ' #tab-blackmarket').append('<p>' + civitas.l('The Black Market is a way to dump your excess materials when you`re in need of emptying your warehouses, but expect a steep price drop (you get ') + (100 - civitas.BLACK_MARKET_DISCOUNT) + civitas.l('% of the actual price). The goods will be taken immediately from your warehouses but you will receive the coins next month. Also, you get no prestige from Black Market trades.') + '</p><div class="contents"></div>');
+		$(el + ' #tab-blackmarket').append('<p>' + civitas.l('The Black Market is a way to dump your excess materials when you`re in need of emptying your warehouses, but expect a steep price drop (<strong>you get ') + (100 - civitas.BLACK_MARKET_DISCOUNT) + civitas.l('% of the actual price</strong>). The goods will be taken immediately from your warehouses but you will receive the coins at the <strong>start of the next month</strong>. Also, you get <strong>no prestige</strong> from Black Market trades.') + '</p><div class="contents"></div>');
+		$(el + ' #tab-prices').append('<p>' + civitas.l('Below are the prices for the goods traded in Civitas. Keep in mind that those are the minted prices, they get altered by taxes (<strong>-' + civitas.TRADES_DISCOUNT + '%</strong>) when you export a resource and by discounts (<strong>+' + civitas.TRADES_ADDITION + '%</strong>) when you import one. Also, if the resource is listed as produced, that possibility depends on the location and climate of your settlement (ex. tropical settlements can build Sugar Farms).') + '</p><div class="contents"></div>');
 		this.on_refresh();
 		$(el).on('click', '.buy:not(.disabled)', function () {
-			if (settlement.can_trade()) {
-				var handle = $(this).data('settlement');
-				var resource = $(this).data('resource');
-				if (settlement.buy_from_settlement(handle, resource) !== false) {
-					self.on_refresh();
-				}
-			} else {
+			if (!settlement.can_trade()) {
 				core.error(civitas.l('You will need to construct a Trading Post before being able to trade resources with other settlements.'));
+				return false;
+			}
+			var handle = $(this).data('settlement');
+			var resource = $(this).data('resource');
+			if (settlement.buy_from_settlement(handle, resource) !== false) {
+				self.on_refresh();
 			}
 			return false;
 		}).on('click', '.sell:not(.disabled)', function () {
-			if (settlement.can_trade()) {
-				var handle = $(this).data('settlement');
-				var resource = $(this).data('resource');
-				if (settlement.sell_to_settlement(handle, resource) !== false) {
-					self.on_refresh();
-				}
-			} else {
+			if (!settlement.can_trade()) {
 				core.error(civitas.l('You will need to construct a Trading Post before being able to trade resources with other settlements.'));
+				return false;
+			}
+			var handle = $(this).data('settlement');
+			var resource = $(this).data('resource');
+			if (settlement.sell_to_settlement(handle, resource) !== false) {
+				self.on_refresh();
 			}
 			return false;
 		}).on('click', '.bmarket', function () {
 			var resource = $('.bm-materials').val();
-			var amount = $('.bm-quantity').val();
-			if (resource !== '0') {
-				settlement.list_black_market(resource, amount);
-				self.on_refresh();
-				$('.bm-quantity').val('');
+			var auto_amount = $('.bm-quantity').val();
+			var manual_amount = $('.bm-qty-manual').val();
+			var amount = manual_amount === '' ? parseInt(auto_amount) : parseInt(manual_amount);
+			if (resource !== '0' && amount > 0) {
+				if (settlement.list_black_market(resource, amount)) {
+					self.on_refresh();
+				}
+			} else {
+				core.error(civitas.l('Select a resource and the amount of it you want to place on the Black Market.'));
 			}
 			return false;
 		}).on('click', '.recruit:not(.disabled)', function () {
@@ -13116,8 +13223,17 @@ civitas.PANEL_TRADES = {
 		var out = '<table class="normal">';
 		out += '<thead>' +
 				'<tr>' +
-				'<td><select class="bm-materials"></select></td>' +
-				'<td><input type="text" placeholder="' + civitas.l('amount') + '" class="bm-quantity" /></td>' +
+				'<td>' + civitas.l('Resources') + ': <select class="bm-materials"></select></td>' +
+				'<td>' + civitas.l('Quantity') + ': ' +
+				'<select class="bm-quantity">' +
+				'<option value="0">-- ' + civitas.l('select') + ' --</option>' +
+				'<option value="10">10</option>' +
+				'<option value="100">100</option>' +
+				'<option value="1000">1000</option>' +
+				'<option value="10000">10000</option>' +
+				'</select>' +
+				' ' + civitas.l('or enter manually') + ' <input type="text" placeholder="' + civitas.l('amount') + '" class="small bm-qty-manual" />' +
+				'</td>' +
 				'<td><a title="' + civitas.l('List goods on Black Market') + '" class="tips bmarket" href="#">' + civitas.l('list') + '</a></td>' +
 				'</tr>' +
 				'</thead>';
@@ -13267,6 +13383,45 @@ civitas.PANEL_TRADES = {
 				'</tfoot>' +
 			'</table>';
 		$('#tab-exports > .contents').empty().append(out);
+
+		var out = '<table class="normal">' +
+					'<thead>' +
+					'<tr>' +
+						'<td>' + civitas.l('Resource') + '</td>' +
+						'<td class="center">' + civitas.l('Icon') + '</td>' +
+						'<td class="center">' + civitas.l('Price') + '</td>' +
+						'<td class="center">' + civitas.l('Sell Price') + '</td>' +
+						'<td class="center">' + civitas.l('Buy Price') + '</td>' +
+						'<td class="center">' + civitas.l('Type') + '</td>' +
+					'</tr>' +
+					'</thead>';
+		for (var item in civitas.RESOURCES) {
+			if ($.inArray(item, civitas.NON_RESOURCES) === -1) {
+				var discount = Math.ceil((civitas.RESOURCES[item].price * civitas.TRADES_ADDITION) / 100);
+				var tax = Math.ceil((civitas.RESOURCES[item].price * civitas.TRADES_DISCOUNT) / 100);
+				out += '<tr>' +
+					'<td>' + civitas.RESOURCES[item].name + '</td>' +
+					'<td class="center">' + civitas.ui.resource_small_img(item) + '</td>' +
+					'<td class="center">' + civitas.RESOURCES[item].price + civitas.ui.resource_small_img('coins') + '</td>' +
+					'<td class="center">' + (civitas.RESOURCES[item].price - tax) + civitas.ui.resource_small_img('coins') + '</td>' +
+					'<td class="center">' + (civitas.RESOURCES[item].price + discount) + civitas.ui.resource_small_img('coins') + '</td>' +
+					'<td class="center">' + ((civitas.RESOURCES[item].imported === true) ? civitas.l('imported') : civitas.l('produced')) + '</td>' +
+				'</tr>';
+			}
+		}
+		out += '<tfoot>' +
+					'<tr>' +
+						'<td>' + civitas.l('Resource') + '</td>' +
+						'<td class="center">' + civitas.l('Icon') + '</td>' +
+						'<td class="center">' + civitas.l('Price') + '</td>' +
+						'<td class="center">' + civitas.l('Sell Price') + '</td>' +
+						'<td class="center">' + civitas.l('Buy Price') + '</td>' +
+						'<td class="center">' + civitas.l('Type') + '</td>' +
+					'</tr>' +
+				'</tfoot>' +
+			'</table>';
+		$('#tab-prices > .contents').empty().append(out);
+
 	}
 };
 

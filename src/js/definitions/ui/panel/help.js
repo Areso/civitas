@@ -51,31 +51,31 @@ civitas.PANEL_HELP = {
 		if (civitas.DEBUG === true) {
 			$(this.handle).on('click', '.one', function() {
 				settlement.inc_coins(10000);
-				core.refresh();
+				core.save_and_refresh();
 				return false;
 			}).on('click', '.two', function() {
 				settlement.add_to_storage('wood', 100);
-				core.refresh();
+				core.save_and_refresh();
 				return false;
 			}).on('click', '.three', function() {
 				settlement.add_to_storage('stones', 100);
-				core.refresh();
+				core.save_and_refresh();
 				return false;
 			}).on('click', '.four', function() {
 				settlement.add_to_storage('woodplanks', 100);
-				core.refresh();
+				core.save_and_refresh();
 				return false;
 			}).on('click', '.five', function() {
 				settlement.level_up();
-				core.refresh();
+				core.save_and_refresh();
 				return false;
 			}).on('click', '.six', function() {
 				settlement.raise_fame(1000);
-				core.refresh();
+				core.save_and_refresh();
 				return false;
 			}).on('click', '.seven', function() {
 				core.refresh_trades();
-				core.refresh();
+				core.save_and_refresh();
 				return false;
 			});
 		}

@@ -19,42 +19,47 @@ civitas.PANEL_TRADES = {
 		var settlement = core.get_settlement();
 		var el = this.handle;
 		var _t = '';
-		_t += civitas.ui.tabs([civitas.l('Imports'), civitas.l('Exports'), civitas.l('Mercenaries'), civitas.l('BlackMarket')]);
+		_t += civitas.ui.tabs([civitas.l('Imports'), civitas.l('Exports'), civitas.l('Mercenaries'), civitas.l('BlackMarket'), civitas.l('Prices')]);
 		$(el + ' .contents').append(_t);
-		$(el + ' #tab-imports').append('<p>' + civitas.l('Below is a list of goods that the other cities in the world are looking to buy. The goods replenish yearly, so plan accordingly.') + '</p><div class="contents"></div>');
-		$(el + ' #tab-exports').append('<p>' + civitas.l('Below is a list of goods that the other cities in the world are looking to sell. The goods replenish yearly, so plan accordingly.') + '</p><div class="contents"></div>');
+		$(el + ' #tab-imports').append('<p>' + civitas.l('Below is a list of goods that the other cities in the world are looking to buy. The goods replenish every three months, so plan accordingly. You will need to build a Trading Post before being able to sell goods.') + '</p><div class="contents"></div>');
+		$(el + ' #tab-exports').append('<p>' + civitas.l('Below is a list of goods that the other cities in the world are looking to sell. The goods replenish every three months, so plan accordingly. You will need to build a Trading Post before being able to buy goods.') + '</p><div class="contents"></div>');
 		$(el + ' #tab-mercenaries').append('<p>' + civitas.l('Below is a list of mercenary armies that are looking for hire. Mercenaries are available only for raiding and conquest missions, they do not join your city so they will not participate in defense.') + '</p><div class="contents"></div>');
-		$(el + ' #tab-blackmarket').append('<p>' + civitas.l('The Black Market is a way to dump your excess materials when you`re in need of emptying your warehouses, but expect a steep price drop (you get ') + (100 - civitas.BLACK_MARKET_DISCOUNT) + civitas.l('% of the actual price). The goods will be taken immediately from your warehouses but you will receive the coins next month. Also, you get no prestige from Black Market trades.') + '</p><div class="contents"></div>');
+		$(el + ' #tab-blackmarket').append('<p>' + civitas.l('The Black Market is a way to dump your excess materials when you`re in need of emptying your warehouses, but expect a steep price drop (<strong>you get ') + (100 - civitas.BLACK_MARKET_DISCOUNT) + civitas.l('% of the actual price</strong>). The goods will be taken immediately from your warehouses but you will receive the coins at the <strong>start of the next month</strong>. Also, you get <strong>no prestige</strong> from Black Market trades.') + '</p><div class="contents"></div>');
+		$(el + ' #tab-prices').append('<p>' + civitas.l('Below are the prices for the goods traded in Civitas. Keep in mind that those are the minted prices, they get altered by taxes (<strong>-' + civitas.TRADES_DISCOUNT + '%</strong>) when you export a resource and by discounts (<strong>+' + civitas.TRADES_ADDITION + '%</strong>) when you import one. Also, if the resource is listed as produced, that possibility depends on the location and climate of your settlement (ex. tropical settlements can build Sugar Farms).') + '</p><div class="contents"></div>');
 		this.on_refresh();
 		$(el).on('click', '.buy:not(.disabled)', function () {
-			if (settlement.can_trade()) {
-				var handle = $(this).data('settlement');
-				var resource = $(this).data('resource');
-				if (settlement.buy_from_settlement(handle, resource) !== false) {
-					self.on_refresh();
-				}
-			} else {
+			if (!settlement.can_trade()) {
 				core.error(civitas.l('You will need to construct a Trading Post before being able to trade resources with other settlements.'));
+				return false;
+			}
+			var handle = $(this).data('settlement');
+			var resource = $(this).data('resource');
+			if (settlement.buy_from_settlement(handle, resource) !== false) {
+				self.on_refresh();
 			}
 			return false;
 		}).on('click', '.sell:not(.disabled)', function () {
-			if (settlement.can_trade()) {
-				var handle = $(this).data('settlement');
-				var resource = $(this).data('resource');
-				if (settlement.sell_to_settlement(handle, resource) !== false) {
-					self.on_refresh();
-				}
-			} else {
+			if (!settlement.can_trade()) {
 				core.error(civitas.l('You will need to construct a Trading Post before being able to trade resources with other settlements.'));
+				return false;
+			}
+			var handle = $(this).data('settlement');
+			var resource = $(this).data('resource');
+			if (settlement.sell_to_settlement(handle, resource) !== false) {
+				self.on_refresh();
 			}
 			return false;
 		}).on('click', '.bmarket', function () {
 			var resource = $('.bm-materials').val();
-			var amount = $('.bm-quantity').val();
-			if (resource !== '0') {
-				settlement.list_black_market(resource, amount);
-				self.on_refresh();
-				$('.bm-quantity').val('');
+			var auto_amount = $('.bm-quantity').val();
+			var manual_amount = $('.bm-qty-manual').val();
+			var amount = manual_amount === '' ? parseInt(auto_amount) : parseInt(manual_amount);
+			if (resource !== '0' && amount > 0) {
+				if (settlement.list_black_market(resource, amount)) {
+					self.on_refresh();
+				}
+			} else {
+				core.error(civitas.l('Select a resource and the amount of it you want to place on the Black Market.'));
 			}
 			return false;
 		}).on('click', '.recruit:not(.disabled)', function () {
@@ -77,8 +82,17 @@ civitas.PANEL_TRADES = {
 		var out = '<table class="normal">';
 		out += '<thead>' +
 				'<tr>' +
-				'<td><select class="bm-materials"></select></td>' +
-				'<td><input type="text" placeholder="' + civitas.l('amount') + '" class="bm-quantity" /></td>' +
+				'<td>' + civitas.l('Resources') + ': <select class="bm-materials"></select></td>' +
+				'<td>' + civitas.l('Quantity') + ': ' +
+				'<select class="bm-quantity">' +
+				'<option value="0">-- ' + civitas.l('select') + ' --</option>' +
+				'<option value="10">10</option>' +
+				'<option value="100">100</option>' +
+				'<option value="1000">1000</option>' +
+				'<option value="10000">10000</option>' +
+				'</select>' +
+				' ' + civitas.l('or enter manually') + ' <input type="text" placeholder="' + civitas.l('amount') + '" class="small bm-qty-manual" />' +
+				'</td>' +
 				'<td><a title="' + civitas.l('List goods on Black Market') + '" class="tips bmarket" href="#">' + civitas.l('list') + '</a></td>' +
 				'</tr>' +
 				'</thead>';
@@ -228,5 +242,44 @@ civitas.PANEL_TRADES = {
 				'</tfoot>' +
 			'</table>';
 		$('#tab-exports > .contents').empty().append(out);
+
+		var out = '<table class="normal">' +
+					'<thead>' +
+					'<tr>' +
+						'<td>' + civitas.l('Resource') + '</td>' +
+						'<td class="center">' + civitas.l('Icon') + '</td>' +
+						'<td class="center">' + civitas.l('Price') + '</td>' +
+						'<td class="center">' + civitas.l('Sell Price') + '</td>' +
+						'<td class="center">' + civitas.l('Buy Price') + '</td>' +
+						'<td class="center">' + civitas.l('Type') + '</td>' +
+					'</tr>' +
+					'</thead>';
+		for (var item in civitas.RESOURCES) {
+			if ($.inArray(item, civitas.NON_RESOURCES) === -1) {
+				var discount = Math.ceil((civitas.RESOURCES[item].price * civitas.TRADES_ADDITION) / 100);
+				var tax = Math.ceil((civitas.RESOURCES[item].price * civitas.TRADES_DISCOUNT) / 100);
+				out += '<tr>' +
+					'<td>' + civitas.RESOURCES[item].name + '</td>' +
+					'<td class="center">' + civitas.ui.resource_small_img(item) + '</td>' +
+					'<td class="center">' + civitas.RESOURCES[item].price + civitas.ui.resource_small_img('coins') + '</td>' +
+					'<td class="center">' + (civitas.RESOURCES[item].price - tax) + civitas.ui.resource_small_img('coins') + '</td>' +
+					'<td class="center">' + (civitas.RESOURCES[item].price + discount) + civitas.ui.resource_small_img('coins') + '</td>' +
+					'<td class="center">' + ((civitas.RESOURCES[item].imported === true) ? civitas.l('imported') : civitas.l('produced')) + '</td>' +
+				'</tr>';
+			}
+		}
+		out += '<tfoot>' +
+					'<tr>' +
+						'<td>' + civitas.l('Resource') + '</td>' +
+						'<td class="center">' + civitas.l('Icon') + '</td>' +
+						'<td class="center">' + civitas.l('Price') + '</td>' +
+						'<td class="center">' + civitas.l('Sell Price') + '</td>' +
+						'<td class="center">' + civitas.l('Buy Price') + '</td>' +
+						'<td class="center">' + civitas.l('Type') + '</td>' +
+					'</tr>' +
+				'</tfoot>' +
+			'</table>';
+		$('#tab-prices > .contents').empty().append(out);
+
 	}
 };

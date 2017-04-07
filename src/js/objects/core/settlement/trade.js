@@ -18,6 +18,10 @@ civitas.objects.settlement.prototype.can_trade = function() {
  * @returns {Object|Boolean}
  */
 civitas.objects.settlement.prototype.buy_from_settlement = function(settlement, resource, amount) {
+	if (!civitas.utils.resource_exists(resource)) {
+		this.get_core().error('The resource you specified does not exist.');
+		return false;
+	}
 	if (this.can_trade()) {
 		var resources = this.get_resources();
 		var _settlement;
@@ -113,6 +117,10 @@ civitas.objects.settlement.prototype.reset_trades = function() {
  * @returns {Object|Boolean}
  */
 civitas.objects.settlement.prototype.list_black_market = function(resource, amount) {
+	if (!civitas.utils.resource_exists(resource)) {
+		this.get_core().error('The resource you specified does not exist.');
+		return false;
+	}
 	var resources = this.get_resources();
 	if (this.remove_resource(resource, amount)) {
 		var discount = Math.ceil((civitas.RESOURCES[resource].price * civitas.BLACK_MARKET_DISCOUNT) / 100);
@@ -141,6 +149,10 @@ civitas.objects.settlement.prototype.list_black_market = function(resource, amou
  * @returns {Object|Boolean}
  */
 civitas.objects.settlement.prototype.sell_to_settlement = function(settlement, resource, amount) {
+	if (!civitas.utils.resource_exists(resource)) {
+		this.get_core().error('The resource you specified does not exist.');
+		return false;
+	}
 	if (settlement.can_trade()) {
 		var resources = this.get_resources();
 		var _settlement;

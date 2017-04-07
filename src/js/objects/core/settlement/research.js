@@ -1,4 +1,14 @@
 /**
+ * Check if this settlement can recruit soldiers.
+ *
+ * @public
+ * @returns {Boolean}
+ */
+civitas.objects.settlement.prototype.can_research = function() {
+	return this.is_building_built('academy');
+};
+
+/**
  * Return the value of this settlement's research.
  * 
  * @public

@@ -665,6 +665,27 @@ civitas.game = function () {
 	};
 
 	/**
+	 * Method that gets called each 'month'.
+	 * 
+	 * @private
+	 * @returns {civitas.game}
+	 */
+	this._do_monthly = function () {
+		this.day_of_month = 1;
+		this.month++;
+		if (this.month === 3 || this.month === 6 || this.month === 9 || this.month === 12) {
+			this._do_quarterly();
+		}
+		this._reset_black_market();
+		return this;
+	};
+
+	this._do_quarterly = function() {
+		this.refresh_trades();
+		return this;
+	};
+
+	/**
 	 * Refresh the UI, panels and save game.
 	 *
 	 * @public
@@ -784,19 +805,6 @@ civitas.game = function () {
 	};
 
 	/**
-	 * Method that gets called each 'month'.
-	 * 
-	 * @private
-	 * @returns {civitas.game}
-	 */
-	this._do_monthly = function () {
-		this.day_of_month = 1;
-		this.month++;
-		this._reset_black_market();
-		return this;
-	};
-
-	/**
 	 * Refresh the world trades.
 	 * 
 	 * @public
@@ -805,9 +813,11 @@ civitas.game = function () {
 	this.refresh_trades = function() {
 		var settlements = this.get_settlements();
 		for (var i = 1; i < settlements.length; i++) {
-			if (typeof settlements[i] !== 'undefined') {
-				settlements[i].reset_trades();
-				this.get_settlement().lower_influence(settlements[i].get_id(), civitas.YEARLY_INFLUENCE_LOSS);
+			if (settlements[i].is_city()) {
+				if (typeof settlements[i] !== 'undefined') {
+					settlements[i].reset_trades();
+					this.get_settlement().lower_influence(settlements[i].get_id(), civitas.YEARLY_INFLUENCE_LOSS);
+				}
 			}
 		}
 		return this;
@@ -820,7 +830,6 @@ civitas.game = function () {
 	 * @returns {civitas.game}
 	 */
 	this._do_yearly = function () {
-		this.refresh_trades();
 		this.get_settlement().release_mercenaries();
 		this.year++;
 		return this;

@@ -22,7 +22,7 @@ civitas.objects.settlement.prototype.raise_prestige = function(amount) {
 		++this.resources.prestige;
 	}
 	$('.cityprestige').html(this.get_prestige());
-	this.get_core().notify('The prestige of your city raised.');
+	//this.get_core().notify('The prestige of your city raised.');
 	return this.resources.prestige;
 };
 
@@ -37,12 +37,12 @@ civitas.objects.settlement.prototype.lower_prestige = function(amount) {
 	if (typeof amount !== 'undefined') {
 		if ((this.resources.prestige - amount) >= 1) {
 			this.resources.prestige -= amount;
-			this.get_core().notify('The prestige of your city lowered.');
+			//this.get_core().notify('The prestige of your city lowered.');
 		}
 	} else {
 		if ((this.resources.prestige - 1) >= 1) {
 			--this.resources.prestige;
-			this.get_core().notify('The prestige of your city lowered.');
+			//this.get_core().notify('The prestige of your city lowered.');
 		}
 	}
 	$('.cityprestige').html(this.get_prestige());
