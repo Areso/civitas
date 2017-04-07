@@ -108,7 +108,13 @@ civitas.objects.building = function(params) {
 		params.data.level = this.get_level();
 		if (params.hidden !== true) {
 			$('section.game').append(civitas.ui.building_element(params)).on('click', '#building-' + this.get_handle(), function() {
-				self.get_core().open_panel(civitas.PANEL_BUILDING, params.data);
+				var panel = civitas['PANEL_' + self.get_handle().toUpperCase()];
+				if (typeof panel !== 'undefined') {
+					self.get_core().open_panel(panel, params.data);
+				} else {
+					self.get_core().open_panel(civitas.PANEL_BUILDING, params.data);
+				}
+				return false;
 			});
 		}
 		var building = this.get_building_data();
@@ -162,27 +168,15 @@ civitas.objects.building = function(params) {
 			if (this.is_upgradable() === true) {
 				var bl_id = settlement.buildings_list.findIndexM(this.get_type());
 				if (bl_id !== false) {
-					/*
-					if ((resources.coins - (_c.cost.coins * next_level)) < 0) {
-						this.get_core().error('You don`t have enough coins to upgrade this building.');
-						return false;
-					} else {
-						resources.coins = resources.coins - (_c.cost.coins * next_level);
-					}
-					*/
 					for (var item in _c.cost) {
-						if (item !== 'coins') {
-							if ((settlement.get_resources()[item] - (_c.cost[item] * next_level)) < 0) {
-								this.get_core().error('You don`t have enough ' + item + ' to upgrade this building.');
-								return false;
-							}
+						if ((settlement.get_resources()[item] - (_c.cost[item] * next_level)) < 0) {
+							this.get_core().error('You don`t have enough ' + item + ' to upgrade this building.');
+							return false;
 						}
 					}
 					for (var item in _c.cost) {
-						if (item !== 'coins') {
-							if ((settlement.get_resources()[item] - (_c.cost[item] * next_level)) >= 0) {
-								settlement.get_resources()[item] = settlement.get_resources()[item] - (_c.cost[item] * next_level);
-							}
+						if ((settlement.get_resources()[item] - (_c.cost[item] * next_level)) >= 0) {
+							settlement.get_resources()[item] = settlement.get_resources()[item] - (_c.cost[item] * next_level);
 						}
 					}
 					++this.level;

@@ -108,7 +108,7 @@ civitas.EVENTS = [{
 	name: 'Discovery',
 	handle: 'discovery',
 	description: 'The engineers in your settlement made a great discovery which made you more famous, thus gaining AMOUNT fame.',
-	chance: 0.008,
+	chance: 0.006,
 	effect: civitas.EVENT_EFFECT_GAIN_FAME,
 	data: {
 		amount: 100,
@@ -117,7 +117,7 @@ civitas.EVENTS = [{
 	name: 'Spy found',
 	handle: 'spyfound',
 	description: 'A spy from SETTLEMENT was found hiding in your settlement, as a reward for finding him you gain AMOUNT espionage.',
-	chance: 0.010,
+	chance: 0.006,
 	effect: civitas.EVENT_EFFECT_GAIN_ESPIONAGE,
 	data: {
 		amount: 10,
@@ -127,7 +127,7 @@ civitas.EVENTS = [{
 	name: 'Spy uncovered',
 	handle: 'spydiscovered',
 	description: 'One of your spies in SETTLEMENT was discovered, SETTLEMENT`s ruler is angry so you lose AMOUNT espionage.',
-	chance: 0.010,
+	chance: 0.008,
 	effect: civitas.EVENT_EFFECT_LOSE_ESPIONAGE,
 	data: {
 		amount: 10,

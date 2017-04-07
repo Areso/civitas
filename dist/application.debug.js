@@ -2,7 +2,7 @@
  * Civitas empire-building game.
  *
  * @author sizeof(cat) <sizeofcat AT riseup.net>
- * @version 0.1.0.472017
+ * @version 0.1.0.482017
  * @license MIT
  */ 'use strict';
 
@@ -890,9 +890,7 @@ civitas.SOLDIERS = {
 		defense: 4,
 		cost: {
 			coins: 700,
-			bread: 1,
-			meat: 1,
-			beer: 1,
+			provisions: 1,
 			iron: 1,
 			leather: 1,
 			weapons: 5,
@@ -905,9 +903,7 @@ civitas.SOLDIERS = {
 		defense: 2,
 		cost: {
 			coins: 1000,
-			bread: 1,
-			meat: 1,
-			beer: 1,
+			provisions: 2,
 			clothes: 1,
 			iron: 1,
 			weapons: 7,
@@ -920,11 +916,24 @@ civitas.SOLDIERS = {
 		defense: 9,
 		cost: {
 			coins: 1500,
-			provisions: 1,
+			provisions: 3,
 			clothes: 1,
 			iron: 1,
 			weapons: 9,
 			armor: 4
+		}
+	},
+	'Legionnaire': {
+		id: civitas.SOLDIER_LEGIONNAIRE,
+		attack: 12,
+		defense: 14,
+		cost: {
+			coins: 2500,
+			provisions: 6,
+			leather: 2,
+			iron: 2,
+			weapons: 12,
+			armor: 12
 		}
 	}
 };
@@ -976,6 +985,14 @@ civitas.SOLDIER_CROSSBOWMAN = 4;
  * @type {Number}
  */
 civitas.SOLDIER_PIKEMAN = 5;
+
+/**
+ * Legionnaires
+ * 
+ * @constant
+ * @type {Number}
+ */
+civitas.SOLDIER_LEGIONNAIRE = 6;
 
 /**
  * List of mercenary armies available for hire.
@@ -1681,10 +1698,11 @@ civitas.BUILDINGS = [{
 		is_municipal: true,
 		is_production: true, 
 		production: {
+			fame: 10,
 			research: 10
 		},
 		materials: {
-			coins: 10
+			coins: 100
 		},
 		position: {
 			x: 1480,
@@ -2069,8 +2087,8 @@ civitas.BUILDINGS = [{
 			brine: 2
 		},
 		position: {
-			x: 1234,
-			y: 418
+			x: 1734,
+			y: 318
 		},
 		levels: 3,
 		cost: {
@@ -5003,7 +5021,7 @@ civitas.EVENTS = [{
 	name: 'Discovery',
 	handle: 'discovery',
 	description: 'The engineers in your settlement made a great discovery which made you more famous, thus gaining AMOUNT fame.',
-	chance: 0.008,
+	chance: 0.006,
 	effect: civitas.EVENT_EFFECT_GAIN_FAME,
 	data: {
 		amount: 100,
@@ -5012,7 +5030,7 @@ civitas.EVENTS = [{
 	name: 'Spy found',
 	handle: 'spyfound',
 	description: 'A spy from SETTLEMENT was found hiding in your settlement, as a reward for finding him you gain AMOUNT espionage.',
-	chance: 0.010,
+	chance: 0.006,
 	effect: civitas.EVENT_EFFECT_GAIN_ESPIONAGE,
 	data: {
 		amount: 10,
@@ -5022,7 +5040,7 @@ civitas.EVENTS = [{
 	name: 'Spy uncovered',
 	handle: 'spydiscovered',
 	description: 'One of your spies in SETTLEMENT was discovered, SETTLEMENT`s ruler is angry so you lose AMOUNT espionage.',
-	chance: 0.010,
+	chance: 0.008,
 	effect: civitas.EVENT_EFFECT_LOSE_ESPIONAGE,
 	data: {
 		amount: 10,
@@ -6166,7 +6184,7 @@ civitas.ui = {
 		if (typeof materials !== 'undefined') {
 			out += '<dt>' + civitas.l('Extra materials') + '</dt>';
 			for (var item in materials) {
-				out += '<dd>' + (level * materials[item]) * 100 + '%' + civitas.ui.resource_small_img(item) + '</dd>';
+				out += '<dd>' + (level * materials[item]).toFixed(4) * 100 + '%' + civitas.ui.resource_small_img(item) + '</dd>';
 			}
 		}
 		return out;
@@ -6760,19 +6778,12 @@ civitas.objects.settlement = function(params) {
 	 */
 	this.build = function(building_type) {
 		var _b = civitas.BUILDINGS.findIndexM(building_type);
-		var resources = this.get_resources();
 		if (_b !== false) {
 			var _c = civitas.BUILDINGS[_b];
 			if ((typeof _c.requires.settlement_level !== 'undefined') && (this.level < _c.requires.settlement_level)) {
 				this.get_core().error('Your city level is too low to construct this building.');
 				return false;
 			}
-			/*
-			if ((resources.coins - _c.cost.coins) < 0) {
-				this.get_core().error('You don`t have enough coins to construct this building.');
-				return false;
-			}
-			*/
 			if (typeof _c.requires.buildings !== 'undefined') {
 				var required = _c.requires.buildings;
 				for (var i = 0; i < required.length; i++) {
@@ -6785,14 +6796,14 @@ civitas.objects.settlement = function(params) {
 				}
 			}
 			for (var item in _c.cost) {
-				if ((resources[item] - _c.cost[item]) < 0) {
+				if ((this.get_resources()[item] - _c.cost[item]) < 0) {
 					this.get_core().error('You don`t have enough ' + item + ' to construct this building.');
 					return false;
 				}
 			}
 			for (var item in _c.cost) {
-				if ((resources[item] - _c.cost[item]) >= 0) {
-					this.resources[item] = this.resources[item] - _c.cost[item];
+				if ((this.get_resources()[item] - _c.cost[item]) >= 0) {
+					this.get_resources()[item] = this.get_resources()[item] - _c.cost[item];
 				}
 			}
 			var _building = new civitas.objects.building({
@@ -8890,7 +8901,13 @@ civitas.objects.building = function(params) {
 		params.data.level = this.get_level();
 		if (params.hidden !== true) {
 			$('section.game').append(civitas.ui.building_element(params)).on('click', '#building-' + this.get_handle(), function() {
-				self.get_core().open_panel(civitas.PANEL_BUILDING, params.data);
+				var panel = civitas['PANEL_' + self.get_handle().toUpperCase()];
+				if (typeof panel !== 'undefined') {
+					self.get_core().open_panel(panel, params.data);
+				} else {
+					self.get_core().open_panel(civitas.PANEL_BUILDING, params.data);
+				}
+				return false;
 			});
 		}
 		var building = this.get_building_data();
@@ -8944,27 +8961,15 @@ civitas.objects.building = function(params) {
 			if (this.is_upgradable() === true) {
 				var bl_id = settlement.buildings_list.findIndexM(this.get_type());
 				if (bl_id !== false) {
-					/*
-					if ((resources.coins - (_c.cost.coins * next_level)) < 0) {
-						this.get_core().error('You don`t have enough coins to upgrade this building.');
-						return false;
-					} else {
-						resources.coins = resources.coins - (_c.cost.coins * next_level);
-					}
-					*/
 					for (var item in _c.cost) {
-						if (item !== 'coins') {
-							if ((settlement.get_resources()[item] - (_c.cost[item] * next_level)) < 0) {
-								this.get_core().error('You don`t have enough ' + item + ' to upgrade this building.');
-								return false;
-							}
+						if ((settlement.get_resources()[item] - (_c.cost[item] * next_level)) < 0) {
+							this.get_core().error('You don`t have enough ' + item + ' to upgrade this building.');
+							return false;
 						}
 					}
 					for (var item in _c.cost) {
-						if (item !== 'coins') {
-							if ((settlement.get_resources()[item] - (_c.cost[item] * next_level)) >= 0) {
-								settlement.get_resources()[item] = settlement.get_resources()[item] - (_c.cost[item] * next_level);
-							}
+						if ((settlement.get_resources()[item] - (_c.cost[item] * next_level)) >= 0) {
+							settlement.get_resources()[item] = settlement.get_resources()[item] - (_c.cost[item] * next_level);
 						}
 					}
 					++this.level;
@@ -12137,7 +12142,7 @@ civitas.PANEL_SETTLEMENT = {
 };
 
 /**
- * Panel panel data.
+ * Help panel data.
  *
  * @type {Object}
  */
@@ -12613,7 +12618,6 @@ civitas.PANEL_COUNCIL = {
 					'<li><a href="#tab-production">' + civitas.l('Production') + '</a></li>' +
 					'<li><a href="#tab-housing">' + civitas.l('Housing') + '</a></li>' +
 					'<li><a href="#tab-municipal">' + civitas.l('Municipal') + '</a></li>' +
-					'<li><a href="#tab-research">' + civitas.l('Research') + '</a></li>' +
 					'<li><a href="#tab-army">' + civitas.l('Army') + '</a></li>' +
 					'<li><a href="#tab-navy">' + civitas.l('Navy') + '</a></li>' +
 					'<li><a href="#tab-mercenary">' + civitas.l('Mercenaries') + '</a></li>' +
@@ -12627,8 +12631,6 @@ civitas.PANEL_COUNCIL = {
 				'<div id="tab-housing">' +
 				'</div>' +
 				'<div id="tab-municipal">' +
-				'</div>' +
-				'<div id="tab-research">' +
 				'</div>' +
 				'<div id="tab-army">' +
 				'</div>' +
@@ -12789,14 +12791,6 @@ civitas.PANEL_COUNCIL = {
 		}
 		_t += '</div>';
 		$('#panel-' + this.id + ' #tab-mercenary').empty().append(_t);
-
-		_t = '';
-		if (!settlement.can_research()) {
-			_t += '<p>' + civitas.l('You will need to construct an Academy before being able to research technologies in your settlement.') + '</p>';
-		}
-		_t += '<div class="research-list">' +
-				'</div>';
-		$('#panel-' + this.id + ' #tab-research').empty().append(_t);
 
 		_t = '';
 		if (!settlement.can_diplomacy()) {
@@ -13596,6 +13590,94 @@ civitas.PANEL_TRADES = {
 			'</table>';
 		$('#tab-prices > .contents').empty().append(out);
 
+	}
+};
+
+/**
+ * Embassy panel data.
+ *
+ * @type {Object}
+ */
+civitas.PANEL_EMBASSY = {
+	template: '' +
+		'<div id="panel-embassy" class="panel">' +
+			'<header>' +
+				'<span class="title">' + civitas.l('Embassy') + '</span>' +
+				'<a class="tips btn close" title="' + civitas.l('Close this panel') + '"></a>' +
+			'</header>' +
+			'<div class="contents"></div>' +
+		'</div>',
+	id: 'embassy',
+	on_show: function(params) {
+		var self = this;
+		this.params_data = params.data;
+		var core = this.get_core();
+		var el = this.handle;
+		var _c = core.get_settlement().get_building_by_handle(this.params_data.handle);
+		var level = _c.get_level();
+		$(el + ' header .title').html(this.params_data.name);
+		var _t = civitas.ui.tabs([civitas.l('Info'), civitas.l('Espionage')]);
+		$(el + ' .contents').append(_t);
+		this.on_refresh();
+	},
+	on_refresh: function() {
+		var _c = this.get_core().get_settlement().get_building_by_handle(this.params_data.handle);
+		var level = _c.get_level();
+		var _t = '<p>' + this.params_data.description + '</p>' +
+			'<dl>' +
+				civitas.ui.cost_panel(this.params_data.cost) +
+				civitas.ui.materials_panel(this.params_data.materials) +
+				civitas.ui.production_panel(this.params_data.production, level) +
+				civitas.ui.requires_panel(this.params_data.requires) +
+				civitas.ui.chance_panel(this.params_data.chance, level) +
+				civitas.ui.tax_panel(this.params_data.tax, level) +
+				civitas.ui.storage_panel(this.params_data.storage, level) +
+			'</dl>';
+		$('#panel-' + this.id + ' #tab-info').empty().append(_t);
+	}
+};
+
+/**
+ * Academy panel data.
+ *
+ * @type {Object}
+ */
+civitas.PANEL_ACADEMY = {
+	template: '' +
+		'<div id="panel-academy" class="panel">' +
+			'<header>' +
+				'<span class="title">' + civitas.l('Academy') + '</span>' +
+				'<a class="tips btn close" title="' + civitas.l('Close this panel') + '"></a>' +
+			'</header>' +
+			'<div class="contents"></div>' +
+		'</div>',
+	id: 'academy',
+	on_show: function(params) {
+		var self = this;
+		this.params_data = params.data;
+		var core = this.get_core();
+		var el = this.handle;
+		var _c = core.get_settlement().get_building_by_handle(this.params_data.handle);
+		var level = _c.get_level();
+		$(el + ' header .title').html(this.params_data.name);
+		var _t = civitas.ui.tabs([civitas.l('Info'), civitas.l('Research')]);
+		$(el + ' .contents').append(_t);
+		this.on_refresh();
+	},
+	on_refresh: function() {
+		var _c = this.get_core().get_settlement().get_building_by_handle(this.params_data.handle);
+		var level = _c.get_level();
+		var _t = '<p>' + this.params_data.description + '</p>' +
+			'<dl>' +
+				civitas.ui.cost_panel(this.params_data.cost) +
+				civitas.ui.materials_panel(this.params_data.materials) +
+				civitas.ui.production_panel(this.params_data.production, level) +
+				civitas.ui.requires_panel(this.params_data.requires) +
+				civitas.ui.chance_panel(this.params_data.chance, level) +
+				civitas.ui.tax_panel(this.params_data.tax, level) +
+				civitas.ui.storage_panel(this.params_data.storage, level) +
+			'</dl>';
+		$('#panel-' + this.id + ' #tab-info').empty().append(_t);
 	}
 };
 

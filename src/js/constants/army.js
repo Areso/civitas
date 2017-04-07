@@ -44,9 +44,7 @@ civitas.SOLDIERS = {
 		defense: 4,
 		cost: {
 			coins: 700,
-			bread: 1,
-			meat: 1,
-			beer: 1,
+			provisions: 1,
 			iron: 1,
 			leather: 1,
 			weapons: 5,
@@ -59,9 +57,7 @@ civitas.SOLDIERS = {
 		defense: 2,
 		cost: {
 			coins: 1000,
-			bread: 1,
-			meat: 1,
-			beer: 1,
+			provisions: 2,
 			clothes: 1,
 			iron: 1,
 			weapons: 7,
@@ -74,11 +70,24 @@ civitas.SOLDIERS = {
 		defense: 9,
 		cost: {
 			coins: 1500,
-			provisions: 1,
+			provisions: 3,
 			clothes: 1,
 			iron: 1,
 			weapons: 9,
 			armor: 4
+		}
+	},
+	'Legionnaire': {
+		id: civitas.SOLDIER_LEGIONNAIRE,
+		attack: 12,
+		defense: 14,
+		cost: {
+			coins: 2500,
+			provisions: 6,
+			leather: 2,
+			iron: 2,
+			weapons: 12,
+			armor: 12
 		}
 	}
 };
@@ -130,6 +139,14 @@ civitas.SOLDIER_CROSSBOWMAN = 4;
  * @type {Number}
  */
 civitas.SOLDIER_PIKEMAN = 5;
+
+/**
+ * Legionnaires
+ * 
+ * @constant
+ * @type {Number}
+ */
+civitas.SOLDIER_LEGIONNAIRE = 6;
 
 /**
  * List of mercenary armies available for hire.

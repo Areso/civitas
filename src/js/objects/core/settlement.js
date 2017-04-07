@@ -538,19 +538,12 @@ civitas.objects.settlement = function(params) {
 	 */
 	this.build = function(building_type) {
 		var _b = civitas.BUILDINGS.findIndexM(building_type);
-		var resources = this.get_resources();
 		if (_b !== false) {
 			var _c = civitas.BUILDINGS[_b];
 			if ((typeof _c.requires.settlement_level !== 'undefined') && (this.level < _c.requires.settlement_level)) {
 				this.get_core().error('Your city level is too low to construct this building.');
 				return false;
 			}
-			/*
-			if ((resources.coins - _c.cost.coins) < 0) {
-				this.get_core().error('You don`t have enough coins to construct this building.');
-				return false;
-			}
-			*/
 			if (typeof _c.requires.buildings !== 'undefined') {
 				var required = _c.requires.buildings;
 				for (var i = 0; i < required.length; i++) {
@@ -563,14 +556,14 @@ civitas.objects.settlement = function(params) {
 				}
 			}
 			for (var item in _c.cost) {
-				if ((resources[item] - _c.cost[item]) < 0) {
+				if ((this.get_resources()[item] - _c.cost[item]) < 0) {
 					this.get_core().error('You don`t have enough ' + item + ' to construct this building.');
 					return false;
 				}
 			}
 			for (var item in _c.cost) {
-				if ((resources[item] - _c.cost[item]) >= 0) {
-					this.resources[item] = this.resources[item] - _c.cost[item];
+				if ((this.get_resources()[item] - _c.cost[item]) >= 0) {
+					this.get_resources()[item] = this.get_resources()[item] - _c.cost[item];
 				}
 			}
 			var _building = new civitas.objects.building({

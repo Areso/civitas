@@ -2,7 +2,7 @@
  * Civitas empire-building game.
  *
  * @author sizeof(cat) <sizeofcat AT riseup.net>
- * @version 0.1.0.472017
+ * @version 0.1.0.482017
  * @license MIT
  */ @font-face {
 	font-family: 'Nova Oval';
@@ -1664,6 +1664,14 @@ table tr td:last-child a:hover,
 	background-image: -moz-linear-gradient(top, #694224, #422712);
 	background-image: linear-gradient(to bottom, #694224, #422712);
 	color: #fff;
+}
+
+#panel-tavern,
+#panel-academy,
+#panel-embassy {
+	max-height: 500px;
+	max-width: 600px;
+	width: 600px;
 }
 
 /* Top panel with resources */

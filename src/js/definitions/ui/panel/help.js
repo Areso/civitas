@@ -1,5 +1,5 @@
 /**
- * Panel panel data.
+ * Help panel data.
  *
  * @type {Object}
  */

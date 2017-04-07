@@ -68,6 +68,9 @@ gulp.task('app', function() {
 		'src/js/definitions/ui/panel/army.js',
 		'src/js/definitions/ui/panel/buildings.js',
 		'src/js/definitions/ui/panel/trades.js',
+		'src/js/definitions/ui/panel/building/embassy.js',
+		'src/js/definitions/ui/panel/building/building/tavern.js',
+		'src/js/definitions/ui/panel/building/academy.js',
 		'src/js/definitions/ui/window/options.js'
   	])
     .pipe(concat('application.debug.js'))

@@ -1659,3 +1659,11 @@ table tr td:last-child a:hover,
 	background-image: linear-gradient(to bottom, #694224, #422712);
 	color: #fff;
 }
+
+#panel-tavern,
+#panel-academy,
+#panel-embassy {
+	max-height: 500px;
+	max-width: 600px;
+	width: 600px;
+}

@@ -380,10 +380,11 @@ civitas.BUILDINGS = [{
 		is_municipal: true,
 		is_production: true, 
 		production: {
+			fame: 10,
 			research: 10
 		},
 		materials: {
-			coins: 10
+			coins: 100
 		},
 		position: {
 			x: 1480,
@@ -768,8 +769,8 @@ civitas.BUILDINGS = [{
 			brine: 2
 		},
 		position: {
-			x: 1234,
-			y: 418
+			x: 1734,
+			y: 318
 		},
 		levels: 3,
 		cost: {

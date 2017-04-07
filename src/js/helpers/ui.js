@@ -166,7 +166,7 @@ civitas.ui = {
 		if (typeof materials !== 'undefined') {
 			out += '<dt>' + civitas.l('Extra materials') + '</dt>';
 			for (var item in materials) {
-				out += '<dd>' + (level * materials[item]) * 100 + '%' + civitas.ui.resource_small_img(item) + '</dd>';
+				out += '<dd>' + (level * materials[item]).toFixed(4) * 100 + '%' + civitas.ui.resource_small_img(item) + '</dd>';
 			}
 		}
 		return out;
