@@ -26,6 +26,7 @@ civitas.PANEL_ACADEMY = {
 		this.on_refresh();
 	},
 	on_refresh: function() {
+		var settlement = this.get_core().get_settlement();
 		var _c = this.get_core().get_settlement().get_building_by_handle(this.params_data.handle);
 		var level = _c.get_level();
 		var _t = '<p>' + this.params_data.description + '</p>' +
@@ -39,5 +40,9 @@ civitas.PANEL_ACADEMY = {
 				civitas.ui.storage_panel(this.params_data.storage, level) +
 			'</dl>';
 		$('#panel-' + this.id + ' #tab-info').empty().append(_t);
+		_t = '<div class="section">' +
+			civitas.ui.progress((settlement.get_research() * 100) / civitas.MAX_RESEARCH_VALUE, 'large', settlement.get_research()) +
+		'</div>';
+		$('#panel-' + this.id + ' #tab-research').empty().append(_t);
 	}
 };

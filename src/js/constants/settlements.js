@@ -91,7 +91,7 @@ civitas.SETTLEMENTS = {
 		resources: {
 			coins: 230000,
 			prestige: 700,
-			espionage: 1200
+			espionage: 1000
 		},
 		trades: {
 			'imports': {
@@ -272,8 +272,8 @@ civitas.SETTLEMENTS = {
 		level: 29,
 		resources: {
 			coins: 190000,
-			prestige: 100,
-			espionage: 100
+			prestige: 700,
+			espionage: 500
 		},
 		trades: {
 			'imports': {
@@ -351,7 +351,7 @@ civitas.SETTLEMENTS = {
 		resources: {
 			coins: 300000,
 			prestige: 200,
-			espionage: 150
+			espionage: 850
 		},
 		trades: {
 			'imports': {
@@ -392,7 +392,7 @@ civitas.SETTLEMENTS = {
 		resources: {
 			coins: 330000,
 			prestige: 900,
-			espionage: 1900
+			espionage: 900
 		},
 		trades: {
 			'imports': {
@@ -566,8 +566,8 @@ civitas.SETTLEMENTS = {
 		level: 36,
 		resources: {
 			coins: 200000,
-			prestige: 10,
-			espionage: 50
+			prestige: 710,
+			espionage: 450
 		},
 		trades: {
 			'imports': {

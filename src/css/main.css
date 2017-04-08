@@ -1271,6 +1271,26 @@ td.icon {
 	width: 300px;
 }
 
+.progress.large {
+	width: 400px;
+	height: 40px;
+	-webkit-border-radius: 30px;
+	-moz-border-radius: 30px;
+	border-radius: 30px;
+	-webkit-box-shadow: inset 0 0 12px 0 rgba(0, 0, 0, 0.75);
+	-moz-box-shadow: inset 0 0 12px 0 rgba(0, 0, 0, 0.75);
+	box-shadow: inset 0 0 12px 0 rgba(0, 0, 0, 0.75);
+}
+
+.progress.large .bar {
+	height: 26px;
+	-webkit-border-radius: 30px;
+	-moz-border-radius: 30px;
+	border-radius: 30px;
+	padding: 14px 0 0 0;
+	font-size: 12px;
+}
+
 .progress .bar {
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #472e18), color-stop(49%, #ffffff), color-stop(100%, #25140a));
 	background: -moz-linear-gradient(top,#472e18 0%, #ffffff 49%, #25140a 100%);
@@ -1288,20 +1308,27 @@ td.icon {
 }
 
 .progress .bar.good {
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #555), color-stop(49%, #00b332), color-stop(100%, #173e09));
-	background: -moz-linear-gradient(top, #555 0%, #00b332 49%, #173e09 100%);
-	background: -webkit-linear-gradient(top, #555 0%, #00b332 49%, #173e09 100%);
-	background: linear-gradient(top, #555 0%, #00b332 49%, #173e09 100%);
+	background: #00890b;
+	background: -moz-linear-gradient(top, #00890b 0%, #1df432 50%, #1c8c27 100%);
+	background: -webkit-linear-gradient(top, #00890b 0%,#1df432 50%,#1c8c27 100%);
+	background: linear-gradient(to bottom, #00890b 0%,#1df432 50%,#1c8c27 100%);
 }
 
 .progress .bar.bad {
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #555), color-stop(49%, #ffa136), color-stop(100%, #963000));
-	background: -moz-linear-gradient(top, #555 0%, #ffa136 49%, #963000 100%);
-	background: -webkit-linear-gradient(top, #555 0%, #ffa136 49%, #963000 100%);
-	background: linear-gradient(top, #555 0%, #ffa136 49%, #963000 100%);
+	background: #e2e200;
+	background: -moz-linear-gradient(top, #e2e200 0%, #d39b00 50%, #e2e200 100%);
+	background: -webkit-linear-gradient(top, #e2e200 0%,#d39b00 50%,#e2e200 100%);
+	background: linear-gradient(to bottom, #e2e200 0%,#d39b00 50%,#e2e200 100%);
 }
 
 .progress .bar.vbad {
+	background: #f70000;
+	background: -moz-linear-gradient(top, #f70000 0%, #b50000 50%, #f70000 100%);
+	background: -webkit-linear-gradient(top, #f70000 0%,#b50000 50%,#f70000 100%);
+	background: linear-gradient(to bottom, #f70000 0%,#b50000 50%,#f70000 100%);
+}
+
+.progress .bar.ubad {
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #555), color-stop(49%, #f10000), color-stop(100%, #8b0000));
 	background: -moz-linear-gradient(top, #555 0%, #f10000 49%, #8b0000 100%);
 	background: -webkit-linear-gradient(top, #555 0%, #f10000 49%, #8b0000 100%);
@@ -1309,10 +1336,17 @@ td.icon {
 }
 
 .progress .bar.vgood {
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #555), color-stop(49%, #00abff), color-stop(100%, #003498));
-	background: -moz-linear-gradient(top, #555 0%, #00abff 49%, #003498 100%);
-	background: -webkit-linear-gradient(top, #555 0%, #00abff 49%, #003498 100%);
-	background: linear-gradient(top, #555 0%, #00abff 49%, #003498 100%);
+	background: #0092af;
+	background: -moz-linear-gradient(top, #0092af 0%, #1effe4 50%, #0092af 100%);
+	background: -webkit-linear-gradient(top, #0092af 0%,#1effe4 50%,#0092af 100%);
+	background: linear-gradient(to bottom, #0092af 0%,#1effe4 50%,#0092af 100%);
+}
+
+.progress .bar.ugood {
+	background: #0700e2;
+	background: -moz-linear-gradient(top, #0700e2 0%, #1c7bef 50%, #0700e2 100%);
+	background: -webkit-linear-gradient(top, #0700e2 0%,#1c7bef 50%,#0700e2 100%);
+	background: linear-gradient(to bottom, #0700e2 0%,#1c7bef 50%,#0700e2 100%);
 }
 
 .bldg-tabs {
@@ -1666,4 +1700,13 @@ table tr td:last-child a:hover,
 	max-height: 500px;
 	max-width: 600px;
 	width: 600px;
+}
+
+.ui .panel .section {
+	padding: 10px;
+}
+
+.ui .panel .section .progress.large {
+	margin: 0 auto;
+	display: block;
 }

@@ -26,14 +26,10 @@ civitas.objects.settlement.prototype.get_research = function() {
  * @returns {Number}
  */
 civitas.objects.settlement.prototype.raise_research = function(amount) {
-	if (typeof amount !== 'undefined') {
-		this.resources.research += amount;
-	} else {
-		++this.resources.research;
+	if (typeof amount === 'undefined') {
+		amount = 1;
 	}
-	$('.cityresearch').html(this.get_research());
-	//this.get_core().notify('The research of your city raised.');
-	return this.resources.research;
+	return this.set_research(this.get_research() + amount);
 };
 
 /**
@@ -44,19 +40,11 @@ civitas.objects.settlement.prototype.raise_research = function(amount) {
  * @returns {Number}
  */
 civitas.objects.settlement.prototype.lower_research = function(amount) {
-	if (typeof amount !== 'undefined') {
-		if ((this.resources.research - amount) >= 1) {
-			this.resources.research -= amount;
-			this.get_core().notify('The research of your city lowered.');
-		}
-	} else {
-		if ((this.resources.research - 1) >= 1) {
-			--this.resources.research;
-			this.get_core().notify('The research of your city lowered.');
-		}
+	if (typeof amount === 'undefined') {
+		amount = 1;
 	}
-	$('.cityresearch').html(this.get_research());
-	return this.resources.research;
+	this.set_research(this.get_research() - amount);
+	return this.get_research();
 };
 
 /**
@@ -66,8 +54,7 @@ civitas.objects.settlement.prototype.lower_research = function(amount) {
  * @public
  */
 civitas.objects.settlement.prototype.reset_research = function() {
-	this.resources.research = 1;
-	$('.cityresearch').html(this.get_research());
+	this.set_research(1);
 	return this;
 };
 
@@ -79,41 +66,13 @@ civitas.objects.settlement.prototype.reset_research = function() {
  * @param {Number} value
  */
 civitas.objects.settlement.prototype.set_research = function(value) {
-	this.resources.research = value;
+	if (this.resources.research >= civitas.MAX_RESEARCH_VALUE) {
+		this.resources.research = civitas.MAX_RESEARCH_VALUE;
+	} else if (this.resources.research < 1) {
+		this.resources.research = 1;
+	} else {
+		this.resources.research = value;
+	}
 	$('.cityresearch').html(this.get_research());
-	return this;
-};
-
-/**
- * Increase this settlement's research by the specified amount.
- * 
- * @public
- * @param {Number} value
- * @returns {Number}
- */
-civitas.objects.settlement.prototype.inc_research = function(value) {
-	return this.set_research(this.get_research() + value);
-};
-
-/**
- * Decrease this settlement's research by the specified amount.
- * 
- * @public
- * @param {Number} value
- * @returns {Number}
- */
-civitas.objects.settlement.prototype.dec_research = function(value) {
-	return this.set_research(this.get_research() - value);
-};
-
-/**
- * Set this settlement's research to the specified value.
- * 
- * @public
- * @param {Number} value
- * @returns {Number}
- */
-civitas.objects.settlement.prototype.set_research = function(value) {
-	this.resources.research = value;
-	return value;
+	return this.get_research();
 };

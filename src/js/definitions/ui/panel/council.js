@@ -268,11 +268,11 @@ civitas.PANEL_COUNCIL = {
 				'<dt>' + civitas.l('Climate') + '</dt><dd>' + settlement.get_climate().name.capitalize() + '</dd>' +
 				'<dt>' + civitas.l('Personality') + '</dt><dd>' + settlement.get_personality().name.capitalize() + '</dd>' +
 				'<dt>' + civitas.l('Nationality') + '</dt><dd>' + settlement.get_nationality().name.capitalize() + '</dd>' +
-				'<dt>' + civitas.l('Level') + '</dt><dd class="citylevel">' + settlement.get_level() + '</dd>' +
 				'<dt>' + civitas.l('Population') + '</dt><dd>' + civitas.utils.nice_numbers(settlement.get_population()) + '</dd>' +
-				'<dt>' + civitas.l('Prestige') + '</dt><dd class="cityprestige">' + settlement.get_prestige() + '</dd>' +
-				'<dt>' + civitas.l('Espionage') + '</dt><dd class="cityespionage">' + settlement.get_espionage() + '</dd>' +
-				'<dt>' + civitas.l('Research') + '</dt><dd class="cityresearch">' + settlement.get_research() + '</dd>' +
+				'<dt>' + civitas.l('Level') + '</dt><dd>' + civitas.ui.progress((settlement.get_level() * 100) / civitas.MAX_SETTLEMENT_LEVEL, 'small', settlement.get_level()) + '</dd>' +
+				'<dt>' + civitas.l('Prestige') + '</dt><dd>' + civitas.ui.progress((settlement.get_prestige() * 100) / civitas.MAX_PRESTIGE_VALUE, 'small', settlement.get_prestige()) + '</dd>' +
+				'<dt>' + civitas.l('Espionage') + '</dt><dd>' + civitas.ui.progress((settlement.get_espionage() * 100) / civitas.MAX_ESPIONAGE_VALUE, 'small', settlement.get_espionage()) + '</dd>' +
+				'<dt>' + civitas.l('Research') + '</dt><dd>' + civitas.ui.progress((settlement.get_research() * 100) / civitas.MAX_RESEARCH_VALUE, 'small', settlement.get_research()) + '</dd>' +
 			'</dl>' +
 		'</div>';
 		if (advices.length > 0) {

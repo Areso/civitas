@@ -52,7 +52,6 @@ civitas.objects.settlement.prototype.get_influence_with_settlement = function(se
 	} else if (typeof settlement === 'string') {
 		return this.status[this.get_core().get_settlement(settlement)].influence;
 	}
-	
 };
 	
 /**
@@ -76,13 +75,36 @@ civitas.objects.settlement.prototype.set_status = function(value) {
  * @returns {Number}
  */
 civitas.objects.settlement.prototype.lower_influence = function(settlement, value) {
-	this.status[settlement].influence = this.status[settlement].influence - value;
-	if (this.status[settlement].influence < 0) {
-		this.status[settlement].influence = 0;
+	if (typeof value === 'undefined') {
+		value = 1;
 	}
-	return this.status[settlement].influence;
+	return this.set_influence(settlement, this.get_influence_with_settlement(settlement) - value);
 };
-	
+
+/**
+ * Set the influence with the specified settlement to this value.
+ *
+ * @public
+ * @param {civitas.objects.settlement} settlement
+ * @param {Number} value
+ * @returns {Number}
+ */
+civitas.objects.settlement.prototype.set_influence = function(settlement, value) {
+	if (typeof settlement === 'object') {
+		settlement = settlement.get_id();;
+	} else if (typeof settlement === 'string') {
+		settlement = this.get_core().get_settlement(settlement);
+	}
+	if (this.status[settlement].influence >= civitas.MAX_INFLUENCE_VALUE) {
+		this.status[settlement].influence = civitas.MAX_INFLUENCE_VALUE;
+	} else if (this.status[settlement].influence < 1) {
+		this.status[settlement].influence = 1;
+	} else {
+		this.status[settlement].influence = value;
+	}
+	return this.get_influence_with_settlement(settlement);
+};
+
 /**
  * Increase the influence of this settlement.
  * 
@@ -92,12 +114,10 @@ civitas.objects.settlement.prototype.lower_influence = function(settlement, valu
  * @returns {Number}
  */
 civitas.objects.settlement.prototype.raise_influence = function(settlement, value) {
-	console.log(value);
-	this.status[settlement].influence = this.status[settlement].influence + value;
-	if (this.status[settlement].influence > 100) {
-		this.status[settlement].influence = 100;
+	if (typeof value === 'undefined') {
+		value = 1;
 	}
-	return this.status[settlement].influence;
+	return this.set_influence(settlement, this.get_influence_with_settlement(settlement) + value);
 };
 	
 /**

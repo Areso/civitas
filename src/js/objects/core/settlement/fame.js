@@ -9,18 +9,6 @@ civitas.objects.settlement.prototype.get_fame = function() {
 };
 
 /**
- * Set the fame of the settlement.
- * 
- * @public
- * @param {Object} amount
- * @returns {civitas.objects.settlement}
- */
-civitas.objects.settlement.prototype.set_fame = function(amount) {
-	this.resources.fame = amount;
-	return this;
-};
-
-/**
  * Increase this settlement's fame by the specified amount.
  * 
  * @public
@@ -31,8 +19,7 @@ civitas.objects.settlement.prototype.raise_fame = function(amount) {
 	if (typeof amount === 'undefined') {
 		amount = 1;
 	}
-	this.set_fame(this.get_fame() + amount);
-	return this.get_fame();
+	return this.set_fame(this.get_fame() + amount);
 };
 
 /**
@@ -46,26 +33,29 @@ civitas.objects.settlement.prototype.lower_fame = function(amount) {
 	if (typeof amount === 'undefined') {
 		amount = 1;
 	}
-	if ((this.resources.fame - amount) >= 1) {
-		this.set_fame(this.get_fame() - amount);
-	}
-	return this.get_fame();
+	return this.set_fame(this.get_fame() - amount);
 };
 
 /**
  * Set this settlement's fame to the specified value.
  * 
  * @public
- * @param {Number} amount
+ * @param {Number} value
  * @returns {Number}
  */
-civitas.objects.settlement.prototype.set_fame = function(amount) {
+civitas.objects.settlement.prototype.set_fame = function(value) {
 	var needed = civitas.LEVELS[this.get_level()];
-	this.resources.fame = amount;
+	if (this.resources.fame >= civitas.LEVELS[civitas.MAX_SETTLEMENT_LEVEL - 1]) {
+		this.resources.fame = civitas.LEVELS[civitas.MAX_SETTLEMENT_LEVEL - 1];
+	} else if (this.resources.fame < 1) {
+		this.resources.fame = 1;
+	} else {
+		this.resources.fame = value;
+	}
 	$('header .cityfame > span').css({
 		width: Math.floor((this.get_fame() * 100) / needed) + '%'
 	});
-	return amount;
+	return value;
 };
 
 /**
@@ -75,6 +65,6 @@ civitas.objects.settlement.prototype.set_fame = function(amount) {
  * @public
  */
 civitas.objects.settlement.prototype.reset_fame = function() {
-	this.resources.fame = 1;
+	this.set_fame(1);
 	return this;
 };

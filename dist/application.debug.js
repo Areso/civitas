@@ -282,6 +282,14 @@ civitas.MODE_SINGLEPLAYER = 0;
  */
 civitas.MODE_MULTIPLAYER = 1;
 
+civitas.MAX_PRESTIGE_VALUE = 1000;
+
+civitas.MAX_RESEARCH_VALUE = 1000;
+
+civitas.MAX_ESPIONAGE_VALUE = 1000;
+
+civitas.MAX_INFLUENCE_VALUE = 1000;
+
 civitas.lang = {};
 
 /**
@@ -1699,7 +1707,7 @@ civitas.BUILDINGS = [{
 		is_production: true, 
 		production: {
 			fame: 10,
-			research: 10
+			research: 1
 		},
 		materials: {
 			coins: 100
@@ -1726,7 +1734,7 @@ civitas.BUILDINGS = [{
 		is_production: true, 
 		production: {
 			fame: 20,
-			espionage: 2
+			espionage: 1
 		},
 		materials: {
 			coins: 50
@@ -3671,7 +3679,7 @@ civitas.SETTLEMENTS = {
 		resources: {
 			coins: 230000,
 			prestige: 700,
-			espionage: 1200
+			espionage: 1000
 		},
 		trades: {
 			'imports': {
@@ -3852,8 +3860,8 @@ civitas.SETTLEMENTS = {
 		level: 29,
 		resources: {
 			coins: 190000,
-			prestige: 100,
-			espionage: 100
+			prestige: 700,
+			espionage: 500
 		},
 		trades: {
 			'imports': {
@@ -3931,7 +3939,7 @@ civitas.SETTLEMENTS = {
 		resources: {
 			coins: 300000,
 			prestige: 200,
-			espionage: 150
+			espionage: 850
 		},
 		trades: {
 			'imports': {
@@ -3972,7 +3980,7 @@ civitas.SETTLEMENTS = {
 		resources: {
 			coins: 330000,
 			prestige: 900,
-			espionage: 1900
+			espionage: 900
 		},
 		trades: {
 			'imports': {
@@ -4146,8 +4154,8 @@ civitas.SETTLEMENTS = {
 		level: 36,
 		resources: {
 			coins: 200000,
-			prestige: 10,
-			espionage: 50
+			prestige: 710,
+			espionage: 450
 		},
 		trades: {
 			'imports': {
@@ -6040,18 +6048,25 @@ civitas.ui = {
 		return out;
 	},
 
-	progress: function(value) {
-		var _e = '';
-		if (value < 20) {
-			_e = ' vbad';
-		} else if (value >= 20 && value < 50) {
-			_e = ' bad';
-		} else if (value >= 50 && value < 80) {
-			_e = ' good';
-		} else if (value >= 80) {
-			_e = ' vgood';
+	progress: function(value, progress_type, show_value) {
+		if (typeof progress_type === 'undefined') {
+			progress_type = 'small';
 		}
-		return '<div class="progress small"><span class="bar' + _e + '" style="width:' + value + '%">' + value + '</span></div>';
+		var _e = '';
+		if (value < 10) {
+			_e = ' ubad';
+		} else if (value >= 10 && value < 30) {
+			_e = ' vbad';
+		} else if (value >= 30 && value < 40) {
+			_e = ' bad';
+		} else if (value >= 40 && value < 60) {
+			_e = ' good';
+		} else if (value >= 60 && value < 90) {
+			_e = ' vgood';
+		} else if (value >= 90) {
+			_e = ' ugood';
+		}
+		return '<div class="progress ' + progress_type + '"><span class="bar' + _e + '" style="width:' + value + '%">' + (typeof show_value !== 'undefined' ? show_value : value) + '</span></div>';
 	},
 
 	army_img: function (name) {
@@ -7367,14 +7382,10 @@ civitas.objects.settlement.prototype.get_research = function() {
  * @returns {Number}
  */
 civitas.objects.settlement.prototype.raise_research = function(amount) {
-	if (typeof amount !== 'undefined') {
-		this.resources.research += amount;
-	} else {
-		++this.resources.research;
+	if (typeof amount === 'undefined') {
+		amount = 1;
 	}
-	$('.cityresearch').html(this.get_research());
-	//this.get_core().notify('The research of your city raised.');
-	return this.resources.research;
+	return this.set_research(this.get_research() + amount);
 };
 
 /**
@@ -7385,19 +7396,11 @@ civitas.objects.settlement.prototype.raise_research = function(amount) {
  * @returns {Number}
  */
 civitas.objects.settlement.prototype.lower_research = function(amount) {
-	if (typeof amount !== 'undefined') {
-		if ((this.resources.research - amount) >= 1) {
-			this.resources.research -= amount;
-			this.get_core().notify('The research of your city lowered.');
-		}
-	} else {
-		if ((this.resources.research - 1) >= 1) {
-			--this.resources.research;
-			this.get_core().notify('The research of your city lowered.');
-		}
+	if (typeof amount === 'undefined') {
+		amount = 1;
 	}
-	$('.cityresearch').html(this.get_research());
-	return this.resources.research;
+	this.set_research(this.get_research() - amount);
+	return this.get_research();
 };
 
 /**
@@ -7407,8 +7410,7 @@ civitas.objects.settlement.prototype.lower_research = function(amount) {
  * @public
  */
 civitas.objects.settlement.prototype.reset_research = function() {
-	this.resources.research = 1;
-	$('.cityresearch').html(this.get_research());
+	this.set_research(1);
 	return this;
 };
 
@@ -7420,43 +7422,15 @@ civitas.objects.settlement.prototype.reset_research = function() {
  * @param {Number} value
  */
 civitas.objects.settlement.prototype.set_research = function(value) {
-	this.resources.research = value;
+	if (this.resources.research >= civitas.MAX_RESEARCH_VALUE) {
+		this.resources.research = civitas.MAX_RESEARCH_VALUE;
+	} else if (this.resources.research < 1) {
+		this.resources.research = 1;
+	} else {
+		this.resources.research = value;
+	}
 	$('.cityresearch').html(this.get_research());
-	return this;
-};
-
-/**
- * Increase this settlement's research by the specified amount.
- * 
- * @public
- * @param {Number} value
- * @returns {Number}
- */
-civitas.objects.settlement.prototype.inc_research = function(value) {
-	return this.set_research(this.get_research() + value);
-};
-
-/**
- * Decrease this settlement's research by the specified amount.
- * 
- * @public
- * @param {Number} value
- * @returns {Number}
- */
-civitas.objects.settlement.prototype.dec_research = function(value) {
-	return this.set_research(this.get_research() - value);
-};
-
-/**
- * Set this settlement's research to the specified value.
- * 
- * @public
- * @param {Number} value
- * @returns {Number}
- */
-civitas.objects.settlement.prototype.set_research = function(value) {
-	this.resources.research = value;
-	return value;
+	return this.get_research();
 };
 
 /**
@@ -7470,18 +7444,6 @@ civitas.objects.settlement.prototype.get_fame = function() {
 };
 
 /**
- * Set the fame of the settlement.
- * 
- * @public
- * @param {Object} amount
- * @returns {civitas.objects.settlement}
- */
-civitas.objects.settlement.prototype.set_fame = function(amount) {
-	this.resources.fame = amount;
-	return this;
-};
-
-/**
  * Increase this settlement's fame by the specified amount.
  * 
  * @public
@@ -7492,8 +7454,7 @@ civitas.objects.settlement.prototype.raise_fame = function(amount) {
 	if (typeof amount === 'undefined') {
 		amount = 1;
 	}
-	this.set_fame(this.get_fame() + amount);
-	return this.get_fame();
+	return this.set_fame(this.get_fame() + amount);
 };
 
 /**
@@ -7507,26 +7468,29 @@ civitas.objects.settlement.prototype.lower_fame = function(amount) {
 	if (typeof amount === 'undefined') {
 		amount = 1;
 	}
-	if ((this.resources.fame - amount) >= 1) {
-		this.set_fame(this.get_fame() - amount);
-	}
-	return this.get_fame();
+	return this.set_fame(this.get_fame() - amount);
 };
 
 /**
  * Set this settlement's fame to the specified value.
  * 
  * @public
- * @param {Number} amount
+ * @param {Number} value
  * @returns {Number}
  */
-civitas.objects.settlement.prototype.set_fame = function(amount) {
+civitas.objects.settlement.prototype.set_fame = function(value) {
 	var needed = civitas.LEVELS[this.get_level()];
-	this.resources.fame = amount;
+	if (this.resources.fame >= civitas.LEVELS[civitas.MAX_SETTLEMENT_LEVEL - 1]) {
+		this.resources.fame = civitas.LEVELS[civitas.MAX_SETTLEMENT_LEVEL - 1];
+	} else if (this.resources.fame < 1) {
+		this.resources.fame = 1;
+	} else {
+		this.resources.fame = value;
+	}
 	$('header .cityfame > span').css({
 		width: Math.floor((this.get_fame() * 100) / needed) + '%'
 	});
-	return amount;
+	return value;
 };
 
 /**
@@ -7536,7 +7500,7 @@ civitas.objects.settlement.prototype.set_fame = function(amount) {
  * @public
  */
 civitas.objects.settlement.prototype.reset_fame = function() {
-	this.resources.fame = 1;
+	this.set_fame(1);
 	return this;
 };
 
@@ -7554,16 +7518,14 @@ civitas.objects.settlement.prototype.get_espionage = function() {
  * Raise the espionage of this settlement by the specified amount.
  * 
  * @public
- * @param {Number} amount
+ * @param {Number} value
  * @returns {Number}
  */
-civitas.objects.settlement.prototype.raise_espionage = function(amount) {
-	if (typeof amount === 'undefined') {
-		amount = 1;
+civitas.objects.settlement.prototype.raise_espionage = function(value) {
+	if (typeof value === 'undefined') {
+		value = 1;
 	}
-	this.set_espionage(this.get_espionage() + amount);
-	this.get_core().notify('The espionage of your city raised.');
-	return this.get_espionage();
+	return this.set_espionage(this.get_espionage() + value);
 };
 
 /**
@@ -7573,14 +7535,11 @@ civitas.objects.settlement.prototype.raise_espionage = function(amount) {
  * @param {Number} amount
  * @returns {Number}
  */
-civitas.objects.settlement.prototype.lower_espionage = function(amount) {
-	if (typeof amount === 'undefined') {
-		amount = 1;
+civitas.objects.settlement.prototype.lower_espionage = function(value) {
+	if (typeof value === 'undefined') {
+		value = 1;
 	}
-	if ((this.resources.espionage - amount) >= 1) {
-		this.set_espionage(this.get_espionage() - amount);
-		this.get_core().notify('The espionage of your settlement lowered.');
-	}
+	this.set_espionage(this.get_espionage() - value);
 	return this.get_espionage();
 };
 
@@ -7599,12 +7558,18 @@ civitas.objects.settlement.prototype.reset_espionage = function() {
  * 
  * @public
  * @returns {Number}
- * @param {Number} amount
+ * @param {Number} value
  */
-civitas.objects.settlement.prototype.set_espionage = function(amount) {
-	this.resources.espionage = amount;
+civitas.objects.settlement.prototype.set_espionage = function(value) {
+	if (this.resources.espionage >= civitas.MAX_ESPIONAGE_VALUE) {
+		this.resources.espionage = civitas.MAX_ESPIONAGE_VALUE;
+	} else if (this.resources.espionage < 1) {
+		this.resources.espionage = 1;
+	} else {
+		this.resources.espionage = value;
+	}
 	$('.cityespionage').html(this.get_espionage());
-	return amount;
+	return this.get_espionage();
 };
 
 /**
@@ -7625,14 +7590,10 @@ civitas.objects.settlement.prototype.get_prestige = function() {
  * @returns {Number}
  */
 civitas.objects.settlement.prototype.raise_prestige = function(amount) {
-	if (typeof amount !== 'undefined') {
-		this.resources.prestige += amount;
-	} else {
-		++this.resources.prestige;
+	if (typeof amount === 'undefined') {
+		amount = 1;
 	}
-	$('.cityprestige').html(this.get_prestige());
-	//this.get_core().notify('The prestige of your city raised.');
-	return this.resources.prestige;
+	return this.set_prestige(this.get_prestige() + amount);
 };
 
 /**
@@ -7643,19 +7604,10 @@ civitas.objects.settlement.prototype.raise_prestige = function(amount) {
  * @returns {Number}
  */
 civitas.objects.settlement.prototype.lower_prestige = function(amount) {
-	if (typeof amount !== 'undefined') {
-		if ((this.resources.prestige - amount) >= 1) {
-			this.resources.prestige -= amount;
-			//this.get_core().notify('The prestige of your city lowered.');
-		}
-	} else {
-		if ((this.resources.prestige - 1) >= 1) {
-			--this.resources.prestige;
-			//this.get_core().notify('The prestige of your city lowered.');
-		}
+	if (typeof amount === 'undefined') {
+		amount = 1;
 	}
-	$('.cityprestige').html(this.get_prestige());
-	return this.resources.prestige;
+	return this.set_prestige(this.get_prestige() - amount);
 };
 
 /**
@@ -7665,8 +7617,7 @@ civitas.objects.settlement.prototype.lower_prestige = function(amount) {
  * @public
  */
 civitas.objects.settlement.prototype.reset_prestige = function() {
-	this.resources.prestige = 1;
-	$('.cityprestige').html(this.get_prestige());
+	this.set_prestige(1);
 	return this;
 };
 
@@ -7678,45 +7629,17 @@ civitas.objects.settlement.prototype.reset_prestige = function() {
  * @param {Number} value
  */
 civitas.objects.settlement.prototype.set_prestige = function(value) {
-	this.resources.prestige = value;
+	if (this.resources.prestige >= civitas.MAX_PRESTIGE_VALUE) {
+		this.resources.prestige = civitas.MAX_PRESTIGE_VALUE;
+	} else if (this.resources.prestige < 1) {
+		this.resources.prestige = 1;
+	} else {
+		this.resources.prestige = value;
+	}
 	$('.cityprestige').html(this.get_prestige());
-	return this;
+	return this.get_prestige();
 };
 
-/**
- * Increase this settlement's prestige by the specified amount.
- * 
- * @public
- * @param {Number} value
- * @returns {Number}
- */
-civitas.objects.settlement.prototype.inc_prestige = function(value) {
-	return this.set_prestige(this.get_prestige() + value);
-};
-
-/**
- * Decrease this settlement's prestige by the specified amount.
- * 
- * @public
- * @param {Number} value
- * @returns {Number}
- */
-civitas.objects.settlement.prototype.dec_prestige = function(value) {
-	return this.set_prestige(this.get_prestige() - value);
-};
-
-/**
- * Set this settlement's prestige to the specified value.
- * 
- * @public
- * @param {Number} value
- * @returns {Number}
- */
-civitas.objects.settlement.prototype.set_prestige = function(value) {
-	this.resources.prestige = value;
-	return value;
-};
-	
 /**
  * Setup mercenary armies.
  *
@@ -8266,7 +8189,6 @@ civitas.objects.settlement.prototype.get_influence_with_settlement = function(se
 	} else if (typeof settlement === 'string') {
 		return this.status[this.get_core().get_settlement(settlement)].influence;
 	}
-	
 };
 	
 /**
@@ -8290,13 +8212,36 @@ civitas.objects.settlement.prototype.set_status = function(value) {
  * @returns {Number}
  */
 civitas.objects.settlement.prototype.lower_influence = function(settlement, value) {
-	this.status[settlement].influence = this.status[settlement].influence - value;
-	if (this.status[settlement].influence < 0) {
-		this.status[settlement].influence = 0;
+	if (typeof value === 'undefined') {
+		value = 1;
 	}
-	return this.status[settlement].influence;
+	return this.set_influence(settlement, this.get_influence_with_settlement(settlement) - value);
 };
-	
+
+/**
+ * Set the influence with the specified settlement to this value.
+ *
+ * @public
+ * @param {civitas.objects.settlement} settlement
+ * @param {Number} value
+ * @returns {Number}
+ */
+civitas.objects.settlement.prototype.set_influence = function(settlement, value) {
+	if (typeof settlement === 'object') {
+		settlement = settlement.get_id();;
+	} else if (typeof settlement === 'string') {
+		settlement = this.get_core().get_settlement(settlement);
+	}
+	if (this.status[settlement].influence >= civitas.MAX_INFLUENCE_VALUE) {
+		this.status[settlement].influence = civitas.MAX_INFLUENCE_VALUE;
+	} else if (this.status[settlement].influence < 1) {
+		this.status[settlement].influence = 1;
+	} else {
+		this.status[settlement].influence = value;
+	}
+	return this.get_influence_with_settlement(settlement);
+};
+
 /**
  * Increase the influence of this settlement.
  * 
@@ -8306,12 +8251,10 @@ civitas.objects.settlement.prototype.lower_influence = function(settlement, valu
  * @returns {Number}
  */
 civitas.objects.settlement.prototype.raise_influence = function(settlement, value) {
-	console.log(value);
-	this.status[settlement].influence = this.status[settlement].influence + value;
-	if (this.status[settlement].influence > 100) {
-		this.status[settlement].influence = 100;
+	if (typeof value === 'undefined') {
+		value = 1;
 	}
-	return this.status[settlement].influence;
+	return this.set_influence(settlement, this.get_influence_with_settlement(settlement) + value);
 };
 	
 /**
@@ -8434,7 +8377,7 @@ civitas.objects.settlement.prototype.buy_from_settlement = function(settlement, 
 				this.raise_prestige();
 				this.raise_fame(50);
 				this.get_core().refresh();
-				this.get_core().notify(this.get_name() + ' bought ' + amount + ' ' + civitas.utils.get_resource_name(item) + ' from ' + settlement + ' for ' + item_discount_price + ' coins each, for a total of ' + price + ' coins.', civitas.l('World Market'));
+				this.get_core().notify(this.get_name() + ' bought <strong>' + amount + '</strong> ' + civitas.utils.get_resource_name(item) + ' from ' + settlement + ' for <strong>' + item_discount_price + '</strong> coins each, for a total of <strong>' + price + '</strong> coins.', civitas.l('World Market'));
 				return {
 					buyer: this.get_name(),
 					amount: amount,
@@ -8522,7 +8465,7 @@ civitas.objects.settlement.prototype.sell_to_settlement = function(settlement, r
 		this.get_core().error('The resource you specified does not exist.');
 		return false;
 	}
-	if (settlement.can_trade()) {
+	if (this.can_trade()) {
 		var resources = this.get_resources();
 		var _settlement;
 		if (typeof settlement === 'string' || typeof settlement === 'number') {
@@ -8565,7 +8508,7 @@ civitas.objects.settlement.prototype.sell_to_settlement = function(settlement, r
 				this.raise_prestige();
 				this.raise_fame(50);
 				this.get_core().refresh();
-				this.get_core().notify(this.get_name() + ' sold ' + amount + ' ' + civitas.utils.get_resource_name(item) + ' to ' + settlement + ' for ' + item_discount_price + ' coins each, for a total of ' + price + ' coins.', civitas.l('World Market'));
+				this.get_core().notify(this.get_name() + ' sold <strong>' + amount + '</strong> ' + civitas.utils.get_resource_name(item) + ' to ' + settlement + ' for <strong>' + item_discount_price + '</strong> coins each, for a total of <strong>' + price + '</strong> coins.', civitas.l('World Market'));
 				return {
 					seller: this.get_name(),
 					amount: amount,
@@ -9285,9 +9228,24 @@ civitas.objects.building = function(params) {
 		var building = this.get_building_data();
 		var prd = building.production;
 		var amount = prd.prestige;
-		this.get_settlement().inc_prestige(amount);
-		this.get_core().log(this.get_name() + ' raised city prestige by ' + amount + '.');
+		this.get_settlement().raise_prestige(amount);
+		this.get_core().log(this.get_name() + ' raised settlement prestige by ' + amount + '.');
 		return this.get_settlement().get_prestige();
+	};
+
+	/**
+	 * Raise the espionage of the settlement this building is located in.
+	 * 
+	 * @public
+	 * @returns {Number}
+	 */
+	this.adjust_settlement_espionage = function() {
+		var building = this.get_building_data();
+		var prd = building.production;
+		var amount = prd.espionage;
+		this.get_settlement().raise_espionage(amount);
+		this.get_core().log(this.get_name() + ' raised settlement espionage by ' + amount + '.');
+		return this.get_settlement().get_espionage();
 	};
 
 	/**
@@ -9301,7 +9259,7 @@ civitas.objects.building = function(params) {
 		var prd = building.production;
 		var amount = prd.fame * this.get_level();
 		this.get_settlement().raise_fame(amount);
-		this.get_core().log(this.get_name() + ' raised city fame by ' + amount + '.');
+		this.get_core().log(this.get_name() + ' raised settlement fame by ' + amount + '.');
 		return this.get_settlement().get_fame();
 	};
 
@@ -9320,7 +9278,7 @@ civitas.objects.building = function(params) {
 			var amount = prd.research * this.get_level();
 			this.get_settlement().raise_research(amount);
 			this.get_settlement().dec_coins(mat.coins);
-			this.get_core().log(this.get_name() + ' raised city research with ' + amount + ' at the cost of ' + mat.coins + ' coins.');
+			this.get_core().log(this.get_name() + ' raised settlement research with ' + amount + ' at the cost of ' + mat.coins + ' coins.');
 		}
 		return {
 			research: this.get_settlement().get_research(),
@@ -9343,7 +9301,7 @@ civitas.objects.building = function(params) {
 			var amount = prd.fame * this.get_level();
 			this.get_settlement().raise_fame(amount);
 			this.get_settlement().dec_coins(mat.coins);
-			this.get_core().log(this.get_name() + ' raised city fame with ' + amount + ' at the cost of ' + mat.coins + ' coins.');
+			this.get_core().log(this.get_name() + ' raised settlement fame with ' + amount + ' at the cost of ' + mat.coins + ' coins.');
 		}
 		return {
 			fame: this.get_settlement().get_fame(),
@@ -9398,7 +9356,7 @@ civitas.objects.building = function(params) {
 		}
 		if (typeof building.requires.settlement_level !== 'undefined') {
 			if (building.requires.settlement_level > this.get_settlement().get_level()) {
-				this.get_core().log('Your city level is too low for ' + this.get_name() + ' to be active.', true);
+				this.get_core().log('Your settlement level is too low for ' + this.get_name() + ' to be active.', true);
 				this.notify(civitas.NOTIFICATION_SETTLEMENT_LOW_LEVEL);
 				good = false;
 				this.problems = true;
@@ -9501,6 +9459,10 @@ civitas.objects.building = function(params) {
 				this.adjust_settlement_prestige();
 				break;
 			/* MUNICIPAL */
+			case 'embassy':
+				this.adjust_settlement_fame_for_coins();
+				this.adjust_settlement_espionage();
+				break;
 			case 'church':
 				this.adjust_settlement_fame_for_coins();
 				break;
@@ -12109,11 +12071,11 @@ civitas.PANEL_SETTLEMENT = {
 				'<dt>' + civitas.l('Nationality') + '</dt><dd>' + settlement.get_nationality().name.capitalize() + '</dd>' +
 				(settlement.is_city() ? 
 				'<dt>' + civitas.l('Level') + '</dt><dd>' + settlement.get_level() + '</dd>' +
-				'<dt>' + civitas.l('Prestige') + '</dt><dd>' + settlement.get_prestige() + '</dd>' 
+				'<dt>' + civitas.l('Prestige') + '</dt><dd>' + civitas.ui.progress((settlement.get_prestige() * 100) / civitas.MAX_PRESTIGE_VALUE, 'small', settlement.get_prestige()) + '</dd>' 
 				: '' ) + 
 				'<dt>' + civitas.l('Coins') + '</dt><dd>' + civitas.utils.nice_numbers(settlement.get_coins()) + '</dd>' +
 				'<dt>' + civitas.l('Population') + '</dt><dd>' + civitas.utils.nice_numbers(settlement.get_population()) + '</dd>' +
-				'<dt>' + civitas.l('Influence') + '</dt><dd>' + civitas.ui.progress(my_settlement.get_influence_with_settlement(settlement.get_id())) + '</dd>' +
+				'<dt>' + civitas.l('Influence') + '</dt><dd>' + civitas.ui.progress(my_settlement.get_influence_with_settlement(settlement.get_id()), 'small') + '</dd>' +
 				'<dt>' + civitas.l('Diplomatic Status') + '</dt><dd>' + my_settlement.get_diplomacy_status(settlement.get_id()).name.capitalize() + '</dd>' +
 				'<dt>' + civitas.l('Distance') + '</dt><dd>' + civitas.utils.get_distance(location, civitas.SETTLEMENTS[settlement.get_id()].location) + ' miles (' + civitas.utils.get_distance_in_days(location, civitas.SETTLEMENTS[settlement.get_id()].location) + ' days)</dd>' +
 				'</dl>');
@@ -12861,11 +12823,11 @@ civitas.PANEL_COUNCIL = {
 				'<dt>' + civitas.l('Climate') + '</dt><dd>' + settlement.get_climate().name.capitalize() + '</dd>' +
 				'<dt>' + civitas.l('Personality') + '</dt><dd>' + settlement.get_personality().name.capitalize() + '</dd>' +
 				'<dt>' + civitas.l('Nationality') + '</dt><dd>' + settlement.get_nationality().name.capitalize() + '</dd>' +
-				'<dt>' + civitas.l('Level') + '</dt><dd class="citylevel">' + settlement.get_level() + '</dd>' +
 				'<dt>' + civitas.l('Population') + '</dt><dd>' + civitas.utils.nice_numbers(settlement.get_population()) + '</dd>' +
-				'<dt>' + civitas.l('Prestige') + '</dt><dd class="cityprestige">' + settlement.get_prestige() + '</dd>' +
-				'<dt>' + civitas.l('Espionage') + '</dt><dd class="cityespionage">' + settlement.get_espionage() + '</dd>' +
-				'<dt>' + civitas.l('Research') + '</dt><dd class="cityresearch">' + settlement.get_research() + '</dd>' +
+				'<dt>' + civitas.l('Level') + '</dt><dd>' + civitas.ui.progress((settlement.get_level() * 100) / civitas.MAX_SETTLEMENT_LEVEL, 'small', settlement.get_level()) + '</dd>' +
+				'<dt>' + civitas.l('Prestige') + '</dt><dd>' + civitas.ui.progress((settlement.get_prestige() * 100) / civitas.MAX_PRESTIGE_VALUE, 'small', settlement.get_prestige()) + '</dd>' +
+				'<dt>' + civitas.l('Espionage') + '</dt><dd>' + civitas.ui.progress((settlement.get_espionage() * 100) / civitas.MAX_ESPIONAGE_VALUE, 'small', settlement.get_espionage()) + '</dd>' +
+				'<dt>' + civitas.l('Research') + '</dt><dd>' + civitas.ui.progress((settlement.get_research() * 100) / civitas.MAX_RESEARCH_VALUE, 'small', settlement.get_research()) + '</dd>' +
 			'</dl>' +
 		'</div>';
 		if (advices.length > 0) {
@@ -13621,6 +13583,7 @@ civitas.PANEL_EMBASSY = {
 		this.on_refresh();
 	},
 	on_refresh: function() {
+		var settlement = this.get_core().get_settlement();
 		var _c = this.get_core().get_settlement().get_building_by_handle(this.params_data.handle);
 		var level = _c.get_level();
 		var _t = '<p>' + this.params_data.description + '</p>' +
@@ -13634,6 +13597,10 @@ civitas.PANEL_EMBASSY = {
 				civitas.ui.storage_panel(this.params_data.storage, level) +
 			'</dl>';
 		$('#panel-' + this.id + ' #tab-info').empty().append(_t);
+		_t = '<div class="section">' +
+			civitas.ui.progress((settlement.get_espionage() * 100) / civitas.MAX_ESPIONAGE_VALUE, 'large', settlement.get_espionage()) +
+		'</div>';
+		$('#panel-' + this.id + ' #tab-espionage').empty().append(_t);
 	}
 };
 
@@ -13665,6 +13632,7 @@ civitas.PANEL_ACADEMY = {
 		this.on_refresh();
 	},
 	on_refresh: function() {
+		var settlement = this.get_core().get_settlement();
 		var _c = this.get_core().get_settlement().get_building_by_handle(this.params_data.handle);
 		var level = _c.get_level();
 		var _t = '<p>' + this.params_data.description + '</p>' +
@@ -13678,6 +13646,10 @@ civitas.PANEL_ACADEMY = {
 				civitas.ui.storage_panel(this.params_data.storage, level) +
 			'</dl>';
 		$('#panel-' + this.id + ' #tab-info').empty().append(_t);
+		_t = '<div class="section">' +
+			civitas.ui.progress((settlement.get_research() * 100) / civitas.MAX_RESEARCH_VALUE, 'large', settlement.get_research()) +
+		'</div>';
+		$('#panel-' + this.id + ' #tab-research').empty().append(_t);
 	}
 };
 

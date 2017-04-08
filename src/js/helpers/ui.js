@@ -22,18 +22,25 @@ civitas.ui = {
 		return out;
 	},
 
-	progress: function(value) {
-		var _e = '';
-		if (value < 20) {
-			_e = ' vbad';
-		} else if (value >= 20 && value < 50) {
-			_e = ' bad';
-		} else if (value >= 50 && value < 80) {
-			_e = ' good';
-		} else if (value >= 80) {
-			_e = ' vgood';
+	progress: function(value, progress_type, show_value) {
+		if (typeof progress_type === 'undefined') {
+			progress_type = 'small';
 		}
-		return '<div class="progress small"><span class="bar' + _e + '" style="width:' + value + '%">' + value + '</span></div>';
+		var _e = '';
+		if (value < 10) {
+			_e = ' ubad';
+		} else if (value >= 10 && value < 30) {
+			_e = ' vbad';
+		} else if (value >= 30 && value < 40) {
+			_e = ' bad';
+		} else if (value >= 40 && value < 60) {
+			_e = ' good';
+		} else if (value >= 60 && value < 90) {
+			_e = ' vgood';
+		} else if (value >= 90) {
+			_e = ' ugood';
+		}
+		return '<div class="progress ' + progress_type + '"><span class="bar' + _e + '" style="width:' + value + '%">' + (typeof show_value !== 'undefined' ? show_value : value) + '</span></div>';
 	},
 
 	army_img: function (name) {

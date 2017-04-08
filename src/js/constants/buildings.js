@@ -381,7 +381,7 @@ civitas.BUILDINGS = [{
 		is_production: true, 
 		production: {
 			fame: 10,
-			research: 10
+			research: 1
 		},
 		materials: {
 			coins: 100
@@ -408,7 +408,7 @@ civitas.BUILDINGS = [{
 		is_production: true, 
 		production: {
 			fame: 20,
-			espionage: 2
+			espionage: 1
 		},
 		materials: {
 			coins: 50

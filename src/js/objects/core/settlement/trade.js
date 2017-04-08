@@ -65,7 +65,7 @@ civitas.objects.settlement.prototype.buy_from_settlement = function(settlement, 
 				this.raise_prestige();
 				this.raise_fame(50);
 				this.get_core().refresh();
-				this.get_core().notify(this.get_name() + ' bought ' + amount + ' ' + civitas.utils.get_resource_name(item) + ' from ' + settlement + ' for ' + item_discount_price + ' coins each, for a total of ' + price + ' coins.', civitas.l('World Market'));
+				this.get_core().notify(this.get_name() + ' bought <strong>' + amount + '</strong> ' + civitas.utils.get_resource_name(item) + ' from ' + settlement + ' for <strong>' + item_discount_price + '</strong> coins each, for a total of <strong>' + price + '</strong> coins.', civitas.l('World Market'));
 				return {
 					buyer: this.get_name(),
 					amount: amount,
@@ -153,7 +153,7 @@ civitas.objects.settlement.prototype.sell_to_settlement = function(settlement, r
 		this.get_core().error('The resource you specified does not exist.');
 		return false;
 	}
-	if (settlement.can_trade()) {
+	if (this.can_trade()) {
 		var resources = this.get_resources();
 		var _settlement;
 		if (typeof settlement === 'string' || typeof settlement === 'number') {
@@ -196,7 +196,7 @@ civitas.objects.settlement.prototype.sell_to_settlement = function(settlement, r
 				this.raise_prestige();
 				this.raise_fame(50);
 				this.get_core().refresh();
-				this.get_core().notify(this.get_name() + ' sold ' + amount + ' ' + civitas.utils.get_resource_name(item) + ' to ' + settlement + ' for ' + item_discount_price + ' coins each, for a total of ' + price + ' coins.', civitas.l('World Market'));
+				this.get_core().notify(this.get_name() + ' sold <strong>' + amount + '</strong> ' + civitas.utils.get_resource_name(item) + ' to ' + settlement + ' for <strong>' + item_discount_price + '</strong> coins each, for a total of <strong>' + price + '</strong> coins.', civitas.l('World Market'));
 				return {
 					seller: this.get_name(),
 					amount: amount,

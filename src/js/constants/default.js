@@ -260,3 +260,11 @@ civitas.MODE_SINGLEPLAYER = 0;
  * @type {Number}
  */
 civitas.MODE_MULTIPLAYER = 1;
+
+civitas.MAX_PRESTIGE_VALUE = 1000;
+
+civitas.MAX_RESEARCH_VALUE = 1000;
+
+civitas.MAX_ESPIONAGE_VALUE = 1000;
+
+civitas.MAX_INFLUENCE_VALUE = 1000;
