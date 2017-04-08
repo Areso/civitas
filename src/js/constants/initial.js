@@ -82,6 +82,7 @@ civitas.START_RESOURCES = [
 	{
 		coins: 50000,
 		fame: 0,
+		faith: 1,
 		prestige: 1,
 		espionage: 1,
 		research: 1,
@@ -97,6 +98,7 @@ civitas.START_RESOURCES = [
 	{
 		coins: 20000,
 		fame: 0,
+		faith: 1,
 		prestige: 1,
 		espionage: 1,
 		research: 1,
@@ -112,6 +114,7 @@ civitas.START_RESOURCES = [
 	{
 		coins: 10000,
 		fame: 0,
+		faith: 1,
 		prestige: 1,
 		espionage: 1,
 		research: 1,
@@ -126,6 +129,7 @@ civitas.START_RESOURCES = [
 	{
 		coins: 5000,
 		fame: 0,
+		faith: 1,
 		prestige: 1,
 		espionage: 1,
 		research: 1,

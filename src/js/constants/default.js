@@ -56,14 +56,23 @@ civitas.MAX_SETTLEMENT_LEVEL = 40;
 civitas.ASSETS_URL = './';
 
 /**
- * Amount of influence your city loses each year.
+ * Amount of influence your settlement loses each year.
  * 
  * @constant
  * @type {Number}
  */
 civitas.YEARLY_INFLUENCE_LOSS = 2;
 
+/**
+ * Amount of influence your settlement gains each year.
+ * 
+ * @constant
+ * @type {Number}
+ */
+civitas.YEARLY_INFLUENCE_GAIN = 2;
+
 civitas.SECONDS_TO_DAY = 10;
+
 /**
  * Number of city ruler avatars available to choose.
  * 
@@ -75,6 +84,8 @@ civitas.AVATARS = 48;
 civitas.TRADES_ADDITION = 10;
 
 civitas.TRADES_DISCOUNT = 20;
+
+civitas.POPULATION_PER_LEVEL = 230000;
 
 /**
  * The black market discount.
@@ -260,11 +271,3 @@ civitas.MODE_SINGLEPLAYER = 0;
  * @type {Number}
  */
 civitas.MODE_MULTIPLAYER = 1;
-
-civitas.MAX_PRESTIGE_VALUE = 1000;
-
-civitas.MAX_RESEARCH_VALUE = 1000;
-
-civitas.MAX_ESPIONAGE_VALUE = 1000;
-
-civitas.MAX_INFLUENCE_VALUE = 1000;

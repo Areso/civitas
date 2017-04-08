@@ -128,10 +128,9 @@ civitas.ui = {
 		}
 		var image = (typeof params.data.visible_upgrades === 'undefined' || params.data.visible_upgrades === false) ? building_image + '1' : building_image + params.data.level;
 		return '<div data-type="' + params.type + '" data-level="' + params.data.level + '" ' +
-				'style="background:transparent url(' + civitas.ASSETS_URL + 'images/buildings/' + image + '.png) no-repeat;left:' + params.data.position.x + 'px;top:' + params.data.position.y + 'px" ' +
-				'title=\'<span class="buildinginfo">' + params.data.name + '</span> ' + description + '\' ' +
-				'id="building-' + params.data.handle + '"' +
-				'class="tips slots building"></div>';
+			'style="background:transparent url(' + civitas.ASSETS_URL + 'images/buildings/' + image + '.png) no-repeat;left:' + params.data.position.x + 'px;top:' + params.data.position.y + 'px" ' +
+			'title=\'' + params.data.name + '\' ' + 'id="building-' + params.data.handle + '"' +
+			'class="tips slots building"></div>';
 	},
 
 	resource_storage_el: function (resource, amount) {

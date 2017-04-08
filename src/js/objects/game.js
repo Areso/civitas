@@ -192,11 +192,20 @@ civitas.game = function () {
 	 * @returns {Object}
 	 */
 	this.add_black_market = function (resource, amount, price) {
-		this.black_market[resource] = {
-			resource: resource,
-			amount: amount,
-			price: price
-		};
+		if (typeof this.black_market[resource] !== 'undefined') {
+			var old = this.black_market[resource];
+			this.black_market[resource] = {
+				resource: resource,
+				amount: old.amount + amount,
+				price: old.price + price
+			};
+		} else {
+			this.black_market[resource] = {
+				resource: resource,
+				amount: amount,
+				price: price
+			};
+		}
 		return this.black_market;
 	};
 
@@ -901,7 +910,15 @@ civitas.game = function () {
 		for (var i = 1; i < settlements.length; i++) {
 			if (typeof settlements[i] !== 'undefined') {
 				if (settlements[i].is_city()) {
-					this.get_settlement().lower_influence(settlements[i].get_id(), civitas.YEARLY_INFLUENCE_LOSS);
+					if (this.get_settlement().get_religion().id === settlements[i].get_religion().id) {
+						this.get_settlement().raise_influence(settlements[i].get_id(), civitas.YEARLY_INFLUENCE_GAIN);
+					} else {
+						this.get_settlement().lower_influence(settlements[i].get_id(), civitas.YEARLY_INFLUENCE_LOSS);
+					}
+				} else {
+					if (this.get_settlement().get_religion().id === settlements[i].get_religion().id) {
+						this.get_settlement().raise_influence(settlements[i].get_id(), civitas.YEARLY_INFLUENCE_GAIN);
+					}
 				}
 			}
 		}
@@ -1263,6 +1280,7 @@ civitas.game = function () {
 					name: civitas.utils.get_random_unique(civitas.SETTLEMENT_NAMES),
 					player: false,
 					level: settlement_data.level,
+					religion: settlement_data.religion,
 					climate: settlement_data.settlement_type === civitas.CITY ? settlement_data.climate : civitas.CLIMATE_TEMPERATE,
 					ruler: ruler,
 					resources: settlement_data.resources,
@@ -1458,6 +1476,16 @@ civitas.game = function () {
 					}
 					if (typeof condition.research !== 'undefined') {
 						if (settlement.get_research() >= condition.research) {
+							this.achievement(achievement);
+						}
+					}
+					if (typeof condition.faith !== 'undefined') {
+						if (settlement.get_faith() >= condition.faith) {
+							this.achievement(achievement);
+						}
+					}
+					if (typeof condition.population !== 'undefined') {
+						if (settlement.get_population() >= condition.population) {
 							this.achievement(achievement);
 						}
 					}
@@ -1707,9 +1735,17 @@ civitas.game = function () {
 	};
 
 	this.advance_campaigns = function() {
+		var settlement = this.get_settlement();
+		var other_settlement = null;
 		for (var i = 0; i < this.campaigns.length; i++) {
 			if (this.campaigns[i].passed === this.campaigns[i].duration - 1) {
-				this.notify('The ' + (this.campaigns[i].type === civitas.CAMPAIGN_ARMY ? 'army' : 'caravan') + ' you sent ' + this.campaigns[i].duration + ' days ago reached its destination.');
+				if (this.campaigns[i].source.id === settlement.get_id()) {
+					other_settlement = this.get_settlement(this.campaigns[i].destination.id);
+					this.notify('The ' + (this.campaigns[i].type === civitas.CAMPAIGN_ARMY ? 'army' : 'caravan') + ' you sent ' + this.campaigns[i].duration + ' days ago to ' + other_settlement.get_name() + ' reached its destination.');
+				} else if (this.campaigns[i].destination.id === settlement.get_id()) {
+					other_settlement = this.get_settlement(this.campaigns[i].source.id);
+					this.notify('The ' + (this.campaigns[i].type === civitas.CAMPAIGN_ARMY ? 'army' : 'caravan') + ' sent by ' + other_settlement.get_name() + ' ' + this.campaigns[i].duration + ' days ago reached your city.');
+				}
 				this.process_campaign(i);
 			} else {
 				this.campaigns[i].passed++;
@@ -1787,6 +1823,58 @@ civitas.game = function () {
 		}
 		this.campaigns.splice(id, 1);
 		return this;
+	};
+
+	/**
+	 * Return if the current season is spring.
+	 *
+	 * @returns {Boolean}
+	 * @public
+	 */
+	this.is_spring = function() {
+		if (this.month >= 3 && this.month < 6) {
+			return true;
+		}
+		return false;
+	};
+
+	/**
+	 * Return if the current season is summer.
+	 *
+	 * @returns {Boolean}
+	 * @public
+	 */
+	this.is_summer = function() {
+		if (this.month >= 6 && this.month < 9) {
+			return true;
+		}
+		return false;
+	};
+
+	/**
+	 * Return if the current season is autumn.
+	 *
+	 * @returns {Boolean}
+	 * @public
+	 */
+	this.is_autumn = function() {
+		if (this.month >= 9 && this.month < 12) {
+			return true;
+		}
+		return false;
+	};
+
+	/**
+	 * Return if the current season is winter.
+	 *
+	 * @returns {Boolean}
+	 * @public
+	 */
+	this.is_winter = function() {
+		if (this.month >= 12 || this.month < 3) {
+			return true;
+		}
+		return false;
 	};
 
 	// Fire up the constructor

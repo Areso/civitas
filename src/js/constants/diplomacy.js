@@ -15,8 +15,20 @@ civitas.DIPLOMACIES = [
 	'cease fire proposed'
 ];
 
+/**
+ * The campaign is an army.
+ *
+ * @constant
+ * @type {Number}
+ */
 civitas.CAMPAIGN_ARMY = 1;
 
+/**
+ * The campaign is a caravan.
+ *
+ * @constant
+ * @type {Number}
+ */
 civitas.CAMPAIGN_CARAVAN = 2;
 
 /**
@@ -82,3 +94,43 @@ civitas.DIPLOMACY_PROPOSE_ALLIANCE = 6;
  * @type {Number}
  */
 civitas.DIPLOMACY_PROPOSE_CEASE_FIRE = 7;
+
+/**
+ * Influence gained when selling goods to a settlement.
+ *
+ * @constant
+ * @type {Number}
+ */
+civitas.EXPORT_INFLUENCE = 2;
+
+/**
+ * Influence gained when buying goods from a settlement.
+ *
+ * @constant
+ * @type {Number}
+ */
+civitas.IMPORT_INFLUENCE = 1;
+
+/**
+ * Prestige gained when selling goods to a settlement.
+ *
+ * @constant
+ * @type {Number}
+ */
+civitas.EXPORT_PRESTIGE = 2;
+
+/**
+ * Prestige gained when buying goods from a settlement.
+ *
+ * @constant
+ * @type {Number}
+ */
+civitas.IMPORT_PRESTIGE = 1;
+
+civitas.MAX_PRESTIGE_VALUE = 1000;
+
+civitas.MAX_RESEARCH_VALUE = 1000;
+
+civitas.MAX_ESPIONAGE_VALUE = 1000;
+
+civitas.MAX_INFLUENCE_VALUE = 1000;

@@ -34,6 +34,7 @@ civitas.objects.settlement.prototype.buy_from_settlement = function(settlement, 
 		} else {
 			_settlement = settlement;
 		}
+		var is_double = this.get_religion().id === _settlement.get_religion().id ? true : false;
 		var trades = _settlement.get_trades();
 		if (trades === null) {
 			this.get_core().error(settlement + ' does not trade any goods.');
@@ -61,8 +62,8 @@ civitas.objects.settlement.prototype.buy_from_settlement = function(settlement, 
 				_settlement.inc_coins(settlement_price);
 				this.add_to_storage(item, amount);
 				this.remove_from_exports(_settlement, item, amount);
-				this.raise_influence(_settlement.get_id(), 2);
-				this.raise_prestige();
+				this.raise_influence(_settlement.get_id(), (is_double ? civitas.IMPORT_INFLUENCE * 2 : civitas.IMPORT_INFLUENCE));
+				this.raise_prestige(is_double ? civitas.IMPORT_PRESTIGE * 2 : civitas.IMPORT_PRESTIGE);
 				this.raise_fame(50);
 				this.get_core().refresh();
 				this.get_core().notify(this.get_name() + ' bought <strong>' + amount + '</strong> ' + civitas.utils.get_resource_name(item) + ' from ' + settlement + ' for <strong>' + item_discount_price + '</strong> coins each, for a total of <strong>' + price + '</strong> coins.', civitas.l('World Market'));
@@ -165,6 +166,7 @@ civitas.objects.settlement.prototype.sell_to_settlement = function(settlement, r
 		} else {
 			_settlement = settlement;
 		}
+		var is_double = this.get_religion().id === _settlement.get_religion().id ? true : false;
 		var trades = _settlement.get_trades();
 		if (trades === null) {
 			this.get_core().error(settlement + ' does not trade any goods.');
@@ -192,8 +194,8 @@ civitas.objects.settlement.prototype.sell_to_settlement = function(settlement, r
 					return false;
 				}
 				this.remove_from_imports(_settlement, item, amount);
-				this.raise_influence(_settlement.get_id(), 1);
-				this.raise_prestige();
+				this.raise_influence(_settlement.get_id(), (is_double ? civitas.EXPORT_INFLUENCE * 2 : civitas.EXPORT_INFLUENCE));
+				this.raise_prestige(is_double ? civitas.EXPORT_PRESTIGE * 2 : civitas.EXPORT_PRESTIGE);
 				this.raise_fame(50);
 				this.get_core().refresh();
 				this.get_core().notify(this.get_name() + ' sold <strong>' + amount + '</strong> ' + civitas.utils.get_resource_name(item) + ' to ' + settlement + ' for <strong>' + item_discount_price + '</strong> coins each, for a total of <strong>' + price + '</strong> coins.', civitas.l('World Market'));

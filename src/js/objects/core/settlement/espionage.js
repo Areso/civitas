@@ -33,8 +33,7 @@ civitas.objects.settlement.prototype.lower_espionage = function(value) {
 	if (typeof value === 'undefined') {
 		value = 1;
 	}
-	this.set_espionage(this.get_espionage() - value);
-	return this.get_espionage();
+	return this.set_espionage(this.get_espionage() - value);
 };
 
 /**
@@ -44,7 +43,8 @@ civitas.objects.settlement.prototype.lower_espionage = function(value) {
  * @public
  */
 civitas.objects.settlement.prototype.reset_espionage = function() {
-	return this.set_espionage(1);
+	this.resources.espionage = 1;
+	return this;
 };
 
 /**

@@ -601,7 +601,7 @@ table.mercenaries td:nth-child(3) {
 }
 
 .panel ul.advices {
-	max-height: 250px;
+	max-height: 300px;
 	display: block;
 	margin: 0;
 	padding: 10px 0 0 0;
@@ -1280,9 +1280,9 @@ td.icon {
 .progress.large {
 	width: 400px;
 	height: 40px;
-	-webkit-border-radius: 30px;
-	-moz-border-radius: 30px;
-	border-radius: 30px;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
 	-webkit-box-shadow: inset 0 0 12px 0 rgba(0, 0, 0, 0.75);
 	-moz-box-shadow: inset 0 0 12px 0 rgba(0, 0, 0, 0.75);
 	box-shadow: inset 0 0 12px 0 rgba(0, 0, 0, 0.75);
@@ -1290,9 +1290,9 @@ td.icon {
 
 .progress.large .bar {
 	height: 26px;
-	-webkit-border-radius: 30px;
-	-moz-border-radius: 30px;
-	border-radius: 30px;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
 	padding: 14px 0 0 0;
 	font-size: 12px;
 }
@@ -1703,18 +1703,62 @@ table tr td:last-child a:hover,
 #panel-tavern,
 #panel-academy,
 #panel-embassy {
-	max-height: 500px;
+	max-height: 600px;
 	max-width: 600px;
 	width: 600px;
+}
+
+#panel-church {
+	max-height: 600px;
+	max-width: 582px;
+	width: 582px;
 }
 
 .ui .panel .section {
 	padding: 10px;
 }
 
+.ui .panel .section {
+	padding: 20px;
+}
+
+.religion-list {
+	padding: 20px;
+}
+
 .ui .panel .section .progress.large {
 	margin: 0 auto;
 	display: block;
+}
+
+.religion-list .religion:nth-child(4), 
+.religion-list .religion:nth-child(8) {
+	margin-right: 0;
+}
+
+.religion-list .religion {
+	border-radius: 100%;
+	width: 128px;
+	height: 128px;
+	margin: 0 10px 10px 0;
+	float: left;
+	-webkit-box-shadow: inset 0 0 8px 0 rgba(0, 0, 0, 0.75);
+	-moz-box-shadow: inset 0 0 8px 0 rgba(0, 0, 0, 0.75);
+	box-shadow: inset 0 0 8px 0 rgba(0, 0, 0, 0.75);
+	position: relative;
+	cursor: pointer;
+}
+
+.religion-list .religion.selected {
+	background-color: #ddd;
+}
+
+.religion-list .religion span {
+	position: absolute;
+	bottom: 0;
+	padding-bottom: 20px;
+	width: 128px;
+	text-align: center;
 }
 
 /* Top panel with resources */
@@ -1960,4 +2004,8 @@ footer .do-help {
 
 .panel ul.advices li {
 	background: transparent url(../images/ui/check.png) no-repeat left top;
+}
+
+.religion-list .religion {
+	background: transparent url(../images/ui/religion.png) no-repeat center;
 }

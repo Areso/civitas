@@ -492,9 +492,24 @@ civitas.objects.building = function(params) {
 		var building = this.get_building_data();
 		var prd = building.production;
 		var amount = prd.prestige;
-		this.get_settlement().raise_prestige(amount);
+		this.get_settlement().raise_prestige(amount * this.get_level());
 		this.get_core().log(this.get_name() + ' raised settlement prestige by ' + amount + '.');
 		return this.get_settlement().get_prestige();
+	};
+
+	/**
+	 * Raise the faith of the settlement this building is located in.
+	 * 
+	 * @public
+	 * @returns {Number}
+	 */
+	this.adjust_settlement_faith = function() {
+		var building = this.get_building_data();
+		var prd = building.production;
+		var amount = prd.faith;
+		this.get_settlement().raise_faith(amount * this.get_level());
+		this.get_core().log(this.get_name() + ' raised settlement faith by ' + amount + '.');
+		return this.get_settlement().get_faith();
 	};
 
 	/**
@@ -507,7 +522,7 @@ civitas.objects.building = function(params) {
 		var building = this.get_building_data();
 		var prd = building.production;
 		var amount = prd.espionage;
-		this.get_settlement().raise_espionage(amount);
+		this.get_settlement().raise_espionage(amount * this.get_level());
 		this.get_core().log(this.get_name() + ' raised settlement espionage by ' + amount + '.');
 		return this.get_settlement().get_espionage();
 	};
@@ -522,7 +537,7 @@ civitas.objects.building = function(params) {
 		var building = this.get_building_data();
 		var prd = building.production;
 		var amount = prd.fame * this.get_level();
-		this.get_settlement().raise_fame(amount);
+		this.get_settlement().raise_fame(amount * this.get_level());
 		this.get_core().log(this.get_name() + ' raised settlement fame by ' + amount + '.');
 		return this.get_settlement().get_fame();
 	};
@@ -540,7 +555,7 @@ civitas.objects.building = function(params) {
 		var prd = building.production;
 		if (this.get_settlement().has_coins(mat.coins)) {
 			var amount = prd.research * this.get_level();
-			this.get_settlement().raise_research(amount);
+			this.get_settlement().raise_research(amount * this.get_level());
 			this.get_settlement().dec_coins(mat.coins);
 			this.get_core().log(this.get_name() + ' raised settlement research with ' + amount + ' at the cost of ' + mat.coins + ' coins.');
 		}
@@ -563,7 +578,7 @@ civitas.objects.building = function(params) {
 		var prd = building.production;
 		if (this.get_settlement().has_coins(mat.coins)) {
 			var amount = prd.fame * this.get_level();
-			this.get_settlement().raise_fame(amount);
+			this.get_settlement().raise_fame(amount * this.get_level());
 			this.get_settlement().dec_coins(mat.coins);
 			this.get_core().log(this.get_name() + ' raised settlement fame with ' + amount + ' at the cost of ' + mat.coins + ' coins.');
 		}
@@ -729,9 +744,11 @@ civitas.objects.building = function(params) {
 				break;
 			case 'church':
 				this.adjust_settlement_fame_for_coins();
+				this.adjust_settlement_faith();
 				break;
 			case 'monastery':
 				this.adjust_settlement_fame_for_coins();
+				this.adjust_settlement_faith();
 				break;
 			case 'academy':
 				this.adjust_settlement_research_for_coins();

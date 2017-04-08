@@ -177,9 +177,10 @@ civitas.objects.settlement = function(params) {
 		this.level = (typeof params.level !== 'undefined') ? params.level : 1;
 		this.resources = (typeof params.resources !== 'undefined') ? params.resources : this._build_resources(params);
 		this.climate = (typeof params.climate !== 'undefined') ? params.climate : civitas.CLIMATE_TEMPERATE;
+		this.religion = (typeof params.religion !== 'undefined') ? params.religion : civitas.RELIGION_NONE;
 		this.ruler = params.ruler;
 		this.icon = (typeof params.icon !== 'undefined') ? params.icon : 1;
-		this.population = (typeof params.population !== 'undefined') ? params.population : this.level * 230000;
+		this.population = (typeof params.population !== 'undefined') ? params.population : this.level * civitas.POPULATION_PER_LEVEL;
 		this.settlement_type = (typeof params.settlement_type !== 'undefined') ? params.settlement_type : civitas.CITY;
 		if (typeof params.trades !== 'undefined') {
 			this.trades = params.trades;
@@ -217,6 +218,7 @@ civitas.objects.settlement = function(params) {
 			player: this.is_player(),
 			level: this.get_level(),
 			climate: this.get_climate().id,
+			religion: this.get_religion().id,
 			ruler: this.get_ruler(),
 			icon: this.get_icon(),
 			trades: this.get_trades(),
@@ -373,6 +375,7 @@ civitas.objects.settlement = function(params) {
 		var level = this.get_level();
 		this.set_fame(civitas.LEVELS[level]);
 		this.level++;
+		this.calc_population();
 		$('.citylevel').html(this.level);
 		this.get_core().notify('The city of ' + this.get_name() + ' is now level ' + this.level + '.');
 		return this;
@@ -577,6 +580,7 @@ civitas.objects.settlement = function(params) {
 				level: 1,
 				stopped: false
 			});
+			this.raise_prestige();
 			this.get_core().save_and_refresh();
 			this.get_core().notify('New building constructed: ' + _building.get_name());
 			$('.tips').tipsy({
@@ -798,6 +802,18 @@ civitas.objects.settlement = function(params) {
 		if (resources.wood < 100 || resources.stones < 100 || resources.woodplanks < 50) {
 			advices.push('You are lacking construction materials, buy some stones, wood ' +
 				'planks and/or wood off the World Trade Market.');
+		}
+		if (resources.prestige < 100) {
+			advices.push('Your settlement`s prestige is too low, start doing trades with the other settlements to improve it.');
+		}
+		if (resources.faith >= 999) {
+			advices.push('You are at maximum faith, start using it from your settlement`s Church.');
+		}
+		if (resources.research >= 999) {
+			advices.push('You are at maximum research, start using it for settlement researches, from your Academy.');
+		}
+		if (resources.espionage >= 999) {
+			advices.push('You are at maximum espionage, start using it for espionage missiong from your Embassy.');
 		}
 		if (resources.coins > 100000) {
 			advices.push('You have lots of coins, why not invest some in goods?');
@@ -1086,6 +1102,16 @@ civitas.objects.settlement = function(params) {
 	};
 
 	/**
+	 * Calculate the number of people living in your settlement.
+	 *
+	 * @public
+	 * @returns {Number}
+	 */
+	this.calc_population = function() {
+		return this.population = this.get_level() * civitas.POPULATION_PER_LEVEL;
+	};
+
+	/**
 	 * Check if this settlement is a village.
 	 *
 	 * @public
@@ -1093,6 +1119,18 @@ civitas.objects.settlement = function(params) {
 	 */
 	this.is_village = function() {
 		return this.settlement_type === civitas.VILLAGE;
+	};
+
+	/**
+	 * Refresh the heroes in the Tavern.
+	 *
+	 * @public
+	 * @returns {civitas.objects.settlement}
+	 */
+	this.refresh_heroes = function() {
+		if (this.is_building_built('tavern')) {
+			// TODO
+		}
 	};
 
 	// Fire up the constructor

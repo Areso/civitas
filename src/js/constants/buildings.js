@@ -331,11 +331,12 @@ civitas.BUILDINGS = [{
 		name: 'Church',
 		handle: 'church',
 		description: 'A Church provides a massive fame boost to your settlement by using coins and ' +
-			'converting them to fame.',
+			'converting them to fame, as well as providing faith for free. Faith allows you to choose a religion for your settlement.',
 		is_municipal: true,
 		is_production: true,
 		production: {
-			fame: 50
+			fame: 50,
+			faith: 1
 		},
 		materials: {
 			coins: 50
@@ -460,7 +461,8 @@ civitas.BUILDINGS = [{
 		is_municipal: true,
 		is_production: true,
 		production: {
-			fame: 20
+			fame: 20,
+			faith: 2
 		},
 		materials: {
 			coins: 20

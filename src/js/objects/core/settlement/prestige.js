@@ -43,7 +43,7 @@ civitas.objects.settlement.prototype.lower_prestige = function(amount) {
  * @public
  */
 civitas.objects.settlement.prototype.reset_prestige = function() {
-	this.set_prestige(1);
+	this.resources.prestige = 1;
 	return this;
 };
 

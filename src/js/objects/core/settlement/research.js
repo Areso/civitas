@@ -43,8 +43,7 @@ civitas.objects.settlement.prototype.lower_research = function(amount) {
 	if (typeof amount === 'undefined') {
 		amount = 1;
 	}
-	this.set_research(this.get_research() - amount);
-	return this.get_research();
+	return this.set_research(this.get_research() - amount);
 };
 
 /**
@@ -54,7 +53,7 @@ civitas.objects.settlement.prototype.lower_research = function(amount) {
  * @public
  */
 civitas.objects.settlement.prototype.reset_research = function() {
-	this.set_research(1);
+	this.resources.research = 1;
 	return this;
 };
 

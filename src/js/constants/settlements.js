@@ -35,6 +35,7 @@ civitas.SETTLEMENTS = {
 	1: {
 		icon: 7,
 		climate: civitas.CLIMATE_TEMPERATE,
+		religion: civitas.RELIGION_CHRISTIANITY,
 		level: 35,
 		resources: {
 			coins: 230000,
@@ -87,6 +88,7 @@ civitas.SETTLEMENTS = {
 	2: {
 		icon: 4,
 		climate: civitas.CLIMATE_TROPICAL,
+		religion: civitas.RELIGION_TAOISM,
 		level: 32,
 		resources: {
 			coins: 230000,
@@ -144,6 +146,7 @@ civitas.SETTLEMENTS = {
 	3: {
 		icon: 7,
 		climate: civitas.CLIMATE_TEMPERATE,
+		religion: civitas.RELIGION_JUDAISM,
 		level: 30,
 		resources: {
 			coins: 160000,
@@ -183,6 +186,7 @@ civitas.SETTLEMENTS = {
 	4: {
 		icon: 5,
 		climate: civitas.CLIMATE_TROPICAL,
+		religion: civitas.RELIGION_BUDDHISM,
 		level: 28,
 		resources: {
 			coins: 200000,
@@ -226,6 +230,7 @@ civitas.SETTLEMENTS = {
 	5: {
 		icon: 5,
 		climate: civitas.CLIMATE_ARID,
+		religion: civitas.RELIGION_ISLAM,
 		level: 39,
 		resources: {
 			coins: 200000,
@@ -269,6 +274,7 @@ civitas.SETTLEMENTS = {
 	6: {
 		icon: 2,
 		climate: civitas.CLIMATE_TROPICAL,
+		religion: civitas.RELIGION_HINDUISM,
 		level: 29,
 		resources: {
 			coins: 190000,
@@ -307,6 +313,7 @@ civitas.SETTLEMENTS = {
 	7: {
 		icon: 4,
 		climate: civitas.CLIMATE_ARID,
+		religion: civitas.RELIGION_CHRISTIANITY,
 		level: 22,
 		resources: {
 			coins: 130000,
@@ -347,6 +354,7 @@ civitas.SETTLEMENTS = {
 	8: {
 		icon: 7,
 		climate: civitas.CLIMATE_POLAR,
+		religion: civitas.RELIGION_CHRISTIANITY,
 		level: 29,
 		resources: {
 			coins: 300000,
@@ -388,6 +396,7 @@ civitas.SETTLEMENTS = {
 	9: {
 		icon: 4,
 		climate: civitas.CLIMATE_TEMPERATE,
+		religion: civitas.RELIGION_CONFUCIANISM,
 		level: 30,
 		resources: {
 			coins: 330000,
@@ -438,6 +447,7 @@ civitas.SETTLEMENTS = {
 	10: {
 		icon: 7,
 		climate: civitas.CLIMATE_TEMPERATE,
+		religion: civitas.RELIGION_BUDDHISM,
 		level: 28,
 		resources: {
 			coins: 220000,
@@ -475,6 +485,7 @@ civitas.SETTLEMENTS = {
 	11: {
 		icon: 7,
 		climate: civitas.CLIMATE_TROPICAL,
+		religion: civitas.RELIGION_TAOISM,
 		level: 23,
 		resources: {
 			coins: 180000,
@@ -519,6 +530,7 @@ civitas.SETTLEMENTS = {
 	12: {
 		icon: 7,
 		climate: civitas.CLIMATE_ARID,
+		religion: civitas.RELIGION_ISLAM,
 		level: 27,
 		resources: {
 			coins: 180000,
@@ -563,6 +575,7 @@ civitas.SETTLEMENTS = {
 	13: {
 		icon: 4,
 		climate: civitas.CLIMATE_TEMPERATE,
+		religion: civitas.RELIGION_ISLAM,
 		level: 36,
 		resources: {
 			coins: 200000,
@@ -601,6 +614,7 @@ civitas.SETTLEMENTS = {
 	14: {
 		icon: 4,
 		climate: civitas.CLIMATE_TROPICAL,
+		religion: civitas.RELIGION_CHRISTIANITY,
 		level: 38,
 		resources: {
 			coins: 280000,
@@ -642,6 +656,7 @@ civitas.SETTLEMENTS = {
 	15: {
 		icon: 5,
 		climate: civitas.CLIMATE_TEMPERATE,
+		religion: civitas.RELIGION_JUDAISM,
 		level: 29,
 		resources: {
 			coins: 110000,
@@ -684,6 +699,7 @@ civitas.SETTLEMENTS = {
 	16: {
 		icon: 5,
 		climate: civitas.CLIMATE_TEMPERATE,
+		religion: civitas.RELIGION_JUDAISM,
 		level: 22,
 		resources: {
 			coins: 100000,
@@ -726,6 +742,7 @@ civitas.SETTLEMENTS = {
 	17: {
 		icon: 7,
 		climate: civitas.CLIMATE_TROPICAL,
+		religion: civitas.RELIGION_ISLAM,
 		level: 26,
 		resources: {
 			coins: 190000,
@@ -766,6 +783,7 @@ civitas.SETTLEMENTS = {
 	18: {
 		icon: 7,
 		climate: civitas.CLIMATE_TEMPERATE,
+		religion: civitas.RELIGION_CHRISTIANITY,
 		level: 29,
 		resources: {
 			coins: 240000,
@@ -807,6 +825,7 @@ civitas.SETTLEMENTS = {
 	19: {
 		icon: 5,
 		climate: civitas.CLIMATE_TEMPERATE,
+		religion: civitas.RELIGION_ISLAM,
 		level: 27,
 		resources: {
 			coins: 240000,
@@ -852,6 +871,7 @@ civitas.SETTLEMENTS = {
 	20: {
 		icon: 7,
 		climate: civitas.CLIMATE_ARID,
+		religion: civitas.RELIGION_CONFUCIANISM,
 		level: 34,
 		resources: {
 			coins: 320000,
@@ -897,6 +917,7 @@ civitas.SETTLEMENTS = {
 	},
 	21: {
 		settlement_type: civitas.VILLAGE,
+		religion: civitas.RELIGION_HINDUISM,
 		resources: {
 			prestige: 1,
 			coins: 10000,
@@ -917,6 +938,7 @@ civitas.SETTLEMENTS = {
 	},
 	22: {
 		settlement_type: civitas.VILLAGE,
+		religion: civitas.RELIGION_ISLAM,
 		resources: {
 			prestige: 1,
 			coins: 20000,
@@ -937,6 +959,7 @@ civitas.SETTLEMENTS = {
 	},
 	23: {
 		settlement_type: civitas.VILLAGE,
+		religion: civitas.RELIGION_ISLAM,
 		resources: {
 			prestige: 1,
 			coins: 20000,
@@ -957,6 +980,7 @@ civitas.SETTLEMENTS = {
 	},
 	24: {
 		settlement_type: civitas.VILLAGE,
+		religion: civitas.RELIGION_CHRISTIANITY,
 		resources: {
 			prestige: 1,
 			coins: 20000,
@@ -977,6 +1001,7 @@ civitas.SETTLEMENTS = {
 	},
 	25: {
 		settlement_type: civitas.VILLAGE,
+		religion: civitas.RELIGION_CHRISTIANITY,
 		resources: {
 			prestige: 1,
 			coins: 20000,
@@ -997,6 +1022,7 @@ civitas.SETTLEMENTS = {
 	},
 	26: {
 		settlement_type: civitas.VILLAGE,
+		religion: civitas.RELIGION_CHRISTIANITY,
 		resources: {
 			prestige: 1,
 			coins: 2000,

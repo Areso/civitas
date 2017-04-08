@@ -20,6 +20,7 @@ gulp.task('app', function() {
 		/*
 		'src/js/constants/api.js',
 		*/
+		'src/js/constants/religion.js',
 		'src/js/constants/diplomacy.js',
 		'src/js/constants/nation.js',
 		'src/js/constants/climate.js',
@@ -42,6 +43,7 @@ gulp.task('app', function() {
 		'src/js/objects/core/settlement.js',
 		'src/js/objects/core/settlement/research.js',
 		'src/js/objects/core/settlement/fame.js',
+		'src/js/objects/core/settlement/religion.js',
 		'src/js/objects/core/settlement/espionage.js',
 		'src/js/objects/core/settlement/prestige.js',
 		'src/js/objects/core/settlement/army.js',
@@ -68,6 +70,7 @@ gulp.task('app', function() {
 		'src/js/definitions/ui/panel/army.js',
 		'src/js/definitions/ui/panel/buildings.js',
 		'src/js/definitions/ui/panel/trades.js',
+		'src/js/definitions/ui/panel/building/church.js',
 		'src/js/definitions/ui/panel/building/embassy.js',
 		'src/js/definitions/ui/panel/building/building/tavern.js',
 		'src/js/definitions/ui/panel/building/academy.js',

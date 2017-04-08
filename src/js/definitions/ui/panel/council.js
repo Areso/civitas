@@ -199,6 +199,7 @@ civitas.PANEL_COUNCIL = {
 		_t += '</div>';
 		$('#panel-' + this.id + ' #tab-mercenary').empty().append(_t);
 
+		var status = settlement.get_status();
 		_t = '';
 		if (!settlement.can_diplomacy()) {
 			_t += '<p>' + civitas.l('You will need to construct an Embassy before being able to propose treaties and pacts to other cities.') + '</p>';
@@ -212,21 +213,9 @@ civitas.PANEL_COUNCIL = {
 					'<p>' +
 						'<span class="title">' + (settlements[i].is_city() ? 'City of' : 'Village of') + ' ' + settlements[i].get_name() + '</span> ' +
 						'<span class="description">' + civitas.l('Leader') + ': ' + settlements[i].get_ruler_name() + '</span>' +
-					'</p>';
-			var status = settlement.get_status();
-			var influence = status[settlements[i].get_id()].influence;
-			var _e = '';
-			if (influence < 20) {
-				_e = ' vbad';
-			} else if (influence >= 20 && influence < 50) {
-				_e = ' bad';
-			} else if (influence >= 50 && influence < 80) {
-				_e = ' good';
-			} else if (influence >= 80) {
-				_e = ' vgood';
-			}
-			_t += '<div class="progress big"><span style="width:' + influence + '%" class="bar' + _e + '">' + influence + '</span></div>';
-			_t += '</td>' +
+					'</p>' +
+				civitas.ui.progress(status[settlements[i].get_id()].influence, 'big') +
+					'</td>' +
 					'<td class="large">' +
 					'<a data-name="' + settlements[i].get_name() + '" title="' + civitas.l('View info about this settlement.') + '" class="tips view-settlement" href="#">' + civitas.l('view') + '</a> ' +
 					'<a data-name="' + settlements[i].get_name() + '" title="' + civitas.l('Send a spy to this settlement.') + '" data-id="' + i + '" class="tips spy" href="#">' + civitas.l('spy') + '</a> ' +
@@ -234,8 +223,7 @@ civitas.PANEL_COUNCIL = {
 					'<a data-name="' + settlements[i].get_name() + '" title="' + civitas.l('Send goods to this settlement.') + '" data-id="' + i + '" class="tips send-goods" href="#">' + civitas.l('send') + '</a> ' +
 					'<a data-name="' + settlements[i].get_name() + '" title="' + civitas.l('Declare war to this settlement.') + '" data-id="' + i + '" class="tips declare-war" href="#">' + civitas.l('war') + '</a>' +
 					'</td>' +
-					'</tr>';
-
+				'</tr>';
 		}
 		_t += '</table>' +
 				'</div>';
@@ -269,9 +257,11 @@ civitas.PANEL_COUNCIL = {
 				'<dt>' + civitas.l('Personality') + '</dt><dd>' + settlement.get_personality().name.capitalize() + '</dd>' +
 				'<dt>' + civitas.l('Nationality') + '</dt><dd>' + settlement.get_nationality().name.capitalize() + '</dd>' +
 				'<dt>' + civitas.l('Population') + '</dt><dd>' + civitas.utils.nice_numbers(settlement.get_population()) + '</dd>' +
+				'<dt>' + civitas.l('Religion') + '</dt><dd>' + settlement.get_religion().name.capitalize() + '</dd>' +
 				'<dt>' + civitas.l('Level') + '</dt><dd>' + civitas.ui.progress((settlement.get_level() * 100) / civitas.MAX_SETTLEMENT_LEVEL, 'small', settlement.get_level()) + '</dd>' +
 				'<dt>' + civitas.l('Prestige') + '</dt><dd>' + civitas.ui.progress((settlement.get_prestige() * 100) / civitas.MAX_PRESTIGE_VALUE, 'small', settlement.get_prestige()) + '</dd>' +
 				'<dt>' + civitas.l('Espionage') + '</dt><dd>' + civitas.ui.progress((settlement.get_espionage() * 100) / civitas.MAX_ESPIONAGE_VALUE, 'small', settlement.get_espionage()) + '</dd>' +
+				'<dt>' + civitas.l('Faith') + '</dt><dd>' + civitas.ui.progress((settlement.get_faith() * 100) / civitas.MAX_FAITH_VALUE, 'small', settlement.get_faith()) + '</dd>' +
 				'<dt>' + civitas.l('Research') + '</dt><dd>' + civitas.ui.progress((settlement.get_research() * 100) / civitas.MAX_RESEARCH_VALUE, 'small', settlement.get_research()) + '</dd>' +
 			'</dl>' +
 		'</div>';

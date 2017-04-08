@@ -8,7 +8,7 @@ civitas.ACHIEVEMENTS = [
 	{
 		id: 1,
 		description: 'Reach level 10.',
-		name: 'Kid',
+		name: 'Kiddo',
 		conditions: [
 			{
 				settlement_level: 10
@@ -17,7 +17,7 @@ civitas.ACHIEVEMENTS = [
 	}, {
 		id: 2,
 		description: 'Reach level 20.',
-		name: 'Adolescent',
+		name: 'Teen',
 		conditions: [
 			{
 				settlement_level: 20
@@ -43,20 +43,20 @@ civitas.ACHIEVEMENTS = [
 		]
 	}, {
 		id: 5,
-		description: 'Reach level 50.',
-		name: 'Godly',
+		description: 'Gather maximum faith.',
+		name: 'Jesus Christ',
 		conditions: [
 			{
-				settlement_level: 50
+				faith: 1000
 			}
 		]
 	}, {
 		id: 6,
-		description: 'Reach level 55.',
-		name: 'I am a God!',
+		description: 'Gather maximum research.',
+		name: 'Albert Einstein',
 		conditions: [
 			{
-				settlement_level: 55
+				research: 1000
 			}
 		]
 	}, {
@@ -271,11 +271,11 @@ civitas.ACHIEVEMENTS = [
 		]
 	}, {
 		id: 29,
-		description: 'Gather 1000 research.',
-		name: 'Einstein',
+		description: 'Gather 500 faith.',
+		name: 'Disciple',
 		conditions: [
 			{
-				research: 1000
+				faith: 500
 			}
 		]
 	}, {
@@ -366,6 +366,15 @@ civitas.ACHIEVEMENTS = [
 		conditions: [
 			{
 				mercenary: 1
+			}
+		]
+	}, {
+		id: 39,
+		description: 'Reach 10 milion in population',
+		name: 'Megalopolis',
+		conditions: [
+			{
+				population: 10000000
 			}
 		]
 	}

@@ -11,6 +11,11 @@ civitas.PANEL_ACADEMY = {
 				'<a class="tips btn close" title="' + civitas.l('Close this panel') + '"></a>' +
 			'</header>' +
 			'<div class="contents"></div>' +
+			'<footer class="footer">' +
+				'<a class="tips demolish btn" title="' + civitas.l('Demolish this building') + '"></a>' +
+				'<a class="tips pause start btn" title="' + civitas.l('Control (start/pause) production') + '"></a>' +
+				'<a class="tips upgrade btn" title="' + civitas.l('Upgrade building') + '"></a>' +
+			'</footer>' +
 		'</div>',
 	id: 'academy',
 	on_show: function(params) {
@@ -24,6 +29,51 @@ civitas.PANEL_ACADEMY = {
 		var _t = civitas.ui.tabs([civitas.l('Info'), civitas.l('Research')]);
 		$(el + ' .contents').append(_t);
 		this.on_refresh();
+		if (!_c.is_upgradable()) {
+			$(el + ' .footer .upgrade').remove();
+		} else {
+			$(el).on('click', '.upgrade', function () {
+				if (confirm(civitas.l('Are you sure you want to upgrade this building?')) === true) {
+					if (_c.upgrade()) {
+						if (!_c.is_upgradable()) {
+							$(el + ' .footer .upgrade').remove();
+						}
+					}
+				}
+				return false;
+			});
+		}
+		if (_c.is_marketplace()) {
+			$(el + ' .footer .demolish').remove();
+		} else {
+			$(el).on('click', '.demolish', function () {
+				if (confirm(civitas.l('Are you sure you want to demolish this building?')) === true) {
+					if (_c.demolish()) {
+						self.destroy();
+						core.refresh();
+					}
+				}
+				return false;
+			});
+		}
+		if (_c.is_production_building()) {
+			if (_c.is_producing()) {
+				$(el + ' .pause').removeClass('start');
+			} else {
+				$(el + ' .start').removeClass('pause');
+			}
+			$(el).on('click', '.pause', function () {
+				_c.stop_production();
+				$(this).removeClass('pause').addClass('start');
+				return false;
+			}).on('click', '.start', function () {
+				$(this).removeClass('start').addClass('pause');
+				_c.start_production();
+				return false;
+			});
+		} else {
+			$(el + ' .start, ' + el + ' .pause').remove();
+		}
 	},
 	on_refresh: function() {
 		var settlement = this.get_core().get_settlement();

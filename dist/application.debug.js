@@ -77,14 +77,23 @@ civitas.MAX_SETTLEMENT_LEVEL = 40;
 civitas.ASSETS_URL = './';
 
 /**
- * Amount of influence your city loses each year.
+ * Amount of influence your settlement loses each year.
  * 
  * @constant
  * @type {Number}
  */
 civitas.YEARLY_INFLUENCE_LOSS = 2;
 
+/**
+ * Amount of influence your settlement gains each year.
+ * 
+ * @constant
+ * @type {Number}
+ */
+civitas.YEARLY_INFLUENCE_GAIN = 2;
+
 civitas.SECONDS_TO_DAY = 10;
+
 /**
  * Number of city ruler avatars available to choose.
  * 
@@ -96,6 +105,8 @@ civitas.AVATARS = 48;
 civitas.TRADES_ADDITION = 10;
 
 civitas.TRADES_DISCOUNT = 20;
+
+civitas.POPULATION_PER_LEVEL = 230000;
 
 /**
  * The black market discount.
@@ -282,14 +293,6 @@ civitas.MODE_SINGLEPLAYER = 0;
  */
 civitas.MODE_MULTIPLAYER = 1;
 
-civitas.MAX_PRESTIGE_VALUE = 1000;
-
-civitas.MAX_RESEARCH_VALUE = 1000;
-
-civitas.MAX_ESPIONAGE_VALUE = 1000;
-
-civitas.MAX_INFLUENCE_VALUE = 1000;
-
 civitas.lang = {};
 
 /**
@@ -376,6 +379,7 @@ civitas.START_RESOURCES = [
 	{
 		coins: 50000,
 		fame: 0,
+		faith: 1,
 		prestige: 1,
 		espionage: 1,
 		research: 1,
@@ -391,6 +395,7 @@ civitas.START_RESOURCES = [
 	{
 		coins: 20000,
 		fame: 0,
+		faith: 1,
 		prestige: 1,
 		espionage: 1,
 		research: 1,
@@ -406,6 +411,7 @@ civitas.START_RESOURCES = [
 	{
 		coins: 10000,
 		fame: 0,
+		faith: 1,
 		prestige: 1,
 		espionage: 1,
 		research: 1,
@@ -420,6 +426,7 @@ civitas.START_RESOURCES = [
 	{
 		coins: 5000,
 		fame: 0,
+		faith: 1,
 		prestige: 1,
 		espionage: 1,
 		research: 1,
@@ -430,6 +437,89 @@ civitas.START_RESOURCES = [
 		wood: 50
 	}
 ];
+
+/**
+ * List of the possible religion types.
+ * 
+ * @constant
+ * @type {Array}
+ */
+civitas.RELIGIONS = [
+	'none',
+	'christianity',
+	'islam',
+	'judaism',
+	'buddhism',
+	'hinduism',
+	'confucianism',
+	'taoism'
+];
+
+/**
+ * No religion
+ * 
+ * @constant
+ * @type {Number}
+ */
+civitas.RELIGION_NONE = 0;
+
+/**
+ * Christianity
+ * 
+ * @constant
+ * @type {Number}
+ */
+civitas.RELIGION_CHRISTIANITY = 1;
+
+/**
+ * Islam
+ * 
+ * @constant
+ * @type {Number}
+ */
+civitas.RELIGION_ISLAM = 2;
+
+/**
+ * Judaism
+ * 
+ * @constant
+ * @type {Number}
+ */
+civitas.RELIGION_JUDAISM = 3;
+
+/**
+ * Buddhism
+ * 
+ * @constant
+ * @type {Number}
+ */
+civitas.RELIGION_BUDDHISM = 4;
+
+/**
+ * Hinduism
+ * 
+ * @constant
+ * @type {Number}
+ */
+civitas.RELIGION_HINDUISM = 5;
+
+/**
+ * Confucianism
+ * 
+ * @constant
+ * @type {Number}
+ */
+civitas.RELIGION_CONFUCIANISM = 6;
+
+/**
+ * Taoism
+ * 
+ * @constant
+ * @type {Number}
+ */
+civitas.RELIGION_TAOISM = 7;
+
+civitas.MAX_FAITH_VALUE = 1000;
 
 /**
  * List of game diplomacy options.
@@ -448,8 +538,20 @@ civitas.DIPLOMACIES = [
 	'cease fire proposed'
 ];
 
+/**
+ * The campaign is an army.
+ *
+ * @constant
+ * @type {Number}
+ */
 civitas.CAMPAIGN_ARMY = 1;
 
+/**
+ * The campaign is a caravan.
+ *
+ * @constant
+ * @type {Number}
+ */
 civitas.CAMPAIGN_CARAVAN = 2;
 
 /**
@@ -515,6 +617,46 @@ civitas.DIPLOMACY_PROPOSE_ALLIANCE = 6;
  * @type {Number}
  */
 civitas.DIPLOMACY_PROPOSE_CEASE_FIRE = 7;
+
+/**
+ * Influence gained when selling goods to a settlement.
+ *
+ * @constant
+ * @type {Number}
+ */
+civitas.EXPORT_INFLUENCE = 2;
+
+/**
+ * Influence gained when buying goods from a settlement.
+ *
+ * @constant
+ * @type {Number}
+ */
+civitas.IMPORT_INFLUENCE = 1;
+
+/**
+ * Prestige gained when selling goods to a settlement.
+ *
+ * @constant
+ * @type {Number}
+ */
+civitas.EXPORT_PRESTIGE = 2;
+
+/**
+ * Prestige gained when buying goods from a settlement.
+ *
+ * @constant
+ * @type {Number}
+ */
+civitas.IMPORT_PRESTIGE = 1;
+
+civitas.MAX_PRESTIGE_VALUE = 1000;
+
+civitas.MAX_RESEARCH_VALUE = 1000;
+
+civitas.MAX_ESPIONAGE_VALUE = 1000;
+
+civitas.MAX_INFLUENCE_VALUE = 1000;
 
 /**
  * List of the possible nation types.
@@ -1657,11 +1799,12 @@ civitas.BUILDINGS = [{
 		name: 'Church',
 		handle: 'church',
 		description: 'A Church provides a massive fame boost to your settlement by using coins and ' +
-			'converting them to fame.',
+			'converting them to fame, as well as providing faith for free. Faith allows you to choose a religion for your settlement.',
 		is_municipal: true,
 		is_production: true,
 		production: {
-			fame: 50
+			fame: 50,
+			faith: 1
 		},
 		materials: {
 			coins: 50
@@ -1786,7 +1929,8 @@ civitas.BUILDINGS = [{
 		is_municipal: true,
 		is_production: true,
 		production: {
-			fame: 20
+			fame: 20,
+			faith: 2
 		},
 		materials: {
 			coins: 20
@@ -3623,6 +3767,7 @@ civitas.SETTLEMENTS = {
 	1: {
 		icon: 7,
 		climate: civitas.CLIMATE_TEMPERATE,
+		religion: civitas.RELIGION_CHRISTIANITY,
 		level: 35,
 		resources: {
 			coins: 230000,
@@ -3675,6 +3820,7 @@ civitas.SETTLEMENTS = {
 	2: {
 		icon: 4,
 		climate: civitas.CLIMATE_TROPICAL,
+		religion: civitas.RELIGION_TAOISM,
 		level: 32,
 		resources: {
 			coins: 230000,
@@ -3732,6 +3878,7 @@ civitas.SETTLEMENTS = {
 	3: {
 		icon: 7,
 		climate: civitas.CLIMATE_TEMPERATE,
+		religion: civitas.RELIGION_JUDAISM,
 		level: 30,
 		resources: {
 			coins: 160000,
@@ -3771,6 +3918,7 @@ civitas.SETTLEMENTS = {
 	4: {
 		icon: 5,
 		climate: civitas.CLIMATE_TROPICAL,
+		religion: civitas.RELIGION_BUDDHISM,
 		level: 28,
 		resources: {
 			coins: 200000,
@@ -3814,6 +3962,7 @@ civitas.SETTLEMENTS = {
 	5: {
 		icon: 5,
 		climate: civitas.CLIMATE_ARID,
+		religion: civitas.RELIGION_ISLAM,
 		level: 39,
 		resources: {
 			coins: 200000,
@@ -3857,6 +4006,7 @@ civitas.SETTLEMENTS = {
 	6: {
 		icon: 2,
 		climate: civitas.CLIMATE_TROPICAL,
+		religion: civitas.RELIGION_HINDUISM,
 		level: 29,
 		resources: {
 			coins: 190000,
@@ -3895,6 +4045,7 @@ civitas.SETTLEMENTS = {
 	7: {
 		icon: 4,
 		climate: civitas.CLIMATE_ARID,
+		religion: civitas.RELIGION_CHRISTIANITY,
 		level: 22,
 		resources: {
 			coins: 130000,
@@ -3935,6 +4086,7 @@ civitas.SETTLEMENTS = {
 	8: {
 		icon: 7,
 		climate: civitas.CLIMATE_POLAR,
+		religion: civitas.RELIGION_CHRISTIANITY,
 		level: 29,
 		resources: {
 			coins: 300000,
@@ -3976,6 +4128,7 @@ civitas.SETTLEMENTS = {
 	9: {
 		icon: 4,
 		climate: civitas.CLIMATE_TEMPERATE,
+		religion: civitas.RELIGION_CONFUCIANISM,
 		level: 30,
 		resources: {
 			coins: 330000,
@@ -4026,6 +4179,7 @@ civitas.SETTLEMENTS = {
 	10: {
 		icon: 7,
 		climate: civitas.CLIMATE_TEMPERATE,
+		religion: civitas.RELIGION_BUDDHISM,
 		level: 28,
 		resources: {
 			coins: 220000,
@@ -4063,6 +4217,7 @@ civitas.SETTLEMENTS = {
 	11: {
 		icon: 7,
 		climate: civitas.CLIMATE_TROPICAL,
+		religion: civitas.RELIGION_TAOISM,
 		level: 23,
 		resources: {
 			coins: 180000,
@@ -4107,6 +4262,7 @@ civitas.SETTLEMENTS = {
 	12: {
 		icon: 7,
 		climate: civitas.CLIMATE_ARID,
+		religion: civitas.RELIGION_ISLAM,
 		level: 27,
 		resources: {
 			coins: 180000,
@@ -4151,6 +4307,7 @@ civitas.SETTLEMENTS = {
 	13: {
 		icon: 4,
 		climate: civitas.CLIMATE_TEMPERATE,
+		religion: civitas.RELIGION_ISLAM,
 		level: 36,
 		resources: {
 			coins: 200000,
@@ -4189,6 +4346,7 @@ civitas.SETTLEMENTS = {
 	14: {
 		icon: 4,
 		climate: civitas.CLIMATE_TROPICAL,
+		religion: civitas.RELIGION_CHRISTIANITY,
 		level: 38,
 		resources: {
 			coins: 280000,
@@ -4230,6 +4388,7 @@ civitas.SETTLEMENTS = {
 	15: {
 		icon: 5,
 		climate: civitas.CLIMATE_TEMPERATE,
+		religion: civitas.RELIGION_JUDAISM,
 		level: 29,
 		resources: {
 			coins: 110000,
@@ -4272,6 +4431,7 @@ civitas.SETTLEMENTS = {
 	16: {
 		icon: 5,
 		climate: civitas.CLIMATE_TEMPERATE,
+		religion: civitas.RELIGION_JUDAISM,
 		level: 22,
 		resources: {
 			coins: 100000,
@@ -4314,6 +4474,7 @@ civitas.SETTLEMENTS = {
 	17: {
 		icon: 7,
 		climate: civitas.CLIMATE_TROPICAL,
+		religion: civitas.RELIGION_ISLAM,
 		level: 26,
 		resources: {
 			coins: 190000,
@@ -4354,6 +4515,7 @@ civitas.SETTLEMENTS = {
 	18: {
 		icon: 7,
 		climate: civitas.CLIMATE_TEMPERATE,
+		religion: civitas.RELIGION_CHRISTIANITY,
 		level: 29,
 		resources: {
 			coins: 240000,
@@ -4395,6 +4557,7 @@ civitas.SETTLEMENTS = {
 	19: {
 		icon: 5,
 		climate: civitas.CLIMATE_TEMPERATE,
+		religion: civitas.RELIGION_ISLAM,
 		level: 27,
 		resources: {
 			coins: 240000,
@@ -4440,6 +4603,7 @@ civitas.SETTLEMENTS = {
 	20: {
 		icon: 7,
 		climate: civitas.CLIMATE_ARID,
+		religion: civitas.RELIGION_CONFUCIANISM,
 		level: 34,
 		resources: {
 			coins: 320000,
@@ -4485,6 +4649,7 @@ civitas.SETTLEMENTS = {
 	},
 	21: {
 		settlement_type: civitas.VILLAGE,
+		religion: civitas.RELIGION_HINDUISM,
 		resources: {
 			prestige: 1,
 			coins: 10000,
@@ -4505,6 +4670,7 @@ civitas.SETTLEMENTS = {
 	},
 	22: {
 		settlement_type: civitas.VILLAGE,
+		religion: civitas.RELIGION_ISLAM,
 		resources: {
 			prestige: 1,
 			coins: 20000,
@@ -4525,6 +4691,7 @@ civitas.SETTLEMENTS = {
 	},
 	23: {
 		settlement_type: civitas.VILLAGE,
+		religion: civitas.RELIGION_ISLAM,
 		resources: {
 			prestige: 1,
 			coins: 20000,
@@ -4545,6 +4712,7 @@ civitas.SETTLEMENTS = {
 	},
 	24: {
 		settlement_type: civitas.VILLAGE,
+		religion: civitas.RELIGION_CHRISTIANITY,
 		resources: {
 			prestige: 1,
 			coins: 20000,
@@ -4565,6 +4733,7 @@ civitas.SETTLEMENTS = {
 	},
 	25: {
 		settlement_type: civitas.VILLAGE,
+		religion: civitas.RELIGION_CHRISTIANITY,
 		resources: {
 			prestige: 1,
 			coins: 20000,
@@ -4585,6 +4754,7 @@ civitas.SETTLEMENTS = {
 	},
 	26: {
 		settlement_type: civitas.VILLAGE,
+		religion: civitas.RELIGION_CHRISTIANITY,
 		resources: {
 			prestige: 1,
 			coins: 2000,
@@ -5078,6 +5248,9 @@ civitas.RESOURCES = {
 	'research': {
 		name: 'Research'
 	},
+	'faith': {
+		name: 'Faith'
+	},
 	'almonds': {
 		name: 'Almonds',
 		price: 200
@@ -5377,7 +5550,7 @@ civitas.RESOURCES = {
  * @type {Array}
  */
 civitas.NON_RESOURCES = [
-	'coins', 'fame', 'prestige', 'espionage', 'research'
+	'coins', 'fame', 'prestige', 'espionage', 'research', 'faith'
 ];
 
 /**
@@ -5403,7 +5576,7 @@ civitas.ACHIEVEMENTS = [
 	{
 		id: 1,
 		description: 'Reach level 10.',
-		name: 'Kid',
+		name: 'Kiddo',
 		conditions: [
 			{
 				settlement_level: 10
@@ -5412,7 +5585,7 @@ civitas.ACHIEVEMENTS = [
 	}, {
 		id: 2,
 		description: 'Reach level 20.',
-		name: 'Adolescent',
+		name: 'Teen',
 		conditions: [
 			{
 				settlement_level: 20
@@ -5438,20 +5611,20 @@ civitas.ACHIEVEMENTS = [
 		]
 	}, {
 		id: 5,
-		description: 'Reach level 50.',
-		name: 'Godly',
+		description: 'Gather maximum faith.',
+		name: 'Jesus Christ',
 		conditions: [
 			{
-				settlement_level: 50
+				faith: 1000
 			}
 		]
 	}, {
 		id: 6,
-		description: 'Reach level 55.',
-		name: 'I am a God!',
+		description: 'Gather maximum research.',
+		name: 'Albert Einstein',
 		conditions: [
 			{
-				settlement_level: 55
+				research: 1000
 			}
 		]
 	}, {
@@ -5666,11 +5839,11 @@ civitas.ACHIEVEMENTS = [
 		]
 	}, {
 		id: 29,
-		description: 'Gather 1000 research.',
-		name: 'Einstein',
+		description: 'Gather 500 faith.',
+		name: 'Disciple',
 		conditions: [
 			{
-				research: 1000
+				faith: 500
 			}
 		]
 	}, {
@@ -5761,6 +5934,15 @@ civitas.ACHIEVEMENTS = [
 		conditions: [
 			{
 				mercenary: 1
+			}
+		]
+	}, {
+		id: 39,
+		description: 'Reach 10 milion in population',
+		name: 'Megalopolis',
+		conditions: [
+			{
+				population: 10000000
 			}
 		]
 	}
@@ -6154,10 +6336,9 @@ civitas.ui = {
 		}
 		var image = (typeof params.data.visible_upgrades === 'undefined' || params.data.visible_upgrades === false) ? building_image + '1' : building_image + params.data.level;
 		return '<div data-type="' + params.type + '" data-level="' + params.data.level + '" ' +
-				'style="background:transparent url(' + civitas.ASSETS_URL + 'images/buildings/' + image + '.png) no-repeat;left:' + params.data.position.x + 'px;top:' + params.data.position.y + 'px" ' +
-				'title=\'<span class="buildinginfo">' + params.data.name + '</span> ' + description + '\' ' +
-				'id="building-' + params.data.handle + '"' +
-				'class="tips slots building"></div>';
+			'style="background:transparent url(' + civitas.ASSETS_URL + 'images/buildings/' + image + '.png) no-repeat;left:' + params.data.position.x + 'px;top:' + params.data.position.y + 'px" ' +
+			'title=\'' + params.data.name + '\' ' + 'id="building-' + params.data.handle + '"' +
+			'class="tips slots building"></div>';
 	},
 
 	resource_storage_el: function (resource, amount) {
@@ -6432,9 +6613,10 @@ civitas.objects.settlement = function(params) {
 		this.level = (typeof params.level !== 'undefined') ? params.level : 1;
 		this.resources = (typeof params.resources !== 'undefined') ? params.resources : this._build_resources(params);
 		this.climate = (typeof params.climate !== 'undefined') ? params.climate : civitas.CLIMATE_TEMPERATE;
+		this.religion = (typeof params.religion !== 'undefined') ? params.religion : civitas.RELIGION_NONE;
 		this.ruler = params.ruler;
 		this.icon = (typeof params.icon !== 'undefined') ? params.icon : 1;
-		this.population = (typeof params.population !== 'undefined') ? params.population : this.level * 230000;
+		this.population = (typeof params.population !== 'undefined') ? params.population : this.level * civitas.POPULATION_PER_LEVEL;
 		this.settlement_type = (typeof params.settlement_type !== 'undefined') ? params.settlement_type : civitas.CITY;
 		if (typeof params.trades !== 'undefined') {
 			this.trades = params.trades;
@@ -6472,6 +6654,7 @@ civitas.objects.settlement = function(params) {
 			player: this.is_player(),
 			level: this.get_level(),
 			climate: this.get_climate().id,
+			religion: this.get_religion().id,
 			ruler: this.get_ruler(),
 			icon: this.get_icon(),
 			trades: this.get_trades(),
@@ -6628,6 +6811,7 @@ civitas.objects.settlement = function(params) {
 		var level = this.get_level();
 		this.set_fame(civitas.LEVELS[level]);
 		this.level++;
+		this.calc_population();
 		$('.citylevel').html(this.level);
 		this.get_core().notify('The city of ' + this.get_name() + ' is now level ' + this.level + '.');
 		return this;
@@ -6832,6 +7016,7 @@ civitas.objects.settlement = function(params) {
 				level: 1,
 				stopped: false
 			});
+			this.raise_prestige();
 			this.get_core().save_and_refresh();
 			this.get_core().notify('New building constructed: ' + _building.get_name());
 			$('.tips').tipsy({
@@ -7053,6 +7238,18 @@ civitas.objects.settlement = function(params) {
 		if (resources.wood < 100 || resources.stones < 100 || resources.woodplanks < 50) {
 			advices.push('You are lacking construction materials, buy some stones, wood ' +
 				'planks and/or wood off the World Trade Market.');
+		}
+		if (resources.prestige < 100) {
+			advices.push('Your settlement`s prestige is too low, start doing trades with the other settlements to improve it.');
+		}
+		if (resources.faith >= 999) {
+			advices.push('You are at maximum faith, start using it from your settlement`s Church.');
+		}
+		if (resources.research >= 999) {
+			advices.push('You are at maximum research, start using it for settlement researches, from your Academy.');
+		}
+		if (resources.espionage >= 999) {
+			advices.push('You are at maximum espionage, start using it for espionage missiong from your Embassy.');
 		}
 		if (resources.coins > 100000) {
 			advices.push('You have lots of coins, why not invest some in goods?');
@@ -7341,6 +7538,16 @@ civitas.objects.settlement = function(params) {
 	};
 
 	/**
+	 * Calculate the number of people living in your settlement.
+	 *
+	 * @public
+	 * @returns {Number}
+	 */
+	this.calc_population = function() {
+		return this.population = this.get_level() * civitas.POPULATION_PER_LEVEL;
+	};
+
+	/**
 	 * Check if this settlement is a village.
 	 *
 	 * @public
@@ -7348,6 +7555,18 @@ civitas.objects.settlement = function(params) {
 	 */
 	this.is_village = function() {
 		return this.settlement_type === civitas.VILLAGE;
+	};
+
+	/**
+	 * Refresh the heroes in the Tavern.
+	 *
+	 * @public
+	 * @returns {civitas.objects.settlement}
+	 */
+	this.refresh_heroes = function() {
+		if (this.is_building_built('tavern')) {
+			// TODO
+		}
 	};
 
 	// Fire up the constructor
@@ -7399,8 +7618,7 @@ civitas.objects.settlement.prototype.lower_research = function(amount) {
 	if (typeof amount === 'undefined') {
 		amount = 1;
 	}
-	this.set_research(this.get_research() - amount);
-	return this.get_research();
+	return this.set_research(this.get_research() - amount);
 };
 
 /**
@@ -7410,7 +7628,7 @@ civitas.objects.settlement.prototype.lower_research = function(amount) {
  * @public
  */
 civitas.objects.settlement.prototype.reset_research = function() {
-	this.set_research(1);
+	this.resources.research = 1;
 	return this;
 };
 
@@ -7505,6 +7723,144 @@ civitas.objects.settlement.prototype.reset_fame = function() {
 };
 
 /**
+ * Change religion of your settlement.
+ *
+ * @public
+ * @param {Number|String} id
+ * @returns {Boolean}
+ */
+civitas.objects.settlement.prototype.change_religion = function(id) {
+	if (this.get_faith() !== civitas.MAX_FAITH_VALUE && id !== 0) {
+		if (this.is_player()) {
+			this.get_core().error('You don`t have enough faith to switch religions.');
+		}
+		return false;
+	}
+	if ((typeof id === 'number' && this.get_religion().id === id) || (typeof id === 'string' && this.get_religion().name === id)) {
+		if (this.is_player()) {
+			this.get_core().error('You cannot switch religion to your already existing one.');
+		}
+		return false;
+	}
+	if (this.set_religion(id)) {
+		this.reset_faith();
+		this.refresh_heroes();
+		if (this.is_player()) {
+			this.get_core().notify('Your settlement`s new religion is <strong>' + this.get_religion().name.capitalize() + '</strong>');
+		}
+		this.get_core().save_and_refresh();
+		return true;
+	} else {
+		if (this.is_player()) {
+			this.get_core().error('Unable to switch religion to the specified one.');
+		}
+		return false;
+	}
+	return false;
+};
+
+/**
+ * Set religion to the specified value.
+ *
+ * @public
+ * @param {Number|String} value
+ * @returns {Boolean}
+ */
+civitas.objects.settlement.prototype.set_religion = function(value) {
+	if (typeof value === 'number') {
+		this.religion = value;
+		return true;
+	} else if (typeof value === 'string') {
+		var pos = $.inArray(value, civitas.RELIGIONS);
+		if (pos !== -1) {
+			this.religion = pos;
+			return true;
+		}
+	}
+	return false;
+};
+
+/**
+ * Return the religion of this settlement.
+ * 
+ * @public
+ * @returns {Object}
+ */
+civitas.objects.settlement.prototype.get_religion = function() {
+	return {
+		id: this.religion,
+		name: civitas.RELIGIONS[this.religion]
+	};
+};
+
+/**
+ * Return the value of this settlement's faith.
+ * 
+ * @public
+ * @returns {Number}
+ */
+civitas.objects.settlement.prototype.get_faith = function() {
+	return this.resources.faith;
+};
+
+/**
+ * Raise the faith of this settlement by the specified amount.
+ * 
+ * @public
+ * @param {Number} value
+ * @returns {Number}
+ */
+civitas.objects.settlement.prototype.raise_faith = function(value) {
+	if (typeof value === 'undefined') {
+		value = 1;
+	}
+	return this.set_faith(this.get_faith() + value);
+};
+
+/**
+ * Lower the faith of this settlement by the specified amount.
+ * 
+ * @public
+ * @param {Number} amount
+ * @returns {Number}
+ */
+civitas.objects.settlement.prototype.lower_faith = function(value) {
+	if (typeof value === 'undefined') {
+		value = 1;
+	}
+	return this.set_faith(this.get_faith() - value);
+};
+
+/**
+ * Reset the faith of this settlement to 1.
+ * 
+ * @returns {Number}
+ * @public
+ */
+civitas.objects.settlement.prototype.reset_faith = function() {
+	this.resources.faith = 1;
+	return this;
+};
+
+/**
+ * Set the faith of this settlement.
+ * 
+ * @public
+ * @returns {Number}
+ * @param {Number} value
+ */
+civitas.objects.settlement.prototype.set_faith = function(value) {
+	if (this.resources.faith >= civitas.MAX_FAITH_VALUE) {
+		this.resources.faith = civitas.MAX_FAITH_VALUE;
+	} else if (this.resources.faith < 1) {
+		this.resources.faith = 1;
+	} else {
+		this.resources.faith = value;
+	}
+	return this.get_faith();
+};
+
+/**
  * Return the value of this settlement's espionage.
  * 
  * @public
@@ -7539,8 +7895,7 @@ civitas.objects.settlement.prototype.lower_espionage = function(value) {
 	if (typeof value === 'undefined') {
 		value = 1;
 	}
-	this.set_espionage(this.get_espionage() - value);
-	return this.get_espionage();
+	return this.set_espionage(this.get_espionage() - value);
 };
 
 /**
@@ -7550,7 +7905,8 @@ civitas.objects.settlement.prototype.lower_espionage = function(value) {
  * @public
  */
 civitas.objects.settlement.prototype.reset_espionage = function() {
-	return this.set_espionage(1);
+	this.resources.espionage = 1;
+	return this;
 };
 
 /**
@@ -7617,7 +7973,7 @@ civitas.objects.settlement.prototype.lower_prestige = function(amount) {
  * @public
  */
 civitas.objects.settlement.prototype.reset_prestige = function() {
-	this.set_prestige(1);
+	this.resources.prestige = 1;
 	return this;
 };
 
@@ -8346,6 +8702,7 @@ civitas.objects.settlement.prototype.buy_from_settlement = function(settlement, 
 		} else {
 			_settlement = settlement;
 		}
+		var is_double = this.get_religion().id === _settlement.get_religion().id ? true : false;
 		var trades = _settlement.get_trades();
 		if (trades === null) {
 			this.get_core().error(settlement + ' does not trade any goods.');
@@ -8373,8 +8730,8 @@ civitas.objects.settlement.prototype.buy_from_settlement = function(settlement, 
 				_settlement.inc_coins(settlement_price);
 				this.add_to_storage(item, amount);
 				this.remove_from_exports(_settlement, item, amount);
-				this.raise_influence(_settlement.get_id(), 2);
-				this.raise_prestige();
+				this.raise_influence(_settlement.get_id(), (is_double ? civitas.IMPORT_INFLUENCE * 2 : civitas.IMPORT_INFLUENCE));
+				this.raise_prestige(is_double ? civitas.IMPORT_PRESTIGE * 2 : civitas.IMPORT_PRESTIGE);
 				this.raise_fame(50);
 				this.get_core().refresh();
 				this.get_core().notify(this.get_name() + ' bought <strong>' + amount + '</strong> ' + civitas.utils.get_resource_name(item) + ' from ' + settlement + ' for <strong>' + item_discount_price + '</strong> coins each, for a total of <strong>' + price + '</strong> coins.', civitas.l('World Market'));
@@ -8477,6 +8834,7 @@ civitas.objects.settlement.prototype.sell_to_settlement = function(settlement, r
 		} else {
 			_settlement = settlement;
 		}
+		var is_double = this.get_religion().id === _settlement.get_religion().id ? true : false;
 		var trades = _settlement.get_trades();
 		if (trades === null) {
 			this.get_core().error(settlement + ' does not trade any goods.');
@@ -8504,8 +8862,8 @@ civitas.objects.settlement.prototype.sell_to_settlement = function(settlement, r
 					return false;
 				}
 				this.remove_from_imports(_settlement, item, amount);
-				this.raise_influence(_settlement.get_id(), 1);
-				this.raise_prestige();
+				this.raise_influence(_settlement.get_id(), (is_double ? civitas.EXPORT_INFLUENCE * 2 : civitas.EXPORT_INFLUENCE));
+				this.raise_prestige(is_double ? civitas.EXPORT_PRESTIGE * 2 : civitas.EXPORT_PRESTIGE);
 				this.raise_fame(50);
 				this.get_core().refresh();
 				this.get_core().notify(this.get_name() + ' sold <strong>' + amount + '</strong> ' + civitas.utils.get_resource_name(item) + ' to ' + settlement + ' for <strong>' + item_discount_price + '</strong> coins each, for a total of <strong>' + price + '</strong> coins.', civitas.l('World Market'));
@@ -9228,9 +9586,24 @@ civitas.objects.building = function(params) {
 		var building = this.get_building_data();
 		var prd = building.production;
 		var amount = prd.prestige;
-		this.get_settlement().raise_prestige(amount);
+		this.get_settlement().raise_prestige(amount * this.get_level());
 		this.get_core().log(this.get_name() + ' raised settlement prestige by ' + amount + '.');
 		return this.get_settlement().get_prestige();
+	};
+
+	/**
+	 * Raise the faith of the settlement this building is located in.
+	 * 
+	 * @public
+	 * @returns {Number}
+	 */
+	this.adjust_settlement_faith = function() {
+		var building = this.get_building_data();
+		var prd = building.production;
+		var amount = prd.faith;
+		this.get_settlement().raise_faith(amount * this.get_level());
+		this.get_core().log(this.get_name() + ' raised settlement faith by ' + amount + '.');
+		return this.get_settlement().get_faith();
 	};
 
 	/**
@@ -9243,7 +9616,7 @@ civitas.objects.building = function(params) {
 		var building = this.get_building_data();
 		var prd = building.production;
 		var amount = prd.espionage;
-		this.get_settlement().raise_espionage(amount);
+		this.get_settlement().raise_espionage(amount * this.get_level());
 		this.get_core().log(this.get_name() + ' raised settlement espionage by ' + amount + '.');
 		return this.get_settlement().get_espionage();
 	};
@@ -9258,7 +9631,7 @@ civitas.objects.building = function(params) {
 		var building = this.get_building_data();
 		var prd = building.production;
 		var amount = prd.fame * this.get_level();
-		this.get_settlement().raise_fame(amount);
+		this.get_settlement().raise_fame(amount * this.get_level());
 		this.get_core().log(this.get_name() + ' raised settlement fame by ' + amount + '.');
 		return this.get_settlement().get_fame();
 	};
@@ -9276,7 +9649,7 @@ civitas.objects.building = function(params) {
 		var prd = building.production;
 		if (this.get_settlement().has_coins(mat.coins)) {
 			var amount = prd.research * this.get_level();
-			this.get_settlement().raise_research(amount);
+			this.get_settlement().raise_research(amount * this.get_level());
 			this.get_settlement().dec_coins(mat.coins);
 			this.get_core().log(this.get_name() + ' raised settlement research with ' + amount + ' at the cost of ' + mat.coins + ' coins.');
 		}
@@ -9299,7 +9672,7 @@ civitas.objects.building = function(params) {
 		var prd = building.production;
 		if (this.get_settlement().has_coins(mat.coins)) {
 			var amount = prd.fame * this.get_level();
-			this.get_settlement().raise_fame(amount);
+			this.get_settlement().raise_fame(amount * this.get_level());
 			this.get_settlement().dec_coins(mat.coins);
 			this.get_core().log(this.get_name() + ' raised settlement fame with ' + amount + ' at the cost of ' + mat.coins + ' coins.');
 		}
@@ -9465,9 +9838,11 @@ civitas.objects.building = function(params) {
 				break;
 			case 'church':
 				this.adjust_settlement_fame_for_coins();
+				this.adjust_settlement_faith();
 				break;
 			case 'monastery':
 				this.adjust_settlement_fame_for_coins();
+				this.adjust_settlement_faith();
 				break;
 			case 'academy':
 				this.adjust_settlement_research_for_coins();
@@ -10369,11 +10744,20 @@ civitas.game = function () {
 	 * @returns {Object}
 	 */
 	this.add_black_market = function (resource, amount, price) {
-		this.black_market[resource] = {
-			resource: resource,
-			amount: amount,
-			price: price
-		};
+		if (typeof this.black_market[resource] !== 'undefined') {
+			var old = this.black_market[resource];
+			this.black_market[resource] = {
+				resource: resource,
+				amount: old.amount + amount,
+				price: old.price + price
+			};
+		} else {
+			this.black_market[resource] = {
+				resource: resource,
+				amount: amount,
+				price: price
+			};
+		}
 		return this.black_market;
 	};
 
@@ -11078,7 +11462,15 @@ civitas.game = function () {
 		for (var i = 1; i < settlements.length; i++) {
 			if (typeof settlements[i] !== 'undefined') {
 				if (settlements[i].is_city()) {
-					this.get_settlement().lower_influence(settlements[i].get_id(), civitas.YEARLY_INFLUENCE_LOSS);
+					if (this.get_settlement().get_religion().id === settlements[i].get_religion().id) {
+						this.get_settlement().raise_influence(settlements[i].get_id(), civitas.YEARLY_INFLUENCE_GAIN);
+					} else {
+						this.get_settlement().lower_influence(settlements[i].get_id(), civitas.YEARLY_INFLUENCE_LOSS);
+					}
+				} else {
+					if (this.get_settlement().get_religion().id === settlements[i].get_religion().id) {
+						this.get_settlement().raise_influence(settlements[i].get_id(), civitas.YEARLY_INFLUENCE_GAIN);
+					}
 				}
 			}
 		}
@@ -11440,6 +11832,7 @@ civitas.game = function () {
 					name: civitas.utils.get_random_unique(civitas.SETTLEMENT_NAMES),
 					player: false,
 					level: settlement_data.level,
+					religion: settlement_data.religion,
 					climate: settlement_data.settlement_type === civitas.CITY ? settlement_data.climate : civitas.CLIMATE_TEMPERATE,
 					ruler: ruler,
 					resources: settlement_data.resources,
@@ -11635,6 +12028,16 @@ civitas.game = function () {
 					}
 					if (typeof condition.research !== 'undefined') {
 						if (settlement.get_research() >= condition.research) {
+							this.achievement(achievement);
+						}
+					}
+					if (typeof condition.faith !== 'undefined') {
+						if (settlement.get_faith() >= condition.faith) {
+							this.achievement(achievement);
+						}
+					}
+					if (typeof condition.population !== 'undefined') {
+						if (settlement.get_population() >= condition.population) {
 							this.achievement(achievement);
 						}
 					}
@@ -11884,9 +12287,17 @@ civitas.game = function () {
 	};
 
 	this.advance_campaigns = function() {
+		var settlement = this.get_settlement();
+		var other_settlement = null;
 		for (var i = 0; i < this.campaigns.length; i++) {
 			if (this.campaigns[i].passed === this.campaigns[i].duration - 1) {
-				this.notify('The ' + (this.campaigns[i].type === civitas.CAMPAIGN_ARMY ? 'army' : 'caravan') + ' you sent ' + this.campaigns[i].duration + ' days ago reached its destination.');
+				if (this.campaigns[i].source.id === settlement.get_id()) {
+					other_settlement = this.get_settlement(this.campaigns[i].destination.id);
+					this.notify('The ' + (this.campaigns[i].type === civitas.CAMPAIGN_ARMY ? 'army' : 'caravan') + ' you sent ' + this.campaigns[i].duration + ' days ago to ' + other_settlement.get_name() + ' reached its destination.');
+				} else if (this.campaigns[i].destination.id === settlement.get_id()) {
+					other_settlement = this.get_settlement(this.campaigns[i].source.id);
+					this.notify('The ' + (this.campaigns[i].type === civitas.CAMPAIGN_ARMY ? 'army' : 'caravan') + ' sent by ' + other_settlement.get_name() + ' ' + this.campaigns[i].duration + ' days ago reached your city.');
+				}
 				this.process_campaign(i);
 			} else {
 				this.campaigns[i].passed++;
@@ -11964,6 +12375,58 @@ civitas.game = function () {
 		}
 		this.campaigns.splice(id, 1);
 		return this;
+	};
+
+	/**
+	 * Return if the current season is spring.
+	 *
+	 * @returns {Boolean}
+	 * @public
+	 */
+	this.is_spring = function() {
+		if (this.month >= 3 && this.month < 6) {
+			return true;
+		}
+		return false;
+	};
+
+	/**
+	 * Return if the current season is summer.
+	 *
+	 * @returns {Boolean}
+	 * @public
+	 */
+	this.is_summer = function() {
+		if (this.month >= 6 && this.month < 9) {
+			return true;
+		}
+		return false;
+	};
+
+	/**
+	 * Return if the current season is autumn.
+	 *
+	 * @returns {Boolean}
+	 * @public
+	 */
+	this.is_autumn = function() {
+		if (this.month >= 9 && this.month < 12) {
+			return true;
+		}
+		return false;
+	};
+
+	/**
+	 * Return if the current season is winter.
+	 *
+	 * @returns {Boolean}
+	 * @public
+	 */
+	this.is_winter = function() {
+		if (this.month >= 12 || this.month < 3) {
+			return true;
+		}
+		return false;
 	};
 
 	// Fire up the constructor
@@ -12075,6 +12538,7 @@ civitas.PANEL_SETTLEMENT = {
 				: '' ) + 
 				'<dt>' + civitas.l('Coins') + '</dt><dd>' + civitas.utils.nice_numbers(settlement.get_coins()) + '</dd>' +
 				'<dt>' + civitas.l('Population') + '</dt><dd>' + civitas.utils.nice_numbers(settlement.get_population()) + '</dd>' +
+				'<dt>' + civitas.l('Religion') + '</dt><dd>' + settlement.get_religion().name.capitalize() + '</dd>' +
 				'<dt>' + civitas.l('Influence') + '</dt><dd>' + civitas.ui.progress(my_settlement.get_influence_with_settlement(settlement.get_id()), 'small') + '</dd>' +
 				'<dt>' + civitas.l('Diplomatic Status') + '</dt><dd>' + my_settlement.get_diplomacy_status(settlement.get_id()).name.capitalize() + '</dd>' +
 				'<dt>' + civitas.l('Distance') + '</dt><dd>' + civitas.utils.get_distance(location, civitas.SETTLEMENTS[settlement.get_id()].location) + ' miles (' + civitas.utils.get_distance_in_days(location, civitas.SETTLEMENTS[settlement.get_id()].location) + ' days)</dd>' +
@@ -12754,6 +13218,7 @@ civitas.PANEL_COUNCIL = {
 		_t += '</div>';
 		$('#panel-' + this.id + ' #tab-mercenary').empty().append(_t);
 
+		var status = settlement.get_status();
 		_t = '';
 		if (!settlement.can_diplomacy()) {
 			_t += '<p>' + civitas.l('You will need to construct an Embassy before being able to propose treaties and pacts to other cities.') + '</p>';
@@ -12767,21 +13232,9 @@ civitas.PANEL_COUNCIL = {
 					'<p>' +
 						'<span class="title">' + (settlements[i].is_city() ? 'City of' : 'Village of') + ' ' + settlements[i].get_name() + '</span> ' +
 						'<span class="description">' + civitas.l('Leader') + ': ' + settlements[i].get_ruler_name() + '</span>' +
-					'</p>';
-			var status = settlement.get_status();
-			var influence = status[settlements[i].get_id()].influence;
-			var _e = '';
-			if (influence < 20) {
-				_e = ' vbad';
-			} else if (influence >= 20 && influence < 50) {
-				_e = ' bad';
-			} else if (influence >= 50 && influence < 80) {
-				_e = ' good';
-			} else if (influence >= 80) {
-				_e = ' vgood';
-			}
-			_t += '<div class="progress big"><span style="width:' + influence + '%" class="bar' + _e + '">' + influence + '</span></div>';
-			_t += '</td>' +
+					'</p>' +
+				civitas.ui.progress(status[settlements[i].get_id()].influence, 'big') +
+					'</td>' +
 					'<td class="large">' +
 					'<a data-name="' + settlements[i].get_name() + '" title="' + civitas.l('View info about this settlement.') + '" class="tips view-settlement" href="#">' + civitas.l('view') + '</a> ' +
 					'<a data-name="' + settlements[i].get_name() + '" title="' + civitas.l('Send a spy to this settlement.') + '" data-id="' + i + '" class="tips spy" href="#">' + civitas.l('spy') + '</a> ' +
@@ -12789,8 +13242,7 @@ civitas.PANEL_COUNCIL = {
 					'<a data-name="' + settlements[i].get_name() + '" title="' + civitas.l('Send goods to this settlement.') + '" data-id="' + i + '" class="tips send-goods" href="#">' + civitas.l('send') + '</a> ' +
 					'<a data-name="' + settlements[i].get_name() + '" title="' + civitas.l('Declare war to this settlement.') + '" data-id="' + i + '" class="tips declare-war" href="#">' + civitas.l('war') + '</a>' +
 					'</td>' +
-					'</tr>';
-
+				'</tr>';
 		}
 		_t += '</table>' +
 				'</div>';
@@ -12824,9 +13276,11 @@ civitas.PANEL_COUNCIL = {
 				'<dt>' + civitas.l('Personality') + '</dt><dd>' + settlement.get_personality().name.capitalize() + '</dd>' +
 				'<dt>' + civitas.l('Nationality') + '</dt><dd>' + settlement.get_nationality().name.capitalize() + '</dd>' +
 				'<dt>' + civitas.l('Population') + '</dt><dd>' + civitas.utils.nice_numbers(settlement.get_population()) + '</dd>' +
+				'<dt>' + civitas.l('Religion') + '</dt><dd>' + settlement.get_religion().name.capitalize() + '</dd>' +
 				'<dt>' + civitas.l('Level') + '</dt><dd>' + civitas.ui.progress((settlement.get_level() * 100) / civitas.MAX_SETTLEMENT_LEVEL, 'small', settlement.get_level()) + '</dd>' +
 				'<dt>' + civitas.l('Prestige') + '</dt><dd>' + civitas.ui.progress((settlement.get_prestige() * 100) / civitas.MAX_PRESTIGE_VALUE, 'small', settlement.get_prestige()) + '</dd>' +
 				'<dt>' + civitas.l('Espionage') + '</dt><dd>' + civitas.ui.progress((settlement.get_espionage() * 100) / civitas.MAX_ESPIONAGE_VALUE, 'small', settlement.get_espionage()) + '</dd>' +
+				'<dt>' + civitas.l('Faith') + '</dt><dd>' + civitas.ui.progress((settlement.get_faith() * 100) / civitas.MAX_FAITH_VALUE, 'small', settlement.get_faith()) + '</dd>' +
 				'<dt>' + civitas.l('Research') + '</dt><dd>' + civitas.ui.progress((settlement.get_research() * 100) / civitas.MAX_RESEARCH_VALUE, 'small', settlement.get_research()) + '</dd>' +
 			'</dl>' +
 		'</div>';
@@ -13556,6 +14010,120 @@ civitas.PANEL_TRADES = {
 };
 
 /**
+ * Church panel data.
+ *
+ * @type {Object}
+ */
+civitas.PANEL_CHURCH = {
+	template: '' +
+		'<div id="panel-church" class="panel">' +
+			'<header>' +
+				'<span class="title">' + civitas.l('Church') + '</span>' +
+				'<a class="tips btn close" title="' + civitas.l('Close this panel') + '"></a>' +
+			'</header>' +
+			'<div class="contents"></div>' +
+			'<footer class="footer clearfix">' +
+				'<a class="tips demolish btn" title="' + civitas.l('Demolish this building') + '"></a>' +
+				'<a class="tips pause start btn" title="' + civitas.l('Control (start/pause) production') + '"></a>' +
+				'<a class="tips upgrade btn" title="' + civitas.l('Upgrade building') + '"></a>' +
+			'</footer>' +
+		'</div>',
+	id: 'church',
+	on_show: function(params) {
+		var self = this;
+		this.params_data = params.data;
+		var core = this.get_core();
+		var el = this.handle;
+		var settlement = this.get_core().get_settlement();
+		var _c = core.get_settlement().get_building_by_handle(this.params_data.handle);
+		var level = _c.get_level();
+		$(el + ' header .title').html(this.params_data.name);
+		$(el + ' .contents').append(civitas.ui.tabs([civitas.l('Info'), civitas.l('Religion')]));
+		this.on_refresh();
+		$(el).on('click', '.religion', function() {
+			var id = parseInt($(this).data('id'));
+			if (confirm(civitas.l('Are you sure you want to switch religions? You will lose all your accumulated faith!')) === true) {
+				settlement.change_religion(id);
+			}
+			return false;
+		});
+		if (!_c.is_upgradable()) {
+			$(el + ' .footer .upgrade').remove();
+		} else {
+			$(el).on('click', '.upgrade', function () {
+				if (confirm(civitas.l('Are you sure you want to upgrade this building?')) === true) {
+					if (_c.upgrade()) {
+						if (!_c.is_upgradable()) {
+							$(el + ' .footer .upgrade').remove();
+						}
+					}
+				}
+				return false;
+			});
+		}
+		if (_c.is_marketplace()) {
+			$(el + ' .footer .demolish').remove();
+		} else {
+			$(el).on('click', '.demolish', function () {
+				if (confirm(civitas.l('Are you sure you want to demolish this building?')) === true) {
+					if (_c.demolish()) {
+						self.destroy();
+						core.refresh();
+					}
+				}
+				return false;
+			});
+		}
+		if (_c.is_production_building()) {
+			if (_c.is_producing()) {
+				$(el + ' .pause').removeClass('start');
+			} else {
+				$(el + ' .start').removeClass('pause');
+			}
+			$(el).on('click', '.pause', function () {
+				_c.stop_production();
+				$(this).removeClass('pause').addClass('start');
+				return false;
+			}).on('click', '.start', function () {
+				$(this).removeClass('start').addClass('pause');
+				_c.start_production();
+				return false;
+			});
+		} else {
+			$(el + ' .start, ' + el + ' .pause').remove();
+		}
+	},
+	on_refresh: function() {
+		var settlement = this.get_core().get_settlement();
+		var _c = this.get_core().get_settlement().get_building_by_handle(this.params_data.handle);
+		var level = _c.get_level();
+		var _t = '<p>' + this.params_data.description + '</p>' +
+			'<dl>' +
+				civitas.ui.cost_panel(this.params_data.cost) +
+				civitas.ui.materials_panel(this.params_data.materials) +
+				civitas.ui.production_panel(this.params_data.production, level) +
+				civitas.ui.requires_panel(this.params_data.requires) +
+				civitas.ui.chance_panel(this.params_data.chance, level) +
+				civitas.ui.tax_panel(this.params_data.tax, level) +
+				civitas.ui.storage_panel(this.params_data.storage, level) +
+			'</dl>';
+		$('#panel-' + this.id + ' #tab-info').empty().append(_t);
+		_t = '<div class="section">' +
+			civitas.ui.progress((settlement.get_faith() * 100) / civitas.MAX_FAITH_VALUE, 'large', settlement.get_faith()) +
+		'</div>' +
+		'<p>Changing your settlement`s religion requires 1000 faith and resets your settlement`s faith. Each religion gives you access to different heroes in your Tavern and gives you a boost to the influence with the cities sharing the same religion.</p>' +
+		'<div class="religion-list">';
+		for (var i = 0; i < civitas.RELIGIONS.length; i++) {
+			_t += '<div data-handle="' + civitas.RELIGIONS[i] + '" data-id="' + i + '" class="religion' + (settlement.get_religion().id === i ? ' selected' : '') + '">' +
+				'<span>' + civitas.RELIGIONS[i].capitalize() + '</span>' +
+			'</div>';
+		}
+		_t += '</div>';
+		$('#panel-' + this.id + ' #tab-religion').empty().append(_t);
+	}
+};
+
+/**
  * Embassy panel data.
  *
  * @type {Object}
@@ -13568,6 +14136,11 @@ civitas.PANEL_EMBASSY = {
 				'<a class="tips btn close" title="' + civitas.l('Close this panel') + '"></a>' +
 			'</header>' +
 			'<div class="contents"></div>' +
+			'<footer class="footer">' +
+				'<a class="tips demolish btn" title="' + civitas.l('Demolish this building') + '"></a>' +
+				'<a class="tips pause start btn" title="' + civitas.l('Control (start/pause) production') + '"></a>' +
+				'<a class="tips upgrade btn" title="' + civitas.l('Upgrade building') + '"></a>' +
+			'</footer>' +
 		'</div>',
 	id: 'embassy',
 	on_show: function(params) {
@@ -13581,6 +14154,51 @@ civitas.PANEL_EMBASSY = {
 		var _t = civitas.ui.tabs([civitas.l('Info'), civitas.l('Espionage')]);
 		$(el + ' .contents').append(_t);
 		this.on_refresh();
+		if (!_c.is_upgradable()) {
+			$(el + ' .footer .upgrade').remove();
+		} else {
+			$(el).on('click', '.upgrade', function () {
+				if (confirm(civitas.l('Are you sure you want to upgrade this building?')) === true) {
+					if (_c.upgrade()) {
+						if (!_c.is_upgradable()) {
+							$(el + ' .footer .upgrade').remove();
+						}
+					}
+				}
+				return false;
+			});
+		}
+		if (_c.is_marketplace()) {
+			$(el + ' .footer .demolish').remove();
+		} else {
+			$(el).on('click', '.demolish', function () {
+				if (confirm(civitas.l('Are you sure you want to demolish this building?')) === true) {
+					if (_c.demolish()) {
+						self.destroy();
+						core.refresh();
+					}
+				}
+				return false;
+			});
+		}
+		if (_c.is_production_building()) {
+			if (_c.is_producing()) {
+				$(el + ' .pause').removeClass('start');
+			} else {
+				$(el + ' .start').removeClass('pause');
+			}
+			$(el).on('click', '.pause', function () {
+				_c.stop_production();
+				$(this).removeClass('pause').addClass('start');
+				return false;
+			}).on('click', '.start', function () {
+				$(this).removeClass('start').addClass('pause');
+				_c.start_production();
+				return false;
+			});
+		} else {
+			$(el + ' .start, ' + el + ' .pause').remove();
+		}
 	},
 	on_refresh: function() {
 		var settlement = this.get_core().get_settlement();
@@ -13617,6 +14235,11 @@ civitas.PANEL_ACADEMY = {
 				'<a class="tips btn close" title="' + civitas.l('Close this panel') + '"></a>' +
 			'</header>' +
 			'<div class="contents"></div>' +
+			'<footer class="footer">' +
+				'<a class="tips demolish btn" title="' + civitas.l('Demolish this building') + '"></a>' +
+				'<a class="tips pause start btn" title="' + civitas.l('Control (start/pause) production') + '"></a>' +
+				'<a class="tips upgrade btn" title="' + civitas.l('Upgrade building') + '"></a>' +
+			'</footer>' +
 		'</div>',
 	id: 'academy',
 	on_show: function(params) {
@@ -13630,6 +14253,51 @@ civitas.PANEL_ACADEMY = {
 		var _t = civitas.ui.tabs([civitas.l('Info'), civitas.l('Research')]);
 		$(el + ' .contents').append(_t);
 		this.on_refresh();
+		if (!_c.is_upgradable()) {
+			$(el + ' .footer .upgrade').remove();
+		} else {
+			$(el).on('click', '.upgrade', function () {
+				if (confirm(civitas.l('Are you sure you want to upgrade this building?')) === true) {
+					if (_c.upgrade()) {
+						if (!_c.is_upgradable()) {
+							$(el + ' .footer .upgrade').remove();
+						}
+					}
+				}
+				return false;
+			});
+		}
+		if (_c.is_marketplace()) {
+			$(el + ' .footer .demolish').remove();
+		} else {
+			$(el).on('click', '.demolish', function () {
+				if (confirm(civitas.l('Are you sure you want to demolish this building?')) === true) {
+					if (_c.demolish()) {
+						self.destroy();
+						core.refresh();
+					}
+				}
+				return false;
+			});
+		}
+		if (_c.is_production_building()) {
+			if (_c.is_producing()) {
+				$(el + ' .pause').removeClass('start');
+			} else {
+				$(el + ' .start').removeClass('pause');
+			}
+			$(el).on('click', '.pause', function () {
+				_c.stop_production();
+				$(this).removeClass('pause').addClass('start');
+				return false;
+			}).on('click', '.start', function () {
+				$(this).removeClass('start').addClass('pause');
+				_c.start_production();
+				return false;
+			});
+		} else {
+			$(el + ' .start, ' + el + ' .pause').remove();
+		}
 	},
 	on_refresh: function() {
 		var settlement = this.get_core().get_settlement();

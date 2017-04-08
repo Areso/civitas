@@ -5,6 +5,7 @@
  * @type {Array}
  */
 civitas.RELIGIONS = [
+	'none',
 	'christianity',
 	'islam',
 	'judaism',
@@ -13,6 +14,14 @@ civitas.RELIGIONS = [
 	'confucianism',
 	'taoism'
 ];
+
+/**
+ * No religion
+ * 
+ * @constant
+ * @type {Number}
+ */
+civitas.RELIGION_NONE = 0;
 
 /**
  * Christianity
@@ -47,12 +56,20 @@ civitas.RELIGION_JUDAISM = 3;
 civitas.RELIGION_BUDDHISM = 4;
 
 /**
+ * Hinduism
+ * 
+ * @constant
+ * @type {Number}
+ */
+civitas.RELIGION_HINDUISM = 5;
+
+/**
  * Confucianism
  * 
  * @constant
  * @type {Number}
  */
-civitas.RELIGION_CONFUCIANISM = 5;
+civitas.RELIGION_CONFUCIANISM = 6;
 
 /**
  * Taoism
@@ -60,4 +77,6 @@ civitas.RELIGION_CONFUCIANISM = 5;
  * @constant
  * @type {Number}
  */
-civitas.RELIGION_TAOISM = 6;
+civitas.RELIGION_TAOISM = 7;
+
+civitas.MAX_FAITH_VALUE = 1000;

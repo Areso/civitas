@@ -242,3 +242,7 @@ footer .do-help {
 .panel ul.advices li {
 	background: transparent url(../images/ui/check.png) no-repeat left top;
 }
+
+.religion-list .religion {
+	background: transparent url(../images/ui/religion.png) no-repeat center;
+}

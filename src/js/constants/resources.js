@@ -20,6 +20,9 @@ civitas.RESOURCES = {
 	'research': {
 		name: 'Research'
 	},
+	'faith': {
+		name: 'Faith'
+	},
 	'almonds': {
 		name: 'Almonds',
 		price: 200
@@ -319,7 +322,7 @@ civitas.RESOURCES = {
  * @type {Array}
  */
 civitas.NON_RESOURCES = [
-	'coins', 'fame', 'prestige', 'espionage', 'research'
+	'coins', 'fame', 'prestige', 'espionage', 'research', 'faith'
 ];
 
 /**
