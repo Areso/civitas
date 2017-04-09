@@ -163,8 +163,15 @@ civitas.ui = {
 			'class="tips slots building"></div>';
 	},
 
+	resource_storage_small_el: function (resource, amount) {
+		return '<div class="tips storage-item small" title="' + civitas.utils.get_resource_name(resource) + '">' +
+				'<img src="' + civitas.ASSETS_URL + 'images/resources/' + resource + '_small.png" />' +
+				'<span class="amount">' + amount + '</amount>' +
+				'</div>';
+	},
+
 	resource_storage_el: function (resource, amount) {
-		return '<div class="storage-item item-' + resource + '">' +
+		return '<div class="storage-item">' +
 				'<span class="title">' + civitas.utils.get_resource_name(resource) + '</span>' +
 				'<img src="' + civitas.ASSETS_URL + 'images/resources/' + resource + '.png" />' +
 				'<span class="amount">' + amount + '</amount>' +

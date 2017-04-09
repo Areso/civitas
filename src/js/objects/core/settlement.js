@@ -175,18 +175,13 @@ civitas.objects.settlement = function(params) {
 		this.name = params.name;
 		this.player = (typeof params.player !== 'undefined') ? params.player : false;
 		this.level = (typeof params.level !== 'undefined') ? params.level : 1;
-		this.resources = (typeof params.resources !== 'undefined') ? params.resources : this._build_resources(params);
+		this.resources = (typeof params.resources !== 'undefined') ? params.resources : {};
 		this.climate = (typeof params.climate !== 'undefined') ? params.climate : civitas.CLIMATE_TEMPERATE;
 		this.religion = (typeof params.religion !== 'undefined') ? params.religion : civitas.RELIGION_NONE;
 		this.ruler = params.ruler;
 		this.icon = (typeof params.icon !== 'undefined') ? params.icon : 1;
 		this.population = (typeof params.population !== 'undefined') ? params.population : this.level * civitas.POPULATION_PER_LEVEL;
 		this.settlement_type = (typeof params.settlement_type !== 'undefined') ? params.settlement_type : civitas.CITY;
-		if (typeof params.trades !== 'undefined') {
-			this.trades = params.trades;
-		} else {
-			this.reset_trades();
-		}
 		if (typeof params.army_list !== 'undefined') {
 			this.setup_army(params.army_list);
 		}
@@ -198,10 +193,16 @@ civitas.objects.settlement = function(params) {
 		} else {
 			this.mercenary = [];
 		}
+		this.status = (typeof params.status !== 'undefined') ? params.status : {};
+		this._build_resources();
+		if (typeof params.trades !== 'undefined') {
+			this.trades = params.trades;
+		} else {
+			this.reset_trades();
+		}
 		if (this.is_player() === false) {
 			this.resources.fame = civitas.LEVELS[this.get_level()];
 		}
-		this.status = (typeof params.status !== 'undefined') ? params.status : {};
 		return this;
 	};
 
@@ -240,28 +241,35 @@ civitas.objects.settlement = function(params) {
 	 * Adjust the resources according to the settlement owner.
 	 *
 	 * @private
-	 * @param {Object} params
 	 * @returns {Object}
 	 */
-	this._build_resources = function(params) {
-		var resources = {};
+	this._build_resources = function() {
 		var difficulty = this.get_core().get_difficulty();
-		for (var item in civitas.RESOURCES) {
-			if (this.is_player() === true) {
-				if (typeof civitas.START_RESOURCES[difficulty - 1][item] === 'undefined') {
-					resources[item] = 0;
-				} else {
-					resources[item] = civitas.START_RESOURCES[difficulty - 1][item];
+		var _resources = this.resources;
+		var _trades = {};
+		if (!this.is_player()) {
+			if (this.is_city() && typeof civitas.SETTLEMENTS[this.get_id()] !== 'undefined') {
+				_trades = civitas.SETTLEMENTS[this.get_id()].trades.exports;
+			}
+			for (var item in civitas.RESOURCES) {
+				if (typeof _resources[item] === 'undefined') {
+					if (typeof _trades[item] !== 'undefined') {
+						_resources[item] = civitas.utils.get_random_by_importance(_trades[item]);
+					} else {
+						_resources[item] = 0;
+					}
 				}
-			} else {
-				if (typeof params.resources[item] !== 'undefined') {
-					resources[item] = params.resources[item];
+			}
+		} else {
+			for (var item in civitas.RESOURCES) {
+				if (typeof civitas.START_RESOURCES[difficulty - 1][item] === 'undefined') {
+					_resources[item] = 0;
 				} else {
-					resources[item] = 0;
+					_resources[item] = civitas.START_RESOURCES[difficulty - 1][item];
 				}
 			}
 		}
-		return resources;
+		return _resources;
 	};
 
 	/**

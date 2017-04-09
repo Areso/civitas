@@ -59,6 +59,9 @@ civitas.objects.settlement.prototype.buy_from_settlement = function(settlement, 
 				if (this.dec_coins(price) === false) {
 					return false;
 				}
+				if (!_settlement.remove_resource(item, amount)) {
+					return false;
+				}
 				_settlement.inc_coins(settlement_price);
 				this.add_to_storage(item, amount);
 				this.remove_from_exports(_settlement, item, amount);
@@ -94,11 +97,20 @@ civitas.objects.settlement.prototype.reset_trades = function() {
 		'imports': {},
 		'exports': {}
 	};
+	var amount = 0;
 	if (typeof civitas.SETTLEMENTS[this.get_id()] !== 'undefined') {
 		var _trades = civitas.SETTLEMENTS[this.get_id()].trades;
 		for (var goods_type in _trades) {
 			for (var item in _trades[goods_type]) {
-				trades[goods_type][item] = civitas.utils.get_random_by_importance(_trades[goods_type][item]);
+				amount = civitas.utils.get_random_by_importance(_trades[goods_type][item])
+				if (goods_type === 'exports') {
+					if (this.resources[item] < 1000) {
+						this.resources[item] += amount;
+					} else {
+						this.resources[item] = Math.floor(this.resources[item] / 2);
+					}
+				}
+				trades[goods_type][item] = amount;
 			}
 		}
 		this.trades = trades;
@@ -193,6 +205,7 @@ civitas.objects.settlement.prototype.sell_to_settlement = function(settlement, r
 					this.get_core().error(settlement + ' does not have enough coins.');
 					return false;
 				}
+				_settlement.add_to_storage(item, amount);
 				this.remove_from_imports(_settlement, item, amount);
 				this.raise_influence(_settlement.get_id(), (is_double ? civitas.EXPORT_INFLUENCE * 2 : civitas.EXPORT_INFLUENCE));
 				this.raise_prestige(is_double ? civitas.EXPORT_PRESTIGE * 2 : civitas.EXPORT_PRESTIGE);

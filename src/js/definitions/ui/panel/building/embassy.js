@@ -23,11 +23,6 @@ civitas.PANEL_EMBASSY = {
 			var influence = core.get_settlement().get_influence_with_settlement(_settlement);
 			if (influence >= 50) {
 				core.error('Not implemented yet.');
-				/*
-				if (core.get_settlement().propose_pact(_settlement) === true) {
-					// TODO
-				}
-				*/
 			} else {
 				core.error(civitas.l('Your influence on') + ' ' + _settlement + ' ' + civitas.l('is too low to propose a pact.'));
 			}
@@ -39,11 +34,6 @@ civitas.PANEL_EMBASSY = {
 			}
 			var _settlement = parseInt($(this).data('id'));
 			core.error(civitas.l('Not implemented yet.'));
-			/*
-			if (core.get_settlement().assign_spy(_settlement) === true) {
-				// TODO
-			}
-			*/	
 			return false;
 		}).on('click', '.declare-war', function () {
 			if (!settlement.can_diplomacy()) {
@@ -53,12 +43,6 @@ civitas.PANEL_EMBASSY = {
 			var name = parseInt($(this).data('id'));
 			var _settlement = core.get_settlement(name);
 			core.error(civitas.l('Not implemented yet.'));
-			/*
-			core.open_panel(new civitas.controls.panel_declare_war({
-				core: core,
-				data: _settlement
-			}));
-			*/
 			return false;
 		}).on('click', '.send-goods', function () {
 			if (!settlement.can_diplomacy()) {
@@ -68,12 +52,6 @@ civitas.PANEL_EMBASSY = {
 			var name = parseInt($(this).data('id'));
 			var _settlement = core.get_settlement(name);
 			core.error(civitas.l('Not implemented yet.'));
-			/*
-			core.open_panel(new civitas.controls.panel_send_goods({
-				core: core,
-				data: _settlement
-			}));
-			*/
 			return false;
 		}).on('click', '.view-settlement', function () {
 			var name = parseInt($(this).data('id'));
@@ -107,11 +85,11 @@ civitas.PANEL_EMBASSY = {
 				civitas.ui.progress(status[settlements[i].get_id()].influence, 'big') +
 					'</td>' +
 					'<td class="large">' +
-					'<a data-id="' + settlements[i].get_id() + '" title="' + civitas.l('View info about this settlement.') + '" class="tips view-settlement" href="#">' + civitas.l('view') + '</a> ' +
-					'<a data-id="' + settlements[i].get_id() + '" title="' + civitas.l('Send a spy to this settlement.') + '" data-id="' + i + '" class="tips spy" href="#">' + civitas.l('spy') + '</a> ' +
-					'<a data-id="' + settlements[i].get_id() + '" title="' + civitas.l('Propose a pact to this settlement`s ruler.') + '" class="tips pact" href="#">' + civitas.l('pact') + '</a> ' +
-					'<a data-id="' + settlements[i].get_id() + '" title="' + civitas.l('Send goods to this settlement.') + '" data-id="' + i + '" class="tips send-goods" href="#">' + civitas.l('send') + '</a> ' +
-					'<a data-id="' + settlements[i].get_id() + '" title="' + civitas.l('Declare war to this settlement.') + '" data-id="' + i + '" class="tips declare-war" href="#">' + civitas.l('war') + '</a>' +
+						'<a data-id="' + settlements[i].get_id() + '" title="' + civitas.l('View info about this settlement.') + '" class="tips view-settlement" href="#">' + civitas.l('view') + '</a> ' +
+						'<a data-id="' + settlements[i].get_id() + '" title="' + civitas.l('Send a spy to this settlement.') + '" data-id="' + i + '" class="tips spy" href="#">' + civitas.l('spy') + '</a> ' +
+						'<a data-id="' + settlements[i].get_id() + '" title="' + civitas.l('Propose a pact to this settlement`s ruler.') + '" class="tips pact" href="#">' + civitas.l('pact') + '</a> ' +
+						'<a data-id="' + settlements[i].get_id() + '" title="' + civitas.l('Send goods to this settlement.') + '" data-id="' + i + '" class="tips send-goods" href="#">' + civitas.l('send') + '</a> ' +
+						'<a data-id="' + settlements[i].get_id() + '" title="' + civitas.l('Declare war to this settlement.') + '" data-id="' + i + '" class="tips declare-war" href="#">' + civitas.l('war') + '</a>' +
 					'</td>' +
 				'</tr>';
 		}

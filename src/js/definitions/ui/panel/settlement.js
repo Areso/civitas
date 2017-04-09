@@ -30,7 +30,7 @@ civitas.PANEL_SETTLEMENT = {
 		var location = civitas['SETTLEMENT_LOCATION_' + my_settlement.get_climate().name.toUpperCase()];
 		$(this.handle + ' header .title').html((settlement.is_city() ? 'City of ' : 'Village of ') + settlement.get_name());
 		if (settlement.is_city()) {
-			$(this.handle + ' .contents').append(civitas.ui.tabs([civitas.l('Info'), civitas.l('Army'), civitas.l('Navy'), civitas.l('Imports'), civitas.l('Exports')]));
+			$(this.handle + ' .contents').append(civitas.ui.tabs([civitas.l('Info'), civitas.l('Army'), civitas.l('Navy'), civitas.l('Resources'), civitas.l('Imports'), civitas.l('Exports')]));
 		} else {
 			$(this.handle + ' .contents').append(civitas.ui.tabs([civitas.l('Info'), civitas.l('Army'), civitas.l('Navy'), civitas.l('Resources')]));
 		}
@@ -113,17 +113,13 @@ civitas.PANEL_SETTLEMENT = {
 			$(this.handle + ' #tab-exports').empty().append('' +
 				'<p>' + civitas.l('Below are the goods this city will be selling this year.') + '</p>' +
 				civitas.ui.trades_list(trades, 'exports'));
-		} else {
-			var out = '<p>This village has the the following resources:</p>' +
-				'<dl>';
-			for (var item in settlement.get_resources()) {
-				if ($.inArray(item, civitas.NON_RESOURCES) === -1) {
-					out += '<dt>' + settlement.resources[item] + '</dt>' +
-						'<dd>' + civitas.ui.resource_small_img(item) + '</dd>';
-				}
-			}
-			out += '</dl>';
-			$(this.handle + ' #tab-resources').empty().append(out);
 		}
+		var out = '<p>This settlement has the the following resources:</p>';
+		for (var item in settlement.get_resources()) {
+			if ($.inArray(item, civitas.NON_RESOURCES) === -1 && settlement.resources[item] > 0) {
+				out += civitas.ui.resource_storage_small_el(item, settlement.resources[item]);
+			}
+		}
+		$(this.handle + ' #tab-resources').empty().append(out);
 	}
 };

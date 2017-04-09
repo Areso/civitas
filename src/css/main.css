@@ -61,6 +61,7 @@ ul, li {
 	height: 0;
 }
 
+.ui-tabs-panel:after,
 .ui-helper-clearfix:before,
 .ui-helper-clearfix:after {
 	content: "";
@@ -68,6 +69,7 @@ ul, li {
 	border-collapse: collapse;
 }
 
+.ui-tabs-panel:after,
 .ui-helper-clearfix:after {
 	clear: both;
 }
@@ -609,6 +611,11 @@ table.mercenaries td:nth-child(3) {
 	box-shadow: inset 0 0 3px 0 rgba(20, 20, 20, 0.75);
 }
 
+.panel .storage-item.small {
+	width: 46px;
+	height: 50px;
+}
+
 .panel .storage-item .title {
 	width: 100%;
 	display: inline-block;
@@ -622,15 +629,23 @@ table.mercenaries td:nth-child(3) {
 	right: 4px;
 }
 
+.panel .storage-item.small img {
+	margin: 10px auto 0 auto;
+}
+
 .panel .storage-item img {
 	opacity: 0.9;
+}
+
+.panel .storage-item.small span.amount {
+	font-size: 11px;
 }
 
 /* City info panel */
 
 #panel-settlement {
-	width: 360px;
-	max-width: 360px;
+	width: 470px;
+	max-width: 470px;
 	max-height: 600px;
 	height: auto;
 }
@@ -1233,7 +1248,7 @@ td.icon {
 }
 
 .progress.small {
-	width: 170px;
+	width: 200px;
 }
 
 .progress.big {
