@@ -47,7 +47,7 @@ civitas.objects.settlement.prototype.set_fame = function(value) {
 	var needed = civitas.LEVELS[this.get_level()];
 	if (this.resources.fame >= civitas.LEVELS[civitas.MAX_SETTLEMENT_LEVEL - 1]) {
 		this.resources.fame = civitas.LEVELS[civitas.MAX_SETTLEMENT_LEVEL - 1];
-	} else if (this.resources.fame < 1) {
+	} else if (value < 1 || this.resources.fame < 1) {
 		this.resources.fame = 1;
 	} else {
 		this.resources.fame = value;

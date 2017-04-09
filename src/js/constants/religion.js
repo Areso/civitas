@@ -79,4 +79,10 @@ civitas.RELIGION_CONFUCIANISM = 6;
  */
 civitas.RELIGION_TAOISM = 7;
 
+/**
+ * The maximum value settlement faith can have.
+ *
+ * @constant
+ * @type {Number}
+ */
 civitas.MAX_FAITH_VALUE = 1000;

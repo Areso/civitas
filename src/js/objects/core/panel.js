@@ -127,7 +127,7 @@ civitas.controls.panel = function (params) {
 			$('.ui').append(params.template);
 		}
 		this.on_show.call(this, params);
-		if (typeof params.data !== 'undefined' && typeof params.data.settlement_type === 'undefined') {
+		if (params.id !== 'army' && typeof params.data !== 'undefined' && typeof params.data.settlement_type === 'undefined') {
 			var building = this.get_core().get_settlement().get_building_by_handle(params.data.handle);
 			if (!building.is_upgradable()) {
 				$(this.handle + ' .footer .upgrade').remove();

@@ -57,7 +57,7 @@ civitas.objects.settlement.prototype.reset_espionage = function() {
 civitas.objects.settlement.prototype.set_espionage = function(value) {
 	if (this.resources.espionage >= civitas.MAX_ESPIONAGE_VALUE) {
 		this.resources.espionage = civitas.MAX_ESPIONAGE_VALUE;
-	} else if (this.resources.espionage < 1) {
+	} else if (value < 1 || this.resources.espionage < 1) {
 		this.resources.espionage = 1;
 	} else {
 		this.resources.espionage = value;

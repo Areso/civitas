@@ -104,11 +104,12 @@ civitas.objects.settlement.prototype.reset_trades = function() {
 			for (var item in _trades[goods_type]) {
 				amount = civitas.utils.get_random_by_importance(_trades[goods_type][item])
 				if (goods_type === 'exports') {
-					if (this.resources[item] < 1000) {
+					if (this.resources[item] < amount) {
 						this.resources[item] += amount;
-					} else {
-						this.resources[item] = Math.floor(this.resources[item] / 2);
 					}
+					/* else {
+						this.resources[item] = Math.floor(this.resources[item] / 2);
+					}*/
 				}
 				trades[goods_type][item] = amount;
 			}

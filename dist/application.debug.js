@@ -92,6 +92,12 @@ civitas.YEARLY_INFLUENCE_LOSS = 2;
  */
 civitas.YEARLY_INFLUENCE_GAIN = 2;
 
+/**
+ * How many real seconds has a game day.
+ *
+ * constant
+ * @type {Number}
+ */
 civitas.SECONDS_TO_DAY = 10;
 
 /**
@@ -106,6 +112,12 @@ civitas.TRADES_ADDITION = 10;
 
 civitas.TRADES_DISCOUNT = 20;
 
+/**
+ * Getting total city population is city_level * civitas.POPULATION_PER_LEVEL.
+ *
+ * @constant
+ * @type {Number}
+ */
 civitas.POPULATION_PER_LEVEL = 230000;
 
 /**
@@ -519,6 +531,12 @@ civitas.RELIGION_CONFUCIANISM = 6;
  */
 civitas.RELIGION_TAOISM = 7;
 
+/**
+ * The maximum value settlement faith can have.
+ *
+ * @constant
+ * @type {Number}
+ */
 civitas.MAX_FAITH_VALUE = 1000;
 
 /**
@@ -650,12 +668,36 @@ civitas.EXPORT_PRESTIGE = 2;
  */
 civitas.IMPORT_PRESTIGE = 1;
 
+/**
+ * The maximum value settlement prestige can have.
+ *
+ * @constant
+ * @type {Number}
+ */
 civitas.MAX_PRESTIGE_VALUE = 1000;
 
+/**
+ * The maximum value settlement research can have.
+ *
+ * @constant
+ * @type {Number}
+ */
 civitas.MAX_RESEARCH_VALUE = 1000;
 
+/**
+ * The maximum value settlement espionage can have.
+ *
+ * @constant
+ * @type {Number}
+ */
 civitas.MAX_ESPIONAGE_VALUE = 1000;
 
+/**
+ * The maximum value settlement influence can have.
+ *
+ * @constant
+ * @type {Number}
+ */
 civitas.MAX_INFLUENCE_VALUE = 1000;
 
 /**
@@ -1171,7 +1213,8 @@ civitas.MERCENARIES = [{
 		'Axeman': 300,
 		'Knight': 100,
 		'Crossbowman': 220,
-		'Pikeman': 300
+		'Pikeman': 200,
+		'Legionnaire': 100
 	},
 	cost: 120000
 }, {
@@ -1183,7 +1226,8 @@ civitas.MERCENARIES = [{
 		'Axeman': 220,
 		'Knight': 100,
 		'Crossbowman': 300,
-		'Pikeman': 140
+		'Pikeman': 100,
+		'Legionnaire': 100
 	},
 	cost: 130000
 }, {
@@ -1194,7 +1238,8 @@ civitas.MERCENARIES = [{
 	army: {
 		'Axeman': 280,
 		'Crossbowman': 500,
-		'Pikeman': 180
+		'Pikeman': 180,
+		'Legionnaire': 100
 	},
 	cost: 100000
 }, {
@@ -1206,9 +1251,10 @@ civitas.MERCENARIES = [{
 		'Militia': 140,
 		'Axeman': 190,
 		'Knight': 90,
-		'Bowman': 120,
-		'Crossbowman': 200,
-		'Pikeman': 180
+		'Bowman': 20,
+		'Crossbowman': 100,
+		'Pikeman': 180,
+		'Legionnaire': 100
 	},
 	cost: 190000
 }, {
@@ -1217,9 +1263,10 @@ civitas.MERCENARIES = [{
 	handle: 'legio5',
 	icon: 16,
 	army: {
-		'Militia': 400,
+		'Militia': 100,
 		'Axeman': 200,
-		'Bowman': 190
+		'Bowman': 190,
+		'Legionnaire': 130
 	},
 	cost: 110000
 }, {
@@ -1231,7 +1278,8 @@ civitas.MERCENARIES = [{
 		'Militia': 330,
 		'Axeman': 230,
 		'Knight': 100,
-		'Bowman': 200
+		'Bowman': 100,
+		'Legionnaire': 100
 	},
 	cost: 140000
 }, {
@@ -7718,7 +7766,7 @@ civitas.objects.settlement.prototype.reset_research = function() {
 civitas.objects.settlement.prototype.set_research = function(value) {
 	if (this.resources.research >= civitas.MAX_RESEARCH_VALUE) {
 		this.resources.research = civitas.MAX_RESEARCH_VALUE;
-	} else if (this.resources.research < 1) {
+	} else if (value < 1 || this.resources.research < 1) {
 		this.resources.research = 1;
 	} else {
 		this.resources.research = value;
@@ -7776,7 +7824,7 @@ civitas.objects.settlement.prototype.set_fame = function(value) {
 	var needed = civitas.LEVELS[this.get_level()];
 	if (this.resources.fame >= civitas.LEVELS[civitas.MAX_SETTLEMENT_LEVEL - 1]) {
 		this.resources.fame = civitas.LEVELS[civitas.MAX_SETTLEMENT_LEVEL - 1];
-	} else if (this.resources.fame < 1) {
+	} else if (value < 1 || this.resources.fame < 1) {
 		this.resources.fame = 1;
 	} else {
 		this.resources.fame = value;
@@ -7928,7 +7976,7 @@ civitas.objects.settlement.prototype.reset_faith = function() {
 civitas.objects.settlement.prototype.set_faith = function(value) {
 	if (this.resources.faith >= civitas.MAX_FAITH_VALUE) {
 		this.resources.faith = civitas.MAX_FAITH_VALUE;
-	} else if (this.resources.faith < 1) {
+	} else if (value < 1 || this.resources.faith < 1) {
 		this.resources.faith = 1;
 	} else {
 		this.resources.faith = value;
@@ -7995,7 +8043,7 @@ civitas.objects.settlement.prototype.reset_espionage = function() {
 civitas.objects.settlement.prototype.set_espionage = function(value) {
 	if (this.resources.espionage >= civitas.MAX_ESPIONAGE_VALUE) {
 		this.resources.espionage = civitas.MAX_ESPIONAGE_VALUE;
-	} else if (this.resources.espionage < 1) {
+	} else if (value < 1 || this.resources.espionage < 1) {
 		this.resources.espionage = 1;
 	} else {
 		this.resources.espionage = value;
@@ -8063,7 +8111,7 @@ civitas.objects.settlement.prototype.reset_prestige = function() {
 civitas.objects.settlement.prototype.set_prestige = function(value) {
 	if (this.resources.prestige >= civitas.MAX_PRESTIGE_VALUE) {
 		this.resources.prestige = civitas.MAX_PRESTIGE_VALUE;
-	} else if (this.resources.prestige < 1) {
+	} else if (value < 1 || this.resources.prestige < 1) {
 		this.resources.prestige = 1;
 	} else {
 		this.resources.prestige = value;
@@ -8666,7 +8714,7 @@ civitas.objects.settlement.prototype.set_influence = function(settlement, value)
 	}
 	if (this.status[settlement].influence >= civitas.MAX_INFLUENCE_VALUE) {
 		this.status[settlement].influence = civitas.MAX_INFLUENCE_VALUE;
-	} else if (this.status[settlement].influence < 1) {
+	} else if (value < 1 || this.status[settlement].influence < 1) {
 		this.status[settlement].influence = 1;
 	} else {
 		this.status[settlement].influence = value;
@@ -8848,11 +8896,12 @@ civitas.objects.settlement.prototype.reset_trades = function() {
 			for (var item in _trades[goods_type]) {
 				amount = civitas.utils.get_random_by_importance(_trades[goods_type][item])
 				if (goods_type === 'exports') {
-					if (this.resources[item] < 1000) {
+					if (this.resources[item] < amount) {
 						this.resources[item] += amount;
-					} else {
-						this.resources[item] = Math.floor(this.resources[item] / 2);
 					}
+					/* else {
+						this.resources[item] = Math.floor(this.resources[item] / 2);
+					}*/
 				}
 				trades[goods_type][item] = amount;
 			}
@@ -10594,7 +10643,7 @@ civitas.controls.panel = function (params) {
 			$('.ui').append(params.template);
 		}
 		this.on_show.call(this, params);
-		if (typeof params.data !== 'undefined' && typeof params.data.settlement_type === 'undefined') {
+		if (params.id !== 'army' && typeof params.data !== 'undefined' && typeof params.data.settlement_type === 'undefined') {
 			var building = this.get_core().get_settlement().get_building_by_handle(params.data.handle);
 			if (!building.is_upgradable()) {
 				$(this.handle + ' .footer .upgrade').remove();

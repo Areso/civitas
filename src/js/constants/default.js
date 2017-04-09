@@ -71,6 +71,12 @@ civitas.YEARLY_INFLUENCE_LOSS = 2;
  */
 civitas.YEARLY_INFLUENCE_GAIN = 2;
 
+/**
+ * How many real seconds has a game day.
+ *
+ * constant
+ * @type {Number}
+ */
 civitas.SECONDS_TO_DAY = 10;
 
 /**
@@ -85,6 +91,12 @@ civitas.TRADES_ADDITION = 10;
 
 civitas.TRADES_DISCOUNT = 20;
 
+/**
+ * Getting total city population is city_level * civitas.POPULATION_PER_LEVEL.
+ *
+ * @constant
+ * @type {Number}
+ */
 civitas.POPULATION_PER_LEVEL = 230000;
 
 /**

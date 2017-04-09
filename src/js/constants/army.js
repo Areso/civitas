@@ -163,7 +163,8 @@ civitas.MERCENARIES = [{
 		'Axeman': 300,
 		'Knight': 100,
 		'Crossbowman': 220,
-		'Pikeman': 300
+		'Pikeman': 200,
+		'Legionnaire': 100
 	},
 	cost: 120000
 }, {
@@ -175,7 +176,8 @@ civitas.MERCENARIES = [{
 		'Axeman': 220,
 		'Knight': 100,
 		'Crossbowman': 300,
-		'Pikeman': 140
+		'Pikeman': 100,
+		'Legionnaire': 100
 	},
 	cost: 130000
 }, {
@@ -186,7 +188,8 @@ civitas.MERCENARIES = [{
 	army: {
 		'Axeman': 280,
 		'Crossbowman': 500,
-		'Pikeman': 180
+		'Pikeman': 180,
+		'Legionnaire': 100
 	},
 	cost: 100000
 }, {
@@ -198,9 +201,10 @@ civitas.MERCENARIES = [{
 		'Militia': 140,
 		'Axeman': 190,
 		'Knight': 90,
-		'Bowman': 120,
-		'Crossbowman': 200,
-		'Pikeman': 180
+		'Bowman': 20,
+		'Crossbowman': 100,
+		'Pikeman': 180,
+		'Legionnaire': 100
 	},
 	cost: 190000
 }, {
@@ -209,9 +213,10 @@ civitas.MERCENARIES = [{
 	handle: 'legio5',
 	icon: 16,
 	army: {
-		'Militia': 400,
+		'Militia': 100,
 		'Axeman': 200,
-		'Bowman': 190
+		'Bowman': 190,
+		'Legionnaire': 130
 	},
 	cost: 110000
 }, {
@@ -223,7 +228,8 @@ civitas.MERCENARIES = [{
 		'Militia': 330,
 		'Axeman': 230,
 		'Knight': 100,
-		'Bowman': 200
+		'Bowman': 100,
+		'Legionnaire': 100
 	},
 	cost: 140000
 }, {

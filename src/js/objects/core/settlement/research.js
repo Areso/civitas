@@ -67,7 +67,7 @@ civitas.objects.settlement.prototype.reset_research = function() {
 civitas.objects.settlement.prototype.set_research = function(value) {
 	if (this.resources.research >= civitas.MAX_RESEARCH_VALUE) {
 		this.resources.research = civitas.MAX_RESEARCH_VALUE;
-	} else if (this.resources.research < 1) {
+	} else if (value < 1 || this.resources.research < 1) {
 		this.resources.research = 1;
 	} else {
 		this.resources.research = value;

@@ -97,7 +97,7 @@ civitas.objects.settlement.prototype.set_influence = function(settlement, value)
 	}
 	if (this.status[settlement].influence >= civitas.MAX_INFLUENCE_VALUE) {
 		this.status[settlement].influence = civitas.MAX_INFLUENCE_VALUE;
-	} else if (this.status[settlement].influence < 1) {
+	} else if (value < 1 || this.status[settlement].influence < 1) {
 		this.status[settlement].influence = 1;
 	} else {
 		this.status[settlement].influence = value;

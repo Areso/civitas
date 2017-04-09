@@ -127,10 +127,34 @@ civitas.EXPORT_PRESTIGE = 2;
  */
 civitas.IMPORT_PRESTIGE = 1;
 
+/**
+ * The maximum value settlement prestige can have.
+ *
+ * @constant
+ * @type {Number}
+ */
 civitas.MAX_PRESTIGE_VALUE = 1000;
 
+/**
+ * The maximum value settlement research can have.
+ *
+ * @constant
+ * @type {Number}
+ */
 civitas.MAX_RESEARCH_VALUE = 1000;
 
+/**
+ * The maximum value settlement espionage can have.
+ *
+ * @constant
+ * @type {Number}
+ */
 civitas.MAX_ESPIONAGE_VALUE = 1000;
 
+/**
+ * The maximum value settlement influence can have.
+ *
+ * @constant
+ * @type {Number}
+ */
 civitas.MAX_INFLUENCE_VALUE = 1000;
