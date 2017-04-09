@@ -542,7 +542,6 @@ civitas.BUILDINGS = [{
 		handle: 'camp',
 		description: 'The military camp is your main base of defense and attack until you can ' +
 			'develop a Castle.',
-		levels: 3,
 		position: {
 			x: 1461,
 			y: 153
@@ -583,7 +582,8 @@ civitas.BUILDINGS = [{
 			stones: 500
 		},
 		requires: {
-			settlement_level: 20
+			settlement_level: 20,
+			buildings: ['camp']
 		}
 	}, {
 		name: 'Lumberjack',

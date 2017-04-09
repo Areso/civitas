@@ -60,7 +60,7 @@ Always sign your commits and make sure you read the [coding style](CODING-STYLE.
 Source code
 ===========
 
-Civitas has ~12137 lines of code and ~150Kb minified, give or take and can be [downloaded from GitHub.com](https://github.com/sizeofcat/civitas/archive/master.zip) or by using git to clone the repository:
+Civitas has ~18000 lines of code and ~200Kb minified, give or take and can be [downloaded from GitHub.com](https://github.com/sizeofcat/civitas/archive/master.zip) or by using git to clone the repository:
 
 `git clone git@github.com/sizeofcat/civitas.git`
 

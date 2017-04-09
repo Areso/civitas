@@ -3,6 +3,36 @@
  */
 civitas.ui = {
 
+	building_panel_template: function(id, title) {
+		var out = '<div id="panel-' + id + '" class="panel">' +
+			'<header>' +
+				'<span class="title">' + title + '</span>' +
+				'<a class="tips btn close" title="' + civitas.l('Close this panel') + '"></a>' +
+			'</header>' +
+			'<div class="contents"></div>' +
+			'<footer class="footer clearfix">' +
+				'<a class="tips demolish btn" title="' + civitas.l('Demolish this building') + '"></a>' +
+				'<a class="tips pause start btn" title="' + civitas.l('Control (start/pause) production') + '"></a>' +
+				'<a class="tips upgrade btn" title="' + civitas.l('Upgrade building') + '"></a>' +
+			'</footer>' +
+		'</div>';
+		return out;
+	},
+
+	building_panel: function (params, level) {
+		var out = '<p>' + params.description + '</p>' +
+			'<dl>' +
+				civitas.ui.cost_panel(params.cost) +
+				civitas.ui.materials_panel(params.materials) +
+				civitas.ui.production_panel(params.production, level) +
+				civitas.ui.requires_panel(params.requires) +
+				civitas.ui.chance_panel(params.chance, level) +
+				civitas.ui.tax_panel(params.tax, level) +
+				civitas.ui.storage_panel(params.storage, level) +
+			'</dl>';
+		return out;
+	},
+
 	normal_panel: function (section, contents) {
 		var out = '<fieldset>' +
 				'<legend>' + section + '</legend>' +

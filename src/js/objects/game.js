@@ -734,9 +734,7 @@ civitas.game = function () {
 			this.day = 1;
 			this.month = 1;
 		}
-		this.check_achievements();
-		this.save();
-		this.refresh();
+		this.save_and_refresh();
 		return this;
 	};
 
@@ -768,6 +766,7 @@ civitas.game = function () {
 	 * @returns {civitas.game}
 	 */
 	this.save_and_refresh = function() {
+		this.check_achievements();
 		this.save();
 		this.refresh();
 		return this;
