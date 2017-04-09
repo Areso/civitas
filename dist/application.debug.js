@@ -2,7 +2,7 @@
  * Civitas empire-building game.
  *
  * @author sizeof(cat) <sizeofcat AT riseup.net>
- * @version 0.1.0.482017
+ * @version 0.1.0.492017
  * @license MIT
  */ 'use strict';
 
@@ -865,6 +865,18 @@ civitas.NATION_JAPANESE = 21;
  * @type {Number}
  */
 civitas.NATION_FRENCH = 22;
+
+/**
+ * List of all the heroes in the world.
+ *
+ * @type {Object}
+ */
+civitas.HEROES = {
+	1: {
+		name: 'Achilles',
+		religion: civitas.RELIGION_TAOISM
+	}
+};
 
 /**
  * List of the possible climate types.
@@ -5629,20 +5641,20 @@ civitas.ACHIEVEMENTS = [
 		]
 	}, {
 		id: 7,
-		description: 'Gather 10k coins.',
-		name: 'Coinage',
+		description: 'Gather 100M coins.',
+		name: 'Rottschild',
 		conditions: [
 			{
-				coins: 10000
+				coins: 100000000
 			}
 		]
 	}, {
 		id: 8,
-		description: 'Gather 50k coins.',
-		name: 'Give me coins',
+		description: 'Gather 500k coins.',
+		name: 'Ba dum tss',
 		conditions: [
 			{
-				coins: 50000
+				coins: 500000
 			}
 		]
 	}, {
@@ -5713,17 +5725,17 @@ civitas.ACHIEVEMENTS = [
 		]
 	}, {
 		id: 15,
-		description: 'Recruit 10 soldiers.',
-		name: 'Armed',
+		description: 'Recruit 500 soldiers.',
+		name: 'Warfiend',
 		conditions: [
 			{
-				soldiers: 10
+				soldiers: 500
 			}
 		]
 	}, {
 		id: 16,
 		description: 'Recruit 100 soldiers.',
-		name: 'Recruiter',
+		name: 'Armed to the teeth',
 		conditions: [
 			{
 				soldiers: 100
@@ -5732,7 +5744,7 @@ civitas.ACHIEVEMENTS = [
 	}, {
 		id: 17,
 		description: 'Recruit 1000 soldiers.',
-		name: 'Armed to the teeth',
+		name: 'Warlord',
 		conditions: [
 			{
 				soldiers: 1000
@@ -7567,6 +7579,25 @@ civitas.objects.settlement = function(params) {
 		if (this.is_building_built('tavern')) {
 			// TODO
 		}
+	};
+
+	/**
+	 * Check if the player settlement's nationality and the one passed as parameter nationality are the same.
+	 *
+	 * @param {String|civitas.objects.settlement|Number} settlement
+	 * @returns {Boolean}
+	 * @public
+	 */
+	this.has_same_nationality = function(settlement) {
+		if (typeof settlement === 'object' && this.get_nationality().id === settlement.get_nationality().id) {
+			return true;
+		} else if (typeof settlement === 'number' || typeof settlement === 'string') {
+			settlement = this.get_core().get_settlement(settlement);
+			if (this.get_nationality().id === settlement.get_nationality().id) {
+				return true;
+			}
+		}
+		return false;
 	};
 
 	// Fire up the constructor
@@ -12450,7 +12481,7 @@ civitas.PANEL_SETTLEMENT = {
 				'<a class="tips btn close" title="' + civitas.l('Close this panel') + '"></a>' +
 			'</header>' +
 			'<div class="contents"></div>' +
-			'<footer class="footer">' +
+			'<footer class="footer clearfix">' +
 					'<a class="tips attack btn" title="' + civitas.l('Attack this settlement') + '"></a>' +
 					'<a class="tips caravan btn" title="' + civitas.l('Send a caravan to this settlement') + '"></a>' +
 					'<a class="tips help btn" data-context="settlement" data-term="general" title="' + civitas.l('Info about this settlement') + '"></a>' +
@@ -12664,7 +12695,7 @@ civitas.PANEL_BUILDING = {
 				'<a class="tips close btn" title="' + civitas.l('Close this panel') + '"></a>' +
 			'</header>' +
 			'<div class="contents"></div>' +
-			'<footer class="footer">' +
+			'<footer class="footer clearfix">' +
 				'<a class="tips demolish btn" title="' + civitas.l('Demolish this building') + '"></a>' +
 				'<a class="tips pause start btn" title="' + civitas.l('Control (start/pause) production') + '"></a>' +
 				'<a class="tips upgrade btn" title="' + civitas.l('Upgrade building') + '"></a>' +
@@ -13041,16 +13072,16 @@ civitas.PANEL_COUNCIL = {
 			'<div class="tabs">' +
 				'<ul>' +
 					'<li><a href="#tab-info">' + civitas.l('Info') + '</a></li>' +
+					'<li><a href="#tab-tips">' + civitas.l('Tips') + '</a></li>' +
 					'<li><a href="#tab-production">' + civitas.l('Production') + '</a></li>' +
 					'<li><a href="#tab-housing">' + civitas.l('Housing') + '</a></li>' +
 					'<li><a href="#tab-municipal">' + civitas.l('Municipal') + '</a></li>' +
-					'<li><a href="#tab-army">' + civitas.l('Army') + '</a></li>' +
-					'<li><a href="#tab-navy">' + civitas.l('Navy') + '</a></li>' +
 					'<li><a href="#tab-mercenary">' + civitas.l('Mercenaries') + '</a></li>' +
-					'<li><a href="#tab-diplomacy">' + civitas.l('Diplomacy') + '</a></li>' +
 					'<li><a href="#tab-achievements">' + civitas.l('Achievements') + '</a></li>' +
 				'</ul>' +
 				'<div id="tab-info">' +
+				'</div>' +
+				'<div id="tab-tips">' +
 				'</div>' +
 				'<div id="tab-production">' +
 				'</div>' +
@@ -13058,109 +13089,14 @@ civitas.PANEL_COUNCIL = {
 				'</div>' +
 				'<div id="tab-municipal">' +
 				'</div>' +
-				'<div id="tab-army">' +
-				'</div>' +
-				'<div id="tab-navy">' +
-				'</div>' +
 				'<div id="tab-mercenary">' +
-				'</div>' +
-				'<div id="tab-diplomacy">' +
 				'</div>' +
 				'<div id="tab-achievements">' +
 					'<div class="achievements-list"></div>' +
 				'</div>' +
 			'</div>');
 		this.on_refresh();
-		$(el).on('click', '.pact', function () {
-			if (!settlement.can_diplomacy()) {
-				core.error(civitas.l('You will need to construct an Embassy before being able to propose treaties and pacts to other settlements.'));
-				return false;
-			}
-			var _settlement = $(this).data('name');
-			var influence = core.get_settlement().get_influence_with_settlement(_settlement);
-			if (influence >= 50) {
-				core.error('Not implemented yet.');
-				/*
-				if (core.get_settlement().propose_pact(_settlement) === true) {
-					// TODO
-				}
-				*/
-			} else {
-				core.error(civitas.l('Your influence on') + ' ' + _settlement + ' ' + civitas.l('is too low to propose a pact.'));
-			}
-			return false;
-		}).on('click', '.spy', function () {
-			if (!settlement.can_diplomacy()) {
-				core.error(civitas.l('You will need to construct an Embassy before being able to assign spies to other settlements.'));
-				return false;
-			}
-			var _settlement = $(this).data('name');
-			core.error(civitas.l('Not implemented yet.'));
-			/*
-			if (core.get_settlement().assign_spy(_settlement) === true) {
-				// TODO
-			}
-			*/	
-			return false;
-		}).on('click', '.recruit-ship', function () {
-			if (!settlement.can_build_ships()) {
-				core.error(civitas.l('You will need to construct a Shipyard before being able to construct ships in your city.'));
-				return false;
-			}
-			var ship = $(this).data('handle');
-			core.error(civitas.l('Not implemented yet.'));
-			/*
-			if (core.get_settlement().recruit_ship(ship) === true) {
-				self._refresh_navy();
-			}
-			*/
-			return false;
-		}).on('click', '.declare-war', function () {
-			if (!settlement.can_diplomacy()) {
-				core.error(civitas.l('You will need to construct an Embassy before being able to declare war to other settlements.'));
-				return false;
-			}
-			var name = $(this).data('name');
-			var _settlement = core.get_settlement(name);
-			core.error(civitas.l('Not implemented yet.'));
-			/*
-			core.open_panel(new civitas.controls.panel_declare_war({
-				core: core,
-				data: _settlement
-			}));
-			*/
-			return false;
-		}).on('click', '.send-goods', function () {
-			if (!settlement.can_diplomacy()) {
-				core.error(civitas.l('You will need to construct an Embassy before being able to send goods to other settlements.'));
-				return false;
-			}
-			var name = $(this).data('name');
-			var _settlement = core.get_settlement(name);
-			core.error(civitas.l('Not implemented yet.'));
-			/*
-			core.open_panel(new civitas.controls.panel_send_goods({
-				core: core,
-				data: _settlement
-			}));
-			*/
-			return false;
-		}).on('click', '.view-settlement', function () {
-			var name = $(this).data('name');
-			var _settlement = core.get_settlement(name);
-			core.open_panel(civitas.PANEL_SETTLEMENT, _settlement);
-			return false;
-		}).on('click', '.recruit-soldier', function () {
-			if (!settlement.can_recruit_soldiers()) {
-				core.error(civitas.l('You will need to construct a Military Camp or Castle before recruiting soldiers in your city.'));
-				return false;
-			}
-			var soldier = $(this).data('handle');
-			if (core.get_settlement().recruit_soldier(soldier)) {
-				self._refresh_army();
-			}	
-			return false;
-		}).on('click', '.view-merc', function () {
+		$(el).on('click', '.view-merc', function () {
 			var _army = parseInt($(this).data('id'));
 			var data = civitas.MERCENARIES[_army];
 			core.open_panel(civitas.PANEL_ARMY, data);
@@ -13217,59 +13153,33 @@ civitas.PANEL_COUNCIL = {
 		}
 		_t += '</div>';
 		$('#panel-' + this.id + ' #tab-mercenary').empty().append(_t);
-
-		var status = settlement.get_status();
 		_t = '';
-		if (!settlement.can_diplomacy()) {
-			_t += '<p>' + civitas.l('You will need to construct an Embassy before being able to propose treaties and pacts to other cities.') + '</p>';
-		}
-		_t += '<div class="settlements-list">' +
-				'<table class="normal">';
-		for (var i = 1; i < settlements.length; i++) {
-			_t += '<tr>' +
-					'<td class="icon"><img src="' + civitas.ASSETS_URL + 'images/avatars/avatar' + settlements[i].get_ruler_avatar() + '.png" /></td>' +
-					'<td>' +
-					'<p>' +
-						'<span class="title">' + (settlements[i].is_city() ? 'City of' : 'Village of') + ' ' + settlements[i].get_name() + '</span> ' +
-						'<span class="description">' + civitas.l('Leader') + ': ' + settlements[i].get_ruler_name() + '</span>' +
-					'</p>' +
-				civitas.ui.progress(status[settlements[i].get_id()].influence, 'big') +
-					'</td>' +
-					'<td class="large">' +
-					'<a data-name="' + settlements[i].get_name() + '" title="' + civitas.l('View info about this settlement.') + '" class="tips view-settlement" href="#">' + civitas.l('view') + '</a> ' +
-					'<a data-name="' + settlements[i].get_name() + '" title="' + civitas.l('Send a spy to this settlement.') + '" data-id="' + i + '" class="tips spy" href="#">' + civitas.l('spy') + '</a> ' +
-					'<a data-name="' + settlements[i].get_name() + '" title="' + civitas.l('Propose a pact to this settlement`s ruler.') + '" class="tips pact" href="#">' + civitas.l('pact') + '</a> ' +
-					'<a data-name="' + settlements[i].get_name() + '" title="' + civitas.l('Send goods to this settlement.') + '" data-id="' + i + '" class="tips send-goods" href="#">' + civitas.l('send') + '</a> ' +
-					'<a data-name="' + settlements[i].get_name() + '" title="' + civitas.l('Declare war to this settlement.') + '" data-id="' + i + '" class="tips declare-war" href="#">' + civitas.l('war') + '</a>' +
-					'</td>' +
-				'</tr>';
-		}
-		_t += '</table>' +
-				'</div>';
-		$('#panel-' + this.id + ' #tab-diplomacy').empty().append(_t);
-		_t = '';
-		for (var i = 0; i < achievements.length; i++) {
-			var achievement_data = core.get_achievement_by_id(achievements[i].id);
-			if (achievement_data !== false) {
-				_t += '<div class="achievement">' +
-					'<div class="left">' +
-						'<div class="ach img"></div>' +
-					'</div>' +
-					'<div class="right">' +
-						'<div class="inner">' +
-							'<h2>' + achievement_data.name + '</h2>' +
-							achievement_data.description +
+		if (achievements.length > 0) {
+			for (var i = 0; i < achievements.length; i++) {
+				var achievement_data = core.get_achievement_by_id(achievements[i].id);
+				if (achievement_data !== false) {
+					_t += '<div class="achievement">' +
+						'<div class="left">' +
+							'<div class="ach img"></div>' +
 						'</div>' +
-						'<div class="time" title="' + achievements[i].date + '">' +
-							'<strong>' + civitas.utils.time_since(achievements[i].date) + '</strong> ago' +
+						'<div class="right">' +
+							'<div class="inner">' +
+								'<h2>' + achievement_data.name + '</h2>' +
+								achievement_data.description +
+							'</div>' +
+							'<div class="time" title="' + achievements[i].date + '">' +
+								'<strong>' + civitas.utils.time_since(achievements[i].date) + '</strong> ago' +
+							'</div>' +
 						'</div>' +
-					'</div>' +
-				'</div>';
+					'</div>';
+				}
 			}
+		} else {
+			_t += '<p>You have no achievements so far. Keep playing!</p>'
 		}
 		$('#panel-' + this.id + ' .achievements-list').empty().append(_t);
-		_t = '<div class="column">' +
-			'<dl>' +
+		_t = '<img class="avatar" src="' + civitas.ASSETS_URL + 'images/avatars/avatar' + settlement.get_ruler_avatar() + '.png" />' +
+				'<dl>' +
 				'<dt>' + civitas.l('Current date') + '</dt><dd class="citydate">' + core.get_date() + '</dd>' +
 				'<dt>' + civitas.l('Ruler') + '</dt><dd>' + settlement.get_ruler_name() + '</dd>' +
 				'<dt>' + civitas.l('Climate') + '</dt><dd>' + settlement.get_climate().name.capitalize() + '</dd>' +
@@ -13282,18 +13192,17 @@ civitas.PANEL_COUNCIL = {
 				'<dt>' + civitas.l('Espionage') + '</dt><dd>' + civitas.ui.progress((settlement.get_espionage() * 100) / civitas.MAX_ESPIONAGE_VALUE, 'small', settlement.get_espionage()) + '</dd>' +
 				'<dt>' + civitas.l('Faith') + '</dt><dd>' + civitas.ui.progress((settlement.get_faith() * 100) / civitas.MAX_FAITH_VALUE, 'small', settlement.get_faith()) + '</dd>' +
 				'<dt>' + civitas.l('Research') + '</dt><dd>' + civitas.ui.progress((settlement.get_research() * 100) / civitas.MAX_RESEARCH_VALUE, 'small', settlement.get_research()) + '</dd>' +
-			'</dl>' +
-		'</div>';
+			'</dl>';
+		$('#panel-' + this.id + ' #tab-info').empty().append(_t);
+		_t = '';
 		if (advices.length > 0) {
-			_t += '<div class="column">' +
-				'<ul class="advices">';
+			_t += '<ul class="advices">';
 			for (var z = 0; z < advices.length; z++) {
 				_t += '<li>' + advices[z] + '</li>';
 			}
-			_t += '</ul>' +
-				'</div>';
+			_t += '</ul>';
 		}
-		$('#panel-' + this.id + ' #tab-info').empty().append(_t);
+		$('#panel-' + this.id + ' #tab-tips').empty().append(_t);
 		_t = '<table class="normal">' +
 					'<thead>' +
 					'<tr>' +
@@ -13438,72 +13347,6 @@ civitas.PANEL_COUNCIL = {
 				'</tfoot>' +
 			'</table>';
 		$('#panel-' + this.id + ' #tab-production').empty().append(_t);
-		_t = '';
-		if (!settlement.can_recruit_soldiers()) {
-			_t += '<p>' + civitas.l('You will need to construct a Military Camp or Castle before being able to recruit soldiers in your city.') + '</p>';
-		}
-		_t += '<div class="army-list">' +
-				'</div>' +
-				'<div class="army-recruiter">';
-		for (var item in civitas.SOLDIERS) {
-			_t += '<fieldset>' +
-					'<legend>' + item + '</legend>' +
-					'<div class="cost">' +
-					'<dl class="nomg">';
-			for (var res in civitas.SOLDIERS[item].cost) {
-				_t += '<dt>' + civitas.utils.nice_numbers(civitas.SOLDIERS[item].cost[res]) + '</dt><dd>' + civitas.ui.resource_small_img(res) + '</dd>';
-			}
-			_t += '</dl>' +
-					'</div>' +
-					'<div class="info">' +
-					'<dl class="nomg">' +
-					'<dt>Attack</dt><dd>' + civitas.SOLDIERS[item].attack + '</dd>' +
-					'<dt>Defense</dt><dd>' + civitas.SOLDIERS[item].defense + '</dd>' +
-					'</dl>' +
-					'</div>' +
-					'<img data-handle="' + item + '" title="' + civitas.l('Recruit') + ' ' + item + '" class="tips recruit-soldier" src="' + civitas.ASSETS_URL + 'images/armies/' + item.toLowerCase() + '.png" />' +
-					'</fieldset>';
-		}
-		_t += '</div>';
-		$('#panel-' + this.id + ' #tab-army').empty().append(_t);
-		_t = '<fieldset>' +
-				'<legend>' + civitas.l('Current Army') + '</legend>' +
-				civitas.ui.army_list(settlement.get_army_total(), true) +
-				'</fieldset>';
-		$(el + ' .army-list').empty().append(_t);
-		_t = '';
-		if (!settlement.can_build_ships()) {
-			_t += '<p>' + civitas.l('You will need to construct a Shipyard before being able to construct ships in your city.') + '</p>';
-		}
-		_t += '<div class="navy-list">' +
-				'</div>' +
-				'<div class="navy-recruiter">';
-		for (var item in civitas.SHIPS) {
-			_t += '<fieldset>' +
-					'<legend>' + item + '</legend>' +
-					'<div class="cost">' +
-					'<dl class="nomg">';
-			for (var res in civitas.SHIPS[item].cost) {
-				_t += '<dt>' + civitas.utils.nice_numbers(civitas.SHIPS[item].cost[res]) + '</dt><dd>' + civitas.ui.resource_small_img(res) + '</dd>';
-			}
-			_t += '</dl>' +
-					'</div>' +
-					'<div class="info">' +
-					'<dl class="nomg">' +
-					'<dt>' + civitas.l('Attack') + '</dt><dd>' + civitas.SHIPS[item].attack + '</dd>' +
-					'<dt>' + civitas.l('Defense') + '</dt><dd>' + civitas.SHIPS[item].defense + '</dd>' +
-					'</dl>' +
-					'</div>' +
-					'<img data-handle="' + item + '" title="' + civitas.l('Recruit') + ' ' + item + '" class="tips recruit-ship" src="' + civitas.ASSETS_URL + 'images/armies/' + item.toLowerCase().replace(/ /g,"_") + '.png" />' +
-					'</fieldset>';
-		}
-		_t += '</div>';
-		$('#panel-' + this.id + ' #tab-navy').empty().append(_t);
-		_t = '<fieldset>' +
-				'<legend>' + civitas.l('Current Navy') + '</legend>' +
-				civitas.ui.navy_list(settlement.get_navy_total(), true) +
-				'</fieldset>';
-		$(el + ' .navy-list').empty().append(_t);
 	}
 };
 
@@ -14010,6 +13853,222 @@ civitas.PANEL_TRADES = {
 };
 
 /**
+ * Military Camp panel data.
+ *
+ * @type {Object}
+ */
+civitas.PANEL_CAMP = {
+	template: '' +
+		'<div id="panel-camp" class="panel">' +
+			'<header>' +
+				'<span class="title">' + civitas.l('Military Camp') + '</span>' +
+				'<a class="tips btn close" title="' + civitas.l('Close this panel') + '"></a>' +
+			'</header>' +
+			'<div class="contents"></div>' +
+			'<footer class="footer clearfix">' +
+				'<a class="tips demolish btn" title="' + civitas.l('Demolish this building') + '"></a>' +
+			'</footer>' +
+		'</div>',
+	id: 'camp',
+	on_show: function(params) {
+		var self = this;
+		this.params_data = params.data;
+		var core = this.get_core();
+		var _c = core.get_settlement().get_building_by_handle(this.params_data.handle);
+		$(this.handle + ' .contents').append(civitas.ui.tabs([civitas.l('Info'), civitas.l('Army')]));
+		this.on_refresh();
+		$(this.handle).on('click', '.recruit-soldier', function () {
+			var soldier = $(this).data('handle');
+			if (core.get_settlement().recruit_soldier(soldier)) {
+				self._refresh_army();
+			}	
+			return false;
+		}).on('click', '.demolish', function () {
+			if (confirm(civitas.l('Are you sure you want to demolish this building?')) === true) {
+				if (_c.demolish()) {
+					self.destroy();
+					core.refresh();
+				}
+			}
+			return false;
+		});
+	},
+	on_refresh: function() {
+		var core = this.get_core();
+		var settlement = core.get_settlement();
+		var _c = core.get_settlement().get_building_by_handle(this.params_data.handle);
+		var level = _c.get_level();
+		var _t = '<p>' + this.params_data.description + '</p>' +
+			'<dl>' +
+				civitas.ui.cost_panel(this.params_data.cost) +
+				civitas.ui.materials_panel(this.params_data.materials) +
+				civitas.ui.production_panel(this.params_data.production, level) +
+				civitas.ui.requires_panel(this.params_data.requires) +
+				civitas.ui.chance_panel(this.params_data.chance, level) +
+				civitas.ui.tax_panel(this.params_data.tax, level) +
+				civitas.ui.storage_panel(this.params_data.storage, level) +
+			'</dl>';
+		$(this.handle + ' #tab-info').empty().append(_t);
+		_t = '<div class="army-list">' +
+				'</div>' +
+				'<div class="army-recruiter">';
+		for (var item in civitas.SOLDIERS) {
+			_t += '<fieldset>' +
+					'<legend>' + item + '</legend>' +
+					'<div class="cost">' +
+					'<dl class="nomg">';
+			for (var res in civitas.SOLDIERS[item].cost) {
+				_t += '<dt>' + civitas.utils.nice_numbers(civitas.SOLDIERS[item].cost[res]) + '</dt><dd>' + civitas.ui.resource_small_img(res) + '</dd>';
+			}
+			_t += '</dl>' +
+					'</div>' +
+					'<div class="info">' +
+					'<dl class="nomg">' +
+					'<dt>Attack</dt><dd>' + civitas.SOLDIERS[item].attack + '</dd>' +
+					'<dt>Defense</dt><dd>' + civitas.SOLDIERS[item].defense + '</dd>' +
+					'</dl>' +
+					'</div>' +
+					'<img data-handle="' + item + '" title="' + civitas.l('Recruit') + ' ' + item + '" class="tips recruit-soldier" src="' + civitas.ASSETS_URL + 'images/armies/' + item.toLowerCase() + '.png" />' +
+					'</fieldset>';
+		}
+		_t += '</div>';
+		$(this.handle + ' #tab-army').empty().append(_t);
+		_t = '<fieldset>' +
+				'<legend>' + civitas.l('Current Army') + '</legend>' +
+				civitas.ui.army_list(settlement.get_army_total(), true) +
+				'</fieldset>';
+		$(this.handle + ' .army-list').empty().append(_t);
+	}
+};
+
+/**
+ * Shipyard panel data.
+ *
+ * @type {Object}
+ */
+civitas.PANEL_SHIPYARD = {
+	template: '' +
+		'<div id="panel-shipyard" class="panel">' +
+			'<header>' +
+				'<span class="title">' + civitas.l('Shipyard') + '</span>' +
+				'<a class="tips btn close" title="' + civitas.l('Close this panel') + '"></a>' +
+			'</header>' +
+			'<div class="contents"></div>' +
+			'<footer class="footer clearfix">' +
+				'<a class="tips demolish btn" title="' + civitas.l('Demolish this building') + '"></a>' +
+				'<a class="tips pause start btn" title="' + civitas.l('Control (start/pause) production') + '"></a>' +
+				'<a class="tips upgrade btn" title="' + civitas.l('Upgrade building') + '"></a>' +
+			'</footer>' +
+		'</div>',
+	id: 'shipyard',
+	on_show: function(params) {
+		var self = this;
+		this.params_data = params.data;
+		var core = this.get_core();
+		var settlement = core.get_settlement();
+		var _c = core.get_settlement().get_building_by_handle(this.params_data.handle);
+		$(this.handle + ' .contents').append(civitas.ui.tabs([civitas.l('Info'), civitas.l('Navy')]));
+		this.on_refresh();
+		$(this.handle).on('click', '.recruit-ship', function () {
+			var ship = $(this).data('handle');
+			core.error(civitas.l('Not implemented yet.'));
+			return false;
+		});
+		if (!_c.is_upgradable()) {
+			$(this.handle + ' .footer .upgrade').remove();
+		} else {
+			$(this.handle).on('click', '.upgrade', function () {
+				if (confirm(civitas.l('Are you sure you want to upgrade this building?')) === true) {
+					if (_c.upgrade()) {
+						if (!_c.is_upgradable()) {
+							$(self.handle + ' .footer .upgrade').remove();
+						}
+					}
+				}
+				return false;
+			});
+		}
+		if (_c.is_marketplace()) {
+			$(this.handle + ' .footer .demolish').remove();
+		} else {
+			$(this.handle).on('click', '.demolish', function () {
+				if (confirm(civitas.l('Are you sure you want to demolish this building?')) === true) {
+					if (_c.demolish()) {
+						self.destroy();
+						core.refresh();
+					}
+				}
+				return false;
+			});
+		}
+		if (_c.is_production_building()) {
+			if (_c.is_producing()) {
+				$(this.handle + ' .pause').removeClass('start');
+			} else {
+				$(this.handle + ' .start').removeClass('pause');
+			}
+			$(this.handle).on('click', '.pause', function () {
+				_c.stop_production();
+				$(this).removeClass('pause').addClass('start');
+				return false;
+			}).on('click', '.start', function () {
+				$(this).removeClass('start').addClass('pause');
+				_c.start_production();
+				return false;
+			});
+		} else {
+			$(this.handle + ' .start, ' + this.handle + ' .pause').remove();
+		}
+	},
+	on_refresh: function() {
+		var core = this.get_core();
+		var settlement = core.get_settlement();
+		var _c = core.get_settlement().get_building_by_handle(this.params_data.handle);
+		var level = _c.get_level();
+		var _t = '<p>' + this.params_data.description + '</p>' +
+			'<dl>' +
+				civitas.ui.cost_panel(this.params_data.cost) +
+				civitas.ui.materials_panel(this.params_data.materials) +
+				civitas.ui.production_panel(this.params_data.production, level) +
+				civitas.ui.requires_panel(this.params_data.requires) +
+				civitas.ui.chance_panel(this.params_data.chance, level) +
+				civitas.ui.tax_panel(this.params_data.tax, level) +
+				civitas.ui.storage_panel(this.params_data.storage, level) +
+			'</dl>';
+		$(this.handle + ' #tab-info').empty().append(_t);
+		_t = '<div class="navy-list">' +
+				'</div>' +
+				'<div class="navy-recruiter">';
+		for (var item in civitas.SHIPS) {
+			_t += '<fieldset>' +
+					'<legend>' + item + '</legend>' +
+					'<div class="cost">' +
+					'<dl class="nomg">';
+			for (var res in civitas.SHIPS[item].cost) {
+				_t += '<dt>' + civitas.utils.nice_numbers(civitas.SHIPS[item].cost[res]) + '</dt><dd>' + civitas.ui.resource_small_img(res) + '</dd>';
+			}
+			_t += '</dl>' +
+					'</div>' +
+					'<div class="info">' +
+					'<dl class="nomg">' +
+					'<dt>' + civitas.l('Attack') + '</dt><dd>' + civitas.SHIPS[item].attack + '</dd>' +
+					'<dt>' + civitas.l('Defense') + '</dt><dd>' + civitas.SHIPS[item].defense + '</dd>' +
+					'</dl>' +
+					'</div>' +
+					'<img data-handle="' + item + '" title="' + civitas.l('Recruit') + ' ' + item + '" class="tips recruit-ship" src="' + civitas.ASSETS_URL + 'images/armies/' + item.toLowerCase().replace(/ /g,"_") + '.png" />' +
+					'</fieldset>';
+		}
+		_t += '</div>';
+		$(this.handle + ' #tab-navy').empty().append(_t);
+		_t = '<fieldset>' +
+				'<legend>' + civitas.l('Current Navy') + '</legend>' +
+				civitas.ui.navy_list(settlement.get_navy_total(), true) +
+				'</fieldset>';
+		$(this.handle + ' .navy-list').empty().append(_t);
+	}
+};
+
+/**
  * Church panel data.
  *
  * @type {Object}
@@ -14033,14 +14092,11 @@ civitas.PANEL_CHURCH = {
 		var self = this;
 		this.params_data = params.data;
 		var core = this.get_core();
-		var el = this.handle;
-		var settlement = this.get_core().get_settlement();
+		var settlement = core.get_settlement();
 		var _c = core.get_settlement().get_building_by_handle(this.params_data.handle);
-		var level = _c.get_level();
-		$(el + ' header .title').html(this.params_data.name);
-		$(el + ' .contents').append(civitas.ui.tabs([civitas.l('Info'), civitas.l('Religion')]));
+		$(this.handle + ' .contents').append(civitas.ui.tabs([civitas.l('Info'), civitas.l('Religion')]));
 		this.on_refresh();
-		$(el).on('click', '.religion', function() {
+		$(this.handle).on('click', '.religion', function() {
 			var id = parseInt($(this).data('id'));
 			if (confirm(civitas.l('Are you sure you want to switch religions? You will lose all your accumulated faith!')) === true) {
 				settlement.change_religion(id);
@@ -14048,13 +14104,13 @@ civitas.PANEL_CHURCH = {
 			return false;
 		});
 		if (!_c.is_upgradable()) {
-			$(el + ' .footer .upgrade').remove();
+			$(this.handle + ' .footer .upgrade').remove();
 		} else {
-			$(el).on('click', '.upgrade', function () {
+			$(this.handle).on('click', '.upgrade', function () {
 				if (confirm(civitas.l('Are you sure you want to upgrade this building?')) === true) {
 					if (_c.upgrade()) {
 						if (!_c.is_upgradable()) {
-							$(el + ' .footer .upgrade').remove();
+							$(self.handle + ' .footer .upgrade').remove();
 						}
 					}
 				}
@@ -14062,9 +14118,9 @@ civitas.PANEL_CHURCH = {
 			});
 		}
 		if (_c.is_marketplace()) {
-			$(el + ' .footer .demolish').remove();
+			$(this.handle + ' .footer .demolish').remove();
 		} else {
-			$(el).on('click', '.demolish', function () {
+			$(this.handle).on('click', '.demolish', function () {
 				if (confirm(civitas.l('Are you sure you want to demolish this building?')) === true) {
 					if (_c.demolish()) {
 						self.destroy();
@@ -14076,11 +14132,11 @@ civitas.PANEL_CHURCH = {
 		}
 		if (_c.is_production_building()) {
 			if (_c.is_producing()) {
-				$(el + ' .pause').removeClass('start');
+				$(this.handle + ' .pause').removeClass('start');
 			} else {
-				$(el + ' .start').removeClass('pause');
+				$(this.handle + ' .start').removeClass('pause');
 			}
-			$(el).on('click', '.pause', function () {
+			$(this.handle).on('click', '.pause', function () {
 				_c.stop_production();
 				$(this).removeClass('pause').addClass('start');
 				return false;
@@ -14090,12 +14146,13 @@ civitas.PANEL_CHURCH = {
 				return false;
 			});
 		} else {
-			$(el + ' .start, ' + el + ' .pause').remove();
+			$(this.handle + ' .start, ' + this.handle + ' .pause').remove();
 		}
 	},
 	on_refresh: function() {
-		var settlement = this.get_core().get_settlement();
-		var _c = this.get_core().get_settlement().get_building_by_handle(this.params_data.handle);
+		var core = this.get_core();
+		var settlement = core.get_settlement();
+		var _c = core.get_settlement().get_building_by_handle(this.params_data.handle);
 		var level = _c.get_level();
 		var _t = '<p>' + this.params_data.description + '</p>' +
 			'<dl>' +
@@ -14107,7 +14164,7 @@ civitas.PANEL_CHURCH = {
 				civitas.ui.tax_panel(this.params_data.tax, level) +
 				civitas.ui.storage_panel(this.params_data.storage, level) +
 			'</dl>';
-		$('#panel-' + this.id + ' #tab-info').empty().append(_t);
+		$(this.handle + ' #tab-info').empty().append(_t);
 		_t = '<div class="section">' +
 			civitas.ui.progress((settlement.get_faith() * 100) / civitas.MAX_FAITH_VALUE, 'large', settlement.get_faith()) +
 		'</div>' +
@@ -14119,7 +14176,7 @@ civitas.PANEL_CHURCH = {
 			'</div>';
 		}
 		_t += '</div>';
-		$('#panel-' + this.id + ' #tab-religion').empty().append(_t);
+		$(this.handle + ' #tab-religion').empty().append(_t);
 	}
 };
 
@@ -14136,7 +14193,7 @@ civitas.PANEL_EMBASSY = {
 				'<a class="tips btn close" title="' + civitas.l('Close this panel') + '"></a>' +
 			'</header>' +
 			'<div class="contents"></div>' +
-			'<footer class="footer">' +
+			'<footer class="footer clearfix">' +
 				'<a class="tips demolish btn" title="' + civitas.l('Demolish this building') + '"></a>' +
 				'<a class="tips pause start btn" title="' + civitas.l('Control (start/pause) production') + '"></a>' +
 				'<a class="tips upgrade btn" title="' + civitas.l('Upgrade building') + '"></a>' +
@@ -14147,21 +14204,18 @@ civitas.PANEL_EMBASSY = {
 		var self = this;
 		this.params_data = params.data;
 		var core = this.get_core();
-		var el = this.handle;
+		var settlement = core.get_settlement();
 		var _c = core.get_settlement().get_building_by_handle(this.params_data.handle);
-		var level = _c.get_level();
-		$(el + ' header .title').html(this.params_data.name);
-		var _t = civitas.ui.tabs([civitas.l('Info'), civitas.l('Espionage')]);
-		$(el + ' .contents').append(_t);
+		$(this.handle + ' .contents').append(civitas.ui.tabs([civitas.l('Info'), civitas.l('Diplomacy'), civitas.l('Espionage')]));
 		this.on_refresh();
 		if (!_c.is_upgradable()) {
-			$(el + ' .footer .upgrade').remove();
+			$(this.handle + ' .footer .upgrade').remove();
 		} else {
-			$(el).on('click', '.upgrade', function () {
+			$(this.handle).on('click', '.upgrade', function () {
 				if (confirm(civitas.l('Are you sure you want to upgrade this building?')) === true) {
 					if (_c.upgrade()) {
 						if (!_c.is_upgradable()) {
-							$(el + ' .footer .upgrade').remove();
+							$(self.handle + ' .footer .upgrade').remove();
 						}
 					}
 				}
@@ -14169,9 +14223,9 @@ civitas.PANEL_EMBASSY = {
 			});
 		}
 		if (_c.is_marketplace()) {
-			$(el + ' .footer .demolish').remove();
+			$(this.handle + ' .footer .demolish').remove();
 		} else {
-			$(el).on('click', '.demolish', function () {
+			$(this.handle).on('click', '.demolish', function () {
 				if (confirm(civitas.l('Are you sure you want to demolish this building?')) === true) {
 					if (_c.demolish()) {
 						self.destroy();
@@ -14183,11 +14237,11 @@ civitas.PANEL_EMBASSY = {
 		}
 		if (_c.is_production_building()) {
 			if (_c.is_producing()) {
-				$(el + ' .pause').removeClass('start');
+				$(this.handle + ' .pause').removeClass('start');
 			} else {
-				$(el + ' .start').removeClass('pause');
+				$(this.handle + ' .start').removeClass('pause');
 			}
-			$(el).on('click', '.pause', function () {
+			$(this.handle).on('click', '.pause', function () {
 				_c.stop_production();
 				$(this).removeClass('pause').addClass('start');
 				return false;
@@ -14197,12 +14251,82 @@ civitas.PANEL_EMBASSY = {
 				return false;
 			});
 		} else {
-			$(el + ' .start, ' + el + ' .pause').remove();
+			$(this.handle + ' .start, ' + this.handle + ' .pause').remove();
 		}
+		$(this.handle).on('click', '.pact', function () {
+			if (!settlement.can_diplomacy()) {
+				core.error(civitas.l('You will need to construct an Embassy before being able to propose treaties and pacts to other settlements.'));
+				return false;
+			}
+			var _settlement = parseInt($(this).data('id'));
+			var influence = core.get_settlement().get_influence_with_settlement(_settlement);
+			if (influence >= 50) {
+				core.error('Not implemented yet.');
+				/*
+				if (core.get_settlement().propose_pact(_settlement) === true) {
+					// TODO
+				}
+				*/
+			} else {
+				core.error(civitas.l('Your influence on') + ' ' + _settlement + ' ' + civitas.l('is too low to propose a pact.'));
+			}
+			return false;
+		}).on('click', '.spy', function () {
+			if (!settlement.can_diplomacy()) {
+				core.error(civitas.l('You will need to construct an Embassy before being able to assign spies to other settlements.'));
+				return false;
+			}
+			var _settlement = parseInt($(this).data('id'));
+			core.error(civitas.l('Not implemented yet.'));
+			/*
+			if (core.get_settlement().assign_spy(_settlement) === true) {
+				// TODO
+			}
+			*/	
+			return false;
+		}).on('click', '.declare-war', function () {
+			if (!settlement.can_diplomacy()) {
+				core.error(civitas.l('You will need to construct an Embassy before being able to declare war to other settlements.'));
+				return false;
+			}
+			var name = parseInt($(this).data('id'));
+			var _settlement = core.get_settlement(name);
+			core.error(civitas.l('Not implemented yet.'));
+			/*
+			core.open_panel(new civitas.controls.panel_declare_war({
+				core: core,
+				data: _settlement
+			}));
+			*/
+			return false;
+		}).on('click', '.send-goods', function () {
+			if (!settlement.can_diplomacy()) {
+				core.error(civitas.l('You will need to construct an Embassy before being able to send goods to other settlements.'));
+				return false;
+			}
+			var name = parseInt($(this).data('id'));
+			var _settlement = core.get_settlement(name);
+			core.error(civitas.l('Not implemented yet.'));
+			/*
+			core.open_panel(new civitas.controls.panel_send_goods({
+				core: core,
+				data: _settlement
+			}));
+			*/
+			return false;
+		}).on('click', '.view-settlement', function () {
+			var name = parseInt($(this).data('id'));
+			var _settlement = core.get_settlement(name);
+			core.open_panel(civitas.PANEL_SETTLEMENT, _settlement);
+			return false;
+		})
 	},
 	on_refresh: function() {
-		var settlement = this.get_core().get_settlement();
-		var _c = this.get_core().get_settlement().get_building_by_handle(this.params_data.handle);
+		var core = this.get_core();
+		var settlement = core.get_settlement();
+		var settlements = core.get_settlements();
+		var status = settlement.get_status();
+		var _c = core.get_settlement().get_building_by_handle(this.params_data.handle);
 		var level = _c.get_level();
 		var _t = '<p>' + this.params_data.description + '</p>' +
 			'<dl>' +
@@ -14214,11 +14338,35 @@ civitas.PANEL_EMBASSY = {
 				civitas.ui.tax_panel(this.params_data.tax, level) +
 				civitas.ui.storage_panel(this.params_data.storage, level) +
 			'</dl>';
-		$('#panel-' + this.id + ' #tab-info').empty().append(_t);
+		$(this.handle + ' #tab-info').empty().append(_t);
 		_t = '<div class="section">' +
 			civitas.ui.progress((settlement.get_espionage() * 100) / civitas.MAX_ESPIONAGE_VALUE, 'large', settlement.get_espionage()) +
 		'</div>';
-		$('#panel-' + this.id + ' #tab-espionage').empty().append(_t);
+		$(this.handle + ' #tab-espionage').empty().append(_t);
+		_t = '<div class="settlements-list">' +
+				'<table class="normal">';
+		for (var i = 1; i < settlements.length; i++) {
+			_t += '<tr>' +
+					'<td class="icon"><img src="' + civitas.ASSETS_URL + 'images/avatars/avatar' + settlements[i].get_ruler_avatar() + '.png" /></td>' +
+					'<td>' +
+					'<p>' +
+						'<span class="title">' + (settlements[i].is_city() ? 'City of' : 'Village of') + ' ' + settlements[i].get_name() + '</span> ' +
+						'<span class="description">' + civitas.l('Leader') + ': ' + settlements[i].get_ruler_name() + '</span>' +
+					'</p>' +
+				civitas.ui.progress(status[settlements[i].get_id()].influence, 'big') +
+					'</td>' +
+					'<td class="large">' +
+					'<a data-id="' + settlements[i].get_id() + '" title="' + civitas.l('View info about this settlement.') + '" class="tips view-settlement" href="#">' + civitas.l('view') + '</a> ' +
+					'<a data-id="' + settlements[i].get_id() + '" title="' + civitas.l('Send a spy to this settlement.') + '" data-id="' + i + '" class="tips spy" href="#">' + civitas.l('spy') + '</a> ' +
+					'<a data-id="' + settlements[i].get_id() + '" title="' + civitas.l('Propose a pact to this settlement`s ruler.') + '" class="tips pact" href="#">' + civitas.l('pact') + '</a> ' +
+					'<a data-id="' + settlements[i].get_id() + '" title="' + civitas.l('Send goods to this settlement.') + '" data-id="' + i + '" class="tips send-goods" href="#">' + civitas.l('send') + '</a> ' +
+					'<a data-id="' + settlements[i].get_id() + '" title="' + civitas.l('Declare war to this settlement.') + '" data-id="' + i + '" class="tips declare-war" href="#">' + civitas.l('war') + '</a>' +
+					'</td>' +
+				'</tr>';
+		}
+		_t += '</table>' +
+				'</div>';
+		$(this.handle + ' #tab-diplomacy').empty().append(_t);
 	}
 };
 
@@ -14235,7 +14383,7 @@ civitas.PANEL_ACADEMY = {
 				'<a class="tips btn close" title="' + civitas.l('Close this panel') + '"></a>' +
 			'</header>' +
 			'<div class="contents"></div>' +
-			'<footer class="footer">' +
+			'<footer class="footer clearfix">' +
 				'<a class="tips demolish btn" title="' + civitas.l('Demolish this building') + '"></a>' +
 				'<a class="tips pause start btn" title="' + civitas.l('Control (start/pause) production') + '"></a>' +
 				'<a class="tips upgrade btn" title="' + civitas.l('Upgrade building') + '"></a>' +
@@ -14246,21 +14394,17 @@ civitas.PANEL_ACADEMY = {
 		var self = this;
 		this.params_data = params.data;
 		var core = this.get_core();
-		var el = this.handle;
 		var _c = core.get_settlement().get_building_by_handle(this.params_data.handle);
-		var level = _c.get_level();
-		$(el + ' header .title').html(this.params_data.name);
-		var _t = civitas.ui.tabs([civitas.l('Info'), civitas.l('Research')]);
-		$(el + ' .contents').append(_t);
+		$(this.handle + ' .contents').append(civitas.ui.tabs([civitas.l('Info'), civitas.l('Research')]));
 		this.on_refresh();
 		if (!_c.is_upgradable()) {
-			$(el + ' .footer .upgrade').remove();
+			$(this.handle + ' .footer .upgrade').remove();
 		} else {
-			$(el).on('click', '.upgrade', function () {
+			$(this.handle).on('click', '.upgrade', function () {
 				if (confirm(civitas.l('Are you sure you want to upgrade this building?')) === true) {
 					if (_c.upgrade()) {
 						if (!_c.is_upgradable()) {
-							$(el + ' .footer .upgrade').remove();
+							$(self.handle + ' .footer .upgrade').remove();
 						}
 					}
 				}
@@ -14268,9 +14412,9 @@ civitas.PANEL_ACADEMY = {
 			});
 		}
 		if (_c.is_marketplace()) {
-			$(el + ' .footer .demolish').remove();
+			$(this.handle + ' .footer .demolish').remove();
 		} else {
-			$(el).on('click', '.demolish', function () {
+			$(this.handle).on('click', '.demolish', function () {
 				if (confirm(civitas.l('Are you sure you want to demolish this building?')) === true) {
 					if (_c.demolish()) {
 						self.destroy();
@@ -14282,11 +14426,11 @@ civitas.PANEL_ACADEMY = {
 		}
 		if (_c.is_production_building()) {
 			if (_c.is_producing()) {
-				$(el + ' .pause').removeClass('start');
+				$(this.handle + ' .pause').removeClass('start');
 			} else {
-				$(el + ' .start').removeClass('pause');
+				$(this.handle + ' .start').removeClass('pause');
 			}
-			$(el).on('click', '.pause', function () {
+			$(this.handle).on('click', '.pause', function () {
 				_c.stop_production();
 				$(this).removeClass('pause').addClass('start');
 				return false;
@@ -14296,12 +14440,13 @@ civitas.PANEL_ACADEMY = {
 				return false;
 			});
 		} else {
-			$(el + ' .start, ' + el + ' .pause').remove();
+			$(this.handle + ' .start, ' + this.handle + ' .pause').remove();
 		}
 	},
 	on_refresh: function() {
-		var settlement = this.get_core().get_settlement();
-		var _c = this.get_core().get_settlement().get_building_by_handle(this.params_data.handle);
+		var core = this.get_core();
+		var settlement = core.get_settlement();
+		var _c = core.get_settlement().get_building_by_handle(this.params_data.handle);
 		var level = _c.get_level();
 		var _t = '<p>' + this.params_data.description + '</p>' +
 			'<dl>' +
@@ -14313,11 +14458,11 @@ civitas.PANEL_ACADEMY = {
 				civitas.ui.tax_panel(this.params_data.tax, level) +
 				civitas.ui.storage_panel(this.params_data.storage, level) +
 			'</dl>';
-		$('#panel-' + this.id + ' #tab-info').empty().append(_t);
+		$(this.handle + ' #tab-info').empty().append(_t);
 		_t = '<div class="section">' +
 			civitas.ui.progress((settlement.get_research() * 100) / civitas.MAX_RESEARCH_VALUE, 'large', settlement.get_research()) +
 		'</div>';
-		$('#panel-' + this.id + ' #tab-research').empty().append(_t);
+		$(this.handle + ' #tab-research').empty().append(_t);
 	}
 };
 

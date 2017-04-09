@@ -1,13 +1,13 @@
 /**
- * Church panel data.
+ * Shipyard panel data.
  *
  * @type {Object}
  */
-civitas.PANEL_CHURCH = {
+civitas.PANEL_SHIPYARD = {
 	template: '' +
-		'<div id="panel-church" class="panel">' +
+		'<div id="panel-shipyard" class="panel">' +
 			'<header>' +
-				'<span class="title">' + civitas.l('Church') + '</span>' +
+				'<span class="title">' + civitas.l('Shipyard') + '</span>' +
 				'<a class="tips btn close" title="' + civitas.l('Close this panel') + '"></a>' +
 			'</header>' +
 			'<div class="contents"></div>' +
@@ -17,20 +17,18 @@ civitas.PANEL_CHURCH = {
 				'<a class="tips upgrade btn" title="' + civitas.l('Upgrade building') + '"></a>' +
 			'</footer>' +
 		'</div>',
-	id: 'church',
+	id: 'shipyard',
 	on_show: function(params) {
 		var self = this;
 		this.params_data = params.data;
 		var core = this.get_core();
 		var settlement = core.get_settlement();
 		var _c = core.get_settlement().get_building_by_handle(this.params_data.handle);
-		$(this.handle + ' .contents').append(civitas.ui.tabs([civitas.l('Info'), civitas.l('Religion')]));
+		$(this.handle + ' .contents').append(civitas.ui.tabs([civitas.l('Info'), civitas.l('Navy')]));
 		this.on_refresh();
-		$(this.handle).on('click', '.religion', function() {
-			var id = parseInt($(this).data('id'));
-			if (confirm(civitas.l('Are you sure you want to switch religions? You will lose all your accumulated faith!')) === true) {
-				settlement.change_religion(id);
-			}
+		$(this.handle).on('click', '.recruit-ship', function () {
+			var ship = $(this).data('handle');
+			core.error(civitas.l('Not implemented yet.'));
 			return false;
 		});
 		if (!_c.is_upgradable()) {
@@ -95,17 +93,34 @@ civitas.PANEL_CHURCH = {
 				civitas.ui.storage_panel(this.params_data.storage, level) +
 			'</dl>';
 		$(this.handle + ' #tab-info').empty().append(_t);
-		_t = '<div class="section">' +
-			civitas.ui.progress((settlement.get_faith() * 100) / civitas.MAX_FAITH_VALUE, 'large', settlement.get_faith()) +
-		'</div>' +
-		'<p>Changing your settlement`s religion requires 1000 faith and resets your settlement`s faith. Each religion gives you access to different heroes in your Tavern and gives you a boost to the influence with the cities sharing the same religion.</p>' +
-		'<div class="religion-list">';
-		for (var i = 0; i < civitas.RELIGIONS.length; i++) {
-			_t += '<div data-handle="' + civitas.RELIGIONS[i] + '" data-id="' + i + '" class="religion' + (settlement.get_religion().id === i ? ' selected' : '') + '">' +
-				'<span>' + civitas.RELIGIONS[i].capitalize() + '</span>' +
-			'</div>';
+		_t = '<div class="navy-list">' +
+				'</div>' +
+				'<div class="navy-recruiter">';
+		for (var item in civitas.SHIPS) {
+			_t += '<fieldset>' +
+					'<legend>' + item + '</legend>' +
+					'<div class="cost">' +
+					'<dl class="nomg">';
+			for (var res in civitas.SHIPS[item].cost) {
+				_t += '<dt>' + civitas.utils.nice_numbers(civitas.SHIPS[item].cost[res]) + '</dt><dd>' + civitas.ui.resource_small_img(res) + '</dd>';
+			}
+			_t += '</dl>' +
+					'</div>' +
+					'<div class="info">' +
+					'<dl class="nomg">' +
+					'<dt>' + civitas.l('Attack') + '</dt><dd>' + civitas.SHIPS[item].attack + '</dd>' +
+					'<dt>' + civitas.l('Defense') + '</dt><dd>' + civitas.SHIPS[item].defense + '</dd>' +
+					'</dl>' +
+					'</div>' +
+					'<img data-handle="' + item + '" title="' + civitas.l('Recruit') + ' ' + item + '" class="tips recruit-ship" src="' + civitas.ASSETS_URL + 'images/armies/' + item.toLowerCase().replace(/ /g,"_") + '.png" />' +
+					'</fieldset>';
 		}
 		_t += '</div>';
-		$(this.handle + ' #tab-religion').empty().append(_t);
+		$(this.handle + ' #tab-navy').empty().append(_t);
+		_t = '<fieldset>' +
+				'<legend>' + civitas.l('Current Navy') + '</legend>' +
+				civitas.ui.navy_list(settlement.get_navy_total(), true) +
+				'</fieldset>';
+		$(this.handle + ' .navy-list').empty().append(_t);
 	}
 };

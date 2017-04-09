@@ -11,7 +11,7 @@ civitas.PANEL_BUILDING = {
 				'<a class="tips close btn" title="' + civitas.l('Close this panel') + '"></a>' +
 			'</header>' +
 			'<div class="contents"></div>' +
-			'<footer class="footer">' +
+			'<footer class="footer clearfix">' +
 				'<a class="tips demolish btn" title="' + civitas.l('Demolish this building') + '"></a>' +
 				'<a class="tips pause start btn" title="' + civitas.l('Control (start/pause) production') + '"></a>' +
 				'<a class="tips upgrade btn" title="' + civitas.l('Upgrade building') + '"></a>' +

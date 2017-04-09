@@ -2,7 +2,7 @@
  * Civitas empire-building game.
  *
  * @author sizeof(cat) <sizeofcat AT riseup.net>
- * @version 0.1.0.482017
+ * @version 0.1.0.492017
  * @license MIT
  */ @font-face {
 	font-family: 'Nova Oval';
@@ -274,46 +274,12 @@ header .top-panel span {
 	height: 1080px;
 }
 
-.smalldesc {
-	font-size: 12px;
-	font-family: 'Nova Oval';
-	vertical-align: middle;
-	line-height: 20px;
-	display: inline-block;
-	border-bottom: 1px solid #ccc;
-	padding-bottom: 5px;
-	margin-bottom: 5px;
-}
-
-.black .smalldesc {
-	border-bottom: 1px solid #333;
-}
-
-.tipsy .smalldesc {
-	font-size: 12px;
-	border: 0 !important;
-	padding: 0;
-	margin: 0;
-}
-
-.smallinfo {
-	font-size: 10px;
-	line-height: 20px;
-	display: block;
-}
-
-.smallinfo img,
 .ui dd img {
 	vertical-align: middle;
 }
 
 .ui dd img {
 	margin-left: 4px;
-}
-
-.buildinginfo {
-	text-transform: uppercase;
-	font-size: 16px;
 }
 
 /* Panels */
@@ -336,10 +302,6 @@ header .top-panel span {
 	border-radius: 0;
 	-moz-border-radius: 0;
 	-webkit-border-radius: 0;
-}
-
-.ui .panel.black {
-	background-color: #000;
 }
 
 .ui .panel header {
@@ -449,7 +411,9 @@ header .top-panel span {
 	margin-bottom: 5px;
 }
 
-#panel-council .contents dd {
+#panel-council .contents dd,
+#panel-camp .contents dd,
+#panel-shipyard .contents dd {
 	width: auto;
 }
 
@@ -515,15 +479,19 @@ table.mercenaries td:nth-child(3) {
 
 /* City Council panel */
 
+#panel-camp,
+#panel-shipyard {
+	width: 750px;
+	max-width: 750px;
+	height: auto;
+	max-height: 600px;
+}
+
 #panel-council {
 	width: 750px;
 	max-width: 750px;
 	height: auto;
 	max-height: 520px;
-}
-
-#panel-council img.avatar {
-	left: 10px;
 }
 
 #panel-council .column {
@@ -756,6 +724,7 @@ table.mercenaries td:nth-child(3) {
 img.avatar {
 	position: absolute;
 	top: 10px;
+	right: 10px;
 }
 
 p {
@@ -1701,11 +1670,16 @@ table tr td:last-child a:hover,
 }
 
 #panel-tavern,
-#panel-academy,
-#panel-embassy {
+#panel-academy {
 	max-height: 600px;
 	max-width: 600px;
 	width: 600px;
+}
+
+#panel-embassy {
+	max-height: 600px;
+	max-width: 720px;
+	width: 720px;
 }
 
 #panel-church {

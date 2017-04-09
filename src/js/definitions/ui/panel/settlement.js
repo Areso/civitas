@@ -11,7 +11,7 @@ civitas.PANEL_SETTLEMENT = {
 				'<a class="tips btn close" title="' + civitas.l('Close this panel') + '"></a>' +
 			'</header>' +
 			'<div class="contents"></div>' +
-			'<footer class="footer">' +
+			'<footer class="footer clearfix">' +
 					'<a class="tips attack btn" title="' + civitas.l('Attack this settlement') + '"></a>' +
 					'<a class="tips caravan btn" title="' + civitas.l('Send a caravan to this settlement') + '"></a>' +
 					'<a class="tips help btn" data-context="settlement" data-term="general" title="' + civitas.l('Info about this settlement') + '"></a>' +

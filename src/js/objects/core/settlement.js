@@ -1133,6 +1133,25 @@ civitas.objects.settlement = function(params) {
 		}
 	};
 
+	/**
+	 * Check if the player settlement's nationality and the one passed as parameter nationality are the same.
+	 *
+	 * @param {String|civitas.objects.settlement|Number} settlement
+	 * @returns {Boolean}
+	 * @public
+	 */
+	this.has_same_nationality = function(settlement) {
+		if (typeof settlement === 'object' && this.get_nationality().id === settlement.get_nationality().id) {
+			return true;
+		} else if (typeof settlement === 'number' || typeof settlement === 'string') {
+			settlement = this.get_core().get_settlement(settlement);
+			if (this.get_nationality().id === settlement.get_nationality().id) {
+				return true;
+			}
+		}
+		return false;
+	};
+
 	// Fire up the constructor
 	return this.__init(params);
 };

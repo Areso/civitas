@@ -61,20 +61,20 @@ civitas.ACHIEVEMENTS = [
 		]
 	}, {
 		id: 7,
-		description: 'Gather 10k coins.',
-		name: 'Coinage',
+		description: 'Gather 100M coins.',
+		name: 'Rottschild',
 		conditions: [
 			{
-				coins: 10000
+				coins: 100000000
 			}
 		]
 	}, {
 		id: 8,
-		description: 'Gather 50k coins.',
-		name: 'Give me coins',
+		description: 'Gather 500k coins.',
+		name: 'Ba dum tss',
 		conditions: [
 			{
-				coins: 50000
+				coins: 500000
 			}
 		]
 	}, {
@@ -145,17 +145,17 @@ civitas.ACHIEVEMENTS = [
 		]
 	}, {
 		id: 15,
-		description: 'Recruit 10 soldiers.',
-		name: 'Armed',
+		description: 'Recruit 500 soldiers.',
+		name: 'Warfiend',
 		conditions: [
 			{
-				soldiers: 10
+				soldiers: 500
 			}
 		]
 	}, {
 		id: 16,
 		description: 'Recruit 100 soldiers.',
-		name: 'Recruiter',
+		name: 'Armed to the teeth',
 		conditions: [
 			{
 				soldiers: 100
@@ -164,7 +164,7 @@ civitas.ACHIEVEMENTS = [
 	}, {
 		id: 17,
 		description: 'Recruit 1000 soldiers.',
-		name: 'Armed to the teeth',
+		name: 'Warlord',
 		conditions: [
 			{
 				soldiers: 1000

@@ -11,7 +11,7 @@ civitas.PANEL_TAVERN = {
 				'<a class="tips btn close" title="' + civitas.l('Close this panel') + '"></a>' +
 			'</header>' +
 			'<div class="contents"></div>' +
-			'<footer class="footer">' +
+			'<footer class="footer clearfix">' +
 				'<a class="tips demolish btn" title="' + civitas.l('Demolish this building') + '"></a>' +
 				'<a class="tips pause start btn" title="' + civitas.l('Control (start/pause) production') + '"></a>' +
 				'<a class="tips upgrade btn" title="' + civitas.l('Upgrade building') + '"></a>' +
@@ -22,21 +22,17 @@ civitas.PANEL_TAVERN = {
 		var self = this;
 		this.params_data = params.data;
 		var core = this.get_core();
-		var el = this.handle;
 		var _c = core.get_settlement().get_building_by_handle(this.params_data.handle);
-		var level = _c.get_level();
-		$(el + ' header .title').html(this.params_data.name);
-		var _t = civitas.ui.tabs([civitas.l('Info'), civitas.l('Heroes')]);
-		$(el + ' .contents').append(_t);
+		$(this.handle + ' .contents').append(civitas.ui.tabs([civitas.l('Info'), civitas.l('Heroes')]));
 		this.on_refresh();
 		if (!_c.is_upgradable()) {
-			$(el + ' .footer .upgrade').remove();
+			$(this.handle + ' .footer .upgrade').remove();
 		} else {
-			$(el).on('click', '.upgrade', function () {
+			$(this.handle).on('click', '.upgrade', function () {
 				if (confirm(civitas.l('Are you sure you want to upgrade this building?')) === true) {
 					if (_c.upgrade()) {
 						if (!_c.is_upgradable()) {
-							$(el + ' .footer .upgrade').remove();
+							$(self.handle + ' .footer .upgrade').remove();
 						}
 					}
 				}
@@ -44,9 +40,9 @@ civitas.PANEL_TAVERN = {
 			});
 		}
 		if (_c.is_marketplace()) {
-			$(el + ' .footer .demolish').remove();
+			$(this.handle + ' .footer .demolish').remove();
 		} else {
-			$(el).on('click', '.demolish', function () {
+			$(this.handle).on('click', '.demolish', function () {
 				if (confirm(civitas.l('Are you sure you want to demolish this building?')) === true) {
 					if (_c.demolish()) {
 						self.destroy();
@@ -58,11 +54,11 @@ civitas.PANEL_TAVERN = {
 		}
 		if (_c.is_production_building()) {
 			if (_c.is_producing()) {
-				$(el + ' .pause').removeClass('start');
+				$(this.handle + ' .pause').removeClass('start');
 			} else {
-				$(el + ' .start').removeClass('pause');
+				$(this.handle + ' .start').removeClass('pause');
 			}
-			$(el).on('click', '.pause', function () {
+			$(this.handle).on('click', '.pause', function () {
 				_c.stop_production();
 				$(this).removeClass('pause').addClass('start');
 				return false;
@@ -72,11 +68,12 @@ civitas.PANEL_TAVERN = {
 				return false;
 			});
 		} else {
-			$(el + ' .start, ' + el + ' .pause').remove();
+			$(this.handle + ' .start, ' + this.handle + ' .pause').remove();
 		}
 	},
 	on_refresh: function() {
-		var _c = this.get_core().get_settlement().get_building_by_handle(this.params_data.handle);
+		var core = this.get_core();
+		var _c = core.get_settlement().get_building_by_handle(this.params_data.handle);
 		var level = _c.get_level();
 		var _t = '<p>' + this.params_data.description + '</p>' +
 			'<dl>' +
@@ -88,6 +85,6 @@ civitas.PANEL_TAVERN = {
 				civitas.ui.tax_panel(this.params_data.tax, level) +
 				civitas.ui.storage_panel(this.params_data.storage, level) +
 			'</dl>';
-		$('#panel-' + this.id + ' #tab-info').empty().append(_t);
+		$(this.handle + ' #tab-info').empty().append(_t);
 	}
 };
