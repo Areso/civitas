@@ -129,6 +129,8 @@ civitas.game = function () {
 	 */
 	this.mode = civitas.MODE_SINGLEPLAYER;
 
+	this.ai = null;
+
 	/**
 	 * Object constructor.
 	 * 
@@ -144,6 +146,9 @@ civitas.game = function () {
 		} else {
 			this.start_game();
 		}
+		this.ai = new civitas.modules.ai({
+			core: this
+		});
 		return this;
 	};
 
@@ -466,7 +471,6 @@ civitas.game = function () {
 			this._create_settlement(name, cityname, nation, climate, avatar);
 		}
 		this._setup_neighbours(data);
-		this._setup_villages(data);
 		this.save();
 		$('header .cityname').html(this.get_settlement().get_name());
 		$('header .cityavatar').css({
@@ -734,6 +738,7 @@ civitas.game = function () {
 			this.day = 1;
 			this.month = 1;
 		}
+		this.ai.process();
 		this.save_and_refresh();
 		return this;
 	};
@@ -1225,16 +1230,6 @@ civitas.game = function () {
 	};
 
 	/**
-	 * Setup the villages in the world.
-	 *
-	 * @private
-	 * @returns {civitas.game}
-	 */
-	this._setup_villages = function() {
-		// TODO
-	};
-
-	/**
 	 * Create all the other settlements in the world.
 	 * 
 	 * @private
@@ -1298,14 +1293,6 @@ civitas.game = function () {
 				}
 				this.settlements.push(new_settlement);
 			}
-			/*
-			for (var item in civitas.VILLAGES) {
-				this.get_settlement().status.village[item] = {
-					influence: 0,
-					status: civitas.DIPLOMACY_TRUCE
-				}
-			}
-			*/
 		}
 		return this;
 	};

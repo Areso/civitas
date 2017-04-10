@@ -47,8 +47,8 @@ civitas.objects.settlement.prototype.set_fame = function(value) {
 	var needed = civitas.LEVELS[this.get_level()];
 	if (this.resources.fame >= civitas.LEVELS[civitas.MAX_SETTLEMENT_LEVEL - 1]) {
 		this.resources.fame = civitas.LEVELS[civitas.MAX_SETTLEMENT_LEVEL - 1];
-	} else if (value < 1 || this.resources.fame < 1) {
-		this.resources.fame = 1;
+	} else if (value < 0 || this.resources.fame < 0) {
+		this.resources.fame = 0;
 	} else {
 		this.resources.fame = value;
 	}
@@ -65,6 +65,6 @@ civitas.objects.settlement.prototype.set_fame = function(value) {
  * @public
  */
 civitas.objects.settlement.prototype.reset_fame = function() {
-	this.set_fame(1);
+	this.set_fame(0);
 	return this;
 };

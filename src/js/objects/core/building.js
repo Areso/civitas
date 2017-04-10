@@ -179,7 +179,7 @@ civitas.objects.building = function(params) {
 							settlement.get_resources()[item] = settlement.get_resources()[item] - (_c.cost[item] * next_level);
 						}
 					}
-					++this.level;
+					this.set_level(next_level);
 					var building_image = self.get_type();
 					if (self.get_type().slice(0, -1) === 'house') {
 						building_image = self.get_type().slice(0, -1);
@@ -802,6 +802,18 @@ civitas.objects.building = function(params) {
 	 */
 	this.has_problems = function() {
 		return this.problems;
+	};
+
+	/**
+	 * Set the level of this building
+	 * 
+	 * @public
+	 * @param {Number} value
+	 * @returns {civitas.objects.building}
+	 */
+	this.set_level = function(value) {
+		this.level = value;
+		return this;
 	};
 
 	/**

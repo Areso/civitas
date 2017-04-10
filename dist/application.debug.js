@@ -2,7 +2,7 @@
  * Civitas empire-building game.
  *
  * @author sizeof(cat) <sizeofcat AT riseup.net>
- * @version 0.1.0.492017
+ * @version 0.1.0.4102017
  * @license MIT
  */ 'use strict';
 
@@ -6267,6 +6267,42 @@ civitas.utils = {
 };
 
 /**
+ * Main Game AI (Artificial Intelligence) object.
+ * 
+ * @param {Object} params
+ * @class {civitas.modules.ai}
+ * @returns {civitas.modules.ai}
+ */
+civitas.modules.ai = function (params) {
+
+	/**
+	 * Reference to the core object.
+	 * 
+	 * @type {civitas.game}
+	 */
+	this.core = null;
+
+	/**
+	 * Object constructor.
+	 * 
+	 * @private
+	 * @returns {civitas.modules.ai}
+	 * @param {Object} params
+	 */
+	this.__init = function (params) {
+		this.core = params.core;
+		return this;
+	};
+
+	this.process = function() {
+
+	};
+
+	// Fire up the constructor
+	return this.__init(params);
+};
+
+/**
  * Main Game UI interface.
  */
 civitas.ui = {
@@ -6290,6 +6326,7 @@ civitas.ui = {
 	building_panel: function (params, level) {
 		var out = '<p>' + params.description + '</p>' +
 			'<dl>' +
+				civitas.ui.level_panel(params.level, level) +
 				civitas.ui.cost_panel(params.cost) +
 				civitas.ui.materials_panel(params.materials) +
 				civitas.ui.production_panel(params.production, level) +
@@ -6306,6 +6343,12 @@ civitas.ui = {
 				'<legend>' + section + '</legend>' +
 				contents +
 				'</fieldset>';
+		return out;
+	},
+
+	level_panel: function (level, new_level) {
+		var out = '<dt>' + civitas.l('Level') + '</dt>' +
+			'<dd>' + new_level + '</dd>';
 		return out;
 	},
 
@@ -6708,7 +6751,6 @@ civitas.objects.settlement = function(params) {
 		this.name = params.name;
 		this.player = (typeof params.player !== 'undefined') ? params.player : false;
 		this.level = (typeof params.level !== 'undefined') ? params.level : 1;
-		this.resources = (typeof params.resources !== 'undefined') ? params.resources : {};
 		this.climate = (typeof params.climate !== 'undefined') ? params.climate : civitas.CLIMATE_TEMPERATE;
 		this.religion = (typeof params.religion !== 'undefined') ? params.religion : civitas.RELIGION_NONE;
 		this.ruler = params.ruler;
@@ -6727,7 +6769,7 @@ civitas.objects.settlement = function(params) {
 			this.mercenary = [];
 		}
 		this.status = (typeof params.status !== 'undefined') ? params.status : {};
-		this._build_resources();
+		this.resources = this._build_resources(params.resources);
 		if (typeof params.trades !== 'undefined') {
 			this.trades = params.trades;
 		} else {
@@ -6776,9 +6818,8 @@ civitas.objects.settlement = function(params) {
 	 * @private
 	 * @returns {Object}
 	 */
-	this._build_resources = function() {
+	this._build_resources = function(_resources) {
 		var difficulty = this.get_core().get_difficulty();
-		var _resources = this.resources;
 		var _trades = {};
 		if (!this.is_player()) {
 			if (this.is_city() && typeof civitas.SETTLEMENTS[this.get_id()] !== 'undefined') {
@@ -6794,11 +6835,12 @@ civitas.objects.settlement = function(params) {
 				}
 			}
 		} else {
+			if (typeof _resources === 'undefined') {
+				_resources = civitas.START_RESOURCES[difficulty - 1];
+			}
 			for (var item in civitas.RESOURCES) {
-				if (typeof civitas.START_RESOURCES[difficulty - 1][item] === 'undefined') {
+				if (typeof _resources[item] === 'undefined') {
 					_resources[item] = 0;
-				} else {
-					_resources[item] = civitas.START_RESOURCES[difficulty - 1][item];
 				}
 			}
 		}
@@ -6917,8 +6959,11 @@ civitas.objects.settlement = function(params) {
 		this.set_fame(civitas.LEVELS[level]);
 		this.level++;
 		this.calc_population();
-		$('.citylevel').html(this.level);
-		this.get_core().notify('The city of ' + this.get_name() + ' is now level ' + this.level + '.');
+		if (this.is_player()) {
+			this.get_core().refresh_panels();
+			$('.citylevel').html(this.level);
+			this.get_core().notify('The city of ' + this.get_name() + ' is now level ' + this.level + '.');
+		}
 		return this;
 	};
 
@@ -7824,8 +7869,8 @@ civitas.objects.settlement.prototype.set_fame = function(value) {
 	var needed = civitas.LEVELS[this.get_level()];
 	if (this.resources.fame >= civitas.LEVELS[civitas.MAX_SETTLEMENT_LEVEL - 1]) {
 		this.resources.fame = civitas.LEVELS[civitas.MAX_SETTLEMENT_LEVEL - 1];
-	} else if (value < 1 || this.resources.fame < 1) {
-		this.resources.fame = 1;
+	} else if (value < 0 || this.resources.fame < 0) {
+		this.resources.fame = 0;
 	} else {
 		this.resources.fame = value;
 	}
@@ -7842,7 +7887,7 @@ civitas.objects.settlement.prototype.set_fame = function(value) {
  * @public
  */
 civitas.objects.settlement.prototype.reset_fame = function() {
-	this.set_fame(1);
+	this.set_fame(0);
 	return this;
 };
 
@@ -9411,7 +9456,7 @@ civitas.objects.building = function(params) {
 							settlement.get_resources()[item] = settlement.get_resources()[item] - (_c.cost[item] * next_level);
 						}
 					}
-					++this.level;
+					this.set_level(next_level);
 					var building_image = self.get_type();
 					if (self.get_type().slice(0, -1) === 'house') {
 						building_image = self.get_type().slice(0, -1);
@@ -10037,6 +10082,18 @@ civitas.objects.building = function(params) {
 	};
 
 	/**
+	 * Set the level of this building
+	 * 
+	 * @public
+	 * @param {Number} value
+	 * @returns {civitas.objects.building}
+	 */
+	this.set_level = function(value) {
+		this.level = value;
+		return this;
+	};
+
+	/**
 	 * Get the level of this building
 	 * 
 	 * @public
@@ -10643,51 +10700,53 @@ civitas.controls.panel = function (params) {
 			$('.ui').append(params.template);
 		}
 		this.on_show.call(this, params);
-		if (params.id !== 'army' && typeof params.data !== 'undefined' && typeof params.data.settlement_type === 'undefined') {
+		if (typeof params.data !== 'undefined') {
 			var building = this.get_core().get_settlement().get_building_by_handle(params.data.handle);
-			if (!building.is_upgradable()) {
-				$(this.handle + ' .footer .upgrade').remove();
-			}
-			if (building.is_marketplace()) {
-				$(this.handle + ' .footer .demolish').remove();
-			}
-			if (building.is_production_building()) {
-				if (building.is_producing()) {
-					$(this.handle + ' .pause').removeClass('start');
-				} else {
-					$(this.handle + ' .start').removeClass('pause');
+			if (building !== false) {
+				if (!building.is_upgradable()) {
+					$(this.handle + ' .footer .upgrade').remove();
 				}
-			} else {
-				$(this.handle + ' .start, ' + this.handle + ' .pause').remove();
-			}
-			$(this.handle).on('click', '.upgrade', function () {
-				if (confirm(civitas.l('Are you sure you want to upgrade this building?')) === true) {
-					if (building.upgrade()) {
-						if (!building.is_upgradable()) {
-							$(self.handle + ' .footer .upgrade').remove();
+				if (building.is_marketplace()) {
+					$(this.handle + ' .footer .demolish').remove();
+				}
+				if (building.is_production_building()) {
+					if (building.is_producing()) {
+						$(this.handle + ' .pause').removeClass('start');
+					} else {
+						$(this.handle + ' .start').removeClass('pause');
+					}
+				} else {
+					$(this.handle + ' .start, ' + this.handle + ' .pause').remove();
+				}
+				$(this.handle).on('click', '.upgrade', function () {
+					if (confirm(civitas.l('Are you sure you want to upgrade this building?')) === true) {
+						if (building.upgrade()) {
+							if (!building.is_upgradable()) {
+								$(self.handle + ' .footer .upgrade').remove();
+							}
 						}
 					}
-				}
-				return false;
-			}).on('click', '.demolish', function () {
-				if (confirm(civitas.l('Are you sure you want to demolish this building?')) === true) {
-					if (building.demolish()) {
-						self.destroy();
-						core.refresh();
+					return false;
+				}).on('click', '.demolish', function () {
+					if (confirm(civitas.l('Are you sure you want to demolish this building?')) === true) {
+						if (building.demolish()) {
+							self.destroy();
+							core.refresh();
+						}
 					}
-				}
-				return false;
-			}).on('click', '.pause', function () {
-				if (building.stop_production()) {
-					$(this).removeClass('pause').addClass('start');
-				}
-				return false;
-			}).on('click', '.start', function () {
-				if (building.start_production()) {
-					$(this).removeClass('start').addClass('pause');
-				}
-				return false;
-			});
+					return false;
+				}).on('click', '.pause', function () {
+					if (building.stop_production()) {
+						$(this).removeClass('pause').addClass('start');
+					}
+					return false;
+				}).on('click', '.start', function () {
+					if (building.start_production()) {
+						$(this).removeClass('start').addClass('pause');
+					}
+					return false;
+				});
+			}
 		}
 		$(this.handle).on('click', '.close', function () {
 			self.destroy();
@@ -10865,6 +10924,8 @@ civitas.game = function () {
 	 */
 	this.mode = civitas.MODE_SINGLEPLAYER;
 
+	this.ai = null;
+
 	/**
 	 * Object constructor.
 	 * 
@@ -10880,6 +10941,9 @@ civitas.game = function () {
 		} else {
 			this.start_game();
 		}
+		this.ai = new civitas.modules.ai({
+			core: this
+		});
 		return this;
 	};
 
@@ -11202,7 +11266,6 @@ civitas.game = function () {
 			this._create_settlement(name, cityname, nation, climate, avatar);
 		}
 		this._setup_neighbours(data);
-		this._setup_villages(data);
 		this.save();
 		$('header .cityname').html(this.get_settlement().get_name());
 		$('header .cityavatar').css({
@@ -11470,6 +11533,7 @@ civitas.game = function () {
 			this.day = 1;
 			this.month = 1;
 		}
+		this.ai.process();
 		this.save_and_refresh();
 		return this;
 	};
@@ -11961,16 +12025,6 @@ civitas.game = function () {
 	};
 
 	/**
-	 * Setup the villages in the world.
-	 *
-	 * @private
-	 * @returns {civitas.game}
-	 */
-	this._setup_villages = function() {
-		// TODO
-	};
-
-	/**
 	 * Create all the other settlements in the world.
 	 * 
 	 * @private
@@ -12034,14 +12088,6 @@ civitas.game = function () {
 				}
 				this.settlements.push(new_settlement);
 			}
-			/*
-			for (var item in civitas.VILLAGES) {
-				this.get_settlement().status.village[item] = {
-					influence: 0,
-					status: civitas.DIPLOMACY_TRUCE
-				}
-			}
-			*/
 		}
 		return this;
 	};
@@ -12859,59 +12905,10 @@ civitas.PANEL_BUILDING = {
 			.replace(/{context}/g, 'building');
 	},
 	on_show: function(params) {
-		var self = this;
 		var core = this.get_core();
-		var el = this.handle;
-		var _c = core.get_settlement().get_building_by_handle(this.params_data.handle);
-		var level = _c.get_level();
-		$(el + ' header .title').html(this.params_data.name);
+		$(this.handle + ' header .title').html(this.params_data.name);
 		this.on_refresh();
-		if (!_c.is_upgradable()) {
-			$(el + ' .footer .upgrade').remove();
-		} else {
-			$(el).on('click', '.upgrade', function () {
-				if (confirm(civitas.l('Are you sure you want to upgrade this building?')) === true) {
-					if (_c.upgrade()) {
-						if (!_c.is_upgradable()) {
-							$(el + ' .footer .upgrade').remove();
-						}
-					}
-				}
-				return false;
-			});
-		}
-		if (_c.is_marketplace()) {
-			$(el + ' .footer .demolish').remove();
-		} else {
-			$(el).on('click', '.demolish', function () {
-				if (confirm(civitas.l('Are you sure you want to demolish this building?')) === true) {
-					if (_c.demolish()) {
-						self.destroy();
-						core.refresh();
-					}
-				}
-				return false;
-			});
-		}
-		if (_c.is_production_building()) {
-			if (_c.is_producing()) {
-				$(el + ' .pause').removeClass('start');
-			} else {
-				$(el + ' .start').removeClass('pause');
-			}
-			$(el).on('click', '.pause', function () {
-				_c.stop_production();
-				$(this).removeClass('pause').addClass('start');
-				return false;
-			}).on('click', '.start', function () {
-				$(this).removeClass('start').addClass('pause');
-				_c.start_production();
-				return false;
-			});
-		} else {
-			$(el + ' .start, ' + el + ' .pause').remove();
-		}
-		$(el).on('click', '.help', function () {
+		$(this.handle).on('click', '.help', function () {
 			var term = $(this).data('term');
 			var context = $(this).data('context');
 			core.help(context, term);
@@ -12919,19 +12916,8 @@ civitas.PANEL_BUILDING = {
 		});
 	},
 	on_refresh: function() {
-		var _c = this.get_core().get_settlement().get_building_by_handle(this.params_data.handle);
-		var level = _c.get_level();
-		var _t = '<p class="smalldesc">' + this.params_data.description + '</p>' +
-			'<dl>' +
-				civitas.ui.cost_panel(this.params_data.cost) +
-				civitas.ui.materials_panel(this.params_data.materials) +
-				civitas.ui.production_panel(this.params_data.production, level) +
-				civitas.ui.requires_panel(this.params_data.requires) +
-				civitas.ui.chance_panel(this.params_data.chance, level) +
-				civitas.ui.tax_panel(this.params_data.tax, level) +
-				civitas.ui.storage_panel(this.params_data.storage, level) +
-			'</dl>';
-		$('#panel-' + this.id + ' .contents').empty().append(_t);
+		var building = this.get_core().get_settlement().get_building_by_handle(this.params_data.handle);
+		$(this.handle + ' .contents').empty().append(civitas.ui.building_panel(this.params_data, building.get_level()));
 	}
 };
 

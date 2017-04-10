@@ -22,6 +22,7 @@ civitas.ui = {
 	building_panel: function (params, level) {
 		var out = '<p>' + params.description + '</p>' +
 			'<dl>' +
+				civitas.ui.level_panel(params.level, level) +
 				civitas.ui.cost_panel(params.cost) +
 				civitas.ui.materials_panel(params.materials) +
 				civitas.ui.production_panel(params.production, level) +
@@ -38,6 +39,12 @@ civitas.ui = {
 				'<legend>' + section + '</legend>' +
 				contents +
 				'</fieldset>';
+		return out;
+	},
+
+	level_panel: function (level, new_level) {
+		var out = '<dt>' + civitas.l('Level') + '</dt>' +
+			'<dd>' + new_level + '</dd>';
 		return out;
 	},
 

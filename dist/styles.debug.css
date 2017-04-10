@@ -2,7 +2,7 @@
  * Civitas empire-building game.
  *
  * @author sizeof(cat) <sizeofcat AT riseup.net>
- * @version 0.1.0.492017
+ * @version 0.1.0.4102017
  * @license MIT
  */ @font-face {
 	font-family: 'Nova Oval';
@@ -427,12 +427,6 @@ header .top-panel span {
 	width: 140px;
 }
 
-/* Building panel */
-
-#panel-building {
-	opacity: 0.8;
-}
-
 /* Help panel */
 
 #panel-help {
@@ -600,14 +594,14 @@ table.mercenaries td:nth-child(3) {
 /* City Storage panel */
 
 #panel-storage {
-	max-width: 840px;
+	max-width: 790px;
 	max-height: 640px;
 	height: auto;
 }
 
 .panel .storage-item {
-	width: 80px;
-	height: 70px;
+	width: 75px;
+	height: 65px;
 	float: left;
 	text-align: center;
 	margin: 0 4px 4px 0;
@@ -615,11 +609,13 @@ table.mercenaries td:nth-child(3) {
 	-webkit-box-shadow: inset 0 0 3px 0 rgba(20, 20, 20, 0.75);
 	-moz-box-shadow: inset 0 0 3px 0 rgba(20, 20, 20, 0.75);
 	box-shadow: inset 0 0 3px 0 rgba(20, 20, 20, 0.75);
+	font-size: 11px;
 }
 
 .panel .storage-item.small {
 	width: 46px;
 	height: 50px;
+	font-size: 11px;
 }
 
 .panel .storage-item .title {
@@ -637,14 +633,6 @@ table.mercenaries td:nth-child(3) {
 
 .panel .storage-item.small img {
 	margin: 10px auto 0 auto;
-}
-
-.panel .storage-item img {
-	opacity: 0.9;
-}
-
-.panel .storage-item.small span.amount {
-	font-size: 11px;
 }
 
 /* City info panel */

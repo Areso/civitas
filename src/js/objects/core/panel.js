@@ -127,51 +127,53 @@ civitas.controls.panel = function (params) {
 			$('.ui').append(params.template);
 		}
 		this.on_show.call(this, params);
-		if (params.id !== 'army' && typeof params.data !== 'undefined' && typeof params.data.settlement_type === 'undefined') {
+		if (typeof params.data !== 'undefined') {
 			var building = this.get_core().get_settlement().get_building_by_handle(params.data.handle);
-			if (!building.is_upgradable()) {
-				$(this.handle + ' .footer .upgrade').remove();
-			}
-			if (building.is_marketplace()) {
-				$(this.handle + ' .footer .demolish').remove();
-			}
-			if (building.is_production_building()) {
-				if (building.is_producing()) {
-					$(this.handle + ' .pause').removeClass('start');
-				} else {
-					$(this.handle + ' .start').removeClass('pause');
+			if (building !== false) {
+				if (!building.is_upgradable()) {
+					$(this.handle + ' .footer .upgrade').remove();
 				}
-			} else {
-				$(this.handle + ' .start, ' + this.handle + ' .pause').remove();
-			}
-			$(this.handle).on('click', '.upgrade', function () {
-				if (confirm(civitas.l('Are you sure you want to upgrade this building?')) === true) {
-					if (building.upgrade()) {
-						if (!building.is_upgradable()) {
-							$(self.handle + ' .footer .upgrade').remove();
+				if (building.is_marketplace()) {
+					$(this.handle + ' .footer .demolish').remove();
+				}
+				if (building.is_production_building()) {
+					if (building.is_producing()) {
+						$(this.handle + ' .pause').removeClass('start');
+					} else {
+						$(this.handle + ' .start').removeClass('pause');
+					}
+				} else {
+					$(this.handle + ' .start, ' + this.handle + ' .pause').remove();
+				}
+				$(this.handle).on('click', '.upgrade', function () {
+					if (confirm(civitas.l('Are you sure you want to upgrade this building?')) === true) {
+						if (building.upgrade()) {
+							if (!building.is_upgradable()) {
+								$(self.handle + ' .footer .upgrade').remove();
+							}
 						}
 					}
-				}
-				return false;
-			}).on('click', '.demolish', function () {
-				if (confirm(civitas.l('Are you sure you want to demolish this building?')) === true) {
-					if (building.demolish()) {
-						self.destroy();
-						core.refresh();
+					return false;
+				}).on('click', '.demolish', function () {
+					if (confirm(civitas.l('Are you sure you want to demolish this building?')) === true) {
+						if (building.demolish()) {
+							self.destroy();
+							core.refresh();
+						}
 					}
-				}
-				return false;
-			}).on('click', '.pause', function () {
-				if (building.stop_production()) {
-					$(this).removeClass('pause').addClass('start');
-				}
-				return false;
-			}).on('click', '.start', function () {
-				if (building.start_production()) {
-					$(this).removeClass('start').addClass('pause');
-				}
-				return false;
-			});
+					return false;
+				}).on('click', '.pause', function () {
+					if (building.stop_production()) {
+						$(this).removeClass('pause').addClass('start');
+					}
+					return false;
+				}).on('click', '.start', function () {
+					if (building.start_production()) {
+						$(this).removeClass('start').addClass('pause');
+					}
+					return false;
+				});
+			}
 		}
 		$(this.handle).on('click', '.close', function () {
 			self.destroy();

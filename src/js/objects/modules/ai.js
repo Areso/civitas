@@ -26,6 +26,10 @@ civitas.modules.ai = function (params) {
 		return this;
 	};
 
+	this.process = function() {
+
+	};
+
 	// Fire up the constructor
 	return this.__init(params);
 };

@@ -175,7 +175,6 @@ civitas.objects.settlement = function(params) {
 		this.name = params.name;
 		this.player = (typeof params.player !== 'undefined') ? params.player : false;
 		this.level = (typeof params.level !== 'undefined') ? params.level : 1;
-		this.resources = (typeof params.resources !== 'undefined') ? params.resources : {};
 		this.climate = (typeof params.climate !== 'undefined') ? params.climate : civitas.CLIMATE_TEMPERATE;
 		this.religion = (typeof params.religion !== 'undefined') ? params.religion : civitas.RELIGION_NONE;
 		this.ruler = params.ruler;
@@ -194,7 +193,7 @@ civitas.objects.settlement = function(params) {
 			this.mercenary = [];
 		}
 		this.status = (typeof params.status !== 'undefined') ? params.status : {};
-		this._build_resources();
+		this.resources = this._build_resources(params.resources);
 		if (typeof params.trades !== 'undefined') {
 			this.trades = params.trades;
 		} else {
@@ -243,9 +242,8 @@ civitas.objects.settlement = function(params) {
 	 * @private
 	 * @returns {Object}
 	 */
-	this._build_resources = function() {
+	this._build_resources = function(_resources) {
 		var difficulty = this.get_core().get_difficulty();
-		var _resources = this.resources;
 		var _trades = {};
 		if (!this.is_player()) {
 			if (this.is_city() && typeof civitas.SETTLEMENTS[this.get_id()] !== 'undefined') {
@@ -261,11 +259,12 @@ civitas.objects.settlement = function(params) {
 				}
 			}
 		} else {
+			if (typeof _resources === 'undefined') {
+				_resources = civitas.START_RESOURCES[difficulty - 1];
+			}
 			for (var item in civitas.RESOURCES) {
-				if (typeof civitas.START_RESOURCES[difficulty - 1][item] === 'undefined') {
+				if (typeof _resources[item] === 'undefined') {
 					_resources[item] = 0;
-				} else {
-					_resources[item] = civitas.START_RESOURCES[difficulty - 1][item];
 				}
 			}
 		}
@@ -384,8 +383,11 @@ civitas.objects.settlement = function(params) {
 		this.set_fame(civitas.LEVELS[level]);
 		this.level++;
 		this.calc_population();
-		$('.citylevel').html(this.level);
-		this.get_core().notify('The city of ' + this.get_name() + ' is now level ' + this.level + '.');
+		if (this.is_player()) {
+			this.get_core().refresh_panels();
+			$('.citylevel').html(this.level);
+			this.get_core().notify('The city of ' + this.get_name() + ' is now level ' + this.level + '.');
+		}
 		return this;
 	};
 
