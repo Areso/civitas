@@ -2,7 +2,7 @@
  * Civitas empire-building game.
  *
  * @author sizeof(cat) <sizeofcat AT riseup.net>
- * @version 0.1.0.4102017
+ * @version 0.1.0.4112017
  * @license MIT
  */ 'use strict';
 
@@ -13074,6 +13074,8 @@ civitas.PANEL_WORLD = {
 	on_show: function(params) {
 		var self = this;
 		var core = this.get_core();
+		var map = core.get_worldmap();
+		$(this.handle + ' .worldmap').addClass('w' + map);
 		this.on_refresh();
 		$(this.handle).on('click', '.settlement', function () {
 			var settlement_name = $(this).data('name');
@@ -13094,9 +13096,7 @@ civitas.PANEL_WORLD = {
 		var core = this.get_core();
 		var settlement = core.get_settlement();
 		var settlements = core.get_settlements();
-		var map = core.get_worldmap();
 		var campaigns = core.get_campaigns();
-		$(this.handle + ' .worldmap').addClass('w' + map);
 		var loc = civitas['SETTLEMENT_LOCATION_' + settlement.get_climate().name.toUpperCase()];
 		var out = '<div data-name="yoursettlement" class="tips settlement c1" title="' + civitas.l('City of') + ' ' + settlement.get_name() + '" style="left:' + loc.x + 'px;top:' + loc.y + 'px"></div>';
 		for (var i = 1; i < settlements.length; i++) {
@@ -13973,6 +13973,30 @@ civitas.PANEL_CAMP = {
 		this.params_data = params.data;
 		var core = this.get_core();
 		$(this.handle + ' .contents').append(civitas.ui.tabs([civitas.l('Info'), civitas.l('Army')]));
+		var _t = '<div class="army-list">' +
+				'</div>' +
+				'<div class="army-recruiter">';
+		for (var item in civitas.SOLDIERS) {
+			_t += '<fieldset>' +
+					'<legend>' + item + '</legend>' +
+					'<div class="cost">' +
+					'<dl class="nomg">';
+			for (var res in civitas.SOLDIERS[item].cost) {
+				_t += '<dt>' + civitas.utils.nice_numbers(civitas.SOLDIERS[item].cost[res]) + '</dt><dd>' + civitas.ui.resource_small_img(res) + '</dd>';
+			}
+			_t += '</dl>' +
+				'</div>' +
+				'<div class="info">' +
+					'<dl class="nomg">' +
+						'<dt>Attack</dt><dd>' + civitas.SOLDIERS[item].attack + '</dd>' +
+						'<dt>Defense</dt><dd>' + civitas.SOLDIERS[item].defense + '</dd>' +
+					'</dl>' +
+				'</div>' +
+				'<img data-handle="' + item + '" title="' + civitas.l('Recruit') + ' ' + item + '" class="tips recruit-soldier" src="' + civitas.ASSETS_URL + 'images/armies/' + item.toLowerCase() + '.png" />' +
+			'</fieldset>';
+		}
+		_t += '</div>';
+		$(this.handle + ' #tab-army').empty().append(_t);
 		this.on_refresh();
 		$(this.handle).on('click', '.recruit-soldier', function () {
 			var soldier = $(this).data('handle');
@@ -13987,35 +14011,10 @@ civitas.PANEL_CAMP = {
 		var settlement = core.get_settlement();
 		var building = core.get_settlement().get_building_by_handle(this.params_data.handle);
 		$(this.handle + ' #tab-info').empty().append(civitas.ui.building_panel(this.params_data, building.get_level()));
-		var _t = '<div class="army-list">' +
-				'</div>' +
-				'<div class="army-recruiter">';
-		for (var item in civitas.SOLDIERS) {
-			_t += '<fieldset>' +
-					'<legend>' + item + '</legend>' +
-					'<div class="cost">' +
-					'<dl class="nomg">';
-			for (var res in civitas.SOLDIERS[item].cost) {
-				_t += '<dt>' + civitas.utils.nice_numbers(civitas.SOLDIERS[item].cost[res]) + '</dt><dd>' + civitas.ui.resource_small_img(res) + '</dd>';
-			}
-			_t += '</dl>' +
-					'</div>' +
-					'<div class="info">' +
-					'<dl class="nomg">' +
-					'<dt>Attack</dt><dd>' + civitas.SOLDIERS[item].attack + '</dd>' +
-					'<dt>Defense</dt><dd>' + civitas.SOLDIERS[item].defense + '</dd>' +
-					'</dl>' +
-					'</div>' +
-					'<img data-handle="' + item + '" title="' + civitas.l('Recruit') + ' ' + item + '" class="tips recruit-soldier" src="' + civitas.ASSETS_URL + 'images/armies/' + item.toLowerCase() + '.png" />' +
-					'</fieldset>';
-		}
-		_t += '</div>';
-		$(this.handle + ' #tab-army').empty().append(_t);
-		_t = '<fieldset>' +
+		$(this.handle + ' .army-list').empty().append('<fieldset>' +
 				'<legend>' + civitas.l('Current Army') + '</legend>' +
 				civitas.ui.army_list(settlement.get_army_total(), true) +
-				'</fieldset>';
-		$(this.handle + ' .army-list').empty().append(_t);
+			'</fieldset>');
 	}
 };
 
@@ -14031,19 +14030,6 @@ civitas.PANEL_SHIPYARD = {
 		this.params_data = params.data;
 		var core = this.get_core();
 		$(this.handle + ' .contents').append(civitas.ui.tabs([civitas.l('Info'), civitas.l('Navy')]));
-		this.on_refresh();
-		$(this.handle).on('click', '.recruit-ship', function () {
-			var ship = $(this).data('handle');
-			core.error(civitas.l('Not implemented yet.'));
-			return false;
-		});
-	},
-	on_refresh: function() {
-		var core = this.get_core();
-		var settlement = core.get_settlement();
-		var building = core.get_settlement().get_building_by_handle(this.params_data.handle);
-		var level = building.get_level();
-		$(this.handle + ' #tab-info').empty().append(civitas.ui.building_panel(this.params_data, level));
 		var _t = '<div class="navy-list">' +
 				'</div>' +
 				'<div class="navy-recruiter">';
@@ -14068,11 +14054,23 @@ civitas.PANEL_SHIPYARD = {
 		}
 		_t += '</div>';
 		$(this.handle + ' #tab-navy').empty().append(_t);
-		_t = '<fieldset>' +
+		this.on_refresh();
+		$(this.handle).on('click', '.recruit-ship', function () {
+			var ship = $(this).data('handle');
+			core.error(civitas.l('Not implemented yet.'));
+			return false;
+		});
+	},
+	on_refresh: function() {
+		var core = this.get_core();
+		var settlement = core.get_settlement();
+		var building = core.get_settlement().get_building_by_handle(this.params_data.handle);
+		var level = building.get_level();
+		$(this.handle + ' #tab-info').empty().append(civitas.ui.building_panel(this.params_data, level));
+		$(this.handle + ' .navy-list').empty().append('<fieldset>' +
 				'<legend>' + civitas.l('Current Navy') + '</legend>' +
 				civitas.ui.navy_list(settlement.get_navy_total(), true) +
-				'</fieldset>';
-		$(this.handle + ' .navy-list').empty().append(_t);
+			'</fieldset>');
 	}
 };
 
@@ -14235,12 +14233,12 @@ civitas.PANEL_ACADEMY = {
 	on_refresh: function() {
 		var core = this.get_core();
 		var settlement = core.get_settlement();
+		var research = settlement.get_research();
 		var building = core.get_settlement().get_building_by_handle(this.params_data.handle);
 		$(this.handle + ' #tab-info').empty().append(civitas.ui.building_panel(this.params_data, building.get_level()));
-		var _t = '<div class="section">' +
-			civitas.ui.progress((settlement.get_research() * 100) / civitas.MAX_RESEARCH_VALUE, 'large', settlement.get_research()) +
-		'</div>';
-		$(this.handle + ' #tab-research').empty().append(_t);
+		$(this.handle + ' #tab-research').empty().append('<div class="section">' +
+				civitas.ui.progress((research * 100) / civitas.MAX_RESEARCH_VALUE, 'large', research) +
+			'</div>');
 	}
 };
 

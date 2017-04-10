@@ -10,19 +10,6 @@ civitas.PANEL_SHIPYARD = {
 		this.params_data = params.data;
 		var core = this.get_core();
 		$(this.handle + ' .contents').append(civitas.ui.tabs([civitas.l('Info'), civitas.l('Navy')]));
-		this.on_refresh();
-		$(this.handle).on('click', '.recruit-ship', function () {
-			var ship = $(this).data('handle');
-			core.error(civitas.l('Not implemented yet.'));
-			return false;
-		});
-	},
-	on_refresh: function() {
-		var core = this.get_core();
-		var settlement = core.get_settlement();
-		var building = core.get_settlement().get_building_by_handle(this.params_data.handle);
-		var level = building.get_level();
-		$(this.handle + ' #tab-info').empty().append(civitas.ui.building_panel(this.params_data, level));
 		var _t = '<div class="navy-list">' +
 				'</div>' +
 				'<div class="navy-recruiter">';
@@ -47,10 +34,22 @@ civitas.PANEL_SHIPYARD = {
 		}
 		_t += '</div>';
 		$(this.handle + ' #tab-navy').empty().append(_t);
-		_t = '<fieldset>' +
+		this.on_refresh();
+		$(this.handle).on('click', '.recruit-ship', function () {
+			var ship = $(this).data('handle');
+			core.error(civitas.l('Not implemented yet.'));
+			return false;
+		});
+	},
+	on_refresh: function() {
+		var core = this.get_core();
+		var settlement = core.get_settlement();
+		var building = core.get_settlement().get_building_by_handle(this.params_data.handle);
+		var level = building.get_level();
+		$(this.handle + ' #tab-info').empty().append(civitas.ui.building_panel(this.params_data, level));
+		$(this.handle + ' .navy-list').empty().append('<fieldset>' +
 				'<legend>' + civitas.l('Current Navy') + '</legend>' +
 				civitas.ui.navy_list(settlement.get_navy_total(), true) +
-				'</fieldset>';
-		$(this.handle + ' .navy-list').empty().append(_t);
+			'</fieldset>');
 	}
 };

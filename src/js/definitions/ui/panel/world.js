@@ -18,6 +18,8 @@ civitas.PANEL_WORLD = {
 	on_show: function(params) {
 		var self = this;
 		var core = this.get_core();
+		var map = core.get_worldmap();
+		$(this.handle + ' .worldmap').addClass('w' + map);
 		this.on_refresh();
 		$(this.handle).on('click', '.settlement', function () {
 			var settlement_name = $(this).data('name');
@@ -38,9 +40,7 @@ civitas.PANEL_WORLD = {
 		var core = this.get_core();
 		var settlement = core.get_settlement();
 		var settlements = core.get_settlements();
-		var map = core.get_worldmap();
 		var campaigns = core.get_campaigns();
-		$(this.handle + ' .worldmap').addClass('w' + map);
 		var loc = civitas['SETTLEMENT_LOCATION_' + settlement.get_climate().name.toUpperCase()];
 		var out = '<div data-name="yoursettlement" class="tips settlement c1" title="' + civitas.l('City of') + ' ' + settlement.get_name() + '" style="left:' + loc.x + 'px;top:' + loc.y + 'px"></div>';
 		for (var i = 1; i < settlements.length; i++) {
