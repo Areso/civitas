@@ -335,7 +335,7 @@ civitas.BUILDINGS = [{
 		is_municipal: true,
 		is_production: true,
 		production: {
-			fame: 50,
+			fame: 30,
 			faith: 1
 		},
 		materials: {

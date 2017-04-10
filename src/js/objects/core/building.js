@@ -165,7 +165,7 @@ civitas.objects.building = function(params) {
 		var _b = civitas.BUILDINGS.findIndexM(this.get_type());
 		if (_b !== false) {
 			var _c = civitas.BUILDINGS[_b];
-			if (this.is_upgradable() === true) {
+			if (this.is_upgradable()) {
 				var bl_id = settlement.buildings_list.findIndexM(this.get_type());
 				if (bl_id !== false) {
 					for (var item in _c.cost) {
@@ -673,7 +673,7 @@ civitas.objects.building = function(params) {
 				for (var item in prd) {
 					_p.push(item);
 				}
-				if (this.has_requirements() === true) {
+				if (this.has_requirements()) {
 					if (_m.length > 0) {
 						if (this.has_materials(_m)) {
 							this.use_material(_m);

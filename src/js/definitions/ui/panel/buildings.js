@@ -178,7 +178,7 @@ civitas.PANEL_BUILDINGS = {
 			var handle = $(this).data('handle');
 			if (settlement.build(handle) !== false) {
 				$(el + ' .building-item[data-handle=' + handle + ']').addClass('disabled');
-				$(el + ' .toolbar').empty().append(civitas.l('You already have this building.'));
+				$(el + ' .toolbar').empty().append(civitas.l('You already constructed this building.'));
 			}
 			return false;
 		});

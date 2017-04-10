@@ -230,7 +230,7 @@ civitas.objects.settlement = function(params) {
 			population: this.get_population(),
 			mercenary_list: this.get_mercenary_list()
 		};
-		if (this.is_player() === true) {
+		if (this.is_player()) {
 			data.status = this.get_status();
 		}
 		return data;
