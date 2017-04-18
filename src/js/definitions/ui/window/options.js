@@ -56,13 +56,13 @@ civitas.WINDOW_OPTIONS = {
 				'<div class="options-game"></div>' +
 				'<a href="#" class="do-about button">' + civitas.l('About') + '</a>' +
 				'<div class="about-game">' +
-					'<a class="github" href="https://github.com/sizeofcat/civitas"><img class="tips" title="' + civitas.l('Visit the project page on GitHub') + '" src="../images/ui/github.png" /></a>' +
-					'<p>' + civitas.l('Civitas is written by <a href="https://sizeof.cat">sizeof(cat)</a>.') + '</p>' +
+					'<a class="github" target="_blank" href="https://github.com/sizeofcat/civitas"><img class="tips" title="' + civitas.l('Visit the project page on GitHub') + '" src="../images/ui/github.png" /></a>' +
+					'<p>' + civitas.l('Civitas is written by <a target="_blank" href="https://sizeof.cat">sizeof(cat)</a>.') + '</p>' +
 					'<p>' + civitas.l('Big thanks to') + ':</p>' +
 					'<ul>' +
-						'<li><a href="https://soundcloud.com/shantifax">Shantifax</a> for the music (Glandula Pinealis).</li>' +
+						'<li><a target="_blank" href="https://soundcloud.com/shantifax">Shantifax</a> for the music (Glandula Pinealis).</li>' +
 						'<li>Brendan Eich for Javascript.</li>' +
-						'<li><a href="http://bluebyte.com">Blue Byte</a> for Anno 1404.</li>' +
+						'<li><a target="_blank" href="http://bluebyte.com">Blue Byte</a> for Anno 1404.</li>' +
 					'</ul>' +
 				'</div>' +
 				'<br />' +
