@@ -23,7 +23,7 @@ civitas.ui = {
 		var out = '<p>' + params.description + '</p>' +
 			'<dl>' +
 				civitas.ui.level_panel(params.level, level) +
-				civitas.ui.cost_panel(params.cost) +
+				civitas.ui.cost_panel(params.cost, level, params.levels) +
 				civitas.ui.materials_panel(params.materials) +
 				civitas.ui.production_panel(params.production, level) +
 				civitas.ui.requires_panel(params.requires) +
@@ -48,12 +48,12 @@ civitas.ui = {
 		return out;
 	},
 
-	cost_panel: function (costs) {
+	cost_panel: function (costs, level, levels) {
 		var out = '';
 		if (typeof costs !== 'undefined') {
 			out += '<dt>' + civitas.l('Cost') + '</dt>';
 			for (var item in costs) {
-				out += '<dd>' + civitas.utils.nice_numbers(costs[item]) + civitas.ui.resource_small_img(item) + '</dd>';
+				out += '<dd>' + civitas.utils.nice_numbers(costs[item]) + civitas.ui.resource_small_img(item) + (typeof levels !== 'undefined' && level < levels ? ' / ' + civitas.utils.nice_numbers(costs[item] * (level + 1)) + civitas.ui.resource_small_img(item) : '') + '</dd>';
 			}
 		}
 		return out;

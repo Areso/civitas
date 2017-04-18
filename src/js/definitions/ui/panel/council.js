@@ -37,6 +37,18 @@ civitas.PANEL_COUNCIL = {
 			var data = civitas.MERCENARIES[_army];
 			core.error('Not implemented yet.');
 			return false;
+		}).on('click', '.building-info', function() {
+			var handle = $(this).data('handle');
+			var panel = civitas['PANEL_' + handle.toUpperCase()];
+			var building_data = core.get_building_config_data(handle);
+			if (handle && building_data) {
+				if (typeof panel !== 'undefined') {
+					core.open_panel(panel, building_data);
+				} else {
+					core.open_panel(civitas.PANEL_BUILDING, building_data);
+				}
+			}
+			return false;
 		});
 	},
 	on_refresh: function() {
@@ -148,9 +160,8 @@ civitas.PANEL_COUNCIL = {
 			if (buildings[l].is_municipal_building()) {
 				building_data = buildings[l].get_building_data();
 				_t += '<tr' + ((buildings[l].has_problems() === false) ? '' : ' class="notify"') +'>' +
-					'<td>' + buildings[l].get_name() + '</td>' +
+					'<td><a href="#" class="building-info" data-handle="' + buildings[l].get_handle() + '">' + buildings[l].get_name() + '</a></td>' +
 					'<td class="center">' + buildings[l].get_level() + '</td>' +
-					'<td>';
 					'<td>';
 					if (building_data.production) {
 						for (var item in building_data.production) {
@@ -198,7 +209,7 @@ civitas.PANEL_COUNCIL = {
 			if (buildings[l].is_housing_building()) {
 				building_data = buildings[l].get_building_data();
 				_t += '<tr' + ((buildings[l].has_problems() === false) ? '' : ' class="notify"') +'>' +
-					'<td>' + buildings[l].get_name() + '</td>' +
+					'<td><a href="#" class="building-info" data-handle="' + buildings[l].get_handle() + '">' + buildings[l].get_name() + '</a></td>' +
 					'<td class="center">' + buildings[l].get_level() + '</td>' +
 					'<td>';
 					if (building_data.tax) {
@@ -240,7 +251,7 @@ civitas.PANEL_COUNCIL = {
 			if (buildings[l].is_production_building() && buildings[l].is_municipal_building() === false) {
 				building_data = buildings[l].get_building_data();
 				_t += '<tr' + ((buildings[l].has_problems() === false) ? '' : ' class="notify"') +'>' +
-					'<td>' + buildings[l].get_name() + '</td>' +
+					'<td><a href="#" class="building-info" data-handle="' + buildings[l].get_handle() + '">' + buildings[l].get_name() + '</a></td>' +
 					'<td class="center">' + buildings[l].get_level() + '</td>' +
 					'<td>';
 					if (building_data.production) {

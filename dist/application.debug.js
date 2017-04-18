@@ -2,7 +2,7 @@
  * Civitas empire-building game.
  *
  * @author sizeof(cat) <sizeofcat AT riseup.net>
- * @version 0.1.0.4112017
+ * @version 0.1.0.4182017
  * @license MIT
  */ 'use strict';
 
@@ -1890,8 +1890,8 @@ civitas.BUILDINGS = [{
 		description: 'The Trading Post allows you to trade resources with other settlements.',
 		is_municipal: true,
 		position: {
-			x: 1590,
-			y: 200
+			x: 1570,
+			y: 180
 		},
 		cost: {
 			coins: 30000,
@@ -1969,8 +1969,8 @@ civitas.BUILDINGS = [{
 			wine: 1
 		},
 		position: {
-			x: 1234,
-			y: 418
+			x: 1270,
+			y: 420
 		},
 		levels: 3,
 		cost: {
@@ -2072,7 +2072,7 @@ civitas.BUILDINGS = [{
 			'develop a Castle.',
 		position: {
 			x: 1461,
-			y: 153
+			y: 120
 		},
 		cost: {
 			coins: 50000,
@@ -2323,8 +2323,8 @@ civitas.BUILDINGS = [{
 			wheat: 2
 		},
 		position: {
-			x: 1234,
-			y: 418
+			x: 1170,
+			y: 500
 		},
 		levels: 3,
 		cost: {
@@ -2474,7 +2474,7 @@ civitas.BUILDINGS = [{
 		description: 'The copper smelter smelts copper into brass using coal.',
 		is_production: true,
 		production: {
-			brass: 1
+			brass: 2
 		},
 		materials: {
 			copper: 4,
@@ -2595,10 +2595,10 @@ civitas.BUILDINGS = [{
 		description: 'The tannery produces leather clothes from animal hides.',
 		is_production: true,
 		production: {
-			leather: 2
+			leather: 3
 		},
 		materials: {
-			hides: 2,
+			hides: 4,
 			salt: 1
 		},
 		levels: 3,
@@ -2947,8 +2947,8 @@ civitas.BUILDINGS = [{
 			wax: 3
 		},
 		position: {
-			x: 1700,
-			y: 340
+			x: 1600,
+			y: 280
 		},
 		levels: 3,
 		cost: {
@@ -6327,7 +6327,7 @@ civitas.ui = {
 		var out = '<p>' + params.description + '</p>' +
 			'<dl>' +
 				civitas.ui.level_panel(params.level, level) +
-				civitas.ui.cost_panel(params.cost) +
+				civitas.ui.cost_panel(params.cost, level, params.levels) +
 				civitas.ui.materials_panel(params.materials) +
 				civitas.ui.production_panel(params.production, level) +
 				civitas.ui.requires_panel(params.requires) +
@@ -6352,12 +6352,12 @@ civitas.ui = {
 		return out;
 	},
 
-	cost_panel: function (costs) {
+	cost_panel: function (costs, level, levels) {
 		var out = '';
 		if (typeof costs !== 'undefined') {
 			out += '<dt>' + civitas.l('Cost') + '</dt>';
 			for (var item in costs) {
-				out += '<dd>' + civitas.utils.nice_numbers(costs[item]) + civitas.ui.resource_small_img(item) + '</dd>';
+				out += '<dd>' + civitas.utils.nice_numbers(costs[item]) + civitas.ui.resource_small_img(item) + (typeof levels !== 'undefined' && level < levels ? ' / ' + civitas.utils.nice_numbers(costs[item] * (level + 1)) + civitas.ui.resource_small_img(item) : '') + '</dd>';
 			}
 		}
 		return out;
@@ -13221,6 +13221,18 @@ civitas.PANEL_COUNCIL = {
 			var data = civitas.MERCENARIES[_army];
 			core.error('Not implemented yet.');
 			return false;
+		}).on('click', '.building-info', function() {
+			var handle = $(this).data('handle');
+			var panel = civitas['PANEL_' + handle.toUpperCase()];
+			var building_data = core.get_building_config_data(handle);
+			if (handle && building_data) {
+				if (typeof panel !== 'undefined') {
+					core.open_panel(panel, building_data);
+				} else {
+					core.open_panel(civitas.PANEL_BUILDING, building_data);
+				}
+			}
+			return false;
 		});
 	},
 	on_refresh: function() {
@@ -13332,9 +13344,8 @@ civitas.PANEL_COUNCIL = {
 			if (buildings[l].is_municipal_building()) {
 				building_data = buildings[l].get_building_data();
 				_t += '<tr' + ((buildings[l].has_problems() === false) ? '' : ' class="notify"') +'>' +
-					'<td>' + buildings[l].get_name() + '</td>' +
+					'<td><a href="#" class="building-info" data-handle="' + buildings[l].get_handle() + '">' + buildings[l].get_name() + '</a></td>' +
 					'<td class="center">' + buildings[l].get_level() + '</td>' +
-					'<td>';
 					'<td>';
 					if (building_data.production) {
 						for (var item in building_data.production) {
@@ -13382,7 +13393,7 @@ civitas.PANEL_COUNCIL = {
 			if (buildings[l].is_housing_building()) {
 				building_data = buildings[l].get_building_data();
 				_t += '<tr' + ((buildings[l].has_problems() === false) ? '' : ' class="notify"') +'>' +
-					'<td>' + buildings[l].get_name() + '</td>' +
+					'<td><a href="#" class="building-info" data-handle="' + buildings[l].get_handle() + '">' + buildings[l].get_name() + '</a></td>' +
 					'<td class="center">' + buildings[l].get_level() + '</td>' +
 					'<td>';
 					if (building_data.tax) {
@@ -13424,7 +13435,7 @@ civitas.PANEL_COUNCIL = {
 			if (buildings[l].is_production_building() && buildings[l].is_municipal_building() === false) {
 				building_data = buildings[l].get_building_data();
 				_t += '<tr' + ((buildings[l].has_problems() === false) ? '' : ' class="notify"') +'>' +
-					'<td>' + buildings[l].get_name() + '</td>' +
+					'<td><a href="#" class="building-info" data-handle="' + buildings[l].get_handle() + '">' + buildings[l].get_name() + '</a></td>' +
 					'<td class="center">' + buildings[l].get_level() + '</td>' +
 					'<td>';
 					if (building_data.production) {

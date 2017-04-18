@@ -362,8 +362,8 @@ civitas.BUILDINGS = [{
 		description: 'The Trading Post allows you to trade resources with other settlements.',
 		is_municipal: true,
 		position: {
-			x: 1590,
-			y: 200
+			x: 1570,
+			y: 180
 		},
 		cost: {
 			coins: 30000,
@@ -441,8 +441,8 @@ civitas.BUILDINGS = [{
 			wine: 1
 		},
 		position: {
-			x: 1234,
-			y: 418
+			x: 1270,
+			y: 420
 		},
 		levels: 3,
 		cost: {
@@ -544,7 +544,7 @@ civitas.BUILDINGS = [{
 			'develop a Castle.',
 		position: {
 			x: 1461,
-			y: 153
+			y: 120
 		},
 		cost: {
 			coins: 50000,
@@ -795,8 +795,8 @@ civitas.BUILDINGS = [{
 			wheat: 2
 		},
 		position: {
-			x: 1234,
-			y: 418
+			x: 1170,
+			y: 500
 		},
 		levels: 3,
 		cost: {
@@ -946,7 +946,7 @@ civitas.BUILDINGS = [{
 		description: 'The copper smelter smelts copper into brass using coal.',
 		is_production: true,
 		production: {
-			brass: 1
+			brass: 2
 		},
 		materials: {
 			copper: 4,
@@ -1067,10 +1067,10 @@ civitas.BUILDINGS = [{
 		description: 'The tannery produces leather clothes from animal hides.',
 		is_production: true,
 		production: {
-			leather: 2
+			leather: 3
 		},
 		materials: {
-			hides: 2,
+			hides: 4,
 			salt: 1
 		},
 		levels: 3,
@@ -1419,8 +1419,8 @@ civitas.BUILDINGS = [{
 			wax: 3
 		},
 		position: {
-			x: 1700,
-			y: 340
+			x: 1600,
+			y: 280
 		},
 		levels: 3,
 		cost: {
