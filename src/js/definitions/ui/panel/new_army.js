@@ -53,20 +53,22 @@ civitas.PANEL_NEW_ARMY = {
 			_t += '<option ' + (settlement && (settlements[i].get_id() === settlement.get_id()) ? 'selected ' : '') + 'value="' + settlements[i].get_id() + '">' + (settlements[i].is_city() ? civitas.l('City of') + ' ' : civitas.l('Village of') + ' ') + settlements[i].get_name() + '</option>';
 		}
 		_t += '</select>' +
-		'</fieldset>' +
+			'</fieldset>' +
 		'</div>' +
-		'<div class="column">' +
-			'<fieldset>' +
-				'<legend>' + civitas.l('Ships') + '</legend>';
-		for (var item in navy.navy) {
-			_t += '<div class="navy-item">' +
-					'<a href="#" data-max="' + navy.navy[item] + '" data-ship="' + item + '" class="navy-item-inc">+</a>' +
-					'<a href="#" data-max="' + navy.navy[item] + '" data-ship="' + item + '" class="navy-item-dec">-</a>' +
-					'<img class="tips" title="' + item + '" src="' + civitas.ASSETS_URL + 'images/armies/' + item.toLowerCase().replace(/ /g,"_") + '.png" />' +
-					'<span class="amount">' + navy.navy[item] + '</span>' +
-				'</div>';
+		'<div class="column">';
+		if (my_settlement.can_build_ships()) {
+			_t += '<fieldset>' +
+					'<legend>' + civitas.l('Ships') + '</legend>';
+			for (var item in navy.navy) {
+				_t += '<div class="navy-item">' +
+						'<a href="#" data-max="' + navy.navy[item] + '" data-ship="' + item + '" class="navy-item-inc">+</a>' +
+						'<a href="#" data-max="' + navy.navy[item] + '" data-ship="' + item + '" class="navy-item-dec">-</a>' +
+						'<img class="tips" title="' + item + '" src="' + civitas.ASSETS_URL + 'images/armies/' + item.toLowerCase().replace(/ /g,"_") + '.png" />' +
+						'<span class="amount">' + navy.navy[item] + '</span>' +
+					'</div>';
+			}
+			_t += '</fieldset>';
 		}
-		_t += '</fieldset>';
 		if (my_settlement.can_recruit_heroes()) {
 			var heroes = my_settlement.get_heroes();
 			_t += '<fieldset>' +

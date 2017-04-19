@@ -6793,14 +6793,6 @@ civitas.objects.settlement = function(params) {
 	this.mercenary = [];
 	
 	/**
-	 * List of mercenary armies in a special export format.
-	 *
-	 * @type {Array}
-	 * @private
-	 */
-	this.mercenary_list = [];
-
-	/**
 	 * The resources of this settlement.
 	 * 
 	 * @private
@@ -6867,13 +6859,9 @@ civitas.objects.settlement = function(params) {
 		this.icon = (typeof params.icon !== 'undefined') ? params.icon : 1;
 		this.population = (typeof params.population !== 'undefined') ? params.population : this.level * civitas.POPULATION_PER_LEVEL;
 		this.settlement_type = (typeof params.settlement_type !== 'undefined') ? params.settlement_type : civitas.CITY;
-		this.army = this._setup_army(params.army);//(typeof params.army !== 'undefined') ? params.army : {};
-		this.navy = this._setup_navy(params.navy);//(typeof params.navy !== 'undefined') ? params.navy : {};
-		if (typeof params.mercenary_list !== 'undefined') {
-			this.setup_mercenary(params.mercenary_list);
-		} else {
-			this.mercenary = [];
-		}
+		this.army = this._setup_army(params.army);
+		this.navy = this._setup_navy(params.navy);
+		this.mercenary = (typeof params.mercenary !== 'undefined') ? params.mercenary : [];
 		this.status = (typeof params.status !== 'undefined') ? params.status : {};
 		this.heroes = (typeof params.heroes !== 'undefined') ? params.heroes : {};
 		this.resources = this._build_resources(params.resources);
@@ -6911,7 +6899,7 @@ civitas.objects.settlement = function(params) {
 			buildings: this.get_buildings_list(),
 			settlement_type: this.get_settlement_type(),
 			population: this.get_population(),
-			mercenary_list: this.get_mercenary_list(),
+			mercenary: this.get_mercenary(),
 			heroes: this.get_heroes()
 		};
 		if (this.is_player()) {
@@ -8339,27 +8327,13 @@ civitas.objects.settlement.prototype._setup_navy = function(params) {
 };
 
 /**
- * Setup mercenary armies.
- *
- * @public
- * @param {Array} mercenary_list
- * @returns {civitas.objects.settlement}
- */
-civitas.objects.settlement.prototype.setup_mercenary = function(mercenary_list) {
-	for (var i = 0; i < mercenary_list.length; i++) {
-		this.recruit_mercenary_army(mercenary_list[i], true);
-	}
-	return this;
-};
-
-/**
  * Get the list of settlement mercenary armies, for export reasons.
  *
  * @public
  * @returns {Array}
  */
-civitas.objects.settlement.prototype.get_mercenary_list = function() {
-	return this.mercenary_list;
+civitas.objects.settlement.prototype.get_mercenary = function() {
+	return this.mercenary;
 };
 
 /**
@@ -8399,23 +8373,19 @@ civitas.objects.settlement.prototype.recruit_mercenary_army = function(name, hid
 			var army = {
 				id: i,
 				handle: name,
-				army: []
+				army: {}
 			};
-			for (var item in civitas.MERCENARIES[i].army) {
-				var soldier = civitas.SOLDIERS[item];
-				var _soldier = new civitas.objects.soldier({
-					name: item,
-					settlement: this,
-					data: soldier
-				});
-				army.army.push(_soldier);
+			for (var item in civitas.SOLDIERS) {
+				if (typeof civitas.MERCENARIES[i].army[item] !== 'undefined') {
+					army.army[item] = civitas.MERCENARIES[i].army[item];
+				} else {
+					army.army[item] = 0;
+				}
 			}
 			this.mercenary.push(army);
 			if (hidden !== true) {
-				//this.mercenary_list.push(name);
 				this.get_core().notify('The mercenaries of the ' + civitas.MERCENARIES[i].name + ' are now available for skirmish missions for the duration of one year.', 'Mercenaries recruited.');
-				this.get_core().refresh();
-				this.get_core().save();
+				this.get_core().save_and_refresh();
 			}
 			return true;
 		}
@@ -8660,33 +8630,6 @@ civitas.objects.settlement.prototype.get_army_total = function() {
 	return {
 		total: total,
 		army: this.army
-	};
-};
-
-/**
- * Get the mercenaries of this settlement in an object format.
- * 
- * @public
- * @returns {Object}
- */
-civitas.objects.settlement.prototype.get_mercenary_total = function() {
-	var total = 0;
-	var total_army = {};
-	for (var item in civitas.SOLDIERS) {
-		total_army[item] = 0;
-	}
-	for (var i = 0; i < this.mercenary.length; i++) {
-		var soldier = this.mercenary[i].get_name();
-		for (var item in total_army) {
-			if (soldier === item) {
-				total_army[item]++;
-				total++;
-			}
-		}
-	}
-	return {
-		total: total,
-		mercenary: total_army
 	};
 };
 
@@ -12765,6 +12708,7 @@ civitas.PANEL_HELP = {
 			$(this.handle + ' #tab-cheats').empty().append('<h2>Cheats</h2>' +
 				'<div class="toolbar">' +
 					'<a href="#" class="btn iblock one">' + civitas.l('10k coins') + '</a> ' +
+					'<a href="#" class="btn iblock eight">' + civitas.l('1M coins') + '</a> ' +
 					'<a href="#" class="btn iblock two">' + civitas.l('100 wood') + '</a> ' +
 					'<a href="#" class="btn iblock three">' + civitas.l('100 stones') + '</a> ' +
 					'<a href="#" class="btn iblock four">' + civitas.l('100 wood planks') + '</a> ' +
@@ -12772,7 +12716,11 @@ civitas.PANEL_HELP = {
 					'<a href="#" class="btn iblock six">' + civitas.l('1000 fame') + '</a> ' +
 					'<a href="#" class="btn iblock seven">' + civitas.l('refresh trades') + '</a> ' +
 				'</div>');
-			$(this.handle).on('click', '.one', function() {
+			$(this.handle).on('click', '.eight', function() {
+				settlement.inc_coins(1000000);
+				core.save_and_refresh();
+				return false;
+			}).on('click', '.one', function() {
 				settlement.inc_coins(10000);
 				core.save_and_refresh();
 				return false;
@@ -13195,20 +13143,22 @@ civitas.PANEL_NEW_ARMY = {
 			_t += '<option ' + (settlement && (settlements[i].get_id() === settlement.get_id()) ? 'selected ' : '') + 'value="' + settlements[i].get_id() + '">' + (settlements[i].is_city() ? civitas.l('City of') + ' ' : civitas.l('Village of') + ' ') + settlements[i].get_name() + '</option>';
 		}
 		_t += '</select>' +
-		'</fieldset>' +
+			'</fieldset>' +
 		'</div>' +
-		'<div class="column">' +
-			'<fieldset>' +
-				'<legend>' + civitas.l('Ships') + '</legend>';
-		for (var item in navy.navy) {
-			_t += '<div class="navy-item">' +
-					'<a href="#" data-max="' + navy.navy[item] + '" data-ship="' + item + '" class="navy-item-inc">+</a>' +
-					'<a href="#" data-max="' + navy.navy[item] + '" data-ship="' + item + '" class="navy-item-dec">-</a>' +
-					'<img class="tips" title="' + item + '" src="' + civitas.ASSETS_URL + 'images/armies/' + item.toLowerCase().replace(/ /g,"_") + '.png" />' +
-					'<span class="amount">' + navy.navy[item] + '</span>' +
-				'</div>';
+		'<div class="column">';
+		if (my_settlement.can_build_ships()) {
+			_t += '<fieldset>' +
+					'<legend>' + civitas.l('Ships') + '</legend>';
+			for (var item in navy.navy) {
+				_t += '<div class="navy-item">' +
+						'<a href="#" data-max="' + navy.navy[item] + '" data-ship="' + item + '" class="navy-item-inc">+</a>' +
+						'<a href="#" data-max="' + navy.navy[item] + '" data-ship="' + item + '" class="navy-item-dec">-</a>' +
+						'<img class="tips" title="' + item + '" src="' + civitas.ASSETS_URL + 'images/armies/' + item.toLowerCase().replace(/ /g,"_") + '.png" />' +
+						'<span class="amount">' + navy.navy[item] + '</span>' +
+					'</div>';
+			}
+			_t += '</fieldset>';
 		}
-		_t += '</fieldset>';
 		if (my_settlement.can_recruit_heroes()) {
 			var heroes = my_settlement.get_heroes();
 			_t += '<fieldset>' +
@@ -13560,15 +13510,13 @@ civitas.PANEL_COUNCIL = {
 			var data = civitas.MERCENARIES[_army];
 			core.error('Not implemented yet.');
 			return false;
-		}).on('click', '.campaign-merc', function () {
-			var _army = parseInt($(this).data('id'));
-			var data = civitas.MERCENARIES[_army];
-			core.error('Not implemented yet.');
-			return false;
 		}).on('click', '.disband-merc', function () {
-			var _army = parseInt($(this).data('id'));
-			var data = civitas.MERCENARIES[_army];
-			core.error('Not implemented yet.');
+			if (confirm(civitas.l('Are you sure you want to release this mercenary army? You won`t be able to use them anymore!')) === true) {
+				var _army = parseInt($(this).data('id'));
+				var data = civitas.MERCENARIES[_army];
+				core.get_settlement().mercenary.splice(_army, 1);
+				core.save_and_refresh();
+			}
 			return false;
 		}).on('click', '.building-info', function() {
 			var handle = $(this).data('handle');
@@ -13616,8 +13564,7 @@ civitas.PANEL_COUNCIL = {
 						'<td><p class="title">' + army_data.name + '</p><p class="description">' + army_data.description + '</p></td>' +
 						'<td class="large">' +
 						'<a title="' + civitas.l('View info on this mercenary army.') + '" data-id="' + settlement.mercenary[i].id + '" class="tips view-merc" href="#">' + civitas.l('view') + '</a> ' +
-						'<a title="' + civitas.l('Send this mercenary army on a raiding mission. Depending on the success of the mission, they will return with coins and/or resources.') + '" data-id="' + i + '" class="tips raid-merc" href="#">' + civitas.l('raid') + '</a> ' +
-						'<a title="' + civitas.l('Send this mercenary arm on a campaign towards a city. Depending on the success of the mission, they will return with prisoniers (future soldiers for your army), coins and/or resources. Winning a campaign will grant you fame and prestige.') + '" data-id="' + i + '" class="tips campaign-merc" href="#">' + civitas.l('campaign') + '</a> ' +
+						'<a title="' + civitas.l('Send this mercenary army on a raiding mission towards a specific settlement.') + '" data-id="' + i + '" class="tips raid-merc" href="#">' + civitas.l('raid') + '</a> ' +
 						'<a title="' + civitas.l('Disband this mercenary army? They will be available for hire later when you need them.') + '" data-id="' + i + '" class="tips disband-merc" href="#">' + civitas.l('release') + '</a>' +
 						'</td>' +
 						'</tr>';
@@ -14219,7 +14166,7 @@ civitas.PANEL_TRADES = {
 					'</td>' +
 					'<td class="medium">' +
 						'<a title="' + civitas.l('View info on this mercenary army') + '" data-id="' + i + '" class="tips view-army" href="#">view</a> ' +
-						civitas.ui.panel_btn('recruit', civitas.l('Recruit this mercenary army'), civitas.MERCENARIES[i].handle, 'recruit', settlement.is_mercenary_recruited(civitas.MERCENARIES[i].handle)) +
+						civitas.ui.panel_btn('recruit', civitas.l('Recruit this mercenary army'), civitas.MERCENARIES[i].handle, 'recruit', core.get_settlement().is_mercenary_recruited(civitas.MERCENARIES[i].handle)) +
 					'</td>' +
 				'</tr>';
 		}

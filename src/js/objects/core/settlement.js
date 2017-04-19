@@ -115,14 +115,6 @@ civitas.objects.settlement = function(params) {
 	this.mercenary = [];
 	
 	/**
-	 * List of mercenary armies in a special export format.
-	 *
-	 * @type {Array}
-	 * @private
-	 */
-	this.mercenary_list = [];
-
-	/**
 	 * The resources of this settlement.
 	 * 
 	 * @private
@@ -189,13 +181,9 @@ civitas.objects.settlement = function(params) {
 		this.icon = (typeof params.icon !== 'undefined') ? params.icon : 1;
 		this.population = (typeof params.population !== 'undefined') ? params.population : this.level * civitas.POPULATION_PER_LEVEL;
 		this.settlement_type = (typeof params.settlement_type !== 'undefined') ? params.settlement_type : civitas.CITY;
-		this.army = this._setup_army(params.army);//(typeof params.army !== 'undefined') ? params.army : {};
-		this.navy = this._setup_navy(params.navy);//(typeof params.navy !== 'undefined') ? params.navy : {};
-		if (typeof params.mercenary_list !== 'undefined') {
-			this.setup_mercenary(params.mercenary_list);
-		} else {
-			this.mercenary = [];
-		}
+		this.army = this._setup_army(params.army);
+		this.navy = this._setup_navy(params.navy);
+		this.mercenary = (typeof params.mercenary !== 'undefined') ? params.mercenary : [];
 		this.status = (typeof params.status !== 'undefined') ? params.status : {};
 		this.heroes = (typeof params.heroes !== 'undefined') ? params.heroes : {};
 		this.resources = this._build_resources(params.resources);
@@ -233,7 +221,7 @@ civitas.objects.settlement = function(params) {
 			buildings: this.get_buildings_list(),
 			settlement_type: this.get_settlement_type(),
 			population: this.get_population(),
-			mercenary_list: this.get_mercenary_list(),
+			mercenary: this.get_mercenary(),
 			heroes: this.get_heroes()
 		};
 		if (this.is_player()) {

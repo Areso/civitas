@@ -118,6 +118,7 @@ civitas.PANEL_HELP = {
 			$(this.handle + ' #tab-cheats').empty().append('<h2>Cheats</h2>' +
 				'<div class="toolbar">' +
 					'<a href="#" class="btn iblock one">' + civitas.l('10k coins') + '</a> ' +
+					'<a href="#" class="btn iblock eight">' + civitas.l('1M coins') + '</a> ' +
 					'<a href="#" class="btn iblock two">' + civitas.l('100 wood') + '</a> ' +
 					'<a href="#" class="btn iblock three">' + civitas.l('100 stones') + '</a> ' +
 					'<a href="#" class="btn iblock four">' + civitas.l('100 wood planks') + '</a> ' +
@@ -125,7 +126,11 @@ civitas.PANEL_HELP = {
 					'<a href="#" class="btn iblock six">' + civitas.l('1000 fame') + '</a> ' +
 					'<a href="#" class="btn iblock seven">' + civitas.l('refresh trades') + '</a> ' +
 				'</div>');
-			$(this.handle).on('click', '.one', function() {
+			$(this.handle).on('click', '.eight', function() {
+				settlement.inc_coins(1000000);
+				core.save_and_refresh();
+				return false;
+			}).on('click', '.one', function() {
 				settlement.inc_coins(10000);
 				core.save_and_refresh();
 				return false;

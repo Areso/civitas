@@ -27,15 +27,13 @@ civitas.PANEL_COUNCIL = {
 			var data = civitas.MERCENARIES[_army];
 			core.error('Not implemented yet.');
 			return false;
-		}).on('click', '.campaign-merc', function () {
-			var _army = parseInt($(this).data('id'));
-			var data = civitas.MERCENARIES[_army];
-			core.error('Not implemented yet.');
-			return false;
 		}).on('click', '.disband-merc', function () {
-			var _army = parseInt($(this).data('id'));
-			var data = civitas.MERCENARIES[_army];
-			core.error('Not implemented yet.');
+			if (confirm(civitas.l('Are you sure you want to release this mercenary army? You won`t be able to use them anymore!')) === true) {
+				var _army = parseInt($(this).data('id'));
+				var data = civitas.MERCENARIES[_army];
+				core.get_settlement().mercenary.splice(_army, 1);
+				core.save_and_refresh();
+			}
 			return false;
 		}).on('click', '.building-info', function() {
 			var handle = $(this).data('handle');
@@ -83,8 +81,7 @@ civitas.PANEL_COUNCIL = {
 						'<td><p class="title">' + army_data.name + '</p><p class="description">' + army_data.description + '</p></td>' +
 						'<td class="large">' +
 						'<a title="' + civitas.l('View info on this mercenary army.') + '" data-id="' + settlement.mercenary[i].id + '" class="tips view-merc" href="#">' + civitas.l('view') + '</a> ' +
-						'<a title="' + civitas.l('Send this mercenary army on a raiding mission. Depending on the success of the mission, they will return with coins and/or resources.') + '" data-id="' + i + '" class="tips raid-merc" href="#">' + civitas.l('raid') + '</a> ' +
-						'<a title="' + civitas.l('Send this mercenary arm on a campaign towards a city. Depending on the success of the mission, they will return with prisoniers (future soldiers for your army), coins and/or resources. Winning a campaign will grant you fame and prestige.') + '" data-id="' + i + '" class="tips campaign-merc" href="#">' + civitas.l('campaign') + '</a> ' +
+						'<a title="' + civitas.l('Send this mercenary army on a raiding mission towards a specific settlement.') + '" data-id="' + i + '" class="tips raid-merc" href="#">' + civitas.l('raid') + '</a> ' +
 						'<a title="' + civitas.l('Disband this mercenary army? They will be available for hire later when you need them.') + '" data-id="' + i + '" class="tips disband-merc" href="#">' + civitas.l('release') + '</a>' +
 						'</td>' +
 						'</tr>';

@@ -37,27 +37,13 @@ civitas.objects.settlement.prototype._setup_navy = function(params) {
 };
 
 /**
- * Setup mercenary armies.
- *
- * @public
- * @param {Array} mercenary_list
- * @returns {civitas.objects.settlement}
- */
-civitas.objects.settlement.prototype.setup_mercenary = function(mercenary_list) {
-	for (var i = 0; i < mercenary_list.length; i++) {
-		this.recruit_mercenary_army(mercenary_list[i], true);
-	}
-	return this;
-};
-
-/**
  * Get the list of settlement mercenary armies, for export reasons.
  *
  * @public
  * @returns {Array}
  */
-civitas.objects.settlement.prototype.get_mercenary_list = function() {
-	return this.mercenary_list;
+civitas.objects.settlement.prototype.get_mercenary = function() {
+	return this.mercenary;
 };
 
 /**
@@ -97,23 +83,19 @@ civitas.objects.settlement.prototype.recruit_mercenary_army = function(name, hid
 			var army = {
 				id: i,
 				handle: name,
-				army: []
+				army: {}
 			};
-			for (var item in civitas.MERCENARIES[i].army) {
-				var soldier = civitas.SOLDIERS[item];
-				var _soldier = new civitas.objects.soldier({
-					name: item,
-					settlement: this,
-					data: soldier
-				});
-				army.army.push(_soldier);
+			for (var item in civitas.SOLDIERS) {
+				if (typeof civitas.MERCENARIES[i].army[item] !== 'undefined') {
+					army.army[item] = civitas.MERCENARIES[i].army[item];
+				} else {
+					army.army[item] = 0;
+				}
 			}
 			this.mercenary.push(army);
 			if (hidden !== true) {
-				//this.mercenary_list.push(name);
 				this.get_core().notify('The mercenaries of the ' + civitas.MERCENARIES[i].name + ' are now available for skirmish missions for the duration of one year.', 'Mercenaries recruited.');
-				this.get_core().refresh();
-				this.get_core().save();
+				this.get_core().save_and_refresh();
 			}
 			return true;
 		}
@@ -358,33 +340,6 @@ civitas.objects.settlement.prototype.get_army_total = function() {
 	return {
 		total: total,
 		army: this.army
-	};
-};
-
-/**
- * Get the mercenaries of this settlement in an object format.
- * 
- * @public
- * @returns {Object}
- */
-civitas.objects.settlement.prototype.get_mercenary_total = function() {
-	var total = 0;
-	var total_army = {};
-	for (var item in civitas.SOLDIERS) {
-		total_army[item] = 0;
-	}
-	for (var i = 0; i < this.mercenary.length; i++) {
-		var soldier = this.mercenary[i].get_name();
-		for (var item in total_army) {
-			if (soldier === item) {
-				total_army[item]++;
-				total++;
-			}
-		}
-	}
-	return {
-		total: total,
-		mercenary: total_army
 	};
 };
 
