@@ -28,6 +28,16 @@ civitas.objects.settlement.prototype.diplomacy = function(settlement, mode) {
 };
 
 /**
+ * Check if this settlement can recruit heroes.
+ *
+ * @public
+ * @returns {Boolean}
+ */
+civitas.objects.settlement.prototype.can_recruit_heroes = function() {
+	return this.is_building_built('tavern');
+};
+
+/**
  * Check if this settlement can conduct diplomacy missions.
  *
  * @public

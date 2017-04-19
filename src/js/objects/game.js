@@ -662,8 +662,8 @@ civitas.game = function () {
 				nationality: nation,
 				personality: civitas.PERSONALITY_BALANCED
 			},
-			army_list: civitas.START_ARMY[difficulty - 1].army,
-			navy_list: civitas.START_ARMY[difficulty - 1].navy,
+			army: civitas.START_ARMY[difficulty - 1].army,
+			navy: civitas.START_ARMY[difficulty - 1].navy,
 			core: this
 		});
 		this.settlements.push(my_settlement);
@@ -1279,8 +1279,8 @@ civitas.game = function () {
 					ruler: ruler,
 					resources: settlement_data.resources,
 					icon: settlement_data.settlement_type === civitas.CITY ? settlement_data.icon : 1,
-					army_list: settlement_data.army,
-					navy_list: settlement_data.navy
+					army: settlement_data.army,
+					navy: settlement_data.navy
 				});
 				if (settlement_data.settlement_type === civitas.CITY) {
 					var climate = new_settlement.get_climate();

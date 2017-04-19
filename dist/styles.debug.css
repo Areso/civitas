@@ -295,7 +295,7 @@ header .top-panel span {
 	min-width: 220px;
 	max-width: 300px;
 	min-height: 100px;
-	max-height: 400px;
+	max-height: 460px;
 	color: #444;
 	padding: 10px;
 	box-shadow: 0 0 50px #000;
@@ -516,16 +516,6 @@ table.mercenaries td:nth-child(3) {
 	max-height: 520px;
 }
 
-#panel-council .column {
-	float: left;
-	width: 370px;
-	position: relative;
-}
-
-#panel-council .column:last-child {
-	margin-left: 10px;
-}
-
 #tab-production {
 	overflow: auto;
 	max-height: 460px;
@@ -563,8 +553,10 @@ table.mercenaries td:nth-child(3) {
 
 .panel .army-recruiter fieldset:nth-child(3),
 .panel .army-recruiter fieldset:nth-child(6),
+.panel .army-recruiter fieldset:nth-child(9),
 .panel .navy-recruiter fieldset:nth-child(3),
-.panel .navy-recruiter fieldset:nth-child(6) {
+.panel .navy-recruiter fieldset:nth-child(6),
+.panel .navy-recruiter fieldset:nth-child(9) {
 	margin-right:0 !important;
 }
 
@@ -625,6 +617,8 @@ table.mercenaries td:nth-child(3) {
 	height: auto;
 }
 
+.panel .navy-item,
+.panel .army-item,
 .panel .storage-item {
 	width: 75px;
 	height: 65px;
@@ -636,6 +630,14 @@ table.mercenaries td:nth-child(3) {
 	-moz-box-shadow: inset 0 0 3px 0 rgba(20, 20, 20, 0.75);
 	box-shadow: inset 0 0 3px 0 rgba(20, 20, 20, 0.75);
 	font-size: 11px;
+}
+
+.panel .navy-item,
+.panel .army-item {
+	width: 65px;
+	height: 65px;
+	font-size: 11px;
+	position: relative;
 }
 
 .panel .storage-item.small {
@@ -651,10 +653,20 @@ table.mercenaries td:nth-child(3) {
 	padding-top: 4px;
 }
 
+.panel .navy-item span.amount,
+.panel .army-item span.amount,
 .panel .storage-item span.amount {
 	position: absolute;
 	bottom: 0;
 	right: 4px;
+}
+
+.panel .navy-item img {
+	margin: 8px auto 0 auto;
+}
+
+.panel .army-item img {
+	margin: 15px auto 0 auto;
 }
 
 .panel .storage-item.small img {
@@ -1806,7 +1818,7 @@ table tr td:last-child a:hover,
 
 .ui .panel fieldset select {
 	width: 100%;
-	border: 1px solid $aaa;
+	border: 1px solid #aaa;
 	padding: 4px 0;
 }
 
@@ -1817,6 +1829,45 @@ table tr td:last-child a:hover,
 .caravan-resources {
 	overflow: auto;
 	max-height: 200px;
+}
+
+.army-item-inc,
+.army-item-dec,
+.navy-item-inc,
+.navy-item-dec {
+	width: 20px;
+	height: 20px;
+	border: 1px solid #aaa;
+	position: absolute;
+}
+
+.army-item-inc,
+.navy-item-inc {
+	left: 0;
+	top: 0;
+	background-color: #84da86;
+	border-bottom-right-radius: 20px;
+}
+
+.army-item-dec,
+.navy-item-dec {
+	right: 0;
+	top: 0;
+	background-color: #da9a84;
+	border-bottom-left-radius: 20px;
+}
+
+#panel-new-army {
+	max-width: 640px;
+}
+
+.panel .column {
+	width: 300px;
+	float: left;
+}
+
+.panel .column:last-of-type {
+	margin-left: 10px;
 }
 
 /* Top panel with resources */

@@ -16,6 +16,17 @@ civitas.SOLDIERS = {
 			weapons: 1
 		}
 	},
+	'Swordsman': {
+		id: civitas.SOLDIER_SWORDSMAN,
+		attack: 3,
+		defense: 2,
+		cost: {
+			coins: 300,
+			bread: 1,
+			meat: 1,
+			weapons: 2
+		}
+	},
 	'Axeman': {
 		id: civitas.SOLDIER_AXEMAN,
 		attack: 3,
@@ -89,6 +100,19 @@ civitas.SOLDIERS = {
 			weapons: 12,
 			armor: 12
 		}
+	},
+	'Crusader': {
+		id: civitas.SOLDIER_CRUSADER,
+		attack: 12,
+		defense: 14,
+		cost: {
+			coins: 2500,
+			provisions: 6,
+			leather: 2,
+			iron: 2,
+			weapons: 12,
+			armor: 12
+		}
 	}
 };
 
@@ -101,12 +125,20 @@ civitas.SOLDIERS = {
 civitas.SOLDIER_MILITIA = 0;
 
 /**
+ * Swordsman
+ * 
+ * @constant
+ * @type {Number}
+ */
+civitas.SOLDIER_SWORDSMAN = 1;
+
+/**
  * Axemen
  * 
  * @constant
  * @type {Number}
  */
-civitas.SOLDIER_AXEMAN = 1;
+civitas.SOLDIER_AXEMAN = 2;
 
 /**
  * Knights
@@ -114,7 +146,7 @@ civitas.SOLDIER_AXEMAN = 1;
  * @constant
  * @type {Number}
  */
-civitas.SOLDIER_KNIGHT = 2;
+civitas.SOLDIER_KNIGHT = 3;
 
 /**
  * Bowmen
@@ -122,7 +154,7 @@ civitas.SOLDIER_KNIGHT = 2;
  * @constant
  * @type {Number}
  */
-civitas.SOLDIER_BOWMAN = 3;
+civitas.SOLDIER_BOWMAN = 4;
 
 /**
  * Crossbowmen
@@ -130,7 +162,7 @@ civitas.SOLDIER_BOWMAN = 3;
  * @constant
  * @type {Number}
  */
-civitas.SOLDIER_CROSSBOWMAN = 4;
+civitas.SOLDIER_CROSSBOWMAN = 5;
 
 /**
  * Pikemen
@@ -138,7 +170,7 @@ civitas.SOLDIER_CROSSBOWMAN = 4;
  * @constant
  * @type {Number}
  */
-civitas.SOLDIER_PIKEMAN = 5;
+civitas.SOLDIER_PIKEMAN = 6;
 
 /**
  * Legionnaires
@@ -146,7 +178,15 @@ civitas.SOLDIER_PIKEMAN = 5;
  * @constant
  * @type {Number}
  */
-civitas.SOLDIER_LEGIONNAIRE = 6;
+civitas.SOLDIER_LEGIONNAIRE = 7;
+
+/**
+ * Crusaders
+ * 
+ * @constant
+ * @type {Number}
+ */
+civitas.SOLDIER_CRUSADER = 8;
 
 /**
  * List of mercenary armies available for hire.

@@ -88,7 +88,7 @@ civitas.objects.settlement = function(params) {
 	 * @private
 	 * @type {Number}
 	 */
-	this.army = [];
+	this.army = {};
 	
 	/**
 	 * Flag whether this settlement belongs to a player or is AI-controlled.
@@ -104,7 +104,7 @@ civitas.objects.settlement = function(params) {
 	 * @private
 	 * @type {Number}
 	 */
-	this.navy = [];
+	this.navy = {};
 
 	/**
 	 * Mercenary armies available for this settlement.
@@ -129,7 +129,15 @@ civitas.objects.settlement = function(params) {
 	 * @type {Object}
 	 */
 	this.resources = {};
-	
+
+	/**
+	 * The settlement heroes.
+	 *
+	 * @private
+	 * @type {Object}
+	 */
+	this.heroes = {};
+
 	/**
 	 * The level of the settlement.
 	 * 
@@ -181,18 +189,15 @@ civitas.objects.settlement = function(params) {
 		this.icon = (typeof params.icon !== 'undefined') ? params.icon : 1;
 		this.population = (typeof params.population !== 'undefined') ? params.population : this.level * civitas.POPULATION_PER_LEVEL;
 		this.settlement_type = (typeof params.settlement_type !== 'undefined') ? params.settlement_type : civitas.CITY;
-		if (typeof params.army_list !== 'undefined') {
-			this.setup_army(params.army_list);
-		}
-		if (typeof params.navy_list !== 'undefined') {
-			this.setup_navy(params.navy_list);
-		}
+		this.army = this._setup_army(params.army);//(typeof params.army !== 'undefined') ? params.army : {};
+		this.navy = this._setup_navy(params.navy);//(typeof params.navy !== 'undefined') ? params.navy : {};
 		if (typeof params.mercenary_list !== 'undefined') {
 			this.setup_mercenary(params.mercenary_list);
 		} else {
 			this.mercenary = [];
 		}
 		this.status = (typeof params.status !== 'undefined') ? params.status : {};
+		this.heroes = (typeof params.heroes !== 'undefined') ? params.heroes : {};
 		this.resources = this._build_resources(params.resources);
 		if (typeof params.trades !== 'undefined') {
 			this.trades = params.trades;
@@ -223,12 +228,13 @@ civitas.objects.settlement = function(params) {
 			icon: this.get_icon(),
 			trades: this.get_trades(),
 			resources: this.get_resources(),
-			army_list: this.get_army_total().army,
-			navy_list: this.get_navy_total().navy,
+			army: this.get_army_total().army,
+			navy: this.get_navy_total().navy,
 			buildings: this.get_buildings_list(),
 			settlement_type: this.get_settlement_type(),
 			population: this.get_population(),
-			mercenary_list: this.get_mercenary_list()
+			mercenary_list: this.get_mercenary_list(),
+			heroes: this.get_heroes()
 		};
 		if (this.is_player()) {
 			data.status = this.get_status();
@@ -792,6 +798,7 @@ civitas.objects.settlement = function(params) {
 		if (this.army.length === 0) {
 			advices.push('You have no army, this is an open invitation for attack.');
 		}
+		/*
 		if (this.army.length < 10 && this.army.length > 0) {
 			advices.push('You have a small army, try to recruit some more soldiers.');
 		}
@@ -801,6 +808,7 @@ civitas.objects.settlement = function(params) {
 		if (this.army.length < 3 && this.army.length > 0) {
 			advices.push('You have a small navy, try to construct some more ships.');
 		}
+		*/
 		if (storage.occupied >= storage.all) {
 			advices.push('You have no storage space to store your new goods and they ' +
 				'will be lost. Sell some goods or build a warehouse.');
@@ -1163,6 +1171,28 @@ civitas.objects.settlement = function(params) {
 			}
 		}
 		return false;
+	};
+
+	/**
+	 * Set the heroes of the settlement.
+	 *
+	 * @public
+	 * @param {Object} value
+	 * @returns {civitas.objects.settlement}
+	 */
+	this.set_heroes = function(value) {
+		this.heroes = value;
+		return this;
+	};
+
+	/**
+	 * Get the heroes of the settlement.
+	 *
+	 * @public
+	 * @returns {Object}
+	 */
+	this.get_heroes = function() {
+		return this.heroes;
 	};
 
 	// Fire up the constructor

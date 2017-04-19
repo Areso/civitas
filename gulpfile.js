@@ -52,13 +52,8 @@ gulp.task('app', function() {
 		'src/js/objects/core/settlement/trade.js',
 		'src/js/objects/core/event.js',
 		'src/js/objects/core/building.js',
-		'src/js/objects/core/soldier.js',
-		'src/js/objects/core/ship.js',
 		'src/js/objects/core/window.js',
 		'src/js/objects/core/panel.js',
-		/*
-		'src/js/objects/core/army.js',
-		*/
 		'src/js/objects/game.js',
 		'src/js/definitions/ui/panel/settlement.js',
 		'src/js/definitions/ui/panel/help.js',

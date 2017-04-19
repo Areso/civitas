@@ -1128,6 +1128,17 @@ civitas.SOLDIERS = {
 			weapons: 1
 		}
 	},
+	'Swordsman': {
+		id: civitas.SOLDIER_SWORDSMAN,
+		attack: 3,
+		defense: 2,
+		cost: {
+			coins: 300,
+			bread: 1,
+			meat: 1,
+			weapons: 2
+		}
+	},
 	'Axeman': {
 		id: civitas.SOLDIER_AXEMAN,
 		attack: 3,
@@ -1201,6 +1212,19 @@ civitas.SOLDIERS = {
 			weapons: 12,
 			armor: 12
 		}
+	},
+	'Crusader': {
+		id: civitas.SOLDIER_CRUSADER,
+		attack: 12,
+		defense: 14,
+		cost: {
+			coins: 2500,
+			provisions: 6,
+			leather: 2,
+			iron: 2,
+			weapons: 12,
+			armor: 12
+		}
 	}
 };
 
@@ -1213,12 +1237,20 @@ civitas.SOLDIERS = {
 civitas.SOLDIER_MILITIA = 0;
 
 /**
+ * Swordsman
+ * 
+ * @constant
+ * @type {Number}
+ */
+civitas.SOLDIER_SWORDSMAN = 1;
+
+/**
  * Axemen
  * 
  * @constant
  * @type {Number}
  */
-civitas.SOLDIER_AXEMAN = 1;
+civitas.SOLDIER_AXEMAN = 2;
 
 /**
  * Knights
@@ -1226,7 +1258,7 @@ civitas.SOLDIER_AXEMAN = 1;
  * @constant
  * @type {Number}
  */
-civitas.SOLDIER_KNIGHT = 2;
+civitas.SOLDIER_KNIGHT = 3;
 
 /**
  * Bowmen
@@ -1234,7 +1266,7 @@ civitas.SOLDIER_KNIGHT = 2;
  * @constant
  * @type {Number}
  */
-civitas.SOLDIER_BOWMAN = 3;
+civitas.SOLDIER_BOWMAN = 4;
 
 /**
  * Crossbowmen
@@ -1242,7 +1274,7 @@ civitas.SOLDIER_BOWMAN = 3;
  * @constant
  * @type {Number}
  */
-civitas.SOLDIER_CROSSBOWMAN = 4;
+civitas.SOLDIER_CROSSBOWMAN = 5;
 
 /**
  * Pikemen
@@ -1250,7 +1282,7 @@ civitas.SOLDIER_CROSSBOWMAN = 4;
  * @constant
  * @type {Number}
  */
-civitas.SOLDIER_PIKEMAN = 5;
+civitas.SOLDIER_PIKEMAN = 6;
 
 /**
  * Legionnaires
@@ -1258,7 +1290,15 @@ civitas.SOLDIER_PIKEMAN = 5;
  * @constant
  * @type {Number}
  */
-civitas.SOLDIER_LEGIONNAIRE = 6;
+civitas.SOLDIER_LEGIONNAIRE = 7;
+
+/**
+ * Crusaders
+ * 
+ * @constant
+ * @type {Number}
+ */
+civitas.SOLDIER_CRUSADER = 8;
 
 /**
  * List of mercenary armies available for hire.
@@ -6726,7 +6766,7 @@ civitas.objects.settlement = function(params) {
 	 * @private
 	 * @type {Number}
 	 */
-	this.army = [];
+	this.army = {};
 	
 	/**
 	 * Flag whether this settlement belongs to a player or is AI-controlled.
@@ -6742,7 +6782,7 @@ civitas.objects.settlement = function(params) {
 	 * @private
 	 * @type {Number}
 	 */
-	this.navy = [];
+	this.navy = {};
 
 	/**
 	 * Mercenary armies available for this settlement.
@@ -6767,7 +6807,15 @@ civitas.objects.settlement = function(params) {
 	 * @type {Object}
 	 */
 	this.resources = {};
-	
+
+	/**
+	 * The settlement heroes.
+	 *
+	 * @private
+	 * @type {Object}
+	 */
+	this.heroes = {};
+
 	/**
 	 * The level of the settlement.
 	 * 
@@ -6819,18 +6867,15 @@ civitas.objects.settlement = function(params) {
 		this.icon = (typeof params.icon !== 'undefined') ? params.icon : 1;
 		this.population = (typeof params.population !== 'undefined') ? params.population : this.level * civitas.POPULATION_PER_LEVEL;
 		this.settlement_type = (typeof params.settlement_type !== 'undefined') ? params.settlement_type : civitas.CITY;
-		if (typeof params.army_list !== 'undefined') {
-			this.setup_army(params.army_list);
-		}
-		if (typeof params.navy_list !== 'undefined') {
-			this.setup_navy(params.navy_list);
-		}
+		this.army = this._setup_army(params.army);//(typeof params.army !== 'undefined') ? params.army : {};
+		this.navy = this._setup_navy(params.navy);//(typeof params.navy !== 'undefined') ? params.navy : {};
 		if (typeof params.mercenary_list !== 'undefined') {
 			this.setup_mercenary(params.mercenary_list);
 		} else {
 			this.mercenary = [];
 		}
 		this.status = (typeof params.status !== 'undefined') ? params.status : {};
+		this.heroes = (typeof params.heroes !== 'undefined') ? params.heroes : {};
 		this.resources = this._build_resources(params.resources);
 		if (typeof params.trades !== 'undefined') {
 			this.trades = params.trades;
@@ -6861,12 +6906,13 @@ civitas.objects.settlement = function(params) {
 			icon: this.get_icon(),
 			trades: this.get_trades(),
 			resources: this.get_resources(),
-			army_list: this.get_army_total().army,
-			navy_list: this.get_navy_total().navy,
+			army: this.get_army_total().army,
+			navy: this.get_navy_total().navy,
 			buildings: this.get_buildings_list(),
 			settlement_type: this.get_settlement_type(),
 			population: this.get_population(),
-			mercenary_list: this.get_mercenary_list()
+			mercenary_list: this.get_mercenary_list(),
+			heroes: this.get_heroes()
 		};
 		if (this.is_player()) {
 			data.status = this.get_status();
@@ -7430,6 +7476,7 @@ civitas.objects.settlement = function(params) {
 		if (this.army.length === 0) {
 			advices.push('You have no army, this is an open invitation for attack.');
 		}
+		/*
 		if (this.army.length < 10 && this.army.length > 0) {
 			advices.push('You have a small army, try to recruit some more soldiers.');
 		}
@@ -7439,6 +7486,7 @@ civitas.objects.settlement = function(params) {
 		if (this.army.length < 3 && this.army.length > 0) {
 			advices.push('You have a small navy, try to construct some more ships.');
 		}
+		*/
 		if (storage.occupied >= storage.all) {
 			advices.push('You have no storage space to store your new goods and they ' +
 				'will be lost. Sell some goods or build a warehouse.');
@@ -7801,6 +7849,28 @@ civitas.objects.settlement = function(params) {
 			}
 		}
 		return false;
+	};
+
+	/**
+	 * Set the heroes of the settlement.
+	 *
+	 * @public
+	 * @param {Object} value
+	 * @returns {civitas.objects.settlement}
+	 */
+	this.set_heroes = function(value) {
+		this.heroes = value;
+		return this;
+	};
+
+	/**
+	 * Get the heroes of the settlement.
+	 *
+	 * @public
+	 * @returns {Object}
+	 */
+	this.get_heroes = function() {
+		return this.heroes;
 	};
 
 	// Fire up the constructor
@@ -8231,6 +8301,44 @@ civitas.objects.settlement.prototype.set_prestige = function(value) {
 };
 
 /**
+ * Internal method for the initial setup of the settlement's army.
+ *
+ * @private
+ * @param {Object} params
+ * @returns {Object}
+ */
+civitas.objects.settlement.prototype._setup_army = function(params) {
+	var army = {};
+	for (var item in civitas.SOLDIERS) {
+		if (typeof params !== 'undefined' && typeof params[item] !== 'undefined') {
+			army[item] = params[item];
+		} else {
+			army[item] = 0;
+		}
+	}
+	return army;
+};
+
+/**
+ * Internal method for the initial setup of the settlement's navy.
+ *
+ * @private
+ * @param {Object} params
+ * @returns {Object}
+ */
+civitas.objects.settlement.prototype._setup_navy = function(params) {
+	var navy = {};
+	for (var item in civitas.SHIPS) {
+		if (typeof params !== 'undefined' && typeof params[item] !== 'undefined') {
+			navy[item] = params[item];
+		} else {
+			navy[item] = 0;
+		}
+	}
+	return navy;
+};
+
+/**
  * Setup mercenary armies.
  *
  * @public
@@ -8323,25 +8431,14 @@ civitas.objects.settlement.prototype.recruit_mercenary_army = function(name, hid
  * @returns {Boolean}
  */
 civitas.objects.settlement.prototype.recruit_ship = function(ship_name) {
-	for (var item in civitas.SHIPS) {
-		if (ship_name === item) {
-			var ship = civitas.SHIPS[item];
-			if (!this.remove_resources(ship.cost)) {
-				return false;
-			}
-			var _ship = new civitas.objects.ship({
-				name: item,
-				data: ship,
-				settlement: this
-			});
-			this.navy.push(_ship);
-			this.get_core().refresh();
-			this.get_core().notify('A new ' + ship_name + ' ship has been constructed.', 'New ship');
-			this.get_core().save();
-			return true;
-		}
+	if (typeof this.navy[ship_name] !== 'undefined') {
+		this.navy[ship_name] = this.navy[ship_name] + 1;
+	} else {
+		this.navy[ship_name] = 1;
 	}
-	return false;
+	this.get_core().save_and_refresh();
+	this.get_core().notify('A new ' + ship_name + ' ship has been constructed.', 'New ship');
+	return true;
 };
 
 /**
@@ -8352,24 +8449,14 @@ civitas.objects.settlement.prototype.recruit_ship = function(ship_name) {
  * @returns {Boolean}
  */
 civitas.objects.settlement.prototype.recruit_soldier = function(soldier_name) {
-	for (var item in civitas.SOLDIERS) {
-		if (soldier_name === item) {
-			var soldier = civitas.SOLDIERS[item];
-			if (!this.remove_resources(soldier.cost)) {
-				return false;
-			}
-			var _soldier = new civitas.objects.soldier({
-				settlement: this,
-				name: item,
-				data: soldier
-			});
-			this.army.push(_soldier);
-			this.get_core().save_and_refresh();
-			this.get_core().notify('A new ' + soldier_name + ' has been recruited.', 'New soldier');
-			return true;
-		}
+	if (typeof this.army[soldier_name] !== 'undefined') {
+		this.army[soldier_name] = this.army[soldier_name] + 1;
+	} else {
+		this.army[soldier_name] = 1;
 	}
-	return false;
+	this.get_core().save_and_refresh();
+	this.get_core().notify('A new ' + soldier_name + ' has been recruited.', 'New soldier');
+	return true;
 };
 
 /**
@@ -8380,16 +8467,10 @@ civitas.objects.settlement.prototype.recruit_soldier = function(soldier_name) {
  * @returns {civitas.objects.settlement}
  */
 civitas.objects.settlement.prototype._recruit_ship = function(ship_name) {
-	for (var item in civitas.SHIPS) {
-		if (ship_name === item) {
-			var ship = civitas.SHIPS[item];
-			var _ship = new civitas.objects.ship({
-				name: item,
-				data: ship,
-				settlement: this
-			});
-			this.navy.push(_ship);
-		}
+	if (typeof this.navy[ship_name] !== 'undefined') {
+		this.navy[ship_name] = this.navy[ship_name] + 1;
+	} else {
+		this.navy[ship_name] = 1;
 	}
 	return this;
 };
@@ -8402,16 +8483,10 @@ civitas.objects.settlement.prototype._recruit_ship = function(ship_name) {
  * @returns {civitas.objects.settlement}
  */
 civitas.objects.settlement.prototype._recruit_soldier = function(soldier_name) {
-	for (var item in civitas.SOLDIERS) {
-		if (soldier_name === item) {
-			var soldier = civitas.SOLDIERS[item];
-			var _soldier = new civitas.objects.soldier({
-				name: item,
-				data: soldier,
-				settlement: this
-			});
-			this.army.push(_soldier);
-		}
+	if (typeof this.army[soldier_name] !== 'undefined') {
+		this.army[soldier_name] = this.army[soldier_name] + 1;
+	} else {
+		this.army[soldier_name] = 1;
 	}
 	return this;
 };
@@ -8444,15 +8519,16 @@ civitas.objects.settlement.prototype.get_army_size = function() {
  * @returns {Boolean}
  */
 civitas.objects.settlement.prototype.disband_ship = function(ship_name) {
-	var navy = this.get_navy();
-	for (var i = 0; i < navy.length; i++) {
-		var ship = navy[i];
-		if (ship.get_name() === ship_name) {
-			delete navy.soldier[i];
-			return true;
+	if (typeof this.navy[ship_name] === 'undefined') {
+		return false;
+	} else {
+		if (this.navy[ship_name] - 1 >= 0) {
+			this.navy[ship_name] = this.navy[ship_name] - 1;
+		} else {
+			this.navy[ship_name] = 0;
 		}
 	}
-	return false;
+	return true;
 };
 
 /**
@@ -8463,15 +8539,16 @@ civitas.objects.settlement.prototype.disband_ship = function(ship_name) {
  * @returns {Boolean}
  */
 civitas.objects.settlement.prototype.disband_soldier = function(soldier_name) {
-	var army = this.get_army();
-	for (var i = 0; i < army.length; i++) {
-		var soldier = army[i];
-		if (soldier.get_name() === soldier_name) {
-			delete army.soldier[i];
-			return true;
+	if (typeof this.army[soldier_name] === 'undefined') {
+		return false;
+	} else {
+		if (this.army[soldier_name] - 1 >= 0) {
+			this.army[soldier_name] = this.army[soldier_name] - 1;
+		} else {
+			this.army[soldier_name] = 0;
 		}
 	}
-	return false;
+	return true;
 };
 
 /**
@@ -8523,82 +8600,6 @@ civitas.objects.settlement.prototype.release_mercenaries = function() {
 };
 
 /**
- * Setup the navy of this settlement.
- * 
- * @public
- * @param {Boolean} hidden
- * @param {Object} data
- * @returns {civitas.objects.settlement}
- */
-civitas.objects.settlement.prototype.setup_navy = function(data, hidden) {
-	if (typeof hidden === 'undefined') {
-		hidden = true;
-	}
-	if (typeof data === 'undefined') {
-		var navy = this.data.navy;
-		for (var ship in navy) {
-			for (var i = 0; i < navy[ship]; i++) {
-				if (hidden === true) {
-					this._recruit_ship(ship);
-				} else {
-					this.recruit_ship(ship);
-				}
-			}
-		}
-	} else {
-		var navy = data;
-		for (var ship in navy) {
-			for (var i = 0; i < navy[ship]; i++) {
-				if (hidden === true) {
-					this._recruit_ship(ship);
-				} else {
-					this.recruit_ship(ship);
-				}
-			}
-		}
-	}
-	return this;
-};
-
-/**
- * Setup the army of this settlement.
- * 
- * @public
- * @param {Boolean} hidden
- * @param {Object} data
- * @returns {civitas.objects.settlement}
- */
-civitas.objects.settlement.prototype.setup_army = function(data, hidden) {
-	if (typeof hidden === 'undefined') {
-		hidden = true;
-	}
-	if (typeof data === 'undefined') {
-		var army = this.data.army;
-		for (var soldier in army) {
-			for (var i = 0; i < army[soldier]; i++) {
-				if (hidden === true) {
-					this._recruit_soldier(soldier);
-				} else {
-					this.recruit_soldier(soldier);
-				}
-			}
-		}
-	} else {
-		var army = data;
-		for (var soldier in army) {
-			for (var i = 0; i < army[soldier]; i++) {
-				if (hidden === true) {
-					this._recruit_soldier(soldier);
-				} else {
-					this.recruit_soldier(soldier);
-				}
-			}
-		}
-	}
-	return this;
-};
-
-/**
  * Get the total number of soldiers available in this settlement.
  * 
  * @public
@@ -8636,22 +8637,12 @@ civitas.objects.settlement.prototype.get_mercenary = function() {
  */
 civitas.objects.settlement.prototype.get_navy_total = function() {
 	var total = 0;
-	var total_navy = {};
-	for (var item in civitas.SHIPS) {
-		total_navy[item] = 0;
-	}
-	for (var i = 0; i < this.navy.length; i++) {
-		var ship = this.navy[i].get_name();
-		for (var item in total_navy) {
-			if (ship === item) {
-				total_navy[item]++;
-				total++;
-			}
-		}
+	for (var item in this.navy) {
+		total = total + this.navy[item];
 	}
 	return {
 		total: total,
-		navy: total_navy
+		navy: this.navy
 	};
 };
 
@@ -8663,22 +8654,12 @@ civitas.objects.settlement.prototype.get_navy_total = function() {
  */
 civitas.objects.settlement.prototype.get_army_total = function() {
 	var total = 0;
-	var total_army = {};
-	for (var item in civitas.SOLDIERS) {
-		total_army[item] = 0;
-	}
-	for (var i = 0; i < this.army.length; i++) {
-		var soldier = this.army[i].get_name();
-		for (var item in total_army) {
-			if (soldier === item) {
-				total_army[item]++;
-				total++;
-			}
-		}
+	for (var item in this.army) {
+		total = total + this.army[item];
 	}
 	return {
 		total: total,
-		army: total_army
+		army: this.army
 	};
 };
 
@@ -8752,6 +8733,16 @@ civitas.objects.settlement.prototype.diplomacy = function(settlement, mode) {
 		return true;
 	}
 	return false;
+};
+
+/**
+ * Check if this settlement can recruit heroes.
+ *
+ * @public
+ * @returns {Boolean}
+ */
+civitas.objects.settlement.prototype.can_recruit_heroes = function() {
+	return this.is_building_built('tavern');
 };
 
 /**
@@ -10214,304 +10205,6 @@ civitas.objects.building = function(params) {
 };
 
 /**
- * Main Game soldier object.
- * 
- * @param {Object} params
- * @class {civitas.objects.soldier}
- * @returns {civitas.objects.soldier}
- */
-civitas.objects.soldier = function (params) {
-
-	/**
-	 * Pointer to the settlement this sodier is located in.
-	 * 
-	 * @type {civitas.objects.settlement}
-	 * @private
-	 */
-	this.settlement = null;
-
-	/**
-	 * Attack rating of this soldier.
-	 * 
-	 * @type {Number}
-	 * @private
-	 */
-	this.attack = 0;
-
-	/**
-	 * Defense rating of this soldier.
-	 * 
-	 * @type {Number}
-	 * @private
-	 */
-	this.defense = 0;
-
-	/**
-	 * Requirements of this soldier.
-	 * 
-	 * @type {Object}
-	 * @private
-	 */
-	this.cost = null;
-
-	/**
-	 * Get the name of this soldier.
-	 * 
-	 * @type {String}
-	 * @private
-	 */
-	this.name = null;
-
-	/**
-	 * Object destructor
-	 * 
-	 * @private
-	 * @returns {Boolean}
-	 */
-	this.__destroy = function () {
-		return false;
-	};
-
-	/**
-	 * Method for destroying(disbanding) the soldier.
-	 * 
-	 * @public
-	 * @returns {Boolean}
-	 */
-	this.destroy = function () {
-		return this.__destroy();
-	};
-
-	/**
-	 * Object constructor.
-	 * 
-	 * @private
-	 * @returns {civitas.objects.soldier}
-	 * @param {Object} params
-	 */
-	this.__init = function (params) {
-		this.settlement = params.settlement;
-		this.name = params.name;
-		this.attack = params.data.attack;
-		this.defense = params.data.defense;
-		this.cost = params.data.cost;
-		return this;
-	};
-
-	/**
-	 * Get the attack rating of this soldier.
-	 * 
-	 * @public
-	 * @returns {Number}
-	 */
-	this.get_attack = function () {
-		return this.attack;
-	};
-
-	/**
-	 * Get the defense rating of this soldier.
-	 * 
-	 * @public
-	 * @returns {Number}
-	 */
-	this.get_defense = function () {
-		return this.defense;
-	};
-
-	/**
-	 * Get the recruitment costs of this soldier.
-	 * 
-	 * @returns {Object}
-	 * @public
-	 */
-	this.get_cost = function () {
-		return this.cost;
-	};
-
-	/**
-	 * Get the settlement this soldier is located into.
-	 * 
-	 * @public
-	 * @returns {civitas.objects.settlement}
-	 */
-	this.get_settlement = function () {
-		return this.settlement;
-	};
-
-	/**
-	 * Get the name of this soldier.
-	 * 
-	 * @public
-	 * @returns {String}
-	 */
-	this.get_name = function () {
-		return this.name;
-	};
-
-	/**
-	 * Get a pointer to the game core.
-	 * 
-	 * @public
-	 * @returns {civitas.game}
-	 */
-	this.get_core = function () {
-		return this.get_settlement().get_core();
-	};
-
-	// Fire up the constructor
-	return this.__init(params);
-};
-
-/**
- * Main Game ship object.
- * 
- * @param {Object} params
- * @class {civitas.objects.ship}
- * @returns {civitas.objects.ship}
- */
-civitas.objects.ship = function (params) {
-
-	/**
-	 * Pointer to the settlement this ship is located in.
-	 * 
-	 * @type {civitas.objects.settlement}
-	 * @private
-	 */
-	this.settlement = null;
-
-	/**
-	 * Attack rating of this ship.
-	 * 
-	 * @type {Number}
-	 * @private
-	 */
-	this.attack = 0;
-
-	/**
-	 * Defense rating of this ship.
-	 * 
-	 * @type {Number}
-	 * @private
-	 */
-	this.defense = 0;
-
-	/**
-	 * Requirements of this ship.
-	 * 
-	 * @type {Object}
-	 * @private
-	 */
-	this.cost = null;
-
-	/**
-	 * Get the name of this ship.
-	 * 
-	 * @type {String}
-	 * @private
-	 */
-	this.name = null;
-
-	/**
-	 * Object destructor
-	 * 
-	 * @private
-	 * @returns {Boolean}
-	 */
-	this.__destroy = function () {
-		return false;
-	};
-
-	/**
-	 * Method for destroying(disbanding) the ship.
-	 * 
-	 * @public
-	 * @returns {Boolean}
-	 */
-	this.destroy = function () {
-		return this.__destroy();
-	};
-
-	/**
-	 * Object constructor.
-	 * 
-	 * @private
-	 * @returns {civitas.objects.ship}
-	 * @param {Object} params
-	 */
-	this.__init = function (params) {
-		this.settlement = params.settlement;
-		this.name = params.name;
-		this.attack = params.data.attack;
-		this.defense = params.data.defense;
-		this.cost = params.data.cost;
-		return this;
-	};
-
-	/**
-	 * Get the attack rating of this ship.
-	 * 
-	 * @public
-	 * @returns {Number}
-	 */
-	this.get_attack = function () {
-		return this.attack;
-	};
-
-	/**
-	 * Get the defense rating of this ship.
-	 * 
-	 * @public
-	 * @returns {Number}
-	 */
-	this.get_defense = function () {
-		return this.defense;
-	};
-
-	/**
-	 * Get the recruitment costs of this ship.
-	 * 
-	 * @returns {Object}
-	 * @public
-	 */
-	this.get_cost = function () {
-		return this.cost;
-	};
-
-	/**
-	 * Get the settlement this ship is located into.
-	 * 
-	 * @public
-	 * @returns {civitas.objects.settlement}
-	 */
-	this.get_settlement = function () {
-		return this.settlement;
-	};
-
-	/**
-	 * Get the name of this ship.
-	 * 
-	 * @public
-	 * @returns {String}
-	 */
-	this.get_name = function () {
-		return this.name;
-	};
-
-	/**
-	 * Get a pointer to the game core.
-	 * 
-	 * @public
-	 * @returns {civitas.game}
-	 */
-	this.get_core = function () {
-		return this.get_settlement().get_core();
-	};
-
-	// Fire up the constructor
-	return this.__init(params);
-};
-
-/**
  * Main Game window object.
  * 
  * @param {Object} params
@@ -11522,8 +11215,8 @@ civitas.game = function () {
 				nationality: nation,
 				personality: civitas.PERSONALITY_BALANCED
 			},
-			army_list: civitas.START_ARMY[difficulty - 1].army,
-			navy_list: civitas.START_ARMY[difficulty - 1].navy,
+			army: civitas.START_ARMY[difficulty - 1].army,
+			navy: civitas.START_ARMY[difficulty - 1].navy,
 			core: this
 		});
 		this.settlements.push(my_settlement);
@@ -12139,8 +11832,8 @@ civitas.game = function () {
 					ruler: ruler,
 					resources: settlement_data.resources,
 					icon: settlement_data.settlement_type === civitas.CITY ? settlement_data.icon : 1,
-					army_list: settlement_data.army,
-					navy_list: settlement_data.navy
+					army: settlement_data.army,
+					navy: settlement_data.navy
 				});
 				if (settlement_data.settlement_type === civitas.CITY) {
 					var climate = new_settlement.get_climate();
@@ -13460,8 +13153,8 @@ civitas.PANEL_NEW_ARMY = {
 				'<a class="tips btn close" title="' + civitas.l('Close this panel') + '"></a>' +
 			'</header>' +
 			'<div class="contents"></div>' +
-			'<div class="toolbar">' +
-				'<a class="btn dispatch" href="#">' + civitas.l('Dispatch') + '</a>' +
+			'<div class="toolbar clearfix">' +
+				'<a class="btn dispatch iblock" href="#">' + civitas.l('Dispatch') + '</a>' +
 			'</div>' +
 		'</div>',
 	id: 'new-army',
@@ -13472,7 +13165,29 @@ civitas.PANEL_NEW_ARMY = {
 		var settlement = params.data;
 		var settlements = core.get_settlements();
 		var settlement_type = settlement.get_settlement_type();
-		var _t = '<fieldset>' +
+		var army = my_settlement.get_army_total();
+		this.assigned_army = {};
+		this.assigned_navy = {};
+		for (var item in army.army) {
+			this.assigned_army[item] = army.army[item];
+		}
+		var navy = my_settlement.get_navy_total();
+		for (var item in navy.navy) {
+			this.assigned_navy[item] = navy.navy[item];
+		}
+		var _t = '<div class="column">' +
+			'<fieldset>' +
+				'<legend>' + civitas.l('Soldiers') + '</legend>';
+		for (var item in army.army) {
+			_t += '<div class="army-item">' +
+					'<a href="#" data-max="' + army.army[item] + '" data-soldier="' + item + '" class="army-item-inc">+</a>' +
+					'<a href="#" data-max="' + army.army[item] + '" data-soldier="' + item + '" class="army-item-dec">-</a>' +
+					'<img class="tips" title="' + item + '" src="' + civitas.ASSETS_URL + 'images/armies/' + item.toLowerCase().replace(/ /g,"_") + '.png" />' +
+					'<span class="amount">' + army.army[item] + '</span>' +
+				'</div>';
+		}
+		_t += '</fieldset>' +
+		'<fieldset>' +
 			'<legend>' + civitas.l('Destination') + '</legend>' +
 			'<select class="army-destination">' +
 				'<option value="0">-- ' + civitas.l('select') + ' --</option>';
@@ -13480,10 +13195,77 @@ civitas.PANEL_NEW_ARMY = {
 			_t += '<option ' + (settlement && (settlements[i].get_id() === settlement.get_id()) ? 'selected ' : '') + 'value="' + settlements[i].get_id() + '">' + (settlements[i].is_city() ? civitas.l('City of') + ' ' : civitas.l('Village of') + ' ') + settlements[i].get_name() + '</option>';
 		}
 		_t += '</select>' +
-		'</fieldset>';
+		'</fieldset>' +
+		'</div>' +
+		'<div class="column">' +
+			'<fieldset>' +
+				'<legend>' + civitas.l('Ships') + '</legend>';
+		for (var item in navy.navy) {
+			_t += '<div class="navy-item">' +
+					'<a href="#" data-max="' + navy.navy[item] + '" data-ship="' + item + '" class="navy-item-inc">+</a>' +
+					'<a href="#" data-max="' + navy.navy[item] + '" data-ship="' + item + '" class="navy-item-dec">-</a>' +
+					'<img class="tips" title="' + item + '" src="' + civitas.ASSETS_URL + 'images/armies/' + item.toLowerCase().replace(/ /g,"_") + '.png" />' +
+					'<span class="amount">' + navy.navy[item] + '</span>' +
+				'</div>';
+		}
+		_t += '</fieldset>';
+		if (my_settlement.can_recruit_heroes()) {
+			var heroes = my_settlement.get_heroes();
+			_t += '<fieldset>' +
+				'<legend>' + civitas.l('Hero') + '</legend>' +
+				'<select class="army-hero">';
+			if ($.isEmptyObject(heroes)) {
+				_t += '<option value="0">-- ' + civitas.l('no heroes available') + ' --</option>';
+			} else {
+				_t += '<option value="0">-- ' + civitas.l('select') + ' --</option>';
+				for (var item in heroes) {
+					_t += '<option value="' + item + '">' + heroes[item] + '</option>';
+				}
+			}
+			_t += '</select>' +
+			'</fieldset>';
+		} else {
+			_t += '<p><strong>' + civitas.l('Note') + '!</strong> ' + civitas.l('Build a Tavern to be able to recruit powerful heroes and assign them to your armies.') + '</p>';		
+		}
+		_t += '</div>';
 		$(this.handle + ' .contents').empty().append(_t);
-		$(this.handle).on('click', '.dispatch', function() {
-			// TODO
+		$(this.handle).on('click', '.navy-item-inc', function() {
+			var max = parseInt($(this).data('max'));
+			var ship = $(this).data('ship');
+			var current = parseInt($(this).parent().children('.amount').html());
+			if (current + 1 <= max) {
+				self.assigned_navy[ship] = current + 1;
+				$(this).parent().children('.amount').html(current + 1);
+			}
+			return false;
+		}).on('click', '.navy-item-dec', function() {
+			var max = parseInt($(this).data('max'));
+			var ship = $(this).data('ship');
+			var current = parseInt($(this).parent().children('.amount').html());
+			if (current - 1 >= 0) {
+				self.assigned_navy[ship] = current - 1;
+				$(this).parent().children('.amount').html(current - 1);
+			}
+			return false;
+		}).on('click', '.army-item-inc', function() {
+			var max = parseInt($(this).data('max'));
+			var soldier = $(this).data('soldier');
+			var current = parseInt($(this).parent().children('.amount').html());
+			if (current + 1 <= max) {
+				self.assigned_army[soldier] = current + 1;
+				$(this).parent().children('.amount').html(current + 1);
+			}
+			return false;
+		}).on('click', '.army-item-dec', function() {
+			var max = parseInt($(this).data('max'));
+			var soldier = $(this).data('soldier');
+			var current = parseInt($(this).parent().children('.amount').html());
+			if (current - 1 >= 0) {
+				self.assigned_army[soldier] = current - 1;
+				$(this).parent().children('.amount').html(current - 1);
+			}
+			return false;
+		}).on('click', '.dispatch', function() {
 			if (!my_settlement.can_recruit_soldiers()) {
 				core.error(civitas.l('You will need to construct a Military Camp before being able to attack other settlements.'));
 				return false;
@@ -13494,22 +13276,15 @@ civitas.PANEL_NEW_ARMY = {
 			}
 			if (destination !== 0 && settlement) {
 				var data = {
-					army: {
-						'Militia': 40,
-						'Axeman': 30,
-						'Knight': 10,
-						'Bowman': 20,
-						'Crossbowman': 10,
-						'Pikeman': 30
-					},
-					navy: {
-						'Corsair': 4,
-						'Caravel': 2,
-						'Galleon': 2,
-						'Warship': 6,
-						'Ship of the Line': 1
-					}
+					army: self.assigned_army,
+					navy: self.assigned_navy,
 				};
+				for (var item in army.army) {
+					army.army[item] = army.army[item] - self.assigned_army[item];
+				}
+				for (var item in navy.navy) {
+					navy.navy[item] = navy.navy[item] - self.assigned_navy[item];
+				}
 				my_settlement.diplomacy(settlement.get_id(), civitas.DIPLOMACY_WAR, civitas.SETTLEMENT_TYPES[settlement_type]);
 				core.add_campaign(my_settlement, settlement, civitas.CAMPAIGN_ARMY, data);
 				core.save_and_refresh();
