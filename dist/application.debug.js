@@ -2,7 +2,7 @@
  * Civitas empire-building game.
  *
  * @author sizeof(cat) <sizeofcat AT riseup.net>
- * @version 0.1.0.4182017
+ * @version 0.1.0.4192017
  * @license MIT
  */ 'use strict';
 
@@ -573,6 +573,14 @@ civitas.CAMPAIGN_ARMY = 1;
 civitas.CAMPAIGN_CARAVAN = 2;
 
 /**
+ * The campaign is a spy.
+ *
+ * @constant
+ * @type {Number}
+ */
+civitas.CAMPAIGN_SPY = 3;
+
+/**
  * Just met, temporary trucem can declare war, can trade.
  * 
  * @constant
@@ -699,6 +707,60 @@ civitas.MAX_ESPIONAGE_VALUE = 1000;
  * @type {Number}
  */
 civitas.MAX_INFLUENCE_VALUE = 1000;
+
+/**
+ * List of game diplomacy options.
+ *
+ * @constant
+ * @type {Array}
+ */
+civitas.SPY_MISSIONS = [
+	'none',
+	'adopt religion',
+	'influence settlement',
+	'steal resources',
+	'instigate turmoil'
+];
+
+/**
+ * Spy mission to do absolutely nothing in the target city (except maybe get noticed?).
+ *
+ * @constant
+ * @type {Number}
+ */
+civitas.SPY_MISSION_NONE = 0;
+
+/**
+ * Spy mission to persuade the target city to take the same religion as the spy home city.
+ *
+ * @constant
+ * @type {Number}
+ */
+civitas.SPY_MISSION_RELIGION = 1;
+
+/**
+ * Spy mission to raise the influence of the spy's home city with the target city.
+ *
+ * @constant
+ * @type {Number}
+ */
+civitas.SPY_MISSION_INFLUENCE = 2;
+
+/**
+ * Spy mission to steal resources from the target city.
+ *
+ * @constant
+ * @type {Number}
+ */
+civitas.SPY_MISSION_STEAL_RESOURCES = 3;
+
+/**
+ * Spy mission to instigate turmoil in the target city.
+ *
+ * @constant
+ * @type {Number}
+ */
+civitas.SPY_MISSION_INSTIGATE = 4;
 
 /**
  * List of the possible nation types.
@@ -6874,12 +6936,15 @@ civitas.objects.settlement = function(params) {
 	 * 
 	 * @public
 	 * @param {Number} coins
+	 * @param {Boolean} alert
 	 * @returns {Boolean}
 	 */
-	this.has_coins = function(coins) {
+	this.has_coins = function(coins, alert) {
 		var resources = this.get_resources();
 		if (this.get_coins() - coins < 0) {
-			this.get_core().error(this.get_name() + ' doesn`t have enough ' + civitas.utils.get_resource_name('coins') + '.');
+			if (alert !== false) {
+				this.get_core().error(this.get_name() + ' doesn`t have enough ' + civitas.utils.get_resource_name('coins') + '.');
+			}
 			return false;
 		}
 		return true;
@@ -9830,7 +9895,7 @@ civitas.objects.building = function(params) {
 		var building = this.get_building_data();
 		var mat = building.materials;
 		var prd = building.production;
-		if (this.get_settlement().has_coins(mat.coins)) {
+		if (this.get_settlement().has_coins(mat.coins, false)) {
 			var amount = prd.research * this.get_level();
 			this.get_settlement().raise_research(amount * this.get_level());
 			this.get_settlement().dec_coins(mat.coins);
@@ -9853,7 +9918,7 @@ civitas.objects.building = function(params) {
 		var building = this.get_building_data();
 		var mat = building.materials;
 		var prd = building.production;
-		if (this.get_settlement().has_coins(mat.coins)) {
+		if (this.get_settlement().has_coins(mat.coins, false)) {
 			var amount = prd.fame * this.get_level();
 			this.get_settlement().raise_fame(amount * this.get_level());
 			this.get_settlement().dec_coins(mat.coins);
@@ -12515,18 +12580,15 @@ civitas.game = function () {
 		return this.campaigns;
 	};
 
+	/**
+	 * Advance all campaigns from the game.
+	 *
+	 * @public
+	 * @returns {civitas.game}
+	 */
 	this.advance_campaigns = function() {
-		var settlement = this.get_settlement();
-		var other_settlement = null;
 		for (var i = 0; i < this.campaigns.length; i++) {
 			if (this.campaigns[i].passed === this.campaigns[i].duration - 1) {
-				if (this.campaigns[i].source.id === settlement.get_id()) {
-					other_settlement = this.get_settlement(this.campaigns[i].destination.id);
-					this.notify('The ' + (this.campaigns[i].type === civitas.CAMPAIGN_ARMY ? 'army' : 'caravan') + ' you sent ' + this.campaigns[i].duration + ' days ago to ' + other_settlement.get_name() + ' reached its destination.');
-				} else if (this.campaigns[i].destination.id === settlement.get_id()) {
-					other_settlement = this.get_settlement(this.campaigns[i].source.id);
-					this.notify('The ' + (this.campaigns[i].type === civitas.CAMPAIGN_ARMY ? 'army' : 'caravan') + ' sent by ' + other_settlement.get_name() + ' ' + this.campaigns[i].duration + ' days ago reached your city.');
-				}
 				this.process_campaign(i);
 			} else {
 				this.campaigns[i].passed++;
@@ -12535,20 +12597,101 @@ civitas.game = function () {
 		return this;
 	};
 
+	/**
+	 * Process a campaign from the game.
+	 *
+	 * @public
+	 * @param {Number} id
+	 * @returns {civitas.game}
+	 */
 	this.process_campaign = function(id) {
 		var campaign = this.campaigns[id];
-		if (campaign.type === civitas.CAMPAIGN_ARMY && !this.get_settlement().can_diplomacy()) {
-			return false;
+		var random = Math.ceil(Math.random() * 100);
+		var failed = true;
+		var class_name = '';
+		var settlement = this.get_settlement(campaign.source.id);
+		var destination_settlement = this.get_settlement(campaign.destination.id);
+		var amount = Math.floor(campaign.data.espionage / 100);
+		if (settlement.is_player()) {
+			if (campaign.type === civitas.CAMPAIGN_ARMY && !settlement.can_diplomacy()) {
+				this.remove_campaign(id);
+				return false;
+			}
+			if (campaign.type === civitas.CAMPAIGN_SPY && !settlement.can_diplomacy()) {
+				this.remove_campaign(id);
+				return false;
+			}
+			if (campaign.type === civitas.CAMPAIGN_CARAVAN && !settlement.can_trade()) {
+				this.remove_campaign(id);
+				return false;
+			}
 		}
-		if (campaign.type === civitas.CAMPAIGN_CARAVAN && !this.get_settlement().can_trade()) {
-			return false;
+		if (campaign.type === civitas.CAMPAIGN_ARMY) {
+			class_name = 'army';
+		} else if (campaign.type === civitas.CAMPAIGN_CARAVAN) {
+			class_name = 'caravan';
+		} else if (campaign.type === civitas.CAMPAIGN_SPY) {
+			class_name = 'spy';
 		}
 		switch (campaign.type) {
 			case civitas.CAMPAIGN_ARMY:
-				break
+				break;
+			case civitas.CAMPAIGN_SPY:
+				if (typeof campaign.data.espionage !== 'undefined') {
+					switch (campaign.data.mission) {
+						case civitas.SPY_MISSION_RELIGION:
+							if (random <= Math.ceil(campaign.data.espionage / 100)) {
+								if (campaign.source.id === settlement.get_id()) {
+									destination_settlement.set_religion(campaign.data.religion);
+									var religion = destination_settlement.get_religion();
+									this.notify('The spy you sent ' + campaign.duration + ' days ago to ' + destination_settlement.get_name() + ' reached its destination and managed to convince the settlement council to change the religion to ' + religion.name + '.');
+								} else if (campaign.destination.id === settlement.get_id()) {
+									destination_settlement = this.get_settlement(campaign.source.id);
+									settlement.set_religion(campaign.data.religio);
+									var religion = settlement.get_religion();
+									this.notify('The spy sent by ' + destination_settlement.get_name() + ' ' + campaign.duration + ' days ago to our city reached its destination and managed to convince your city council to change the religion to ' + religion.name + '.');
+								}
+								failed = false;
+							}
+							break;
+						case civitas.SPY_MISSION_INFLUENCE:
+							if (random <= Math.ceil(campaign.data.espionage / 100)) {
+								if (campaign.source.id === settlement.get_id()) {
+									settlement.raise_influence(campaign.destination.id, amount);
+									this.notify('The spy you sent ' + campaign.duration + ' days ago to ' + destination_settlement.get_name() + ' reached its destination and increased your influence over this settlement.');
+								} else if (campaign.destination.id === settlement.get_id()) {
+									destination_settlement = this.get_settlement(campaign.source.id);
+									// TODO
+									//destination_settlement.raise_influence(campaign.destination.id, amount);
+									this.notify('The spy sent by ' + destination_settlement.get_name() + ' ' + campaign.duration + ' days ago to our city reached its destination and lowered your influence over this settlement.');
+								}
+								failed = false;
+							}
+							break;
+						case civitas.SPY_MISSION_STEAL_RESOURCES:
+							if (random <= Math.ceil(campaign.data.espionage / 100)) {
+								// TODO
+								failed = false;
+							}
+							break;
+						case civitas.SPY_MISSION_INSTIGATE:
+							if (random <= Math.ceil(campaign.data.espionage / 100)) {
+								if (campaign.source.id === settlement.get_id()) {
+									destination_settlement.lower_prestige(amount);
+									this.notify('The spy you sent ' + campaign.duration + ' days ago to ' + destination_settlement.get_name() + ' reached its destination and incited the population to revolt, therefore lowering the prestige of the city.');
+								} else if (campaign.destination.id === settlement.get_id()) {
+									destination_settlement = this.get_settlement(campaign.source.id);
+									settlement.lower_prestige(amount);
+									this.notify('The spy sent by ' + destination_settlement.get_name() + ' ' + campaign.duration + ' days ago to our city reached its destination and incited our population to revolt, therefore lowering the prestige of our city.');
+								}
+								failed = false;
+							}
+							break;
+					}
+				}
+				break;
 			case civitas.CAMPAIGN_CARAVAN:
 				var total = 0;
-				var destination_settlement = this.get_settlement(campaign.destination.id);
 				if (typeof campaign.data.resources !== 'undefined') {
 					for (var item in campaign.data.resources) {
 						if ($.inArray(item, civitas.NON_RESOURCES) === -1) {
@@ -12558,16 +12701,38 @@ civitas.game = function () {
 						}
 						destination_settlement.add_to_storage(item, campaign.data.resources[item]);
 					}
-					this.get_settlement().raise_influence(campaign.destination.id, 5);
+					settlement.raise_influence(campaign.destination.id, 5);
 				}
 				break;
+		}
+		if (failed === true) {
+			if (campaign.source.id === settlement.get_id()) {
+				this.notify('The ' + class_name + ' you sent ' + campaign.duration + ' days ago to ' + destination_settlement.get_name() + ' reached its destination.');
+			} else if (campaign.destination.id === settlement.get_id()) {
+				destination_settlement = this.get_settlement(campaign.source.id);
+				this.notify('The ' + class_name + ' sent by ' + destination_settlement.get_name() + ' ' + campaign.duration + ' days ago reached our city.');
+			}
 		}
 		this.remove_campaign(id);
 		return this;
 	};
 
+
+	/**
+	 * Add a campaign to the game.
+	 *
+	 * @public
+	 * @param {civitas.objects.settlement} source_settlement
+	 * @param {civitas.objects.settlement} destination_settlement
+	 * @param {Number} type
+	 * @param {Object} data
+	 * @returns {Object}
+	 */
 	this.add_campaign = function(source_settlement, destination_settlement, type, data) {
 		if (type === civitas.CAMPAIGN_ARMY && !this.get_settlement().can_diplomacy()) {
+			return false;
+		}
+		if (type === civitas.CAMPAIGN_SPY && !this.get_settlement().can_diplomacy()) {
 			return false;
 		}
 		if (type === civitas.CAMPAIGN_CARAVAN && !this.get_settlement().can_trade()) {
@@ -12576,6 +12741,14 @@ civitas.game = function () {
 		var s_loc = civitas['SETTLEMENT_LOCATION_' + source_settlement.get_climate().name.toUpperCase()];
 		var d_loc = civitas.SETTLEMENTS[destination_settlement.get_id()].location;
 		var duration = civitas.utils.get_distance_in_days(s_loc, d_loc);
+		var class_name = '';
+		if (type === civitas.CAMPAIGN_ARMY) {
+			class_name = 'army';
+		} else if (type === civitas.CAMPAIGN_CARAVAN) {
+			class_name = 'caravan';
+		} else if (type === civitas.CAMPAIGN_SPY) {
+			class_name = 'spy';
+		}
 		var campaign = {
 			source: {
 				x: s_loc.x,
@@ -12593,14 +12766,21 @@ civitas.game = function () {
 			data: data
 		};
 		this.campaigns.push(campaign);
-		this.notify('Your ' + (type === civitas.CAMPAIGN_ARMY ? 'army' : 'caravan') + ' was dispatched towards ' + destination_settlement.get_name() + ' and will reach its destination in ' + duration + ' days.');
+		this.notify('Your ' + class_name + ' was dispatched towards ' + destination_settlement.get_name() + ' and will reach its destination in ' + duration + ' days.');
 		return campaign;
 	};
 
+	/**
+	 * Remove a campaign from the game.
+	 *
+	 * @public
+	 * @param {Number} id
+	 * @returns {civitas.game}
+	 */
 	this.remove_campaign = function(id) {
 		var panel;
 		if (panel = this.get_panel('campaign')) {
-			panel.destroy()
+			panel.destroy();
 		}
 		this.campaigns.splice(id, 1);
 		return this;
@@ -12679,11 +12859,11 @@ civitas.PANEL_SETTLEMENT = {
 				'<a class="tips btn close" title="' + civitas.l('Close this panel') + '"></a>' +
 			'</header>' +
 			'<div class="contents"></div>' +
-			'<footer class="footer clearfix">' +
-					'<a class="tips attack btn" title="' + civitas.l('Attack this settlement') + '"></a>' +
-					'<a class="tips caravan btn" title="' + civitas.l('Send a caravan to this settlement') + '"></a>' +
-					'<a class="tips help btn" data-context="settlement" data-term="general" title="' + civitas.l('Info about this settlement') + '"></a>' +
-			'</footer>' +
+			'<div class="toolbar clearfix">' +
+				'<a class="tips attack btn iblock" title="' + civitas.l('Attack this settlement.') + '">' + civitas.l('Attack') + '</a>' +
+				'<a class="tips caravan btn iblock" title="' + civitas.l('Send a caravan to this settlement.') + '">' + civitas.l('Caravan') + '</a>' +
+				'<a class="tips spy btn iblock" title="' + civitas.l('Send a spy to this settlement.') + '">' + civitas.l('Spy') + '</a>' +
+			'</div>' +
 		'</div>',
 	params_data: null,
 	id: 'settlement',
@@ -12696,7 +12876,7 @@ civitas.PANEL_SETTLEMENT = {
 		this.params_data = params;
 		var trades = settlement.get_trades();
 		var location = civitas['SETTLEMENT_LOCATION_' + my_settlement.get_climate().name.toUpperCase()];
-		$(this.handle + ' header .title').html((settlement.is_city() ? 'City of ' : 'Village of ') + settlement.get_name());
+		$(this.handle + ' header .title').html((settlement.is_city() ? civitas.l('City of') + ' ' : civitas.l('Village of') + ' ') + settlement.get_name());
 		if (settlement.is_city()) {
 			$(this.handle + ' .contents').append(civitas.ui.tabs([civitas.l('Info'), civitas.l('Army'), civitas.l('Navy'), civitas.l('Resources'), civitas.l('Imports'), civitas.l('Exports')]));
 		} else {
@@ -12708,41 +12888,21 @@ civitas.PANEL_SETTLEMENT = {
 				core.error(civitas.l('You will need to construct a Trading Post before being able to trade resources with other settlements.'));
 				return false;
 			}
-			core.add_campaign(my_settlement, settlement, civitas.CAMPAIGN_CARAVAN, {
-				resources: {
-					coins: 100000,
-					wood: 10,
-					stones: 20,
-					silk: 10,
-					weapons: 100
-				}
-			});
-			self.destroy();
+			core.open_panel(civitas.PANEL_NEW_CARAVAN, settlement);
 			return false;
-		}).on('click', '.attack', function () {
+		}).on('click', '.spy', function () {
 			if (!my_settlement.can_diplomacy()) {
-				core.error(civitas.l('You will need to construct an Embassy before being able to propose treaties and pacts to other settlements.'));
+				core.error(civitas.l('You will need to construct an Embassy before being able to send spies to other settlements.'));
 				return false;
 			}
-			my_settlement.diplomacy(settlement.get_id(), civitas.DIPLOMACY_WAR, civitas.SETTLEMENT_TYPES[settlement_type]);
-			core.add_campaign(my_settlement, settlement, civitas.CAMPAIGN_ARMY, {
-				army: {
-					'Militia': 40,
-					'Axeman': 30,
-					'Knight': 10,
-					'Bowman': 20,
-					'Crossbowman': 10,
-					'Pikeman': 30
-				},
-				navy: {
-					'Corsair': 4,
-					'Caravel': 2,
-					'Galleon': 2,
-					'Warship': 6,
-					'Ship of the Line': 1
-				}
-			});
-			self.destroy();
+			core.open_panel(civitas.PANEL_NEW_SPY, settlement);
+			return false;
+		}).on('click', '.attack', function () {
+			if (!my_settlement.can_recruit_soldiers()) {
+				core.error(civitas.l('You will need to construct a Military Camp before being able to attack other settlements.'));
+				return false;
+			}
+			core.open_panel(civitas.PANEL_NEW_ARMY, settlement);
 			return false;
 		});
 	},
@@ -12782,7 +12942,7 @@ civitas.PANEL_SETTLEMENT = {
 				'<p>' + civitas.l('Below are the goods this city will be selling this year.') + '</p>' +
 				civitas.ui.trades_list(trades, 'exports'));
 		}
-		var out = '<p>This settlement has the the following resources:</p>';
+		var out = '<p>' + civitas.l('This settlement has the the following resources:') + '</p>';
 		for (var item in settlement.get_resources()) {
 			if ($.inArray(item, civitas.NON_RESOURCES) === -1 && settlement.resources[item] > 0) {
 				out += civitas.ui.resource_storage_small_el(item, settlement.resources[item]);
@@ -13017,12 +13177,22 @@ civitas.PANEL_CAMPAIGN = {
 		var core = this.get_core();
 		var my_settlement = core.get_settlement();
 		var campaign = params.data;
+		var class_name = '';
 		this.params_data = params;
-		$(this.handle + ' .title').empty().html((campaign.type === civitas.CAMPAIGN_ARMY ? civitas.l('Army') : civitas.l('Caravan')));
+		if (campaign.type === civitas.CAMPAIGN_ARMY) {
+			class_name = 'army';
+		} else if (campaign.type === civitas.CAMPAIGN_CARAVAN) {
+			class_name = 'caravan';
+		} else if (campaign.type === civitas.CAMPAIGN_SPY) {
+			class_name = 'spy';
+		}
+		$(this.handle + ' .title').empty().html(class_name.capitalize() + ' ' + civitas.l('mission'));
 		if (campaign.type === civitas.CAMPAIGN_ARMY) {
 			$(this.handle + ' .contents').append(civitas.ui.tabs([civitas.l('Info'), civitas.l('Army'), civitas.l('Navy')]));
-		} else {
+		} else if (campaign.type === civitas.CAMPAIGN_CARAVAN) {
 			$(this.handle + ' .contents').append(civitas.ui.tabs([civitas.l('Info'), civitas.l('Resources')]));
+		} else if (campaign.type === civitas.CAMPAIGN_SPY) {
+			$(this.handle + ' .contents').append(civitas.ui.tabs([civitas.l('Info'), civitas.l('Spy')]));
 		}
 		this.on_refresh();
 	},
@@ -13047,7 +13217,7 @@ civitas.PANEL_CAMPAIGN = {
 		if (campaign.type === civitas.CAMPAIGN_ARMY) {
 			$(this.handle + ' #tab-army').empty().append(civitas.ui.army_list(campaign.data));
 			$(this.handle + ' #tab-navy').empty().append(civitas.ui.navy_list(campaign.data));
-		} else {
+		} else if (campaign.type === civitas.CAMPAIGN_CARAVAN) {
 			if (typeof campaign.data.resources !== 'undefined') {
 				out = '<p>' + civitas.l('This caravan has the the following resources:') + '</p>' +
 				'<dl>';
@@ -13060,6 +13230,18 @@ civitas.PANEL_CAMPAIGN = {
 				out = '<p>' + civitas.l('This is an empty caravan with no resources.') + '</p>';
 			}
 			$(this.handle + ' #tab-resources').empty().append(out);
+		} else if (campaign.type === civitas.CAMPAIGN_SPY) {
+			out = '<dl>' +
+				'<dt>' + civitas.l('Mission') + '</dt>' +
+				'<dd>' + civitas.SPY_MISSIONS[campaign.data.mission].capitalize() + '</dd>' +
+				(campaign.data.mission === civitas.SPY_MISSION_RELIGION ? '<dt>' + civitas.l('Religion') + '</dt>' +
+				'<dd>' + civitas.RELIGIONS[campaign.data.religion].capitalize() + '</dd>' : '') +
+				'<dt>' + civitas.l('Espionage') + '</dt>' +
+				'<dd>' + campaign.data.espionage + ' ' + civitas.ui.resource_small_img('espionage') + '</dd>' +
+				'<dt>' + civitas.l('Success chance') + '</dt>' +
+				'<dd>' + Math.ceil(campaign.data.espionage / 100) + '%</dd>' +
+			'</dl>';
+			$(this.handle + ' #tab-spy').empty().append(out);
 		}
 	}
 };
@@ -13153,16 +13335,16 @@ civitas.PANEL_WORLD = {
 		$(this.handle + ' .worldmap').addClass('w' + map);
 		this.on_refresh();
 		$(this.handle).on('click', '.settlement', function () {
-			var settlement_name = $(this).data('name');
-			if (settlement_name === 'yoursettlement') {
+			var _settlement_name = $(this).data('name');
+			if (_settlement_name === 'yoursettlement') {
 				core.open_panel(civitas.PANEL_COUNCIL);
 			} else {
-				core.open_panel(civitas.PANEL_SETTLEMENT, core.get_settlement(settlement_name));
+				core.open_panel(civitas.PANEL_SETTLEMENT, core.get_settlement(_settlement_name));
 			}
 			return false;
-		}).on('click', '.caravan, .army', function () {
-			var id = parseInt($(this).data('id'));
-			core.open_panel(civitas.PANEL_CAMPAIGN, core.campaigns[id]);
+		}).on('click', '.caravan, .army, .spy', function () {
+			var _campaign_id = parseInt($(this).data('id'));
+			core.open_panel(civitas.PANEL_CAMPAIGN, core.campaigns[_campaign_id]);
 			return false;
 		});
 	},
@@ -13172,6 +13354,7 @@ civitas.PANEL_WORLD = {
 		var settlement = core.get_settlement();
 		var settlements = core.get_settlements();
 		var campaigns = core.get_campaigns();
+		var class_name = '';
 		var loc = civitas['SETTLEMENT_LOCATION_' + settlement.get_climate().name.toUpperCase()];
 		var out = '<div data-name="yoursettlement" class="tips settlement c1" title="' + civitas.l('City of') + ' ' + settlement.get_name() + '" style="left:' + loc.x + 'px;top:' + loc.y + 'px"></div>';
 		for (var i = 1; i < settlements.length; i++) {
@@ -13182,12 +13365,19 @@ civitas.PANEL_WORLD = {
 			}
 		}
 		for (var i = 0; i < campaigns.length; i++) {
+			if (campaigns[i].type === civitas.CAMPAIGN_ARMY) {
+				class_name = 'army';
+			} else if (campaigns[i].type === civitas.CAMPAIGN_CARAVAN) {
+				class_name = 'caravan';
+			} else if (campaigns[i].type === civitas.CAMPAIGN_SPY) {
+				class_name = 'spy';
+			}
 			var source = campaigns[i].source;
 			var destination = campaigns[i].destination;
 			var distance_in_days = civitas.utils.get_distance_in_days(source, destination);
 			var x = source.x + Math.floor(((destination.x - source.x) / distance_in_days) * campaigns[i].passed);
 			var y = source.y - Math.floor(((source.y - destination.y) / distance_in_days) * campaigns[i].passed);
-			out += '<div data-id="' + i + '" class="tips ' + (campaigns[i].type === civitas.CAMPAIGN_ARMY ? 'army' : 'caravan') + '" title="' + (campaigns[i].type === civitas.CAMPAIGN_ARMY ? 'Army' : 'Caravan') + '" style="left:' + x + 'px;top:' + y + 'px"></div>';
+			out += '<div data-id="' + i + '" class="tips ' + class_name + '" title="' + class_name.capitalize() + '" style="left:' + x + 'px;top:' + y + 'px"></div>';
 		}
 		$(this.handle + ' .contents .worldmap').empty().append(out);
 	}
@@ -13254,6 +13444,315 @@ civitas.PANEL_RANKS = {
 		_t += '</tbody>' +
 			'</table>';
 		$(this.handle + ' .ranks-list').empty().append(_t);
+	}
+};
+
+/**
+ * Create a new army panel data.
+ *
+ * @type {Object}
+ */
+civitas.PANEL_NEW_ARMY = {
+	template: '' +
+		'<div id="panel-new-army" class="panel">' +
+			'<header>' +
+				'<span class="title">' + civitas.l('Create army') + '</span>' +
+				'<a class="tips btn close" title="' + civitas.l('Close this panel') + '"></a>' +
+			'</header>' +
+			'<div class="contents"></div>' +
+			'<div class="toolbar">' +
+				'<a class="btn dispatch" href="#">' + civitas.l('Dispatch') + '</a>' +
+			'</div>' +
+		'</div>',
+	id: 'new-army',
+	on_show: function(params) {
+		var self = this;
+		var core = this.get_core();
+		var my_settlement = core.get_settlement();
+		var settlement = params.data;
+		var settlements = core.get_settlements();
+		var settlement_type = settlement.get_settlement_type();
+		var _t = '<fieldset>' +
+			'<legend>' + civitas.l('Destination') + '</legend>' +
+			'<select class="army-destination">' +
+				'<option value="0">-- ' + civitas.l('select') + ' --</option>';
+		for (var i = 1; i < settlements.length; i++) {
+			_t += '<option ' + (settlement && (settlements[i].get_id() === settlement.get_id()) ? 'selected ' : '') + 'value="' + settlements[i].get_id() + '">' + (settlements[i].is_city() ? civitas.l('City of') + ' ' : civitas.l('Village of') + ' ') + settlements[i].get_name() + '</option>';
+		}
+		_t += '</select>' +
+		'</fieldset>';
+		$(this.handle + ' .contents').empty().append(_t);
+		$(this.handle).on('click', '.dispatch', function() {
+			// TODO
+			if (!my_settlement.can_recruit_soldiers()) {
+				core.error(civitas.l('You will need to construct a Military Camp before being able to attack other settlements.'));
+				return false;
+			}
+			var destination = parseInt($(self.handle + ' .army-destination').val());
+			if ((settlement && settlement.get_id() !== destination) || !settlement) {
+				settlement = core.get_settlement(destination);
+			}
+			if (destination !== 0 && settlement) {
+				var data = {
+					army: {
+						'Militia': 40,
+						'Axeman': 30,
+						'Knight': 10,
+						'Bowman': 20,
+						'Crossbowman': 10,
+						'Pikeman': 30
+					},
+					navy: {
+						'Corsair': 4,
+						'Caravel': 2,
+						'Galleon': 2,
+						'Warship': 6,
+						'Ship of the Line': 1
+					}
+				};
+				my_settlement.diplomacy(settlement.get_id(), civitas.DIPLOMACY_WAR, civitas.SETTLEMENT_TYPES[settlement_type]);
+				core.add_campaign(my_settlement, settlement, civitas.CAMPAIGN_ARMY, data);
+				core.save_and_refresh();
+				self.destroy();
+			} else {
+				core.error(civitas.l('There was an error creating and dispatching the army, check the data you entered and try again.'));
+			}
+			return false;
+		});
+	},
+	on_refresh: function() {
+		var core = this.get_core();
+		var my_settlement = core.get_settlement();
+	}
+};
+
+/**
+ * Create a new spy panel data.
+ *
+ * @type {Object}
+ */
+civitas.PANEL_NEW_SPY = {
+	template: '' +
+		'<div id="panel-new-spy" class="panel">' +
+			'<header>' +
+				'<span class="title">' + civitas.l('Create spy') + '</span>' +
+				'<a class="tips btn close" title="' + civitas.l('Close this panel') + '"></a>' +
+			'</header>' +
+			'<div class="contents"></div>' +
+			'<div class="toolbar">' +
+				'<a class="btn dispatch" href="#">' + civitas.l('Dispatch') + '</a>' +
+			'</div>' +
+		'</div>',
+	id: 'new-spy',
+	on_show: function(params) {
+		var self = this;
+		var core = this.get_core();
+		var my_settlement = core.get_settlement();
+		var settlement = params.data;
+		var settlements = core.get_settlements();
+		var espionage = my_settlement.get_espionage();
+		var _t = '<fieldset>' +
+			'<legend>' + civitas.l('Destination') + '</legend>' +
+			'<select class="espionage-destination">' +
+				'<option value="0">-- ' + civitas.l('select') + ' --</option>';
+		for (var i = 1; i < settlements.length; i++) {
+			_t += '<option ' + (settlement && (settlements[i].get_id() === settlement.get_id()) ? 'selected ' : '') + 'value="' + settlements[i].get_id() + '">' + (settlements[i].is_city() ? civitas.l('City of') + ' ' : civitas.l('Village of') + ' ') + settlements[i].get_name() + '</option>';
+		}
+		_t += '</select>' +
+		'</fieldset>' +
+		'<fieldset class="range-combo">' +
+			'<legend>' + civitas.l('Espionage') + '</legend>' +
+			'<input type="range" value="' + espionage + '" min="1" max="' + espionage + '" class="espionage-range" />' +
+			'<input type="text" readonly value="' + espionage + '" class="espionage-value tips" title="' + civitas.l('Total espionage assigned to this spy.') + '" />' +
+			'<input type="text" readonly value="' + Math.ceil(espionage / 100) + '%" class="espionage-chance tips" title="' + civitas.l('Chance of mission success.') + '" />' +
+		'</fieldset>' +
+		'<fieldset>' +
+			'<legend>' + civitas.l('Mission') + '</legend>' +
+			'<select class="espionage-mission">' +
+				'<option value="0">-- ' + civitas.l('select') + ' --</option>';
+		for (var i = 1; i < civitas.SPY_MISSIONS.length; i++) {
+			_t += '<option value="' + i + '">' + civitas.SPY_MISSIONS[i].capitalize() + '</option>';
+		}
+		_t += '</select>' +
+		'</fieldset>' +
+		'<fieldset class="espionage-rel">' +
+			'<legend>' + civitas.l('Religion') + (settlement ? ' (currently ' + settlement.get_religion().name.capitalize() + ')': '') + '</legend>' +
+			'<select class="espionage-religion">';
+		for (var i = 0; i < civitas.RELIGIONS.length; i++) {
+			_t += '<option value="' + i + '">' + civitas.RELIGIONS[i].capitalize() + (i === my_settlement.get_religion().id ? ' (' + civitas.l('your religion') + ')' : '') + '</option>';
+		}
+		_t += '</select>' +
+		'<p><strong>' + civitas.l('Note') + '!</strong> ' + civitas.l('Attempting to change a settlement`s religion uses up all your accumulated faith.') + '</p>' +
+		'</fieldset>';
+		$(this.handle + ' .contents').empty().append(_t);
+		$(this.handle).on('change', '.espionage-range', function() {
+			var value = parseInt($(this).val());
+			$(self.handle + ' .espionage-value').val(value);
+			$(self.handle + ' .espionage-chance').val(Math.ceil(value / 100) + '%');
+		}).on('change', '.espionage-mission', function() {
+			var value = parseInt($(this).val());
+			if (value === civitas.SPY_MISSION_RELIGION) {
+				$(self.handle + ' .espionage-rel').show();
+			} else {
+				$(self.handle + ' .espionage-rel').hide();
+			}
+		}).on('click', '.dispatch', function() {
+			if (!my_settlement.can_diplomacy()) {
+				core.error(civitas.l('You will need to construct an Embassy before being able to send spies to other settlements.'));
+				return false;
+			}
+			var _espionage = parseInt($(self.handle + ' .espionage-value').val());
+			var destination = parseInt($(self.handle + ' .espionage-destination').val());
+			var mission = parseInt($(self.handle + ' .espionage-mission').val());
+			var _religion = parseInt($(self.handle + ' .espionage-religion').val());
+			if ((settlement && settlement.get_id() !== destination) || !settlement) {
+				settlement = core.get_settlement(destination);
+			}
+			if (destination !== 0 && _espionage <= espionage && settlement && mission > 0) {
+				my_settlement.lower_espionage(espionage);
+				var data = {
+					espionage: _espionage,
+					mission: mission
+				};
+				if (mission === civitas.SPY_MISSION_RELIGION) {
+					data.religion = _religion;
+					my_settlement.reset_faith();
+				}
+				core.add_campaign(my_settlement, settlement, civitas.CAMPAIGN_SPY, data);
+				core.save_and_refresh();
+				self.destroy();
+			} else {
+				core.error(civitas.l('There was an error creating and dispatching the spy, check the data you entered and try again.'));
+			}
+			return false;
+		});
+	},
+	on_refresh: function() {
+		var core = this.get_core();
+		var my_settlement = core.get_settlement();
+		var espionage = my_settlement.get_espionage();
+		$(this.handle + ' .espionage-range').attr('max', espionage);
+	}
+};
+
+/**
+ * Create a new caravan panel data.
+ *
+ * @type {Object}
+ */
+civitas.PANEL_NEW_CARAVAN = {
+	template: '' +
+		'<div id="panel-new-caravan" class="panel">' +
+			'<header>' +
+				'<span class="title">' + civitas.l('Create caravan') + '</span>' +
+				'<a class="tips btn close" title="' + civitas.l('Close this panel') + '"></a>' +
+			'</header>' +
+			'<div class="contents"></div>' +
+			'<div class="toolbar">' +
+				'<a class="btn dispatch" href="#">' + civitas.l('Dispatch') + '</a>' +
+			'</div>' +
+		'</div>',
+	id: 'new-caravan',
+	on_show: function(params) {
+		this.resources = {};
+		var self = this;
+		var core = this.get_core();
+		var my_settlement = core.get_settlement();
+		var settlement = params.data;
+		var settlements = core.get_settlements();
+		var _t = '<fieldset>' +
+			'<legend>' + civitas.l('Destination') + '</legend>' +
+			'<select class="caravan-destination">' +
+				'<option value="0">-- ' + civitas.l('select') + ' --</option>';
+		for (var i = 1; i < settlements.length; i++) {
+			_t += '<option ' + (settlement && (settlements[i].get_id() === settlement.get_id()) ? 'selected ' : '') + 'value="' + settlements[i].get_id() + '">' + (settlements[i].is_city() ? civitas.l('City of') + ' ' : civitas.l('Village of') + ' ') + settlements[i].get_name() + '</option>';
+		}
+		_t += '</select>' +
+		'</fieldset>' +
+		'<fieldset class="select-combo">' +
+			'<legend>' + civitas.l('Resources') + '</legend>' +
+			'<select class="caravan-resources-select">' +
+				'<option value="0">-- ' + civitas.l('select') + ' --</option>' +
+				'<option value="coins"> ' + civitas.l('Coins') + '</option>';
+		var resources = my_settlement.get_resources();
+		for (var item in resources) {
+			if ($.inArray(item, civitas.NON_RESOURCES) === -1) {
+				_t += '<option value="' + item + '"> ' + civitas.utils.get_resource_name(item) + '</option>';
+			}
+		}
+		_t += '</select>' +
+			'<input title="' + civitas.l('Add the resources to the list.') + '" type="button" class="tips caravan-resources-add" value="+" />' +
+			'<input title="' + civitas.l('Amount of selected resource to add to the caravan.') + '" type="number" value="1" class="tips caravan-resources-amount" min="1" max="999" />' +
+			'<div class="caravan-resources clearfix"></div>' +
+		'</fieldset>';
+		$(this.handle + ' .contents').empty().append(_t);
+		this.generate_table_data = function() {
+			var _t = '<table class="caravan-resources clearfix">' +
+				'<thead>' +
+				'<tr>' +
+				'<td>' + civitas.l('Amount') + '</td>' +
+				'<td>' + civitas.l('Resource') + '</td>' +
+				'<td></td>' +
+				'</tr>' +
+				'</thead>' +
+				'<tbody>';
+			for (var item in this.resources) {
+				_t += '<tr>' +
+					'<td>' + this.resources[item] + '</td>' +
+					'<td>' + civitas.ui.resource_small_img(item) + '</td>' +
+					'<td>' +
+						'<a title="' + civitas.l('Remove this resource from the caravan.') + '" href="#" data-id="' + item + '" class="tips caravan-resources-delete">-</a>' +
+					'</td>' +
+				'</tr>';
+			}
+			_t += '</tbody>' +
+			'</table>';
+			$(this.handle + ' .caravan-resources').empty().append(_t);
+		};
+		$(this.handle).on('click', '.caravan-resources-add', function() {
+			var amount = parseInt($(self.handle + ' .caravan-resources-amount').val());
+			var resource = $(self.handle + ' .caravan-resources-select').val();
+			if (resource !== '0' && my_settlement.has_resources(resource, amount)) {
+				if (typeof self.resources[resource] !== 'undefined') {
+					self.resources[resource] = self.resources[resource] + amount;
+				} else {
+					self.resources[resource] = amount;
+				}
+				self.generate_table_data();
+			}
+			return false;
+		}).on('click', '.caravan-resources-delete', function() {
+			var resource = $(this).data('id');
+			delete self.resources[resource];
+			self.generate_table_data();
+			return false;
+		}).on('click', '.dispatch', function() {
+			if (!my_settlement.can_trade()) {
+				core.error(civitas.l('You will need to construct a Trading Post before being able to trade resources with other settlements.'));
+				return false;
+			}
+			var destination = parseInt($(self.handle + ' .caravan-destination').val());
+			if ((settlement && settlement.get_id() !== destination) || !settlement) {
+				settlement = core.get_settlement(destination);
+			}
+			if (destination !== 0 && settlement && !$.isEmptyObject(self.resources)) {
+				var data = {
+					resources: self.resources
+				};
+				for (var item in self.resources) {
+					if (!my_settlement.remove_resource(item, self.resources[item])) {
+						core.error(civitas.l('There was an error creating and dispatching the caravan, check the data you entered and try again.'));
+						return false;
+					}
+				}
+				core.add_campaign(my_settlement, settlement, civitas.CAMPAIGN_CARAVAN, data);
+				core.save_and_refresh();
+				self.destroy();
+			} else {
+				core.error(civitas.l('There was an error creating and dispatching the caravan, check the data you entered and try again.'));
+			}
+			return false;
+		});
 	}
 };
 
@@ -13784,6 +14283,29 @@ civitas.PANEL_TRADES = {
 		$(el + ' #tab-mercenaries').append('<p>' + civitas.l('Below is a list of mercenary armies that are looking for hire. Mercenaries are available only for raiding and conquest missions, they do not join your city so they will not participate in defense.') + '</p><div class="contents"></div>');
 		$(el + ' #tab-blackmarket').append('<p>' + civitas.l('The Black Market is a way to dump your excess materials when you`re in need of emptying your warehouses, but expect a steep price drop (taxes for all Black Market trades are <strong>') + civitas.BLACK_MARKET_DISCOUNT + civitas.l('%</strong>). The goods will be taken immediately from your warehouses but you will receive the coins at the <strong>start of the next month</strong>. Also, you get <strong>no prestige</strong> from Black Market trades.') + '</p><div class="contents"></div>');
 		$(el + ' #tab-prices').append('<div class="contents"></div>');
+		$('#tab-blackmarket > .contents').append('' +
+			'<table class="normal">' +
+				'<thead>' +
+					'<tr>' +
+						'<td>' + civitas.l('Resources') + ': <select class="bm-materials"></select></td>' +
+						'<td>' + civitas.l('Quantity') + ': ' +
+							'<select class="bm-quantity">' +
+								'<option value="0">-- ' + civitas.l('select') + ' --</option>' +
+								'<option value="10">10</option>' +
+								'<option value="100">100</option>' +
+								'<option value="1000">1000</option>' +
+								'<option value="10000">10000</option>' +
+							'</select>' +
+							' ' + civitas.l('or enter manually') + ' <input type="text" placeholder="' + civitas.l('amount') + '" class="small bm-qty-manual" />' +
+						'</td>' +
+						'<td>' +
+							'<a title="' + civitas.l('List goods on Black Market') + '" class="tips bmarket" href="#">' + civitas.l('List') + '</a>' +
+						'</td>' +
+					'</tr>' +
+				'</thead>' +
+				'<tbody>' +
+				'</tbody>' +
+			'</table>');
 		this.on_refresh();
 		$(el).on('click', '.buy:not(.disabled)', function () {
 			if (!settlement.can_trade()) {
@@ -13837,28 +14359,6 @@ civitas.PANEL_TRADES = {
 		var core = this.get_core();
 		var settlement = core.get_settlement();
 		var settlements = core.get_settlements();
-		var out = '<table class="normal">';
-		out += '<thead>' +
-				'<tr>' +
-				'<td>' + civitas.l('Resources') + ': <select class="bm-materials"></select></td>' +
-				'<td>' + civitas.l('Quantity') + ': ' +
-				'<select class="bm-quantity">' +
-				'<option value="0">-- ' + civitas.l('select') + ' --</option>' +
-				'<option value="10">10</option>' +
-				'<option value="100">100</option>' +
-				'<option value="1000">1000</option>' +
-				'<option value="10000">10000</option>' +
-				'</select>' +
-				' ' + civitas.l('or enter manually') + ' <input type="text" placeholder="' + civitas.l('amount') + '" class="small bm-qty-manual" />' +
-				'</td>' +
-				'<td><a title="' + civitas.l('List goods on Black Market') + '" class="tips bmarket" href="#">' + civitas.l('list') + '</a></td>' +
-				'</tr>' +
-				'</thead>';
-		out += '<tbody>' +
-				'</tbody>' +
-				'</table>';
-		$('#tab-blackmarket > .contents').empty().append(out);
-
 		var out = '';
 		var bm = core.get_black_market();
 		for (var item in bm) {
@@ -14215,54 +14715,54 @@ civitas.PANEL_EMBASSY = {
 		this.params_data = params.data;
 		var core = this.get_core();
 		var settlement = core.get_settlement();
-		var _c = core.get_settlement().get_building_by_handle(this.params_data.handle);
+		var settlements = core.get_settlements();
+		var status = settlement.get_status();
+		var building = core.get_settlement().get_building_by_handle(this.params_data.handle);
+		var level = building.get_level();
 		$(this.handle + ' .contents').append(civitas.ui.tabs([civitas.l('Info'), civitas.l('Diplomacy'), civitas.l('Espionage')]));
+		var _t = '<div class="settlements-list">' +
+				'<table class="normal">';
+		for (var i = 1; i < settlements.length; i++) {
+			_t += '<tr>' +
+					'<td class="icon"><img src="' + civitas.ASSETS_URL + 'images/avatars/avatar' + settlements[i].get_ruler_avatar() + '.png" /></td>' +
+					'<td>' +
+						'<p class="title">' + (settlements[i].is_city() ? 'City of' : 'Village of') + ' ' + settlements[i].get_name() + '</p> ' +
+						'<p class="description">' + civitas.l('Leader') + ': ' + settlements[i].get_ruler_name() + '</p>' +
+						civitas.ui.progress(status[settlements[i].get_id()].influence, 'big') +
+					'</td>' +
+					'<td class="center">' +
+						'<a data-id="' + settlements[i].get_id() + '" title="' + civitas.l('View info about this settlement.') + '" class="tips view" href="#">' + civitas.l('View') + '</a> ' +
+						'<a data-id="' + settlements[i].get_id() + '" title="' + civitas.l('Attack this settlement.') + '" class="tips army" href="#">' + civitas.l('Attack') + '</a> ' +
+						'<a data-id="' + settlements[i].get_id() + '" title="' + civitas.l('Send a caravan to this settlement.') + '" class="tips caravan" href="#">' + civitas.l('Caravan') + '</a> ' +
+						'<a data-id="' + settlements[i].get_id() + '" title="' + civitas.l('Send a spy to this settlement.') + '" class="tips spy" href="#">' + civitas.l('Spy') + '</a> ' +
+					'</td>' +
+				'</tr>';
+		}
+		_t += '</table>' +
+				'</div>';
+		$(this.handle + ' #tab-diplomacy').empty().append(_t);
 		this.on_refresh();
-		$(this.handle).on('click', '.pact', function () {
-			if (!settlement.can_diplomacy()) {
-				core.error(civitas.l('You will need to construct an Embassy before being able to propose treaties and pacts to other settlements.'));
-				return false;
-			}
-			var _settlement = parseInt($(this).data('id'));
-			var influence = core.get_settlement().get_influence_with_settlement(_settlement);
-			if (influence >= 50) {
-				core.error('Not implemented yet.');
-			} else {
-				core.error(civitas.l('Your influence on') + ' ' + _settlement + ' ' + civitas.l('is too low to propose a pact.'));
-			}
-			return false;
-		}).on('click', '.spy', function () {
-			if (!settlement.can_diplomacy()) {
-				core.error(civitas.l('You will need to construct an Embassy before being able to assign spies to other settlements.'));
-				return false;
-			}
-			var _settlement = parseInt($(this).data('id'));
-			core.error(civitas.l('Not implemented yet.'));
-			return false;
-		}).on('click', '.declare-war', function () {
-			if (!settlement.can_diplomacy()) {
-				core.error(civitas.l('You will need to construct an Embassy before being able to declare war to other settlements.'));
-				return false;
-			}
-			var name = parseInt($(this).data('id'));
-			var _settlement = core.get_settlement(name);
-			core.error(civitas.l('Not implemented yet.'));
-			return false;
-		}).on('click', '.send-goods', function () {
-			if (!settlement.can_diplomacy()) {
-				core.error(civitas.l('You will need to construct an Embassy before being able to send goods to other settlements.'));
-				return false;
-			}
-			var name = parseInt($(this).data('id'));
-			var _settlement = core.get_settlement(name);
-			core.error(civitas.l('Not implemented yet.'));
-			return false;
-		}).on('click', '.view-settlement', function () {
-			var name = parseInt($(this).data('id'));
-			var _settlement = core.get_settlement(name);
+		$(this.handle).on('click', '.view', function () {
+			var _settlement_id = parseInt($(this).data('id'));
+			var _settlement = core.get_settlement(_settlement_id);
 			core.open_panel(civitas.PANEL_SETTLEMENT, _settlement);
 			return false;
-		})
+		}).on('click', '.army', function () {
+			var _settlement_id = parseInt($(this).data('id'));
+			var _settlement = core.get_settlement(_settlement_id);
+			core.open_panel(civitas.PANEL_NEW_ARMY, _settlement);
+			return false;
+		}).on('click', '.caravan', function () {
+			var _settlement_id = parseInt($(this).data('id'));
+			var _settlement = core.get_settlement(_settlement_id);
+			core.open_panel(civitas.PANEL_NEW_CARAVAN, _settlement);
+			return false;
+		}).on('click', '.spy', function () {
+			var _settlement_id = parseInt($(this).data('id'));
+			var _settlement = core.get_settlement(_settlement_id);
+			core.open_panel(civitas.PANEL_NEW_SPY, _settlement);
+			return false;
+		});
 	},
 	on_refresh: function() {
 		var core = this.get_core();
@@ -14272,34 +14772,12 @@ civitas.PANEL_EMBASSY = {
 		var building = core.get_settlement().get_building_by_handle(this.params_data.handle);
 		var level = building.get_level();
 		$(this.handle + ' #tab-info').empty().append(civitas.ui.building_panel(this.params_data, level));
-		var _t = '<div class="section">' +
+		$(this.handle + ' #tab-espionage').empty().append('<div class="section">' +
 			civitas.ui.progress((settlement.get_espionage() * 100) / civitas.MAX_ESPIONAGE_VALUE, 'large', settlement.get_espionage()) +
-		'</div>';
-		$(this.handle + ' #tab-espionage').empty().append(_t);
-		_t = '<div class="settlements-list">' +
-				'<table class="normal">';
+		'</div>');
 		for (var i = 1; i < settlements.length; i++) {
-			_t += '<tr>' +
-					'<td class="icon"><img src="' + civitas.ASSETS_URL + 'images/avatars/avatar' + settlements[i].get_ruler_avatar() + '.png" /></td>' +
-					'<td>' +
-					'<p>' +
-						'<span class="title">' + (settlements[i].is_city() ? 'City of' : 'Village of') + ' ' + settlements[i].get_name() + '</span> ' +
-						'<span class="description">' + civitas.l('Leader') + ': ' + settlements[i].get_ruler_name() + '</span>' +
-					'</p>' +
-				civitas.ui.progress(status[settlements[i].get_id()].influence, 'big') +
-					'</td>' +
-					'<td class="large">' +
-						'<a data-id="' + settlements[i].get_id() + '" title="' + civitas.l('View info about this settlement.') + '" class="tips view-settlement" href="#">' + civitas.l('view') + '</a> ' +
-						'<a data-id="' + settlements[i].get_id() + '" title="' + civitas.l('Send a spy to this settlement.') + '" data-id="' + i + '" class="tips spy" href="#">' + civitas.l('spy') + '</a> ' +
-						'<a data-id="' + settlements[i].get_id() + '" title="' + civitas.l('Propose a pact to this settlement`s ruler.') + '" class="tips pact" href="#">' + civitas.l('pact') + '</a> ' +
-						'<a data-id="' + settlements[i].get_id() + '" title="' + civitas.l('Send goods to this settlement.') + '" data-id="' + i + '" class="tips send-goods" href="#">' + civitas.l('send') + '</a> ' +
-						'<a data-id="' + settlements[i].get_id() + '" title="' + civitas.l('Declare war to this settlement.') + '" data-id="' + i + '" class="tips declare-war" href="#">' + civitas.l('war') + '</a>' +
-					'</td>' +
-				'</tr>';
+			$(this.handle + ' td[data-id="' + i + '"]').empty().append(civitas.ui.progress(status[settlements[i].get_id()].influence, 'big'));
 		}
-		_t += '</table>' +
-				'</div>';
-		$(this.handle + ' #tab-diplomacy').empty().append(_t);
 	}
 };
 

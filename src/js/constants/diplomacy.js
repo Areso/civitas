@@ -32,6 +32,14 @@ civitas.CAMPAIGN_ARMY = 1;
 civitas.CAMPAIGN_CARAVAN = 2;
 
 /**
+ * The campaign is a spy.
+ *
+ * @constant
+ * @type {Number}
+ */
+civitas.CAMPAIGN_SPY = 3;
+
+/**
  * Just met, temporary trucem can declare war, can trade.
  * 
  * @constant
@@ -158,3 +166,57 @@ civitas.MAX_ESPIONAGE_VALUE = 1000;
  * @type {Number}
  */
 civitas.MAX_INFLUENCE_VALUE = 1000;
+
+/**
+ * List of game diplomacy options.
+ *
+ * @constant
+ * @type {Array}
+ */
+civitas.SPY_MISSIONS = [
+	'none',
+	'adopt religion',
+	'influence settlement',
+	'steal resources',
+	'instigate turmoil'
+];
+
+/**
+ * Spy mission to do absolutely nothing in the target city (except maybe get noticed?).
+ *
+ * @constant
+ * @type {Number}
+ */
+civitas.SPY_MISSION_NONE = 0;
+
+/**
+ * Spy mission to persuade the target city to take the same religion as the spy home city.
+ *
+ * @constant
+ * @type {Number}
+ */
+civitas.SPY_MISSION_RELIGION = 1;
+
+/**
+ * Spy mission to raise the influence of the spy's home city with the target city.
+ *
+ * @constant
+ * @type {Number}
+ */
+civitas.SPY_MISSION_INFLUENCE = 2;
+
+/**
+ * Spy mission to steal resources from the target city.
+ *
+ * @constant
+ * @type {Number}
+ */
+civitas.SPY_MISSION_STEAL_RESOURCES = 3;
+
+/**
+ * Spy mission to instigate turmoil in the target city.
+ *
+ * @constant
+ * @type {Number}
+ */
+civitas.SPY_MISSION_INSTIGATE = 4;

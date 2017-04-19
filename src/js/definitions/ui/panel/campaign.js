@@ -19,12 +19,22 @@ civitas.PANEL_CAMPAIGN = {
 		var core = this.get_core();
 		var my_settlement = core.get_settlement();
 		var campaign = params.data;
+		var class_name = '';
 		this.params_data = params;
-		$(this.handle + ' .title').empty().html((campaign.type === civitas.CAMPAIGN_ARMY ? civitas.l('Army') : civitas.l('Caravan')));
+		if (campaign.type === civitas.CAMPAIGN_ARMY) {
+			class_name = 'army';
+		} else if (campaign.type === civitas.CAMPAIGN_CARAVAN) {
+			class_name = 'caravan';
+		} else if (campaign.type === civitas.CAMPAIGN_SPY) {
+			class_name = 'spy';
+		}
+		$(this.handle + ' .title').empty().html(class_name.capitalize() + ' ' + civitas.l('mission'));
 		if (campaign.type === civitas.CAMPAIGN_ARMY) {
 			$(this.handle + ' .contents').append(civitas.ui.tabs([civitas.l('Info'), civitas.l('Army'), civitas.l('Navy')]));
-		} else {
+		} else if (campaign.type === civitas.CAMPAIGN_CARAVAN) {
 			$(this.handle + ' .contents').append(civitas.ui.tabs([civitas.l('Info'), civitas.l('Resources')]));
+		} else if (campaign.type === civitas.CAMPAIGN_SPY) {
+			$(this.handle + ' .contents').append(civitas.ui.tabs([civitas.l('Info'), civitas.l('Spy')]));
 		}
 		this.on_refresh();
 	},
@@ -49,7 +59,7 @@ civitas.PANEL_CAMPAIGN = {
 		if (campaign.type === civitas.CAMPAIGN_ARMY) {
 			$(this.handle + ' #tab-army').empty().append(civitas.ui.army_list(campaign.data));
 			$(this.handle + ' #tab-navy').empty().append(civitas.ui.navy_list(campaign.data));
-		} else {
+		} else if (campaign.type === civitas.CAMPAIGN_CARAVAN) {
 			if (typeof campaign.data.resources !== 'undefined') {
 				out = '<p>' + civitas.l('This caravan has the the following resources:') + '</p>' +
 				'<dl>';
@@ -62,6 +72,18 @@ civitas.PANEL_CAMPAIGN = {
 				out = '<p>' + civitas.l('This is an empty caravan with no resources.') + '</p>';
 			}
 			$(this.handle + ' #tab-resources').empty().append(out);
+		} else if (campaign.type === civitas.CAMPAIGN_SPY) {
+			out = '<dl>' +
+				'<dt>' + civitas.l('Mission') + '</dt>' +
+				'<dd>' + civitas.SPY_MISSIONS[campaign.data.mission].capitalize() + '</dd>' +
+				(campaign.data.mission === civitas.SPY_MISSION_RELIGION ? '<dt>' + civitas.l('Religion') + '</dt>' +
+				'<dd>' + civitas.RELIGIONS[campaign.data.religion].capitalize() + '</dd>' : '') +
+				'<dt>' + civitas.l('Espionage') + '</dt>' +
+				'<dd>' + campaign.data.espionage + ' ' + civitas.ui.resource_small_img('espionage') + '</dd>' +
+				'<dt>' + civitas.l('Success chance') + '</dt>' +
+				'<dd>' + Math.ceil(campaign.data.espionage / 100) + '%</dd>' +
+			'</dl>';
+			$(this.handle + ' #tab-spy').empty().append(out);
 		}
 	}
 };

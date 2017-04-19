@@ -26,6 +26,29 @@ civitas.PANEL_TRADES = {
 		$(el + ' #tab-mercenaries').append('<p>' + civitas.l('Below is a list of mercenary armies that are looking for hire. Mercenaries are available only for raiding and conquest missions, they do not join your city so they will not participate in defense.') + '</p><div class="contents"></div>');
 		$(el + ' #tab-blackmarket').append('<p>' + civitas.l('The Black Market is a way to dump your excess materials when you`re in need of emptying your warehouses, but expect a steep price drop (taxes for all Black Market trades are <strong>') + civitas.BLACK_MARKET_DISCOUNT + civitas.l('%</strong>). The goods will be taken immediately from your warehouses but you will receive the coins at the <strong>start of the next month</strong>. Also, you get <strong>no prestige</strong> from Black Market trades.') + '</p><div class="contents"></div>');
 		$(el + ' #tab-prices').append('<div class="contents"></div>');
+		$('#tab-blackmarket > .contents').append('' +
+			'<table class="normal">' +
+				'<thead>' +
+					'<tr>' +
+						'<td>' + civitas.l('Resources') + ': <select class="bm-materials"></select></td>' +
+						'<td>' + civitas.l('Quantity') + ': ' +
+							'<select class="bm-quantity">' +
+								'<option value="0">-- ' + civitas.l('select') + ' --</option>' +
+								'<option value="10">10</option>' +
+								'<option value="100">100</option>' +
+								'<option value="1000">1000</option>' +
+								'<option value="10000">10000</option>' +
+							'</select>' +
+							' ' + civitas.l('or enter manually') + ' <input type="text" placeholder="' + civitas.l('amount') + '" class="small bm-qty-manual" />' +
+						'</td>' +
+						'<td>' +
+							'<a title="' + civitas.l('List goods on Black Market') + '" class="tips bmarket" href="#">' + civitas.l('List') + '</a>' +
+						'</td>' +
+					'</tr>' +
+				'</thead>' +
+				'<tbody>' +
+				'</tbody>' +
+			'</table>');
 		this.on_refresh();
 		$(el).on('click', '.buy:not(.disabled)', function () {
 			if (!settlement.can_trade()) {
@@ -79,28 +102,6 @@ civitas.PANEL_TRADES = {
 		var core = this.get_core();
 		var settlement = core.get_settlement();
 		var settlements = core.get_settlements();
-		var out = '<table class="normal">';
-		out += '<thead>' +
-				'<tr>' +
-				'<td>' + civitas.l('Resources') + ': <select class="bm-materials"></select></td>' +
-				'<td>' + civitas.l('Quantity') + ': ' +
-				'<select class="bm-quantity">' +
-				'<option value="0">-- ' + civitas.l('select') + ' --</option>' +
-				'<option value="10">10</option>' +
-				'<option value="100">100</option>' +
-				'<option value="1000">1000</option>' +
-				'<option value="10000">10000</option>' +
-				'</select>' +
-				' ' + civitas.l('or enter manually') + ' <input type="text" placeholder="' + civitas.l('amount') + '" class="small bm-qty-manual" />' +
-				'</td>' +
-				'<td><a title="' + civitas.l('List goods on Black Market') + '" class="tips bmarket" href="#">' + civitas.l('list') + '</a></td>' +
-				'</tr>' +
-				'</thead>';
-		out += '<tbody>' +
-				'</tbody>' +
-				'</table>';
-		$('#tab-blackmarket > .contents').empty().append(out);
-
 		var out = '';
 		var bm = core.get_black_market();
 		for (var item in bm) {

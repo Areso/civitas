@@ -553,7 +553,7 @@ civitas.objects.building = function(params) {
 		var building = this.get_building_data();
 		var mat = building.materials;
 		var prd = building.production;
-		if (this.get_settlement().has_coins(mat.coins)) {
+		if (this.get_settlement().has_coins(mat.coins, false)) {
 			var amount = prd.research * this.get_level();
 			this.get_settlement().raise_research(amount * this.get_level());
 			this.get_settlement().dec_coins(mat.coins);
@@ -576,7 +576,7 @@ civitas.objects.building = function(params) {
 		var building = this.get_building_data();
 		var mat = building.materials;
 		var prd = building.production;
-		if (this.get_settlement().has_coins(mat.coins)) {
+		if (this.get_settlement().has_coins(mat.coins, false)) {
 			var amount = prd.fame * this.get_level();
 			this.get_settlement().raise_fame(amount * this.get_level());
 			this.get_settlement().dec_coins(mat.coins);

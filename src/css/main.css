@@ -308,7 +308,8 @@ header .top-panel span {
 	cursor: move;
 }
 
-.ui .panel .contents {
+.ui .panel .contents,
+.ui .panel .toolbar {
 	font-size: 12px;
 }
 
@@ -334,11 +335,13 @@ header .top-panel span {
 	text-transform: uppercase;
 	text-align: center;
 	display: block;
+	cursor: pointer;
 }
 
 .panel .toolbar .btn.iblock {
 	display: inline-block;
 	width: auto;
+	margin-right: 4px;
 }
 
 .panel .contents .buildings.left {
@@ -468,7 +471,8 @@ header .top-panel span {
 
 .panel .worldmap .settlement,
 .panel .worldmap .army,
-.panel .worldmap .caravan {
+.panel .worldmap .caravan,
+.panel .worldmap .spy {
 	position: absolute;
 	width: 32px;
 	height: 32px;
@@ -1651,7 +1655,8 @@ a.disabled {
 	border-bottom-color: transparent;
 }
 
-.hidden {
+.hidden,
+.espionage-rel {
 	display: none;
 }
 
@@ -1753,4 +1758,57 @@ table tr td:last-child a:hover,
 	padding-bottom: 20px;
 	width: 128px;
 	text-align: center;
+}
+
+.range-combo input[type=range],
+.select-combo select {
+	float: left;
+	width: 60% !important;
+	padding: 4px 0;
+}
+
+.range-combo input[type=text],
+.select-combo input[type=number] {
+	float: right;
+	width: 40px;
+	text-align: center;
+	border: 1px solid #aaa;
+	padding: 4px 0;
+	background-color: #ddd;
+}
+
+.select-combo input[type=button] {
+	float: right;
+	border: 1px solid #aaa;
+	background-color: #ddd;
+	padding: 4px;
+	border-left: 0;
+	cursor: pointer;
+}
+
+.range-combo input[type=text].espionage-chance {
+	width: 26px;
+	border-top-left-radius: 3px;
+	border-bottom-left-radius: 3px;
+	border-right: 0;
+}
+
+.range-combo input[type="text"].espionage-value {
+	border-top-right-radius: 3px;
+	border-bottom-right-radius: 3px;
+}
+
+.ui .panel fieldset select {
+	width: 100%;
+	border: 1px solid $aaa;
+	padding: 4px 0;
+}
+
+.ui .panel fieldset p {
+	margin: 10px 0 0 0;
+}
+
+.caravan-resources {
+	overflow: auto;
+	max-height: 200px;
 }

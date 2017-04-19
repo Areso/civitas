@@ -90,28 +90,12 @@ footer .do-help {
 	background: transparent url(../images/ui/icon_demolish.png) no-repeat;
 }
 
-.panel .footer .btn.caravan {
-	background: transparent url(../images/ui/icon_caravan.png) no-repeat;
-}
-
-.panel .footer .btn.attack {
-	background: transparent url(../images/ui/icon_attack.png) no-repeat;
-}
-
-.panel .footer .btn.alliance {
-	background: transparent url(../images/ui/icon_alliance.png) no-repeat;
-}
-
 .panel .footer .btn.resources {
 	background: transparent url(../images/ui/icon_resources.png) no-repeat;
 }
 
 .panel .footer .btn.upgrade {
 	background: transparent url(../images/ui/icon_upgrade.png) no-repeat;
-}
-
-.panel .footer .btn.help {
-	background: transparent url(../images/ui/icon_help.png) no-repeat;
 }
 
 .panel .worldmap .army {
@@ -128,6 +112,10 @@ footer .do-help {
 
 .panel .worldmap .caravan {
 	background: transparent url(../images/ui/caravan.png) no-repeat;
+}
+
+.panel .worldmap .spy {
+	background: transparent url(../images/ui/spy.png) no-repeat;
 }
 
 .panel .worldmap .settlement.v1 {

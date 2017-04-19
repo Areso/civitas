@@ -298,12 +298,15 @@ civitas.objects.settlement = function(params) {
 	 * 
 	 * @public
 	 * @param {Number} coins
+	 * @param {Boolean} alert
 	 * @returns {Boolean}
 	 */
-	this.has_coins = function(coins) {
+	this.has_coins = function(coins, alert) {
 		var resources = this.get_resources();
 		if (this.get_coins() - coins < 0) {
-			this.get_core().error(this.get_name() + ' doesn`t have enough ' + civitas.utils.get_resource_name('coins') + '.');
+			if (alert !== false) {
+				this.get_core().error(this.get_name() + ' doesn`t have enough ' + civitas.utils.get_resource_name('coins') + '.');
+			}
 			return false;
 		}
 		return true;

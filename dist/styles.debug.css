@@ -2,7 +2,7 @@
  * Civitas empire-building game.
  *
  * @author sizeof(cat) <sizeofcat AT riseup.net>
- * @version 0.1.0.4182017
+ * @version 0.1.0.4192017
  * @license MIT
  */ @font-face {
 	font-family: 'Nova Oval';
@@ -314,7 +314,8 @@ header .top-panel span {
 	cursor: move;
 }
 
-.ui .panel .contents {
+.ui .panel .contents,
+.ui .panel .toolbar {
 	font-size: 12px;
 }
 
@@ -340,11 +341,13 @@ header .top-panel span {
 	text-transform: uppercase;
 	text-align: center;
 	display: block;
+	cursor: pointer;
 }
 
 .panel .toolbar .btn.iblock {
 	display: inline-block;
 	width: auto;
+	margin-right: 4px;
 }
 
 .panel .contents .buildings.left {
@@ -474,7 +477,8 @@ header .top-panel span {
 
 .panel .worldmap .settlement,
 .panel .worldmap .army,
-.panel .worldmap .caravan {
+.panel .worldmap .caravan,
+.panel .worldmap .spy {
 	position: absolute;
 	width: 32px;
 	height: 32px;
@@ -1657,7 +1661,8 @@ a.disabled {
 	border-bottom-color: transparent;
 }
 
-.hidden {
+.hidden,
+.espionage-rel {
 	display: none;
 }
 
@@ -1761,6 +1766,59 @@ table tr td:last-child a:hover,
 	text-align: center;
 }
 
+.range-combo input[type=range],
+.select-combo select {
+	float: left;
+	width: 60% !important;
+	padding: 4px 0;
+}
+
+.range-combo input[type=text],
+.select-combo input[type=number] {
+	float: right;
+	width: 40px;
+	text-align: center;
+	border: 1px solid #aaa;
+	padding: 4px 0;
+	background-color: #ddd;
+}
+
+.select-combo input[type=button] {
+	float: right;
+	border: 1px solid #aaa;
+	background-color: #ddd;
+	padding: 4px;
+	border-left: 0;
+	cursor: pointer;
+}
+
+.range-combo input[type=text].espionage-chance {
+	width: 26px;
+	border-top-left-radius: 3px;
+	border-bottom-left-radius: 3px;
+	border-right: 0;
+}
+
+.range-combo input[type="text"].espionage-value {
+	border-top-right-radius: 3px;
+	border-bottom-right-radius: 3px;
+}
+
+.ui .panel fieldset select {
+	width: 100%;
+	border: 1px solid $aaa;
+	padding: 4px 0;
+}
+
+.ui .panel fieldset p {
+	margin: 10px 0 0 0;
+}
+
+.caravan-resources {
+	overflow: auto;
+	max-height: 200px;
+}
+
 /* Top panel with resources */
 
 .top-panel span.coins {
@@ -1853,28 +1911,12 @@ footer .do-help {
 	background: transparent url(../images/ui/icon_demolish.png) no-repeat;
 }
 
-.panel .footer .btn.caravan {
-	background: transparent url(../images/ui/icon_caravan.png) no-repeat;
-}
-
-.panel .footer .btn.attack {
-	background: transparent url(../images/ui/icon_attack.png) no-repeat;
-}
-
-.panel .footer .btn.alliance {
-	background: transparent url(../images/ui/icon_alliance.png) no-repeat;
-}
-
 .panel .footer .btn.resources {
 	background: transparent url(../images/ui/icon_resources.png) no-repeat;
 }
 
 .panel .footer .btn.upgrade {
 	background: transparent url(../images/ui/icon_upgrade.png) no-repeat;
-}
-
-.panel .footer .btn.help {
-	background: transparent url(../images/ui/icon_help.png) no-repeat;
 }
 
 .panel .worldmap .army {
@@ -1891,6 +1933,10 @@ footer .do-help {
 
 .panel .worldmap .caravan {
 	background: transparent url(../images/ui/caravan.png) no-repeat;
+}
+
+.panel .worldmap .spy {
+	background: transparent url(../images/ui/spy.png) no-repeat;
 }
 
 .panel .worldmap .settlement.v1 {
