@@ -7,12 +7,11 @@
 civitas.SOLDIERS = {
 	'Militia': {
 		id: civitas.SOLDIER_MILITIA,
-		attack: 2,
+		attack: 1,
 		defense: 1,
 		cost: {
 			coins: 100,
 			bread: 1,
-			meat: 1,
 			weapons: 1
 		}
 	},
@@ -29,12 +28,12 @@ civitas.SOLDIERS = {
 	},
 	'Axeman': {
 		id: civitas.SOLDIER_AXEMAN,
-		attack: 3,
-		defense: 2,
+		attack: 4,
+		defense: 4,
 		cost: {
-			coins: 300,
+			coins: 400,
 			bread: 1,
-			meat: 1,
+			meat: 3,
 			weapons: 2
 		}
 	},
@@ -45,7 +44,7 @@ civitas.SOLDIERS = {
 		cost: {
 			coins: 500,
 			bread: 1,
-			meat: 1,
+			meat: 3,
 			weapons: 4
 		}
 	},
@@ -103,15 +102,15 @@ civitas.SOLDIERS = {
 	},
 	'Crusader': {
 		id: civitas.SOLDIER_CRUSADER,
-		attack: 12,
-		defense: 14,
+		attack: 16,
+		defense: 18,
 		cost: {
-			coins: 2500,
-			provisions: 6,
-			leather: 2,
-			iron: 2,
-			weapons: 12,
-			armor: 12
+			coins: 3000,
+			provisions: 8,
+			leather: 3,
+			iron: 4,
+			weapons: 15,
+			armor: 15
 		}
 	}
 };
