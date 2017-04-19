@@ -1328,6 +1328,7 @@ civitas.game = function () {
 		$('.game').on({
 			mousemove: function (e) {
 				clicked && update_scroll_pos(e);
+				//handle_mouse(e);
 			},
 			mousedown: function (e) {
 				clicked = true;
@@ -1340,6 +1341,14 @@ civitas.game = function () {
 				$('html').css('cursor', 'auto');
 			}
 		});
+		var x, y;
+		function handle_mouse(e) {
+			if (x && y) {
+				window.scrollBy(e.clientX - x, e.clientY - y);
+			}
+			x = e.clientX;
+			y = e.clientY;
+		}
 		$('.ui > footer').css({
 			left: ($(window).width() / 2) - ($('.ui > footer').width() / 2)
 		});

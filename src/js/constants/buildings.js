@@ -257,9 +257,7 @@ civitas.BUILDINGS_CATEGORIES = {
 		'trapper',
 		'tannery',
 		'weaver',
-		'winery'
-	],
-	'Exotic': [
+		'winery',
 		'apiary',
 		'coffeeroaster',
 		'marzipanworkshop',
@@ -291,6 +289,7 @@ civitas.BUILDINGS = [{
 		storage: 100000,
 		is_municipal: true,
 		levels: 4,
+		large: true,
 		visible_upgrades: true,
 		production: {
 			fame: 10
@@ -299,8 +298,8 @@ civitas.BUILDINGS = [{
 			coins: 100000
 		},
 		position: {
-			x: 709,
-			y: 515
+			x: 720,
+			y: 500
 		},
 		requires: {
 			settlement_level: 1
@@ -388,8 +387,8 @@ civitas.BUILDINGS = [{
 			coins: 100
 		},
 		position: {
-			x: 1480,
-			y: 700
+			x: 660,
+			y: 380
 		},
 		levels: 3,
 		cost: {
@@ -415,8 +414,8 @@ civitas.BUILDINGS = [{
 			coins: 50
 		},
 		position: {
-			x: 1620,
-			y: 390
+			x: 905,
+			y: 292
 		},
 		levels: 3,
 		cost: {
@@ -468,8 +467,8 @@ civitas.BUILDINGS = [{
 			coins: 20
 		},
 		position: {
-			x: 680,
-			y: 400
+			x: 1000,
+			y: 380
 		},
 		levels: 3,
 		cost: {
@@ -493,8 +492,8 @@ civitas.BUILDINGS = [{
 			coins: 20
 		},
 		position: {
-			x: 1380,
-			y: 180
+			x: 770,
+			y: 250
 		},
 		levels: 3,
 		cost: {
@@ -516,8 +515,8 @@ civitas.BUILDINGS = [{
 			'ships and providing you with fish and an ultra-small chance to gather pearls.',
 		is_production: true,
 		position: {
-			x: 1746,
-			y: 552
+			x: 1760,
+			y: 570
 		},
 		levels: 3,
 		chance: {
@@ -543,9 +542,10 @@ civitas.BUILDINGS = [{
 		description: 'The military camp is your main base of defense and attack until you can ' +
 			'develop a Castle.',
 		position: {
-			x: 1461,
-			y: 120
+			x: 440,
+			y: 630
 		},
+		large: true,
 		cost: {
 			coins: 50000,
 			wood: 200,
@@ -562,6 +562,7 @@ civitas.BUILDINGS = [{
 		description: 'The Castle is your main base of operations. It houses your ' +
 			'settlement`s soldiers and provides you with prestige and some extra fame.',
 		is_production: true,
+		large: true,
 		production: {
 			fame: 100,
 			prestige: 1
@@ -569,8 +570,8 @@ civitas.BUILDINGS = [{
 		levels: 2,
 		visible_upgrades: true,
 		position: {
-			x: 982,
-			y: 77
+			x: 970,
+			y: 60
 		},
 		materials: {
 			coins: 200
@@ -596,8 +597,8 @@ civitas.BUILDINGS = [{
 		},
 		levels: 3,
 		position: {
-			x: 129,
-			y: 710
+			x: 120,
+			y: 760
 		},
 		cost: {
 			coins: 2000,
@@ -619,7 +620,7 @@ civitas.BUILDINGS = [{
 		},
 		levels: 3,
 		position: {
-			x: 150,
+			x: 180,
 			y: 810
 		},
 		cost: {
@@ -641,7 +642,7 @@ civitas.BUILDINGS = [{
 			clay: 1
 		},
 		position: {
-			x: 469,
+			x: 490,
 			y: 243
 		},
 		levels: 3,
@@ -772,7 +773,7 @@ civitas.BUILDINGS = [{
 		},
 		position: {
 			x: 1734,
-			y: 318
+			y: 330
 		},
 		levels: 3,
 		cost: {
@@ -928,8 +929,8 @@ civitas.BUILDINGS = [{
 			coal: 1
 		},
 		position: {
-			x: 153,
-			y: 381
+			x: 1300,
+			y: 100
 		},
 		levels: 3,
 		cost: {
@@ -978,8 +979,8 @@ civitas.BUILDINGS = [{
 			coal: 1
 		},
 		position: {
-			x: 628,
-			y: 292
+			x: 1230,
+			y: 160
 		},
 		levels: 3,
 		cost: {
@@ -999,8 +1000,8 @@ civitas.BUILDINGS = [{
 			furs: 4
 		},
 		position: {
-			x: 1238,
-			y: 131
+			x: 160,
+			y: 400
 		},
 		levels: 3,
 		cost: {
@@ -1099,8 +1100,8 @@ civitas.BUILDINGS = [{
 			coffeebeans: 4
 		},
 		position: {
-			x: 905,
-			y: 292
+			x: 1620,
+			y: 390
 		},
 		levels: 3,
 		cost: {
@@ -1150,8 +1151,8 @@ civitas.BUILDINGS = [{
 			barrels: 1
 		},
 		position: {
-			x: 1020,
-			y: 380
+			x: 1150,
+			y: 810
 		},
 		levels: 3,
 		cost: {
@@ -1176,7 +1177,7 @@ civitas.BUILDINGS = [{
 		},
 		position: {
 			x: 1160,
-			y: 820
+			y: 620
 		},
 		levels: 3,
 		cost: {
@@ -1226,7 +1227,7 @@ civitas.BUILDINGS = [{
 		},
 		position: {
 			x: 1260,
-			y: 900
+			y: 600
 		},
 		levels: 3,
 		cost: {
@@ -1250,8 +1251,8 @@ civitas.BUILDINGS = [{
 			roses: 8
 		},
 		position: {
-			x: 920,
-			y: 660
+			x: 1480,
+			y: 700
 		},
 		levels: 3,
 		cost: {
@@ -1300,8 +1301,8 @@ civitas.BUILDINGS = [{
 			hemp: 1
 		},
 		position: {
-			x: 1700,
-			y: 700
+			x: 1720,
+			y: 720
 		},
 		levels: 3,
 		cost: {
@@ -1324,8 +1325,8 @@ civitas.BUILDINGS = [{
 			quartz: 2
 		},
 		position: {
-			x: 1380,
-			y: 340
+			x: 1740,
+			y: 460
 		},
 		levels: 3,
 		cost: {
@@ -1350,7 +1351,7 @@ civitas.BUILDINGS = [{
 		},
 		position: {
 			x: 1380,
-			y: 340
+			y: 380
 		},
 		levels: 3,
 		cost: {
@@ -1377,7 +1378,7 @@ civitas.BUILDINGS = [{
 		},
 		position: {
 			x: 1380,
-			y: 340
+			y: 760
 		},
 		levels: 3,
 		cost: {
@@ -1469,8 +1470,8 @@ civitas.BUILDINGS = [{
 			wheat: 2
 		},
 		position: {
-			x: 1020,
-			y: 600
+			x: 880,
+			y: 760
 		},
 		levels: 3,
 		cost: {
@@ -1494,8 +1495,8 @@ civitas.BUILDINGS = [{
 			hemp: 1
 		},
 		position: {
-			x: 770,
-			y: 250
+			x: 1380,
+			y: 180
 		},
 		levels: 3,
 		cost: {
@@ -1596,8 +1597,8 @@ civitas.BUILDINGS = [{
 			bread: 1
 		},
 		position: {
-			x: 849,
-			y: 412
+			x: 880,
+			y: 440
 		},
 		levels: 5,
 		visible_upgrades: true,
@@ -1620,8 +1621,8 @@ civitas.BUILDINGS = [{
 			meat: 1
 		},
 		position: {
-			x: 945,
-			y: 480
+			x: 1000,
+			y: 520
 		},
 		levels: 5,
 		visible_upgrades: true,
@@ -1645,8 +1646,8 @@ civitas.BUILDINGS = [{
 			pottery: 1
 		},
 		position: {
-			x: 860,
-			y: 552
+			x: 870,
+			y: 590
 		},
 		levels: 5,
 		visible_upgrades: true,
@@ -1673,7 +1674,7 @@ civitas.BUILDINGS = [{
 		},
 		position: {
 			x: 764,
-			y: 613
+			y: 640
 		},
 		levels: 5,
 		visible_upgrades: true,
@@ -1700,7 +1701,7 @@ civitas.BUILDINGS = [{
 		},
 		position: {
 			x: 663,
-			y: 659
+			y: 690
 		},
 		levels: 5,
 		visible_upgrades: true,
@@ -1825,8 +1826,8 @@ civitas.BUILDINGS = [{
 		handle: 'ciderfield',
 		description: 'A cider field is required for the cider farm to operate.',
 		position: {
-			x: 1400,
-			y: 840
+			x: 1430,
+			y: 850
 		},
 		cost: {
 			coins: 2000,
@@ -1846,8 +1847,8 @@ civitas.BUILDINGS = [{
 		},
 		levels: 3,
 		position: {
-			x: 280,
-			y: 569
+			x: 260,
+			y: 620
 		},
 		cost: {
 			coins: 40000,
@@ -1863,8 +1864,8 @@ civitas.BUILDINGS = [{
 		handle: 'almondsfield',
 		description: 'An almonds field is required for the almonds farm to operate.',
 		position: {
-			x: 205,
-			y: 636
+			x: 200,
+			y: 670
 		},
 		cost: {
 			coins: 5000,
@@ -1889,8 +1890,8 @@ civitas.BUILDINGS = [{
 			herbs: 2
 		},
 		position: {
-			x: 905,
-			y: 783
+			x: 900,
+			y: 860
 		},
 		cost: {
 			coins: 10000,
@@ -1906,8 +1907,8 @@ civitas.BUILDINGS = [{
 		handle: 'cattlefield',
 		description: 'A cattle field is required for the cattle farm to operate.',
 		position: {
-			x: 816,
-			y: 838
+			x: 830,
+			y: 900
 		},
 		cost: {
 			coins: 1000,
@@ -1932,8 +1933,8 @@ civitas.BUILDINGS = [{
 			herbs: 2
 		},
 		position: {
-			x: 823,
-			y: 712
+			x: 700,
+			y: 800
 		},
 		cost: {
 			coins: 15000,
@@ -1949,8 +1950,8 @@ civitas.BUILDINGS = [{
 		handle: 'pigfield',
 		description: 'A pig field is required for the pig farm to operate.',
 		position: {
-			x: 730,
-			y: 770
+			x: 760,
+			y: 850
 		},
 		cost: {
 			coins: 1500,
@@ -1989,8 +1990,8 @@ civitas.BUILDINGS = [{
 		handle: 'grainfield',
 		description: 'A grain field is required for the grain farm to operate.',
 		position: {
-			x: 1103,
-			y: 915
+			x: 1080,
+			y: 900
 		},
 		cost: {
 			coins: 1000,
@@ -2012,7 +2013,7 @@ civitas.BUILDINGS = [{
 		levels: 3,
 		position: {
 			x: 1200,
-			y: 600
+			y: 860
 		},
 		cost: {
 			coins: 15000,
@@ -2028,8 +2029,8 @@ civitas.BUILDINGS = [{
 		handle: 'grapesfield',
 		description: 'A grapes field is required for the grapes farm to operate.',
 		position: {
-			x: 1120,
-			y: 670
+			x: 1270,
+			y: 830
 		},
 		cost: {
 			coins: 1500,
@@ -2050,8 +2051,8 @@ civitas.BUILDINGS = [{
 		},
 		levels: 3,
 		position: {
-			x: 244,
-			y: 466
+			x: 224,
+			y: 500
 		},
 		cost: {
 			coins: 60000,
@@ -2067,8 +2068,8 @@ civitas.BUILDINGS = [{
 		handle: 'coffeefield',
 		description: 'A coffee field is required for the coffee farm to operate.',
 		position: {
-			x: 181,
-			y: 532
+			x: 180,
+			y: 544
 		},
 		cost: {
 			coins: 6000,
@@ -2106,8 +2107,8 @@ civitas.BUILDINGS = [{
 		handle: 'hempfield',
 		description: 'A hemp field is required for the hemp farm to operate.',
 		position: {
-			x: 281,
-			y: 758
+			x: 298,
+			y: 746
 		},
 		cost: {
 			coins: 2000,
@@ -2128,7 +2129,7 @@ civitas.BUILDINGS = [{
 		levels: 3,
 		position: {
 			x: 456,
-			y: 745
+			y: 800
 		},
 		cost: {
 			coins: 80000,
@@ -2144,8 +2145,8 @@ civitas.BUILDINGS = [{
 		handle: 'silkfield',
 		description: 'A silk field is required for the silk farm to operate.',
 		position: {
-			x: 363,
-			y: 819
+			x: 400,
+			y: 845
 		},
 		cost: {
 			coins: 8000,
@@ -2166,8 +2167,8 @@ civitas.BUILDINGS = [{
 		},
 		levels: 3,
 		position: {
-			x: 536,
-			y: 804
+			x: 550,
+			y: 854
 		},
 		cost: {
 			coins: 100000,
@@ -2183,8 +2184,8 @@ civitas.BUILDINGS = [{
 		handle: 'sugarfield',
 		description: 'A sugar field is required for the sugar farm to operate.',
 		position: {
-			x: 449,
-			y: 862
+			x: 500,
+			y: 900
 		},
 		cost: {
 			coins: 10000,
@@ -2226,8 +2227,8 @@ civitas.BUILDINGS = [{
 		},
 		levels: 3,
 		position: {
-			x: 440,
-			y: 630
+			x: 1461,
+			y: 120
 		},
 		cost: {
 			coins: 20000,
