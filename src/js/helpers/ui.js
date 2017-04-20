@@ -169,7 +169,7 @@ civitas.ui = {
 		return '<div data-type="' + params.type + '" data-level="' + params.data.level + '" ' +
 			'style="background:transparent url(' + civitas.ASSETS_URL + 'images/buildings/' + image + '.png) no-repeat;left:' + params.data.position.x + 'px;top:' + params.data.position.y + 'px" ' +
 			'title=\'' + params.data.name + '\' ' + 'id="building-' + params.data.handle + '"' +
-			'class="tips slots building' + (params.data.large === true ? ' large' : '') + '"></div>';
+			'class="tips slots building' + (params.data.large === true ? ' large' : '') + (params.data.extralarge === true ? ' extralarge' : '') + '"></div>';
 	},
 
 	resource_storage_small_el: function (resource, amount) {
@@ -191,7 +191,7 @@ civitas.ui = {
 		var out = '<div class="tabs">' +
 				'<ul>';
 		for (var i = 0; i < data.length; i++) {
-			out += '<li><a href="#tab-' + data[i].toLowerCase() + '">' + data[i] + '</a></li>';
+			out += '<li><a href="#tab-' + data[i].toLowerCase().replace(/ /g, "-") + '">' + data[i] + '</a></li>';
 		}
 		out += '</ul>';
 		for (var i = 0; i < data.length; i++) {
@@ -237,12 +237,17 @@ civitas.ui = {
 
 	requires_panel: function (requires) {
 		var out = '';
-		if (typeof requires.buildings !== 'undefined') {
+		if (typeof requires.buildings !== 'undefined' || typeof requires.settlement_level !== 'undefined') {
 			out += '<dt>' + civitas.l('Requires') + '</dt>';
 			out += '<dd>';
-			for (var i = 0; i <requires.buildings.length; i++) {
-				var b = civitas.BUILDINGS[civitas.BUILDINGS.findIndexM(requires.buildings[i])];
-				out += b.name + '<br />'
+			if (typeof requires.buildings !== 'undefined') {
+				for (var i = 0; i <requires.buildings.length; i++) {
+					var b = civitas.BUILDINGS[civitas.BUILDINGS.findIndexM(requires.buildings[i])];
+					out += b.name + '<br />'
+				}
+			}
+			if (typeof requires.settlement_level !== 'undefined') {
+				out += civitas.l('City level') + ' ' + requires.settlement_level;
 			}
 			out += '</dd>';
 		}

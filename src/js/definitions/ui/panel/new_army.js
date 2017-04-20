@@ -198,12 +198,11 @@ civitas.PANEL_NEW_ARMY = {
 				core.error(civitas.l('There was an error creating and dispatching the army, check the data you entered and try again.'));
 				return false;
 			}
-			var data = {
+			if (core.add_campaign(my_settlement, settlement, civitas.CAMPAIGN_ARMY, {
 				army: self.assigned_army,
 				navy: self.assigned_navy,
 				resources: self.resources
-			};
-			if (core.add_campaign(my_settlement, settlement, civitas.CAMPAIGN_ARMY, data)) {
+			})) {
 				core.save_and_refresh();
 				self.destroy();
 			} else {

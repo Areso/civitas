@@ -8,7 +8,7 @@ civitas.SETTLEMENT_BUILDINGS_TROPICAL = [
 
 	/* Municipal */
 	'marketplace', 'warehouse', 'tradingpost', 'church', 'monastery', 'camp', 'castle',
-	'shipyard', 'embassy', 'academy', 'tavern',
+	'shipyard', 'embassy', 'academy', 'tavern', 'tournir',
 
 	/* Housing */
 	'house1', 'house2', 'house3', 'house4', 'house5', 'house6', 'house7', 'house8',
@@ -29,7 +29,7 @@ civitas.SETTLEMENT_BUILDINGS_TROPICAL = [
 	'charcoalburnerhut', 'opticiansworkshop', 'papermill', 'printingpress',
 	'redsmithsworkshop', 'ropeyard', 'glassworks', 'silkweaver',
 	'apiary', 'barrelcooperage', 'brewery', 'candlemakersworkshop', 'sugarmill',
-	'perfumery', 'weaver', 'provisions', 'carpenter', 'marzipanworkshop',
+	'perfumery', 'weaver', 'provisions', 'carpenter', 'marzipanworkshop', 'cannonfoundry',
 
 	/* Farms */
 	'almondsfarm', 'almondsfield', 'cattlefarm', 'cattlefield', 'coffeefarm', 'coffeefield',
@@ -48,7 +48,7 @@ civitas.SETTLEMENT_BUILDINGS_POLAR = [
 
 	/* Municipal */
 	'marketplace', 'warehouse', 'tradingpost', 'church', 'monastery', 'camp', 'castle',
-	'shipyard', 'embassy', 'academy', 'tavern',
+	'shipyard', 'embassy', 'academy', 'tavern', 'tournir',
 
 	/* Housing */
 	'house1', 'house2', 'house3', 'house4', 'house5', 'house6', 'house7',
@@ -67,7 +67,7 @@ civitas.SETTLEMENT_BUILDINGS_POLAR = [
 	'quartzfactory', 'winery', 'saltworks', 'pottery',
 	'charcoalburnerhut', 'opticiansworkshop', 'papermill', 'printingpress',
 	'redsmithsworkshop', 'ropeyard', 'glassworks', 'silkweaver', 'marzipanworkshop',
-	'apiary', 'barrelcooperage', 'brewery', 'candlemakersworkshop', 'sugarmill',
+	'apiary', 'barrelcooperage', 'brewery', 'candlemakersworkshop', 'sugarmill', 'cannonfoundry',
 	'perfumery', 'weaver', 'provisions', 'carpenter'
 ];
 
@@ -81,7 +81,7 @@ civitas.SETTLEMENT_BUILDINGS_ARID = [
 
 	/* Municipal */
 	'marketplace', 'warehouse', 'tradingpost', 'church', 'monastery', 'camp', 'castle',
-	'shipyard', 'embassy', 'academy', 'tavern',
+	'shipyard', 'embassy', 'academy', 'tavern', 'tournir',
 
 	/* Housing */
 	'house1', 'house2', 'house3', 'house4', 'house5', 'house6', 'house7',
@@ -101,7 +101,7 @@ civitas.SETTLEMENT_BUILDINGS_ARID = [
 	'charcoalburnerhut', 'opticiansworkshop', 'papermill', 'printingpress',
 	'redsmithsworkshop', 'ropeyard', 'glassworks', 'silkweaver',
 	'apiary', 'barrelcooperage', 'brewery', 'candlemakersworkshop', 'sugarmill',
-	'perfumery', 'weaver', 'provisions', 'carpenter', 'marzipanworkshop',
+	'perfumery', 'weaver', 'provisions', 'carpenter', 'marzipanworkshop', 'cannonfoundry',
 
 	/* Farms */
 	'cattlefarm', 'cattlefield', 'pigfarm', 'pigfield'
@@ -117,7 +117,7 @@ civitas.SETTLEMENT_BUILDINGS_TEMPERATE = [
 
 	/* Municipal */
 	'marketplace', 'warehouse', 'tradingpost', 'church', 'monastery', 'camp', 'castle',
-	'shipyard', 'embassy', 'academy', 'tavern',
+	'shipyard', 'embassy', 'academy', 'tavern', 'tournir',
 
 	/* Housing */
 	'house1', 'house2', 'house3', 'house4', 'house5', 'house6', 'house7', 'house8',
@@ -138,7 +138,7 @@ civitas.SETTLEMENT_BUILDINGS_TEMPERATE = [
 	'charcoalburnerhut', 'opticiansworkshop', 'papermill', 'printingpress',
 	'redsmithsworkshop', 'ropeyard', 'glassworks', 'silkweaver', 'marzipanworkshop',
 	'apiary', 'barrelcooperage', 'brewery', 'candlemakersworkshop', 'sugarmill',
-	'perfumery', 'weaver', 'provisions', 'carpenter', 'catapultworkshop',
+	'perfumery', 'weaver', 'provisions', 'carpenter', 'catapultworkshop', 'cannonfoundry',
 
 	/* Farms */
 	'cattlefarm', 'cattlefield', 'ciderfarm', 'ciderfield', 'grainfarm', 'grainfield',
@@ -154,7 +154,7 @@ civitas.SETTLEMENT_BUILDINGS_TEMPERATE = [
  */
 civitas.BUILDINGS_ALL = [
 	'marketplace', 'lumberjack', 'camp', 'warehouse', 'mill', 'castle', 'stone',
-	'ironmine', 'trapper', 'almondsfarm', 'almondsfield', 'tavern',
+	'ironmine', 'trapper', 'almondsfarm', 'almondsfield', 'tavern', 'tournir',
 	'shipyard', 'pigfarm', 'cattlefarm', 'pigfield', 'cattlefield', 'house1', 'house2',
 	'house3', 'house4', 'house5', 'house6', 'house7',
 	'house8', 'house9', 'church', 'bakery', 'butcher', 'grainfarm', 'grainfield',
@@ -166,7 +166,7 @@ civitas.BUILDINGS_ALL = [
 	'charcoalburnerhut', 'monastery', 'opticiansworkshop', 'papermill', 'printingpress',
 	'redsmithsworkshop', 'ropeyard', 'glassworks', 'provisions', 'silkweaver',
 	'apiary', 'barrelcooperage', 'brewery', 'candlemakersworkshop', 'indigofarm',
-	'ciderfarm', 'ciderfield', 'sugarmill', 'rosenursery', 'catapultworkshop',
+	'ciderfarm', 'ciderfield', 'sugarmill', 'rosenursery', 'catapultworkshop', 'cannonfoundry',
 	'perfumery', 'tradingpost', 'weaver', 'embassy',  'academy', 'marzipanworkshop'
 ];
 
@@ -186,6 +186,7 @@ civitas.BUILDINGS_CATEGORIES = {
 		'shipyard',
 		'tradingpost',
 		'warehouse',
+		'tournir',
 		'tavern'
 	],
 	'Housing': [
@@ -271,6 +272,7 @@ civitas.BUILDINGS_CATEGORIES = {
 		'camp',
 		'castle',
 		'provisions',
+		'cannonfoundry',
 		'catapultworkshop'
 	]
 };
@@ -562,6 +564,7 @@ civitas.BUILDINGS = [{
 		description: 'The Castle is your main base of operations. It houses your ' +
 			'settlement`s soldiers and provides you with prestige and some extra fame.',
 		is_production: true,
+		is_municipal: true,
 		large: true,
 		production: {
 			fame: 100,
@@ -681,6 +684,37 @@ civitas.BUILDINGS = [{
 		},
 		requires: {
 			settlement_level: 6
+		}
+	}, {
+		name: 'Tournir Area',
+		handle: 'tournir',
+		description: 'The tournir area is providing your city with fame, prestige, a chance to train your soldiers and has a low chance of giving your city coins.',
+		extralarge: true,
+		is_municipal: true,
+		is_production: true,
+		production: {
+			fame: 100,
+			prestige: 1
+		},
+		position: {
+			x: 890,
+			y: 580
+		},
+		levels: 1,
+		chance: {
+			coins: 0.1
+		},
+		cost: {
+			coins: 1000000,
+			wood: 2000,
+			stones: 2000,
+			clay: 2000,
+			weapons: 100,
+			armor: 100
+		},
+		requires: {
+			settlement_level: 3,
+			buildings: ['castle', 'academy']
 		}
 	}, {
 		name: 'Iron Mine',
@@ -979,8 +1013,8 @@ civitas.BUILDINGS = [{
 			coal: 1
 		},
 		position: {
-			x: 1230,
-			y: 160
+			x: 1260,
+			y: 170
 		},
 		levels: 3,
 		cost: {
@@ -1277,8 +1311,8 @@ civitas.BUILDINGS = [{
 			candles: 2
 		},
 		position: {
-			x: 1020,
-			y: 730
+			x: 840,
+			y: 230
 		},
 		levels: 3,
 		cost: {
@@ -1470,7 +1504,7 @@ civitas.BUILDINGS = [{
 			wheat: 2
 		},
 		position: {
-			x: 880,
+			x: 840,
 			y: 760
 		},
 		levels: 3,
@@ -1525,7 +1559,7 @@ civitas.BUILDINGS = [{
 		},
 		position: {
 			x: 1110,
-			y: 130
+			y: 100
 		},
 		levels: 3,
 		cost: {
@@ -1535,6 +1569,35 @@ civitas.BUILDINGS = [{
 		},
 		requires: {
 			settlement_level: 15
+		}
+	}, {
+		name: 'Cannon Foundry',
+		handle: 'cannonfoundry',
+		description: 'The cannon foundry is responsable with the manufacture of the city cannons.',
+		is_production: true,
+		production: {
+			cannons: 1
+		},
+		materials: {
+			wood: 70,
+			copper: 10,
+			iron: 10,
+			woodplanks: 10,
+			ropes: 2,
+			sulphur: 8
+		},
+		position: {
+			x: 1160,
+			y: 170
+		},
+		levels: 3,
+		cost: {
+			coins: 200000,
+			woodplanks: 200,
+			stones: 300
+		},
+		requires: {
+			settlement_level: 13
 		}
 	}, {
 		name: 'Charcoal Burner`s Hut',

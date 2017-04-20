@@ -72,13 +72,12 @@ civitas.PANEL_HELP = {
 			'<h3>Municipal</h3>' +
 			'<p></p>' +
 			'<h3>Storage</h3>' +
-			'<p>The goods you`re producing need a storage place inside your city, the initial Marketplace provides some storage space (and it can be increased even further with upgrading) but you will need to build Warehouses to store all the goods. If you have no free storage space, the produced goods will be lost.</p>' +
+			'<p>The goods you`re producing need a storage place inside your city, the initial Marketplace provides some storage space (100k <img src="' + civitas.ASSETS_URL + 'images/resources/storage_small.png" /> ), and it can be increased even further with upgrading, but you will need to build Warehouses to store all the goods. If you have no free storage space, the produced goods will be lost.</p>' +
 			'<h3>Coins</h3>' +
 			'<p>Your city can only gain coins through trades and taxes.</p>');
 		$(this.handle + ' #tab-religion').empty().append('<h2>Religion</h2>' +
 			'');
-		$(this.handle + ' #tab-settlements').empty().append(
-			'<fieldset>' +
+		$(this.handle + ' #tab-settlements').empty().append('<fieldset>' +
 				'<legend>Table of Contents</legend>' +
 				'<ul>' +
 					'<li><a href="#">Intro</a></li>' +
@@ -133,16 +132,38 @@ civitas.PANEL_HELP = {
 		if (civitas.DEBUG === true) {
 			$(this.handle + ' #tab-cheats').empty().append('<h2>Cheats</h2>' +
 				'<div class="toolbar">' +
-					'<a href="#" class="btn iblock one">' + civitas.l('10k coins') + '</a> ' +
-					'<a href="#" class="btn iblock eight">' + civitas.l('1M coins') + '</a> ' +
-					'<a href="#" class="btn iblock two">' + civitas.l('100 wood') + '</a> ' +
-					'<a href="#" class="btn iblock three">' + civitas.l('100 stones') + '</a> ' +
-					'<a href="#" class="btn iblock four">' + civitas.l('100 wood planks') + '</a> ' +
+					'<a href="#" class="btn iblock one">' + civitas.l('+10k coins') + '</a> ' +
+					'<a href="#" class="btn iblock nine">' + civitas.l('+100k coins') + '</a> ' +
+					'<a href="#" class="btn iblock eight">' + civitas.l('+1M coins') + '</a> <br /><br />' +
+					'<a href="#" class="btn iblock two">' + civitas.l('+100 wood') + '</a> ' +
+					'<a href="#" class="btn iblock three">' + civitas.l('+100 stones') + '</a> ' +
+					'<a href="#" class="btn iblock four">' + civitas.l('+100 wood planks') + '</a> <br /><br />' +
 					'<a href="#" class="btn iblock five">' + civitas.l('level up') + '</a> ' +
-					'<a href="#" class="btn iblock six">' + civitas.l('1000 fame') + '</a> ' +
-					'<a href="#" class="btn iblock seven">' + civitas.l('refresh trades') + '</a> ' +
+					'<a href="#" class="btn iblock six">' + civitas.l('+1000 fame') + '</a> ' +
+					'<a href="#" class="btn iblock ten">' + civitas.l('+5000 fame') + '</a> <br /><br />' +
+					'<a href="#" class="btn iblock seven">' + civitas.l('refresh trades') + '</a> <br /><br />' +
+					'<a href="#" class="btn iblock eleven">' + civitas.l('random soldiers') + '</a> ' +
+					'<a href="#" class="btn iblock twelve">' + civitas.l('random ships') + '</a> ' +
 				'</div>');
-			$(this.handle).on('click', '.eight', function() {
+			$(this.handle).on('click', '.eleven', function() {
+				var army = settlement.get_army_total();
+				for (var soldier in army.army) {
+					army.army[soldier] = civitas.utils.get_random(1, 100);
+				}
+				core.save_and_refresh();
+				return false;
+			}).on('click', '.twelve', function() {
+				var navy = settlement.get_navy_total();
+				for (var ship in navy.navy) {
+					navy.navy[ship] = civitas.utils.get_random(1, 10);
+				}
+				core.save_and_refresh();
+				return false;
+			}).on('click', '.nine', function() {
+				settlement.inc_coins(100000);
+				core.save_and_refresh();
+				return false;
+			}).on('click', '.eight', function() {
 				settlement.inc_coins(1000000);
 				core.save_and_refresh();
 				return false;
@@ -164,6 +185,10 @@ civitas.PANEL_HELP = {
 				return false;
 			}).on('click', '.five', function() {
 				settlement.level_up();
+				core.save_and_refresh();
+				return false;
+			}).on('click', '.ten', function() {
+				settlement.raise_fame(5000);
 				core.save_and_refresh();
 				return false;
 			}).on('click', '.six', function() {

@@ -235,6 +235,7 @@ civitas.WINDOW_OPTIONS = {
 				$('.music-volume').attr('disabled', false);
 				core.set_settings_music(false);
 			}
+			core.save();
 			return false;
 		}).on('click', '.console-control', function () {
 			if ($(this).hasClass('on')) {
@@ -244,10 +245,12 @@ civitas.WINDOW_OPTIONS = {
 				$(this).removeClass('off').addClass('on');
 				core.set_settings_console(true);
 			}
+			core.save();
 			return false;
 		}).on('change', '.music-volume', function () {
 			var value = $(this).val();
 			core.music.volume = value;
+			core.save();
 			return false;
 		});
 	},

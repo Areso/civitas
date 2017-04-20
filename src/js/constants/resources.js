@@ -65,8 +65,7 @@ civitas.RESOURCES = {
 	},
 	'cannons': {
 		name: 'Cannons',
-		price: 700,
-		imported: true
+		price: 700
 	},
 	'carpets': {
 		name: 'Carpets',

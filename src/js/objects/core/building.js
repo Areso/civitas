@@ -432,8 +432,9 @@ civitas.objects.building = function(params) {
 						for (var item in building.chance) {
 							var rnd = Math.random();
 							if (rnd < building.chance[item] * this.get_level()) {
-								this.get_core().log(this.get_name() + ' procced extra ' + civitas.utils.get_resource_name(item) + '.');
-								this.get_settlement().add_to_storage(item, 1);
+								var random_amount = civitas.utils.get_random(1, 5);
+								this.get_core().log(this.get_name() + ' procced ' + random_amount + ' extra ' + civitas.utils.get_resource_name(item) + '.');
+								this.get_settlement().add_to_storage(item, random_amount);
 							}
 						}
 					}
@@ -460,132 +461,6 @@ civitas.objects.building = function(params) {
 			}
 		}
 		return this;
-	};
-
-	/**
-	 * Process the materials and use the required ones.
-	 * 
-	 * @public
-	 * @returns {civitas.objects.building}
-	 * @param {String|Array} mats_production
-	 * @param {String|Array} mats_use
-	 */
-	this.process_mats = function(mats_production, mats_use) {
-		if (typeof mats_use !== 'undefined') {
-			if (this.has_materials(mats_use)) {
-				this.use_material(mats_use);
-				this.produce_material(mats_production);
-			}
-		} else {
-			this.produce_material(mats_production);
-		}
-		return this;
-	};
-
-	/**
-	 * Raise the prestige of the settlement this building is located in.
-	 * 
-	 * @public
-	 * @returns {Number}
-	 */
-	this.adjust_settlement_prestige = function() {
-		var building = this.get_building_data();
-		var prd = building.production;
-		var amount = prd.prestige;
-		this.get_settlement().raise_prestige(amount * this.get_level());
-		this.get_core().log(this.get_name() + ' raised settlement prestige by ' + amount + '.');
-		return this.get_settlement().get_prestige();
-	};
-
-	/**
-	 * Raise the faith of the settlement this building is located in.
-	 * 
-	 * @public
-	 * @returns {Number}
-	 */
-	this.adjust_settlement_faith = function() {
-		var building = this.get_building_data();
-		var prd = building.production;
-		var amount = prd.faith;
-		this.get_settlement().raise_faith(amount * this.get_level());
-		this.get_core().log(this.get_name() + ' raised settlement faith by ' + amount + '.');
-		return this.get_settlement().get_faith();
-	};
-
-	/**
-	 * Raise the espionage of the settlement this building is located in.
-	 * 
-	 * @public
-	 * @returns {Number}
-	 */
-	this.adjust_settlement_espionage = function() {
-		var building = this.get_building_data();
-		var prd = building.production;
-		var amount = prd.espionage;
-		this.get_settlement().raise_espionage(amount * this.get_level());
-		this.get_core().log(this.get_name() + ' raised settlement espionage by ' + amount + '.');
-		return this.get_settlement().get_espionage();
-	};
-
-	/**
-	 * Raise the fame of the settlement this building is located in.
-	 * 
-	 * @public
-	 * @returns {Number}
-	 */
-	this.adjust_settlement_fame = function() {
-		var building = this.get_building_data();
-		var prd = building.production;
-		var amount = prd.fame * this.get_level();
-		this.get_settlement().raise_fame(amount * this.get_level());
-		this.get_core().log(this.get_name() + ' raised settlement fame by ' + amount + '.');
-		return this.get_settlement().get_fame();
-	};
-
-	/**
-	 * Raise the research of the settlement this building is located in by converting
-	 * coins into research.
-	 * 
-	 * @public
-	 * @returns {Object}
-	 */
-	this.adjust_settlement_research_for_coins = function() {
-		var building = this.get_building_data();
-		var mat = building.materials;
-		var prd = building.production;
-		if (this.get_settlement().has_coins(mat.coins, false)) {
-			var amount = prd.research * this.get_level();
-			this.get_settlement().raise_research(amount * this.get_level());
-			this.get_settlement().dec_coins(mat.coins);
-			this.get_core().log(this.get_name() + ' raised settlement research with ' + amount + ' at the cost of ' + mat.coins + ' coins.');
-		}
-		return {
-			research: this.get_settlement().get_research(),
-			coins: this.get_settlement().get_coins()
-		};
-	};
-
-	/**
-	 * Raise the fame of the settlement this building is located in by converting
-	 * coins into fame.
-	 * 
-	 * @public
-	 * @returns {Object}
-	 */
-	this.adjust_settlement_fame_for_coins = function() {
-		var building = this.get_building_data();
-		var mat = building.materials;
-		var prd = building.production;
-		if (this.get_settlement().has_coins(mat.coins, false)) {
-			var amount = prd.fame * this.get_level();
-			this.get_settlement().raise_fame(amount * this.get_level());
-			this.get_settlement().dec_coins(mat.coins);
-			this.get_core().log(this.get_name() + ' raised settlement fame with ' + amount + ' at the cost of ' + mat.coins + ' coins.');
-		}
-		return {
-			fame: this.get_settlement().get_fame(),
-			coins: this.get_settlement().get_coins()
-		};
 	};
 
 	/**
@@ -723,44 +598,23 @@ civitas.objects.building = function(params) {
 		if (this.has_requirements() === false) {
 			return false;
 		}
+		/*
 		switch (this.get_type()) {
-			/* STORAGE */
-			case 'marketplace':
-				this.adjust_settlement_fame();
-				break;
 			case 'warehouse':
-				break;
-			/* MILITARY */
 			case 'camp':
-				break;
-			case 'castle':
-				this.adjust_settlement_fame_for_coins();
-				this.adjust_settlement_prestige();
-				break;
-			/* MUNICIPAL */
-			case 'embassy':
-				this.adjust_settlement_fame_for_coins();
-				this.adjust_settlement_espionage();
-				break;
-			case 'church':
-				this.adjust_settlement_fame_for_coins();
-				this.adjust_settlement_faith();
-				break;
-			case 'monastery':
-				this.adjust_settlement_fame_for_coins();
-				this.adjust_settlement_faith();
-				break;
-			case 'academy':
-				this.adjust_settlement_research_for_coins();
-				break;
 			case 'tavern':
-				this.adjust_settlement_fame_for_coins();
-				break;
-			/* ALL OTHER */
+			case 'tournir':
+			case 'castle':
+			case 'embassy':
+			case 'academy':
+			case 'church':
+			case 'monastery':
+			case 'marketplace':
 			default:
-				this._process();
-				break;
-		}
+		*/
+		this._process();
+		//		break;
+		//}
 		return this;
 	};
 

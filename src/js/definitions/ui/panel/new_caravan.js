@@ -107,10 +107,9 @@ civitas.PANEL_NEW_CARAVAN = {
 				core.error(civitas.l('There was an error creating and dispatching the caravan, check the data you entered and try again.'));
 				return false;
 			}
-			var data = {
+			if (core.add_campaign(my_settlement, settlement, civitas.CAMPAIGN_CARAVAN, {
 				resources: self.resources
-			};
-			if (core.add_campaign(my_settlement, settlement, civitas.CAMPAIGN_CARAVAN, data)) {
+			})) {
 				core.save_and_refresh();
 				self.destroy();
 			} else {

@@ -970,6 +970,9 @@ civitas.game = function () {
 	 * @returns {civitas.game}
 	 */
 	this.log = function (message, error) {
+		if ($('.ui .console .contents div').length > 1000) {
+			$('.ui .console .contents').empty();
+		}
 		if (typeof message !== 'undefined') {
 			$('.ui .console .contents').prepend('<div' + ((typeof error !== 'undefined' && error === true) ? ' class="error"' : '') + '>' + '<span>' + civitas.utils.get_now() + '</span> - ' + message + '</div>');
 		} else {

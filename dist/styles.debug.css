@@ -264,6 +264,11 @@ header .top-panel span {
 	height: 125px;
 }
 
+.game .building.extralarge {
+	width: 300px;
+	height: 268px;
+}
+
 .game .building .notification {
 	width: 20px;
 	height: 20px;
@@ -689,6 +694,11 @@ table.mercenaries td:nth-child(3) {
 
 #panel-settlement .ui-tabs-panel {
 	padding: 0 10px;
+}
+
+#panel-building {
+	max-height: 600px;
+	max-width: 400px;
 }
 
 /* City Builder panel */
