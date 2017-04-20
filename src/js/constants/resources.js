@@ -337,3 +337,13 @@ civitas.MAIN_RESOURCES = [
 	'iron', 'ironores', 'meat', 'milk', 'ropes', 'salt', 'stones', 'weapons', 'wheat',
 	'wine', 'wood', 'woodplanks'
 ];
+
+/**
+ * Resources that can be assigned to an army.
+ *
+ * @constant
+ * @type {Array}
+ */
+civitas.ARMY_RESOURCES = [
+	'cannons', 'catapults'
+];

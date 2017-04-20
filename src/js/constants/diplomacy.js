@@ -160,6 +160,15 @@ civitas.MAX_RESEARCH_VALUE = 1000;
 civitas.MAX_ESPIONAGE_VALUE = 1000;
 
 /**
+ * The success rate of an espionage mission is the espionage points assigned to the mission
+ * divided by this value.
+ *
+ * @constant
+ * @type {Number}
+ */
+civitas.MAX_ESPIONAGE_SUCESS_RATE = 100;
+
+/**
  * The maximum value settlement influence can have.
  *
  * @constant

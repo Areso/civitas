@@ -84,6 +84,10 @@ civitas.PANEL_HELP = {
 					'<li><a href="#">Intro</a></li>' +
 					'<li><a href="#">Cities and villages</a></li>' +
 					'<li><a href="#">Diplomacy</a></li>' +
+					'<li><a href="#">Fame and levels</a></li>' +
+					'<li><a href="#">Influence</a></li>' +
+					'<li><a href="#">Espionage</a></li>' +
+					'<li><a href="#">Prestige</a></li>' +
 					'<li><a href="#">Pacts and alliances</a></li>' +
 					'<li><a href="#">Wars</a></li>' +
 					'<li><a href="#">Caravans</a></li>' +
@@ -95,6 +99,18 @@ civitas.PANEL_HELP = {
 			'<p></p>' +
 			'<h3>Diplomacy</h3>' +
 			'<p></p>' +
+			'<h3>Fame and levels</h3>' +
+			'<p>Each time you reach a specific fame level, your city gets a new level, thus you never lose your initial fame. There are several ways of getting extra fame (besides your initial Marketplace), there are several municipal buildings that add a small amount of fame to your city each day (this amount can be increased by upgrading the buildings).</p>' +
+			'<p>There is no fixed way in which you can lose fame, except the random events that occur from time to time, or if another city manages to incite your population to revolt.</p>' +
+			'<p>The current maximum level a settlement can reach is <strong>' + civitas.MAX_SETTLEMENT_LEVEL + '</strong> and to reach that level your city will need <strong>' + civitas.utils.nice_numbers(civitas.LEVELS[civitas.MAX_SETTLEMENT_LEVEL - 1]) + '</strong> ' + civitas.ui.resource_small_img('fame') + '. There is no fixed date (in game or real days) to reach that level, it all depends on your decisions, buildings, diplomacy, etc.</p>' +
+			'<h3>Influence</h3>' +
+			'<p>All settlements in the game world have an influence rating with each of the other settlements. The influence drops over time (yearly) and needs to be kept above a certain level, else the other cities might attack your city.</p>' +
+			'<p>Maximum influence a settlement can have is <strong>' + civitas.MAX_INFLUENCE_VALUE + '</strong>.</p>' +
+			'<h3>Espionage</h3>' +
+			'<p>After building your city Embassy, you can start assigning spies to other settlements using your accumulated espionage points. Depending on the amount of espionage you use for a spy mission, that mission has a rate of success. The most points you can assign are <strong>' + civitas.MAX_ESPIONAGE_VALUE + '</strong> ' + civitas.ui.resource_small_img('espionage') + ' (maximum espionage points a city can get) and this gives you approximately a <strong>' + (civitas.MAX_ESPIONAGE_VALUE / civitas.MAX_ESPIONAGE_SUCESS_RATE) + '%</strong> success rate.</p>' +
+			'<h3>Prestige</h3>' +
+			'<p>Prestige is a very important feature of your city because it influences the way other settlements see you and they will act upon that information. Low prestige might be good for your city if you plan to lay low and prepare (the other settlements won`t bother to go to war with a city with low prestige unless you manage somehow to piss them off) but usually, your city prestige should raise with the city level.</p>' +
+			'<p>Prestige is gained through trading with other settlements, sending caravans with resources to help them when in need, etc. Random events can also affect your city prestige. The maximum prestige a settlement can get is <strong>' + civitas.MAX_PRESTIGE_VALUE + '</strong> ' + civitas.ui.resource_small_img('prestige') + '.</p>' +
 			'<h3>Pacts and alliances</h3>' +
 			'<p></p>' +
 			'<h3>Wars</h3>' +

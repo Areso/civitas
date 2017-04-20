@@ -7,6 +7,12 @@
  */
 civitas.objects.settlement = function(params) {
 	
+	/**
+	 * The ID of this settlement.
+	 *
+	 * @private
+	 * @type {Number}
+	 */
 	this.id = null;
 
 	/**
@@ -783,20 +789,20 @@ civitas.objects.settlement = function(params) {
 		var resources = this.get_resources();
 		var storage = this.get_storage_space();
 		var advices = [];
-		if (this.army.length === 0) {
+		var army = this.get_army_total();
+		var navy = this.get_navy_total();
+		if (army.total === 0) {
 			advices.push('You have no army, this is an open invitation for attack.');
 		}
-		/*
-		if (this.army.length < 10 && this.army.length > 0) {
+		if (army.total < 10 && army.total > 0) {
 			advices.push('You have a small army, try to recruit some more soldiers.');
 		}
-		if (this.navy.length === 0) {
+		if (navy.total === 0) {
 			advices.push('You have no navy, this is an open invitation for attack.');
 		}
-		if (this.army.length < 3 && this.army.length > 0) {
+		if (navy.total < 3 && navy.total > 0) {
 			advices.push('You have a small navy, try to construct some more ships.');
 		}
-		*/
 		if (storage.occupied >= storage.all) {
 			advices.push('You have no storage space to store your new goods and they ' +
 				'will be lost. Sell some goods or build a warehouse.');

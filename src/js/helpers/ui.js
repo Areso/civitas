@@ -136,8 +136,10 @@ civitas.ui = {
 			out += '<dl>';
 			var trade = trades[mode];
 			for (var item in trade) {
-				out += '<dt>' + trade[item] + '</dt>' +
+				if (trade[item] > 0) {
+					out += '<dt>' + trade[item] + '</dt>' +
 						'<dd>' + civitas.ui.resource_small_img(item) + '</dd>';
+				}
 			}
 			out += '</dl>';
 		}

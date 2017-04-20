@@ -755,12 +755,31 @@ civitas.game = function () {
 		if (this.month === 3 || this.month === 6 || this.month === 9 || this.month === 12) {
 			this._do_quarterly();
 		}
+		if (this.month === 6 || this.month === 12) {
+			this._do_biannually();
+		}
 		this._reset_black_market();
 		return this;
 	};
 
-	this._do_quarterly = function() {
+	/**
+	 * Method that gets called twice per year.
+	 * 
+	 * @private
+	 * @returns {civitas.game}
+	 */
+	this._do_biannually = function() {
 		this.refresh_trades();
+		return this;
+	};
+
+	/**
+	 * Method that gets called four times every year.
+	 * 
+	 * @private
+	 * @returns {civitas.game}
+	 */
+	this._do_quarterly = function() {
 		return this;
 	};
 
@@ -1789,7 +1808,7 @@ civitas.game = function () {
 				if (typeof campaign.data.espionage !== 'undefined') {
 					switch (campaign.data.mission) {
 						case civitas.SPY_MISSION_RELIGION:
-							if (random <= Math.ceil(campaign.data.espionage / 100)) {
+							if (random <= Math.ceil(campaign.data.espionage / civitas.MAX_ESPIONAGE_SUCESS_RATE)) {
 								if (campaign.source.id === settlement.get_id()) {
 									destination_settlement.set_religion(campaign.data.religion);
 									var religion = destination_settlement.get_religion();
@@ -1804,7 +1823,7 @@ civitas.game = function () {
 							}
 							break;
 						case civitas.SPY_MISSION_INFLUENCE:
-							if (random <= Math.ceil(campaign.data.espionage / 100)) {
+							if (random <= Math.ceil(campaign.data.espionage / civitas.MAX_ESPIONAGE_SUCESS_RATE)) {
 								if (campaign.source.id === settlement.get_id()) {
 									settlement.raise_influence(campaign.destination.id, amount);
 									this.notify('The spy you sent ' + campaign.duration + ' days ago to ' + destination_settlement.get_name() + ' reached its destination and increased your influence over this settlement.');
@@ -1818,13 +1837,13 @@ civitas.game = function () {
 							}
 							break;
 						case civitas.SPY_MISSION_STEAL_RESOURCES:
-							if (random <= Math.ceil(campaign.data.espionage / 100)) {
+							if (random <= Math.ceil(campaign.data.espionage / civitas.MAX_ESPIONAGE_SUCESS_RATE)) {
 								// TODO
 								failed = false;
 							}
 							break;
 						case civitas.SPY_MISSION_INSTIGATE:
-							if (random <= Math.ceil(campaign.data.espionage / 100)) {
+							if (random <= Math.ceil(campaign.data.espionage / civitas.MAX_ESPIONAGE_SUCESS_RATE)) {
 								if (campaign.source.id === settlement.get_id()) {
 									destination_settlement.lower_prestige(amount);
 									this.notify('The spy you sent ' + campaign.duration + ' days ago to ' + destination_settlement.get_name() + ' reached its destination and incited the population to revolt, therefore lowering the prestige of the city.');

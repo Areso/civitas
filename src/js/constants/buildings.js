@@ -365,9 +365,9 @@ civitas.BUILDINGS = [{
 			y: 180
 		},
 		cost: {
-			coins: 30000,
-			wood: 20,
-			woodplanks: 30,
+			coins: 15000,
+			wood: 40,
+			woodplanks: 40,
 			stones: 40
 		},
 		requires: {
@@ -610,7 +610,7 @@ civitas.BUILDINGS = [{
 	}, {
 		name: 'Carpenter',
 		handle: 'carpenter',
-		description: '.',
+		description: 'The carpenter processes the wood from the Lumberjack into wood planks that are required for more advanced buildings.',
 		is_production: true,
 		materials: {
 			wood: 2

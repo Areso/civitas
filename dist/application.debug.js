@@ -701,6 +701,15 @@ civitas.MAX_RESEARCH_VALUE = 1000;
 civitas.MAX_ESPIONAGE_VALUE = 1000;
 
 /**
+ * The success rate of an espionage mission is the espionage points assigned to the mission
+ * divided by this value.
+ *
+ * @constant
+ * @type {Number}
+ */
+civitas.MAX_ESPIONAGE_SUCESS_RATE = 100;
+
+/**
  * The maximum value settlement influence can have.
  *
  * @constant
@@ -1994,9 +2003,9 @@ civitas.BUILDINGS = [{
 			y: 180
 		},
 		cost: {
-			coins: 30000,
-			wood: 20,
-			woodplanks: 30,
+			coins: 15000,
+			wood: 40,
+			woodplanks: 40,
 			stones: 40
 		},
 		requires: {
@@ -2239,7 +2248,7 @@ civitas.BUILDINGS = [{
 	}, {
 		name: 'Carpenter',
 		handle: 'carpenter',
-		description: '.',
+		description: 'The carpenter processes the wood from the Lumberjack into wood planks that are required for more advanced buildings.',
 		is_production: true,
 		materials: {
 			wood: 2
@@ -3946,6 +3955,7 @@ civitas.SETTLEMENTS = {
 				roses: civitas.IMPORTANCE_MEDIUM,
 				wine: civitas.IMPORTANCE_VITAL,
 				clay: civitas.IMPORTANCE_VITAL,
+				provisions: civitas.IMPORTANCE_HIGH,
 				fish: civitas.IMPORTANCE_MEDIUM,
 				catapults: civitas.IMPORTANCE_MEDIUM
 			},
@@ -3996,6 +4006,7 @@ civitas.SETTLEMENTS = {
 				sugar: civitas.IMPORTANCE_VITAL,
 				sugarcane: civitas.IMPORTANCE_MEDIUM,
 				glasses: civitas.IMPORTANCE_LOW,
+				furs: civitas.IMPORTANCE_VITAL,
 				fish: civitas.IMPORTANCE_HIGH,
 				mosaic: civitas.IMPORTANCE_HIGH,
 				candles: civitas.IMPORTANCE_LOW,
@@ -4052,7 +4063,10 @@ civitas.SETTLEMENTS = {
 				wheat: civitas.IMPORTANCE_VITAL,
 				wood: civitas.IMPORTANCE_HIGH,
 				barrels: civitas.IMPORTANCE_MEDIUM,
+				provisions: civitas.IMPORTANCE_HIGH,
+				furs: civitas.IMPORTANCE_VITAL,
 				sugar: civitas.IMPORTANCE_LOW,
+				woodplanks: civitas.IMPORTANCE_HIGH,
 				sugarcane: civitas.IMPORTANCE_LOW,
 				clay: civitas.IMPORTANCE_VITAL
 			},
@@ -4137,8 +4151,10 @@ civitas.SETTLEMENTS = {
 				books: civitas.IMPORTANCE_LOW,
 				paper: civitas.IMPORTANCE_LOW,
 				coal: civitas.IMPORTANCE_VITAL,
+				provisions: civitas.IMPORTANCE_HIGH,
 				copper: civitas.IMPORTANCE_MEDIUM,
 				mosaic: civitas.IMPORTANCE_MEDIUM,
+				woodplanks: civitas.IMPORTANCE_HIGH,
 				indigo: civitas.IMPORTANCE_HIGH
 			},
 			'exports': {
@@ -4219,6 +4235,8 @@ civitas.SETTLEMENTS = {
 				silk: civitas.IMPORTANCE_LOW,
 				clothes: civitas.IMPORTANCE_HIGH,
 				leather: civitas.IMPORTANCE_LOW,
+				hides: civitas.IMPORTANCE_HIGH,
+				clay: civitas.IMPORTANCE_MEDIUM,
 				pottery: civitas.IMPORTANCE_HIGH,
 				meat: civitas.IMPORTANCE_MEDIUM
 			},
@@ -4258,9 +4276,10 @@ civitas.SETTLEMENTS = {
 		trades: {
 			'imports': {
 				furs: civitas.IMPORTANCE_LOW,
-				hides: civitas.IMPORTANCE_LOW,
 				milk: civitas.IMPORTANCE_MEDIUM,
+				brine: civitas.IMPORTANCE_VITAL,
 				leather: civitas.IMPORTANCE_LOW,
+				woodplanks: civitas.IMPORTANCE_MEDIUM,
 				fish: civitas.IMPORTANCE_VITAL,
 				furcoats: civitas.IMPORTANCE_VITAL
 			},
@@ -4303,6 +4322,7 @@ civitas.SETTLEMENTS = {
 				coffee: civitas.IMPORTANCE_LOW,
 				cider: civitas.IMPORTANCE_LOW,
 				wine: civitas.IMPORTANCE_LOW,
+				hides: civitas.IMPORTANCE_VITAL,
 				beer: civitas.IMPORTANCE_LOW,
 				mosaic: civitas.IMPORTANCE_VITAL,
 				woodplanks: civitas.IMPORTANCE_HIGH,
@@ -4352,8 +4372,10 @@ civitas.SETTLEMENTS = {
 			'imports': {
 				flour: civitas.IMPORTANCE_LOW,
 				bread: civitas.IMPORTANCE_LOW,
+				woodplanks: civitas.IMPORTANCE_MEDIUM,
 				armor: civitas.IMPORTANCE_HIGH,
 				brass: civitas.IMPORTANCE_MEDIUM,
+				clay: civitas.IMPORTANCE_MEDIUM,
 				coal: civitas.IMPORTANCE_VITAL
 			},
 			'exports': {
@@ -4390,6 +4412,7 @@ civitas.SETTLEMENTS = {
 			'imports': {
 				furs: civitas.IMPORTANCE_LOW,
 				hides: civitas.IMPORTANCE_MEDIUM,
+				clay: civitas.IMPORTANCE_HIGH,
 				milk: civitas.IMPORTANCE_LOW,
 				leather: civitas.IMPORTANCE_LOW
 			},
@@ -4483,6 +4506,7 @@ civitas.SETTLEMENTS = {
 				weapons: civitas.IMPORTANCE_LOW,
 				roses: civitas.IMPORTANCE_MEDIUM,
 				perfume: civitas.IMPORTANCE_LOW,
+				provisions: civitas.IMPORTANCE_HIGH,
 				iron: civitas.IMPORTANCE_VITAL,
 				ironores: civitas.IMPORTANCE_LOW
 			},
@@ -4520,6 +4544,7 @@ civitas.SETTLEMENTS = {
 				meat: civitas.IMPORTANCE_LOW,
 				milk: civitas.IMPORTANCE_LOW,
 				weapons: civitas.IMPORTANCE_LOW,
+				furs: civitas.IMPORTANCE_VITAL,
 				roses: civitas.IMPORTANCE_MEDIUM,
 				perfume: civitas.IMPORTANCE_LOW,
 				iron: civitas.IMPORTANCE_VITAL,
@@ -4564,6 +4589,7 @@ civitas.SETTLEMENTS = {
 				brass: civitas.IMPORTANCE_LOW,
 				cider: civitas.IMPORTANCE_LOW,
 				grapes: civitas.IMPORTANCE_LOW,
+				pottery: civitas.IMPORTANCE_HIGH,
 				coal: civitas.IMPORTANCE_MEDIUM,
 				woodplanks: civitas.IMPORTANCE_HIGH,
 				ironores: civitas.IMPORTANCE_LOW
@@ -4648,6 +4674,7 @@ civitas.SETTLEMENTS = {
 				wheat: civitas.IMPORTANCE_VITAL,
 				mosaic: civitas.IMPORTANCE_MEDIUM,
 				wood: civitas.IMPORTANCE_HIGH,
+				furs: civitas.IMPORTANCE_VITAL,
 				sugar: civitas.IMPORTANCE_LOW,
 				sugarcane: civitas.IMPORTANCE_LOW,
 				clay: civitas.IMPORTANCE_VITAL
@@ -4690,7 +4717,8 @@ civitas.SETTLEMENTS = {
 				stones: civitas.IMPORTANCE_VITAL,
 				armor: civitas.IMPORTANCE_MEDIUM,
 				gems: civitas.IMPORTANCE_LOW,
-				woodplanks: civitas.IMPORTANCE_MEDIUM,
+				hides: civitas.IMPORTANCE_VITAL,
+				pottery: civitas.IMPORTANCE_HIGH,
 				pearls: civitas.IMPORTANCE_LOW
 			},
 			'exports': {
@@ -4732,6 +4760,7 @@ civitas.SETTLEMENTS = {
 				goldores: civitas.IMPORTANCE_LOW,
 				weapons: civitas.IMPORTANCE_LOW,
 				salt: civitas.IMPORTANCE_MEDIUM,
+				woodplanks: civitas.IMPORTANCE_HIGH,
 				stones: civitas.IMPORTANCE_VITAL,
 				gems: civitas.IMPORTANCE_LOW,
 				pearls: civitas.IMPORTANCE_LOW
@@ -4778,8 +4807,11 @@ civitas.SETTLEMENTS = {
 				goldores: civitas.IMPORTANCE_LOW,
 				weapons: civitas.IMPORTANCE_LOW,
 				salt: civitas.IMPORTANCE_MEDIUM,
+				woodplanks: civitas.IMPORTANCE_MEDIUM,
 				stones: civitas.IMPORTANCE_VITAL,
 				gems: civitas.IMPORTANCE_LOW,
+				pottery: civitas.IMPORTANCE_HIGH,
+				clay: civitas.IMPORTANCE_HIGH,
 				pearls: civitas.IMPORTANCE_LOW
 			},
 			'exports': {
@@ -5729,6 +5761,16 @@ civitas.MAIN_RESOURCES = [
 ];
 
 /**
+ * Resources that can be assigned to an army.
+ *
+ * @constant
+ * @type {Array}
+ */
+civitas.ARMY_RESOURCES = [
+	'cannons', 'catapults'
+];
+
+/**
  * List of all obtainable game achievements.
  *
  * @constant
@@ -6542,8 +6584,10 @@ civitas.ui = {
 			out += '<dl>';
 			var trade = trades[mode];
 			for (var item in trade) {
-				out += '<dt>' + trade[item] + '</dt>' +
+				if (trade[item] > 0) {
+					out += '<dt>' + trade[item] + '</dt>' +
 						'<dd>' + civitas.ui.resource_small_img(item) + '</dd>';
+				}
 			}
 			out += '</dl>';
 		}
@@ -6685,6 +6729,12 @@ civitas.ui = {
  */
 civitas.objects.settlement = function(params) {
 	
+	/**
+	 * The ID of this settlement.
+	 *
+	 * @private
+	 * @type {Number}
+	 */
 	this.id = null;
 
 	/**
@@ -7461,20 +7511,20 @@ civitas.objects.settlement = function(params) {
 		var resources = this.get_resources();
 		var storage = this.get_storage_space();
 		var advices = [];
-		if (this.army.length === 0) {
+		var army = this.get_army_total();
+		var navy = this.get_navy_total();
+		if (army.total === 0) {
 			advices.push('You have no army, this is an open invitation for attack.');
 		}
-		/*
-		if (this.army.length < 10 && this.army.length > 0) {
+		if (army.total < 10 && army.total > 0) {
 			advices.push('You have a small army, try to recruit some more soldiers.');
 		}
-		if (this.navy.length === 0) {
+		if (navy.total === 0) {
 			advices.push('You have no navy, this is an open invitation for attack.');
 		}
-		if (this.army.length < 3 && this.army.length > 0) {
+		if (navy.total < 3 && navy.total > 0) {
 			advices.push('You have a small navy, try to construct some more ships.');
 		}
-		*/
 		if (storage.occupied >= storage.all) {
 			advices.push('You have no storage space to store your new goods and they ' +
 				'will be lost. Sell some goods or build a warehouse.');
@@ -11251,12 +11301,31 @@ civitas.game = function () {
 		if (this.month === 3 || this.month === 6 || this.month === 9 || this.month === 12) {
 			this._do_quarterly();
 		}
+		if (this.month === 6 || this.month === 12) {
+			this._do_biannually();
+		}
 		this._reset_black_market();
 		return this;
 	};
 
-	this._do_quarterly = function() {
+	/**
+	 * Method that gets called twice per year.
+	 * 
+	 * @private
+	 * @returns {civitas.game}
+	 */
+	this._do_biannually = function() {
 		this.refresh_trades();
+		return this;
+	};
+
+	/**
+	 * Method that gets called four times every year.
+	 * 
+	 * @private
+	 * @returns {civitas.game}
+	 */
+	this._do_quarterly = function() {
 		return this;
 	};
 
@@ -12285,7 +12354,7 @@ civitas.game = function () {
 				if (typeof campaign.data.espionage !== 'undefined') {
 					switch (campaign.data.mission) {
 						case civitas.SPY_MISSION_RELIGION:
-							if (random <= Math.ceil(campaign.data.espionage / 100)) {
+							if (random <= Math.ceil(campaign.data.espionage / civitas.MAX_ESPIONAGE_SUCESS_RATE)) {
 								if (campaign.source.id === settlement.get_id()) {
 									destination_settlement.set_religion(campaign.data.religion);
 									var religion = destination_settlement.get_religion();
@@ -12300,7 +12369,7 @@ civitas.game = function () {
 							}
 							break;
 						case civitas.SPY_MISSION_INFLUENCE:
-							if (random <= Math.ceil(campaign.data.espionage / 100)) {
+							if (random <= Math.ceil(campaign.data.espionage / civitas.MAX_ESPIONAGE_SUCESS_RATE)) {
 								if (campaign.source.id === settlement.get_id()) {
 									settlement.raise_influence(campaign.destination.id, amount);
 									this.notify('The spy you sent ' + campaign.duration + ' days ago to ' + destination_settlement.get_name() + ' reached its destination and increased your influence over this settlement.');
@@ -12314,13 +12383,13 @@ civitas.game = function () {
 							}
 							break;
 						case civitas.SPY_MISSION_STEAL_RESOURCES:
-							if (random <= Math.ceil(campaign.data.espionage / 100)) {
+							if (random <= Math.ceil(campaign.data.espionage / civitas.MAX_ESPIONAGE_SUCESS_RATE)) {
 								// TODO
 								failed = false;
 							}
 							break;
 						case civitas.SPY_MISSION_INSTIGATE:
-							if (random <= Math.ceil(campaign.data.espionage / 100)) {
+							if (random <= Math.ceil(campaign.data.espionage / civitas.MAX_ESPIONAGE_SUCESS_RATE)) {
 								if (campaign.source.id === settlement.get_id()) {
 									destination_settlement.lower_prestige(amount);
 									this.notify('The spy you sent ' + campaign.duration + ' days ago to ' + destination_settlement.get_name() + ' reached its destination and incited the population to revolt, therefore lowering the prestige of the city.');
@@ -12683,6 +12752,10 @@ civitas.PANEL_HELP = {
 					'<li><a href="#">Intro</a></li>' +
 					'<li><a href="#">Cities and villages</a></li>' +
 					'<li><a href="#">Diplomacy</a></li>' +
+					'<li><a href="#">Fame and levels</a></li>' +
+					'<li><a href="#">Influence</a></li>' +
+					'<li><a href="#">Espionage</a></li>' +
+					'<li><a href="#">Prestige</a></li>' +
 					'<li><a href="#">Pacts and alliances</a></li>' +
 					'<li><a href="#">Wars</a></li>' +
 					'<li><a href="#">Caravans</a></li>' +
@@ -12694,6 +12767,18 @@ civitas.PANEL_HELP = {
 			'<p></p>' +
 			'<h3>Diplomacy</h3>' +
 			'<p></p>' +
+			'<h3>Fame and levels</h3>' +
+			'<p>Each time you reach a specific fame level, your city gets a new level, thus you never lose your initial fame. There are several ways of getting extra fame (besides your initial Marketplace), there are several municipal buildings that add a small amount of fame to your city each day (this amount can be increased by upgrading the buildings).</p>' +
+			'<p>There is no fixed way in which you can lose fame, except the random events that occur from time to time, or if another city manages to incite your population to revolt.</p>' +
+			'<p>The current maximum level a settlement can reach is <strong>' + civitas.MAX_SETTLEMENT_LEVEL + '</strong> and to reach that level your city will need <strong>' + civitas.utils.nice_numbers(civitas.LEVELS[civitas.MAX_SETTLEMENT_LEVEL - 1]) + '</strong> ' + civitas.ui.resource_small_img('fame') + '. There is no fixed date (in game or real days) to reach that level, it all depends on your decisions, buildings, diplomacy, etc.</p>' +
+			'<h3>Influence</h3>' +
+			'<p>All settlements in the game world have an influence rating with each of the other settlements. The influence drops over time (yearly) and needs to be kept above a certain level, else the other cities might attack your city.</p>' +
+			'<p>Maximum influence a settlement can have is <strong>' + civitas.MAX_INFLUENCE_VALUE + '</strong>.</p>' +
+			'<h3>Espionage</h3>' +
+			'<p>After building your city Embassy, you can start assigning spies to other settlements using your accumulated espionage points. Depending on the amount of espionage you use for a spy mission, that mission has a rate of success. The most points you can assign are <strong>' + civitas.MAX_ESPIONAGE_VALUE + '</strong> ' + civitas.ui.resource_small_img('espionage') + ' (maximum espionage points a city can get) and this gives you approximately a <strong>' + (civitas.MAX_ESPIONAGE_VALUE / civitas.MAX_ESPIONAGE_SUCESS_RATE) + '%</strong> success rate.</p>' +
+			'<h3>Prestige</h3>' +
+			'<p>Prestige is a very important feature of your city because it influences the way other settlements see you and they will act upon that information. Low prestige might be good for your city if you plan to lay low and prepare (the other settlements won`t bother to go to war with a city with low prestige unless you manage somehow to piss them off) but usually, your city prestige should raise with the city level.</p>' +
+			'<p>Prestige is gained through trading with other settlements, sending caravans with resources to help them when in need, etc. Random events can also affect your city prestige. The maximum prestige a settlement can get is <strong>' + civitas.MAX_PRESTIGE_VALUE + '</strong> ' + civitas.ui.resource_small_img('prestige') + '.</p>' +
 			'<h3>Pacts and alliances</h3>' +
 			'<p></p>' +
 			'<h3>Wars</h3>' +
@@ -14009,8 +14094,8 @@ civitas.PANEL_TRADES = {
 		var _t = '';
 		_t += civitas.ui.tabs([civitas.l('Export'), civitas.l('Import'), civitas.l('Mercenaries'), civitas.l('BlackMarket'), civitas.l('Prices')]);
 		$(el + ' .contents').append(_t);
-		$(el + ' #tab-import').append('<p>' + civitas.l('Below is a list of goods that the other cities in the world are looking to sell. The goods replenish every three months, so plan accordingly. You will need to build a Trading Post before being able to sell goods.') + '</p><div class="contents"></div>');
-		$(el + ' #tab-export').append('<p>' + civitas.l('Below is a list of goods that the other cities in the world are looking to buy. The goods replenish every three months, so plan accordingly. You will need to build a Trading Post before being able to buy goods.') + '</p><div class="contents"></div>');
+		$(el + ' #tab-import').append('<p>' + civitas.l('Below is a list of goods that the other cities in the world are looking to sell. The goods replenish every six months, so plan accordingly. You will need to build a Trading Post before being able to sell goods.') + '</p><div class="contents"></div>');
+		$(el + ' #tab-export').append('<p>' + civitas.l('Below is a list of goods that the other cities in the world are looking to buy. The goods replenish every six months, so plan accordingly. You will need to build a Trading Post before being able to buy goods.') + '</p><div class="contents"></div>');
 		$(el + ' #tab-mercenaries').append('<p>' + civitas.l('Below is a list of mercenary armies that are looking for hire. Mercenaries are available only for raiding and conquest missions, they do not join your city so they will not participate in defense.') + '</p><div class="contents"></div>');
 		$(el + ' #tab-blackmarket').append('<p>' + civitas.l('The Black Market is a way to dump your excess materials when you`re in need of emptying your warehouses, but expect a steep price drop (taxes for all Black Market trades are <strong>') + civitas.BLACK_MARKET_DISCOUNT + civitas.l('%</strong>). The goods will be taken immediately from your warehouses but you will receive the coins at the <strong>start of the next month</strong>. Also, you get <strong>no prestige</strong> from Black Market trades.') + '</p><div class="contents"></div>');
 		$(el + ' #tab-prices').append('<div class="contents"></div>');
