@@ -3949,7 +3949,7 @@ civitas.SETTLEMENTS = {
 			'imports': {
 				gold: civitas.IMPORTANCE_MEDIUM,
 				milk: civitas.IMPORTANCE_HIGH,
-				goldores: civitas.IMPORTANCE_LOW,
+				goldores: civitas.IMPORTANCE_HIGH,
 				weapons: civitas.IMPORTANCE_LOW,
 				quartz: civitas.IMPORTANCE_LOW,
 				roses: civitas.IMPORTANCE_MEDIUM,
@@ -4414,6 +4414,7 @@ civitas.SETTLEMENTS = {
 				hides: civitas.IMPORTANCE_MEDIUM,
 				clay: civitas.IMPORTANCE_HIGH,
 				milk: civitas.IMPORTANCE_LOW,
+				furcoats: civitas.IMPORTANCE_HIGH,
 				leather: civitas.IMPORTANCE_LOW
 			},
 			'exports': {
@@ -4757,7 +4758,7 @@ civitas.SETTLEMENTS = {
 		trades: {
 			'imports': {
 				gold: civitas.IMPORTANCE_LOW,
-				goldores: civitas.IMPORTANCE_LOW,
+				goldores: civitas.IMPORTANCE_HIGH,
 				weapons: civitas.IMPORTANCE_LOW,
 				salt: civitas.IMPORTANCE_MEDIUM,
 				woodplanks: civitas.IMPORTANCE_HIGH,
@@ -4803,8 +4804,8 @@ civitas.SETTLEMENTS = {
 		},
 		trades: {
 			'imports': {
-				gold: civitas.IMPORTANCE_LOW,
-				goldores: civitas.IMPORTANCE_LOW,
+				gold: civitas.IMPORTANCE_HIGH,
+				goldores: civitas.IMPORTANCE_MEDIUM,
 				weapons: civitas.IMPORTANCE_LOW,
 				salt: civitas.IMPORTANCE_MEDIUM,
 				woodplanks: civitas.IMPORTANCE_MEDIUM,
@@ -12327,7 +12328,7 @@ civitas.game = function () {
 		var destination_settlement = this.get_settlement(campaign.destination.id);
 		var amount = Math.floor(campaign.data.espionage / 100);
 		if (settlement.is_player()) {
-			if (campaign.type === civitas.CAMPAIGN_ARMY && !settlement.can_diplomacy()) {
+			if (campaign.type === civitas.CAMPAIGN_ARMY && !settlement.can_recruit_soldiers()) {
 				this.remove_campaign(id);
 				return false;
 			}
@@ -12443,26 +12444,63 @@ civitas.game = function () {
 	 * @returns {Object}
 	 */
 	this.add_campaign = function(source_settlement, destination_settlement, type, data) {
-		if (type === civitas.CAMPAIGN_ARMY && !this.get_settlement().can_diplomacy()) {
-			return false;
-		}
-		if (type === civitas.CAMPAIGN_SPY && !this.get_settlement().can_diplomacy()) {
-			return false;
-		}
-		if (type === civitas.CAMPAIGN_CARAVAN && !this.get_settlement().can_trade()) {
-			return false;
+		var class_name = '';
+		if (type === civitas.CAMPAIGN_ARMY) {
+			if (!this.get_settlement().can_recruit_soldiers()) {
+				return false;
+			}
+			class_name = 'army';
+			var army = source_settlement.get_army_total();
+			var navy = source_settlement.get_navy_total();
+			for (var item in data.resources) {
+				if (!source_settlement.remove_resource(item, data.resources[item])) {
+					return false;
+				}
+			}
+			for (var item in army.army) {
+				if (army.army[item] - data.army[item] < 0) {
+					return false;
+				}
+			}
+			for (var item in navy.navy) {
+				if (navy.navy[item] - data.navy[item] < 0) {
+					return false;
+				}
+			}
+			for (var item in army.army) {
+				army.army[item] = army.army[item] - data.army[item];
+			}
+			for (var item in navy.navy) {
+				navy.navy[item] = navy.navy[item] - data.navy[item];
+			}
+			var settlement_type = destination_settlement.get_settlement_type();
+			source_settlement.diplomacy(destination_settlement.get_id(), civitas.DIPLOMACY_WAR, civitas.SETTLEMENT_TYPES[settlement_type]);
+		} else if (type === civitas.CAMPAIGN_SPY) {
+			if (!this.get_settlement().can_diplomacy()) {
+				return false;
+			}
+			class_name = 'spy';
+			if (data.espionage > source_settlement.get_espionage()) {
+				return false;
+			}
+			source_settlement.lower_espionage(data.espionage);
+			if (data.mission === civitas.SPY_MISSION_RELIGION) {
+				source_settlement.reset_faith();
+			}
+		} else if (type === civitas.CAMPAIGN_CARAVAN) {
+			if (!this.get_settlement().can_trade()) {
+				return false;
+			}
+			class_name = 'caravan';
+			for (var item in data.resources) {
+				if (!source_settlement.remove_resource(item, data.resources[item])) {
+					return false;
+				}
+			}
 		}
 		var s_loc = civitas['SETTLEMENT_LOCATION_' + source_settlement.get_climate().name.toUpperCase()];
 		var d_loc = civitas.SETTLEMENTS[destination_settlement.get_id()].location;
 		var duration = civitas.utils.get_distance_in_days(s_loc, d_loc);
-		var class_name = '';
-		if (type === civitas.CAMPAIGN_ARMY) {
-			class_name = 'army';
-		} else if (type === civitas.CAMPAIGN_CARAVAN) {
-			class_name = 'caravan';
-		} else if (type === civitas.CAMPAIGN_SPY) {
-			class_name = 'spy';
-		}
 		var campaign = {
 			source: {
 				x: s_loc.x,
@@ -12923,7 +12961,7 @@ civitas.PANEL_CAMPAIGN = {
 		}
 		$(this.handle + ' .title').empty().html(class_name.capitalize() + ' ' + civitas.l('mission'));
 		if (campaign.type === civitas.CAMPAIGN_ARMY) {
-			$(this.handle + ' .contents').append(civitas.ui.tabs([civitas.l('Info'), civitas.l('Army'), civitas.l('Navy')]));
+			$(this.handle + ' .contents').append(civitas.ui.tabs([civitas.l('Info'), civitas.l('Army'), civitas.l('Navy'), civitas.l('Machines')]));
 		} else if (campaign.type === civitas.CAMPAIGN_CARAVAN) {
 			$(this.handle + ' .contents').append(civitas.ui.tabs([civitas.l('Info'), civitas.l('Resources')]));
 		} else if (campaign.type === civitas.CAMPAIGN_SPY) {
@@ -12952,6 +12990,18 @@ civitas.PANEL_CAMPAIGN = {
 		if (campaign.type === civitas.CAMPAIGN_ARMY) {
 			$(this.handle + ' #tab-army').empty().append(civitas.ui.army_list(campaign.data));
 			$(this.handle + ' #tab-navy').empty().append(civitas.ui.navy_list(campaign.data));
+			if (typeof campaign.data.resources !== 'undefined') {
+				out = '<p>' + civitas.l('This army has the the following war machines:') + '</p>' +
+				'<dl>';
+				for (var item in campaign.data.resources) {
+					out += '<dt>' + campaign.data.resources[item] + '</dt>' +
+						'<dd>' + civitas.ui.resource_small_img(item) + '</dd>';
+				}
+				out += '</dl>';
+			} else {
+				out = '<p>' + civitas.l('This army has no war machines.') + '</p>';
+			}
+			$(this.handle + ' #tab-machines').empty().append(out);
 		} else if (campaign.type === civitas.CAMPAIGN_CARAVAN) {
 			if (typeof campaign.data.resources !== 'undefined') {
 				out = '<p>' + civitas.l('This caravan has the the following resources:') + '</p>' +
@@ -13201,12 +13251,12 @@ civitas.PANEL_NEW_ARMY = {
 		'</div>',
 	id: 'new-army',
 	on_show: function(params) {
+		this.resources = {};
 		var self = this;
 		var core = this.get_core();
 		var my_settlement = core.get_settlement();
 		var settlement = params.data;
 		var settlements = core.get_settlements();
-		var settlement_type = settlement.get_settlement_type();
 		var army = my_settlement.get_army_total();
 		this.assigned_army = {};
 		this.assigned_navy = {};
@@ -13253,6 +13303,21 @@ civitas.PANEL_NEW_ARMY = {
 			}
 			_t += '</fieldset>';
 		}
+		_t += '<fieldset class="select-combo">' +
+			'<legend>' + civitas.l('War Machines') + '</legend>' +
+			'<select class="army-resources-select">' +
+				'<option value="0">-- ' + civitas.l('select') + ' --</option>';
+		var resources = my_settlement.get_resources();
+		for (var item in resources) {
+			if ($.inArray(item, civitas.ARMY_RESOURCES) !== -1) {
+				_t += '<option value="' + item + '"> ' + civitas.utils.get_resource_name(item) + '</option>';
+			}
+		}
+		_t += '</select>' +
+			'<input title="' + civitas.l('Add the resources to the list.') + '" type="button" class="tips army-resources-add" value="+" />' +
+			'<input title="' + civitas.l('Amount of selected resource to add to the army.') + '" type="number" value="1" class="tips army-resources-amount" min="1" max="999" />' +
+			'<div class="army-resources clearfix"></div>' +
+		'</fieldset>';
 		if (my_settlement.can_recruit_heroes()) {
 			var heroes = my_settlement.get_heroes();
 			_t += '<fieldset>' +
@@ -13273,7 +13338,52 @@ civitas.PANEL_NEW_ARMY = {
 		}
 		_t += '</div>';
 		$(this.handle + ' .contents').empty().append(_t);
-		$(this.handle).on('click', '.navy-item-inc', function() {
+		this.generate_table_data = function() {
+			var _t = '<table class="army-resources clearfix">' +
+				'<thead>' +
+				'<tr>' +
+				'<td>' + civitas.l('Amount') + '</td>' +
+				'<td>' + civitas.l('Resource') + '</td>' +
+				'<td></td>' +
+				'</tr>' +
+				'</thead>' +
+				'<tbody>';
+			for (var item in this.resources) {
+				_t += '<tr>' +
+					'<td>' + this.resources[item] + '</td>' +
+					'<td>' + civitas.ui.resource_small_img(item) + '</td>' +
+					'<td>' +
+						'<a title="' + civitas.l('Remove this resource from the army.') + '" href="#" data-id="' + item + '" class="tips army-resources-delete">-</a>' +
+					'</td>' +
+				'</tr>';
+			}
+			_t += '</tbody>' +
+			'</table>';
+			$(this.handle + ' .army-resources').empty().append(_t);
+		};
+		$(this.handle).on('click', '.army-resources-add', function() {
+			var amount = parseInt($(self.handle + ' .army-resources-amount').val());
+			var resource = $(self.handle + ' .army-resources-select').val();
+			if (resource !== '0') {
+				if (typeof self.resources[resource] !== 'undefined' && !my_settlement.has_resources(resource, self.resources[resource] + amount)) {
+					return false;
+				} else if (typeof self.resources[resource] === 'undefined' && !my_settlement.has_resources(resource, amount)) {
+					return false;
+				}
+				if (typeof self.resources[resource] !== 'undefined') {
+					self.resources[resource] = self.resources[resource] + amount;
+				} else {
+					self.resources[resource] = amount;
+				}
+				self.generate_table_data();
+			}
+			return false;
+		}).on('click', '.army-resources-delete', function() {
+			var resource = $(this).data('id');
+			delete self.resources[resource];
+			self.generate_table_data();
+			return false;
+		}).on('click', '.navy-item-inc', function() {
 			var max = parseInt($(this).data('max'));
 			var ship = $(this).data('ship');
 			var current = parseInt($(this).parent().children('.amount').html());
@@ -13318,19 +13428,16 @@ civitas.PANEL_NEW_ARMY = {
 			if ((settlement && settlement.get_id() !== destination) || !settlement) {
 				settlement = core.get_settlement(destination);
 			}
-			if (destination !== 0 && settlement) {
-				var data = {
-					army: self.assigned_army,
-					navy: self.assigned_navy,
-				};
-				for (var item in army.army) {
-					army.army[item] = army.army[item] - self.assigned_army[item];
-				}
-				for (var item in navy.navy) {
-					navy.navy[item] = navy.navy[item] - self.assigned_navy[item];
-				}
-				my_settlement.diplomacy(settlement.get_id(), civitas.DIPLOMACY_WAR, civitas.SETTLEMENT_TYPES[settlement_type]);
-				core.add_campaign(my_settlement, settlement, civitas.CAMPAIGN_ARMY, data);
+			if (destination === 0 || !settlement) {
+				core.error(civitas.l('There was an error creating and dispatching the army, check the data you entered and try again.'));
+				return false;
+			}
+			var data = {
+				army: self.assigned_army,
+				navy: self.assigned_navy,
+				resources: self.resources
+			};
+			if (core.add_campaign(my_settlement, settlement, civitas.CAMPAIGN_ARMY, data)) {
 				core.save_and_refresh();
 				self.destroy();
 			} else {
@@ -13423,21 +13530,22 @@ civitas.PANEL_NEW_SPY = {
 			var _espionage = parseInt($(self.handle + ' .espionage-value').val());
 			var destination = parseInt($(self.handle + ' .espionage-destination').val());
 			var mission = parseInt($(self.handle + ' .espionage-mission').val());
-			var _religion = parseInt($(self.handle + ' .espionage-religion').val());
 			if ((settlement && settlement.get_id() !== destination) || !settlement) {
 				settlement = core.get_settlement(destination);
 			}
-			if (destination !== 0 && _espionage <= espionage && settlement && mission > 0) {
-				my_settlement.lower_espionage(espionage);
-				var data = {
-					espionage: _espionage,
-					mission: mission
-				};
-				if (mission === civitas.SPY_MISSION_RELIGION) {
-					data.religion = _religion;
-					my_settlement.reset_faith();
-				}
-				core.add_campaign(my_settlement, settlement, civitas.CAMPAIGN_SPY, data);
+			if (destination === 0 || _espionage > espionage || !settlement || mission <= 0) {
+				core.error(civitas.l('There was an error creating and dispatching the spy, check the data you entered and try again.'));
+				return false;
+			}
+			var data = {
+				espionage: _espionage,
+				mission: mission
+			};
+			if (mission === civitas.SPY_MISSION_RELIGION) {
+				var _religion = parseInt($(self.handle + ' .espionage-religion').val());
+				data.religion = _religion;
+			}
+			if (core.add_campaign(my_settlement, settlement, civitas.CAMPAIGN_SPY, data)) {
 				core.save_and_refresh();
 				self.destroy();
 			} else {
@@ -13531,7 +13639,12 @@ civitas.PANEL_NEW_CARAVAN = {
 		$(this.handle).on('click', '.caravan-resources-add', function() {
 			var amount = parseInt($(self.handle + ' .caravan-resources-amount').val());
 			var resource = $(self.handle + ' .caravan-resources-select').val();
-			if (resource !== '0' && my_settlement.has_resources(resource, amount)) {
+			if (resource !== '0') {
+				if (typeof self.resources[resource] !== 'undefined' && !my_settlement.has_resources(resource, self.resources[resource] + amount)) {
+					return false;
+				} else if (typeof self.resources[resource] === 'undefined' && !my_settlement.has_resources(resource, amount)) {
+					return false;
+				}
 				if (typeof self.resources[resource] !== 'undefined') {
 					self.resources[resource] = self.resources[resource] + amount;
 				} else {
@@ -13554,17 +13667,14 @@ civitas.PANEL_NEW_CARAVAN = {
 			if ((settlement && settlement.get_id() !== destination) || !settlement) {
 				settlement = core.get_settlement(destination);
 			}
-			if (destination !== 0 && settlement && !$.isEmptyObject(self.resources)) {
-				var data = {
-					resources: self.resources
-				};
-				for (var item in self.resources) {
-					if (!my_settlement.remove_resource(item, self.resources[item])) {
-						core.error(civitas.l('There was an error creating and dispatching the caravan, check the data you entered and try again.'));
-						return false;
-					}
-				}
-				core.add_campaign(my_settlement, settlement, civitas.CAMPAIGN_CARAVAN, data);
+			if (destination === 0 || !settlement || $.isEmptyObject(self.resources)) {
+				core.error(civitas.l('There was an error creating and dispatching the caravan, check the data you entered and try again.'));
+				return false;
+			}
+			var data = {
+				resources: self.resources
+			};
+			if (core.add_campaign(my_settlement, settlement, civitas.CAMPAIGN_CARAVAN, data)) {
 				core.save_and_refresh();
 				self.destroy();
 			} else {

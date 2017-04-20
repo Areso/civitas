@@ -46,7 +46,7 @@ civitas.SETTLEMENTS = {
 			'imports': {
 				gold: civitas.IMPORTANCE_MEDIUM,
 				milk: civitas.IMPORTANCE_HIGH,
-				goldores: civitas.IMPORTANCE_LOW,
+				goldores: civitas.IMPORTANCE_HIGH,
 				weapons: civitas.IMPORTANCE_LOW,
 				quartz: civitas.IMPORTANCE_LOW,
 				roses: civitas.IMPORTANCE_MEDIUM,
@@ -511,6 +511,7 @@ civitas.SETTLEMENTS = {
 				hides: civitas.IMPORTANCE_MEDIUM,
 				clay: civitas.IMPORTANCE_HIGH,
 				milk: civitas.IMPORTANCE_LOW,
+				furcoats: civitas.IMPORTANCE_HIGH,
 				leather: civitas.IMPORTANCE_LOW
 			},
 			'exports': {
@@ -854,7 +855,7 @@ civitas.SETTLEMENTS = {
 		trades: {
 			'imports': {
 				gold: civitas.IMPORTANCE_LOW,
-				goldores: civitas.IMPORTANCE_LOW,
+				goldores: civitas.IMPORTANCE_HIGH,
 				weapons: civitas.IMPORTANCE_LOW,
 				salt: civitas.IMPORTANCE_MEDIUM,
 				woodplanks: civitas.IMPORTANCE_HIGH,
@@ -900,8 +901,8 @@ civitas.SETTLEMENTS = {
 		},
 		trades: {
 			'imports': {
-				gold: civitas.IMPORTANCE_LOW,
-				goldores: civitas.IMPORTANCE_LOW,
+				gold: civitas.IMPORTANCE_HIGH,
+				goldores: civitas.IMPORTANCE_MEDIUM,
 				weapons: civitas.IMPORTANCE_LOW,
 				salt: civitas.IMPORTANCE_MEDIUM,
 				woodplanks: civitas.IMPORTANCE_MEDIUM,

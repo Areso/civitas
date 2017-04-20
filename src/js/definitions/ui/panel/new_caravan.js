@@ -75,7 +75,12 @@ civitas.PANEL_NEW_CARAVAN = {
 		$(this.handle).on('click', '.caravan-resources-add', function() {
 			var amount = parseInt($(self.handle + ' .caravan-resources-amount').val());
 			var resource = $(self.handle + ' .caravan-resources-select').val();
-			if (resource !== '0' && my_settlement.has_resources(resource, amount)) {
+			if (resource !== '0') {
+				if (typeof self.resources[resource] !== 'undefined' && !my_settlement.has_resources(resource, self.resources[resource] + amount)) {
+					return false;
+				} else if (typeof self.resources[resource] === 'undefined' && !my_settlement.has_resources(resource, amount)) {
+					return false;
+				}
 				if (typeof self.resources[resource] !== 'undefined') {
 					self.resources[resource] = self.resources[resource] + amount;
 				} else {
@@ -98,17 +103,14 @@ civitas.PANEL_NEW_CARAVAN = {
 			if ((settlement && settlement.get_id() !== destination) || !settlement) {
 				settlement = core.get_settlement(destination);
 			}
-			if (destination !== 0 && settlement && !$.isEmptyObject(self.resources)) {
-				var data = {
-					resources: self.resources
-				};
-				for (var item in self.resources) {
-					if (!my_settlement.remove_resource(item, self.resources[item])) {
-						core.error(civitas.l('There was an error creating and dispatching the caravan, check the data you entered and try again.'));
-						return false;
-					}
-				}
-				core.add_campaign(my_settlement, settlement, civitas.CAMPAIGN_CARAVAN, data);
+			if (destination === 0 || !settlement || $.isEmptyObject(self.resources)) {
+				core.error(civitas.l('There was an error creating and dispatching the caravan, check the data you entered and try again.'));
+				return false;
+			}
+			var data = {
+				resources: self.resources
+			};
+			if (core.add_campaign(my_settlement, settlement, civitas.CAMPAIGN_CARAVAN, data)) {
 				core.save_and_refresh();
 				self.destroy();
 			} else {

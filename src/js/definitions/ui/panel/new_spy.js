@@ -76,21 +76,22 @@ civitas.PANEL_NEW_SPY = {
 			var _espionage = parseInt($(self.handle + ' .espionage-value').val());
 			var destination = parseInt($(self.handle + ' .espionage-destination').val());
 			var mission = parseInt($(self.handle + ' .espionage-mission').val());
-			var _religion = parseInt($(self.handle + ' .espionage-religion').val());
 			if ((settlement && settlement.get_id() !== destination) || !settlement) {
 				settlement = core.get_settlement(destination);
 			}
-			if (destination !== 0 && _espionage <= espionage && settlement && mission > 0) {
-				my_settlement.lower_espionage(espionage);
-				var data = {
-					espionage: _espionage,
-					mission: mission
-				};
-				if (mission === civitas.SPY_MISSION_RELIGION) {
-					data.religion = _religion;
-					my_settlement.reset_faith();
-				}
-				core.add_campaign(my_settlement, settlement, civitas.CAMPAIGN_SPY, data);
+			if (destination === 0 || _espionage > espionage || !settlement || mission <= 0) {
+				core.error(civitas.l('There was an error creating and dispatching the spy, check the data you entered and try again.'));
+				return false;
+			}
+			var data = {
+				espionage: _espionage,
+				mission: mission
+			};
+			if (mission === civitas.SPY_MISSION_RELIGION) {
+				var _religion = parseInt($(self.handle + ' .espionage-religion').val());
+				data.religion = _religion;
+			}
+			if (core.add_campaign(my_settlement, settlement, civitas.CAMPAIGN_SPY, data)) {
 				core.save_and_refresh();
 				self.destroy();
 			} else {

@@ -30,7 +30,7 @@ civitas.PANEL_CAMPAIGN = {
 		}
 		$(this.handle + ' .title').empty().html(class_name.capitalize() + ' ' + civitas.l('mission'));
 		if (campaign.type === civitas.CAMPAIGN_ARMY) {
-			$(this.handle + ' .contents').append(civitas.ui.tabs([civitas.l('Info'), civitas.l('Army'), civitas.l('Navy')]));
+			$(this.handle + ' .contents').append(civitas.ui.tabs([civitas.l('Info'), civitas.l('Army'), civitas.l('Navy'), civitas.l('Machines')]));
 		} else if (campaign.type === civitas.CAMPAIGN_CARAVAN) {
 			$(this.handle + ' .contents').append(civitas.ui.tabs([civitas.l('Info'), civitas.l('Resources')]));
 		} else if (campaign.type === civitas.CAMPAIGN_SPY) {
@@ -59,6 +59,18 @@ civitas.PANEL_CAMPAIGN = {
 		if (campaign.type === civitas.CAMPAIGN_ARMY) {
 			$(this.handle + ' #tab-army').empty().append(civitas.ui.army_list(campaign.data));
 			$(this.handle + ' #tab-navy').empty().append(civitas.ui.navy_list(campaign.data));
+			if (typeof campaign.data.resources !== 'undefined') {
+				out = '<p>' + civitas.l('This army has the the following war machines:') + '</p>' +
+				'<dl>';
+				for (var item in campaign.data.resources) {
+					out += '<dt>' + campaign.data.resources[item] + '</dt>' +
+						'<dd>' + civitas.ui.resource_small_img(item) + '</dd>';
+				}
+				out += '</dl>';
+			} else {
+				out = '<p>' + civitas.l('This army has no war machines.') + '</p>';
+			}
+			$(this.handle + ' #tab-machines').empty().append(out);
 		} else if (campaign.type === civitas.CAMPAIGN_CARAVAN) {
 			if (typeof campaign.data.resources !== 'undefined') {
 				out = '<p>' + civitas.l('This caravan has the the following resources:') + '</p>' +
