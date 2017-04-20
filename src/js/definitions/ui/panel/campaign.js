@@ -59,7 +59,7 @@ civitas.PANEL_CAMPAIGN = {
 		if (campaign.type === civitas.CAMPAIGN_ARMY) {
 			$(this.handle + ' #tab-army').empty().append(civitas.ui.army_list(campaign.data));
 			$(this.handle + ' #tab-navy').empty().append(civitas.ui.navy_list(campaign.data));
-			if (typeof campaign.data.resources !== 'undefined') {
+			if (typeof campaign.data.resources !== 'undefined' && !$.isEmptyObject(campaign.data.resources)) {
 				out = '<p>' + civitas.l('This army has the the following war machines:') + '</p>' +
 				'<dl>';
 				for (var item in campaign.data.resources) {
@@ -72,7 +72,7 @@ civitas.PANEL_CAMPAIGN = {
 			}
 			$(this.handle + ' #tab-machines').empty().append(out);
 		} else if (campaign.type === civitas.CAMPAIGN_CARAVAN) {
-			if (typeof campaign.data.resources !== 'undefined') {
+			if (typeof campaign.data.resources !== 'undefined' && !$.isEmptyObject(campaign.data.resources)) {
 				out = '<p>' + civitas.l('This caravan has the the following resources:') + '</p>' +
 				'<dl>';
 				for (var item in campaign.data.resources) {

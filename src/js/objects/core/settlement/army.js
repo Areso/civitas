@@ -313,16 +313,20 @@ civitas.objects.settlement.prototype.get_mercenary = function() {
  * Get the navy of this settlement in an object format.
  * 
  * @public
+ * @param {Object} navy
  * @returns {Object}
  */
-civitas.objects.settlement.prototype.get_navy_total = function() {
+civitas.objects.settlement.prototype.get_navy_total = function(navy) {
+	if (typeof navy === 'undefined') {
+		navy = this.navy;
+	}
 	var total = 0;
-	for (var item in this.navy) {
-		total = total + this.navy[item];
+	for (var item in navy) {
+		total = total + navy[item];
 	}
 	return {
 		total: total,
-		navy: this.navy
+		navy: navy
 	};
 };
 
@@ -330,16 +334,20 @@ civitas.objects.settlement.prototype.get_navy_total = function() {
  * Get the army of this settlement in an object format.
  * 
  * @public
+ * @param {Object} army
  * @returns {Object}
  */
-civitas.objects.settlement.prototype.get_army_total = function() {
+civitas.objects.settlement.prototype.get_army_total = function(army) {
 	var total = 0;
-	for (var item in this.army) {
-		total = total + this.army[item];
+	if (typeof army === 'undefined') {
+		army = this.army;
+	}
+	for (var item in army) {
+		total = total + army[item];
 	}
 	return {
 		total: total,
-		army: this.army
+		army: army
 	};
 };
 

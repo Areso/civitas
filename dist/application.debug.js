@@ -8654,16 +8654,20 @@ civitas.objects.settlement.prototype.get_mercenary = function() {
  * Get the navy of this settlement in an object format.
  * 
  * @public
+ * @param {Object} navy
  * @returns {Object}
  */
-civitas.objects.settlement.prototype.get_navy_total = function() {
+civitas.objects.settlement.prototype.get_navy_total = function(navy) {
+	if (typeof navy === 'undefined') {
+		navy = this.navy;
+	}
 	var total = 0;
-	for (var item in this.navy) {
-		total = total + this.navy[item];
+	for (var item in navy) {
+		total = total + navy[item];
 	}
 	return {
 		total: total,
-		navy: this.navy
+		navy: navy
 	};
 };
 
@@ -8671,16 +8675,20 @@ civitas.objects.settlement.prototype.get_navy_total = function() {
  * Get the army of this settlement in an object format.
  * 
  * @public
+ * @param {Object} army
  * @returns {Object}
  */
-civitas.objects.settlement.prototype.get_army_total = function() {
+civitas.objects.settlement.prototype.get_army_total = function(army) {
 	var total = 0;
-	for (var item in this.army) {
-		total = total + this.army[item];
+	if (typeof army === 'undefined') {
+		army = this.army;
+	}
+	for (var item in army) {
+		total = total + army[item];
 	}
 	return {
 		total: total,
-		army: this.army
+		army: army
 	};
 };
 
@@ -12990,7 +12998,7 @@ civitas.PANEL_CAMPAIGN = {
 		if (campaign.type === civitas.CAMPAIGN_ARMY) {
 			$(this.handle + ' #tab-army').empty().append(civitas.ui.army_list(campaign.data));
 			$(this.handle + ' #tab-navy').empty().append(civitas.ui.navy_list(campaign.data));
-			if (typeof campaign.data.resources !== 'undefined') {
+			if (typeof campaign.data.resources !== 'undefined' && !$.isEmptyObject(campaign.data.resources)) {
 				out = '<p>' + civitas.l('This army has the the following war machines:') + '</p>' +
 				'<dl>';
 				for (var item in campaign.data.resources) {
@@ -13003,7 +13011,7 @@ civitas.PANEL_CAMPAIGN = {
 			}
 			$(this.handle + ' #tab-machines').empty().append(out);
 		} else if (campaign.type === civitas.CAMPAIGN_CARAVAN) {
-			if (typeof campaign.data.resources !== 'undefined') {
+			if (typeof campaign.data.resources !== 'undefined' && !$.isEmptyObject(campaign.data.resources)) {
 				out = '<p>' + civitas.l('This caravan has the the following resources:') + '</p>' +
 				'<dl>';
 				for (var item in campaign.data.resources) {
@@ -13428,7 +13436,7 @@ civitas.PANEL_NEW_ARMY = {
 			if ((settlement && settlement.get_id() !== destination) || !settlement) {
 				settlement = core.get_settlement(destination);
 			}
-			if (destination === 0 || !settlement) {
+			if (destination === 0 || !settlement || (my_settlement.get_army_total(self.assigned_army).total === 0 && my_settlement.get_navy_total(self.assigned_navy).total === 0)) {
 				core.error(civitas.l('There was an error creating and dispatching the army, check the data you entered and try again.'));
 				return false;
 			}

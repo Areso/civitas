@@ -194,7 +194,7 @@ civitas.PANEL_NEW_ARMY = {
 			if ((settlement && settlement.get_id() !== destination) || !settlement) {
 				settlement = core.get_settlement(destination);
 			}
-			if (destination === 0 || !settlement) {
+			if (destination === 0 || !settlement || (my_settlement.get_army_total(self.assigned_army).total === 0 && my_settlement.get_navy_total(self.assigned_navy).total === 0)) {
 				core.error(civitas.l('There was an error creating and dispatching the army, check the data you entered and try again.'));
 				return false;
 			}
