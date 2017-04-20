@@ -2026,7 +2026,7 @@ civitas.BUILDINGS = [{
 			stones: 40
 		},
 		requires: {
-			settlement_level: 6
+			settlement_level: 5
 		}
 	}, {
 		name: 'Academy',
@@ -13048,6 +13048,10 @@ civitas.PANEL_BUILDING = {
 			'</footer>' +
 		'</div>',
 	id: 'building',
+	on_template: function(params) {
+		this.params_data = params.data;
+		return params.template;
+	},
 	on_show: function(params) {
 		var core = this.get_core();
 		$(this.handle + ' header .title').html(this.params_data.name);

@@ -18,6 +18,10 @@ civitas.PANEL_BUILDING = {
 			'</footer>' +
 		'</div>',
 	id: 'building',
+	on_template: function(params) {
+		this.params_data = params.data;
+		return params.template;
+	},
 	on_show: function(params) {
 		var core = this.get_core();
 		$(this.handle + ' header .title').html(this.params_data.name);
