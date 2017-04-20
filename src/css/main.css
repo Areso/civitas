@@ -594,11 +594,6 @@ table.mercenaries td:nth-child(3) {
 	overflow: auto;
 }
 
-.panel .footer .btn.help {
-	float: right;
-	margin-right: 0;
-}
-
 .scrollbar .up {
 	margin-bottom: 5px;
 }

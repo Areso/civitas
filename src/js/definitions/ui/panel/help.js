@@ -13,30 +13,13 @@ civitas.PANEL_HELP = {
 			'<div class="contents">' +
 			'</div>' +
 		'</div>',
-	term: null,
-	context: null,
 	id: 'help',
 	on_show: function(params) {
 		var self = this;
 		var core = this.get_core();
 		var settlement = core.get_settlement();
-		var _t = '';
-		if (typeof params.data !== 'undefined') {
-			this.term = params.data.term;
-			this.context = params.data.context;
-		}
 		$(this.handle + ' .contents').append(civitas.ui.tabs([civitas.l('About'), civitas.l('Buildings'), civitas.l('Settlements'), civitas.l('Religion'), civitas.l('Research'), civitas.l('Cheats')]));
-		var title = '';
-		switch (this.context) {
-			case 'building':
-				var data = core.get_settlement().get_building_by_handle(this.term);
-				title = data.get_name();
-				break;
-			case 'settlement':
-				title = 'Settlements';
-				break;
-		}
-		$(this.handle + ' header .title').html(title !== '' ? civitas.l('Help about ') + title : civitas.l('Help'));
+		$(this.handle + ' header .title').html(civitas.l('Help'));
 		$(this.handle + ' #tab-buildings').empty().append(
 			'<fieldset>' +
 				'<legend>Table of Contents</legend>' +

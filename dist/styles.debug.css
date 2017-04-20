@@ -2,7 +2,7 @@
  * Civitas empire-building game.
  *
  * @author sizeof(cat) <sizeofcat AT riseup.net>
- * @version 0.1.0.4202017
+ * @version 0.1.0.4212017
  * @license MIT
  */ @font-face {
 	font-family: 'Nova Oval';
@@ -598,11 +598,6 @@ table.mercenaries td:nth-child(3) {
 	margin: 0;
 	padding: 10px 0 0 0;
 	overflow: auto;
-}
-
-.panel .footer .btn.help {
-	float: right;
-	margin-right: 0;
 }
 
 .scrollbar .up {

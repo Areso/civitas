@@ -2,7 +2,7 @@
  * Civitas empire-building game.
  *
  * @author sizeof(cat) <sizeofcat AT riseup.net>
- * @version 0.1.0.4202017
+ * @version 0.1.0.4212017
  * @license MIT
  */ 'use strict';
 
@@ -401,7 +401,8 @@ civitas.START_RESOURCES = [
 		weapons: 100,
 		wheat: 40,
 		wood: 100,
-		woodplanks: 50
+		woodplanks: 50,
+		tools: 40
 	},
 	/* Medium difficulty */
 	{
@@ -417,7 +418,8 @@ civitas.START_RESOURCES = [
 		weapons: 60,
 		wheat: 40,
 		wood: 100,
-		woodplanks: 30
+		woodplanks: 30,
+		tools: 20
 	},
 	/* Hard difficulty */
 	{
@@ -432,7 +434,8 @@ civitas.START_RESOURCES = [
 		stones: 70,
 		wheat: 40,
 		wood: 70,
-		woodplanks: 20
+		woodplanks: 20,
+		tools: 10
 	},
 	/* Hardcore difficulty */
 	{
@@ -1496,7 +1499,7 @@ civitas.SHIPS = {
 			clothes: 50,
 			ropes: 10,
 			cannons: 5,
-			weapons: 10
+			gunpowder: 2
 		}
 	},
 	'Caravel': {
@@ -1512,7 +1515,9 @@ civitas.SHIPS = {
 			pottery: 20,
 			clothes: 60,
 			ropes: 30,
-			cannons: 20
+			cannons: 20,
+			gunpowder: 5,
+			weapons: 10
 		}
 	},
 	'Frigate': {
@@ -1529,6 +1534,7 @@ civitas.SHIPS = {
 			clothes: 60,
 			ropes: 30,
 			cannons: 20,
+			gunpowder: 10,
 			weapons: 10
 		}
 	},
@@ -1546,6 +1552,7 @@ civitas.SHIPS = {
 			clothes: 70,
 			ropes: 80,
 			cannons: 30,
+			gunpowder: 15,
 			weapons: 15
 		}
 	},
@@ -1564,6 +1571,7 @@ civitas.SHIPS = {
 			ropes: 100,
 			cannons: 50,
 			weapons: 20,
+			gunpowder: 20,
 			carpets: 10
 		}
 	},
@@ -1583,6 +1591,7 @@ civitas.SHIPS = {
 			clothes: 200,
 			ropes: 100,
 			cannons: 100,
+			gunpowder: 30,
 			weapons: 50
 		}
 	}
@@ -1664,10 +1673,10 @@ civitas.SETTLEMENT_BUILDINGS_TROPICAL = [
 	/* Industry */
 	'lumberjack', 'stone', 'trapper', 'tannery', 'furrier', 'armory', 'coffeeroaster',
 	'quartzfactory', 'winery', 'saltworks', 'pottery',
-	'charcoalburnerhut', 'opticiansworkshop', 'papermill', 'printingpress',
-	'redsmithsworkshop', 'ropeyard', 'glassworks', 'silkweaver',
+	'charcoalburnerhut', 'opticiansworkshop', 'papermill', 'printingpress', 'gunpowdermill',
+	'redsmithsworkshop', 'ropeyard', 'glassworks', 'silkweaver', 'jeweler', 'toolmaker',
 	'apiary', 'barrelcooperage', 'brewery', 'candlemakersworkshop', 'sugarmill',
-	'perfumery', 'weaver', 'provisions', 'carpenter', 'marzipanworkshop', 'cannonfoundry',
+	'perfumery', 'weaver', 'clothingfactory', 'provisions', 'carpenter', 'marzipanworkshop', 'cannonfoundry',
 
 	/* Farms */
 	'almondsfarm', 'almondsfield', 'cattlefarm', 'cattlefield', 'coffeefarm', 'coffeefield',
@@ -1702,11 +1711,11 @@ civitas.SETTLEMENT_BUILDINGS_POLAR = [
 
 	/* Industry */
 	'lumberjack', 'stone', 'trapper', 'tannery', 'furrier', 'armory', 'coffeeroaster',
-	'quartzfactory', 'winery', 'saltworks', 'pottery',
-	'charcoalburnerhut', 'opticiansworkshop', 'papermill', 'printingpress',
+	'quartzfactory', 'winery', 'saltworks', 'pottery', 'jeweler', 'toolmaker',
+	'charcoalburnerhut', 'opticiansworkshop', 'papermill', 'printingpress', 'gunpowdermill',
 	'redsmithsworkshop', 'ropeyard', 'glassworks', 'silkweaver', 'marzipanworkshop',
 	'apiary', 'barrelcooperage', 'brewery', 'candlemakersworkshop', 'sugarmill', 'cannonfoundry',
-	'perfumery', 'weaver', 'provisions', 'carpenter'
+	'perfumery', 'weaver', 'clothingfactory', 'provisions', 'carpenter'
 ];
 
 /**
@@ -1735,11 +1744,11 @@ civitas.SETTLEMENT_BUILDINGS_ARID = [
 
 	/* Industry */
 	'lumberjack', 'stone', 'trapper', 'tannery', 'furrier', 'armory', 'coffeeroaster',
-	'quartzfactory', 'winery', 'saltworks', 'pottery',
+	'quartzfactory', 'winery', 'saltworks', 'pottery', 'jeweler', 'toolmaker',
 	'charcoalburnerhut', 'opticiansworkshop', 'papermill', 'printingpress',
-	'redsmithsworkshop', 'ropeyard', 'glassworks', 'silkweaver',
+	'redsmithsworkshop', 'ropeyard', 'glassworks', 'silkweaver', 'gunpowdermill',
 	'apiary', 'barrelcooperage', 'brewery', 'candlemakersworkshop', 'sugarmill',
-	'perfumery', 'weaver', 'provisions', 'carpenter', 'marzipanworkshop', 'cannonfoundry',
+	'perfumery', 'weaver', 'clothingfactory', 'provisions', 'carpenter', 'marzipanworkshop', 'cannonfoundry',
 
 	/* Farms */
 	'cattlefarm', 'cattlefield', 'pigfarm', 'pigfield'
@@ -1772,11 +1781,11 @@ civitas.SETTLEMENT_BUILDINGS_TEMPERATE = [
 
 	/* Industry */
 	'lumberjack', 'stone', 'trapper', 'tannery', 'furrier', 'armory', 'coffeeroaster',
-	'quartzfactory', 'winery', 'saltworks', 'pottery',
-	'charcoalburnerhut', 'opticiansworkshop', 'papermill', 'printingpress',
+	'quartzfactory', 'winery', 'saltworks', 'pottery', 'jeweler', 'toolmaker',
+	'charcoalburnerhut', 'opticiansworkshop', 'papermill', 'printingpress', 'gunpowdermill',
 	'redsmithsworkshop', 'ropeyard', 'glassworks', 'silkweaver', 'marzipanworkshop',
 	'apiary', 'barrelcooperage', 'brewery', 'candlemakersworkshop', 'sugarmill',
-	'perfumery', 'weaver', 'provisions', 'carpenter', 'catapultworkshop', 'cannonfoundry',
+	'perfumery', 'weaver', 'clothingfactory', 'provisions', 'carpenter', 'catapultworkshop', 'cannonfoundry',
 
 	/* Farms */
 	'cattlefarm', 'cattlefield', 'ciderfarm', 'ciderfield', 'grainfarm', 'grainfield',
@@ -1800,12 +1809,12 @@ civitas.BUILDINGS_ALL = [
 	'coppermine', 'goldmine', 'goldsmelter', 'coppersmelter', 'armory', 'coffeefarm',
 	'coffeefield', 'hempfarm', 'hempfield', 'sugarfarm',
 	'sugarfield', 'silkfarm', 'silkfield', 'coffeeroaster', 'quartzfactory', 'grapesfarm',
-	'grapesfield', 'winery', 'saltworks', 'carpenter', 'pottery',
+	'grapesfield', 'winery', 'saltworks', 'carpenter', 'pottery', 'jeweler', 'toolmaker',
 	'charcoalburnerhut', 'monastery', 'opticiansworkshop', 'papermill', 'printingpress',
-	'redsmithsworkshop', 'ropeyard', 'glassworks', 'provisions', 'silkweaver',
+	'redsmithsworkshop', 'ropeyard', 'glassworks', 'provisions', 'silkweaver', 'gunpowdermill',
 	'apiary', 'barrelcooperage', 'brewery', 'candlemakersworkshop', 'indigofarm',
 	'ciderfarm', 'ciderfield', 'sugarmill', 'rosenursery', 'catapultworkshop', 'cannonfoundry',
-	'perfumery', 'tradingpost', 'weaver', 'embassy',  'academy', 'marzipanworkshop'
+	'perfumery', 'tradingpost', 'clothingfactory', 'weaver', 'embassy',  'academy', 'marzipanworkshop'
 ];
 
 /**
@@ -1892,6 +1901,7 @@ civitas.BUILDINGS_CATEGORIES = {
 		'redsmithsworkshop',
 		'ropeyard',
 		'saltworks',
+		'clothingfactory',
 		'stone',
 		'trapper',
 		'tannery',
@@ -1903,7 +1913,10 @@ civitas.BUILDINGS_CATEGORIES = {
 		'perfumery',
 		'rosenursery',
 		'silkweaver',
-		'sugarmill'
+		'sugarmill',
+		'jeweler',
+		'gunpowdermill',
+		'toolmaker'
 	],
 	'Military': [
 		'armory',
@@ -1961,7 +1974,8 @@ civitas.BUILDINGS = [{
 			coins: 150000,
 			wood: 500,
 			woodplanks: 200,
-			stones: 500
+			stones: 500,
+			tools: 50
 		},
 		requires: {
 			settlement_level: 10
@@ -1990,7 +2004,8 @@ civitas.BUILDINGS = [{
 			coins: 10000,
 			wood: 20,
 			woodplanks: 20,
-			stones: 20
+			stones: 20,
+			tools: 10
 		},
 		requires: {
 			settlement_level: 3
@@ -2034,7 +2049,8 @@ civitas.BUILDINGS = [{
 		cost: {
 			coins: 100000,
 			woodplanks: 1000,
-			stones: 1000
+			stones: 1000,
+			tools: 20
 		},
 		requires: {
 			settlement_level: 10
@@ -2061,7 +2077,8 @@ civitas.BUILDINGS = [{
 		cost: {
 			coins: 100000,
 			woodplanks: 100,
-			stones: 100
+			stones: 100,
+			tools: 10
 		},
 		requires: {
 			settlement_level: 10
@@ -2114,7 +2131,8 @@ civitas.BUILDINGS = [{
 		cost: {
 			coins: 50000,
 			woodplanks: 200,
-			stones: 200
+			stones: 200,
+			tools: 20
 		},
 		requires: {
 			settlement_level: 16,
@@ -2129,11 +2147,14 @@ civitas.BUILDINGS = [{
 			fame: 20
 		},
 		materials: {
-			coins: 20
+			coins: 20,
+			wine: 2,
+			meat: 2,
+			oil: 1
 		},
 		position: {
-			x: 770,
-			y: 250
+			x: 700,
+			y: 280
 		},
 		levels: 3,
 		cost: {
@@ -2142,7 +2163,8 @@ civitas.BUILDINGS = [{
 			stones: 200,
 			wood: 200,
 			wine: 100,
-			meat: 100
+			meat: 100,
+			tools: 50
 		},
 		requires: {
 			settlement_level: 16,
@@ -2168,7 +2190,8 @@ civitas.BUILDINGS = [{
 			woodplanks: 200,
 			stones: 100,
 			ropes: 10,
-			barrels: 10
+			barrels: 10,
+			tools: 20
 		},
 		production: {
 			fish: 4
@@ -2190,7 +2213,8 @@ civitas.BUILDINGS = [{
 			coins: 50000,
 			wood: 200,
 			woodplanks: 200,
-			stones: 160
+			stones: 160,
+			tools: 10
 		},
 		requires: {
 			settlement_level: 8,
@@ -2221,7 +2245,8 @@ civitas.BUILDINGS = [{
 			coins: 1000000,
 			wood: 500,
 			woodplanks: 500,
-			stones: 500
+			stones: 500,
+			tools: 100
 		},
 		requires: {
 			settlement_level: 20,
@@ -2348,10 +2373,11 @@ civitas.BUILDINGS = [{
 			stones: 2000,
 			clay: 2000,
 			weapons: 100,
-			armor: 100
+			armor: 100,
+			tools: 100
 		},
 		requires: {
-			settlement_level: 3,
+			settlement_level: 30,
 			buildings: ['castle', 'academy']
 		}
 	}, {
@@ -2519,7 +2545,7 @@ civitas.BUILDINGS = [{
 		},
 		position: {
 			x: 1360,
-			y: 630
+			y: 680
 		},
 		levels: 3,
 		cost: {
@@ -2530,6 +2556,32 @@ civitas.BUILDINGS = [{
 		},
 		requires: {
 			settlement_level: 6
+		}
+	}, {
+		name: 'Gunpowder Mill',
+		handle: 'gunpowdermill',
+		description: '.',
+		is_production: true,
+		production: {
+			gunpowder: 1
+		},
+		materials: {
+			sulphur: 10
+		},
+		position: {
+			x: 1530,
+			y: 800
+		},
+		levels: 3,
+		cost: {
+			coins: 30000,
+			woodplanks: 30,
+			stones: 30,
+			clay: 100,
+			tools: 20
+		},
+		requires: {
+			settlement_level: 16
 		}
 	}, {
 		name: 'Armory',
@@ -2555,7 +2607,8 @@ civitas.BUILDINGS = [{
 		cost: {
 			coins: 50000,
 			woodplanks: 100,
-			stones: 100
+			stones: 100,
+			tools: 20
 		},
 		requires: {
 			settlement_level: 6
@@ -2711,12 +2764,36 @@ civitas.BUILDINGS = [{
 			settlement_level: 6
 		}
 	}, {
-		name: 'Weaver`s Hut',
-		handle: 'weaver',
-		description: 'The weaver uses hemp to produce linen clothes.',
+		name: 'Clothing Factory',
+		handle: 'clothingfactory',
+		description: '.',
 		is_production: true,
 		production: {
 			clothes: 1
+		},
+		materials: {
+			fibers: 2
+		},
+		position: {
+			x: 1400,
+			y: 600
+		},
+		levels: 3,
+		cost: {
+			coins: 15000,
+			wood: 40,
+			stones: 40
+		},
+		requires: {
+			settlement_level: 6
+		}
+	}, {
+		name: 'Weaver`s Hut',
+		handle: 'weaver',
+		description: 'The weaver uses hemp to produce fiber for clothes.',
+		is_production: true,
+		production: {
+			fibers: 2
 		},
 		materials: {
 			hemp: 4
@@ -2727,9 +2804,9 @@ civitas.BUILDINGS = [{
 		},
 		levels: 3,
 		cost: {
-			coins: 15000,
-			wood: 40,
-			stones: 40
+			coins: 10000,
+			wood: 30,
+			stones: 30
 		},
 		requires: {
 			settlement_level: 6
@@ -2779,7 +2856,8 @@ civitas.BUILDINGS = [{
 		cost: {
 			coins: 70000,
 			woodplanks: 80,
-			stones: 60
+			stones: 60,
+			tools: 20
 		},
 		requires: {
 			settlement_level: 16,
@@ -2804,7 +2882,8 @@ civitas.BUILDINGS = [{
 		cost: {
 			coins: 70000,
 			woodplanks: 80,
-			stones: 60
+			stones: 60,
+			tools: 10
 		},
 		requires: {
 			settlement_level: 16,
@@ -2820,7 +2899,8 @@ civitas.BUILDINGS = [{
 		},
 		materials: {
 			grapes: 4,
-			barrels: 1
+			barrels: 1,
+			bottles: 1
 		},
 		position: {
 			x: 1150,
@@ -2830,7 +2910,8 @@ civitas.BUILDINGS = [{
 		cost: {
 			coins: 50000,
 			wood: 50,
-			stones: 40
+			stones: 40,
+			tools: 10
 		},
 		requires: {
 			settlement_level: 10
@@ -2855,7 +2936,8 @@ civitas.BUILDINGS = [{
 		cost: {
 			coins: 81000,
 			woodplanks: 70,
-			stones: 70
+			stones: 70,
+			tools: 10
 		},
 		requires: {
 			settlement_level: 20
@@ -2880,7 +2962,8 @@ civitas.BUILDINGS = [{
 		cost: {
 			coins: 83000,
 			woodplanks: 60,
-			stones: 50
+			stones: 50,
+			tools: 10
 		},
 		requires: {
 			settlement_level: 16
@@ -2905,7 +2988,8 @@ civitas.BUILDINGS = [{
 		cost: {
 			coins: 84000,
 			woodplanks: 100,
-			stones: 100
+			stones: 100,
+			tools: 10
 		},
 		requires: {
 			settlement_level: 20
@@ -2930,7 +3014,8 @@ civitas.BUILDINGS = [{
 		cost: {
 			coins: 90000,
 			woodplanks: 80,
-			stones: 40
+			stones: 40,
+			tools: 10
 		},
 		requires: {
 			settlement_level: 20,
@@ -2956,7 +3041,8 @@ civitas.BUILDINGS = [{
 		cost: {
 			coins: 75000,
 			wood: 70,
-			stones: 50
+			stones: 50,
+			tools: 10
 		},
 		requires: {
 			settlement_level: 20
@@ -2980,7 +3066,8 @@ civitas.BUILDINGS = [{
 		cost: {
 			coins: 15000,
 			wood: 70,
-			stones: 60
+			stones: 60,
+			tools: 10
 		},
 		requires: {
 			settlement_level: 10
@@ -3029,7 +3116,8 @@ civitas.BUILDINGS = [{
 		cost: {
 			coins: 50000,
 			wood: 50,
-			stones: 80
+			stones: 80,
+			tools: 10
 		},
 		requires: {
 			settlement_level: 20,
@@ -3056,7 +3144,8 @@ civitas.BUILDINGS = [{
 		cost: {
 			coins: 50000,
 			wood: 50,
-			stones: 80
+			stones: 80,
+			tools: 10
 		},
 		requires: {
 			settlement_level: 20,
@@ -3124,7 +3213,8 @@ civitas.BUILDINGS = [{
 		cost: {
 			coins: 25000,
 			wood: 80,
-			stones: 70
+			stones: 70,
+			tools: 10
 		},
 		requires: {
 			settlement_level: 9
@@ -3174,7 +3264,8 @@ civitas.BUILDINGS = [{
 		cost: {
 			coins: 45000,
 			woodplanks: 80,
-			stones: 60
+			stones: 60,
+			tools: 10
 		},
 		requires: {
 			settlement_level: 20
@@ -3193,7 +3284,7 @@ civitas.BUILDINGS = [{
 			iron: 20,
 			woodplanks: 40,
 			ropes: 10,
-			sulphur: 10
+			gunpowder: 10
 		},
 		position: {
 			x: 1110,
@@ -3203,7 +3294,8 @@ civitas.BUILDINGS = [{
 		cost: {
 			coins: 250000,
 			woodplanks: 200,
-			stones: 300
+			stones: 300,
+			tools: 20
 		},
 		requires: {
 			settlement_level: 15
@@ -3222,7 +3314,7 @@ civitas.BUILDINGS = [{
 			iron: 10,
 			woodplanks: 10,
 			ropes: 2,
-			sulphur: 8
+			gunpowder: 8
 		},
 		position: {
 			x: 1160,
@@ -3232,7 +3324,8 @@ civitas.BUILDINGS = [{
 		cost: {
 			coins: 200000,
 			woodplanks: 200,
-			stones: 300
+			stones: 300,
+			tools: 20
 		},
 		requires: {
 			settlement_level: 13
@@ -3244,7 +3337,8 @@ civitas.BUILDINGS = [{
 			'smelters.',
 		is_production: true,
 		production: {
-			coal: 4
+			coal: 4,
+			sulphur: 1
 		},
 		materials: {
 			wood: 2
@@ -3962,6 +4056,60 @@ civitas.BUILDINGS = [{
 		requires: {
 			settlement_level: 20
 		}
+	}, {
+		name: 'Toolmaker Workshop',
+		handle: 'toolmaker',
+		is_production: true,
+		description: '.',
+		production: {
+			tools: 2
+		},
+		materials: {
+			wood: 1,
+			iron: 1,
+			coal: 1,
+			brass: 1
+		},
+		levels: 3,
+		position: {
+			x: 1600,
+			y: 600
+		},
+		cost: {
+			coins: 30000,
+			wood: 80,
+			stones: 80,
+			clay: 60
+		},
+		requires: {
+			settlement_level: 8
+		}
+	}, {
+		name: 'Jeweler',
+		handle: 'jeweler',
+		is_production: true,
+		description: '.',
+		production: {
+			jewelery: 1
+		},
+		materials: {
+			pearls: 10
+		},
+		levels: 3,
+		position: {
+			x: 1600,
+			y: 900
+		},
+		cost: {
+			coins: 55000,
+			wood: 60,
+			stones: 60,
+			clay: 60,
+			tools: 10
+		},
+		requires: {
+			settlement_level: 16
+		}
 	}];
 
 /**
@@ -4015,6 +4163,7 @@ civitas.SETTLEMENTS = {
 				goldores: civitas.IMPORTANCE_HIGH,
 				weapons: civitas.IMPORTANCE_LOW,
 				quartz: civitas.IMPORTANCE_LOW,
+				gunpowder: civitas.IMPORTANCE_HIGH,
 				roses: civitas.IMPORTANCE_MEDIUM,
 				wine: civitas.IMPORTANCE_VITAL,
 				clay: civitas.IMPORTANCE_VITAL,
@@ -4083,6 +4232,8 @@ civitas.SETTLEMENTS = {
 				flour: civitas.IMPORTANCE_VITAL,
 				glass: civitas.IMPORTANCE_MEDIUM,
 				coal: civitas.IMPORTANCE_LOW,
+				gunpowder: civitas.IMPORTANCE_HIGH,
+				bottles: civitas.IMPORTANCE_HIGH,
 				fish: civitas.IMPORTANCE_HIGH,
 				woodplanks: civitas.IMPORTANCE_VITAL,
 				wood: civitas.IMPORTANCE_VITAL
@@ -4129,6 +4280,9 @@ civitas.SETTLEMENTS = {
 				provisions: civitas.IMPORTANCE_HIGH,
 				furs: civitas.IMPORTANCE_VITAL,
 				sugar: civitas.IMPORTANCE_LOW,
+				bottles: civitas.IMPORTANCE_HIGH,
+				jewelery: civitas.IMPORTANCE_HIGH,
+				tools: civitas.IMPORTANCE_HIGH,
 				woodplanks: civitas.IMPORTANCE_HIGH,
 				sugarcane: civitas.IMPORTANCE_LOW,
 				clay: civitas.IMPORTANCE_VITAL
@@ -4170,6 +4324,7 @@ civitas.SETTLEMENTS = {
 				milk: civitas.IMPORTANCE_VITAL,
 				brass: civitas.IMPORTANCE_LOW,
 				furs: civitas.IMPORTANCE_LOW,
+				fibers: civitas.IMPORTANCE_MEDIUM,
 				fish: civitas.IMPORTANCE_VITAL,
 				cider: civitas.IMPORTANCE_LOW,
 				silk: civitas.IMPORTANCE_HIGH,
@@ -4180,7 +4335,10 @@ civitas.SETTLEMENTS = {
 				meat: civitas.IMPORTANCE_VITAL,
 				clothes: civitas.IMPORTANCE_VITAL,
 				fish: civitas.IMPORTANCE_LOW,
+				bottles: civitas.IMPORTANCE_HIGH,
+				camels: civitas.IMPORTANCE_HIGH,
 				armor: civitas.IMPORTANCE_MEDIUM,
+				gunpowder: civitas.IMPORTANCE_HIGH,
 				pottery: civitas.IMPORTANCE_HIGH,
 				coffeebeans: civitas.IMPORTANCE_HIGH,
 				silk: civitas.IMPORTANCE_LOW
@@ -4215,6 +4373,7 @@ civitas.SETTLEMENTS = {
 				paper: civitas.IMPORTANCE_LOW,
 				coal: civitas.IMPORTANCE_VITAL,
 				provisions: civitas.IMPORTANCE_HIGH,
+				tools: civitas.IMPORTANCE_HIGH,
 				copper: civitas.IMPORTANCE_MEDIUM,
 				mosaic: civitas.IMPORTANCE_MEDIUM,
 				woodplanks: civitas.IMPORTANCE_HIGH,
@@ -4225,6 +4384,8 @@ civitas.SETTLEMENTS = {
 				ironores: civitas.IMPORTANCE_LOW,
 				copper: civitas.IMPORTANCE_MEDIUM,
 				goldores: civitas.IMPORTANCE_LOW,
+				oil: civitas.IMPORTANCE_HIGH,
+				camels: civitas.IMPORTANCE_VITAL,
 				iron: civitas.IMPORTANCE_LOW,
 				gold: civitas.IMPORTANCE_VITAL,
 				catapults: civitas.IMPORTANCE_MEDIUM,
@@ -4260,7 +4421,9 @@ civitas.SETTLEMENTS = {
 				milk: civitas.IMPORTANCE_LOW,
 				weapons: civitas.IMPORTANCE_LOW,
 				roses: civitas.IMPORTANCE_MEDIUM,
+				fibers: civitas.IMPORTANCE_HIGH,
 				perfume: civitas.IMPORTANCE_LOW,
+				jewelery: civitas.IMPORTANCE_HIGH,
 				iron: civitas.IMPORTANCE_VITAL,
 				ironores: civitas.IMPORTANCE_LOW
 			},
@@ -4268,6 +4431,7 @@ civitas.SETTLEMENTS = {
 				brine: civitas.IMPORTANCE_MEDIUM,
 				clothes: civitas.IMPORTANCE_LOW,
 				glass: civitas.IMPORTANCE_HIGH,
+				oil: civitas.IMPORTANCE_HIGH,
 				wheat: civitas.IMPORTANCE_VITAL,
 				pottery: civitas.IMPORTANCE_HIGH,
 				hides: civitas.IMPORTANCE_LOW,
@@ -4298,8 +4462,10 @@ civitas.SETTLEMENTS = {
 				silk: civitas.IMPORTANCE_LOW,
 				clothes: civitas.IMPORTANCE_HIGH,
 				leather: civitas.IMPORTANCE_LOW,
+				bottles: civitas.IMPORTANCE_HIGH,
 				hides: civitas.IMPORTANCE_HIGH,
 				clay: civitas.IMPORTANCE_MEDIUM,
+				bottles: civitas.IMPORTANCE_MEDIUM,
 				pottery: civitas.IMPORTANCE_HIGH,
 				meat: civitas.IMPORTANCE_MEDIUM
 			},
@@ -4307,8 +4473,11 @@ civitas.SETTLEMENTS = {
 				ropes: civitas.IMPORTANCE_MEDIUM,
 				gold: civitas.IMPORTANCE_LOW,
 				iron: civitas.IMPORTANCE_VITAL,
+				gunpowder: civitas.IMPORTANCE_HIGH,
+				sulphur: civitas.IMPORTANCE_HIGH,
 				ironores: civitas.IMPORTANCE_MEDIUM,
 				copper: civitas.IMPORTANCE_HIGH,
+				camels: civitas.IMPORTANCE_HIGH,
 				woodplanks: civitas.IMPORTANCE_MEDIUM,
 				coal: civitas.IMPORTANCE_LOW
 			}
@@ -4349,6 +4518,7 @@ civitas.SETTLEMENTS = {
 			'exports': {
 				herbs: civitas.IMPORTANCE_VITAL,
 				statues: civitas.IMPORTANCE_VITAL,
+				camels: civitas.IMPORTANCE_HIGH,
 				wax: civitas.IMPORTANCE_LOW,
 				barrels: civitas.IMPORTANCE_MEDIUM,
 				candles: civitas.IMPORTANCE_LOW,
@@ -4384,6 +4554,7 @@ civitas.SETTLEMENTS = {
 				perfume: civitas.IMPORTANCE_MEDIUM,
 				coffee: civitas.IMPORTANCE_LOW,
 				cider: civitas.IMPORTANCE_LOW,
+				bottles: civitas.IMPORTANCE_HIGH,
 				wine: civitas.IMPORTANCE_LOW,
 				hides: civitas.IMPORTANCE_VITAL,
 				beer: civitas.IMPORTANCE_LOW,
@@ -4435,6 +4606,7 @@ civitas.SETTLEMENTS = {
 			'imports': {
 				flour: civitas.IMPORTANCE_LOW,
 				bread: civitas.IMPORTANCE_LOW,
+				fibers: civitas.IMPORTANCE_HIGH,
 				woodplanks: civitas.IMPORTANCE_MEDIUM,
 				armor: civitas.IMPORTANCE_HIGH,
 				brass: civitas.IMPORTANCE_MEDIUM,
@@ -4444,6 +4616,9 @@ civitas.SETTLEMENTS = {
 			'exports': {
 				wood: civitas.IMPORTANCE_LOW,
 				meat: civitas.IMPORTANCE_HIGH,
+				jewelery: civitas.IMPORTANCE_HIGH,
+				camels: civitas.IMPORTANCE_MEDIUM,
+				gunpowder: civitas.IMPORTANCE_HIGH,
 				stones: civitas.IMPORTANCE_VITAL,
 				wine: civitas.IMPORTANCE_MEDIUM
 			}
@@ -4477,12 +4652,15 @@ civitas.SETTLEMENTS = {
 				hides: civitas.IMPORTANCE_MEDIUM,
 				clay: civitas.IMPORTANCE_HIGH,
 				milk: civitas.IMPORTANCE_LOW,
+				fibers: civitas.IMPORTANCE_MEDIUM,
+				tools: civitas.IMPORTANCE_HIGH,
 				furcoats: civitas.IMPORTANCE_HIGH,
 				leather: civitas.IMPORTANCE_LOW
 			},
 			'exports': {
 				spyglasses: civitas.IMPORTANCE_VITAL,
 				wax: civitas.IMPORTANCE_LOW,
+				bottles: civitas.IMPORTANCE_HIGH,
 				armor: civitas.IMPORTANCE_HIGH,
 				candles: civitas.IMPORTANCE_LOW,
 				salt: civitas.IMPORTANCE_MEDIUM,
@@ -4525,6 +4703,7 @@ civitas.SETTLEMENTS = {
 				armor: civitas.IMPORTANCE_HIGH,
 				wax: civitas.IMPORTANCE_MEDIUM,
 				sugar: civitas.IMPORTANCE_LOW,
+				bottles: civitas.IMPORTANCE_HIGH,
 				wood: civitas.IMPORTANCE_VITAL,
 				woodplanks: civitas.IMPORTANCE_MEDIUM,
 				stones: civitas.IMPORTANCE_VITAL
@@ -4534,6 +4713,7 @@ civitas.SETTLEMENTS = {
 				roses: civitas.IMPORTANCE_HIGH,
 				grapes: civitas.IMPORTANCE_LOW,
 				hemp: civitas.IMPORTANCE_LOW,
+				oil: civitas.IMPORTANCE_HIGH,
 				coffeebeans: civitas.IMPORTANCE_LOW,
 				coffee: civitas.IMPORTANCE_LOW,
 				catapults: civitas.IMPORTANCE_MEDIUM,
@@ -4570,6 +4750,7 @@ civitas.SETTLEMENTS = {
 				weapons: civitas.IMPORTANCE_LOW,
 				roses: civitas.IMPORTANCE_MEDIUM,
 				perfume: civitas.IMPORTANCE_LOW,
+				tools: civitas.IMPORTANCE_HIGH,
 				provisions: civitas.IMPORTANCE_HIGH,
 				iron: civitas.IMPORTANCE_VITAL,
 				ironores: civitas.IMPORTANCE_LOW
@@ -4619,6 +4800,8 @@ civitas.SETTLEMENTS = {
 				clothes: civitas.IMPORTANCE_LOW,
 				glass: civitas.IMPORTANCE_HIGH,
 				wheat: civitas.IMPORTANCE_VITAL,
+				oil: civitas.IMPORTANCE_HIGH,
+				jewelery: civitas.IMPORTANCE_HIGH,
 				hides: civitas.IMPORTANCE_LOW,
 				paper: civitas.IMPORTANCE_LOW
 			}
@@ -4653,6 +4836,7 @@ civitas.SETTLEMENTS = {
 				brass: civitas.IMPORTANCE_LOW,
 				cider: civitas.IMPORTANCE_LOW,
 				grapes: civitas.IMPORTANCE_LOW,
+				jewelery: civitas.IMPORTANCE_HIGH,
 				pottery: civitas.IMPORTANCE_HIGH,
 				coal: civitas.IMPORTANCE_MEDIUM,
 				woodplanks: civitas.IMPORTANCE_HIGH,
@@ -4663,6 +4847,7 @@ civitas.SETTLEMENTS = {
 				silk: civitas.IMPORTANCE_LOW,
 				wood: civitas.IMPORTANCE_MEDIUM,
 				armor: civitas.IMPORTANCE_MEDIUM,
+				tools: civitas.IMPORTANCE_HIGH,
 				cattle: civitas.IMPORTANCE_LOW,
 				statues: civitas.IMPORTANCE_VITAL
 			}
@@ -4707,6 +4892,7 @@ civitas.SETTLEMENTS = {
 				candles: civitas.IMPORTANCE_LOW,
 				salt: civitas.IMPORTANCE_VITAL,
 				pearls: civitas.IMPORTANCE_MEDIUM,
+				oil: civitas.IMPORTANCE_HIGH,
 				ropes: civitas.IMPORTANCE_MEDIUM
 			}
 		},
@@ -4739,6 +4925,7 @@ civitas.SETTLEMENTS = {
 				mosaic: civitas.IMPORTANCE_MEDIUM,
 				wood: civitas.IMPORTANCE_HIGH,
 				furs: civitas.IMPORTANCE_VITAL,
+				fibers: civitas.IMPORTANCE_HIGH,
 				sugar: civitas.IMPORTANCE_LOW,
 				sugarcane: civitas.IMPORTANCE_LOW,
 				clay: civitas.IMPORTANCE_VITAL
@@ -4746,7 +4933,10 @@ civitas.SETTLEMENTS = {
 			'exports': {
 				silver: civitas.IMPORTANCE_VITAL,
 				glasses: civitas.IMPORTANCE_LOW,
+				tools: civitas.IMPORTANCE_HIGH,
 				furcoats: civitas.IMPORTANCE_MEDIUM,
+				bottles: civitas.IMPORTANCE_HIGH,
+				camels: civitas.IMPORTANCE_HIGH,
 				indigo: civitas.IMPORTANCE_LOW,
 				woodplanks: civitas.IMPORTANCE_MEDIUM,
 				wheat: civitas.IMPORTANCE_LOW
@@ -4780,6 +4970,7 @@ civitas.SETTLEMENTS = {
 				salt: civitas.IMPORTANCE_MEDIUM,
 				stones: civitas.IMPORTANCE_VITAL,
 				armor: civitas.IMPORTANCE_MEDIUM,
+				jewelery: civitas.IMPORTANCE_HIGH,
 				gems: civitas.IMPORTANCE_LOW,
 				hides: civitas.IMPORTANCE_VITAL,
 				pottery: civitas.IMPORTANCE_HIGH,
@@ -4834,6 +5025,7 @@ civitas.SETTLEMENTS = {
 				sulphur: civitas.IMPORTANCE_VITAL,
 				silk: civitas.IMPORTANCE_MEDIUM,
 				glass: civitas.IMPORTANCE_HIGH,
+				bottles: civitas.IMPORTANCE_HIGH,
 				roses: civitas.IMPORTANCE_LOW,
 				cattle: civitas.IMPORTANCE_LOW,
 				bread: civitas.IMPORTANCE_LOW,
@@ -4869,6 +5061,7 @@ civitas.SETTLEMENTS = {
 			'imports': {
 				gold: civitas.IMPORTANCE_HIGH,
 				goldores: civitas.IMPORTANCE_MEDIUM,
+				fibers: civitas.IMPORTANCE_HIGH,
 				weapons: civitas.IMPORTANCE_LOW,
 				salt: civitas.IMPORTANCE_MEDIUM,
 				woodplanks: civitas.IMPORTANCE_MEDIUM,
@@ -5529,6 +5722,11 @@ civitas.RESOURCES = {
 		name: 'Books',
 		price: 120
 	},
+	'bottles': {
+		name: 'Bottles',
+		price: 100,
+		imported: true
+	},
 	'bread': {
 		name: 'Bread',
 		price: 30
@@ -5540,6 +5738,11 @@ civitas.RESOURCES = {
 	'brass': {
 		name: 'Brass',
 		price: 60
+	},
+	'camels': {
+		name: 'Camels',
+		price: 110,
+		imported: true
 	},
 	'candles': {
 		name: 'Candles',
@@ -5604,6 +5807,10 @@ civitas.RESOURCES = {
 		price: 90,
 		imported: true
 	},
+	'fibers': {
+		name: 'Fibers',
+		price: 80
+	},
 	'fish': {
 		name: 'Fish',
 		price: 16
@@ -5644,6 +5851,10 @@ civitas.RESOURCES = {
 		name: 'Grapes',
 		price: 35
 	},
+	'gunpowder': {
+		name: 'Gunpowder',
+		price: 420
+	},
 	'hemp': {
 		name: 'Hemp',
 		price: 46
@@ -5668,6 +5879,10 @@ civitas.RESOURCES = {
 		name: 'Iron ores',
 		price: 45
 	},
+	'jewelery': {
+		name: 'Jewelery',
+		price: 900
+	},
 	'leather': {
 		name: 'Leather',
 		price: 60
@@ -5688,6 +5903,11 @@ civitas.RESOURCES = {
 	'mosaic': {
 		name: 'Mosaic',
 		price: 200
+	},
+	'oil': {
+		name: 'Oil',
+		price: 370,
+		imported: true
 	},
 	'paper': {
 		name: 'Paper',
@@ -5766,8 +5986,7 @@ civitas.RESOURCES = {
 	},
 	'sulphur': {
 		name: 'Sulphur',
-		price: 180,
-		imported: true
+		price: 180
 	},
 	'tools': {
 		name: 'Tools',
@@ -6706,7 +6925,7 @@ civitas.ui = {
 		}
 		out += '</ul>';
 		for (var i = 0; i < data.length; i++) {
-			out += '<div id="tab-' + data[i].toLowerCase() + '">' +
+			out += '<div id="tab-' + data[i].toLowerCase().replace(/ /g, "-") + '">' +
 					'</div>';
 		}
 		out += '</div>';
@@ -11364,22 +11583,6 @@ civitas.game = function () {
 	};
 
 	/**
-	 * Open the help panel with the specified context and term.
-	 *
-	 * @public
-	 * @param {String} context
-	 * @param {String} term
-	 * @returns {civitas_game} 
-	 */
-	this.help = function(context, term) {
-		this.open_panel(civitas.PANEL_HELP, {
-			context: context,
-			term: term
-		});
-		return this;
-	};
-
-	/**
 	 * Refresh the world trades.
 	 * 
 	 * @public
@@ -12651,30 +12854,13 @@ civitas.PANEL_HELP = {
 			'<div class="contents">' +
 			'</div>' +
 		'</div>',
-	term: null,
-	context: null,
 	id: 'help',
 	on_show: function(params) {
 		var self = this;
 		var core = this.get_core();
 		var settlement = core.get_settlement();
-		var _t = '';
-		if (typeof params.data !== 'undefined') {
-			this.term = params.data.term;
-			this.context = params.data.context;
-		}
 		$(this.handle + ' .contents').append(civitas.ui.tabs([civitas.l('About'), civitas.l('Buildings'), civitas.l('Settlements'), civitas.l('Religion'), civitas.l('Research'), civitas.l('Cheats')]));
-		var title = '';
-		switch (this.context) {
-			case 'building':
-				var data = core.get_settlement().get_building_by_handle(this.term);
-				title = data.get_name();
-				break;
-			case 'settlement':
-				title = 'Settlements';
-				break;
-		}
-		$(this.handle + ' header .title').html(title !== '' ? civitas.l('Help about ') + title : civitas.l('Help'));
+		$(this.handle + ' header .title').html(civitas.l('Help'));
 		$(this.handle + ' #tab-buildings').empty().append(
 			'<fieldset>' +
 				'<legend>Table of Contents</legend>' +
@@ -12861,24 +13047,11 @@ civitas.PANEL_BUILDING = {
 				'<a class="tips upgrade btn" title="' + civitas.l('Upgrade building') + '"></a>' +
 			'</footer>' +
 		'</div>',
-	term: null,
-	context: null,
 	id: 'building',
-	on_template: function(params) {
-		this.params_data = params.data;
-		return params.template.replace(/{building}/g, this.params_data.handle)
-			.replace(/{context}/g, 'building');
-	},
 	on_show: function(params) {
 		var core = this.get_core();
 		$(this.handle + ' header .title').html(this.params_data.name);
 		this.on_refresh();
-		$(this.handle).on('click', '.help', function () {
-			var term = $(this).data('term');
-			var context = $(this).data('context');
-			core.help(context, term);
-			return false;
-		});
 	},
 	on_refresh: function() {
 		var building = this.get_core().get_settlement().get_building_by_handle(this.params_data.handle);

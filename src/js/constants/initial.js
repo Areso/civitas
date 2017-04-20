@@ -92,7 +92,8 @@ civitas.START_RESOURCES = [
 		weapons: 100,
 		wheat: 40,
 		wood: 100,
-		woodplanks: 50
+		woodplanks: 50,
+		tools: 40
 	},
 	/* Medium difficulty */
 	{
@@ -108,7 +109,8 @@ civitas.START_RESOURCES = [
 		weapons: 60,
 		wheat: 40,
 		wood: 100,
-		woodplanks: 30
+		woodplanks: 30,
+		tools: 20
 	},
 	/* Hard difficulty */
 	{
@@ -123,7 +125,8 @@ civitas.START_RESOURCES = [
 		stones: 70,
 		wheat: 40,
 		wood: 70,
-		woodplanks: 20
+		woodplanks: 20,
+		tools: 10
 	},
 	/* Hardcore difficulty */
 	{

@@ -888,22 +888,6 @@ civitas.game = function () {
 	};
 
 	/**
-	 * Open the help panel with the specified context and term.
-	 *
-	 * @public
-	 * @param {String} context
-	 * @param {String} term
-	 * @returns {civitas_game} 
-	 */
-	this.help = function(context, term) {
-		this.open_panel(civitas.PANEL_HELP, {
-			context: context,
-			term: term
-		});
-		return this;
-	};
-
-	/**
 	 * Refresh the world trades.
 	 * 
 	 * @public

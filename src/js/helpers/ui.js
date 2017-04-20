@@ -195,7 +195,7 @@ civitas.ui = {
 		}
 		out += '</ul>';
 		for (var i = 0; i < data.length; i++) {
-			out += '<div id="tab-' + data[i].toLowerCase() + '">' +
+			out += '<div id="tab-' + data[i].toLowerCase().replace(/ /g, "-") + '">' +
 					'</div>';
 		}
 		out += '</div>';

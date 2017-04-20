@@ -17,24 +17,11 @@ civitas.PANEL_BUILDING = {
 				'<a class="tips upgrade btn" title="' + civitas.l('Upgrade building') + '"></a>' +
 			'</footer>' +
 		'</div>',
-	term: null,
-	context: null,
 	id: 'building',
-	on_template: function(params) {
-		this.params_data = params.data;
-		return params.template.replace(/{building}/g, this.params_data.handle)
-			.replace(/{context}/g, 'building');
-	},
 	on_show: function(params) {
 		var core = this.get_core();
 		$(this.handle + ' header .title').html(this.params_data.name);
 		this.on_refresh();
-		$(this.handle).on('click', '.help', function () {
-			var term = $(this).data('term');
-			var context = $(this).data('context');
-			core.help(context, term);
-			return false;
-		});
 	},
 	on_refresh: function() {
 		var building = this.get_core().get_settlement().get_building_by_handle(this.params_data.handle);

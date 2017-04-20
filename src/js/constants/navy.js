@@ -19,7 +19,7 @@ civitas.SHIPS = {
 			clothes: 50,
 			ropes: 10,
 			cannons: 5,
-			weapons: 10
+			gunpowder: 2
 		}
 	},
 	'Caravel': {
@@ -35,7 +35,9 @@ civitas.SHIPS = {
 			pottery: 20,
 			clothes: 60,
 			ropes: 30,
-			cannons: 20
+			cannons: 20,
+			gunpowder: 5,
+			weapons: 10
 		}
 	},
 	'Frigate': {
@@ -52,6 +54,7 @@ civitas.SHIPS = {
 			clothes: 60,
 			ropes: 30,
 			cannons: 20,
+			gunpowder: 10,
 			weapons: 10
 		}
 	},
@@ -69,6 +72,7 @@ civitas.SHIPS = {
 			clothes: 70,
 			ropes: 80,
 			cannons: 30,
+			gunpowder: 15,
 			weapons: 15
 		}
 	},
@@ -87,6 +91,7 @@ civitas.SHIPS = {
 			ropes: 100,
 			cannons: 50,
 			weapons: 20,
+			gunpowder: 20,
 			carpets: 10
 		}
 	},
@@ -106,6 +111,7 @@ civitas.SHIPS = {
 			clothes: 200,
 			ropes: 100,
 			cannons: 100,
+			gunpowder: 30,
 			weapons: 50
 		}
 	}

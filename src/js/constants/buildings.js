@@ -26,10 +26,10 @@ civitas.SETTLEMENT_BUILDINGS_TROPICAL = [
 	/* Industry */
 	'lumberjack', 'stone', 'trapper', 'tannery', 'furrier', 'armory', 'coffeeroaster',
 	'quartzfactory', 'winery', 'saltworks', 'pottery',
-	'charcoalburnerhut', 'opticiansworkshop', 'papermill', 'printingpress',
-	'redsmithsworkshop', 'ropeyard', 'glassworks', 'silkweaver',
+	'charcoalburnerhut', 'opticiansworkshop', 'papermill', 'printingpress', 'gunpowdermill',
+	'redsmithsworkshop', 'ropeyard', 'glassworks', 'silkweaver', 'jeweler', 'toolmaker',
 	'apiary', 'barrelcooperage', 'brewery', 'candlemakersworkshop', 'sugarmill',
-	'perfumery', 'weaver', 'provisions', 'carpenter', 'marzipanworkshop', 'cannonfoundry',
+	'perfumery', 'weaver', 'clothingfactory', 'provisions', 'carpenter', 'marzipanworkshop', 'cannonfoundry',
 
 	/* Farms */
 	'almondsfarm', 'almondsfield', 'cattlefarm', 'cattlefield', 'coffeefarm', 'coffeefield',
@@ -64,11 +64,11 @@ civitas.SETTLEMENT_BUILDINGS_POLAR = [
 
 	/* Industry */
 	'lumberjack', 'stone', 'trapper', 'tannery', 'furrier', 'armory', 'coffeeroaster',
-	'quartzfactory', 'winery', 'saltworks', 'pottery',
-	'charcoalburnerhut', 'opticiansworkshop', 'papermill', 'printingpress',
+	'quartzfactory', 'winery', 'saltworks', 'pottery', 'jeweler', 'toolmaker',
+	'charcoalburnerhut', 'opticiansworkshop', 'papermill', 'printingpress', 'gunpowdermill',
 	'redsmithsworkshop', 'ropeyard', 'glassworks', 'silkweaver', 'marzipanworkshop',
 	'apiary', 'barrelcooperage', 'brewery', 'candlemakersworkshop', 'sugarmill', 'cannonfoundry',
-	'perfumery', 'weaver', 'provisions', 'carpenter'
+	'perfumery', 'weaver', 'clothingfactory', 'provisions', 'carpenter'
 ];
 
 /**
@@ -97,11 +97,11 @@ civitas.SETTLEMENT_BUILDINGS_ARID = [
 
 	/* Industry */
 	'lumberjack', 'stone', 'trapper', 'tannery', 'furrier', 'armory', 'coffeeroaster',
-	'quartzfactory', 'winery', 'saltworks', 'pottery',
+	'quartzfactory', 'winery', 'saltworks', 'pottery', 'jeweler', 'toolmaker',
 	'charcoalburnerhut', 'opticiansworkshop', 'papermill', 'printingpress',
-	'redsmithsworkshop', 'ropeyard', 'glassworks', 'silkweaver',
+	'redsmithsworkshop', 'ropeyard', 'glassworks', 'silkweaver', 'gunpowdermill',
 	'apiary', 'barrelcooperage', 'brewery', 'candlemakersworkshop', 'sugarmill',
-	'perfumery', 'weaver', 'provisions', 'carpenter', 'marzipanworkshop', 'cannonfoundry',
+	'perfumery', 'weaver', 'clothingfactory', 'provisions', 'carpenter', 'marzipanworkshop', 'cannonfoundry',
 
 	/* Farms */
 	'cattlefarm', 'cattlefield', 'pigfarm', 'pigfield'
@@ -134,11 +134,11 @@ civitas.SETTLEMENT_BUILDINGS_TEMPERATE = [
 
 	/* Industry */
 	'lumberjack', 'stone', 'trapper', 'tannery', 'furrier', 'armory', 'coffeeroaster',
-	'quartzfactory', 'winery', 'saltworks', 'pottery',
-	'charcoalburnerhut', 'opticiansworkshop', 'papermill', 'printingpress',
+	'quartzfactory', 'winery', 'saltworks', 'pottery', 'jeweler', 'toolmaker',
+	'charcoalburnerhut', 'opticiansworkshop', 'papermill', 'printingpress', 'gunpowdermill',
 	'redsmithsworkshop', 'ropeyard', 'glassworks', 'silkweaver', 'marzipanworkshop',
 	'apiary', 'barrelcooperage', 'brewery', 'candlemakersworkshop', 'sugarmill',
-	'perfumery', 'weaver', 'provisions', 'carpenter', 'catapultworkshop', 'cannonfoundry',
+	'perfumery', 'weaver', 'clothingfactory', 'provisions', 'carpenter', 'catapultworkshop', 'cannonfoundry',
 
 	/* Farms */
 	'cattlefarm', 'cattlefield', 'ciderfarm', 'ciderfield', 'grainfarm', 'grainfield',
@@ -162,12 +162,12 @@ civitas.BUILDINGS_ALL = [
 	'coppermine', 'goldmine', 'goldsmelter', 'coppersmelter', 'armory', 'coffeefarm',
 	'coffeefield', 'hempfarm', 'hempfield', 'sugarfarm',
 	'sugarfield', 'silkfarm', 'silkfield', 'coffeeroaster', 'quartzfactory', 'grapesfarm',
-	'grapesfield', 'winery', 'saltworks', 'carpenter', 'pottery',
+	'grapesfield', 'winery', 'saltworks', 'carpenter', 'pottery', 'jeweler', 'toolmaker',
 	'charcoalburnerhut', 'monastery', 'opticiansworkshop', 'papermill', 'printingpress',
-	'redsmithsworkshop', 'ropeyard', 'glassworks', 'provisions', 'silkweaver',
+	'redsmithsworkshop', 'ropeyard', 'glassworks', 'provisions', 'silkweaver', 'gunpowdermill',
 	'apiary', 'barrelcooperage', 'brewery', 'candlemakersworkshop', 'indigofarm',
 	'ciderfarm', 'ciderfield', 'sugarmill', 'rosenursery', 'catapultworkshop', 'cannonfoundry',
-	'perfumery', 'tradingpost', 'weaver', 'embassy',  'academy', 'marzipanworkshop'
+	'perfumery', 'tradingpost', 'clothingfactory', 'weaver', 'embassy',  'academy', 'marzipanworkshop'
 ];
 
 /**
@@ -254,6 +254,7 @@ civitas.BUILDINGS_CATEGORIES = {
 		'redsmithsworkshop',
 		'ropeyard',
 		'saltworks',
+		'clothingfactory',
 		'stone',
 		'trapper',
 		'tannery',
@@ -265,7 +266,10 @@ civitas.BUILDINGS_CATEGORIES = {
 		'perfumery',
 		'rosenursery',
 		'silkweaver',
-		'sugarmill'
+		'sugarmill',
+		'jeweler',
+		'gunpowdermill',
+		'toolmaker'
 	],
 	'Military': [
 		'armory',
@@ -323,7 +327,8 @@ civitas.BUILDINGS = [{
 			coins: 150000,
 			wood: 500,
 			woodplanks: 200,
-			stones: 500
+			stones: 500,
+			tools: 50
 		},
 		requires: {
 			settlement_level: 10
@@ -352,7 +357,8 @@ civitas.BUILDINGS = [{
 			coins: 10000,
 			wood: 20,
 			woodplanks: 20,
-			stones: 20
+			stones: 20,
+			tools: 10
 		},
 		requires: {
 			settlement_level: 3
@@ -396,7 +402,8 @@ civitas.BUILDINGS = [{
 		cost: {
 			coins: 100000,
 			woodplanks: 1000,
-			stones: 1000
+			stones: 1000,
+			tools: 20
 		},
 		requires: {
 			settlement_level: 10
@@ -423,7 +430,8 @@ civitas.BUILDINGS = [{
 		cost: {
 			coins: 100000,
 			woodplanks: 100,
-			stones: 100
+			stones: 100,
+			tools: 10
 		},
 		requires: {
 			settlement_level: 10
@@ -476,7 +484,8 @@ civitas.BUILDINGS = [{
 		cost: {
 			coins: 50000,
 			woodplanks: 200,
-			stones: 200
+			stones: 200,
+			tools: 20
 		},
 		requires: {
 			settlement_level: 16,
@@ -491,11 +500,14 @@ civitas.BUILDINGS = [{
 			fame: 20
 		},
 		materials: {
-			coins: 20
+			coins: 20,
+			wine: 2,
+			meat: 2,
+			oil: 1
 		},
 		position: {
-			x: 770,
-			y: 250
+			x: 700,
+			y: 280
 		},
 		levels: 3,
 		cost: {
@@ -504,7 +516,8 @@ civitas.BUILDINGS = [{
 			stones: 200,
 			wood: 200,
 			wine: 100,
-			meat: 100
+			meat: 100,
+			tools: 50
 		},
 		requires: {
 			settlement_level: 16,
@@ -530,7 +543,8 @@ civitas.BUILDINGS = [{
 			woodplanks: 200,
 			stones: 100,
 			ropes: 10,
-			barrels: 10
+			barrels: 10,
+			tools: 20
 		},
 		production: {
 			fish: 4
@@ -552,7 +566,8 @@ civitas.BUILDINGS = [{
 			coins: 50000,
 			wood: 200,
 			woodplanks: 200,
-			stones: 160
+			stones: 160,
+			tools: 10
 		},
 		requires: {
 			settlement_level: 8,
@@ -583,7 +598,8 @@ civitas.BUILDINGS = [{
 			coins: 1000000,
 			wood: 500,
 			woodplanks: 500,
-			stones: 500
+			stones: 500,
+			tools: 100
 		},
 		requires: {
 			settlement_level: 20,
@@ -710,10 +726,11 @@ civitas.BUILDINGS = [{
 			stones: 2000,
 			clay: 2000,
 			weapons: 100,
-			armor: 100
+			armor: 100,
+			tools: 100
 		},
 		requires: {
-			settlement_level: 3,
+			settlement_level: 30,
 			buildings: ['castle', 'academy']
 		}
 	}, {
@@ -881,7 +898,7 @@ civitas.BUILDINGS = [{
 		},
 		position: {
 			x: 1360,
-			y: 630
+			y: 680
 		},
 		levels: 3,
 		cost: {
@@ -892,6 +909,32 @@ civitas.BUILDINGS = [{
 		},
 		requires: {
 			settlement_level: 6
+		}
+	}, {
+		name: 'Gunpowder Mill',
+		handle: 'gunpowdermill',
+		description: '.',
+		is_production: true,
+		production: {
+			gunpowder: 1
+		},
+		materials: {
+			sulphur: 10
+		},
+		position: {
+			x: 1530,
+			y: 800
+		},
+		levels: 3,
+		cost: {
+			coins: 30000,
+			woodplanks: 30,
+			stones: 30,
+			clay: 100,
+			tools: 20
+		},
+		requires: {
+			settlement_level: 16
 		}
 	}, {
 		name: 'Armory',
@@ -917,7 +960,8 @@ civitas.BUILDINGS = [{
 		cost: {
 			coins: 50000,
 			woodplanks: 100,
-			stones: 100
+			stones: 100,
+			tools: 20
 		},
 		requires: {
 			settlement_level: 6
@@ -1073,12 +1117,36 @@ civitas.BUILDINGS = [{
 			settlement_level: 6
 		}
 	}, {
-		name: 'Weaver`s Hut',
-		handle: 'weaver',
-		description: 'The weaver uses hemp to produce linen clothes.',
+		name: 'Clothing Factory',
+		handle: 'clothingfactory',
+		description: '.',
 		is_production: true,
 		production: {
 			clothes: 1
+		},
+		materials: {
+			fibers: 2
+		},
+		position: {
+			x: 1400,
+			y: 600
+		},
+		levels: 3,
+		cost: {
+			coins: 15000,
+			wood: 40,
+			stones: 40
+		},
+		requires: {
+			settlement_level: 6
+		}
+	}, {
+		name: 'Weaver`s Hut',
+		handle: 'weaver',
+		description: 'The weaver uses hemp to produce fiber for clothes.',
+		is_production: true,
+		production: {
+			fibers: 2
 		},
 		materials: {
 			hemp: 4
@@ -1089,9 +1157,9 @@ civitas.BUILDINGS = [{
 		},
 		levels: 3,
 		cost: {
-			coins: 15000,
-			wood: 40,
-			stones: 40
+			coins: 10000,
+			wood: 30,
+			stones: 30
 		},
 		requires: {
 			settlement_level: 6
@@ -1141,7 +1209,8 @@ civitas.BUILDINGS = [{
 		cost: {
 			coins: 70000,
 			woodplanks: 80,
-			stones: 60
+			stones: 60,
+			tools: 20
 		},
 		requires: {
 			settlement_level: 16,
@@ -1166,7 +1235,8 @@ civitas.BUILDINGS = [{
 		cost: {
 			coins: 70000,
 			woodplanks: 80,
-			stones: 60
+			stones: 60,
+			tools: 10
 		},
 		requires: {
 			settlement_level: 16,
@@ -1182,7 +1252,8 @@ civitas.BUILDINGS = [{
 		},
 		materials: {
 			grapes: 4,
-			barrels: 1
+			barrels: 1,
+			bottles: 1
 		},
 		position: {
 			x: 1150,
@@ -1192,7 +1263,8 @@ civitas.BUILDINGS = [{
 		cost: {
 			coins: 50000,
 			wood: 50,
-			stones: 40
+			stones: 40,
+			tools: 10
 		},
 		requires: {
 			settlement_level: 10
@@ -1217,7 +1289,8 @@ civitas.BUILDINGS = [{
 		cost: {
 			coins: 81000,
 			woodplanks: 70,
-			stones: 70
+			stones: 70,
+			tools: 10
 		},
 		requires: {
 			settlement_level: 20
@@ -1242,7 +1315,8 @@ civitas.BUILDINGS = [{
 		cost: {
 			coins: 83000,
 			woodplanks: 60,
-			stones: 50
+			stones: 50,
+			tools: 10
 		},
 		requires: {
 			settlement_level: 16
@@ -1267,7 +1341,8 @@ civitas.BUILDINGS = [{
 		cost: {
 			coins: 84000,
 			woodplanks: 100,
-			stones: 100
+			stones: 100,
+			tools: 10
 		},
 		requires: {
 			settlement_level: 20
@@ -1292,7 +1367,8 @@ civitas.BUILDINGS = [{
 		cost: {
 			coins: 90000,
 			woodplanks: 80,
-			stones: 40
+			stones: 40,
+			tools: 10
 		},
 		requires: {
 			settlement_level: 20,
@@ -1318,7 +1394,8 @@ civitas.BUILDINGS = [{
 		cost: {
 			coins: 75000,
 			wood: 70,
-			stones: 50
+			stones: 50,
+			tools: 10
 		},
 		requires: {
 			settlement_level: 20
@@ -1342,7 +1419,8 @@ civitas.BUILDINGS = [{
 		cost: {
 			coins: 15000,
 			wood: 70,
-			stones: 60
+			stones: 60,
+			tools: 10
 		},
 		requires: {
 			settlement_level: 10
@@ -1391,7 +1469,8 @@ civitas.BUILDINGS = [{
 		cost: {
 			coins: 50000,
 			wood: 50,
-			stones: 80
+			stones: 80,
+			tools: 10
 		},
 		requires: {
 			settlement_level: 20,
@@ -1418,7 +1497,8 @@ civitas.BUILDINGS = [{
 		cost: {
 			coins: 50000,
 			wood: 50,
-			stones: 80
+			stones: 80,
+			tools: 10
 		},
 		requires: {
 			settlement_level: 20,
@@ -1486,7 +1566,8 @@ civitas.BUILDINGS = [{
 		cost: {
 			coins: 25000,
 			wood: 80,
-			stones: 70
+			stones: 70,
+			tools: 10
 		},
 		requires: {
 			settlement_level: 9
@@ -1536,7 +1617,8 @@ civitas.BUILDINGS = [{
 		cost: {
 			coins: 45000,
 			woodplanks: 80,
-			stones: 60
+			stones: 60,
+			tools: 10
 		},
 		requires: {
 			settlement_level: 20
@@ -1555,7 +1637,7 @@ civitas.BUILDINGS = [{
 			iron: 20,
 			woodplanks: 40,
 			ropes: 10,
-			sulphur: 10
+			gunpowder: 10
 		},
 		position: {
 			x: 1110,
@@ -1565,7 +1647,8 @@ civitas.BUILDINGS = [{
 		cost: {
 			coins: 250000,
 			woodplanks: 200,
-			stones: 300
+			stones: 300,
+			tools: 20
 		},
 		requires: {
 			settlement_level: 15
@@ -1584,7 +1667,7 @@ civitas.BUILDINGS = [{
 			iron: 10,
 			woodplanks: 10,
 			ropes: 2,
-			sulphur: 8
+			gunpowder: 8
 		},
 		position: {
 			x: 1160,
@@ -1594,7 +1677,8 @@ civitas.BUILDINGS = [{
 		cost: {
 			coins: 200000,
 			woodplanks: 200,
-			stones: 300
+			stones: 300,
+			tools: 20
 		},
 		requires: {
 			settlement_level: 13
@@ -1606,7 +1690,8 @@ civitas.BUILDINGS = [{
 			'smelters.',
 		is_production: true,
 		production: {
-			coal: 4
+			coal: 4,
+			sulphur: 1
 		},
 		materials: {
 			wood: 2
@@ -2323,5 +2408,59 @@ civitas.BUILDINGS = [{
 		},
 		requires: {
 			settlement_level: 20
+		}
+	}, {
+		name: 'Toolmaker Workshop',
+		handle: 'toolmaker',
+		is_production: true,
+		description: '.',
+		production: {
+			tools: 2
+		},
+		materials: {
+			wood: 1,
+			iron: 1,
+			coal: 1,
+			brass: 1
+		},
+		levels: 3,
+		position: {
+			x: 1600,
+			y: 600
+		},
+		cost: {
+			coins: 30000,
+			wood: 80,
+			stones: 80,
+			clay: 60
+		},
+		requires: {
+			settlement_level: 8
+		}
+	}, {
+		name: 'Jeweler',
+		handle: 'jeweler',
+		is_production: true,
+		description: '.',
+		production: {
+			jewelery: 1
+		},
+		materials: {
+			pearls: 10
+		},
+		levels: 3,
+		position: {
+			x: 1600,
+			y: 900
+		},
+		cost: {
+			coins: 55000,
+			wood: 60,
+			stones: 60,
+			clay: 60,
+			tools: 10
+		},
+		requires: {
+			settlement_level: 16
 		}
 	}];

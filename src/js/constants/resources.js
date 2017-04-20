@@ -43,6 +43,11 @@ civitas.RESOURCES = {
 		name: 'Books',
 		price: 120
 	},
+	'bottles': {
+		name: 'Bottles',
+		price: 100,
+		imported: true
+	},
 	'bread': {
 		name: 'Bread',
 		price: 30
@@ -54,6 +59,11 @@ civitas.RESOURCES = {
 	'brass': {
 		name: 'Brass',
 		price: 60
+	},
+	'camels': {
+		name: 'Camels',
+		price: 110,
+		imported: true
 	},
 	'candles': {
 		name: 'Candles',
@@ -118,6 +128,10 @@ civitas.RESOURCES = {
 		price: 90,
 		imported: true
 	},
+	'fibers': {
+		name: 'Fibers',
+		price: 80
+	},
 	'fish': {
 		name: 'Fish',
 		price: 16
@@ -158,6 +172,10 @@ civitas.RESOURCES = {
 		name: 'Grapes',
 		price: 35
 	},
+	'gunpowder': {
+		name: 'Gunpowder',
+		price: 420
+	},
 	'hemp': {
 		name: 'Hemp',
 		price: 46
@@ -182,6 +200,10 @@ civitas.RESOURCES = {
 		name: 'Iron ores',
 		price: 45
 	},
+	'jewelery': {
+		name: 'Jewelery',
+		price: 900
+	},
 	'leather': {
 		name: 'Leather',
 		price: 60
@@ -202,6 +224,11 @@ civitas.RESOURCES = {
 	'mosaic': {
 		name: 'Mosaic',
 		price: 200
+	},
+	'oil': {
+		name: 'Oil',
+		price: 370,
+		imported: true
 	},
 	'paper': {
 		name: 'Paper',
@@ -280,8 +307,7 @@ civitas.RESOURCES = {
 	},
 	'sulphur': {
 		name: 'Sulphur',
-		price: 180,
-		imported: true
+		price: 180
 	},
 	'tools': {
 		name: 'Tools',
