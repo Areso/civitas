@@ -612,7 +612,7 @@ civitas.BUILDINGS = [{
 			'buildings or sell.',
 		is_production: true,
 		production: {
-			wood: 3
+			wood: 4
 		},
 		levels: 3,
 		position: {
@@ -766,8 +766,7 @@ civitas.BUILDINGS = [{
 			'Works.',
 		is_production: true,
 		production: {
-			brine: 1,
-			clay: 1
+			brine: 1
 		},
 		position: {
 			x: 172,
@@ -816,7 +815,7 @@ civitas.BUILDINGS = [{
 			'Furrier`s Workshop.',
 		is_production: true,
 		production: {
-			salt: 4
+			salt: 3
 		},
 		materials: {
 			coal: 2,
@@ -841,7 +840,7 @@ civitas.BUILDINGS = [{
 		description: 'The Mill produces flour from the wheat cultivated by your farm(s).',
 		is_production: true,
 		production: {
-			flour: 4
+			flour: 2
 		},
 		materials: {
 			wheat: 2
@@ -869,7 +868,7 @@ civitas.BUILDINGS = [{
 			bread: 5
 		},
 		materials: {
-			flour: 3
+			flour: 2
 		},
 		position: {
 			x: 1003,
@@ -1075,7 +1074,7 @@ civitas.BUILDINGS = [{
 		description: 'The trapper captures wild animals and uses the furs from them.',
 		is_production: true,
 		production: {
-			furs: 4
+			furs: 3
 		},
 		position: {
 			x: 160,
@@ -1510,7 +1509,7 @@ civitas.BUILDINGS = [{
 		description: 'The quartz factory provides your city with quartz.',
 		is_production: true,
 		production: {
-			quartz: 3
+			quartz: 2
 		},
 		position: {
 			x: 349,
@@ -1531,7 +1530,7 @@ civitas.BUILDINGS = [{
 		description: 'The apiary produces bees wax for use in candles.',
 		is_production: true,
 		production: {
-			wax: 3
+			wax: 2
 		},
 		position: {
 			x: 1600,

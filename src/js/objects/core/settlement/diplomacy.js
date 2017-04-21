@@ -105,12 +105,13 @@ civitas.objects.settlement.prototype.set_influence = function(settlement, value)
 	} else if (typeof settlement === 'string') {
 		settlement = this.get_core().get_settlement(settlement);
 	}
-	if (this.status[settlement].influence >= civitas.MAX_INFLUENCE_VALUE) {
-		this.status[settlement].influence = civitas.MAX_INFLUENCE_VALUE;
-	} else if (value < 1 || this.status[settlement].influence < 1) {
+	if (value < 1 || this.status[settlement].influence < 1) {
 		this.status[settlement].influence = 1;
 	} else {
 		this.status[settlement].influence = value;
+	}
+	if (this.status[settlement].influence >= civitas.MAX_INFLUENCE_VALUE) {
+		this.status[settlement].influence = civitas.MAX_INFLUENCE_VALUE;
 	}
 	return this.get_influence_with_settlement(settlement);
 };

@@ -426,7 +426,20 @@ civitas.objects.building = function(params) {
 					return this;
 				}
 				var amount = prd[material[i]] * this.get_level();
-				if (this.get_settlement().has_storage_space_for(amount)) {
+				if (material[i] === 'faith') {
+					this.get_settlement().raise_faith(amount);
+				} else if (material[i] === 'research') {
+					this.get_settlement().raise_research(amount);
+				} else if (material[i] === 'espionage') {
+					this.get_settlement().raise_espionage(amount);
+				} else if (material[i] === 'fame') {
+					this.get_settlement().raise_fame(amount);
+				} else if (material[i] === 'prestige') {
+					this.get_settlement().raise_prestige(amount);
+				} else {
+					if (!this.get_settlement().has_storage_space_for(amount)) {
+						return this;
+					}
 					this.get_settlement().add_to_storage(material[i], amount);
 					if (typeof building.chance !== 'undefined') {
 						for (var item in building.chance) {
@@ -438,13 +451,26 @@ civitas.objects.building = function(params) {
 							}
 						}
 					}
-					this.get_core().log(this.get_name() + ' produced ' + amount + ' ' + material[i] + '.');
 				}
+				this.get_core().log(this.get_name() + ' produced ' + amount + ' ' + material[i] + '.');
 			}
 		} else {
+			if (!this.is_producing()) {
+				return this;
+			}
 			var amount = prd[material] * this.get_level();
-			if (this.get_settlement().has_storage_space_for(amount)) {
-				if (!this.is_producing()) {
+			if (material === 'faith') {
+				this.get_settlement().raise_faith(amount);
+			} else if (material === 'research') {
+				this.get_settlement().raise_research(amount);
+			} else if (material === 'espionage') {
+				this.get_settlement().raise_espionage(amount);
+			} else if (material === 'fame') {
+				this.get_settlement().raise_fame(amount);
+			} else if (material === 'prestige') {
+				this.get_settlement().raise_prestige(amount);
+			} else {
+				if (!this.get_settlement().has_storage_space_for(amount)) {
 					return this;
 				}
 				this.get_settlement().add_to_storage(material, amount);
@@ -452,13 +478,14 @@ civitas.objects.building = function(params) {
 					for (var item in building.chance) {
 						var rnd = Math.random();
 						if (rnd < building.chance[item]) {
-							this.get_core().log(this.get_name() + ' procced extra ' + civitas.utils.get_resource_name(item) + '.');
-							this.get_settlement().add_to_storage(item, 1);
+							var random_amount = civitas.utils.get_random(1, 5);
+							this.get_core().log(this.get_name() + ' procced ' + random_amount + ' extra ' + civitas.utils.get_resource_name(item) + '.');
+							this.get_settlement().add_to_storage(item, random_amount);
 						}
 					}
 				}
-				this.get_core().log(this.get_name() + ' produced ' + amount + ' ' + material + '.');
 			}
+			this.get_core().log(this.get_name() + ' produced ' + amount + ' ' + material + '.');
 		}
 		return this;
 	};

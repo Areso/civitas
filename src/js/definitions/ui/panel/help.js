@@ -115,6 +115,7 @@ civitas.PANEL_HELP = {
 		if (civitas.DEBUG === true) {
 			$(this.handle + ' #tab-cheats').empty().append('<h2>Cheats</h2>' +
 				'<div class="toolbar">' +
+					'<a href="#" class="btn iblock thirteen">' + civitas.l('+1k coins') + '</a> ' +
 					'<a href="#" class="btn iblock one">' + civitas.l('+10k coins') + '</a> ' +
 					'<a href="#" class="btn iblock nine">' + civitas.l('+100k coins') + '</a> ' +
 					'<a href="#" class="btn iblock eight">' + civitas.l('+1M coins') + '</a> <br /><br />' +
@@ -122,6 +123,7 @@ civitas.PANEL_HELP = {
 					'<a href="#" class="btn iblock three">' + civitas.l('+100 stones') + '</a> ' +
 					'<a href="#" class="btn iblock four">' + civitas.l('+100 wood planks') + '</a> <br /><br />' +
 					'<a href="#" class="btn iblock five">' + civitas.l('level up') + '</a> ' +
+					'<a href="#" class="btn iblock fourteen">' + civitas.l('+900 faith') + '</a> ' +
 					'<a href="#" class="btn iblock six">' + civitas.l('+1000 fame') + '</a> ' +
 					'<a href="#" class="btn iblock ten">' + civitas.l('+5000 fame') + '</a> <br /><br />' +
 					'<a href="#" class="btn iblock seven">' + civitas.l('refresh trades') + '</a> <br /><br />' +
@@ -140,6 +142,14 @@ civitas.PANEL_HELP = {
 				for (var ship in navy.navy) {
 					navy.navy[ship] = civitas.utils.get_random(1, 10);
 				}
+				core.save_and_refresh();
+				return false;
+			}).on('click', '.fourteen', function() {
+				settlement.raise_faith(900);
+				core.save_and_refresh();
+				return false;
+			}).on('click', '.thirteen', function() {
+				settlement.inc_coins(1000);
 				core.save_and_refresh();
 				return false;
 			}).on('click', '.nine', function() {

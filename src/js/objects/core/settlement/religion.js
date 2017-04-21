@@ -126,12 +126,13 @@ civitas.objects.settlement.prototype.reset_faith = function() {
  * @param {Number} value
  */
 civitas.objects.settlement.prototype.set_faith = function(value) {
-	if (this.resources.faith >= civitas.MAX_FAITH_VALUE) {
-		this.resources.faith = civitas.MAX_FAITH_VALUE;
-	} else if (value < 1 || this.resources.faith < 1) {
+	if (value < 1 || this.resources.faith < 1) {
 		this.resources.faith = 1;
 	} else {
 		this.resources.faith = value;
+	}
+	if (this.resources.faith >= civitas.MAX_FAITH_VALUE) {
+		this.resources.faith = civitas.MAX_FAITH_VALUE;
 	}
 	return this.get_faith();
 };

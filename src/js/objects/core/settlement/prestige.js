@@ -55,12 +55,13 @@ civitas.objects.settlement.prototype.reset_prestige = function() {
  * @param {Number} value
  */
 civitas.objects.settlement.prototype.set_prestige = function(value) {
-	if (this.resources.prestige >= civitas.MAX_PRESTIGE_VALUE) {
-		this.resources.prestige = civitas.MAX_PRESTIGE_VALUE;
-	} else if (value < 1 || this.resources.prestige < 1) {
+	if (value < 1 || this.resources.prestige < 1) {
 		this.resources.prestige = 1;
 	} else {
 		this.resources.prestige = value;
+	}
+	if (this.resources.prestige >= civitas.MAX_PRESTIGE_VALUE) {
+		this.resources.prestige = civitas.MAX_PRESTIGE_VALUE;
 	}
 	$('.cityprestige').html(this.get_prestige());
 	return this.get_prestige();

@@ -80,7 +80,7 @@ civitas.START_BUILDINGS = [
 civitas.START_RESOURCES = [
 	/* Easy difficulty */
 	{
-		coins: 50000,
+		coins: 55000,
 		fame: 0,
 		faith: 1,
 		prestige: 1,

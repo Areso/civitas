@@ -389,7 +389,7 @@ civitas.START_BUILDINGS = [
 civitas.START_RESOURCES = [
 	/* Easy difficulty */
 	{
-		coins: 50000,
+		coins: 55000,
 		fame: 0,
 		faith: 1,
 		prestige: 1,
@@ -2259,7 +2259,7 @@ civitas.BUILDINGS = [{
 			'buildings or sell.',
 		is_production: true,
 		production: {
-			wood: 3
+			wood: 4
 		},
 		levels: 3,
 		position: {
@@ -2413,8 +2413,7 @@ civitas.BUILDINGS = [{
 			'Works.',
 		is_production: true,
 		production: {
-			brine: 1,
-			clay: 1
+			brine: 1
 		},
 		position: {
 			x: 172,
@@ -2463,7 +2462,7 @@ civitas.BUILDINGS = [{
 			'Furrier`s Workshop.',
 		is_production: true,
 		production: {
-			salt: 4
+			salt: 3
 		},
 		materials: {
 			coal: 2,
@@ -2488,7 +2487,7 @@ civitas.BUILDINGS = [{
 		description: 'The Mill produces flour from the wheat cultivated by your farm(s).',
 		is_production: true,
 		production: {
-			flour: 4
+			flour: 2
 		},
 		materials: {
 			wheat: 2
@@ -2516,7 +2515,7 @@ civitas.BUILDINGS = [{
 			bread: 5
 		},
 		materials: {
-			flour: 3
+			flour: 2
 		},
 		position: {
 			x: 1003,
@@ -2722,7 +2721,7 @@ civitas.BUILDINGS = [{
 		description: 'The trapper captures wild animals and uses the furs from them.',
 		is_production: true,
 		production: {
-			furs: 4
+			furs: 3
 		},
 		position: {
 			x: 160,
@@ -3157,7 +3156,7 @@ civitas.BUILDINGS = [{
 		description: 'The quartz factory provides your city with quartz.',
 		is_production: true,
 		production: {
-			quartz: 3
+			quartz: 2
 		},
 		position: {
 			x: 349,
@@ -3178,7 +3177,7 @@ civitas.BUILDINGS = [{
 		description: 'The apiary produces bees wax for use in candles.',
 		is_production: true,
 		production: {
-			wax: 3
+			wax: 2
 		},
 		position: {
 			x: 1600,
@@ -4554,6 +4553,7 @@ civitas.SETTLEMENTS = {
 				perfume: civitas.IMPORTANCE_MEDIUM,
 				coffee: civitas.IMPORTANCE_LOW,
 				cider: civitas.IMPORTANCE_LOW,
+				hemp: civitas.IMPORTANCE_HIGH,
 				bottles: civitas.IMPORTANCE_HIGH,
 				wine: civitas.IMPORTANCE_LOW,
 				hides: civitas.IMPORTANCE_VITAL,
@@ -4847,6 +4847,7 @@ civitas.SETTLEMENTS = {
 				silk: civitas.IMPORTANCE_LOW,
 				wood: civitas.IMPORTANCE_MEDIUM,
 				armor: civitas.IMPORTANCE_MEDIUM,
+				hemp: civitas.IMPORTANCE_VITAL,
 				tools: civitas.IMPORTANCE_HIGH,
 				cattle: civitas.IMPORTANCE_LOW,
 				statues: civitas.IMPORTANCE_VITAL
@@ -5014,6 +5015,7 @@ civitas.SETTLEMENTS = {
 				gold: civitas.IMPORTANCE_LOW,
 				goldores: civitas.IMPORTANCE_HIGH,
 				weapons: civitas.IMPORTANCE_LOW,
+				hemp: civitas.IMPORTANCE_HIGH,
 				salt: civitas.IMPORTANCE_MEDIUM,
 				woodplanks: civitas.IMPORTANCE_HIGH,
 				stones: civitas.IMPORTANCE_VITAL,
@@ -8269,12 +8271,13 @@ civitas.objects.settlement.prototype.reset_research = function() {
  * @param {Number} value
  */
 civitas.objects.settlement.prototype.set_research = function(value) {
-	if (this.resources.research >= civitas.MAX_RESEARCH_VALUE) {
-		this.resources.research = civitas.MAX_RESEARCH_VALUE;
-	} else if (value < 1 || this.resources.research < 1) {
+	if (value < 1 || this.resources.research < 1) {
 		this.resources.research = 1;
 	} else {
 		this.resources.research = value;
+	}
+	if (this.resources.research >= civitas.MAX_RESEARCH_VALUE) {
+		this.resources.research = civitas.MAX_RESEARCH_VALUE;
 	}
 	$('.cityresearch').html(this.get_research());
 	return this.get_research();
@@ -8479,12 +8482,13 @@ civitas.objects.settlement.prototype.reset_faith = function() {
  * @param {Number} value
  */
 civitas.objects.settlement.prototype.set_faith = function(value) {
-	if (this.resources.faith >= civitas.MAX_FAITH_VALUE) {
-		this.resources.faith = civitas.MAX_FAITH_VALUE;
-	} else if (value < 1 || this.resources.faith < 1) {
+	if (value < 1 || this.resources.faith < 1) {
 		this.resources.faith = 1;
 	} else {
 		this.resources.faith = value;
+	}
+	if (this.resources.faith >= civitas.MAX_FAITH_VALUE) {
+		this.resources.faith = civitas.MAX_FAITH_VALUE;
 	}
 	return this.get_faith();
 };
@@ -8546,12 +8550,13 @@ civitas.objects.settlement.prototype.reset_espionage = function() {
  * @param {Number} value
  */
 civitas.objects.settlement.prototype.set_espionage = function(value) {
-	if (this.resources.espionage >= civitas.MAX_ESPIONAGE_VALUE) {
-		this.resources.espionage = civitas.MAX_ESPIONAGE_VALUE;
-	} else if (value < 1 || this.resources.espionage < 1) {
+	if (value < 1 || this.resources.espionage < 1) {
 		this.resources.espionage = 1;
 	} else {
 		this.resources.espionage = value;
+	}
+	if (this.resources.espionage >= civitas.MAX_ESPIONAGE_VALUE) {
+		this.resources.espionage = civitas.MAX_ESPIONAGE_VALUE;
 	}
 	$('.cityespionage').html(this.get_espionage());
 	return this.get_espionage();
@@ -8614,12 +8619,13 @@ civitas.objects.settlement.prototype.reset_prestige = function() {
  * @param {Number} value
  */
 civitas.objects.settlement.prototype.set_prestige = function(value) {
-	if (this.resources.prestige >= civitas.MAX_PRESTIGE_VALUE) {
-		this.resources.prestige = civitas.MAX_PRESTIGE_VALUE;
-	} else if (value < 1 || this.resources.prestige < 1) {
+	if (value < 1 || this.resources.prestige < 1) {
 		this.resources.prestige = 1;
 	} else {
 		this.resources.prestige = value;
+	}
+	if (this.resources.prestige >= civitas.MAX_PRESTIGE_VALUE) {
+		this.resources.prestige = civitas.MAX_PRESTIGE_VALUE;
 	}
 	$('.cityprestige').html(this.get_prestige());
 	return this.get_prestige();
@@ -9101,12 +9107,13 @@ civitas.objects.settlement.prototype.set_influence = function(settlement, value)
 	} else if (typeof settlement === 'string') {
 		settlement = this.get_core().get_settlement(settlement);
 	}
-	if (this.status[settlement].influence >= civitas.MAX_INFLUENCE_VALUE) {
-		this.status[settlement].influence = civitas.MAX_INFLUENCE_VALUE;
-	} else if (value < 1 || this.status[settlement].influence < 1) {
+	if (value < 1 || this.status[settlement].influence < 1) {
 		this.status[settlement].influence = 1;
 	} else {
 		this.status[settlement].influence = value;
+	}
+	if (this.status[settlement].influence >= civitas.MAX_INFLUENCE_VALUE) {
+		this.status[settlement].influence = civitas.MAX_INFLUENCE_VALUE;
 	}
 	return this.get_influence_with_settlement(settlement);
 };
@@ -10047,7 +10054,20 @@ civitas.objects.building = function(params) {
 					return this;
 				}
 				var amount = prd[material[i]] * this.get_level();
-				if (this.get_settlement().has_storage_space_for(amount)) {
+				if (material[i] === 'faith') {
+					this.get_settlement().raise_faith(amount);
+				} else if (material[i] === 'research') {
+					this.get_settlement().raise_research(amount);
+				} else if (material[i] === 'espionage') {
+					this.get_settlement().raise_espionage(amount);
+				} else if (material[i] === 'fame') {
+					this.get_settlement().raise_fame(amount);
+				} else if (material[i] === 'prestige') {
+					this.get_settlement().raise_prestige(amount);
+				} else {
+					if (!this.get_settlement().has_storage_space_for(amount)) {
+						return this;
+					}
 					this.get_settlement().add_to_storage(material[i], amount);
 					if (typeof building.chance !== 'undefined') {
 						for (var item in building.chance) {
@@ -10059,13 +10079,26 @@ civitas.objects.building = function(params) {
 							}
 						}
 					}
-					this.get_core().log(this.get_name() + ' produced ' + amount + ' ' + material[i] + '.');
 				}
+				this.get_core().log(this.get_name() + ' produced ' + amount + ' ' + material[i] + '.');
 			}
 		} else {
+			if (!this.is_producing()) {
+				return this;
+			}
 			var amount = prd[material] * this.get_level();
-			if (this.get_settlement().has_storage_space_for(amount)) {
-				if (!this.is_producing()) {
+			if (material === 'faith') {
+				this.get_settlement().raise_faith(amount);
+			} else if (material === 'research') {
+				this.get_settlement().raise_research(amount);
+			} else if (material === 'espionage') {
+				this.get_settlement().raise_espionage(amount);
+			} else if (material === 'fame') {
+				this.get_settlement().raise_fame(amount);
+			} else if (material === 'prestige') {
+				this.get_settlement().raise_prestige(amount);
+			} else {
+				if (!this.get_settlement().has_storage_space_for(amount)) {
 					return this;
 				}
 				this.get_settlement().add_to_storage(material, amount);
@@ -10073,13 +10106,14 @@ civitas.objects.building = function(params) {
 					for (var item in building.chance) {
 						var rnd = Math.random();
 						if (rnd < building.chance[item]) {
-							this.get_core().log(this.get_name() + ' procced extra ' + civitas.utils.get_resource_name(item) + '.');
-							this.get_settlement().add_to_storage(item, 1);
+							var random_amount = civitas.utils.get_random(1, 5);
+							this.get_core().log(this.get_name() + ' procced ' + random_amount + ' extra ' + civitas.utils.get_resource_name(item) + '.');
+							this.get_settlement().add_to_storage(item, random_amount);
 						}
 					}
 				}
-				this.get_core().log(this.get_name() + ' produced ' + amount + ' ' + material + '.');
 			}
+			this.get_core().log(this.get_name() + ' produced ' + amount + ' ' + material + '.');
 		}
 		return this;
 	};
@@ -12956,6 +12990,7 @@ civitas.PANEL_HELP = {
 		if (civitas.DEBUG === true) {
 			$(this.handle + ' #tab-cheats').empty().append('<h2>Cheats</h2>' +
 				'<div class="toolbar">' +
+					'<a href="#" class="btn iblock thirteen">' + civitas.l('+1k coins') + '</a> ' +
 					'<a href="#" class="btn iblock one">' + civitas.l('+10k coins') + '</a> ' +
 					'<a href="#" class="btn iblock nine">' + civitas.l('+100k coins') + '</a> ' +
 					'<a href="#" class="btn iblock eight">' + civitas.l('+1M coins') + '</a> <br /><br />' +
@@ -12963,6 +12998,7 @@ civitas.PANEL_HELP = {
 					'<a href="#" class="btn iblock three">' + civitas.l('+100 stones') + '</a> ' +
 					'<a href="#" class="btn iblock four">' + civitas.l('+100 wood planks') + '</a> <br /><br />' +
 					'<a href="#" class="btn iblock five">' + civitas.l('level up') + '</a> ' +
+					'<a href="#" class="btn iblock fourteen">' + civitas.l('+900 faith') + '</a> ' +
 					'<a href="#" class="btn iblock six">' + civitas.l('+1000 fame') + '</a> ' +
 					'<a href="#" class="btn iblock ten">' + civitas.l('+5000 fame') + '</a> <br /><br />' +
 					'<a href="#" class="btn iblock seven">' + civitas.l('refresh trades') + '</a> <br /><br />' +
@@ -12981,6 +13017,14 @@ civitas.PANEL_HELP = {
 				for (var ship in navy.navy) {
 					navy.navy[ship] = civitas.utils.get_random(1, 10);
 				}
+				core.save_and_refresh();
+				return false;
+			}).on('click', '.fourteen', function() {
+				settlement.raise_faith(900);
+				core.save_and_refresh();
+				return false;
+			}).on('click', '.thirteen', function() {
+				settlement.inc_coins(1000);
 				core.save_and_refresh();
 				return false;
 			}).on('click', '.nine', function() {

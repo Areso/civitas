@@ -65,12 +65,13 @@ civitas.objects.settlement.prototype.reset_research = function() {
  * @param {Number} value
  */
 civitas.objects.settlement.prototype.set_research = function(value) {
-	if (this.resources.research >= civitas.MAX_RESEARCH_VALUE) {
-		this.resources.research = civitas.MAX_RESEARCH_VALUE;
-	} else if (value < 1 || this.resources.research < 1) {
+	if (value < 1 || this.resources.research < 1) {
 		this.resources.research = 1;
 	} else {
 		this.resources.research = value;
+	}
+	if (this.resources.research >= civitas.MAX_RESEARCH_VALUE) {
+		this.resources.research = civitas.MAX_RESEARCH_VALUE;
 	}
 	$('.cityresearch').html(this.get_research());
 	return this.get_research();

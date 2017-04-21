@@ -440,6 +440,7 @@ civitas.SETTLEMENTS = {
 				perfume: civitas.IMPORTANCE_MEDIUM,
 				coffee: civitas.IMPORTANCE_LOW,
 				cider: civitas.IMPORTANCE_LOW,
+				hemp: civitas.IMPORTANCE_HIGH,
 				bottles: civitas.IMPORTANCE_HIGH,
 				wine: civitas.IMPORTANCE_LOW,
 				hides: civitas.IMPORTANCE_VITAL,
@@ -733,6 +734,7 @@ civitas.SETTLEMENTS = {
 				silk: civitas.IMPORTANCE_LOW,
 				wood: civitas.IMPORTANCE_MEDIUM,
 				armor: civitas.IMPORTANCE_MEDIUM,
+				hemp: civitas.IMPORTANCE_VITAL,
 				tools: civitas.IMPORTANCE_HIGH,
 				cattle: civitas.IMPORTANCE_LOW,
 				statues: civitas.IMPORTANCE_VITAL
@@ -900,6 +902,7 @@ civitas.SETTLEMENTS = {
 				gold: civitas.IMPORTANCE_LOW,
 				goldores: civitas.IMPORTANCE_HIGH,
 				weapons: civitas.IMPORTANCE_LOW,
+				hemp: civitas.IMPORTANCE_HIGH,
 				salt: civitas.IMPORTANCE_MEDIUM,
 				woodplanks: civitas.IMPORTANCE_HIGH,
 				stones: civitas.IMPORTANCE_VITAL,
