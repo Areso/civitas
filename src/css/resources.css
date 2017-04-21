@@ -147,27 +147,27 @@ footer .do-help {
 }
 
 .panel .worldmap .settlement.c7 {
-	background: transparent url(../images/ui/city7.png) no-repeat;
+	background: transparent url(../images/city7.png) no-repeat;
 }
 
 .game {
-	background: #000 url(../images/ui/citymap.jpg) no-repeat;
+	background: #000 url(../images/city/map.jpg) no-repeat;
 }
 
 .panel .worldmap.w1 {
-	background: transparent url(../images/world/worldmap1.png) no-repeat;
+	background: transparent url(../images/world/map1.png) no-repeat;
 }
 
 .panel .worldmap.w2 {
-	background: transparent url(../images/world/worldmap2.png) no-repeat;
+	background: transparent url(../images/world/map2.png) no-repeat;
 }
 
 .panel .worldmap.w3 {
-	background: transparent url(../images/world/worldmap3.png) no-repeat;
+	background: transparent url(../images/world/map3.png) no-repeat;
 }
 
 .panel .worldmap.w4 {
-	background: transparent url(../images/world/worldmap4.png) no-repeat;
+	background: transparent url(../images/world/map4.png) no-repeat;
 }
 
 .game .building .notification.error {
