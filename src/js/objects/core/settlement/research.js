@@ -73,6 +73,5 @@ civitas.objects.settlement.prototype.set_research = function(value) {
 	if (this.resources.research >= civitas.MAX_RESEARCH_VALUE) {
 		this.resources.research = civitas.MAX_RESEARCH_VALUE;
 	}
-	$('.cityresearch').html(this.get_research());
 	return this.get_research();
 };

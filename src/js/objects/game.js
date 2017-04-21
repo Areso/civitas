@@ -1451,7 +1451,7 @@ civitas.game = function () {
 			achievement = civitas.ACHIEVEMENTS[i];
 			for (var z = 0; z < civitas.ACHIEVEMENTS[i].conditions.length; z++) {
 				var id = civitas.ACHIEVEMENTS[i].id;
-				if (!this.has_achievement(achievement)) {
+				if (this.has_achievement(achievement) === false) {
 					condition = achievement.conditions[z];
 					if (typeof condition.settlement_level !== 'undefined') {
 						if (settlement.get_level() === condition.settlement_level) {
@@ -1501,24 +1501,15 @@ civitas.game = function () {
 						}
 					}
 					if (typeof condition.buildings !== 'undefined') {
-						if (typeof condition.buildings === 'object') {
+						for (var item in condition.buildings) {
 							var good = true;
-							for (var s = 0; s < condition.buildings.length; s++) {
-								if (!settlement.is_building_built(condition.buildings[s])) {
-									good = false;
-									break;
-								}
+							if (!settlement.is_building_built(item, condition.buildings[item])) {
+								good = false;
+								break;
 							}
-							if (good === true) {
-								this.achievement(achievement);
-							}
-						} else {
-							for (var s = 0; s < settlement.buildings_list.length; s++) {
-								if (settlement.buildings_list[s].handle === condition.buildings) {
-									this.achievement(achievement);
-									break;
-								}
-							}
+						}
+						if (good === true) {
+							this.achievement(achievement);
 						}
 					}
 					if (typeof condition.resources !== 'undefined') {
@@ -1579,6 +1570,7 @@ civitas.game = function () {
 			content: achievement.description,
 			timeout: false
 		});
+		this.save_and_refresh();
 		return this;
 	};
 
@@ -1592,7 +1584,7 @@ civitas.game = function () {
 	this.has_achievement = function(achievement) {
 		for (var i = 0; i < this.achievements.length; i++) {
 			if (this.achievements[i].id === achievement.id) {
-				return true;
+				return this.achievements[i];
 			}
 		}
 		return false;

@@ -63,6 +63,5 @@ civitas.objects.settlement.prototype.set_espionage = function(value) {
 	if (this.resources.espionage >= civitas.MAX_ESPIONAGE_VALUE) {
 		this.resources.espionage = civitas.MAX_ESPIONAGE_VALUE;
 	}
-	$('.cityespionage').html(this.get_espionage());
 	return this.get_espionage();
 };

@@ -181,8 +181,8 @@ civitas.objects.building = function(params) {
 					}
 					this.set_level(next_level);
 					var building_image = self.get_type();
-					if (self.get_type().slice(0, -1) === 'house') {
-						building_image = self.get_type().slice(0, -1);
+					if (self.get_type().slice(0, 5) === 'house') {
+						building_image = self.get_type().slice(0, 5);
 					}
 					var image = (typeof _c.visible_upgrades === 'undefined' || _c.visible_upgrades === false) ? building_image + '1' : building_image + self.get_level();
 					$('section.game .building[data-type=' + this.get_type() + ']').css({
@@ -525,11 +525,11 @@ civitas.objects.building = function(params) {
 		var building = this.get_building_data();
 		if (typeof building.requires.buildings !== 'undefined') {
 			var required = building.requires.buildings;
-			for (var i = 0; i < required.length; i++) {
-				if (!this.get_settlement().is_building_built(required[i])) {
+			for (var item in required) {
+				if (!this.get_settlement().is_building_built(item, required[item])) {
 					good = false;
-					var req = civitas.BUILDINGS[civitas.BUILDINGS.findIndexM(required[i])];
-					this.get_core().log(this.get_name() + ' doesn`t have the required buildings: ' + req.name + '.', true);
+					var req = civitas.BUILDINGS[civitas.BUILDINGS.findIndexM(item)];
+					this.get_core().log(this.get_name() + ' doesn`t have the required level ' + required[item] + ' ' + req.name + '.', true);
 					this.notify(civitas.NOTIFICATION_MISSING_RESOURCES);
 					this.problems = true;
 				}

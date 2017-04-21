@@ -36,7 +36,7 @@ civitas.PANEL_BUILDINGS = {
 					var _i = settlement.is_building_built(building_data.handle);
 					_t += '<div data-handle="' + building_data.handle + '" class="building-item' + ((_i === true) ? ' disabled' : '') + '">' +
 							'<span class="title">' + building_data.name + '</span>' +
-							'<img class="building" src="' + civitas.ASSETS_URL + 'images/buildings/' + ((building_data.handle.slice(0, -1) === 'house') ? building_data.handle.slice(0, -1) : building_data.handle) + '1.png" />' +
+							'<img class="building" src="' + civitas.ASSETS_URL + 'images/buildings/' + ((building_data.handle.slice(0, 5) === 'house') ? building_data.handle.slice(0, 5) : building_data.handle) + '1.png" />' +
 							'</div>';
 				}
 			}
@@ -94,12 +94,8 @@ civitas.PANEL_BUILDINGS = {
 			if (typeof building.requires !== 'undefined') {
 				_z = '<dl class="nomg">';
 				if (typeof building.requires.buildings !== 'undefined') {
-					if (typeof building.requires.buildings === 'object') {
-						for (var i = 0; i < building.requires.buildings.length; i++) {
-							_z += '<dt>' + civitas.l('Building') + '</dt><dd>' + core.get_building_config_data(building.requires.buildings[i]).name + '</dd>';
-						}
-					} else {
-						_z += '<dt>' + civitas.l('Building') + '</dt><dd>' + core.get_building_config_data(building.requires.buildings).name + '</dd>';
+					for (var item in building.requires.buildings) {
+						_z += '<dt>' + civitas.l('Building') + '</dt><dd>' + core.get_building_config_data(item).name + ' level ' + building.requires.buildings[item] + '</dd>';
 					}
 				}
 				_z += '<dt>' + civitas.l('City level') + '</dt><dd>' + building.requires.settlement_level + '</dd>' +
@@ -118,7 +114,6 @@ civitas.PANEL_BUILDINGS = {
 				$('fieldset.extra').hide();
 			}
 			if (building.is_production === true) {
-				$('fieldset.taxes, fieldset.production, fieldset.materials, fieldset.storage').hide();
 				if (typeof building.production !== 'undefined') {
 					_z = '<dl class="nomg">';
 					for (var y in building.production) {
@@ -127,6 +122,8 @@ civitas.PANEL_BUILDINGS = {
 					_z += '</dl>';
 					$(el + ' .b-prod').append(_z);
 					$('fieldset.production').show();
+				} else {
+					$('fieldset.production').hide();
 				}
 				if (typeof building.materials !== 'undefined') {
 					_z = '<dl class="nomg">';
@@ -136,9 +133,13 @@ civitas.PANEL_BUILDINGS = {
 					_z += '</dl>';
 					$(el + ' .b-mats').append(_z);
 					$('fieldset.materials').show();
+				} else {
+					$('fieldset.materials').hide();
 				}
-			} else if (building.is_housing === true) {
-				$('fieldset.production, fieldset.storage').hide();
+			} else {
+				$('fieldset.production, fieldset.materials').hide();
+			}
+			if (building.is_housing === true) {
 				if (typeof building.materials !== 'undefined') {
 					_z = '<dl class="nomg">';
 					for (var y in building.materials) {
@@ -156,16 +157,22 @@ civitas.PANEL_BUILDINGS = {
 					$(el + ' .b-tax').append(_z);
 					$('fieldset.taxes').show();
 				}
-			} else if (typeof building.storage !== 'undefined') {
-				$('fieldset.taxes, fieldset.production, fieldset.materials').hide();
+			} else {
+				$('fieldset.taxes').hide();
+			}
+			if (typeof building.storage !== 'undefined') {
+				$('fieldset.taxes, fieldset.materials').hide();
 				_z = '<dl class="nomg">' +
 						'<dt>' + building.storage + '</dt><dd><img class="tips" title="' + civitas.l('Storage Space') + '" src="' + civitas.ASSETS_URL + 'images/resources/storage_small.png" /></dd>' +
 						'</dl>';
 				$(el + ' .b-store').append(_z);
 				$('fieldset.storage').show();
 			} else {
-				$('fieldset.taxes, fieldset.production, fieldset.materials, fieldset.storage').hide();
+				$('fieldset.storage').hide();
 			}
+			/* else {
+				$('fieldset.taxes, fieldset.production, fieldset.materials, fieldset.storage').hide();
+			}*/
 			var _i = settlement.is_building_built(building.handle);
 			if (_i !== true) {
 				$(el + ' .toolbar').append('<a href="#" class="btn build" data-handle="' + building.handle + '">' + civitas.l('Build') + '</a>');

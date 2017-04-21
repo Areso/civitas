@@ -1659,7 +1659,7 @@ civitas.SETTLEMENT_BUILDINGS_TROPICAL = [
 
 	/* Housing */
 	'house1', 'house2', 'house3', 'house4', 'house5', 'house6', 'house7', 'house8',
-	'house9',
+	'house9', 'house10', 'house11', 'house12',
 
 	/* Food Production */
 	'mill', 'bakery', 'butcher',
@@ -1682,7 +1682,7 @@ civitas.SETTLEMENT_BUILDINGS_TROPICAL = [
 	'almondsfarm', 'almondsfield', 'cattlefarm', 'cattlefield', 'coffeefarm', 'coffeefield',
 	'grainfarm', 'grainfield',
 	'grapesfarm', 'grapesfield', 'hempfarm', 'hempfield', 'pigfarm', 'pigfield',
-	'sugarfarm', 'sugarfield', 'indigofarm'
+	'sugarfarm', 'sugarfield', 'indigofarm', 'indigofield'
 ];
 
 /**
@@ -1751,7 +1751,7 @@ civitas.SETTLEMENT_BUILDINGS_ARID = [
 	'perfumery', 'weaver', 'clothingfactory', 'provisions', 'carpenter', 'marzipanworkshop', 'cannonfoundry',
 
 	/* Farms */
-	'cattlefarm', 'cattlefield', 'pigfarm', 'pigfield'
+	'cattlefarm', 'cattlefield', 'pigfarm', 'pigfield', 'spicefarm', 'spicefield'
 ];
 
 /**
@@ -1768,7 +1768,7 @@ civitas.SETTLEMENT_BUILDINGS_TEMPERATE = [
 
 	/* Housing */
 	'house1', 'house2', 'house3', 'house4', 'house5', 'house6', 'house7', 'house8',
-	'house9',
+	'house9', 'house10', 'house11', 'house12',
 
 	/* Food Production */
 	'mill', 'bakery', 'butcher',
@@ -1789,8 +1789,8 @@ civitas.SETTLEMENT_BUILDINGS_TEMPERATE = [
 
 	/* Farms */
 	'cattlefarm', 'cattlefield', 'ciderfarm', 'ciderfield', 'grainfarm', 'grainfield',
-	'grapesfarm', 'grapesfield',
-	'hempfarm', 'hempfield', 'pigfarm', 'pigfield', 'indigofarm'
+	'grapesfarm', 'grapesfield', 'rosenursery', 'rosefield',
+	'hempfarm', 'hempfield', 'pigfarm', 'pigfield', 'indigofarm', 'indigofield'
 ];
 
 /**
@@ -1804,16 +1804,16 @@ civitas.BUILDINGS_ALL = [
 	'ironmine', 'trapper', 'almondsfarm', 'almondsfield', 'tavern', 'tournir',
 	'shipyard', 'pigfarm', 'cattlefarm', 'pigfield', 'cattlefield', 'house1', 'house2',
 	'house3', 'house4', 'house5', 'house6', 'house7',
-	'house8', 'house9', 'church', 'bakery', 'butcher', 'grainfarm', 'grainfield',
-	'ironsmelter', 'tannery', 'furrier', 'saltmine',
+	'house8', 'house9', 'house10', 'house11', 'house12', 'church', 'bakery', 'butcher',
+	'grainfarm', 'grainfield', 'ironsmelter', 'tannery', 'furrier', 'saltmine',
 	'coppermine', 'goldmine', 'goldsmelter', 'coppersmelter', 'armory', 'coffeefarm',
-	'coffeefield', 'hempfarm', 'hempfield', 'sugarfarm',
+	'coffeefield', 'hempfarm', 'hempfield', 'sugarfarm', 'spicefarm', 'spicefield',
 	'sugarfield', 'silkfarm', 'silkfield', 'coffeeroaster', 'quartzfactory', 'grapesfarm',
 	'grapesfield', 'winery', 'saltworks', 'carpenter', 'pottery', 'jeweler', 'toolmaker',
 	'charcoalburnerhut', 'monastery', 'opticiansworkshop', 'papermill', 'printingpress',
 	'redsmithsworkshop', 'ropeyard', 'glassworks', 'provisions', 'silkweaver', 'gunpowdermill',
-	'apiary', 'barrelcooperage', 'brewery', 'candlemakersworkshop', 'indigofarm',
-	'ciderfarm', 'ciderfield', 'sugarmill', 'rosenursery', 'catapultworkshop', 'cannonfoundry',
+	'apiary', 'barrelcooperage', 'brewery', 'candlemakersworkshop', 'indigofarm', 'indigofield',
+	'ciderfarm', 'ciderfield', 'sugarmill', 'rosenursery', 'rosefield', 'catapultworkshop', 'cannonfoundry',
 	'perfumery', 'tradingpost', 'clothingfactory', 'weaver', 'embassy',  'academy', 'marzipanworkshop'
 ];
 
@@ -1845,7 +1845,10 @@ civitas.BUILDINGS_CATEGORIES = {
 		'house6',
 		'house7',
 		'house8',
-		'house9'
+		'house9',
+		'house10',
+		'house11',
+		'house12'
 	],
 	'Food': [
 		'bakery',
@@ -1874,10 +1877,15 @@ civitas.BUILDINGS_CATEGORIES = {
 		'hempfarm',
 		'hempfield',
 		'indigofarm',
+		'indigofield',
 		'pigfarm',
 		'pigfield',
+		'rosenursery',
+		'rosefield',
 		'silkfarm',
 		'silkfield',
+		'spicefarm',
+		'spicefield',
 		'sugarfarm',
 		'sugarfield'
 	],
@@ -1893,12 +1901,8 @@ civitas.BUILDINGS_CATEGORIES = {
 		'goldsmelter',
 		'ironsmelter',
 		'lumberjack',
-		'opticiansworkshop',
-		'papermill',
 		'pottery',
-		'printingpress',
 		'quartzfactory',
-		'redsmithsworkshop',
 		'ropeyard',
 		'saltworks',
 		'clothingfactory',
@@ -1906,25 +1910,30 @@ civitas.BUILDINGS_CATEGORIES = {
 		'trapper',
 		'tannery',
 		'weaver',
-		'winery',
-		'apiary',
-		'coffeeroaster',
-		'marzipanworkshop',
-		'perfumery',
-		'rosenursery',
-		'silkweaver',
-		'sugarmill',
-		'jeweler',
 		'gunpowdermill',
 		'toolmaker'
 	],
+	'Luxury': [
+		'apiary',
+		'coffeeroaster',
+		'jeweler',
+		'marzipanworkshop',
+		'opticiansworkshop',
+		'papermill',
+		'perfumery',
+		'printingpress',
+		'redsmithsworkshop',
+		'silkweaver',
+		'sugarmill',
+		'winery'
+	],
 	'Military': [
 		'armory',
-		'camp',
-		'castle',
-		'provisions',
 		'cannonfoundry',
-		'catapultworkshop'
+		'castle',
+		'catapultworkshop',
+		'camp',
+		'provisions'
 	]
 };
 
@@ -1940,6 +1949,7 @@ civitas.BUILDINGS = [{
 		description: 'The Marketplace is the main building of your city and provides a place ' +
 			'for the inhabitants of your settlement to gather. It cannot be demolished.',
 		storage: 100000,
+		is_production: true,
 		is_municipal: true,
 		levels: 4,
 		large: true,
@@ -1951,8 +1961,8 @@ civitas.BUILDINGS = [{
 			coins: 100000
 		},
 		position: {
-			x: 720,
-			y: 500
+			x: 750,
+			y: 520
 		},
 		requires: {
 			settlement_level: 1
@@ -1978,7 +1988,7 @@ civitas.BUILDINGS = [{
 			tools: 50
 		},
 		requires: {
-			settlement_level: 10
+			settlement_level: 16
 		}
 	}, {
 		name: 'Church',
@@ -1988,7 +1998,7 @@ civitas.BUILDINGS = [{
 		is_municipal: true,
 		is_production: true,
 		production: {
-			fame: 30,
+			fame: 20,
 			faith: 1
 		},
 		materials: {
@@ -1996,8 +2006,8 @@ civitas.BUILDINGS = [{
 		},
 		visible_upgrades: true,
 		position: {
-			x: 560,
-			y: 428
+			x: 590,
+			y: 400
 		},
 		levels: 3,
 		cost: {
@@ -2042,8 +2052,8 @@ civitas.BUILDINGS = [{
 			coins: 100
 		},
 		position: {
-			x: 660,
-			y: 380
+			x: 760,
+			y: 440
 		},
 		levels: 3,
 		cost: {
@@ -2063,15 +2073,15 @@ civitas.BUILDINGS = [{
 		is_municipal: true,
 		is_production: true, 
 		production: {
-			fame: 20,
+			fame: 10,
 			espionage: 1
 		},
 		materials: {
 			coins: 50
 		},
 		position: {
-			x: 905,
-			y: 292
+			x: 680,
+			y: 480
 		},
 		levels: 3,
 		cost: {
@@ -2117,7 +2127,7 @@ civitas.BUILDINGS = [{
 		is_municipal: true,
 		is_production: true,
 		production: {
-			fame: 20,
+			fame: 10,
 			faith: 2
 		},
 		materials: {
@@ -2135,8 +2145,10 @@ civitas.BUILDINGS = [{
 			tools: 20
 		},
 		requires: {
-			settlement_level: 16,
-			buildings: ['academy']
+			settlement_level: 26,
+			buildings: {
+				academy: 1
+			}
 		}
 	}, {
 		name: 'Tavern',
@@ -2144,7 +2156,7 @@ civitas.BUILDINGS = [{
 		description: 'The Tavern is the place where heroes of the known (and unknown) world hang around. If you are looking to recruit Achilles, build a Tavern. He might show up.',
 		is_municipal: true,
 		production: {
-			fame: 20
+			fame: 10
 		},
 		materials: {
 			coins: 20,
@@ -2153,8 +2165,8 @@ civitas.BUILDINGS = [{
 			oil: 1
 		},
 		position: {
-			x: 700,
-			y: 280
+			x: 680,
+			y: 350
 		},
 		levels: 3,
 		cost: {
@@ -2168,7 +2180,10 @@ civitas.BUILDINGS = [{
 		},
 		requires: {
 			settlement_level: 16,
-			buildings: ['academy', 'castle']
+			buildings: {
+				academy: 1,
+				castle: 1
+			}
 		}
 	}, {
 		name: 'Shipyard',
@@ -2205,8 +2220,8 @@ civitas.BUILDINGS = [{
 		description: 'The military camp is your main base of defense and attack until you can ' +
 			'develop a Castle.',
 		position: {
-			x: 440,
-			y: 630
+			x: 360,
+			y: 540
 		},
 		large: true,
 		cost: {
@@ -2218,7 +2233,9 @@ civitas.BUILDINGS = [{
 		},
 		requires: {
 			settlement_level: 8,
-			buildings: ['provisions']
+			buildings: {
+				provisions: 1
+			}
 		}
 	}, {
 		name: 'Castle',
@@ -2250,7 +2267,9 @@ civitas.BUILDINGS = [{
 		},
 		requires: {
 			settlement_level: 20,
-			buildings: ['camp']
+			buildings: {
+				camp: 1
+			}
 		}
 	}, {
 		name: 'Lumberjack',
@@ -2351,17 +2370,16 @@ civitas.BUILDINGS = [{
 	}, {
 		name: 'Tournir Area',
 		handle: 'tournir',
-		description: 'The tournir area is providing your city with fame, prestige, a chance to train your soldiers and has a low chance of giving your city coins.',
+		description: 'The tournir area is providing your city with prestige, a chance to train your soldiers and has a low chance of giving your city coins.',
 		extralarge: true,
 		is_municipal: true,
 		is_production: true,
 		production: {
-			fame: 100,
 			prestige: 1
 		},
 		position: {
 			x: 890,
-			y: 580
+			y: 610
 		},
 		levels: 1,
 		chance: {
@@ -2377,8 +2395,11 @@ civitas.BUILDINGS = [{
 			tools: 100
 		},
 		requires: {
-			settlement_level: 30,
-			buildings: ['castle', 'academy']
+			settlement_level: 40,
+			buildings: {
+				castle: 1,
+				academy: 1
+			}
 		}
 	}, {
 		name: 'Iron Mine',
@@ -2479,7 +2500,7 @@ civitas.BUILDINGS = [{
 			stones: 20
 		},
 		requires: {
-			settlement_level: 3
+			settlement_level: 4
 		}
 	}, {
 		name: 'Mill',
@@ -2554,7 +2575,7 @@ civitas.BUILDINGS = [{
 			clay: 100
 		},
 		requires: {
-			settlement_level: 6
+			settlement_level: 8
 		}
 	}, {
 		name: 'Gunpowder Mill',
@@ -2580,7 +2601,7 @@ civitas.BUILDINGS = [{
 			tools: 20
 		},
 		requires: {
-			settlement_level: 16
+			settlement_level: 26
 		}
 	}, {
 		name: 'Armory',
@@ -2637,7 +2658,7 @@ civitas.BUILDINGS = [{
 			stones: 40
 		},
 		requires: {
-			settlement_level: 3
+			settlement_level: 4
 		}
 	}, {
 		name: 'Iron smelter',
@@ -2663,7 +2684,7 @@ civitas.BUILDINGS = [{
 			stones: 50
 		},
 		requires: {
-			settlement_level: 4
+			settlement_level: 7
 		}
 	}, {
 		name: 'Copper smelter',
@@ -2688,7 +2709,7 @@ civitas.BUILDINGS = [{
 			stones: 50
 		},
 		requires: {
-			settlement_level: 6
+			settlement_level: 10
 		}
 	}, {
 		name: 'Gold smelter',
@@ -2713,7 +2734,7 @@ civitas.BUILDINGS = [{
 			stones: 55
 		},
 		requires: {
-			settlement_level: 6
+			settlement_level: 12
 		}
 	}, {
 		name: 'Trapper`s Lodge',
@@ -2760,7 +2781,7 @@ civitas.BUILDINGS = [{
 			stones: 40
 		},
 		requires: {
-			settlement_level: 6
+			settlement_level: 9
 		}
 	}, {
 		name: 'Clothing Factory',
@@ -2784,7 +2805,7 @@ civitas.BUILDINGS = [{
 			stones: 40
 		},
 		requires: {
-			settlement_level: 6
+			settlement_level: 14
 		}
 	}, {
 		name: 'Weaver`s Hut',
@@ -2808,7 +2829,7 @@ civitas.BUILDINGS = [{
 			stones: 30
 		},
 		requires: {
-			settlement_level: 6
+			settlement_level: 12
 		}
 	}, {
 		name: 'Tannery',
@@ -2833,7 +2854,7 @@ civitas.BUILDINGS = [{
 			stones: 40
 		},
 		requires: {
-			settlement_level: 6
+			settlement_level: 8
 		}
 	}, {
 		name: 'Coffee roaster',
@@ -2859,8 +2880,10 @@ civitas.BUILDINGS = [{
 			tools: 20
 		},
 		requires: {
-			settlement_level: 16,
-			buildings: ['tradingpost']
+			settlement_level: 28,
+			buildings: {
+				tradingpost: 1
+			}
 		}
 	}, {
 		name: 'Sugar Mill',
@@ -2885,8 +2908,10 @@ civitas.BUILDINGS = [{
 			tools: 10
 		},
 		requires: {
-			settlement_level: 16,
-			buildings: ['tradingpost']
+			settlement_level: 26,
+			buildings: {
+				tradingpost: 1
+			}
 		}
 	}, {
 		name: 'Winery',
@@ -2913,7 +2938,7 @@ civitas.BUILDINGS = [{
 			tools: 10
 		},
 		requires: {
-			settlement_level: 10
+			settlement_level: 14
 		}
 	}, {
 		name: 'Optician`s Shop',
@@ -2939,7 +2964,7 @@ civitas.BUILDINGS = [{
 			tools: 10
 		},
 		requires: {
-			settlement_level: 20
+			settlement_level: 24
 		}
 	}, {
 		name: 'Paper Mill',
@@ -2965,7 +2990,7 @@ civitas.BUILDINGS = [{
 			tools: 10
 		},
 		requires: {
-			settlement_level: 16
+			settlement_level: 22
 		}
 	}, {
 		name: 'Printing Press',
@@ -2991,7 +3016,7 @@ civitas.BUILDINGS = [{
 			tools: 10
 		},
 		requires: {
-			settlement_level: 20
+			settlement_level: 28
 		}
 	}, {
 		name: 'Perfumery',
@@ -3017,8 +3042,10 @@ civitas.BUILDINGS = [{
 			tools: 10
 		},
 		requires: {
-			settlement_level: 20,
-			buildings: ['tradingpost']
+			settlement_level: 30,
+			buildings: {
+				tradingpost: 1
+			}
 		}
 	}, {
 		name: 'Redsmith`s Workshop',
@@ -3044,7 +3071,7 @@ civitas.BUILDINGS = [{
 			tools: 10
 		},
 		requires: {
-			settlement_level: 20
+			settlement_level: 22
 		}
 	}, {
 		name: 'Ropeyard',
@@ -3093,7 +3120,7 @@ civitas.BUILDINGS = [{
 			stones: 80
 		},
 		requires: {
-			settlement_level: 16
+			settlement_level: 22
 		}
 	}, {
 		name: 'Marzipan Workshop',
@@ -3119,8 +3146,10 @@ civitas.BUILDINGS = [{
 			tools: 10
 		},
 		requires: {
-			settlement_level: 20,
-			buildings: ['tradingpost']
+			settlement_level: 26,
+			buildings: {
+				tradingpost: 1
+			}
 		}
 	}, {
 		name: 'Silk Weaver',
@@ -3147,8 +3176,10 @@ civitas.BUILDINGS = [{
 			tools: 10
 		},
 		requires: {
-			settlement_level: 20,
-			buildings: ['tradingpost']
+			settlement_level: 23,
+			buildings: {
+				tradingpost: 1
+			}
 		}
 	}, {
 		name: 'Quartz factory',
@@ -3169,7 +3200,7 @@ civitas.BUILDINGS = [{
 			stones: 90
 		},
 		requires: {
-			settlement_level: 8
+			settlement_level: 16
 		}
 	}, {
 		name: 'Apiary',
@@ -3190,7 +3221,7 @@ civitas.BUILDINGS = [{
 			stones: 40
 		},
 		requires: {
-			settlement_level: 10
+			settlement_level: 16
 		}
 	}, {
 		name: 'Barrel Cooperage',
@@ -3231,7 +3262,7 @@ civitas.BUILDINGS = [{
 			wheat: 2
 		},
 		position: {
-			x: 840,
+			x: 830,
 			y: 760
 		},
 		levels: 3,
@@ -3297,7 +3328,7 @@ civitas.BUILDINGS = [{
 			tools: 20
 		},
 		requires: {
-			settlement_level: 15
+			settlement_level: 20
 		}
 	}, {
 		name: 'Cannon Foundry',
@@ -3327,7 +3358,7 @@ civitas.BUILDINGS = [{
 			tools: 20
 		},
 		requires: {
-			settlement_level: 13
+			settlement_level: 18
 		}
 	}, {
 		name: 'Charcoal Burner`s Hut',
@@ -3353,7 +3384,7 @@ civitas.BUILDINGS = [{
 			stones: 50
 		},
 		requires: {
-			settlement_level: 3
+			settlement_level: 5
 		}
 	}, {
 		name: 'House',
@@ -3370,7 +3401,7 @@ civitas.BUILDINGS = [{
 		},
 		position: {
 			x: 790,
-			y: 340
+			y: 320
 		},
 		levels: 5,
 		visible_upgrades: true,
@@ -3391,8 +3422,8 @@ civitas.BUILDINGS = [{
 			bread: 1
 		},
 		position: {
-			x: 880,
-			y: 440
+			x: 840,
+			y: 380
 		},
 		levels: 5,
 		visible_upgrades: true,
@@ -3415,8 +3446,8 @@ civitas.BUILDINGS = [{
 			meat: 1
 		},
 		position: {
-			x: 1000,
-			y: 520
+			x: 890,
+			y: 440
 		},
 		levels: 5,
 		visible_upgrades: true,
@@ -3440,14 +3471,16 @@ civitas.BUILDINGS = [{
 			pottery: 1
 		},
 		position: {
-			x: 870,
-			y: 590
+			x: 940,
+			y: 500
 		},
 		levels: 5,
 		visible_upgrades: true,
 		requires: {
 			settlement_level: 6,
-			buildings: ['church']
+			buildings: {
+				church: 1
+			}
 		}
 	}, {
 		name: 'House',
@@ -3467,14 +3500,16 @@ civitas.BUILDINGS = [{
 			beer: 1
 		},
 		position: {
-			x: 764,
-			y: 640
+			x: 990,
+			y: 560
 		},
 		levels: 5,
 		visible_upgrades: true,
 		requires: {
 			settlement_level: 10,
-			buildings: ['church']
+			buildings: {
+				church: 1
+			}
 		}
 	}, {
 		name: 'House',
@@ -3494,14 +3529,16 @@ civitas.BUILDINGS = [{
 			wine: 1
 		},
 		position: {
-			x: 663,
-			y: 690
+			x: 890,
+			y: 600
 		},
 		levels: 5,
 		visible_upgrades: true,
 		requires: {
 			settlement_level: 16,
-			buildings: ['church']
+			buildings: {
+				church: 2
+			}
 		}
 	}, {
 		name: 'House',
@@ -3522,14 +3559,16 @@ civitas.BUILDINGS = [{
 			candlesticks: 1
 		},
 		position: {
-			x: 579,
-			y: 601
+			x: 790,
+			y: 640
 		},
 		levels: 5,
 		visible_upgrades: true,
 		requires: {
 			settlement_level: 20,
-			buildings: ['academy']
+			buildings: {
+				academy: 1
+			}
 		}
 	}, {
 		name: 'House',
@@ -3551,14 +3590,16 @@ civitas.BUILDINGS = [{
 			furcoats: 1
 		},
 		position: {
-			x: 520,
-			y: 530
+			x: 690,
+			y: 680
 		},
 		levels: 5,
 		visible_upgrades: true,
 		requires: {
 			settlement_level: 25,
-			buildings: ['academy']
+			buildings: {
+				academy: 2
+			}
 		}
 	}, {
 		name: 'House',
@@ -3583,14 +3624,123 @@ civitas.BUILDINGS = [{
 			marzipan: 1
 		},
 		position: {
-			x: 447,
-			y: 463
+			x: 640,
+			y: 620
 		},
 		levels: 5,
 		visible_upgrades: true,
 		requires: {
 			settlement_level: 30,
-			buildings: ['castle']
+			buildings: {
+				academy: 2
+			}
+		}
+	}, {
+		name: 'House',
+		handle: 'house10',
+		description: 'Houses provide coins through taxes and space for your settlers.',
+		is_housing: true,
+		tax: 100,
+		cost: {
+			woodplanks: 100,
+			stones: 200,
+			coins: 10000
+		},
+		materials: {
+			fish: 2,
+			meat: 2,
+			wine: 1,
+			pottery: 1,
+			candlesticks: 1,
+			furcoats: 1,
+			perfume: 1,
+			robes: 1,
+			marzipan: 1
+		},
+		position: {
+			x: 590,
+			y: 560
+		},
+		levels: 5,
+		visible_upgrades: true,
+		requires: {
+			settlement_level: 32,
+			buildings: {
+				church: 2,
+				academy: 2
+			}
+		}
+	}, {
+		name: 'House',
+		handle: 'house11',
+		description: 'Houses provide coins through taxes and space for your settlers.',
+		is_housing: true,
+		tax: 100,
+		cost: {
+			woodplanks: 100,
+			stones: 200,
+			coins: 10000
+		},
+		materials: {
+			fish: 2,
+			meat: 2,
+			wine: 1,
+			pottery: 1,
+			candlesticks: 1,
+			furcoats: 1,
+			perfume: 1,
+			robes: 1,
+			marzipan: 1
+		},
+		position: {
+			x: 540,
+			y: 500
+		},
+		levels: 5,
+		visible_upgrades: true,
+		requires: {
+			settlement_level: 36,
+			buildings: {
+				church: 2,
+				academy: 2
+			}
+		}
+	}, {
+		name: 'House',
+		handle: 'house12',
+		description: 'Houses provide coins through taxes and space for your settlers.',
+		is_housing: true,
+		tax: 100,
+		cost: {
+			woodplanks: 100,
+			stones: 200,
+			coins: 10000
+		},
+		materials: {
+			fish: 2,
+			meat: 2,
+			wine: 1,
+			pottery: 1,
+			candlesticks: 1,
+			furcoats: 1,
+			perfume: 1,
+			robes: 1,
+			marzipan: 1
+		},
+		position: {
+			x: 490,
+			y: 440
+		},
+		levels: 5,
+		visible_upgrades: true,
+		requires: {
+			settlement_level: 40,
+			buildings: {
+				church: 3,
+				academy: 3,
+				castle: 1,
+				tournir: 1
+			}
 		}
 	}, {
 		name: 'Cider Farm',
@@ -3612,8 +3762,10 @@ civitas.BUILDINGS = [{
 			stones: 30
 		},
 		requires: {
-			settlement_level: 4,
-			buildings: ['ciderfield']
+			settlement_level: 6,
+			buildings: {
+				ciderfield: 1
+			}
 		}
 	}, {
 		name: 'Cider field',
@@ -3629,7 +3781,7 @@ civitas.BUILDINGS = [{
 			clay: 20
 		},
 		requires: {
-			settlement_level: 4
+			settlement_level: 6
 		}
 	}, {
 		name: 'Almonds farm',
@@ -3650,8 +3802,10 @@ civitas.BUILDINGS = [{
 			stones: 30
 		},
 		requires: {
-			settlement_level: 16,
-			buildings: ['almondsfield']
+			settlement_level: 36,
+			buildings: {
+				almondsfield: 1
+			}
 		}
 	}, {
 		name: 'Almonds field',
@@ -3667,7 +3821,7 @@ civitas.BUILDINGS = [{
 			clay: 20
 		},
 		requires: {
-			settlement_level: 16
+			settlement_level: 36
 		}
 	}, {
 		name: 'Cattle Farm',
@@ -3693,8 +3847,10 @@ civitas.BUILDINGS = [{
 			stones: 20
 		},
 		requires: {
-			settlement_level: 2,
-			buildings: ['cattlefield']
+			settlement_level: 3,
+			buildings: {
+				cattlefield: 1
+			}
 		}
 	}, {
 		name: 'Cattle field',
@@ -3710,7 +3866,7 @@ civitas.BUILDINGS = [{
 			clay: 20
 		},
 		requires: {
-			settlement_level: 2
+			settlement_level: 3
 		}
 	}, {
 		name: 'Pig Farm',
@@ -3724,7 +3880,8 @@ civitas.BUILDINGS = [{
 		},
 		levels: 3,
 		materials: {
-			herbs: 2
+			herbs: 2,
+			coins: 5
 		},
 		position: {
 			x: 700,
@@ -3737,7 +3894,10 @@ civitas.BUILDINGS = [{
 		},
 		requires: {
 			settlement_level: 3,
-			buildings: ['church', 'pigfield']
+			buildings: {
+				church: 1,
+				pigfield: 1
+			}
 		}
 	}, {
 		name: 'Pig field',
@@ -3768,7 +3928,7 @@ civitas.BUILDINGS = [{
 		levels: 3,
 		position: {
 			x: 1027,
-			y: 859
+			y: 870
 		},
 		cost: {
 			coins: 10000,
@@ -3777,7 +3937,9 @@ civitas.BUILDINGS = [{
 		},
 		requires: {
 			settlement_level: 2,
-			buildings: ['grainfield']
+			buildings: {
+				grainfield: 1
+			}
 		}
 	}, {
 		name: 'Grain field',
@@ -3785,7 +3947,7 @@ civitas.BUILDINGS = [{
 		description: 'A grain field is required for the grain farm to operate.',
 		position: {
 			x: 1080,
-			y: 900
+			y: 910
 		},
 		cost: {
 			coins: 1000,
@@ -3815,8 +3977,10 @@ civitas.BUILDINGS = [{
 			stones: 20
 		},
 		requires: {
-			settlement_level: 10,
-			buildings: ['grapesfield']
+			settlement_level: 16,
+			buildings: {
+				grapesfield: 1
+			}
 		}
 	}, {
 		name: 'Grapes field',
@@ -3832,7 +3996,7 @@ civitas.BUILDINGS = [{
 			clay: 20
 		},
 		requires: {
-			settlement_level: 10
+			settlement_level: 16
 		}
 	}, {
 		name: 'Coffee farm',
@@ -3854,8 +4018,10 @@ civitas.BUILDINGS = [{
 			stones: 20
 		},
 		requires: {
-			settlement_level: 16,
-			buildings: ['coffeefield']
+			settlement_level: 36,
+			buildings: {
+				coffeefield: 1
+			}
 		}
 	}, {
 		name: 'Coffee field',
@@ -3871,7 +4037,7 @@ civitas.BUILDINGS = [{
 			clay: 40
 		},
 		requires: {
-			settlement_level: 16
+			settlement_level: 36
 		}
 	}, {
 		name: 'Hemp farm',
@@ -3893,8 +4059,10 @@ civitas.BUILDINGS = [{
 			stones: 20
 		},
 		requires: {
-			settlement_level: 6,
-			buildings: ['hempfield']
+			settlement_level: 10,
+			buildings: {
+				hempfield: 1
+			}
 		}
 	}, {
 		name: 'Hemp field',
@@ -3910,7 +4078,7 @@ civitas.BUILDINGS = [{
 			clay: 20
 		},
 		requires: {
-			settlement_level: 6
+			settlement_level: 10
 		}
 	}, {
 		name: 'Silk farm',
@@ -3922,8 +4090,8 @@ civitas.BUILDINGS = [{
 		},
 		levels: 3,
 		position: {
-			x: 456,
-			y: 800
+			x: 470,
+			y: 820
 		},
 		cost: {
 			coins: 80000,
@@ -3931,8 +4099,10 @@ civitas.BUILDINGS = [{
 			stones: 20
 		},
 		requires: {
-			settlement_level: 20,
-			buildings: ['silkfield']
+			settlement_level: 28,
+			buildings: {
+				silkfield: 1
+			}
 		}
 	}, {
 		name: 'Silk field',
@@ -3940,7 +4110,7 @@ civitas.BUILDINGS = [{
 		description: 'A silk field is required for the silk farm to operate.',
 		position: {
 			x: 400,
-			y: 845
+			y: 860
 		},
 		cost: {
 			coins: 8000,
@@ -3948,7 +4118,7 @@ civitas.BUILDINGS = [{
 			clay: 100
 		},
 		requires: {
-			settlement_level: 20
+			settlement_level: 28
 		}
 	}, {
 		name: 'Sugar farm',
@@ -3970,8 +4140,11 @@ civitas.BUILDINGS = [{
 			stones: 20
 		},
 		requires: {
-			settlement_level: 20,
-			buildings: ['academy', 'sugarfield']
+			settlement_level: 24,
+			buildings: {
+				academy: 1,
+				sugarfield: 1
+			}
 		}
 	}, {
 		name: 'Sugar field',
@@ -3987,7 +4160,7 @@ civitas.BUILDINGS = [{
 			clay: 100
 		},
 		requires: {
-			settlement_level: 20
+			settlement_level: 24
 		}
 	}, {
 		name: 'Indigo farm',
@@ -3995,7 +4168,8 @@ civitas.BUILDINGS = [{
 		is_production: true,
 		description: 'The indigo farm produces indigo that can be used to create books.',
 		production: {
-			indigo: 1
+			indigo: 1,
+			herbs: 1
 		},
 		levels: 3,
 		position: {
@@ -4009,7 +4183,26 @@ civitas.BUILDINGS = [{
 			clay: 30
 		},
 		requires: {
-			settlement_level: 16
+			settlement_level: 20,
+			buildings: {
+				indigofield: 1
+			}
+		}
+	}, {
+		name: 'Indigo field',
+		handle: 'indigofield',
+		description: 'An indigo field is required for the indigo farm to operate.',
+		position: {
+			x: 310,
+			y: 910
+		},
+		cost: {
+			coins: 10000,
+			wood: 10,
+			clay: 100
+		},
+		requires: {
+			settlement_level: 20
 		}
 	}, {
 		name: 'Rose Nursery',
@@ -4017,12 +4210,13 @@ civitas.BUILDINGS = [{
 		is_production: true,
 		description: 'The Rose Nursery produces rose oil which is needed to make perfume.',
 		production: {
-			roses: 1
+			roses: 1,
+			herbs: 1
 		},
 		levels: 3,
 		position: {
-			x: 1461,
-			y: 120
+			x: 600,
+			y: 790
 		},
 		cost: {
 			coins: 20000,
@@ -4031,7 +4225,27 @@ civitas.BUILDINGS = [{
 			clay: 50
 		},
 		requires: {
-			settlement_level: 20
+			settlement_level: 26,
+			buildings: {
+				academy: 1,
+				rosefield: 1
+			}
+		}
+	}, {
+		name: 'Roses field',
+		handle: 'rosefield',
+		description: 'A roses field is required for the rose nursery to operate.',
+		position: {
+			x: 540,
+			y: 750
+		},
+		cost: {
+			coins: 10000,
+			wood: 10,
+			clay: 100
+		},
+		requires: {
+			settlement_level: 26
 		}
 	}, {
 		name: 'Spice Farm',
@@ -4039,12 +4253,13 @@ civitas.BUILDINGS = [{
 		is_production: true,
 		description: 'The Spice Farm is responsable for the production of spices.',
 		production: {
-			spices: 1
+			spices: 1,
+			herbs: 1
 		},
 		levels: 3,
 		position: {
-			x: 260,
-			y: 870
+			x: 380,
+			y: 790
 		},
 		cost: {
 			coins: 200000,
@@ -4053,7 +4268,27 @@ civitas.BUILDINGS = [{
 			clay: 60
 		},
 		requires: {
-			settlement_level: 20
+			settlement_level: 32,
+			buildings: {
+				academy: 1,
+				spicefield: 1
+			}
+		}
+	}, {
+		name: 'Spice field',
+		handle: 'spicefield',
+		description: 'A spice field is required for the spice farm to operate.',
+		position: {
+			x: 430,
+			y: 750
+		},
+		cost: {
+			coins: 20000,
+			wood: 40,
+			clay: 300
+		},
+		requires: {
+			settlement_level: 32
 		}
 	}, {
 		name: 'Toolmaker Workshop',
@@ -4107,7 +4342,7 @@ civitas.BUILDINGS = [{
 			tools: 10
 		},
 		requires: {
-			settlement_level: 16
+			settlement_level: 20
 		}
 	}];
 
@@ -4161,6 +4396,7 @@ civitas.SETTLEMENTS = {
 				milk: civitas.IMPORTANCE_HIGH,
 				goldores: civitas.IMPORTANCE_HIGH,
 				weapons: civitas.IMPORTANCE_LOW,
+				sugarcane: civitas.IMPORTANCE_HIGH,
 				quartz: civitas.IMPORTANCE_LOW,
 				gunpowder: civitas.IMPORTANCE_HIGH,
 				roses: civitas.IMPORTANCE_MEDIUM,
@@ -4174,6 +4410,7 @@ civitas.SETTLEMENTS = {
 				hemp: civitas.IMPORTANCE_VITAL,
 				indigo: civitas.IMPORTANCE_LOW,
 				armor: civitas.IMPORTANCE_MEDIUM,
+				sugar: civitas.IMPORTANCE_HIGH,
 				barrels: civitas.IMPORTANCE_MEDIUM,
 				paper: civitas.IMPORTANCE_HIGH,
 				woodplanks: civitas.IMPORTANCE_MEDIUM,
@@ -4289,6 +4526,7 @@ civitas.SETTLEMENTS = {
 			'exports': {
 				herbs: civitas.IMPORTANCE_HIGH,
 				silver: civitas.IMPORTANCE_VITAL,
+				sugarcane: civitas.IMPORTANCE_HIGH,
 				glasses: civitas.IMPORTANCE_LOW,
 				furcoats: civitas.IMPORTANCE_MEDIUM,
 				indigo: civitas.IMPORTANCE_LOW,
@@ -4750,6 +4988,7 @@ civitas.SETTLEMENTS = {
 				weapons: civitas.IMPORTANCE_LOW,
 				roses: civitas.IMPORTANCE_MEDIUM,
 				perfume: civitas.IMPORTANCE_LOW,
+				sugarcane: civitas.IMPORTANCE_HIGH,
 				tools: civitas.IMPORTANCE_HIGH,
 				provisions: civitas.IMPORTANCE_HIGH,
 				iron: civitas.IMPORTANCE_VITAL,
@@ -4883,6 +5122,7 @@ civitas.SETTLEMENTS = {
 				milk: civitas.IMPORTANCE_MEDIUM,
 				gems: civitas.IMPORTANCE_LOW,
 				brass: civitas.IMPORTANCE_VITAL,
+				sugarcane: civitas.IMPORTANCE_HIGH,
 				wheat: civitas.IMPORTANCE_HIGH,
 				catapults: civitas.IMPORTANCE_MEDIUM,
 				clay: civitas.IMPORTANCE_LOW
@@ -4927,7 +5167,7 @@ civitas.SETTLEMENTS = {
 				wood: civitas.IMPORTANCE_HIGH,
 				furs: civitas.IMPORTANCE_VITAL,
 				fibers: civitas.IMPORTANCE_HIGH,
-				sugar: civitas.IMPORTANCE_LOW,
+				sugar: civitas.IMPORTANCE_MEDIUM,
 				sugarcane: civitas.IMPORTANCE_LOW,
 				clay: civitas.IMPORTANCE_VITAL
 			},
@@ -4983,6 +5223,8 @@ civitas.SETTLEMENTS = {
 				silk: civitas.IMPORTANCE_MEDIUM,
 				glass: civitas.IMPORTANCE_HIGH,
 				woodplanks: civitas.IMPORTANCE_MEDIUM,
+				sugarcane: civitas.IMPORTANCE_HIGH,
+				sugar: civitas.IMPORTANCE_HIGH,
 				meat: civitas.IMPORTANCE_HIGH,
 				carpets: civitas.IMPORTANCE_LOW,
 				cannons: civitas.IMPORTANCE_LOW
@@ -5080,6 +5322,7 @@ civitas.SETTLEMENTS = {
 				glass: civitas.IMPORTANCE_HIGH,
 				roses: civitas.IMPORTANCE_LOW,
 				ropes: civitas.IMPORTANCE_MEDIUM,
+				sugarcane: civitas.IMPORTANCE_HIGH,
 				cattle: civitas.IMPORTANCE_LOW,
 				bread: civitas.IMPORTANCE_LOW,
 				meat: civitas.IMPORTANCE_MEDIUM,
@@ -6340,7 +6583,9 @@ civitas.ACHIEVEMENTS = [
 		name: 'Castlevania',
 		conditions: [
 			{
-				buildings: 'castle'
+				buildings: {
+					castle: 1
+				}
 			}
 		]
 	}, {
@@ -6349,7 +6594,9 @@ civitas.ACHIEVEMENTS = [
 		name: 'Winston Churchill, got it?',
 		conditions: [
 			{
-				buildings: 'church'
+				buildings: {
+					church: 1
+				}
 			}
 		]
 	}, {
@@ -6358,7 +6605,9 @@ civitas.ACHIEVEMENTS = [
 		name: 'Academician',
 		conditions: [
 			{
-				buildings: 'academy'
+				buildings: {
+					academy: 1
+				}
 			}
 		]
 	}, {
@@ -6367,12 +6616,12 @@ civitas.ACHIEVEMENTS = [
 		name: 'All mine!',
 		conditions: [
 			{
-				buildings: [
-					'iconmine',
-					'goldmine',
-					'coppermine',
-					'saltmine'
-				]
+				buildings: {
+					iconmine: 1,
+					goldmine: 1,
+					coppermine: 1,
+					saltmine: 1
+				}
 			}
 		]
 	}, {
@@ -6403,7 +6652,9 @@ civitas.ACHIEVEMENTS = [
 		name: 'Gandhi',
 		conditions: [
 			{
-				buildings: 'embassy'
+				buildings: {
+					embassy: 1
+				}
 			}
 		]
 	}, {
@@ -6431,6 +6682,39 @@ civitas.ACHIEVEMENTS = [
 		conditions: [
 			{
 				population: 10000000
+			}
+		]
+	}, {
+		id: 40,
+		description: 'Upgrade Academy to level 3',
+		name: 'Too much research',
+		conditions: [
+			{
+				buildings: {
+					academy: 3
+				}
+			}
+		]
+	}, {
+		id: 41,
+		description: 'Upgrade Castle to level 3',
+		name: 'Goldilocks',
+		conditions: [
+			{
+				buildings: {
+					castle: 3
+				}
+			}
+		]
+	}, {
+		id: 42,
+		description: 'Upgrade Church to level 3',
+		name: 'Cathedral',
+		conditions: [
+			{
+				buildings: {
+					church: 3
+				}
 			}
 		]
 	}
@@ -6894,8 +7178,8 @@ civitas.ui = {
 	building_element: function (params) {
 		var building_image = params.type;
 		var description = '<br /><span class="smalldesc">' + params.data.description + '</span>';
-		if (params.type.slice(0, -1) === 'house') {
-			building_image = params.type.slice(0, -1);
+		if (params.type.slice(0, 5) === 'house') {
+			building_image = params.type.slice(0, 5);
 		}
 		var image = (typeof params.data.visible_upgrades === 'undefined' || params.data.visible_upgrades === false) ? building_image + '1' : building_image + params.data.level;
 		return '<div data-type="' + params.type + '" data-level="' + params.data.level + '" ' +
@@ -6973,9 +7257,9 @@ civitas.ui = {
 			out += '<dt>' + civitas.l('Requires') + '</dt>';
 			out += '<dd>';
 			if (typeof requires.buildings !== 'undefined') {
-				for (var i = 0; i <requires.buildings.length; i++) {
-					var b = civitas.BUILDINGS[civitas.BUILDINGS.findIndexM(requires.buildings[i])];
-					out += b.name + '<br />'
+				for (var item in requires.buildings) {
+					var b = civitas.BUILDINGS[civitas.BUILDINGS.findIndexM(item)];
+					out += b.name + ' level ' + requires.buildings[item] + '<br />'
 				}
 			}
 			if (typeof requires.settlement_level !== 'undefined') {
@@ -7422,13 +7706,17 @@ civitas.objects.settlement = function(params) {
 	 * 
 	 * @public
 	 * @param {String} handle
+	 * @param {Number} level
 	 * @returns {Boolean}
 	 */
-	this.is_building_built = function(handle) {
+	this.is_building_built = function(handle, level) {
+		if (typeof level === 'undefined') {
+			level = 1;
+		}
 		var buildings = this.get_buildings();
 		for (var i = 0; i < buildings.length; i++) {
 			if (typeof buildings[i] !== 'undefined') {
-				if (buildings[i].type === handle) {
+				if (buildings[i].type === handle && buildings[i].level >= level) {
 					return true;
 				}
 			}
@@ -7573,11 +7861,11 @@ civitas.objects.settlement = function(params) {
 			}
 			if (typeof _c.requires.buildings !== 'undefined') {
 				var required = _c.requires.buildings;
-				for (var i = 0; i < required.length; i++) {
-					if (!this.is_building_built(required[i])) {
-						var _z = civitas.BUILDINGS.findIndexM(required[i]);
+				for (var item in required) {
+					if (!this.is_building_built(item, required[item])) {
+						var _z = civitas.BUILDINGS.findIndexM(item);
 						_z = civitas.BUILDINGS[_z];
-						this.get_core().error('You don`t have the required building ' + _z.name + '.');
+						this.get_core().error('You don`t have the required level ' + required[item] + ' ' + _z.name + '.');
 						return false;
 					}
 				}
@@ -8279,7 +8567,6 @@ civitas.objects.settlement.prototype.set_research = function(value) {
 	if (this.resources.research >= civitas.MAX_RESEARCH_VALUE) {
 		this.resources.research = civitas.MAX_RESEARCH_VALUE;
 	}
-	$('.cityresearch').html(this.get_research());
 	return this.get_research();
 };
 
@@ -8558,7 +8845,6 @@ civitas.objects.settlement.prototype.set_espionage = function(value) {
 	if (this.resources.espionage >= civitas.MAX_ESPIONAGE_VALUE) {
 		this.resources.espionage = civitas.MAX_ESPIONAGE_VALUE;
 	}
-	$('.cityespionage').html(this.get_espionage());
 	return this.get_espionage();
 };
 
@@ -9809,8 +10095,8 @@ civitas.objects.building = function(params) {
 					}
 					this.set_level(next_level);
 					var building_image = self.get_type();
-					if (self.get_type().slice(0, -1) === 'house') {
-						building_image = self.get_type().slice(0, -1);
+					if (self.get_type().slice(0, 5) === 'house') {
+						building_image = self.get_type().slice(0, 5);
 					}
 					var image = (typeof _c.visible_upgrades === 'undefined' || _c.visible_upgrades === false) ? building_image + '1' : building_image + self.get_level();
 					$('section.game .building[data-type=' + this.get_type() + ']').css({
@@ -10153,11 +10439,11 @@ civitas.objects.building = function(params) {
 		var building = this.get_building_data();
 		if (typeof building.requires.buildings !== 'undefined') {
 			var required = building.requires.buildings;
-			for (var i = 0; i < required.length; i++) {
-				if (!this.get_settlement().is_building_built(required[i])) {
+			for (var item in required) {
+				if (!this.get_settlement().is_building_built(item, required[item])) {
 					good = false;
-					var req = civitas.BUILDINGS[civitas.BUILDINGS.findIndexM(required[i])];
-					this.get_core().log(this.get_name() + ' doesn`t have the required buildings: ' + req.name + '.', true);
+					var req = civitas.BUILDINGS[civitas.BUILDINGS.findIndexM(item)];
+					this.get_core().log(this.get_name() + ' doesn`t have the required level ' + required[item] + ' ' + req.name + '.', true);
 					this.notify(civitas.NOTIFICATION_MISSING_RESOURCES);
 					this.problems = true;
 				}
@@ -12180,7 +12466,7 @@ civitas.game = function () {
 			achievement = civitas.ACHIEVEMENTS[i];
 			for (var z = 0; z < civitas.ACHIEVEMENTS[i].conditions.length; z++) {
 				var id = civitas.ACHIEVEMENTS[i].id;
-				if (!this.has_achievement(achievement)) {
+				if (this.has_achievement(achievement) === false) {
 					condition = achievement.conditions[z];
 					if (typeof condition.settlement_level !== 'undefined') {
 						if (settlement.get_level() === condition.settlement_level) {
@@ -12230,24 +12516,15 @@ civitas.game = function () {
 						}
 					}
 					if (typeof condition.buildings !== 'undefined') {
-						if (typeof condition.buildings === 'object') {
+						for (var item in condition.buildings) {
 							var good = true;
-							for (var s = 0; s < condition.buildings.length; s++) {
-								if (!settlement.is_building_built(condition.buildings[s])) {
-									good = false;
-									break;
-								}
+							if (!settlement.is_building_built(item, condition.buildings[item])) {
+								good = false;
+								break;
 							}
-							if (good === true) {
-								this.achievement(achievement);
-							}
-						} else {
-							for (var s = 0; s < settlement.buildings_list.length; s++) {
-								if (settlement.buildings_list[s].handle === condition.buildings) {
-									this.achievement(achievement);
-									break;
-								}
-							}
+						}
+						if (good === true) {
+							this.achievement(achievement);
 						}
 					}
 					if (typeof condition.resources !== 'undefined') {
@@ -12308,6 +12585,7 @@ civitas.game = function () {
 			content: achievement.description,
 			timeout: false
 		});
+		this.save_and_refresh();
 		return this;
 	};
 
@@ -12321,7 +12599,7 @@ civitas.game = function () {
 	this.has_achievement = function(achievement) {
 		for (var i = 0; i < this.achievements.length; i++) {
 			if (this.achievements[i].id === achievement.id) {
-				return true;
+				return this.achievements[i];
 			}
 		}
 		return false;
@@ -13957,28 +14235,22 @@ civitas.PANEL_COUNCIL = {
 		_t += '</div>';
 		$(this.handle + ' #tab-mercenary').empty().append(_t);
 		_t = '<div class="achievements-list">';
-		if (achievements.length > 0) {
-			for (var i = 0; i < achievements.length; i++) {
-				achievement_data = core.get_achievement_by_id(achievements[i].id);
-				if (achievement_data !== false) {
-					_t += '<div class="achievement">' +
-						'<div class="left">' +
-							'<div class="ach img"></div>' +
-						'</div>' +
-						'<div class="right">' +
-							'<div class="inner">' +
-								'<h2>' + achievement_data.name + '</h2>' +
-								achievement_data.description +
-							'</div>' +
-							'<div class="time" title="' + achievements[i].date + '">' +
-								'<strong>' + civitas.utils.time_since(achievements[i].date) + '</strong> ago' +
-							'</div>' +
-						'</div>' +
-					'</div>';
-				}
-			}
-		} else {
-			_t += '<p>You have no achievements so far. Keep playing!</p>'
+		for (var i = 0; i < civitas.ACHIEVEMENTS.length; i++) {
+			var has_ach = core.has_achievement(civitas.ACHIEVEMENTS[i]);
+			_t += '<div class="achievement' + (has_ach !== false ? ' has' : '') + '">' +
+				'<div class="left">' +
+					'<div class="ach img"></div>' +
+				'</div>' +
+				'<div class="right">' +
+					'<div class="inner">' +
+						'<h2>' + civitas.ACHIEVEMENTS[i].name + '</h2>' +
+						civitas.ACHIEVEMENTS[i].description +
+					'</div>' +
+					(has_ach !== false ? '<div class="time" title="' + has_ach.date + '">' +
+						'<strong>' + civitas.utils.time_since(has_ach.date) + '</strong> ago' +
+					'</div>' : '') +
+				'</div>' +
+			'</div>';
 		}
 		_t += '</div>';
 		$(this.handle + ' #tab-achievements').empty().append(_t);
@@ -14208,7 +14480,7 @@ civitas.PANEL_BUILDINGS = {
 					var _i = settlement.is_building_built(building_data.handle);
 					_t += '<div data-handle="' + building_data.handle + '" class="building-item' + ((_i === true) ? ' disabled' : '') + '">' +
 							'<span class="title">' + building_data.name + '</span>' +
-							'<img class="building" src="' + civitas.ASSETS_URL + 'images/buildings/' + ((building_data.handle.slice(0, -1) === 'house') ? building_data.handle.slice(0, -1) : building_data.handle) + '1.png" />' +
+							'<img class="building" src="' + civitas.ASSETS_URL + 'images/buildings/' + ((building_data.handle.slice(0, 5) === 'house') ? building_data.handle.slice(0, 5) : building_data.handle) + '1.png" />' +
 							'</div>';
 				}
 			}
@@ -14266,12 +14538,8 @@ civitas.PANEL_BUILDINGS = {
 			if (typeof building.requires !== 'undefined') {
 				_z = '<dl class="nomg">';
 				if (typeof building.requires.buildings !== 'undefined') {
-					if (typeof building.requires.buildings === 'object') {
-						for (var i = 0; i < building.requires.buildings.length; i++) {
-							_z += '<dt>' + civitas.l('Building') + '</dt><dd>' + core.get_building_config_data(building.requires.buildings[i]).name + '</dd>';
-						}
-					} else {
-						_z += '<dt>' + civitas.l('Building') + '</dt><dd>' + core.get_building_config_data(building.requires.buildings).name + '</dd>';
+					for (var item in building.requires.buildings) {
+						_z += '<dt>' + civitas.l('Building') + '</dt><dd>' + core.get_building_config_data(item).name + ' level ' + building.requires.buildings[item] + '</dd>';
 					}
 				}
 				_z += '<dt>' + civitas.l('City level') + '</dt><dd>' + building.requires.settlement_level + '</dd>' +
@@ -14290,7 +14558,6 @@ civitas.PANEL_BUILDINGS = {
 				$('fieldset.extra').hide();
 			}
 			if (building.is_production === true) {
-				$('fieldset.taxes, fieldset.production, fieldset.materials, fieldset.storage').hide();
 				if (typeof building.production !== 'undefined') {
 					_z = '<dl class="nomg">';
 					for (var y in building.production) {
@@ -14299,6 +14566,8 @@ civitas.PANEL_BUILDINGS = {
 					_z += '</dl>';
 					$(el + ' .b-prod').append(_z);
 					$('fieldset.production').show();
+				} else {
+					$('fieldset.production').hide();
 				}
 				if (typeof building.materials !== 'undefined') {
 					_z = '<dl class="nomg">';
@@ -14308,9 +14577,13 @@ civitas.PANEL_BUILDINGS = {
 					_z += '</dl>';
 					$(el + ' .b-mats').append(_z);
 					$('fieldset.materials').show();
+				} else {
+					$('fieldset.materials').hide();
 				}
-			} else if (building.is_housing === true) {
-				$('fieldset.production, fieldset.storage').hide();
+			} else {
+				$('fieldset.production, fieldset.materials').hide();
+			}
+			if (building.is_housing === true) {
 				if (typeof building.materials !== 'undefined') {
 					_z = '<dl class="nomg">';
 					for (var y in building.materials) {
@@ -14328,16 +14601,22 @@ civitas.PANEL_BUILDINGS = {
 					$(el + ' .b-tax').append(_z);
 					$('fieldset.taxes').show();
 				}
-			} else if (typeof building.storage !== 'undefined') {
-				$('fieldset.taxes, fieldset.production, fieldset.materials').hide();
+			} else {
+				$('fieldset.taxes').hide();
+			}
+			if (typeof building.storage !== 'undefined') {
+				$('fieldset.taxes, fieldset.materials').hide();
 				_z = '<dl class="nomg">' +
 						'<dt>' + building.storage + '</dt><dd><img class="tips" title="' + civitas.l('Storage Space') + '" src="' + civitas.ASSETS_URL + 'images/resources/storage_small.png" /></dd>' +
 						'</dl>';
 				$(el + ' .b-store').append(_z);
 				$('fieldset.storage').show();
 			} else {
-				$('fieldset.taxes, fieldset.production, fieldset.materials, fieldset.storage').hide();
+				$('fieldset.storage').hide();
 			}
+			/* else {
+				$('fieldset.taxes, fieldset.production, fieldset.materials, fieldset.storage').hide();
+			}*/
 			var _i = settlement.is_building_built(building.handle);
 			if (_i !== true) {
 				$(el + ' .toolbar').append('<a href="#" class="btn build" data-handle="' + building.handle + '">' + civitas.l('Build') + '</a>');

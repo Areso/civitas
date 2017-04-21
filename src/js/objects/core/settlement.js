@@ -411,13 +411,17 @@ civitas.objects.settlement = function(params) {
 	 * 
 	 * @public
 	 * @param {String} handle
+	 * @param {Number} level
 	 * @returns {Boolean}
 	 */
-	this.is_building_built = function(handle) {
+	this.is_building_built = function(handle, level) {
+		if (typeof level === 'undefined') {
+			level = 1;
+		}
 		var buildings = this.get_buildings();
 		for (var i = 0; i < buildings.length; i++) {
 			if (typeof buildings[i] !== 'undefined') {
-				if (buildings[i].type === handle) {
+				if (buildings[i].type === handle && buildings[i].level >= level) {
 					return true;
 				}
 			}
@@ -562,11 +566,11 @@ civitas.objects.settlement = function(params) {
 			}
 			if (typeof _c.requires.buildings !== 'undefined') {
 				var required = _c.requires.buildings;
-				for (var i = 0; i < required.length; i++) {
-					if (!this.is_building_built(required[i])) {
-						var _z = civitas.BUILDINGS.findIndexM(required[i]);
+				for (var item in required) {
+					if (!this.is_building_built(item, required[item])) {
+						var _z = civitas.BUILDINGS.findIndexM(item);
 						_z = civitas.BUILDINGS[_z];
-						this.get_core().error('You don`t have the required building ' + _z.name + '.');
+						this.get_core().error('You don`t have the required level ' + required[item] + ' ' + _z.name + '.');
 						return false;
 					}
 				}

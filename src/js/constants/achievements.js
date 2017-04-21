@@ -284,7 +284,9 @@ civitas.ACHIEVEMENTS = [
 		name: 'Castlevania',
 		conditions: [
 			{
-				buildings: 'castle'
+				buildings: {
+					castle: 1
+				}
 			}
 		]
 	}, {
@@ -293,7 +295,9 @@ civitas.ACHIEVEMENTS = [
 		name: 'Winston Churchill, got it?',
 		conditions: [
 			{
-				buildings: 'church'
+				buildings: {
+					church: 1
+				}
 			}
 		]
 	}, {
@@ -302,7 +306,9 @@ civitas.ACHIEVEMENTS = [
 		name: 'Academician',
 		conditions: [
 			{
-				buildings: 'academy'
+				buildings: {
+					academy: 1
+				}
 			}
 		]
 	}, {
@@ -311,12 +317,12 @@ civitas.ACHIEVEMENTS = [
 		name: 'All mine!',
 		conditions: [
 			{
-				buildings: [
-					'iconmine',
-					'goldmine',
-					'coppermine',
-					'saltmine'
-				]
+				buildings: {
+					iconmine: 1,
+					goldmine: 1,
+					coppermine: 1,
+					saltmine: 1
+				}
 			}
 		]
 	}, {
@@ -347,7 +353,9 @@ civitas.ACHIEVEMENTS = [
 		name: 'Gandhi',
 		conditions: [
 			{
-				buildings: 'embassy'
+				buildings: {
+					embassy: 1
+				}
 			}
 		]
 	}, {
@@ -375,6 +383,39 @@ civitas.ACHIEVEMENTS = [
 		conditions: [
 			{
 				population: 10000000
+			}
+		]
+	}, {
+		id: 40,
+		description: 'Upgrade Academy to level 3',
+		name: 'Too much research',
+		conditions: [
+			{
+				buildings: {
+					academy: 3
+				}
+			}
+		]
+	}, {
+		id: 41,
+		description: 'Upgrade Castle to level 3',
+		name: 'Goldilocks',
+		conditions: [
+			{
+				buildings: {
+					castle: 3
+				}
+			}
+		]
+	}, {
+		id: 42,
+		description: 'Upgrade Church to level 3',
+		name: 'Cathedral',
+		conditions: [
+			{
+				buildings: {
+					church: 3
+				}
 			}
 		]
 	}

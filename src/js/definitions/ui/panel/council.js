@@ -94,28 +94,22 @@ civitas.PANEL_COUNCIL = {
 		_t += '</div>';
 		$(this.handle + ' #tab-mercenary').empty().append(_t);
 		_t = '<div class="achievements-list">';
-		if (achievements.length > 0) {
-			for (var i = 0; i < achievements.length; i++) {
-				achievement_data = core.get_achievement_by_id(achievements[i].id);
-				if (achievement_data !== false) {
-					_t += '<div class="achievement">' +
-						'<div class="left">' +
-							'<div class="ach img"></div>' +
-						'</div>' +
-						'<div class="right">' +
-							'<div class="inner">' +
-								'<h2>' + achievement_data.name + '</h2>' +
-								achievement_data.description +
-							'</div>' +
-							'<div class="time" title="' + achievements[i].date + '">' +
-								'<strong>' + civitas.utils.time_since(achievements[i].date) + '</strong> ago' +
-							'</div>' +
-						'</div>' +
-					'</div>';
-				}
-			}
-		} else {
-			_t += '<p>You have no achievements so far. Keep playing!</p>'
+		for (var i = 0; i < civitas.ACHIEVEMENTS.length; i++) {
+			var has_ach = core.has_achievement(civitas.ACHIEVEMENTS[i]);
+			_t += '<div class="achievement' + (has_ach !== false ? ' has' : '') + '">' +
+				'<div class="left">' +
+					'<div class="ach img"></div>' +
+				'</div>' +
+				'<div class="right">' +
+					'<div class="inner">' +
+						'<h2>' + civitas.ACHIEVEMENTS[i].name + '</h2>' +
+						civitas.ACHIEVEMENTS[i].description +
+					'</div>' +
+					(has_ach !== false ? '<div class="time" title="' + has_ach.date + '">' +
+						'<strong>' + civitas.utils.time_since(has_ach.date) + '</strong> ago' +
+					'</div>' : '') +
+				'</div>' +
+			'</div>';
 		}
 		_t += '</div>';
 		$(this.handle + ' #tab-achievements').empty().append(_t);

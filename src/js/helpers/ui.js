@@ -162,8 +162,8 @@ civitas.ui = {
 	building_element: function (params) {
 		var building_image = params.type;
 		var description = '<br /><span class="smalldesc">' + params.data.description + '</span>';
-		if (params.type.slice(0, -1) === 'house') {
-			building_image = params.type.slice(0, -1);
+		if (params.type.slice(0, 5) === 'house') {
+			building_image = params.type.slice(0, 5);
 		}
 		var image = (typeof params.data.visible_upgrades === 'undefined' || params.data.visible_upgrades === false) ? building_image + '1' : building_image + params.data.level;
 		return '<div data-type="' + params.type + '" data-level="' + params.data.level + '" ' +
@@ -241,9 +241,9 @@ civitas.ui = {
 			out += '<dt>' + civitas.l('Requires') + '</dt>';
 			out += '<dd>';
 			if (typeof requires.buildings !== 'undefined') {
-				for (var i = 0; i <requires.buildings.length; i++) {
-					var b = civitas.BUILDINGS[civitas.BUILDINGS.findIndexM(requires.buildings[i])];
-					out += b.name + '<br />'
+				for (var item in requires.buildings) {
+					var b = civitas.BUILDINGS[civitas.BUILDINGS.findIndexM(item)];
+					out += b.name + ' level ' + requires.buildings[item] + '<br />'
 				}
 			}
 			if (typeof requires.settlement_level !== 'undefined') {

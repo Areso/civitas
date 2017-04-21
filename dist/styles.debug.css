@@ -1047,8 +1047,18 @@ input[type=text].small {
 	overflow: auto;
 }
 
-.achievements-notifications .notty,
 .achievement {
+	border-radius: 60px;
+	-moz-border-radius: 60px;
+	-webkit-border-radius: 60px;
+	background: #e5e5e5;
+	background: -moz-linear-gradient(top, #e5e5e5 0%, #8e8e8e 100%);
+	background: -webkit-linear-gradient(top, #e5e5e5 0%,#8e8e8e 100%);
+	background: linear-gradient(to bottom, #e5e5e5 0%,#8e8e8e 100%);
+}
+
+.achievements-notifications .notty,
+.achievement.has {
 	border-radius: 60px;
 	-moz-border-radius: 60px;
 	-webkit-border-radius: 60px;
@@ -1393,7 +1403,7 @@ td.icon {
 .tabs > ul > li > a {
 	color: #666;
 	text-decoration: none;
-	padding: 6px 10px;
+	padding: 6px 8px;
 	display: block;
 }
 
