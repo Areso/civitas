@@ -108,6 +108,7 @@ civitas.SETTLEMENTS = {
 				sugarcane: civitas.IMPORTANCE_MEDIUM,
 				glasses: civitas.IMPORTANCE_LOW,
 				furs: civitas.IMPORTANCE_VITAL,
+				stones: civitas.IMPORTANCE_HIGH,
 				fish: civitas.IMPORTANCE_HIGH,
 				mosaic: civitas.IMPORTANCE_HIGH,
 				candles: civitas.IMPORTANCE_LOW,
@@ -503,6 +504,7 @@ civitas.SETTLEMENTS = {
 				woodplanks: civitas.IMPORTANCE_MEDIUM,
 				armor: civitas.IMPORTANCE_HIGH,
 				brass: civitas.IMPORTANCE_MEDIUM,
+				copper: civitas.IMPORTANCE_VITAL,
 				clay: civitas.IMPORTANCE_MEDIUM,
 				coal: civitas.IMPORTANCE_VITAL
 			},
@@ -558,6 +560,8 @@ civitas.SETTLEMENTS = {
 				armor: civitas.IMPORTANCE_HIGH,
 				candles: civitas.IMPORTANCE_LOW,
 				salt: civitas.IMPORTANCE_MEDIUM,
+				copper: civitas.IMPORTANCE_VITAL,
+				stones: civitas.IMPORTANCE_HIGH,
 				sugarcane: civitas.IMPORTANCE_HIGH
 			}
 		},
@@ -642,6 +646,7 @@ civitas.SETTLEMENTS = {
 			'imports': {
 				meat: civitas.IMPORTANCE_LOW,
 				milk: civitas.IMPORTANCE_LOW,
+				copper: civitas.IMPORTANCE_VITAL,
 				weapons: civitas.IMPORTANCE_LOW,
 				roses: civitas.IMPORTANCE_MEDIUM,
 				perfume: civitas.IMPORTANCE_LOW,
@@ -657,6 +662,7 @@ civitas.SETTLEMENTS = {
 				armor: civitas.IMPORTANCE_HIGH,
 				glass: civitas.IMPORTANCE_HIGH,
 				wheat: civitas.IMPORTANCE_VITAL,
+				stones: civitas.IMPORTANCE_HIGH,
 				hides: civitas.IMPORTANCE_LOW,
 				paper: civitas.IMPORTANCE_LOW
 			}
@@ -686,6 +692,7 @@ civitas.SETTLEMENTS = {
 				milk: civitas.IMPORTANCE_LOW,
 				weapons: civitas.IMPORTANCE_LOW,
 				furs: civitas.IMPORTANCE_VITAL,
+				stones: civitas.IMPORTANCE_HIGH,
 				roses: civitas.IMPORTANCE_MEDIUM,
 				perfume: civitas.IMPORTANCE_LOW,
 				iron: civitas.IMPORTANCE_VITAL,
@@ -731,6 +738,8 @@ civitas.SETTLEMENTS = {
 				iron: civitas.IMPORTANCE_HIGH,
 				brass: civitas.IMPORTANCE_LOW,
 				cider: civitas.IMPORTANCE_LOW,
+				stones: civitas.IMPORTANCE_HIGH,
+				copper: civitas.IMPORTANCE_VITAL,
 				grapes: civitas.IMPORTANCE_LOW,
 				jewelery: civitas.IMPORTANCE_HIGH,
 				pottery: civitas.IMPORTANCE_HIGH,
@@ -781,6 +790,7 @@ civitas.SETTLEMENTS = {
 				brass: civitas.IMPORTANCE_VITAL,
 				sugarcane: civitas.IMPORTANCE_HIGH,
 				wheat: civitas.IMPORTANCE_HIGH,
+				stones: civitas.IMPORTANCE_HIGH,
 				catapults: civitas.IMPORTANCE_MEDIUM,
 				clay: civitas.IMPORTANCE_LOW
 			},
@@ -967,6 +977,7 @@ civitas.SETTLEMENTS = {
 				weapons: civitas.IMPORTANCE_LOW,
 				salt: civitas.IMPORTANCE_MEDIUM,
 				woodplanks: civitas.IMPORTANCE_MEDIUM,
+				copper: civitas.IMPORTANCE_VITAL,
 				stones: civitas.IMPORTANCE_VITAL,
 				gems: civitas.IMPORTANCE_LOW,
 				pottery: civitas.IMPORTANCE_HIGH,

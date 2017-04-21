@@ -418,5 +418,16 @@ civitas.ACHIEVEMENTS = [
 				}
 			}
 		]
+	}, {
+		id: 43,
+		description: 'Build a Tournir Area',
+		name: 'Richard Lionheart',
+		conditions: [
+			{
+				buildings: {
+					tournir: 1
+				}
+			}
+		]
 	}
 ];

@@ -984,7 +984,7 @@ civitas.BUILDINGS = [{
 			tools: 20
 		},
 		requires: {
-			settlement_level: 6
+			settlement_level: 9
 		}
 	}, {
 		name: 'Butcher',
@@ -1062,7 +1062,7 @@ civitas.BUILDINGS = [{
 			stones: 50
 		},
 		requires: {
-			settlement_level: 10
+			settlement_level: 8
 		}
 	}, {
 		name: 'Gold smelter',
