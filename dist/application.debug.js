@@ -2036,7 +2036,7 @@ civitas.BUILDINGS = [{
 			stones: 40
 		},
 		requires: {
-			settlement_level: 5
+			settlement_level: 4
 		}
 	}, {
 		name: 'Academy',
@@ -4396,6 +4396,7 @@ civitas.SETTLEMENTS = {
 				milk: civitas.IMPORTANCE_HIGH,
 				goldores: civitas.IMPORTANCE_HIGH,
 				weapons: civitas.IMPORTANCE_LOW,
+				herbs: civitas.IMPORTANCE_HIGH,
 				sugarcane: civitas.IMPORTANCE_HIGH,
 				quartz: civitas.IMPORTANCE_LOW,
 				gunpowder: civitas.IMPORTANCE_HIGH,
@@ -4610,6 +4611,7 @@ civitas.SETTLEMENTS = {
 				paper: civitas.IMPORTANCE_LOW,
 				coal: civitas.IMPORTANCE_VITAL,
 				provisions: civitas.IMPORTANCE_HIGH,
+				herbs: civitas.IMPORTANCE_HIGH,
 				tools: civitas.IMPORTANCE_HIGH,
 				copper: civitas.IMPORTANCE_MEDIUM,
 				mosaic: civitas.IMPORTANCE_MEDIUM,
@@ -4748,6 +4750,7 @@ civitas.SETTLEMENTS = {
 				milk: civitas.IMPORTANCE_MEDIUM,
 				brine: civitas.IMPORTANCE_VITAL,
 				leather: civitas.IMPORTANCE_LOW,
+				herbs: civitas.IMPORTANCE_HIGH,
 				woodplanks: civitas.IMPORTANCE_MEDIUM,
 				fish: civitas.IMPORTANCE_VITAL,
 				furcoats: civitas.IMPORTANCE_VITAL
@@ -4887,6 +4890,7 @@ civitas.SETTLEMENTS = {
 		trades: {
 			'imports': {
 				furs: civitas.IMPORTANCE_LOW,
+				bread: civitas.IMPORTANCE_VITAL,
 				hides: civitas.IMPORTANCE_MEDIUM,
 				clay: civitas.IMPORTANCE_HIGH,
 				milk: civitas.IMPORTANCE_LOW,
@@ -4942,6 +4946,7 @@ civitas.SETTLEMENTS = {
 				wax: civitas.IMPORTANCE_MEDIUM,
 				sugar: civitas.IMPORTANCE_LOW,
 				bottles: civitas.IMPORTANCE_HIGH,
+				bread: civitas.IMPORTANCE_VITAL,
 				wood: civitas.IMPORTANCE_VITAL,
 				woodplanks: civitas.IMPORTANCE_MEDIUM,
 				stones: civitas.IMPORTANCE_VITAL
@@ -5259,6 +5264,7 @@ civitas.SETTLEMENTS = {
 				weapons: civitas.IMPORTANCE_LOW,
 				hemp: civitas.IMPORTANCE_HIGH,
 				salt: civitas.IMPORTANCE_MEDIUM,
+				bread: civitas.IMPORTANCE_HIGH,
 				woodplanks: civitas.IMPORTANCE_HIGH,
 				stones: civitas.IMPORTANCE_VITAL,
 				gems: civitas.IMPORTANCE_LOW,

@@ -389,7 +389,7 @@ civitas.BUILDINGS = [{
 			stones: 40
 		},
 		requires: {
-			settlement_level: 5
+			settlement_level: 4
 		}
 	}, {
 		name: 'Academy',
