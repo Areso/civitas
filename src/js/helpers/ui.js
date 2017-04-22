@@ -88,9 +88,11 @@ civitas.ui = {
 		var out = '<dl' + ((typeof no_margin !== 'undefined' && no_margin === true) ? ' class="nomg"' : '') + '>';
 		var total = 0;
 		for (var soldier in army.army) {
-			out += '<dt>' + army.army[soldier] + '</dt>' +
-					'<dd>' + civitas.ui.army_img(soldier) + '</dd>';
-			total += army.army[soldier];
+			if (army.army[soldier] > 0) {
+				out += '<dt>' + army.army[soldier] + '</dt>' +
+						'<dd>' + civitas.ui.army_img(soldier) + '</dd>';
+				total += army.army[soldier];
+			}
 		}
 		out += '<dt>' + (typeof army.total !== 'undefined' ? army.total : total) + '</dt><dd>' + civitas.l('Total') + '</dd>' +
 				'</dl>';
@@ -149,10 +151,12 @@ civitas.ui = {
 	navy_list: function (army, no_margin) {
 		var out = '<dl' + ((typeof no_margin !== 'undefined' && no_margin === true) ? ' class="nomg"' : '') + '>';
 		var total = 0;
-		for (var soldier in army.navy) {
-			out += '<dt>' + army.navy[soldier] + '</dt>' +
-					'<dd>' + civitas.ui.army_img(soldier) + '</dd>';
-			total += army.navy[soldier];
+		for (var ship in army.navy) {
+			if (army.navy[ship] > 0) {
+				out += '<dt>' + army.navy[ship] + '</dt>' +
+						'<dd>' + civitas.ui.army_img(ship) + '</dd>';
+				total += army.navy[ship];
+			}
 		}
 		out += '<dt>' + (typeof army.total !== 'undefined' ? army.total : total) + '</dt><dd>' + civitas.l('Total') + '</dd>' +
 				'</dl>';

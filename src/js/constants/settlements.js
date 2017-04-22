@@ -50,7 +50,7 @@ civitas.SETTLEMENTS = {
 				weapons: civitas.IMPORTANCE_LOW,
 				herbs: civitas.IMPORTANCE_HIGH,
 				sugarcane: civitas.IMPORTANCE_HIGH,
-				quartz: civitas.IMPORTANCE_LOW,
+				quartz: civitas.IMPORTANCE_HIGH,
 				gunpowder: civitas.IMPORTANCE_HIGH,
 				roses: civitas.IMPORTANCE_MEDIUM,
 				wine: civitas.IMPORTANCE_VITAL,
@@ -61,13 +61,13 @@ civitas.SETTLEMENTS = {
 			},
 			'exports': {
 				hemp: civitas.IMPORTANCE_VITAL,
-				indigo: civitas.IMPORTANCE_LOW,
+				indigo: civitas.IMPORTANCE_HIGH,
 				armor: civitas.IMPORTANCE_MEDIUM,
 				sugar: civitas.IMPORTANCE_HIGH,
 				barrels: civitas.IMPORTANCE_MEDIUM,
 				paper: civitas.IMPORTANCE_HIGH,
 				woodplanks: civitas.IMPORTANCE_MEDIUM,
-				stones: civitas.IMPORTANCE_LOW
+				stones: civitas.IMPORTANCE_HIGH
 			}
 		},
 		army: {
@@ -102,11 +102,11 @@ civitas.SETTLEMENTS = {
 		},
 		trades: {
 			'imports': {
-				wax: civitas.IMPORTANCE_LOW,
+				wax: civitas.IMPORTANCE_HIGH,
 				pottery: civitas.IMPORTANCE_HIGH,
 				sugar: civitas.IMPORTANCE_VITAL,
 				sugarcane: civitas.IMPORTANCE_MEDIUM,
-				glasses: civitas.IMPORTANCE_LOW,
+				glasses: civitas.IMPORTANCE_HIGH,
 				furs: civitas.IMPORTANCE_VITAL,
 				stones: civitas.IMPORTANCE_HIGH,
 				fish: civitas.IMPORTANCE_HIGH,
@@ -114,14 +114,14 @@ civitas.SETTLEMENTS = {
 				candles: civitas.IMPORTANCE_LOW,
 				bread: civitas.IMPORTANCE_VITAL,
 				pearls: civitas.IMPORTANCE_LOW,
-				salt: civitas.IMPORTANCE_LOW
+				salt: civitas.IMPORTANCE_HIGH
 			},
 			'exports': {
 				leather: civitas.IMPORTANCE_MEDIUM,
 				indigo: civitas.IMPORTANCE_LOW,
 				flour: civitas.IMPORTANCE_VITAL,
 				glass: civitas.IMPORTANCE_MEDIUM,
-				coal: civitas.IMPORTANCE_LOW,
+				coal: civitas.IMPORTANCE_HIGH,
 				gunpowder: civitas.IMPORTANCE_HIGH,
 				bottles: civitas.IMPORTANCE_HIGH,
 				fish: civitas.IMPORTANCE_HIGH,
@@ -185,7 +185,7 @@ civitas.SETTLEMENTS = {
 				furcoats: civitas.IMPORTANCE_MEDIUM,
 				indigo: civitas.IMPORTANCE_LOW,
 				pottery: civitas.IMPORTANCE_HIGH,
-				wheat: civitas.IMPORTANCE_LOW
+				wheat: civitas.IMPORTANCE_HIGH
 			}
 		},
 		army: {
@@ -211,9 +211,9 @@ civitas.SETTLEMENTS = {
 		},
 		trades: {
 			'imports': {
-				flour: civitas.IMPORTANCE_LOW,
+				flour: civitas.IMPORTANCE_HIGH,
 				milk: civitas.IMPORTANCE_VITAL,
-				brass: civitas.IMPORTANCE_LOW,
+				brass: civitas.IMPORTANCE_HIGH,
 				furs: civitas.IMPORTANCE_LOW,
 				fibers: civitas.IMPORTANCE_MEDIUM,
 				fish: civitas.IMPORTANCE_VITAL,
@@ -225,7 +225,7 @@ civitas.SETTLEMENTS = {
 			'exports': {
 				meat: civitas.IMPORTANCE_VITAL,
 				clothes: civitas.IMPORTANCE_VITAL,
-				fish: civitas.IMPORTANCE_LOW,
+				fish: civitas.IMPORTANCE_HIGH,
 				bottles: civitas.IMPORTANCE_HIGH,
 				camels: civitas.IMPORTANCE_HIGH,
 				armor: civitas.IMPORTANCE_MEDIUM,
@@ -259,7 +259,7 @@ civitas.SETTLEMENTS = {
 		},
 		trades: {
 			'imports': {
-				barrels: civitas.IMPORTANCE_LOW,
+				barrels: civitas.IMPORTANCE_HIGH,
 				books: civitas.IMPORTANCE_LOW,
 				paper: civitas.IMPORTANCE_LOW,
 				coal: civitas.IMPORTANCE_VITAL,
@@ -309,25 +309,25 @@ civitas.SETTLEMENTS = {
 		},
 		trades: {
 			'imports': {
-				meat: civitas.IMPORTANCE_LOW,
+				meat: civitas.IMPORTANCE_HIGH,
 				milk: civitas.IMPORTANCE_LOW,
-				weapons: civitas.IMPORTANCE_LOW,
+				weapons: civitas.IMPORTANCE_VITAL,
 				roses: civitas.IMPORTANCE_MEDIUM,
 				fibers: civitas.IMPORTANCE_HIGH,
 				perfume: civitas.IMPORTANCE_LOW,
 				jewelery: civitas.IMPORTANCE_HIGH,
 				iron: civitas.IMPORTANCE_VITAL,
-				ironores: civitas.IMPORTANCE_LOW
+				ironores: civitas.IMPORTANCE_HIGH
 			},
 			'exports': {
 				brine: civitas.IMPORTANCE_MEDIUM,
-				clothes: civitas.IMPORTANCE_LOW,
+				clothes: civitas.IMPORTANCE_HIGH,
 				glass: civitas.IMPORTANCE_HIGH,
 				oil: civitas.IMPORTANCE_HIGH,
 				wheat: civitas.IMPORTANCE_VITAL,
 				pottery: civitas.IMPORTANCE_HIGH,
 				hides: civitas.IMPORTANCE_LOW,
-				paper: civitas.IMPORTANCE_LOW
+				paper: civitas.IMPORTANCE_HIGH
 			}
 		},
 		army: {
@@ -353,7 +353,7 @@ civitas.SETTLEMENTS = {
 			'imports': {
 				silk: civitas.IMPORTANCE_LOW,
 				clothes: civitas.IMPORTANCE_HIGH,
-				leather: civitas.IMPORTANCE_LOW,
+				leather: civitas.IMPORTANCE_HIGH,
 				bottles: civitas.IMPORTANCE_HIGH,
 				hides: civitas.IMPORTANCE_HIGH,
 				clay: civitas.IMPORTANCE_MEDIUM,
@@ -399,7 +399,7 @@ civitas.SETTLEMENTS = {
 		},
 		trades: {
 			'imports': {
-				furs: civitas.IMPORTANCE_LOW,
+				furs: civitas.IMPORTANCE_HIGH,
 				milk: civitas.IMPORTANCE_MEDIUM,
 				brine: civitas.IMPORTANCE_VITAL,
 				leather: civitas.IMPORTANCE_LOW,
@@ -412,7 +412,7 @@ civitas.SETTLEMENTS = {
 				herbs: civitas.IMPORTANCE_VITAL,
 				statues: civitas.IMPORTANCE_VITAL,
 				camels: civitas.IMPORTANCE_HIGH,
-				wax: civitas.IMPORTANCE_LOW,
+				wax: civitas.IMPORTANCE_HIGH,
 				barrels: civitas.IMPORTANCE_MEDIUM,
 				candles: civitas.IMPORTANCE_LOW,
 				armor: civitas.IMPORTANCE_HIGH,
@@ -446,12 +446,12 @@ civitas.SETTLEMENTS = {
 			'imports': {
 				perfume: civitas.IMPORTANCE_MEDIUM,
 				coffee: civitas.IMPORTANCE_LOW,
-				cider: civitas.IMPORTANCE_LOW,
+				cider: civitas.IMPORTANCE_HIGH,
 				hemp: civitas.IMPORTANCE_HIGH,
 				bottles: civitas.IMPORTANCE_HIGH,
-				wine: civitas.IMPORTANCE_LOW,
+				wine: civitas.IMPORTANCE_HIGH,
 				hides: civitas.IMPORTANCE_VITAL,
-				beer: civitas.IMPORTANCE_LOW,
+				beer: civitas.IMPORTANCE_HIGH,
 				mosaic: civitas.IMPORTANCE_VITAL,
 				woodplanks: civitas.IMPORTANCE_HIGH,
 				silk: civitas.IMPORTANCE_MEDIUM
@@ -499,7 +499,7 @@ civitas.SETTLEMENTS = {
 		trades: {
 			'imports': {
 				flour: civitas.IMPORTANCE_LOW,
-				bread: civitas.IMPORTANCE_LOW,
+				bread: civitas.IMPORTANCE_HIGH,
 				fibers: civitas.IMPORTANCE_HIGH,
 				woodplanks: civitas.IMPORTANCE_MEDIUM,
 				armor: civitas.IMPORTANCE_HIGH,

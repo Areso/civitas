@@ -26,7 +26,7 @@ civitas.PANEL_TRADES = {
 		$(el + ' #tab-mercenaries').append('<p>' + civitas.l('Below is a list of mercenary armies that are looking for hire. Mercenaries are available only for raiding and conquest missions, they do not join your city so they will not participate in defense.') + '</p><div class="contents"></div>');
 		$(el + ' #tab-blackmarket').append('<p>' + civitas.l('The Black Market is a way to dump your excess materials when you`re in need of emptying your warehouses, but expect a steep price drop (taxes for all Black Market trades are <strong>') + civitas.BLACK_MARKET_DISCOUNT + civitas.l('%</strong>). The goods will be taken immediately from your warehouses but you will receive the coins at the <strong>start of the next month</strong>. Also, you get <strong>no prestige</strong> from Black Market trades.') + '</p><div class="contents"></div>');
 		$(el + ' #tab-prices').append('<div class="contents"></div>');
-		$('#tab-blackmarket > .contents').append('' +
+		$(el + ' #tab-blackmarket > .contents').append('' +
 			'<table class="normal">' +
 				'<thead>' +
 					'<tr>' +
@@ -49,6 +49,14 @@ civitas.PANEL_TRADES = {
 				'<tbody>' +
 				'</tbody>' +
 			'</table>');
+		var out = '<option value="0">-- ' + civitas.l('select') + ' --</option>';
+		var resources = settlement.get_resources();
+		for (var item in resources) {
+			if ($.inArray(item, civitas.NON_RESOURCES) === -1) {
+				out += '<option value="' + item + '"> ' + civitas.utils.get_resource_name(item) + '</option>';
+			}
+		}
+		$(el + ' .bm-materials').empty().append(out);
 		this.on_refresh();
 		$(el).on('click', '.buy:not(.disabled)', function () {
 			if (!settlement.can_trade()) {
@@ -112,15 +120,6 @@ civitas.PANEL_TRADES = {
 					'</tr>';
 		}
 		$('#tab-blackmarket > .contents > table > tbody').empty().append(out);
-
-		var out = '<option value="0">-- ' + civitas.l('select') + ' --</option>';
-		var resources = settlement.get_resources();
-		for (var item in resources) {
-			if ($.inArray(item, civitas.NON_RESOURCES) === -1) {
-				out += '<option value="' + item + '"> ' + civitas.utils.get_resource_name(item) + '</option>';
-			}
-		}
-		$('.bm-materials').empty().append(out);
 
 		var out = '<table class="normal">' +
 					'<thead>' +

@@ -45,6 +45,10 @@ civitas.PANEL_BUILDINGS = {
 		_t += '</div>' +
 			'</div><div class="buildings-info right">' +
 				'<div class="b-desc"></div>' +
+				'<fieldset class="levels">' +
+				'<legend>' + civitas.l('Levels') + '</legend>' +
+				'<div class="b-levels"></div>' +
+				'</fieldset>' +
 				'<fieldset>' +
 				'<legend>' + civitas.l('Cost') + '</legend>' +
 				'<div class="b-cost"></div>' +
@@ -91,6 +95,14 @@ civitas.PANEL_BUILDINGS = {
 			}
 			_z += '</dl>';
 			$(el + ' .b-cost').append(_z);
+			if (typeof building.levels !== 'undefined') {
+				$(el + ' .b-levels').empty().append('<dl class="nomg">' +
+					'<dt>' + civitas.l('Upgrades') + '</dt><dd>' + building.levels + '</dd>' +
+				'</dl>');
+				$('fieldset.levels').show();
+			} else {
+				$('fieldset.levels').hide();
+			}
 			if (typeof building.requires !== 'undefined') {
 				_z = '<dl class="nomg">';
 				if (typeof building.requires.buildings !== 'undefined') {

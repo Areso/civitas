@@ -182,7 +182,7 @@ civitas.PANEL_COUNCIL = {
 						'<td>' + civitas.l('Total') + '</td>' +
 						'<td></td>' +
 						'<td>' + _z + '</td>' +
-						'<td>-' + total_costs + ' ' + civitas.ui.resource_small_img('coins') + '</td>' +
+						'<td>' + (total_costs > 0 ? '-' : '') + total_costs + ' ' + civitas.ui.resource_small_img('coins') + '</td>' +
 					'</tr>' +
 				'</tfoot>' +
 			'</table>';

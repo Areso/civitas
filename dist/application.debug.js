@@ -2,7 +2,7 @@
  * Civitas empire-building game.
  *
  * @author sizeof(cat) <sizeofcat AT riseup.net>
- * @version 0.1.0.4212017
+ * @version 0.1.0.4222017
  * @license MIT
  */ 'use strict';
 
@@ -1974,7 +1974,7 @@ civitas.BUILDINGS = [{
 			'goods from production buildings. A Warehouse also adds extra storage space for the ' +
 			'materials in your city.',
 		storage: 100000,
-		levels: 3,
+		levels: 5,
 		visible_upgrades: true,
 		position: {
 			x: 1162,
@@ -2155,12 +2155,12 @@ civitas.BUILDINGS = [{
 		handle: 'tavern',
 		description: 'The Tavern is the place where heroes of the known (and unknown) world hang around. If you are looking to recruit Achilles, build a Tavern. He might show up.',
 		is_municipal: true,
-		production: {
-			fame: 10
-		},
+		is_special: true,
 		materials: {
 			coins: 20,
-			wine: 2,
+			wine: 3,
+			beer: 3,
+			cider: 3,
 			meat: 2,
 			oil: 1
 		},
@@ -2181,7 +2181,7 @@ civitas.BUILDINGS = [{
 		requires: {
 			settlement_level: 16,
 			buildings: {
-				academy: 1,
+				academy: 2,
 				castle: 1
 			}
 		}
@@ -2195,7 +2195,7 @@ civitas.BUILDINGS = [{
 			x: 1760,
 			y: 570
 		},
-		levels: 3,
+		levels: 5,
 		chance: {
 			pearls: 0.005
 		},
@@ -2223,6 +2223,8 @@ civitas.BUILDINGS = [{
 			x: 360,
 			y: 540
 		},
+		levels: 3,
+		visible_upgrades: true,
 		large: true,
 		cost: {
 			coins: 50000,
@@ -2280,7 +2282,7 @@ civitas.BUILDINGS = [{
 		production: {
 			wood: 4
 		},
-		levels: 3,
+		levels: 5,
 		position: {
 			x: 120,
 			y: 760
@@ -2303,7 +2305,7 @@ civitas.BUILDINGS = [{
 		production: {
 			woodplanks: 1
 		},
-		levels: 3,
+		levels: 5,
 		position: {
 			x: 180,
 			y: 810
@@ -2330,7 +2332,7 @@ civitas.BUILDINGS = [{
 			x: 490,
 			y: 243
 		},
-		levels: 3,
+		levels: 5,
 		cost: {
 			coins: 2000,
 			wood: 20
@@ -2355,7 +2357,7 @@ civitas.BUILDINGS = [{
 			x: 342,
 			y: 253
 		},
-		levels: 3,
+		levels: 5,
 		chance: {
 			gems: 0.0001
 		},
@@ -2381,7 +2383,6 @@ civitas.BUILDINGS = [{
 			x: 890,
 			y: 610
 		},
-		levels: 1,
 		chance: {
 			coins: 0.1
 		},
@@ -2415,7 +2416,7 @@ civitas.BUILDINGS = [{
 			x: 640,
 			y: 182
 		},
-		levels: 3,
+		levels: 5,
 		chance: {
 			gems: 0.0001
 		},
@@ -2440,7 +2441,7 @@ civitas.BUILDINGS = [{
 			x: 172,
 			y: 258
 		},
-		levels: 3,
+		levels: 5,
 		cost: {
 			coins: 8000,
 			wood: 20,
@@ -2463,7 +2464,7 @@ civitas.BUILDINGS = [{
 			x: 732,
 			y: 133
 		},
-		levels: 3,
+		levels: 5,
 		chance: {
 			gems: 0.0001
 		},
@@ -2651,7 +2652,7 @@ civitas.BUILDINGS = [{
 			x: 1082,
 			y: 297
 		},
-		levels: 3,
+		levels: 5,
 		cost: {
 			coins: 25000,
 			woodplanks: 40,
@@ -2930,7 +2931,7 @@ civitas.BUILDINGS = [{
 			x: 1150,
 			y: 810
 		},
-		levels: 3,
+		levels: 5,
 		cost: {
 			coins: 50000,
 			wood: 50,
@@ -3554,8 +3555,8 @@ civitas.BUILDINGS = [{
 		materials: {
 			fish: 2,
 			meat: 2,
-			wine: 1,
 			pottery: 1,
+			wine: 1,
 			candlesticks: 1
 		},
 		position: {
@@ -3606,7 +3607,7 @@ civitas.BUILDINGS = [{
 		handle: 'house9',
 		description: 'Houses provide coins through taxes and space for your settlers.',
 		is_housing: true,
-		tax: 100,
+		tax: 50,
 		cost: {
 			woodplanks: 100,
 			stones: 200,
@@ -3619,9 +3620,7 @@ civitas.BUILDINGS = [{
 			pottery: 1,
 			candlesticks: 1,
 			furcoats: 1,
-			perfume: 1,
-			robes: 1,
-			marzipan: 1
+			perfume: 1
 		},
 		position: {
 			x: 640,
@@ -3640,7 +3639,7 @@ civitas.BUILDINGS = [{
 		handle: 'house10',
 		description: 'Houses provide coins through taxes and space for your settlers.',
 		is_housing: true,
-		tax: 100,
+		tax: 60,
 		cost: {
 			woodplanks: 100,
 			stones: 200,
@@ -3654,8 +3653,7 @@ civitas.BUILDINGS = [{
 			candlesticks: 1,
 			furcoats: 1,
 			perfume: 1,
-			robes: 1,
-			marzipan: 1
+			robes: 1
 		},
 		position: {
 			x: 590,
@@ -3675,7 +3673,7 @@ civitas.BUILDINGS = [{
 		handle: 'house11',
 		description: 'Houses provide coins through taxes and space for your settlers.',
 		is_housing: true,
-		tax: 100,
+		tax: 80,
 		cost: {
 			woodplanks: 100,
 			stones: 200,
@@ -3717,15 +3715,16 @@ civitas.BUILDINGS = [{
 			coins: 10000
 		},
 		materials: {
-			fish: 2,
-			meat: 2,
-			wine: 1,
-			pottery: 1,
+			meat: 4,
+			wine: 2,
+			pottery: 2,
 			candlesticks: 1,
 			furcoats: 1,
 			perfume: 1,
 			robes: 1,
-			marzipan: 1
+			marzipan: 1,
+			glasses: 1,
+			jewelery: 1
 		},
 		position: {
 			x: 490,
@@ -4398,7 +4397,7 @@ civitas.SETTLEMENTS = {
 				weapons: civitas.IMPORTANCE_LOW,
 				herbs: civitas.IMPORTANCE_HIGH,
 				sugarcane: civitas.IMPORTANCE_HIGH,
-				quartz: civitas.IMPORTANCE_LOW,
+				quartz: civitas.IMPORTANCE_HIGH,
 				gunpowder: civitas.IMPORTANCE_HIGH,
 				roses: civitas.IMPORTANCE_MEDIUM,
 				wine: civitas.IMPORTANCE_VITAL,
@@ -4409,13 +4408,13 @@ civitas.SETTLEMENTS = {
 			},
 			'exports': {
 				hemp: civitas.IMPORTANCE_VITAL,
-				indigo: civitas.IMPORTANCE_LOW,
+				indigo: civitas.IMPORTANCE_HIGH,
 				armor: civitas.IMPORTANCE_MEDIUM,
 				sugar: civitas.IMPORTANCE_HIGH,
 				barrels: civitas.IMPORTANCE_MEDIUM,
 				paper: civitas.IMPORTANCE_HIGH,
 				woodplanks: civitas.IMPORTANCE_MEDIUM,
-				stones: civitas.IMPORTANCE_LOW
+				stones: civitas.IMPORTANCE_HIGH
 			}
 		},
 		army: {
@@ -4450,11 +4449,11 @@ civitas.SETTLEMENTS = {
 		},
 		trades: {
 			'imports': {
-				wax: civitas.IMPORTANCE_LOW,
+				wax: civitas.IMPORTANCE_HIGH,
 				pottery: civitas.IMPORTANCE_HIGH,
 				sugar: civitas.IMPORTANCE_VITAL,
 				sugarcane: civitas.IMPORTANCE_MEDIUM,
-				glasses: civitas.IMPORTANCE_LOW,
+				glasses: civitas.IMPORTANCE_HIGH,
 				furs: civitas.IMPORTANCE_VITAL,
 				stones: civitas.IMPORTANCE_HIGH,
 				fish: civitas.IMPORTANCE_HIGH,
@@ -4462,14 +4461,14 @@ civitas.SETTLEMENTS = {
 				candles: civitas.IMPORTANCE_LOW,
 				bread: civitas.IMPORTANCE_VITAL,
 				pearls: civitas.IMPORTANCE_LOW,
-				salt: civitas.IMPORTANCE_LOW
+				salt: civitas.IMPORTANCE_HIGH
 			},
 			'exports': {
 				leather: civitas.IMPORTANCE_MEDIUM,
 				indigo: civitas.IMPORTANCE_LOW,
 				flour: civitas.IMPORTANCE_VITAL,
 				glass: civitas.IMPORTANCE_MEDIUM,
-				coal: civitas.IMPORTANCE_LOW,
+				coal: civitas.IMPORTANCE_HIGH,
 				gunpowder: civitas.IMPORTANCE_HIGH,
 				bottles: civitas.IMPORTANCE_HIGH,
 				fish: civitas.IMPORTANCE_HIGH,
@@ -4533,7 +4532,7 @@ civitas.SETTLEMENTS = {
 				furcoats: civitas.IMPORTANCE_MEDIUM,
 				indigo: civitas.IMPORTANCE_LOW,
 				pottery: civitas.IMPORTANCE_HIGH,
-				wheat: civitas.IMPORTANCE_LOW
+				wheat: civitas.IMPORTANCE_HIGH
 			}
 		},
 		army: {
@@ -4559,9 +4558,9 @@ civitas.SETTLEMENTS = {
 		},
 		trades: {
 			'imports': {
-				flour: civitas.IMPORTANCE_LOW,
+				flour: civitas.IMPORTANCE_HIGH,
 				milk: civitas.IMPORTANCE_VITAL,
-				brass: civitas.IMPORTANCE_LOW,
+				brass: civitas.IMPORTANCE_HIGH,
 				furs: civitas.IMPORTANCE_LOW,
 				fibers: civitas.IMPORTANCE_MEDIUM,
 				fish: civitas.IMPORTANCE_VITAL,
@@ -4573,7 +4572,7 @@ civitas.SETTLEMENTS = {
 			'exports': {
 				meat: civitas.IMPORTANCE_VITAL,
 				clothes: civitas.IMPORTANCE_VITAL,
-				fish: civitas.IMPORTANCE_LOW,
+				fish: civitas.IMPORTANCE_HIGH,
 				bottles: civitas.IMPORTANCE_HIGH,
 				camels: civitas.IMPORTANCE_HIGH,
 				armor: civitas.IMPORTANCE_MEDIUM,
@@ -4607,7 +4606,7 @@ civitas.SETTLEMENTS = {
 		},
 		trades: {
 			'imports': {
-				barrels: civitas.IMPORTANCE_LOW,
+				barrels: civitas.IMPORTANCE_HIGH,
 				books: civitas.IMPORTANCE_LOW,
 				paper: civitas.IMPORTANCE_LOW,
 				coal: civitas.IMPORTANCE_VITAL,
@@ -4657,25 +4656,25 @@ civitas.SETTLEMENTS = {
 		},
 		trades: {
 			'imports': {
-				meat: civitas.IMPORTANCE_LOW,
+				meat: civitas.IMPORTANCE_HIGH,
 				milk: civitas.IMPORTANCE_LOW,
-				weapons: civitas.IMPORTANCE_LOW,
+				weapons: civitas.IMPORTANCE_VITAL,
 				roses: civitas.IMPORTANCE_MEDIUM,
 				fibers: civitas.IMPORTANCE_HIGH,
 				perfume: civitas.IMPORTANCE_LOW,
 				jewelery: civitas.IMPORTANCE_HIGH,
 				iron: civitas.IMPORTANCE_VITAL,
-				ironores: civitas.IMPORTANCE_LOW
+				ironores: civitas.IMPORTANCE_HIGH
 			},
 			'exports': {
 				brine: civitas.IMPORTANCE_MEDIUM,
-				clothes: civitas.IMPORTANCE_LOW,
+				clothes: civitas.IMPORTANCE_HIGH,
 				glass: civitas.IMPORTANCE_HIGH,
 				oil: civitas.IMPORTANCE_HIGH,
 				wheat: civitas.IMPORTANCE_VITAL,
 				pottery: civitas.IMPORTANCE_HIGH,
 				hides: civitas.IMPORTANCE_LOW,
-				paper: civitas.IMPORTANCE_LOW
+				paper: civitas.IMPORTANCE_HIGH
 			}
 		},
 		army: {
@@ -4701,7 +4700,7 @@ civitas.SETTLEMENTS = {
 			'imports': {
 				silk: civitas.IMPORTANCE_LOW,
 				clothes: civitas.IMPORTANCE_HIGH,
-				leather: civitas.IMPORTANCE_LOW,
+				leather: civitas.IMPORTANCE_HIGH,
 				bottles: civitas.IMPORTANCE_HIGH,
 				hides: civitas.IMPORTANCE_HIGH,
 				clay: civitas.IMPORTANCE_MEDIUM,
@@ -4747,7 +4746,7 @@ civitas.SETTLEMENTS = {
 		},
 		trades: {
 			'imports': {
-				furs: civitas.IMPORTANCE_LOW,
+				furs: civitas.IMPORTANCE_HIGH,
 				milk: civitas.IMPORTANCE_MEDIUM,
 				brine: civitas.IMPORTANCE_VITAL,
 				leather: civitas.IMPORTANCE_LOW,
@@ -4760,7 +4759,7 @@ civitas.SETTLEMENTS = {
 				herbs: civitas.IMPORTANCE_VITAL,
 				statues: civitas.IMPORTANCE_VITAL,
 				camels: civitas.IMPORTANCE_HIGH,
-				wax: civitas.IMPORTANCE_LOW,
+				wax: civitas.IMPORTANCE_HIGH,
 				barrels: civitas.IMPORTANCE_MEDIUM,
 				candles: civitas.IMPORTANCE_LOW,
 				armor: civitas.IMPORTANCE_HIGH,
@@ -4794,12 +4793,12 @@ civitas.SETTLEMENTS = {
 			'imports': {
 				perfume: civitas.IMPORTANCE_MEDIUM,
 				coffee: civitas.IMPORTANCE_LOW,
-				cider: civitas.IMPORTANCE_LOW,
+				cider: civitas.IMPORTANCE_HIGH,
 				hemp: civitas.IMPORTANCE_HIGH,
 				bottles: civitas.IMPORTANCE_HIGH,
-				wine: civitas.IMPORTANCE_LOW,
+				wine: civitas.IMPORTANCE_HIGH,
 				hides: civitas.IMPORTANCE_VITAL,
-				beer: civitas.IMPORTANCE_LOW,
+				beer: civitas.IMPORTANCE_HIGH,
 				mosaic: civitas.IMPORTANCE_VITAL,
 				woodplanks: civitas.IMPORTANCE_HIGH,
 				silk: civitas.IMPORTANCE_MEDIUM
@@ -4847,7 +4846,7 @@ civitas.SETTLEMENTS = {
 		trades: {
 			'imports': {
 				flour: civitas.IMPORTANCE_LOW,
-				bread: civitas.IMPORTANCE_LOW,
+				bread: civitas.IMPORTANCE_HIGH,
 				fibers: civitas.IMPORTANCE_HIGH,
 				woodplanks: civitas.IMPORTANCE_MEDIUM,
 				armor: civitas.IMPORTANCE_HIGH,
@@ -5966,11 +5965,11 @@ civitas.RESOURCES = {
 	},
 	'almonds': {
 		name: 'Almonds',
-		price: 200
+		price: 180
 	},
 	'armor': {
 		name: 'Armor',
-		price: 200
+		price: 220
 	},
 	'barrels': {
 		name: 'Barrels',
@@ -5982,11 +5981,11 @@ civitas.RESOURCES = {
 	},
 	'books': {
 		name: 'Books',
-		price: 120
+		price: 100
 	},
 	'bottles': {
 		name: 'Bottles',
-		price: 100,
+		price: 10,
 		imported: true
 	},
 	'bread': {
@@ -6029,15 +6028,15 @@ civitas.RESOURCES = {
 	},
 	'cattle': {
 		name: 'Cattle',
-		price: 41
+		price: 43
 	},
 	'cider': {
 		name: 'Cider',
-		price: 42
+		price: 45
 	},
 	'clay': {
 		name: 'Clay',
-		price: 35
+		price: 20
 	},
 	'clothes': {
 		name: 'Clothes',
@@ -6045,15 +6044,15 @@ civitas.RESOURCES = {
 	},
 	'coal': {
 		name: 'Coal',
-		price: 34
+		price: 36
 	},
 	'coffee': {
 		name: 'Coffee',
-		price: 240
+		price: 300
 	},
 	'coffeebeans': {
 		name: 'Coffee Beans',
-		price: 136
+		price: 220
 	},
 	'copper': {
 		name: 'Copper',
@@ -6061,7 +6060,7 @@ civitas.RESOURCES = {
 	},
 	'dates': {
 		name: 'Dates',
-		price: 140,
+		price: 160,
 		imported: true
 	},
 	'donkeys': {
@@ -6079,7 +6078,7 @@ civitas.RESOURCES = {
 	},
 	'flour': {
 		name: 'Flour',
-		price: 42
+		price: 40
 	},
 	'furcoats': {
 		name: 'Fur coats',
@@ -6103,11 +6102,11 @@ civitas.RESOURCES = {
 	},
 	'gold': {
 		name: 'Gold',
-		price: 194
+		price: 260
 	},
 	'goldores': {
 		name: 'Gold ores',
-		price: 90
+		price: 80
 	},
 	'grapes': {
 		name: 'Grapes',
@@ -6135,11 +6134,11 @@ civitas.RESOURCES = {
 	},
 	'iron': {
 		name: 'Iron',
-		price: 86
+		price: 82
 	},
 	'ironores': {
 		name: 'Iron ores',
-		price: 45
+		price: 42
 	},
 	'jewelery': {
 		name: 'Jewelery',
@@ -6151,8 +6150,7 @@ civitas.RESOURCES = {
 	},
 	'marzipan': {
 		name: 'Marzipan',
-		price: 280,
-		imported: true
+		price: 150
 	},
 	'meat': {
 		name: 'Meat',
@@ -6160,7 +6158,7 @@ civitas.RESOURCES = {
 	},
 	'milk': {
 		name: 'Milk',
-		price: 55
+		price: 30
 	},
 	'mosaic': {
 		name: 'Mosaic',
@@ -6185,7 +6183,7 @@ civitas.RESOURCES = {
 	},
 	'pottery': {
 		name: 'Pottery',
-		price: 60
+		price: 55
 	},
 	'provisions': {
 		name: 'Provisions',
@@ -6193,7 +6191,7 @@ civitas.RESOURCES = {
 	},
 	'quartz': {
 		name: 'Quartz',
-		price: 26
+		price: 18
 	},
 	'robes': {
 		name: 'Robes',
@@ -6231,7 +6229,7 @@ civitas.RESOURCES = {
 	},
 	'statues': {
 		name: 'Statues',
-		price: 800,
+		price: 1200,
 		imported: true
 	},
 	'stones': {
@@ -6252,8 +6250,7 @@ civitas.RESOURCES = {
 	},
 	'tools': {
 		name: 'Tools',
-		price: 35,
-		imported: true
+		price: 35
 	},
 	'wax': {
 		name: 'Wax',
@@ -6261,7 +6258,7 @@ civitas.RESOURCES = {
 	},
 	'weapons': {
 		name: 'Weapons',
-		price: 205
+		price: 220
 	},
 	'wheat': {
 		name: 'Wheat',
@@ -7132,9 +7129,11 @@ civitas.ui = {
 		var out = '<dl' + ((typeof no_margin !== 'undefined' && no_margin === true) ? ' class="nomg"' : '') + '>';
 		var total = 0;
 		for (var soldier in army.army) {
-			out += '<dt>' + army.army[soldier] + '</dt>' +
-					'<dd>' + civitas.ui.army_img(soldier) + '</dd>';
-			total += army.army[soldier];
+			if (army.army[soldier] > 0) {
+				out += '<dt>' + army.army[soldier] + '</dt>' +
+						'<dd>' + civitas.ui.army_img(soldier) + '</dd>';
+				total += army.army[soldier];
+			}
 		}
 		out += '<dt>' + (typeof army.total !== 'undefined' ? army.total : total) + '</dt><dd>' + civitas.l('Total') + '</dd>' +
 				'</dl>';
@@ -7193,10 +7192,12 @@ civitas.ui = {
 	navy_list: function (army, no_margin) {
 		var out = '<dl' + ((typeof no_margin !== 'undefined' && no_margin === true) ? ' class="nomg"' : '') + '>';
 		var total = 0;
-		for (var soldier in army.navy) {
-			out += '<dt>' + army.navy[soldier] + '</dt>' +
-					'<dd>' + civitas.ui.army_img(soldier) + '</dd>';
-			total += army.navy[soldier];
+		for (var ship in army.navy) {
+			if (army.navy[ship] > 0) {
+				out += '<dt>' + army.navy[ship] + '</dt>' +
+						'<dd>' + civitas.ui.army_img(ship) + '</dd>';
+				total += army.navy[ship];
+			}
 		}
 		out += '<dt>' + (typeof army.total !== 'undefined' ? army.total : total) + '</dt><dd>' + civitas.l('Total') + '</dd>' +
 				'</dl>';
@@ -14351,7 +14352,7 @@ civitas.PANEL_COUNCIL = {
 						'<td>' + civitas.l('Total') + '</td>' +
 						'<td></td>' +
 						'<td>' + _z + '</td>' +
-						'<td>-' + total_costs + ' ' + civitas.ui.resource_small_img('coins') + '</td>' +
+						'<td>' + (total_costs > 0 ? '-' : '') + total_costs + ' ' + civitas.ui.resource_small_img('coins') + '</td>' +
 					'</tr>' +
 				'</tfoot>' +
 			'</table>';
@@ -14517,6 +14518,10 @@ civitas.PANEL_BUILDINGS = {
 		_t += '</div>' +
 			'</div><div class="buildings-info right">' +
 				'<div class="b-desc"></div>' +
+				'<fieldset class="levels">' +
+				'<legend>' + civitas.l('Levels') + '</legend>' +
+				'<div class="b-levels"></div>' +
+				'</fieldset>' +
 				'<fieldset>' +
 				'<legend>' + civitas.l('Cost') + '</legend>' +
 				'<div class="b-cost"></div>' +
@@ -14563,6 +14568,14 @@ civitas.PANEL_BUILDINGS = {
 			}
 			_z += '</dl>';
 			$(el + ' .b-cost').append(_z);
+			if (typeof building.levels !== 'undefined') {
+				$(el + ' .b-levels').empty().append('<dl class="nomg">' +
+					'<dt>' + civitas.l('Upgrades') + '</dt><dd>' + building.levels + '</dd>' +
+				'</dl>');
+				$('fieldset.levels').show();
+			} else {
+				$('fieldset.levels').hide();
+			}
 			if (typeof building.requires !== 'undefined') {
 				_z = '<dl class="nomg">';
 				if (typeof building.requires.buildings !== 'undefined') {
@@ -14692,7 +14705,7 @@ civitas.PANEL_TRADES = {
 		$(el + ' #tab-mercenaries').append('<p>' + civitas.l('Below is a list of mercenary armies that are looking for hire. Mercenaries are available only for raiding and conquest missions, they do not join your city so they will not participate in defense.') + '</p><div class="contents"></div>');
 		$(el + ' #tab-blackmarket').append('<p>' + civitas.l('The Black Market is a way to dump your excess materials when you`re in need of emptying your warehouses, but expect a steep price drop (taxes for all Black Market trades are <strong>') + civitas.BLACK_MARKET_DISCOUNT + civitas.l('%</strong>). The goods will be taken immediately from your warehouses but you will receive the coins at the <strong>start of the next month</strong>. Also, you get <strong>no prestige</strong> from Black Market trades.') + '</p><div class="contents"></div>');
 		$(el + ' #tab-prices').append('<div class="contents"></div>');
-		$('#tab-blackmarket > .contents').append('' +
+		$(el + ' #tab-blackmarket > .contents').append('' +
 			'<table class="normal">' +
 				'<thead>' +
 					'<tr>' +
@@ -14715,6 +14728,14 @@ civitas.PANEL_TRADES = {
 				'<tbody>' +
 				'</tbody>' +
 			'</table>');
+		var out = '<option value="0">-- ' + civitas.l('select') + ' --</option>';
+		var resources = settlement.get_resources();
+		for (var item in resources) {
+			if ($.inArray(item, civitas.NON_RESOURCES) === -1) {
+				out += '<option value="' + item + '"> ' + civitas.utils.get_resource_name(item) + '</option>';
+			}
+		}
+		$(el + ' .bm-materials').empty().append(out);
 		this.on_refresh();
 		$(el).on('click', '.buy:not(.disabled)', function () {
 			if (!settlement.can_trade()) {
@@ -14778,15 +14799,6 @@ civitas.PANEL_TRADES = {
 					'</tr>';
 		}
 		$('#tab-blackmarket > .contents > table > tbody').empty().append(out);
-
-		var out = '<option value="0">-- ' + civitas.l('select') + ' --</option>';
-		var resources = settlement.get_resources();
-		for (var item in resources) {
-			if ($.inArray(item, civitas.NON_RESOURCES) === -1) {
-				out += '<option value="' + item + '"> ' + civitas.utils.get_resource_name(item) + '</option>';
-			}
-		}
-		$('.bm-materials').empty().append(out);
 
 		var out = '<table class="normal">' +
 					'<thead>' +

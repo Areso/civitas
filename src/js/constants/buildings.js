@@ -327,7 +327,7 @@ civitas.BUILDINGS = [{
 			'goods from production buildings. A Warehouse also adds extra storage space for the ' +
 			'materials in your city.',
 		storage: 100000,
-		levels: 3,
+		levels: 5,
 		visible_upgrades: true,
 		position: {
 			x: 1162,
@@ -508,12 +508,12 @@ civitas.BUILDINGS = [{
 		handle: 'tavern',
 		description: 'The Tavern is the place where heroes of the known (and unknown) world hang around. If you are looking to recruit Achilles, build a Tavern. He might show up.',
 		is_municipal: true,
-		production: {
-			fame: 10
-		},
+		is_special: true,
 		materials: {
 			coins: 20,
-			wine: 2,
+			wine: 3,
+			beer: 3,
+			cider: 3,
 			meat: 2,
 			oil: 1
 		},
@@ -534,7 +534,7 @@ civitas.BUILDINGS = [{
 		requires: {
 			settlement_level: 16,
 			buildings: {
-				academy: 1,
+				academy: 2,
 				castle: 1
 			}
 		}
@@ -548,7 +548,7 @@ civitas.BUILDINGS = [{
 			x: 1760,
 			y: 570
 		},
-		levels: 3,
+		levels: 5,
 		chance: {
 			pearls: 0.005
 		},
@@ -576,6 +576,8 @@ civitas.BUILDINGS = [{
 			x: 360,
 			y: 540
 		},
+		levels: 3,
+		visible_upgrades: true,
 		large: true,
 		cost: {
 			coins: 50000,
@@ -633,7 +635,7 @@ civitas.BUILDINGS = [{
 		production: {
 			wood: 4
 		},
-		levels: 3,
+		levels: 5,
 		position: {
 			x: 120,
 			y: 760
@@ -656,7 +658,7 @@ civitas.BUILDINGS = [{
 		production: {
 			woodplanks: 1
 		},
-		levels: 3,
+		levels: 5,
 		position: {
 			x: 180,
 			y: 810
@@ -683,7 +685,7 @@ civitas.BUILDINGS = [{
 			x: 490,
 			y: 243
 		},
-		levels: 3,
+		levels: 5,
 		cost: {
 			coins: 2000,
 			wood: 20
@@ -708,7 +710,7 @@ civitas.BUILDINGS = [{
 			x: 342,
 			y: 253
 		},
-		levels: 3,
+		levels: 5,
 		chance: {
 			gems: 0.0001
 		},
@@ -734,7 +736,6 @@ civitas.BUILDINGS = [{
 			x: 890,
 			y: 610
 		},
-		levels: 1,
 		chance: {
 			coins: 0.1
 		},
@@ -768,7 +769,7 @@ civitas.BUILDINGS = [{
 			x: 640,
 			y: 182
 		},
-		levels: 3,
+		levels: 5,
 		chance: {
 			gems: 0.0001
 		},
@@ -793,7 +794,7 @@ civitas.BUILDINGS = [{
 			x: 172,
 			y: 258
 		},
-		levels: 3,
+		levels: 5,
 		cost: {
 			coins: 8000,
 			wood: 20,
@@ -816,7 +817,7 @@ civitas.BUILDINGS = [{
 			x: 732,
 			y: 133
 		},
-		levels: 3,
+		levels: 5,
 		chance: {
 			gems: 0.0001
 		},
@@ -1004,7 +1005,7 @@ civitas.BUILDINGS = [{
 			x: 1082,
 			y: 297
 		},
-		levels: 3,
+		levels: 5,
 		cost: {
 			coins: 25000,
 			woodplanks: 40,
@@ -1283,7 +1284,7 @@ civitas.BUILDINGS = [{
 			x: 1150,
 			y: 810
 		},
-		levels: 3,
+		levels: 5,
 		cost: {
 			coins: 50000,
 			wood: 50,
@@ -1907,8 +1908,8 @@ civitas.BUILDINGS = [{
 		materials: {
 			fish: 2,
 			meat: 2,
-			wine: 1,
 			pottery: 1,
+			wine: 1,
 			candlesticks: 1
 		},
 		position: {
@@ -1959,7 +1960,7 @@ civitas.BUILDINGS = [{
 		handle: 'house9',
 		description: 'Houses provide coins through taxes and space for your settlers.',
 		is_housing: true,
-		tax: 100,
+		tax: 50,
 		cost: {
 			woodplanks: 100,
 			stones: 200,
@@ -1972,9 +1973,7 @@ civitas.BUILDINGS = [{
 			pottery: 1,
 			candlesticks: 1,
 			furcoats: 1,
-			perfume: 1,
-			robes: 1,
-			marzipan: 1
+			perfume: 1
 		},
 		position: {
 			x: 640,
@@ -1993,7 +1992,7 @@ civitas.BUILDINGS = [{
 		handle: 'house10',
 		description: 'Houses provide coins through taxes and space for your settlers.',
 		is_housing: true,
-		tax: 100,
+		tax: 60,
 		cost: {
 			woodplanks: 100,
 			stones: 200,
@@ -2007,8 +2006,7 @@ civitas.BUILDINGS = [{
 			candlesticks: 1,
 			furcoats: 1,
 			perfume: 1,
-			robes: 1,
-			marzipan: 1
+			robes: 1
 		},
 		position: {
 			x: 590,
@@ -2028,7 +2026,7 @@ civitas.BUILDINGS = [{
 		handle: 'house11',
 		description: 'Houses provide coins through taxes and space for your settlers.',
 		is_housing: true,
-		tax: 100,
+		tax: 80,
 		cost: {
 			woodplanks: 100,
 			stones: 200,
@@ -2070,15 +2068,16 @@ civitas.BUILDINGS = [{
 			coins: 10000
 		},
 		materials: {
-			fish: 2,
-			meat: 2,
-			wine: 1,
-			pottery: 1,
+			meat: 4,
+			wine: 2,
+			pottery: 2,
 			candlesticks: 1,
 			furcoats: 1,
 			perfume: 1,
 			robes: 1,
-			marzipan: 1
+			marzipan: 1,
+			glasses: 1,
+			jewelery: 1
 		},
 		position: {
 			x: 490,

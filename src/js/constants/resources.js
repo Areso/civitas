@@ -25,11 +25,11 @@ civitas.RESOURCES = {
 	},
 	'almonds': {
 		name: 'Almonds',
-		price: 200
+		price: 180
 	},
 	'armor': {
 		name: 'Armor',
-		price: 200
+		price: 220
 	},
 	'barrels': {
 		name: 'Barrels',
@@ -41,11 +41,11 @@ civitas.RESOURCES = {
 	},
 	'books': {
 		name: 'Books',
-		price: 120
+		price: 100
 	},
 	'bottles': {
 		name: 'Bottles',
-		price: 100,
+		price: 10,
 		imported: true
 	},
 	'bread': {
@@ -88,15 +88,15 @@ civitas.RESOURCES = {
 	},
 	'cattle': {
 		name: 'Cattle',
-		price: 41
+		price: 43
 	},
 	'cider': {
 		name: 'Cider',
-		price: 42
+		price: 45
 	},
 	'clay': {
 		name: 'Clay',
-		price: 35
+		price: 20
 	},
 	'clothes': {
 		name: 'Clothes',
@@ -104,15 +104,15 @@ civitas.RESOURCES = {
 	},
 	'coal': {
 		name: 'Coal',
-		price: 34
+		price: 36
 	},
 	'coffee': {
 		name: 'Coffee',
-		price: 240
+		price: 300
 	},
 	'coffeebeans': {
 		name: 'Coffee Beans',
-		price: 136
+		price: 220
 	},
 	'copper': {
 		name: 'Copper',
@@ -120,7 +120,7 @@ civitas.RESOURCES = {
 	},
 	'dates': {
 		name: 'Dates',
-		price: 140,
+		price: 160,
 		imported: true
 	},
 	'donkeys': {
@@ -138,7 +138,7 @@ civitas.RESOURCES = {
 	},
 	'flour': {
 		name: 'Flour',
-		price: 42
+		price: 40
 	},
 	'furcoats': {
 		name: 'Fur coats',
@@ -162,11 +162,11 @@ civitas.RESOURCES = {
 	},
 	'gold': {
 		name: 'Gold',
-		price: 194
+		price: 260
 	},
 	'goldores': {
 		name: 'Gold ores',
-		price: 90
+		price: 80
 	},
 	'grapes': {
 		name: 'Grapes',
@@ -194,11 +194,11 @@ civitas.RESOURCES = {
 	},
 	'iron': {
 		name: 'Iron',
-		price: 86
+		price: 82
 	},
 	'ironores': {
 		name: 'Iron ores',
-		price: 45
+		price: 42
 	},
 	'jewelery': {
 		name: 'Jewelery',
@@ -210,8 +210,7 @@ civitas.RESOURCES = {
 	},
 	'marzipan': {
 		name: 'Marzipan',
-		price: 280,
-		imported: true
+		price: 150
 	},
 	'meat': {
 		name: 'Meat',
@@ -219,7 +218,7 @@ civitas.RESOURCES = {
 	},
 	'milk': {
 		name: 'Milk',
-		price: 55
+		price: 30
 	},
 	'mosaic': {
 		name: 'Mosaic',
@@ -244,7 +243,7 @@ civitas.RESOURCES = {
 	},
 	'pottery': {
 		name: 'Pottery',
-		price: 60
+		price: 55
 	},
 	'provisions': {
 		name: 'Provisions',
@@ -252,7 +251,7 @@ civitas.RESOURCES = {
 	},
 	'quartz': {
 		name: 'Quartz',
-		price: 26
+		price: 18
 	},
 	'robes': {
 		name: 'Robes',
@@ -290,7 +289,7 @@ civitas.RESOURCES = {
 	},
 	'statues': {
 		name: 'Statues',
-		price: 800,
+		price: 1200,
 		imported: true
 	},
 	'stones': {
@@ -311,8 +310,7 @@ civitas.RESOURCES = {
 	},
 	'tools': {
 		name: 'Tools',
-		price: 35,
-		imported: true
+		price: 35
 	},
 	'wax': {
 		name: 'Wax',
@@ -320,7 +318,7 @@ civitas.RESOURCES = {
 	},
 	'weapons': {
 		name: 'Weapons',
-		price: 205
+		price: 220
 	},
 	'wheat': {
 		name: 'Wheat',
