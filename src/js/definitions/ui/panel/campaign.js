@@ -52,7 +52,7 @@ civitas.PANEL_CAMPAIGN = {
 			'<dl>' +
 				'<dt>' + civitas.l('Sent By') + '</dt><dd>' + source.get_name() + '</dd>' +
 				'<dt>' + civitas.l('Destination') + '</dt><dd>' + destination.get_name() + '</dd>' +
-				'<dt>s</dt><dd>d</dd>' +
+				'<dt>-empty-</dt><dd>-test-</dd>' +
 				'<dt>' + civitas.l('Distance') + '</dt><dd>' + distance + ' miles (' + campaign.duration + ' ' + civitas.l('days') + ')</dd>' +
 				'<dt>' + civitas.l('Remaining') + '</dt><dd>' + (10 * (campaign.duration - campaign.passed)) + ' miles (' + (campaign.duration - campaign.passed) + ' ' + civitas.l('days') + ')</dd>' +
 			'</dl>');

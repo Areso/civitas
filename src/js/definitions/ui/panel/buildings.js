@@ -91,13 +91,15 @@ civitas.PANEL_BUILDINGS = {
 			$(el + ' .b-desc').html(building.description);
 			var _z = '<dl class="nomg">';
 			for (var y in building.cost) {
-				_z += '<dt>' + civitas.utils.nice_numbers(building.cost[y]) + '</dt><dd><img class="tips" title="' + civitas.utils.get_resource_name(y) + '" src="' + civitas.ASSETS_URL + 'images/resources/' + y + '_small.png" /></dd>';
+				_z += '<dt>' + civitas.utils.nice_numbers(building.cost[y]) + '</dt>' +
+					'<dd><img class="tips" title="' + civitas.utils.get_resource_name(y) + '" src="' + civitas.ASSETS_URL + 'images/resources/' + y + '_small.png" /></dd>';
 			}
 			_z += '</dl>';
 			$(el + ' .b-cost').append(_z);
 			if (typeof building.levels !== 'undefined') {
 				$(el + ' .b-levels').empty().append('<dl class="nomg">' +
-					'<dt>' + civitas.l('Upgrades') + '</dt><dd>' + building.levels + '</dd>' +
+					'<dt>' + civitas.l('Upgrades') + '</dt>' +
+						'<dd>' + building.levels + '</dd>' +
 				'</dl>');
 				$('fieldset.levels').show();
 			} else {
@@ -107,17 +109,20 @@ civitas.PANEL_BUILDINGS = {
 				_z = '<dl class="nomg">';
 				if (typeof building.requires.buildings !== 'undefined') {
 					for (var item in building.requires.buildings) {
-						_z += '<dt>' + civitas.l('Building') + '</dt><dd>' + core.get_building_config_data(item).name + ' level ' + building.requires.buildings[item] + '</dd>';
+						_z += '<dt>' + civitas.l('Building') + '</dt>' +
+							'<dd>' + core.get_building_config_data(item).name + ' level ' + building.requires.buildings[item] + '</dd>';
 					}
 				}
-				_z += '<dt>' + civitas.l('City level') + '</dt><dd>' + building.requires.settlement_level + '</dd>' +
-						'</dl>';
+				_z += '<dt>' + civitas.l('City level') + '</dt>' +
+					'<dd>' + building.requires.settlement_level + '</dd>' +
+				'</dl>';
 				$(el + ' .b-req').append(_z);
 			}
 			if (typeof building.chance !== 'undefined') {
 				_z = '<dl class="nomg">';
 				for (var chance in building.chance) {
-					_z += '<dt>' + building.chance[chance] * 100 + '%</dt><dd><img class="tips" title="' + civitas.utils.get_resource_name(chance) + '" src="' + civitas.ASSETS_URL + 'images/resources/' + chance + '_small.png" /></dd>';
+					_z += '<dt>' + building.chance[chance] * 100 + '%</dt>' +
+						'<dd><img class="tips" title="' + civitas.utils.get_resource_name(chance) + '" src="' + civitas.ASSETS_URL + 'images/resources/' + chance + '_small.png" /></dd>';
 				}
 				_z += '</dl>';
 				$(el + ' .b-chance').append(_z);
@@ -129,7 +134,8 @@ civitas.PANEL_BUILDINGS = {
 				if (typeof building.production !== 'undefined') {
 					_z = '<dl class="nomg">';
 					for (var y in building.production) {
-						_z += '<dt>' + building.production[y] + '</dt><dd><img class="tips" title="' + civitas.utils.get_resource_name(y) + '" src="' + civitas.ASSETS_URL + 'images/resources/' + y + '_small.png" /></dd>';
+						_z += '<dt>' + building.production[y] + '</dt>' +
+							'<dd><img class="tips" title="' + civitas.utils.get_resource_name(y) + '" src="' + civitas.ASSETS_URL + 'images/resources/' + y + '_small.png" /></dd>';
 					}
 					_z += '</dl>';
 					$(el + ' .b-prod').append(_z);
@@ -140,7 +146,8 @@ civitas.PANEL_BUILDINGS = {
 				if (typeof building.materials !== 'undefined') {
 					_z = '<dl class="nomg">';
 					for (var y in building.materials) {
-						_z += '<dt>' + building.materials[y] + '</dt><dd><img class="tips" title="' + civitas.utils.get_resource_name(y) + '" src="' + civitas.ASSETS_URL + 'images/resources/' + y + '_small.png" /></dd>';
+						_z += '<dt>' + building.materials[y] + '</dt>' +
+							'<dd><img class="tips" title="' + civitas.utils.get_resource_name(y) + '" src="' + civitas.ASSETS_URL + 'images/resources/' + y + '_small.png" /></dd>';
 					}
 					_z += '</dl>';
 					$(el + ' .b-mats').append(_z);
@@ -155,7 +162,8 @@ civitas.PANEL_BUILDINGS = {
 				if (typeof building.materials !== 'undefined') {
 					_z = '<dl class="nomg">';
 					for (var y in building.materials) {
-						_z += '<dt>' + building.materials[y] + '</dt><dd><img class="tips" title="' + civitas.utils.get_resource_name(y) + '" src="' + civitas.ASSETS_URL + 'images/resources/' + y + '_small.png" /></dd>';
+						_z += '<dt>' + building.materials[y] + '</dt>' +
+							'<dd><img class="tips" title="' + civitas.utils.get_resource_name(y) + '" src="' + civitas.ASSETS_URL + 'images/resources/' + y + '_small.png" /></dd>';
 					}
 					_z += '</dl>';
 					$(el + ' .b-mats').append(_z);
@@ -165,7 +173,7 @@ civitas.PANEL_BUILDINGS = {
 					_z = '<dl class="nomg">' +
 							'<dt>Tax</dt>' +
 							'<dd>' + building.tax + '<img class="tips" title="' + civitas.l('Coins') + '" src="' + civitas.ASSETS_URL + 'images/resources/coins_small.png" /></dd>' +
-							'</dl>';
+						'</dl>';
 					$(el + ' .b-tax').append(_z);
 					$('fieldset.taxes').show();
 				}
@@ -175,16 +183,14 @@ civitas.PANEL_BUILDINGS = {
 			if (typeof building.storage !== 'undefined') {
 				$('fieldset.taxes, fieldset.materials').hide();
 				_z = '<dl class="nomg">' +
-						'<dt>' + building.storage + '</dt><dd><img class="tips" title="' + civitas.l('Storage Space') + '" src="' + civitas.ASSETS_URL + 'images/resources/storage_small.png" /></dd>' +
-						'</dl>';
+						'<dt>' + building.storage + '</dt>' +
+						'<dd><img class="tips" title="' + civitas.l('Storage Space') + '" src="' + civitas.ASSETS_URL + 'images/resources/storage_small.png" /></dd>' +
+					'</dl>';
 				$(el + ' .b-store').append(_z);
 				$('fieldset.storage').show();
 			} else {
 				$('fieldset.storage').hide();
 			}
-			/* else {
-				$('fieldset.taxes, fieldset.production, fieldset.materials, fieldset.storage').hide();
-			}*/
 			var _i = settlement.is_building_built(building.handle);
 			if (_i !== true) {
 				$(el + ' .toolbar').append('<a href="#" class="btn build" data-handle="' + building.handle + '">' + civitas.l('Build') + '</a>');

@@ -14,7 +14,7 @@ civitas.PANEL_CHURCH = {
 		this.on_refresh();
 		$(this.handle).on('click', '.religion', function() {
 			var id = parseInt($(this).data('id'));
-			if (confirm(civitas.l('Are you sure you want to switch religions? You will lose all your accumulated faith!')) === true) {
+			if (confirm(civitas.l('Are you sure you want to switch religions? You will lose all your city`s faith!')) === true) {
 				settlement.change_religion(id);
 			}
 			return false;
@@ -28,7 +28,7 @@ civitas.PANEL_CHURCH = {
 		var _t = '<div class="section">' +
 			civitas.ui.progress((settlement.get_faith() * 100) / civitas.MAX_FAITH_VALUE, 'large', settlement.get_faith()) +
 		'</div>' +
-		'<p>Changing your settlement`s religion requires 1000 faith and resets your settlement`s faith. Each religion gives you access to different heroes in your Tavern and gives you a boost to the influence with the cities sharing the same religion.</p>' +
+		'<p>Changing your settlement`s religion requires <strong>' + civitas.MAX_FAITH_VALUE + '</strong> faith, each religion gives you access to different heroes in your Tavern and gives you a boost to the influence with the cities sharing the same religion.</p>' +
 		'<div class="religion-list">';
 		for (var i = 0; i < civitas.RELIGIONS.length; i++) {
 			_t += '<div data-handle="' + civitas.RELIGIONS[i] + '" data-id="' + i + '" class="religion' + (settlement.get_religion().id === i ? ' selected' : '') + '">' +

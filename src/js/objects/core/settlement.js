@@ -442,7 +442,7 @@ civitas.objects.settlement = function(params) {
 			return false;
 		}
 		if ((storage.occupied + quantity) > storage.all) {
-			this.get_core().error('There is no storage space in your city to accomodate the new goods.');
+			//this.get_core().error('There is no storage space in your city to accomodate the new goods.');
 			return false;
 		}
 		return true;

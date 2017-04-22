@@ -19,6 +19,7 @@ civitas.PANEL_ACADEMY = {
 		$(this.handle + ' #tab-info').empty().append(civitas.ui.building_panel(this.params_data, building.get_level()));
 		$(this.handle + ' #tab-research').empty().append('<div class="section">' +
 				civitas.ui.progress((research * 100) / civitas.MAX_RESEARCH_VALUE, 'large', research) +
-			'</div>');
+			'</div>' +
+			'<p>Not implemented yet.</p>');
 	}
 };

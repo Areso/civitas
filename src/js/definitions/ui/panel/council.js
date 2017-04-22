@@ -24,14 +24,12 @@ civitas.PANEL_COUNCIL = {
 			return false;
 		}).on('click', '.raid-merc', function () {
 			var _army = parseInt($(this).data('id'));
-			var data = civitas.MERCENARIES[_army];
 			core.error('Not implemented yet.');
 			return false;
 		}).on('click', '.disband-merc', function () {
 			if (confirm(civitas.l('Are you sure you want to release this mercenary army? You won`t be able to use them anymore!')) === true) {
 				var _army = parseInt($(this).data('id'));
-				var data = civitas.MERCENARIES[_army];
-				core.get_settlement().mercenary.splice(_army, 1);
+				core.get_settlement().release_mercenary(_army);
 				core.save_and_refresh();
 			}
 			return false;

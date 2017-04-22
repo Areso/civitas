@@ -2,7 +2,7 @@
  * Civitas empire-building game.
  *
  * @author sizeof(cat) <sizeofcat AT riseup.net>
- * @version 0.1.0.4222017
+ * @version 0.1.0.4232017
  * @license MIT
  */ 'use strict';
 
@@ -718,7 +718,7 @@ civitas.MAX_ESPIONAGE_SUCESS_RATE = 100;
  * @constant
  * @type {Number}
  */
-civitas.MAX_INFLUENCE_VALUE = 1000;
+civitas.MAX_INFLUENCE_VALUE = 100;
 
 /**
  * List of game diplomacy options.
@@ -2069,7 +2069,7 @@ civitas.BUILDINGS = [{
 	}, {
 		name: 'Trading Post',
 		handle: 'tradingpost',
-		description: 'The Trading Post allows you to trade resources with other settlements.',
+		description: 'The Trading Post gives you the opportunity to trade resources and send caravans to other settlements.',
 		is_municipal: true,
 		position: {
 			x: 1570,
@@ -2087,7 +2087,7 @@ civitas.BUILDINGS = [{
 	}, {
 		name: 'Academy',
 		handle: 'academy',
-		description: 'The Academy provides research for the settlement it is built into, at the expense of coins.',
+		description: 'The Academy provides a minor amount of fame each day as well as research for this settlement at the expense of coins.',
 		is_municipal: true,
 		is_production: true, 
 		production: {
@@ -2114,8 +2114,7 @@ civitas.BUILDINGS = [{
 	}, {
 		name: 'Embassy',
 		handle: 'embassy',
-		description: 'An Embassy is required to propose pacts, declare war, send goods to other ' +
-			'cities.',
+		description: 'An Embassy is required to propose pacts, declare war, send spies to other settlements.',
 		is_municipal: true,
 		is_production: true, 
 		production: {
@@ -2169,7 +2168,7 @@ civitas.BUILDINGS = [{
 	}, {
 		name: 'Monastery',
 		handle: 'monastery',
-		description: 'Monastery provides fame for your city in exchange for coins.',
+		description: 'A Monastery provides fame and faith for your city in exchange for coins.',
 		is_municipal: true,
 		is_production: true,
 		production: {
@@ -2263,8 +2262,7 @@ civitas.BUILDINGS = [{
 	}, {
 		name: 'Military Camp',
 		handle: 'camp',
-		description: 'The military camp is your main base of defense and attack until you can ' +
-			'develop a Castle.',
+		description: 'The military camp is your main base of defense and attack. If you plan on going to war, you will need a Military Camp.',
 		position: {
 			x: 360,
 			y: 540
@@ -2322,8 +2320,8 @@ civitas.BUILDINGS = [{
 	}, {
 		name: 'Lumberjack',
 		handle: 'lumberjack',
-		description: 'A lumberjack provides you with wood which you can use for creating additional ' +
-			'buildings or sell.',
+		description: 'A Lumberjack provides you with wood which you can use for creating additional ' +
+			'buildings, resources or sell to other settlements.',
 		is_production: true,
 		production: {
 			wood: 4
@@ -2343,7 +2341,7 @@ civitas.BUILDINGS = [{
 	}, {
 		name: 'Carpenter',
 		handle: 'carpenter',
-		description: 'The carpenter processes the wood from the Lumberjack into wood planks that are required for more advanced buildings.',
+		description: 'The Carpenter processes the wood from the Lumberjack into wood planks that are required for more advanced buildings.',
 		is_production: true,
 		materials: {
 			wood: 2
@@ -2367,7 +2365,7 @@ civitas.BUILDINGS = [{
 	}, {
 		name: 'Stone Quarry',
 		handle: 'stone',
-		description: 'Stone quarries produce stone blocks that are the basis of any buildings you ' +
+		description: 'A Stone Quarry produces stone blocks that are the basis of any buildings you ' +
 			'wish to construct.',
 		is_production: true,
 		production: {
@@ -2392,8 +2390,8 @@ civitas.BUILDINGS = [{
 	}, {
 		name: 'Gold Mine',
 		handle: 'goldmine',
-		description: 'The gold mine extracts gold ores from the mountains you own (provided you ' +
-			'own some).',
+		description: 'The Gold Mine extracts gold ores from the mountains you own (provided you ' +
+			'own some). Gold ores can be smelted later into gold bars.',
 		is_production: true,
 		production: {
 			goldores: 4,
@@ -2418,7 +2416,7 @@ civitas.BUILDINGS = [{
 	}, {
 		name: 'Tournir Area',
 		handle: 'tournir',
-		description: 'The tournir area is providing your city with prestige, a chance to train your soldiers and has a low chance of giving your city coins.',
+		description: 'The Tournir Area is providing your city with prestige, a chance to train your soldiers and has a chance of giving your city free coins.',
 		extralarge: true,
 		is_municipal: true,
 		is_production: true,
@@ -2451,8 +2449,8 @@ civitas.BUILDINGS = [{
 	}, {
 		name: 'Iron Mine',
 		handle: 'ironmine',
-		description: 'The iron mine extracts iron ores from the mountains you own (provided you own ' +
-			'some).',
+		description: 'The Iron Mine extracts iron ores from the mountains you own (provided you own ' +
+			'some). Iron ores can be smelted later into iron bars.',
 		is_production: true,
 		production: {
 			ironores: 4,
@@ -2477,7 +2475,7 @@ civitas.BUILDINGS = [{
 	}, {
 		name: 'Salt Mine',
 		handle: 'saltmine',
-		description: 'A salt mine extracts brine that can be processed further into salt in a Salt ' +
+		description: 'A Salt Mine extracts brine that can be processed further into salt in a Salt ' +
 			'Works.',
 		is_production: true,
 		production: {
@@ -2500,7 +2498,7 @@ civitas.BUILDINGS = [{
 		name: 'Copper Mine',
 		handle: 'coppermine',
 		description: 'The copper mine extracts copper from the mountains you own (provided you own ' +
-			'some).',
+			'some). Copper ores can be smelted later into brass.',
 		is_production: true,
 		production: {
 			copper: 4,
@@ -2525,9 +2523,7 @@ civitas.BUILDINGS = [{
 	}, {
 		name: 'Salt Works',
 		handle: 'saltworks',
-		description: 'Salt Works requires coal and brine, and it produces salt. Salt is used for ' +
-			'leather jerkins by the Tannery, meat by the Butcher`s Shop and fur coats by the ' +
-			'Furrier`s Workshop.',
+		description: 'A Salt Works requires coal and brine for producing salt. Salt is a very useful resource so make sure your settlement has plenty.',
 		is_production: true,
 		production: {
 			salt: 3
@@ -2552,7 +2548,7 @@ civitas.BUILDINGS = [{
 	}, {
 		name: 'Mill',
 		handle: 'mill',
-		description: 'The Mill produces flour from the wheat cultivated by your farm(s).',
+		description: 'The Mill produces flour from the wheat cultivated by your Grain Farm.',
 		is_production: true,
 		production: {
 			flour: 2
@@ -2576,8 +2572,7 @@ civitas.BUILDINGS = [{
 	}, {
 		name: 'Bakery',
 		handle: 'bakery',
-		description: 'The Bakery creates bread from flour, thus providing your settlers with basic ' +
-			'food.',
+		description: 'The Bakery creates bread from flour, thus providing your settlers with basic food.',
 		is_production: true,
 		production: {
 			bread: 5
@@ -2601,8 +2596,7 @@ civitas.BUILDINGS = [{
 	}, {
 		name: 'Pottery Workshop',
 		handle: 'pottery',
-		description: 'The pottery workshop uses a high-temperature kiln and clay to create ' +
-			'pottery for the inhabitants of your settlement.',
+		description: 'The Pottery Workshop uses a high-temperature kiln and clay to create pottery for the inhabitants of your settlement.',
 		is_production: true,
 		production: {
 			pottery: 4
@@ -2627,7 +2621,7 @@ civitas.BUILDINGS = [{
 	}, {
 		name: 'Gunpowder Mill',
 		handle: 'gunpowdermill',
-		description: '.',
+		description: 'A Gunpowder Mill is creating highly useful (and unstable) gunpowder from the sulphur found in your Charcoal Burner`s Hut.',
 		is_production: true,
 		production: {
 			gunpowder: 1
@@ -2653,8 +2647,7 @@ civitas.BUILDINGS = [{
 	}, {
 		name: 'Armory',
 		handle: 'armory',
-		description: 'The Armory is a major building that produces weapons and armor for ' +
-			'your soldiers. If you want to conquer other settlements, you will need one.',
+		description: 'The Armory is a major building that produces weapons and armor for your soldiers. If you want to conquer other settlements, you will need to build one and keep it stocked with materials.',
 		is_production: true,
 		production: {
 			weapons: 1,
@@ -2683,8 +2676,7 @@ civitas.BUILDINGS = [{
 	}, {
 		name: 'Butcher',
 		handle: 'butcher',
-		description: 'The Butcher slaughters cattle for meat, providing food that is more ' +
-			'nutritious. Hides will be processed at the Tannery.',
+		description: 'The Butcher slaughters cattle for meat, providing food that is more nutritious. Hides will be processed further at the Tannery.',
 		is_production: true,
 		production: {
 			meat: 4,
@@ -2710,8 +2702,7 @@ civitas.BUILDINGS = [{
 	}, {
 		name: 'Iron smelter',
 		handle: 'ironsmelter',
-		description: 'The iron smelter (or foundry) smelts iron ores into iron bars using coal, ' +
-			'ready to be transformed into weapons.',
+		description: 'The Iron Smelter (or foundry) smelts iron ores into iron bars using coal, ready to be transformed into weapons.',
 		is_production: true,
 		production: {
 			iron: 4
@@ -2736,7 +2727,7 @@ civitas.BUILDINGS = [{
 	}, {
 		name: 'Copper smelter',
 		handle: 'coppersmelter',
-		description: 'The copper smelter smelts copper into brass using coal.',
+		description: 'The Copper Smelter smelts copper ores into brass using coal.',
 		is_production: true,
 		production: {
 			brass: 2
@@ -2761,7 +2752,7 @@ civitas.BUILDINGS = [{
 	}, {
 		name: 'Gold smelter',
 		handle: 'goldsmelter',
-		description: 'The gold smelter transforms gold ores into gold bars using coal.',
+		description: 'The Gold Smelter smelts gold ores into gold bars using coal.',
 		is_production: true,
 		production: {
 			gold: 1
@@ -2786,7 +2777,7 @@ civitas.BUILDINGS = [{
 	}, {
 		name: 'Trapper`s Lodge',
 		handle: 'trapper',
-		description: 'The trapper captures wild animals and uses the furs from them.',
+		description: 'The trapper captures wild animals and gathers their furs.',
 		is_production: true,
 		production: {
 			furs: 3
@@ -2857,7 +2848,7 @@ civitas.BUILDINGS = [{
 	}, {
 		name: 'Weaver`s Hut',
 		handle: 'weaver',
-		description: 'The weaver uses hemp to produce fiber for clothes.',
+		description: 'The weaver uses a hefty amount of hemp to produce fiber for clothes.',
 		is_production: true,
 		production: {
 			fibers: 2
@@ -2881,7 +2872,7 @@ civitas.BUILDINGS = [{
 	}, {
 		name: 'Tannery',
 		handle: 'tannery',
-		description: 'The tannery produces leather clothes from animal hides.',
+		description: 'The Tannery produces leather clothes from processed animal hides.',
 		is_production: true,
 		production: {
 			leather: 3
@@ -2906,7 +2897,7 @@ civitas.BUILDINGS = [{
 	}, {
 		name: 'Coffee roaster',
 		handle: 'coffeeroaster',
-		description: 'The coffee roaster uses the coffee beans from your Coffee Farm and processes ' +
+		description: 'The Coffee Roaster uses the coffee beans from your Coffee Farm and processes ' +
 			'them into coffee.',
 		is_production: true,
 		production: {
@@ -2935,7 +2926,7 @@ civitas.BUILDINGS = [{
 	}, {
 		name: 'Sugar Mill',
 		handle: 'sugarmill',
-		description: 'The Sugar Mill creates sugar from sugar cane.',
+		description: 'The Sugar Mill processes any sugar cane you have in storage into sugar.',
 		is_production: true,
 		production: {
 			sugar: 1
@@ -2963,7 +2954,7 @@ civitas.BUILDINGS = [{
 	}, {
 		name: 'Winery',
 		handle: 'winery',
-		description: 'The Winery uses the grapes from your Grapes Farm and processes them into wine.',
+		description: 'The Winery uses the grapes from your Grapes Farm and processes them into wine. You will need to import the bottles from another settlement though.',
 		is_production: true,
 		production: {
 			wine: 2
@@ -3016,8 +3007,7 @@ civitas.BUILDINGS = [{
 	}, {
 		name: 'Paper Mill',
 		handle: 'papermill',
-		description: 'The Paper Mill uses wood to produce paper, which is used along with indigo to ' +
-			'produce books at the Printing House.',
+		description: 'The Paper Mill uses wood to produce paper, which is used together with indigo to produce books at the Printing House.',
 		is_production: true,
 		production: {
 			paper: 2
@@ -3042,7 +3032,7 @@ civitas.BUILDINGS = [{
 	}, {
 		name: 'Printing Press',
 		handle: 'printingpress',
-		description: 'The printing press produces books using paper and indigo.',
+		description: 'The Printing Press produces books from paper using indigo ink.',
 		is_production: true,
 		production: {
 			books: 1
@@ -3123,7 +3113,7 @@ civitas.BUILDINGS = [{
 	}, {
 		name: 'Ropeyard',
 		handle: 'ropeyard',
-		description: 'The ropeyard produces ropes that are needed for your city`s ships.',
+		description: 'The Ropeyard produces ropes that are needed for your city`s ships.',
 		is_production: true,
 		production: {
 			ropes: 1
@@ -3172,7 +3162,7 @@ civitas.BUILDINGS = [{
 	}, {
 		name: 'Marzipan Workshop',
 		handle: 'marzipanworkshop',
-		description: '.',
+		description: 'The Marzipan Workshop uses almonds and sugar from storage to create delicious marzipan. Your settlers will definitely appreciate it.',
 		is_production: true,
 		production: {
 			marzipan: 1
@@ -3201,7 +3191,7 @@ civitas.BUILDINGS = [{
 	}, {
 		name: 'Silk Weaver',
 		handle: 'silkweaver',
-		description: 'The silk weaking mill requires gold and silk and produces brocade robes.',
+		description: 'The Silk Weaver requires hemp, gold and silk and produces brocade robes.',
 		is_production: true,
 		production: {
 			robes: 1
@@ -3231,7 +3221,7 @@ civitas.BUILDINGS = [{
 	}, {
 		name: 'Quartz factory',
 		handle: 'quartzfactory',
-		description: 'The quartz factory provides your city with quartz.',
+		description: 'The Quartz Factory provides your city with quartz.',
 		is_production: true,
 		production: {
 			quartz: 2
@@ -3252,7 +3242,7 @@ civitas.BUILDINGS = [{
 	}, {
 		name: 'Apiary',
 		handle: 'apiary',
-		description: 'The apiary produces bees wax for use in candles.',
+		description: 'The Apiary produces bees wax for use in candles.',
 		is_production: true,
 		production: {
 			wax: 2
@@ -3273,7 +3263,7 @@ civitas.BUILDINGS = [{
 	}, {
 		name: 'Barrel Cooperage',
 		handle: 'barrelcooperage',
-		description: 'The barrel cooperage creates barrels from wood and iron.',
+		description: 'The Barrel Cooperage creates barrels from wood and iron.',
 		is_production: true,
 		production: {
 			barrels: 2
@@ -3299,7 +3289,7 @@ civitas.BUILDINGS = [{
 	}, {
 		name: 'Brewery',
 		handle: 'brewery',
-		description: 'The Brewery brews beer from wheat. Beer is needed for bigger hourses or ships.',
+		description: 'The Brewery brews beer from wheat. Beer is needed for higher-level hourses or your city`s navy.',
 		is_production: true,
 		production: {
 			beer: 2
@@ -3380,7 +3370,7 @@ civitas.BUILDINGS = [{
 	}, {
 		name: 'Cannon Foundry',
 		handle: 'cannonfoundry',
-		description: 'The cannon foundry is responsable with the manufacture of the city cannons.',
+		description: 'The Cannon Foundry is responsable with the manufacture of the city cannons.',
 		is_production: true,
 		production: {
 			cannons: 1
@@ -3410,8 +3400,7 @@ civitas.BUILDINGS = [{
 	}, {
 		name: 'Charcoal Burner`s Hut',
 		handle: 'charcoalburnerhut',
-		description: 'The Charcoal Burner`s Hut burns wood into coal that is needed by all your ' +
-			'smelters.',
+		description: 'The Charcoal Burner`s Hut burns wood into coal and sulphur, which is needed by all your smelters.',
 		is_production: true,
 		production: {
 			coal: 4,
@@ -3790,7 +3779,7 @@ civitas.BUILDINGS = [{
 	}, {
 		name: 'Cider Farm',
 		handle: 'ciderfarm',
-		description: 'The cider farm produces cider, a basic drink for your settlers',
+		description: 'The Cider Farm produces cider, a basic drink for your settlers',
 		is_production: true,
 		production: {
 			cider: 1,
@@ -3815,7 +3804,7 @@ civitas.BUILDINGS = [{
 	}, {
 		name: 'Cider field',
 		handle: 'ciderfield',
-		description: 'A cider field is required for the cider farm to operate.',
+		description: 'A Cider Field is required for the Cider Farm to operate.',
 		position: {
 			x: 1430,
 			y: 850
@@ -3832,7 +3821,7 @@ civitas.BUILDINGS = [{
 		name: 'Almonds farm',
 		handle: 'almondsfarm',
 		is_production: true,
-		description: 'The Almonds Farm cultivates almonds for export.',
+		description: 'The Almonds Farm cultivates almonds for marzipan manufacture or export.',
 		production: {
 			almonds: 1
 		},
@@ -3855,7 +3844,7 @@ civitas.BUILDINGS = [{
 	}, {
 		name: 'Almonds field',
 		handle: 'almondsfield',
-		description: 'An almonds field is required for the almonds farm to operate.',
+		description: 'An Almonds Field is required for the Almonds Farm to operate.',
 		position: {
 			x: 200,
 			y: 670
@@ -3871,8 +3860,7 @@ civitas.BUILDINGS = [{
 	}, {
 		name: 'Cattle Farm',
 		handle: 'cattlefarm',
-		description: 'A cattle farm grows cattle so your settlers can eat food that is more ' +
-			'nutritious than bread.',
+		description: 'A Cattle Farm grows cattle so your settlers can eat food that is more nutritious than bread.',
 		is_production: true,
 		production: {
 			cattle: 1,
@@ -3900,7 +3888,7 @@ civitas.BUILDINGS = [{
 	}, {
 		name: 'Cattle field',
 		handle: 'cattlefield',
-		description: 'A cattle field is required for the cattle farm to operate.',
+		description: 'A Cattle Field is required for the Cattle Farm to operate.',
 		position: {
 			x: 830,
 			y: 900
@@ -3916,8 +3904,7 @@ civitas.BUILDINGS = [{
 	}, {
 		name: 'Pig Farm',
 		handle: 'pigfarm',
-		description: 'A pig farm grows pigs so your settlers can eat food that is more nutritious ' +
-			'than bread.',
+		description: 'A Pig Farm grows pigs so your settlers can eat food that is more nutritious than bread.',
 		is_production: true,
 		production: {
 			meat: 1,
@@ -3947,7 +3934,7 @@ civitas.BUILDINGS = [{
 	}, {
 		name: 'Pig field',
 		handle: 'pigfield',
-		description: 'A pig field is required for the pig farm to operate.',
+		description: 'A Pig Field is required for the Pig Farm to operate.',
 		position: {
 			x: 760,
 			y: 850
@@ -3963,11 +3950,11 @@ civitas.BUILDINGS = [{
 	}, {
 		name: 'Grain farm',
 		handle: 'grainfarm',
-		description: 'A grain farm cultivates wheat that will be later transformed into bread, ' +
+		description: 'A Grain Farm cultivates wheat that will be later transformed into bread, ' +
 			'and your settlers will live happily ever after.',
 		is_production: true,
 		production: {
-			wheat: 3,
+			wheat: 2,
 			herbs: 1
 		},
 		levels: 3,
@@ -3989,7 +3976,7 @@ civitas.BUILDINGS = [{
 	}, {
 		name: 'Grain field',
 		handle: 'grainfield',
-		description: 'A grain field is required for the grain farm to operate.',
+		description: 'A Grain Field is required for the Grain Farm to operate.',
 		position: {
 			x: 1080,
 			y: 910
@@ -4005,7 +3992,7 @@ civitas.BUILDINGS = [{
 	}, {
 		name: 'Grapes farm',
 		handle: 'grapesfarm',
-		description: 'A grapes farm provides your city with grapes for wine.',
+		description: 'A Grapes Farm provides your city with grapes for wine.',
 		is_production: true,
 		production: {
 			grapes: 2,
@@ -4030,7 +4017,7 @@ civitas.BUILDINGS = [{
 	}, {
 		name: 'Grapes field',
 		handle: 'grapesfield',
-		description: 'A grapes field is required for the grapes farm to operate.',
+		description: 'A Grapes Field is required for the Grapes Farm to operate.',
 		position: {
 			x: 1270,
 			y: 830
@@ -4046,7 +4033,7 @@ civitas.BUILDINGS = [{
 	}, {
 		name: 'Coffee farm',
 		handle: 'coffeefarm',
-		description: 'A coffee farm provides your city with coffee beans.',
+		description: 'A Coffee Farm cultivates coffee beans in your city, ready to be processed into coffee.',
 		is_production: true,
 		production: {
 			coffeebeans: 2,
@@ -4071,7 +4058,7 @@ civitas.BUILDINGS = [{
 	}, {
 		name: 'Coffee field',
 		handle: 'coffeefield',
-		description: 'A coffee field is required for the coffee farm to operate.',
+		description: 'A Coffee Field is required for the Coffee Farm to operate.',
 		position: {
 			x: 180,
 			y: 544
@@ -4087,7 +4074,7 @@ civitas.BUILDINGS = [{
 	}, {
 		name: 'Hemp farm',
 		handle: 'hempfarm',
-		description: 'A hemp farm provides your city with hemp.',
+		description: 'A Hemp Farm provides your city with hemp.',
 		is_production: true,
 		production: {
 			hemp: 2,
@@ -4112,7 +4099,7 @@ civitas.BUILDINGS = [{
 	}, {
 		name: 'Hemp field',
 		handle: 'hempfield',
-		description: 'A hemp field is required for the hemp farm to operate.',
+		description: 'A Hemp Field is required for the Hemp Farm to operate.',
 		position: {
 			x: 298,
 			y: 746
@@ -4128,7 +4115,7 @@ civitas.BUILDINGS = [{
 	}, {
 		name: 'Silk farm',
 		handle: 'silkfarm',
-		description: 'A silk farm provides your city with silk.',
+		description: 'A Silk Farm provides your city with silk.',
 		is_production: true,
 		production: {
 			silk: 2
@@ -4152,7 +4139,7 @@ civitas.BUILDINGS = [{
 	}, {
 		name: 'Silk field',
 		handle: 'silkfield',
-		description: 'A silk field is required for the silk farm to operate.',
+		description: 'A Silk Field is required for the Silk Farm to operate.',
 		position: {
 			x: 400,
 			y: 860
@@ -4166,9 +4153,9 @@ civitas.BUILDINGS = [{
 			settlement_level: 28
 		}
 	}, {
-		name: 'Sugar farm',
+		name: 'Sugar Cane Farm',
 		handle: 'sugarfarm',
-		description: 'A sugar cane farm provides your city with sugar cane.',
+		description: 'A Sugar Cane Farm provides your city with sugar cane.',
 		is_production: true,
 		production: {
 			sugarcane: 2,
@@ -4194,7 +4181,7 @@ civitas.BUILDINGS = [{
 	}, {
 		name: 'Sugar field',
 		handle: 'sugarfield',
-		description: 'A sugar field is required for the sugar farm to operate.',
+		description: 'A Sugar Field is required for the Sugar Farm to operate.',
 		position: {
 			x: 500,
 			y: 900
@@ -4211,7 +4198,7 @@ civitas.BUILDINGS = [{
 		name: 'Indigo farm',
 		handle: 'indigofarm',
 		is_production: true,
-		description: 'The indigo farm produces indigo that can be used to create books.',
+		description: 'The Indigo Farm produces indigo that can be turned to ink and used to create books.',
 		production: {
 			indigo: 1,
 			herbs: 1
@@ -4236,7 +4223,7 @@ civitas.BUILDINGS = [{
 	}, {
 		name: 'Indigo field',
 		handle: 'indigofield',
-		description: 'An indigo field is required for the indigo farm to operate.',
+		description: 'An Indigo Field is required for the Indigo Farm to operate.',
 		position: {
 			x: 310,
 			y: 910
@@ -4250,10 +4237,10 @@ civitas.BUILDINGS = [{
 			settlement_level: 20
 		}
 	}, {
-		name: 'Rose Nursery',
+		name: 'Rose Farm',
 		handle: 'rosenursery',
 		is_production: true,
-		description: 'The Rose Nursery produces rose oil which is needed to make perfume.',
+		description: 'The Rose Farm produces roses which are needed to manufacture perfume.',
 		production: {
 			roses: 1,
 			herbs: 1
@@ -4279,7 +4266,7 @@ civitas.BUILDINGS = [{
 	}, {
 		name: 'Roses field',
 		handle: 'rosefield',
-		description: 'A roses field is required for the rose nursery to operate.',
+		description: 'A Roses Field is required for the Rose Farm to operate.',
 		position: {
 			x: 540,
 			y: 750
@@ -4322,7 +4309,7 @@ civitas.BUILDINGS = [{
 	}, {
 		name: 'Spice field',
 		handle: 'spicefield',
-		description: 'A spice field is required for the spice farm to operate.',
+		description: 'A Spice Field is required for the Spice Farm to operate.',
 		position: {
 			x: 430,
 			y: 750
@@ -4339,7 +4326,7 @@ civitas.BUILDINGS = [{
 		name: 'Toolmaker Workshop',
 		handle: 'toolmaker',
 		is_production: true,
-		description: '.',
+		description: 'Tools are needed to construct higher-level buildings, and a Toolmaker Workshop will create those for your settlement.',
 		production: {
 			tools: 2
 		},
@@ -4367,7 +4354,7 @@ civitas.BUILDINGS = [{
 		name: 'Jeweler',
 		handle: 'jeweler',
 		is_production: true,
-		description: '.',
+		description: 'The Jeweler processes pearls into jewelery for your settlers (and traders).',
 		production: {
 			jewelery: 1
 		},
@@ -7817,7 +7804,7 @@ civitas.objects.settlement = function(params) {
 			return false;
 		}
 		if ((storage.occupied + quantity) > storage.all) {
-			this.get_core().error('There is no storage space in your city to accomodate the new goods.');
+			//this.get_core().error('There is no storage space in your city to accomodate the new goods.');
 			return false;
 		}
 		return true;
@@ -9364,6 +9351,20 @@ civitas.objects.settlement.prototype.is_mercenary_recruited = function(handle) {
 		}
 	}
 	return false;
+};
+
+/**
+ * Release a recruited mercenary army.
+ *
+ * @public
+ * @param {Number} id
+ * @returns {civitas.objects.settlement}
+ */
+civitas.objects.settlement.prototype.release_mercenary = function(id) {
+	var mercenary_army_data = civitas.MERCENARIES[id];
+	this.mercenary.splice(id, 1);
+	this.get_core().notify(mercenary_army_data.name + ' has been released from its duties.');
+	return this;
 };
 
 /**
@@ -13393,6 +13394,7 @@ civitas.PANEL_HELP = {
 					'<a href="#" class="btn iblock eight">' + civitas.l('+1M coins') + '</a> <br /><br />' +
 					'<a href="#" class="btn iblock two">' + civitas.l('+100 wood') + '</a> ' +
 					'<a href="#" class="btn iblock three">' + civitas.l('+100 stones') + '</a> ' +
+					'<a href="#" class="btn iblock fifteen">' + civitas.l('+1000 provisions') + '</a> ' +
 					'<a href="#" class="btn iblock four">' + civitas.l('+100 wood planks') + '</a> <br /><br />' +
 					'<a href="#" class="btn iblock five">' + civitas.l('level up') + '</a> ' +
 					'<a href="#" class="btn iblock fourteen">' + civitas.l('+900 faith') + '</a> ' +
@@ -13434,6 +13436,10 @@ civitas.PANEL_HELP = {
 				return false;
 			}).on('click', '.one', function() {
 				settlement.inc_coins(10000);
+				core.save_and_refresh();
+				return false;
+			}).on('click', '.fifteen', function() {
+				settlement.add_to_storage('provisions', 1000);
 				core.save_and_refresh();
 				return false;
 			}).on('click', '.two', function() {
@@ -13558,7 +13564,7 @@ civitas.PANEL_CAMPAIGN = {
 			'<dl>' +
 				'<dt>' + civitas.l('Sent By') + '</dt><dd>' + source.get_name() + '</dd>' +
 				'<dt>' + civitas.l('Destination') + '</dt><dd>' + destination.get_name() + '</dd>' +
-				'<dt>s</dt><dd>d</dd>' +
+				'<dt>-empty-</dt><dd>-test-</dd>' +
 				'<dt>' + civitas.l('Distance') + '</dt><dd>' + distance + ' miles (' + campaign.duration + ' ' + civitas.l('days') + ')</dd>' +
 				'<dt>' + civitas.l('Remaining') + '</dt><dd>' + (10 * (campaign.duration - campaign.passed)) + ' miles (' + (campaign.duration - campaign.passed) + ' ' + civitas.l('days') + ')</dd>' +
 			'</dl>');
@@ -14341,14 +14347,12 @@ civitas.PANEL_COUNCIL = {
 			return false;
 		}).on('click', '.raid-merc', function () {
 			var _army = parseInt($(this).data('id'));
-			var data = civitas.MERCENARIES[_army];
 			core.error('Not implemented yet.');
 			return false;
 		}).on('click', '.disband-merc', function () {
 			if (confirm(civitas.l('Are you sure you want to release this mercenary army? You won`t be able to use them anymore!')) === true) {
 				var _army = parseInt($(this).data('id'));
-				var data = civitas.MERCENARIES[_army];
-				core.get_settlement().mercenary.splice(_army, 1);
+				core.get_settlement().release_mercenary(_army);
 				core.save_and_refresh();
 			}
 			return false;
@@ -14612,7 +14616,8 @@ civitas.PANEL_ARMY = {
 		var army = params.data;
 		$(this.handle + ' header .title').html(army.name);
 		$(this.handle + ' .contents').append(civitas.ui.tabs(['Info', 'Soldiers', 'Ships']));
-		$(this.handle + ' #tab-info').append('<img class="avatar" src="' + civitas.ASSETS_URL + 'images/armies/' + ((typeof army.icon !== 'undefined') ? army.icon : '22') + '.png" /><p>' + army.description + '</p>');
+		$(this.handle + ' #tab-info').append('<img class="avatar" src="' + civitas.ASSETS_URL + 'images/armies/' + ((typeof army.icon !== 'undefined') ? army.icon : '22') + '.png" />' +
+			'<p>' + army.description + '</p>');
 		$(this.handle + ' #tab-soldiers').append(civitas.ui.army_list(army));
 		$(this.handle + ' #tab-ships').append(civitas.ui.navy_list(army));
 	}
@@ -14711,13 +14716,15 @@ civitas.PANEL_BUILDINGS = {
 			$(el + ' .b-desc').html(building.description);
 			var _z = '<dl class="nomg">';
 			for (var y in building.cost) {
-				_z += '<dt>' + civitas.utils.nice_numbers(building.cost[y]) + '</dt><dd><img class="tips" title="' + civitas.utils.get_resource_name(y) + '" src="' + civitas.ASSETS_URL + 'images/resources/' + y + '_small.png" /></dd>';
+				_z += '<dt>' + civitas.utils.nice_numbers(building.cost[y]) + '</dt>' +
+					'<dd><img class="tips" title="' + civitas.utils.get_resource_name(y) + '" src="' + civitas.ASSETS_URL + 'images/resources/' + y + '_small.png" /></dd>';
 			}
 			_z += '</dl>';
 			$(el + ' .b-cost').append(_z);
 			if (typeof building.levels !== 'undefined') {
 				$(el + ' .b-levels').empty().append('<dl class="nomg">' +
-					'<dt>' + civitas.l('Upgrades') + '</dt><dd>' + building.levels + '</dd>' +
+					'<dt>' + civitas.l('Upgrades') + '</dt>' +
+						'<dd>' + building.levels + '</dd>' +
 				'</dl>');
 				$('fieldset.levels').show();
 			} else {
@@ -14727,17 +14734,20 @@ civitas.PANEL_BUILDINGS = {
 				_z = '<dl class="nomg">';
 				if (typeof building.requires.buildings !== 'undefined') {
 					for (var item in building.requires.buildings) {
-						_z += '<dt>' + civitas.l('Building') + '</dt><dd>' + core.get_building_config_data(item).name + ' level ' + building.requires.buildings[item] + '</dd>';
+						_z += '<dt>' + civitas.l('Building') + '</dt>' +
+							'<dd>' + core.get_building_config_data(item).name + ' level ' + building.requires.buildings[item] + '</dd>';
 					}
 				}
-				_z += '<dt>' + civitas.l('City level') + '</dt><dd>' + building.requires.settlement_level + '</dd>' +
-						'</dl>';
+				_z += '<dt>' + civitas.l('City level') + '</dt>' +
+					'<dd>' + building.requires.settlement_level + '</dd>' +
+				'</dl>';
 				$(el + ' .b-req').append(_z);
 			}
 			if (typeof building.chance !== 'undefined') {
 				_z = '<dl class="nomg">';
 				for (var chance in building.chance) {
-					_z += '<dt>' + building.chance[chance] * 100 + '%</dt><dd><img class="tips" title="' + civitas.utils.get_resource_name(chance) + '" src="' + civitas.ASSETS_URL + 'images/resources/' + chance + '_small.png" /></dd>';
+					_z += '<dt>' + building.chance[chance] * 100 + '%</dt>' +
+						'<dd><img class="tips" title="' + civitas.utils.get_resource_name(chance) + '" src="' + civitas.ASSETS_URL + 'images/resources/' + chance + '_small.png" /></dd>';
 				}
 				_z += '</dl>';
 				$(el + ' .b-chance').append(_z);
@@ -14749,7 +14759,8 @@ civitas.PANEL_BUILDINGS = {
 				if (typeof building.production !== 'undefined') {
 					_z = '<dl class="nomg">';
 					for (var y in building.production) {
-						_z += '<dt>' + building.production[y] + '</dt><dd><img class="tips" title="' + civitas.utils.get_resource_name(y) + '" src="' + civitas.ASSETS_URL + 'images/resources/' + y + '_small.png" /></dd>';
+						_z += '<dt>' + building.production[y] + '</dt>' +
+							'<dd><img class="tips" title="' + civitas.utils.get_resource_name(y) + '" src="' + civitas.ASSETS_URL + 'images/resources/' + y + '_small.png" /></dd>';
 					}
 					_z += '</dl>';
 					$(el + ' .b-prod').append(_z);
@@ -14760,7 +14771,8 @@ civitas.PANEL_BUILDINGS = {
 				if (typeof building.materials !== 'undefined') {
 					_z = '<dl class="nomg">';
 					for (var y in building.materials) {
-						_z += '<dt>' + building.materials[y] + '</dt><dd><img class="tips" title="' + civitas.utils.get_resource_name(y) + '" src="' + civitas.ASSETS_URL + 'images/resources/' + y + '_small.png" /></dd>';
+						_z += '<dt>' + building.materials[y] + '</dt>' +
+							'<dd><img class="tips" title="' + civitas.utils.get_resource_name(y) + '" src="' + civitas.ASSETS_URL + 'images/resources/' + y + '_small.png" /></dd>';
 					}
 					_z += '</dl>';
 					$(el + ' .b-mats').append(_z);
@@ -14775,7 +14787,8 @@ civitas.PANEL_BUILDINGS = {
 				if (typeof building.materials !== 'undefined') {
 					_z = '<dl class="nomg">';
 					for (var y in building.materials) {
-						_z += '<dt>' + building.materials[y] + '</dt><dd><img class="tips" title="' + civitas.utils.get_resource_name(y) + '" src="' + civitas.ASSETS_URL + 'images/resources/' + y + '_small.png" /></dd>';
+						_z += '<dt>' + building.materials[y] + '</dt>' +
+							'<dd><img class="tips" title="' + civitas.utils.get_resource_name(y) + '" src="' + civitas.ASSETS_URL + 'images/resources/' + y + '_small.png" /></dd>';
 					}
 					_z += '</dl>';
 					$(el + ' .b-mats').append(_z);
@@ -14785,7 +14798,7 @@ civitas.PANEL_BUILDINGS = {
 					_z = '<dl class="nomg">' +
 							'<dt>Tax</dt>' +
 							'<dd>' + building.tax + '<img class="tips" title="' + civitas.l('Coins') + '" src="' + civitas.ASSETS_URL + 'images/resources/coins_small.png" /></dd>' +
-							'</dl>';
+						'</dl>';
 					$(el + ' .b-tax').append(_z);
 					$('fieldset.taxes').show();
 				}
@@ -14795,16 +14808,14 @@ civitas.PANEL_BUILDINGS = {
 			if (typeof building.storage !== 'undefined') {
 				$('fieldset.taxes, fieldset.materials').hide();
 				_z = '<dl class="nomg">' +
-						'<dt>' + building.storage + '</dt><dd><img class="tips" title="' + civitas.l('Storage Space') + '" src="' + civitas.ASSETS_URL + 'images/resources/storage_small.png" /></dd>' +
-						'</dl>';
+						'<dt>' + building.storage + '</dt>' +
+						'<dd><img class="tips" title="' + civitas.l('Storage Space') + '" src="' + civitas.ASSETS_URL + 'images/resources/storage_small.png" /></dd>' +
+					'</dl>';
 				$(el + ' .b-store').append(_z);
 				$('fieldset.storage').show();
 			} else {
 				$('fieldset.storage').hide();
 			}
-			/* else {
-				$('fieldset.taxes, fieldset.production, fieldset.materials, fieldset.storage').hide();
-			}*/
 			var _i = settlement.is_building_built(building.handle);
 			if (_i !== true) {
 				$(el + ' .toolbar').append('<a href="#" class="btn build" data-handle="' + building.handle + '">' + civitas.l('Build') + '</a>');
@@ -15244,7 +15255,7 @@ civitas.PANEL_CHURCH = {
 		this.on_refresh();
 		$(this.handle).on('click', '.religion', function() {
 			var id = parseInt($(this).data('id'));
-			if (confirm(civitas.l('Are you sure you want to switch religions? You will lose all your accumulated faith!')) === true) {
+			if (confirm(civitas.l('Are you sure you want to switch religions? You will lose all your city`s faith!')) === true) {
 				settlement.change_religion(id);
 			}
 			return false;
@@ -15258,7 +15269,7 @@ civitas.PANEL_CHURCH = {
 		var _t = '<div class="section">' +
 			civitas.ui.progress((settlement.get_faith() * 100) / civitas.MAX_FAITH_VALUE, 'large', settlement.get_faith()) +
 		'</div>' +
-		'<p>Changing your settlement`s religion requires 1000 faith and resets your settlement`s faith. Each religion gives you access to different heroes in your Tavern and gives you a boost to the influence with the cities sharing the same religion.</p>' +
+		'<p>Changing your settlement`s religion requires <strong>' + civitas.MAX_FAITH_VALUE + '</strong> faith, each religion gives you access to different heroes in your Tavern and gives you a boost to the influence with the cities sharing the same religion.</p>' +
 		'<div class="religion-list">';
 		for (var i = 0; i < civitas.RELIGIONS.length; i++) {
 			_t += '<div data-handle="' + civitas.RELIGIONS[i] + '" data-id="' + i + '" class="religion' + (settlement.get_religion().id === i ? ' selected' : '') + '">' +
@@ -15296,7 +15307,7 @@ civitas.PANEL_EMBASSY = {
 					'<td>' +
 						'<p class="title">' + (settlements[i].is_city() ? 'City of' : 'Village of') + ' ' + settlements[i].get_name() + '</p> ' +
 						'<p class="description">' + civitas.l('Leader') + ': ' + settlements[i].get_ruler_name() + '</p>' +
-						civitas.ui.progress(status[settlements[i].get_id()].influence, 'big') +
+						'<div data-id="' + settlements[i].get_id() + '" >' + civitas.ui.progress(status[settlements[i].get_id()].influence, 'big') + '</div>' +
 					'</td>' +
 					'<td class="center">' +
 						'<a data-id="' + settlements[i].get_id() + '" title="' + civitas.l('View info about this settlement.') + '" class="tips view" href="#">' + civitas.l('View') + '</a> ' +
@@ -15344,7 +15355,7 @@ civitas.PANEL_EMBASSY = {
 			civitas.ui.progress((settlement.get_espionage() * 100) / civitas.MAX_ESPIONAGE_VALUE, 'large', settlement.get_espionage()) +
 		'</div>');
 		for (var i = 1; i < settlements.length; i++) {
-			$(this.handle + ' td[data-id="' + i + '"]').empty().append(civitas.ui.progress(status[settlements[i].get_id()].influence, 'big'));
+			$(this.handle + ' td > div[data-id="' + i + '"]').empty().append(civitas.ui.progress(status[settlements[i].get_id()].influence, 'big'));
 		}
 	}
 };
@@ -15370,7 +15381,8 @@ civitas.PANEL_ACADEMY = {
 		$(this.handle + ' #tab-info').empty().append(civitas.ui.building_panel(this.params_data, building.get_level()));
 		$(this.handle + ' #tab-research').empty().append('<div class="section">' +
 				civitas.ui.progress((research * 100) / civitas.MAX_RESEARCH_VALUE, 'large', research) +
-			'</div>');
+			'</div>' +
+			'<p>Not implemented yet.</p>');
 	}
 };
 

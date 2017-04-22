@@ -366,3 +366,17 @@ civitas.objects.settlement.prototype.is_mercenary_recruited = function(handle) {
 	}
 	return false;
 };
+
+/**
+ * Release a recruited mercenary army.
+ *
+ * @public
+ * @param {Number} id
+ * @returns {civitas.objects.settlement}
+ */
+civitas.objects.settlement.prototype.release_mercenary = function(id) {
+	var mercenary_army_data = civitas.MERCENARIES[id];
+	this.mercenary.splice(id, 1);
+	this.get_core().notify(mercenary_army_data.name + ' has been released from its duties.');
+	return this;
+};

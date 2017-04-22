@@ -174,7 +174,7 @@ civitas.MAX_ESPIONAGE_SUCESS_RATE = 100;
  * @constant
  * @type {Number}
  */
-civitas.MAX_INFLUENCE_VALUE = 1000;
+civitas.MAX_INFLUENCE_VALUE = 100;
 
 /**
  * List of game diplomacy options.

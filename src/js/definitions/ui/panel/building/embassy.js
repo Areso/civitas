@@ -24,7 +24,7 @@ civitas.PANEL_EMBASSY = {
 					'<td>' +
 						'<p class="title">' + (settlements[i].is_city() ? 'City of' : 'Village of') + ' ' + settlements[i].get_name() + '</p> ' +
 						'<p class="description">' + civitas.l('Leader') + ': ' + settlements[i].get_ruler_name() + '</p>' +
-						civitas.ui.progress(status[settlements[i].get_id()].influence, 'big') +
+						'<div data-id="' + settlements[i].get_id() + '" >' + civitas.ui.progress(status[settlements[i].get_id()].influence, 'big') + '</div>' +
 					'</td>' +
 					'<td class="center">' +
 						'<a data-id="' + settlements[i].get_id() + '" title="' + civitas.l('View info about this settlement.') + '" class="tips view" href="#">' + civitas.l('View') + '</a> ' +
@@ -72,7 +72,7 @@ civitas.PANEL_EMBASSY = {
 			civitas.ui.progress((settlement.get_espionage() * 100) / civitas.MAX_ESPIONAGE_VALUE, 'large', settlement.get_espionage()) +
 		'</div>');
 		for (var i = 1; i < settlements.length; i++) {
-			$(this.handle + ' td[data-id="' + i + '"]').empty().append(civitas.ui.progress(status[settlements[i].get_id()].influence, 'big'));
+			$(this.handle + ' td > div[data-id="' + i + '"]').empty().append(civitas.ui.progress(status[settlements[i].get_id()].influence, 'big'));
 		}
 	}
 };
