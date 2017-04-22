@@ -1887,7 +1887,23 @@ civitas.game = function () {
 			class_name = 'army';
 			var army = source_settlement.get_army_total();
 			var navy = source_settlement.get_navy_total();
-			if (!source_settlement.remove_resources(data.resources)) {
+			var mission_costs = civitas.ARMY_COSTS;
+			for (var item in mission_costs) {
+				if (item === 'coins') {
+					mission_costs[item] = civitas.ARMY_COSTS[item] * duration;
+				} else if (item === 'provisions') {
+					mission_costs[item] = Math.ceil((civitas.ARMY_COSTS[item] * duration) / 2);
+				}
+			}
+			var merged = $.extend({}, data.resources);
+			for (var prop in mission_costs) {
+				if (merged[prop]) {
+					merged[prop] += mission_costs[prop];
+				} else {
+					merged[prop] = mission_costs[prop];
+				}
+			}
+			if (!source_settlement.remove_resources(merged)) {
 				return false;
 			}
 			for (var item in army.army) {
@@ -1920,6 +1936,8 @@ civitas.game = function () {
 			for (var item in mission_costs) {
 				if (item === 'coins') {
 					mission_costs[item] = civitas.SPY_COSTS[item] * duration;
+				} else if (item === 'provisions') {
+					mission_costs[item] = Math.ceil((civitas.SPY_COSTS[item] * duration) / 2);
 				}
 			}
 			if (!source_settlement.remove_resources(mission_costs)) {
@@ -1938,6 +1956,8 @@ civitas.game = function () {
 			for (var item in mission_costs) {
 				if (item === 'coins') {
 					mission_costs[item] = civitas.CARAVAN_COSTS[item] * duration;
+				} else if (item === 'provisions') {
+					mission_costs[item] = Math.ceil((civitas.CARAVAN_COSTS[item] * duration) / 2);
 				}
 			}
 			var merged = $.extend({}, data.resources);

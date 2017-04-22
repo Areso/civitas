@@ -23,13 +23,21 @@ civitas.PANEL_NEW_SPY = {
 		var settlement = params.data;
 		var settlements = core.get_settlements();
 		var espionage = my_settlement.get_espionage();
+		var location = civitas['SETTLEMENT_LOCATION_' + my_settlement.get_climate().name.toUpperCase()];
+		var distance = civitas.utils.get_distance_in_days(location, civitas.SETTLEMENTS[settlement.get_id()].location);
 		var _t = '<fieldset>' +
 			'<legend>' + civitas.l('Initial costs') + '</legend>' +
 			'<dl>';
-		var location = civitas['SETTLEMENT_LOCATION_' + my_settlement.get_climate().name.toUpperCase()];
-		var distance = civitas.utils.get_distance_in_days(location, civitas.SETTLEMENTS[settlement.get_id()].location);
 		for (var item in civitas.SPY_COSTS) {
-			_t += '<dt>' + civitas.utils.nice_numbers(item === 'coins' ? Math.ceil(civitas.SPY_COSTS[item] * distance) : civitas.SPY_COSTS[item]) + '</dt>' +
+			var _cost = 0;
+			if (item === 'coins') {
+				_cost = civitas.SPY_COSTS[item] * distance;
+			} else if (item === 'provisions') {
+				_cost = Math.ceil((civitas.SPY_COSTS[item] * distance) / 2);
+			} else {
+				_cost = civitas.SPY_COSTS[item];
+			}
+			_t += '<dt>' + civitas.utils.nice_numbers(_cost) + '</dt>' +
 				'<dd>' + civitas.ui.resource_small_img(item) + '</dd>';
 		}
 		_t += '</dl>' +

@@ -24,6 +24,8 @@ civitas.PANEL_NEW_ARMY = {
 		var settlement = params.data;
 		var settlements = core.get_settlements();
 		var army = my_settlement.get_army_total();
+		var location = civitas['SETTLEMENT_LOCATION_' + my_settlement.get_climate().name.toUpperCase()];
+		var distance = civitas.utils.get_distance_in_days(location, civitas.SETTLEMENTS[settlement.get_id()].location);
 		this.assigned_army = {};
 		this.assigned_navy = {};
 		for (var item in army.army) {
@@ -34,6 +36,23 @@ civitas.PANEL_NEW_ARMY = {
 			this.assigned_navy[item] = navy.navy[item];
 		}
 		var _t = '<div class="column">' +
+			'<fieldset>' +
+				'<legend>' + civitas.l('Initial costs') + '</legend>' +
+				'<dl>';
+		for (var item in civitas.ARMY_COSTS) {
+			var _cost = 0;
+			if (item === 'coins') {
+				_cost = civitas.ARMY_COSTS[item] * distance;
+			} else if (item === 'provisions') {
+				_cost = Math.ceil((civitas.ARMY_COSTS[item] * distance) / 2);
+			} else {
+				_cost = civitas.ARMY_COSTS[item];
+			}
+			_t += '<dt>' + civitas.utils.nice_numbers(_cost) + '</dt>' +
+				'<dd>' + civitas.ui.resource_small_img(item) + '</dd>';
+		}
+		_t += '</dl>' +
+			'</fieldset>' +
 			'<fieldset>' +
 				'<legend>' + civitas.l('Soldiers') + '</legend>';
 		for (var item in army.army) {

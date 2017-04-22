@@ -1159,7 +1159,7 @@ civitas.BUILDINGS = [{
 			stones: 40
 		},
 		requires: {
-			settlement_level: 14
+			settlement_level: 15
 		}
 	}, {
 		name: 'Weaver`s Hut',

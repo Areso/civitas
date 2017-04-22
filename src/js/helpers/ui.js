@@ -77,7 +77,11 @@ civitas.ui = {
 		} else if (value >= 90) {
 			_e = ' ugood';
 		}
-		return '<div class="progress ' + progress_type + '"><span class="bar' + _e + '" style="width:' + value + '%">' + (typeof show_value !== 'undefined' ? show_value : value) + '</span></div>';
+		return '<div class="progress ' + progress_type + '">' +
+			'<div class="bar' + _e + '" style="width:' + value + '%">' +
+				'<p>' + (typeof show_value !== 'undefined' ? show_value : value) + '</p>' +
+			'</div>' +
+		'</div>';
 	},
 
 	army_img: function (name) {

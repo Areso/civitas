@@ -240,7 +240,8 @@ civitas.CARAVAN_COSTS = {
 	coins: 1000,
 	donkeys: 10,
 	wood: 10,
-	ropes: 2
+	ropes: 2,
+	provisions: 1
 }
 
 /**
@@ -250,7 +251,21 @@ civitas.CARAVAN_COSTS = {
  * @type {Object}
  */
 civitas.SPY_COSTS = {
-	coins: 1000
+	coins: 500,
+	spyglasses: 1,
+	weapons: 1,
+	provisions: 1
+}
+
+/**
+ * Initial resource costs for sending an army.
+ *
+ * @constant
+ * @type {Object}
+ */
+civitas.ARMY_COSTS = {
+	coins: 2000,
+	provisions: 1
 }
 
 /**
