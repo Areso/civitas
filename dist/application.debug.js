@@ -775,6 +775,37 @@ civitas.SPY_MISSION_STEAL_RESOURCES = 3;
 civitas.SPY_MISSION_INSTIGATE = 4;
 
 /**
+ * Initial resource costs for sending a caravan.
+ *
+ * @constant
+ * @type {Object}
+ */
+civitas.CARAVAN_COSTS = {
+	coins: 1000,
+	donkeys: 10,
+	wood: 10,
+	ropes: 2
+}
+
+/**
+ * Initial resource costs for sending a spy mission.
+ *
+ * @constant
+ * @type {Object}
+ */
+civitas.SPY_COSTS = {
+	coins: 1000
+}
+
+/**
+ * Amount of influence a settlement gains when sending a caravan to another settlement.
+ *
+ * @constant
+ * @type {Number}
+ */
+civitas.CARAVAN_INFLUENCE = 5;
+
+/**
  * List of the possible nation types.
  * 
  * @constant
@@ -3404,7 +3435,7 @@ civitas.BUILDINGS = [{
 			x: 790,
 			y: 320
 		},
-		levels: 5,
+		levels: 6,
 		visible_upgrades: true,
 		requires: {
 			settlement_level: 1
@@ -3426,7 +3457,7 @@ civitas.BUILDINGS = [{
 			x: 840,
 			y: 380
 		},
-		levels: 5,
+		levels: 6,
 		visible_upgrades: true,
 		requires: {
 			settlement_level: 1
@@ -3450,7 +3481,7 @@ civitas.BUILDINGS = [{
 			x: 890,
 			y: 440
 		},
-		levels: 5,
+		levels: 6,
 		visible_upgrades: true,
 		requires: {
 			settlement_level: 3
@@ -3475,7 +3506,7 @@ civitas.BUILDINGS = [{
 			x: 940,
 			y: 500
 		},
-		levels: 5,
+		levels: 6,
 		visible_upgrades: true,
 		requires: {
 			settlement_level: 6,
@@ -3504,7 +3535,7 @@ civitas.BUILDINGS = [{
 			x: 990,
 			y: 560
 		},
-		levels: 5,
+		levels: 6,
 		visible_upgrades: true,
 		requires: {
 			settlement_level: 10,
@@ -3533,7 +3564,7 @@ civitas.BUILDINGS = [{
 			x: 890,
 			y: 600
 		},
-		levels: 5,
+		levels: 6,
 		visible_upgrades: true,
 		requires: {
 			settlement_level: 16,
@@ -3563,7 +3594,7 @@ civitas.BUILDINGS = [{
 			x: 790,
 			y: 640
 		},
-		levels: 5,
+		levels: 6,
 		visible_upgrades: true,
 		requires: {
 			settlement_level: 20,
@@ -3594,7 +3625,7 @@ civitas.BUILDINGS = [{
 			x: 690,
 			y: 680
 		},
-		levels: 5,
+		levels: 6,
 		visible_upgrades: true,
 		requires: {
 			settlement_level: 25,
@@ -3626,7 +3657,7 @@ civitas.BUILDINGS = [{
 			x: 640,
 			y: 620
 		},
-		levels: 5,
+		levels: 6,
 		visible_upgrades: true,
 		requires: {
 			settlement_level: 30,
@@ -3659,7 +3690,7 @@ civitas.BUILDINGS = [{
 			x: 590,
 			y: 560
 		},
-		levels: 5,
+		levels: 6,
 		visible_upgrades: true,
 		requires: {
 			settlement_level: 32,
@@ -3694,7 +3725,7 @@ civitas.BUILDINGS = [{
 			x: 540,
 			y: 500
 		},
-		levels: 5,
+		levels: 6,
 		visible_upgrades: true,
 		requires: {
 			settlement_level: 36,
@@ -3730,7 +3761,7 @@ civitas.BUILDINGS = [{
 			x: 490,
 			y: 440
 		},
-		levels: 5,
+		levels: 6,
 		visible_upgrades: true,
 		requires: {
 			settlement_level: 40,
@@ -4467,6 +4498,7 @@ civitas.SETTLEMENTS = {
 				leather: civitas.IMPORTANCE_MEDIUM,
 				indigo: civitas.IMPORTANCE_LOW,
 				flour: civitas.IMPORTANCE_VITAL,
+				donkeys: civitas.IMPORTANCE_HIGH,
 				glass: civitas.IMPORTANCE_MEDIUM,
 				coal: civitas.IMPORTANCE_HIGH,
 				gunpowder: civitas.IMPORTANCE_HIGH,
@@ -12892,7 +12924,7 @@ civitas.game = function () {
 						}
 						destination_settlement.add_to_storage(item, campaign.data.resources[item]);
 					}
-					settlement.raise_influence(campaign.destination.id, 5);
+					settlement.raise_influence(campaign.destination.id, civitas.CARAVAN_INFLUENCE);
 				}
 				break;
 		}
@@ -12921,6 +12953,9 @@ civitas.game = function () {
 	 */
 	this.add_campaign = function(source_settlement, destination_settlement, type, data) {
 		var class_name = '';
+		var s_loc = civitas['SETTLEMENT_LOCATION_' + source_settlement.get_climate().name.toUpperCase()];
+		var d_loc = civitas.SETTLEMENTS[destination_settlement.get_id()].location;
+		var duration = civitas.utils.get_distance_in_days(s_loc, d_loc);
 		if (type === civitas.CAMPAIGN_ARMY) {
 			if (!this.get_settlement().can_recruit_soldiers()) {
 				return false;
@@ -12928,10 +12963,8 @@ civitas.game = function () {
 			class_name = 'army';
 			var army = source_settlement.get_army_total();
 			var navy = source_settlement.get_navy_total();
-			for (var item in data.resources) {
-				if (!source_settlement.remove_resource(item, data.resources[item])) {
-					return false;
-				}
+			if (!source_settlement.remove_resources(data.resources)) {
+				return false;
 			}
 			for (var item in army.army) {
 				if (army.army[item] - data.army[item] < 0) {
@@ -12959,6 +12992,15 @@ civitas.game = function () {
 			if (data.espionage > source_settlement.get_espionage()) {
 				return false;
 			}
+			var mission_costs = civitas.SPY_COSTS;
+			for (var item in mission_costs) {
+				if (item === 'coins') {
+					mission_costs[item] = civitas.SPY_COSTS[item] * duration;
+				}
+			}
+			if (!source_settlement.remove_resources(mission_costs)) {
+				return false;
+			}
 			source_settlement.lower_espionage(data.espionage);
 			if (data.mission === civitas.SPY_MISSION_RELIGION) {
 				source_settlement.reset_faith();
@@ -12968,15 +13010,24 @@ civitas.game = function () {
 				return false;
 			}
 			class_name = 'caravan';
-			for (var item in data.resources) {
-				if (!source_settlement.remove_resource(item, data.resources[item])) {
-					return false;
+			var mission_costs = civitas.CARAVAN_COSTS;
+			for (var item in mission_costs) {
+				if (item === 'coins') {
+					mission_costs[item] = civitas.CARAVAN_COSTS[item] * duration;
 				}
 			}
+			var merged = $.extend({}, data.resources);
+			for (var prop in mission_costs) {
+				if (merged[prop]) {
+					merged[prop] += mission_costs[prop];
+				} else {
+					merged[prop] = mission_costs[prop];
+				}
+			}
+			if (!source_settlement.remove_resources(merged)) {
+				return false;
+			}
 		}
-		var s_loc = civitas['SETTLEMENT_LOCATION_' + source_settlement.get_climate().name.toUpperCase()];
-		var d_loc = civitas.SETTLEMENTS[destination_settlement.get_id()].location;
-		var duration = civitas.utils.get_distance_in_days(s_loc, d_loc);
 		var campaign = {
 			source: {
 				x: s_loc.x,
@@ -13962,6 +14013,17 @@ civitas.PANEL_NEW_SPY = {
 		var settlements = core.get_settlements();
 		var espionage = my_settlement.get_espionage();
 		var _t = '<fieldset>' +
+			'<legend>' + civitas.l('Initial costs') + '</legend>' +
+			'<dl>';
+		var location = civitas['SETTLEMENT_LOCATION_' + my_settlement.get_climate().name.toUpperCase()];
+		var distance = civitas.utils.get_distance_in_days(location, civitas.SETTLEMENTS[settlement.get_id()].location);
+		for (var item in civitas.SPY_COSTS) {
+			_t += '<dt>' + civitas.utils.nice_numbers(item === 'coins' ? Math.ceil(civitas.SPY_COSTS[item] * distance) : civitas.SPY_COSTS[item]) + '</dt>' +
+				'<dd>' + civitas.ui.resource_small_img(item) + '</dd>';
+		}
+		_t += '</dl>' +
+		'</fieldset>' +
+		'<fieldset>' +
 			'<legend>' + civitas.l('Destination') + '</legend>' +
 			'<select class="espionage-destination">' +
 				'<option value="0">-- ' + civitas.l('select') + ' --</option>';
@@ -14072,6 +14134,17 @@ civitas.PANEL_NEW_CARAVAN = {
 		var settlement = params.data;
 		var settlements = core.get_settlements();
 		var _t = '<fieldset>' +
+			'<legend>' + civitas.l('Initial costs') + '</legend>' +
+			'<dl>';
+		var location = civitas['SETTLEMENT_LOCATION_' + my_settlement.get_climate().name.toUpperCase()];
+		var distance = civitas.utils.get_distance_in_days(location, civitas.SETTLEMENTS[settlement.get_id()].location);
+		for (var item in civitas.CARAVAN_COSTS) {
+			_t += '<dt>' + civitas.utils.nice_numbers(item === 'coins' ? Math.ceil(civitas.CARAVAN_COSTS[item] * distance) : civitas.CARAVAN_COSTS[item]) + '</dt>' +
+				'<dd>' + civitas.ui.resource_small_img(item) + '</dd>';
+		}
+		_t += '</dl>' +
+		'</fieldset>' +
+		'<fieldset>' +
 			'<legend>' + civitas.l('Destination') + '</legend>' +
 			'<select class="caravan-destination">' +
 				'<option value="0">-- ' + civitas.l('select') + ' --</option>';

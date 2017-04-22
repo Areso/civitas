@@ -1848,7 +1848,7 @@ civitas.game = function () {
 						}
 						destination_settlement.add_to_storage(item, campaign.data.resources[item]);
 					}
-					settlement.raise_influence(campaign.destination.id, 5);
+					settlement.raise_influence(campaign.destination.id, civitas.CARAVAN_INFLUENCE);
 				}
 				break;
 		}
@@ -1877,6 +1877,9 @@ civitas.game = function () {
 	 */
 	this.add_campaign = function(source_settlement, destination_settlement, type, data) {
 		var class_name = '';
+		var s_loc = civitas['SETTLEMENT_LOCATION_' + source_settlement.get_climate().name.toUpperCase()];
+		var d_loc = civitas.SETTLEMENTS[destination_settlement.get_id()].location;
+		var duration = civitas.utils.get_distance_in_days(s_loc, d_loc);
 		if (type === civitas.CAMPAIGN_ARMY) {
 			if (!this.get_settlement().can_recruit_soldiers()) {
 				return false;
@@ -1884,10 +1887,8 @@ civitas.game = function () {
 			class_name = 'army';
 			var army = source_settlement.get_army_total();
 			var navy = source_settlement.get_navy_total();
-			for (var item in data.resources) {
-				if (!source_settlement.remove_resource(item, data.resources[item])) {
-					return false;
-				}
+			if (!source_settlement.remove_resources(data.resources)) {
+				return false;
 			}
 			for (var item in army.army) {
 				if (army.army[item] - data.army[item] < 0) {
@@ -1915,6 +1916,15 @@ civitas.game = function () {
 			if (data.espionage > source_settlement.get_espionage()) {
 				return false;
 			}
+			var mission_costs = civitas.SPY_COSTS;
+			for (var item in mission_costs) {
+				if (item === 'coins') {
+					mission_costs[item] = civitas.SPY_COSTS[item] * duration;
+				}
+			}
+			if (!source_settlement.remove_resources(mission_costs)) {
+				return false;
+			}
 			source_settlement.lower_espionage(data.espionage);
 			if (data.mission === civitas.SPY_MISSION_RELIGION) {
 				source_settlement.reset_faith();
@@ -1924,15 +1934,24 @@ civitas.game = function () {
 				return false;
 			}
 			class_name = 'caravan';
-			for (var item in data.resources) {
-				if (!source_settlement.remove_resource(item, data.resources[item])) {
-					return false;
+			var mission_costs = civitas.CARAVAN_COSTS;
+			for (var item in mission_costs) {
+				if (item === 'coins') {
+					mission_costs[item] = civitas.CARAVAN_COSTS[item] * duration;
 				}
 			}
+			var merged = $.extend({}, data.resources);
+			for (var prop in mission_costs) {
+				if (merged[prop]) {
+					merged[prop] += mission_costs[prop];
+				} else {
+					merged[prop] = mission_costs[prop];
+				}
+			}
+			if (!source_settlement.remove_resources(merged)) {
+				return false;
+			}
 		}
-		var s_loc = civitas['SETTLEMENT_LOCATION_' + source_settlement.get_climate().name.toUpperCase()];
-		var d_loc = civitas.SETTLEMENTS[destination_settlement.get_id()].location;
-		var duration = civitas.utils.get_distance_in_days(s_loc, d_loc);
 		var campaign = {
 			source: {
 				x: s_loc.x,

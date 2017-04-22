@@ -1757,7 +1757,7 @@ civitas.BUILDINGS = [{
 			x: 790,
 			y: 320
 		},
-		levels: 5,
+		levels: 6,
 		visible_upgrades: true,
 		requires: {
 			settlement_level: 1
@@ -1779,7 +1779,7 @@ civitas.BUILDINGS = [{
 			x: 840,
 			y: 380
 		},
-		levels: 5,
+		levels: 6,
 		visible_upgrades: true,
 		requires: {
 			settlement_level: 1
@@ -1803,7 +1803,7 @@ civitas.BUILDINGS = [{
 			x: 890,
 			y: 440
 		},
-		levels: 5,
+		levels: 6,
 		visible_upgrades: true,
 		requires: {
 			settlement_level: 3
@@ -1828,7 +1828,7 @@ civitas.BUILDINGS = [{
 			x: 940,
 			y: 500
 		},
-		levels: 5,
+		levels: 6,
 		visible_upgrades: true,
 		requires: {
 			settlement_level: 6,
@@ -1857,7 +1857,7 @@ civitas.BUILDINGS = [{
 			x: 990,
 			y: 560
 		},
-		levels: 5,
+		levels: 6,
 		visible_upgrades: true,
 		requires: {
 			settlement_level: 10,
@@ -1886,7 +1886,7 @@ civitas.BUILDINGS = [{
 			x: 890,
 			y: 600
 		},
-		levels: 5,
+		levels: 6,
 		visible_upgrades: true,
 		requires: {
 			settlement_level: 16,
@@ -1916,7 +1916,7 @@ civitas.BUILDINGS = [{
 			x: 790,
 			y: 640
 		},
-		levels: 5,
+		levels: 6,
 		visible_upgrades: true,
 		requires: {
 			settlement_level: 20,
@@ -1947,7 +1947,7 @@ civitas.BUILDINGS = [{
 			x: 690,
 			y: 680
 		},
-		levels: 5,
+		levels: 6,
 		visible_upgrades: true,
 		requires: {
 			settlement_level: 25,
@@ -1979,7 +1979,7 @@ civitas.BUILDINGS = [{
 			x: 640,
 			y: 620
 		},
-		levels: 5,
+		levels: 6,
 		visible_upgrades: true,
 		requires: {
 			settlement_level: 30,
@@ -2012,7 +2012,7 @@ civitas.BUILDINGS = [{
 			x: 590,
 			y: 560
 		},
-		levels: 5,
+		levels: 6,
 		visible_upgrades: true,
 		requires: {
 			settlement_level: 32,
@@ -2047,7 +2047,7 @@ civitas.BUILDINGS = [{
 			x: 540,
 			y: 500
 		},
-		levels: 5,
+		levels: 6,
 		visible_upgrades: true,
 		requires: {
 			settlement_level: 36,
@@ -2083,7 +2083,7 @@ civitas.BUILDINGS = [{
 			x: 490,
 			y: 440
 		},
-		levels: 5,
+		levels: 6,
 		visible_upgrades: true,
 		requires: {
 			settlement_level: 40,

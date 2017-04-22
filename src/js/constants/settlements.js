@@ -120,6 +120,7 @@ civitas.SETTLEMENTS = {
 				leather: civitas.IMPORTANCE_MEDIUM,
 				indigo: civitas.IMPORTANCE_LOW,
 				flour: civitas.IMPORTANCE_VITAL,
+				donkeys: civitas.IMPORTANCE_HIGH,
 				glass: civitas.IMPORTANCE_MEDIUM,
 				coal: civitas.IMPORTANCE_HIGH,
 				gunpowder: civitas.IMPORTANCE_HIGH,

@@ -24,6 +24,17 @@ civitas.PANEL_NEW_CARAVAN = {
 		var settlement = params.data;
 		var settlements = core.get_settlements();
 		var _t = '<fieldset>' +
+			'<legend>' + civitas.l('Initial costs') + '</legend>' +
+			'<dl>';
+		var location = civitas['SETTLEMENT_LOCATION_' + my_settlement.get_climate().name.toUpperCase()];
+		var distance = civitas.utils.get_distance_in_days(location, civitas.SETTLEMENTS[settlement.get_id()].location);
+		for (var item in civitas.CARAVAN_COSTS) {
+			_t += '<dt>' + civitas.utils.nice_numbers(item === 'coins' ? Math.ceil(civitas.CARAVAN_COSTS[item] * distance) : civitas.CARAVAN_COSTS[item]) + '</dt>' +
+				'<dd>' + civitas.ui.resource_small_img(item) + '</dd>';
+		}
+		_t += '</dl>' +
+		'</fieldset>' +
+		'<fieldset>' +
 			'<legend>' + civitas.l('Destination') + '</legend>' +
 			'<select class="caravan-destination">' +
 				'<option value="0">-- ' + civitas.l('select') + ' --</option>';

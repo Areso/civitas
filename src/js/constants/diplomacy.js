@@ -229,3 +229,34 @@ civitas.SPY_MISSION_STEAL_RESOURCES = 3;
  * @type {Number}
  */
 civitas.SPY_MISSION_INSTIGATE = 4;
+
+/**
+ * Initial resource costs for sending a caravan.
+ *
+ * @constant
+ * @type {Object}
+ */
+civitas.CARAVAN_COSTS = {
+	coins: 1000,
+	donkeys: 10,
+	wood: 10,
+	ropes: 2
+}
+
+/**
+ * Initial resource costs for sending a spy mission.
+ *
+ * @constant
+ * @type {Object}
+ */
+civitas.SPY_COSTS = {
+	coins: 1000
+}
+
+/**
+ * Amount of influence a settlement gains when sending a caravan to another settlement.
+ *
+ * @constant
+ * @type {Number}
+ */
+civitas.CARAVAN_INFLUENCE = 5;
