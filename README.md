@@ -41,6 +41,10 @@ Screenshots
 
 [Storage space](docs/images/storage.png)
 
+[Game Menu](docs/images/game-menu.png)
+
+[World Map](docs/images/world-map.png)
+
 License
 =======
 
