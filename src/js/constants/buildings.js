@@ -327,7 +327,7 @@ civitas.BUILDINGS = [{
 			'goods from production buildings. A Warehouse also adds extra storage space for the ' +
 			'materials in your city.',
 		storage: 100000,
-		levels: 5,
+		levels: 10,
 		visible_upgrades: true,
 		position: {
 			x: 1162,

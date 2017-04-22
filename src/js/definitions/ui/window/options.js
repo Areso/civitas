@@ -61,7 +61,7 @@ civitas.WINDOW_OPTIONS = {
 					'<p>' + civitas.l('Big thanks to') + ':</p>' +
 					'<ul>' +
 						'<li><a target="_blank" href="https://soundcloud.com/shantifax">Shantifax</a> for the music (Glandula Pinealis).</li>' +
-						'<li>Brendan Eich for Javascript.</li>' +
+						'<li><a target="_blank" href="https://brendaneich.com/">Brendan Eich</a> for Javascript.</li>' +
 						'<li><a target="_blank" href="http://bluebyte.com">Blue Byte</a> for Anno 1404.</li>' +
 					'</ul>' +
 				'</div>' +
