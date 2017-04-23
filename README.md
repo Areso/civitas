@@ -64,14 +64,14 @@ Always sign your commits and make sure you read the [coding style](CODING-STYLE.
 Source code
 ===========
 
-Civitas has ~18000 lines of code and ~200Kb minified, give or take and can be [downloaded from GitHub.com](https://github.com/sizeofcat/civitas/archive/master.zip) or by using git to clone the repository:
+Civitas has ~18000 lines of code, ~250Kb minified and can be [downloaded from GitHub.com](https://github.com/sizeofcat/civitas/archive/master.zip) or by using git to clone the repository:
 
 `git clone git@github.com/sizeofcat/civitas.git`
 
 Dependencies
 ============
 
-- jQuery 3.1.1
+- jQuery 3.2.1
 - jQuery UI 1.11.2
 - jQuery Tipsy 1.0.0a
 - jQuery scrollTo 1.4.14
