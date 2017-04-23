@@ -508,6 +508,8 @@ civitas.BUILDINGS = [{
 		description: 'The Tavern is the place where heroes of the known (and unknown) world hang around. If you are looking to recruit Achilles, build a Tavern. He might show up.',
 		is_municipal: true,
 		is_special: true,
+		/*
+		// TODO
 		materials: {
 			coins: 20,
 			wine: 3,
@@ -515,7 +517,7 @@ civitas.BUILDINGS = [{
 			cider: 3,
 			meat: 2,
 			oil: 1
-		},
+		},*/
 		position: {
 			x: 680,
 			y: 350
@@ -533,8 +535,7 @@ civitas.BUILDINGS = [{
 		requires: {
 			settlement_level: 16,
 			buildings: {
-				academy: 2,
-				castle: 1
+				academy: 2
 			}
 		}
 	}, {

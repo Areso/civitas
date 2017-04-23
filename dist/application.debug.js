@@ -2201,6 +2201,8 @@ civitas.BUILDINGS = [{
 		description: 'The Tavern is the place where heroes of the known (and unknown) world hang around. If you are looking to recruit Achilles, build a Tavern. He might show up.',
 		is_municipal: true,
 		is_special: true,
+		/*
+		// TODO
 		materials: {
 			coins: 20,
 			wine: 3,
@@ -2208,7 +2210,7 @@ civitas.BUILDINGS = [{
 			cider: 3,
 			meat: 2,
 			oil: 1
-		},
+		},*/
 		position: {
 			x: 680,
 			y: 350
@@ -2226,8 +2228,7 @@ civitas.BUILDINGS = [{
 		requires: {
 			settlement_level: 16,
 			buildings: {
-				academy: 2,
-				castle: 1
+				academy: 2
 			}
 		}
 	}, {
@@ -15357,6 +15358,27 @@ civitas.PANEL_EMBASSY = {
 		for (var i = 1; i < settlements.length; i++) {
 			$(this.handle + ' td > div[data-id="' + i + '"]').empty().append(civitas.ui.progress(status[settlements[i].get_id()].influence, 'big'));
 		}
+	}
+};
+
+/**
+ * Tavern panel data.
+ *
+ * @type {Object}
+ */
+civitas.PANEL_TAVERN = {
+	template: civitas.ui.building_panel_template('tavern', civitas.l('Tavern')),
+	id: 'tavern',
+	on_show: function(params) {
+		this.params_data = params.data;
+		$(this.handle + ' .contents').append(civitas.ui.tabs([civitas.l('Info'), civitas.l('Heroes')]));
+		this.on_refresh();
+	},
+	on_refresh: function() {
+		var core = this.get_core();
+		var building = core.get_settlement().get_building_by_handle(this.params_data.handle);
+		$(this.handle + ' #tab-info').empty().append(civitas.ui.building_panel(this.params_data, building.get_level()));
+		$(this.handle + ' #tab-heroes').empty().append('<p>Not implemented yet.</p>');
 	}
 };
 

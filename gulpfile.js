@@ -73,7 +73,7 @@ gulp.task('app', function() {
 		'src/js/definitions/ui/panel/building/shipyard.js',
 		'src/js/definitions/ui/panel/building/church.js',
 		'src/js/definitions/ui/panel/building/embassy.js',
-		'src/js/definitions/ui/panel/building/building/tavern.js',
+		'src/js/definitions/ui/panel/building/tavern.js',
 		'src/js/definitions/ui/panel/building/academy.js',
 		'src/js/definitions/ui/window/options.js'
   	])
