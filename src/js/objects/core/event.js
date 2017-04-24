@@ -103,14 +103,16 @@ civitas.objects.event = function (params) {
 	 * @returns {civitas.objects.event}
 	 */
 	this.notify = function() {
-		this.core._notify({
-			title: 'Event occured: ' + this.name,
-			content: this.description
-				.replace(/SETTLEMENT/g, this.data.settlement)
-				.replace(/AMOUNT/g, this.data.amount),
-			timeout: false,
-			other: true
-		});
+		if (this.core.get_settlement().is_player()) {
+			this.core._notify({
+				title: 'Event occured: ' + this.name,
+				content: this.description
+					.replace(/SETTLEMENT/g, this.data.settlement)
+					.replace(/AMOUNT/g, this.data.amount),
+				timeout: false,
+				other: true
+			});
+		}
 		return this;
 	};
 

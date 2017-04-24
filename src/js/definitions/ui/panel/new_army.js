@@ -222,7 +222,6 @@ civitas.PANEL_NEW_ARMY = {
 				navy: self.assigned_navy,
 				resources: self.resources
 			})) {
-				core.save_and_refresh();
 				self.destroy();
 			} else {
 				core.error(civitas.l('There was an error creating and dispatching the army, check the data you entered and try again.'));

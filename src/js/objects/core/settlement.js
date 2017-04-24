@@ -281,7 +281,9 @@ civitas.objects.settlement = function(params) {
 	 */
 	this.add_to_storage = function(item, amount) {
 		if (!civitas.utils.resource_exists(item)) {
-			this.get_core().error('The resource you specified does not exist.');
+			if (this.is_player()) {
+				this.get_core().error('The resource you specified does not exist.');
+			}
 			return false;
 		}
 		var res = this.get_resources();
@@ -305,7 +307,9 @@ civitas.objects.settlement = function(params) {
 		var resources = this.get_resources();
 		if (this.get_coins() - coins < 0) {
 			if (alert !== false) {
-				this.get_core().error(this.get_name() + ' doesn`t have enough ' + civitas.utils.get_resource_name('coins') + '.');
+				if (this.is_player()) {
+					this.get_core().error(this.get_name() + ' doesn`t have enough ' + civitas.utils.get_resource_name('coins') + '.');
+				}
 			}
 			return false;
 		}
@@ -322,12 +326,16 @@ civitas.objects.settlement = function(params) {
 	 */
 	this.has_resources = function(resource, amount) {
 		if (!civitas.utils.resource_exists(resource)) {
-			this.get_core().error('The resource you specified does not exist.');
+			if (this.is_player()) {
+				this.get_core().error('The resource you specified does not exist.');
+			}
 			return false;
 		}
 		var res = this.get_resources();
 		if ((res[resource] - amount) < 0) {
-			this.get_core().error(this.get_name() + ' does not have enough ' + civitas.utils.get_resource_name(resource) + '.');
+			if (this.is_player()) {
+				this.get_core().error(this.get_name() + ' does not have enough ' + civitas.utils.get_resource_name(resource) + '.');
+			}
 			return false;
 		}
 		return true;
@@ -458,7 +466,9 @@ civitas.objects.settlement = function(params) {
 		var storage = this.get_storage_space();
 		if (storage.occupied >= storage.all) {
 			if (alert === true) {
-				this.get_core().error('There is no storage space in your city.');
+				if (this.is_player()) {
+					this.get_core().error('There is no storage space in your city.');
+				}
 			}
 			return false;
 		}
@@ -561,7 +571,9 @@ civitas.objects.settlement = function(params) {
 		if (_b !== false) {
 			var _c = civitas.BUILDINGS[_b];
 			if ((typeof _c.requires.settlement_level !== 'undefined') && (this.level < _c.requires.settlement_level)) {
-				this.get_core().error('Your city level is too low to construct this building.');
+				if (this.is_player()) {
+					this.get_core().error('Your city level is too low to construct this building.');
+				}
 				return false;
 			}
 			if (typeof _c.requires.buildings !== 'undefined') {
@@ -570,14 +582,18 @@ civitas.objects.settlement = function(params) {
 					if (!this.is_building_built(item, required[item])) {
 						var _z = civitas.BUILDINGS.findIndexM(item);
 						_z = civitas.BUILDINGS[_z];
-						this.get_core().error('You don`t have the required level ' + required[item] + ' ' + _z.name + '.');
+						if (this.is_player()) {
+							this.get_core().error('You don`t have the required level ' + required[item] + ' ' + _z.name + '.');
+						}
 						return false;
 					}
 				}
 			}
 			for (var item in _c.cost) {
 				if ((this.get_resources()[item] - _c.cost[item]) < 0) {
-					this.get_core().error('You don`t have enough ' + item + ' to construct this building.');
+					if (this.is_player()) {
+						this.get_core().error('You don`t have enough ' + item + ' to construct this building.');
+					}
 					return false;
 				}
 			}
@@ -598,12 +614,14 @@ civitas.objects.settlement = function(params) {
 				stopped: false
 			});
 			this.raise_prestige();
-			this.get_core().save_and_refresh();
-			this.get_core().notify('New building constructed: ' + _building.get_name());
-			$('.tips').tipsy({
-				gravity: $.fn.tipsy.autoNS,
-				html: true
-			});
+			if (this.is_player()) {
+				this.get_core().save_and_refresh();
+				this.get_core().notify('New building constructed: ' + _building.get_name());
+				$('.tips').tipsy({
+					gravity: $.fn.tipsy.autoNS,
+					html: true
+				});
+			}
 			return _building;
 		}
 		return false;

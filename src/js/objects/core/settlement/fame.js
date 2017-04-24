@@ -52,9 +52,11 @@ civitas.objects.settlement.prototype.set_fame = function(value) {
 	} else {
 		this.resources.fame = value;
 	}
-	$('header .cityfame > span').css({
-		width: Math.floor((this.get_fame() * 100) / needed) + '%'
-	});
+	if (this.is_player()) {
+		$('header .cityfame > span').css({
+			width: Math.floor((this.get_fame() * 100) / needed) + '%'
+		});
+	}
 	return value;
 };
 

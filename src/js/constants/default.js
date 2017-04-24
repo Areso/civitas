@@ -283,3 +283,19 @@ civitas.MODE_SINGLEPLAYER = 0;
  * @type {Number}
  */
 civitas.MODE_MULTIPLAYER = 1;
+
+/**
+ * Diplomacy proposal action.
+ *
+ * @constant
+ * @type {Number}
+ */
+civitas.ACTION_DIPLOMACY = 0;
+
+/**
+ * Campaign action.
+ *
+ * @constant
+ * @type {Number}
+ */
+civitas.ACTION_CAMPAIGN = 1;

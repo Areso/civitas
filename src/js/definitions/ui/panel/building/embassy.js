@@ -16,47 +16,14 @@ civitas.PANEL_EMBASSY = {
 		var building = core.get_settlement().get_building_by_handle(this.params_data.handle);
 		var level = building.get_level();
 		$(this.handle + ' .contents').append(civitas.ui.tabs([civitas.l('Info'), civitas.l('Diplomacy'), civitas.l('Espionage')]));
-		var _t = '<div class="settlements-list">' +
-				'<table class="normal">';
-		for (var i = 1; i < settlements.length; i++) {
-			_t += '<tr>' +
-					'<td class="icon"><img src="' + civitas.ASSETS_URL + 'images/avatars/avatar' + settlements[i].get_ruler_avatar() + '.png" /></td>' +
-					'<td>' +
-						'<p class="title">' + (settlements[i].is_city() ? 'City of' : 'Village of') + ' ' + settlements[i].get_name() + '</p> ' +
-						'<p class="description">' + civitas.l('Leader') + ': ' + settlements[i].get_ruler_name() + '</p>' +
-						'<div data-id="' + settlements[i].get_id() + '" >' + civitas.ui.progress(status[settlements[i].get_id()].influence, 'big') + '</div>' +
-					'</td>' +
-					'<td class="center">' +
-						'<a data-id="' + settlements[i].get_id() + '" title="' + civitas.l('View info about this settlement.') + '" class="tips view" href="#">' + civitas.l('View') + '</a> ' +
-						'<a data-id="' + settlements[i].get_id() + '" title="' + civitas.l('Attack this settlement.') + '" class="tips army" href="#">' + civitas.l('Attack') + '</a> ' +
-						'<a data-id="' + settlements[i].get_id() + '" title="' + civitas.l('Send a caravan to this settlement.') + '" class="tips caravan" href="#">' + civitas.l('Caravan') + '</a> ' +
-						'<a data-id="' + settlements[i].get_id() + '" title="' + civitas.l('Send a spy to this settlement.') + '" class="tips spy" href="#">' + civitas.l('Spy') + '</a> ' +
-					'</td>' +
-				'</tr>';
-		}
-		_t += '</table>' +
-				'</div>';
-		$(this.handle + ' #tab-diplomacy').empty().append(_t);
+		$(this.handle + ' #tab-diplomacy').empty().append('<div class="settlements-list"></div>');
 		this.on_refresh();
 		$(this.handle).on('click', '.view', function () {
 			var _settlement_id = parseInt($(this).data('id'));
 			var _settlement = core.get_settlement(_settlement_id);
-			core.open_panel(civitas.PANEL_SETTLEMENT, _settlement);
-			return false;
-		}).on('click', '.army', function () {
-			var _settlement_id = parseInt($(this).data('id'));
-			var _settlement = core.get_settlement(_settlement_id);
-			core.open_panel(civitas.PANEL_NEW_ARMY, _settlement);
-			return false;
-		}).on('click', '.caravan', function () {
-			var _settlement_id = parseInt($(this).data('id'));
-			var _settlement = core.get_settlement(_settlement_id);
-			core.open_panel(civitas.PANEL_NEW_CARAVAN, _settlement);
-			return false;
-		}).on('click', '.spy', function () {
-			var _settlement_id = parseInt($(this).data('id'));
-			var _settlement = core.get_settlement(_settlement_id);
-			core.open_panel(civitas.PANEL_NEW_SPY, _settlement);
+			if (_settlement) {
+				core.open_panel(civitas.PANEL_SETTLEMENT, _settlement);
+			}
 			return false;
 		});
 	},
@@ -71,8 +38,28 @@ civitas.PANEL_EMBASSY = {
 		$(this.handle + ' #tab-espionage').empty().append('<div class="section">' +
 			civitas.ui.progress((settlement.get_espionage() * 100) / civitas.MAX_ESPIONAGE_VALUE, 'large', settlement.get_espionage()) +
 		'</div>');
+		var _t = '<table class="normal">';
 		for (var i = 1; i < settlements.length; i++) {
-			$(this.handle + ' td > div[data-id="' + i + '"]').empty().append(civitas.ui.progress(status[settlements[i].get_id()].influence, 'big'));
+			var _status = settlement.get_diplomacy_status(settlements[i].get_id());
+			var settlement_type = settlements[i].get_settlement_type();
+			_t += '<tr>' +
+					'<td class="icon">' +
+						'<a data-id="' + settlements[i].get_id() + '" title="' + civitas.l('View info about this settlement.') + '" class="tips view" href="#">' +
+							'<img src="' + civitas.ASSETS_URL + 'images/avatars/avatar' + settlements[i].get_ruler_avatar() + '.png" />' +
+						'</a>' +
+					'</td>' +
+					'<td>' +
+						'<p class="title">' + (settlements[i].is_city() ? 'City of' : 'Village of') + ' ' + settlements[i].get_name() + '</p> ' +
+						'<div data-id="' + settlements[i].get_id() + '" >' + civitas.ui.progress(status[settlements[i].get_id()].influence, 'big') + '</div>' +
+					'</td>' +
+					'<td>' +
+						'<p>' + civitas.l('Leader') + ': <strong>' + settlements[i].get_ruler_name() + '</strong>' + '</p>' +
+						'<p>' + civitas.l('Personality') + ': <strong>' + settlements[i].get_personality().name.capitalize() + '</strong>' + '</p>' +
+						'<p>' + civitas.l('Diplomatic Status') + ': <strong>' + settlement.get_diplomacy_status(settlements[i].get_id()).name.capitalize() + '</strong>' + '</p>' +
+					'</td>' +
+				'</tr>';
 		}
+		_t += '</table>';
+		$(this.handle + ' .settlements-list').empty().append(_t);
 	}
 };

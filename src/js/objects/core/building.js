@@ -106,7 +106,7 @@ civitas.objects.building = function(params) {
 		this.working = (typeof params.working !== 'undefined') ? params.working : true;
 		this.handle = params.data.handle;
 		params.data.level = this.get_level();
-		if (params.hidden !== true) {
+		if (params.hidden !== true && this.settlement.is_player()) {
 			$('section.game').append(civitas.ui.building_element(params)).on('click', '#building-' + this.get_handle(), function() {
 				var panel = civitas['PANEL_' + self.get_handle().toUpperCase()];
 				if (typeof panel !== 'undefined') {
@@ -170,7 +170,9 @@ civitas.objects.building = function(params) {
 				if (bl_id !== false) {
 					for (var item in _c.cost) {
 						if ((settlement.get_resources()[item] - (_c.cost[item] * next_level)) < 0) {
-							this.get_core().error('You don`t have enough ' + item + ' to upgrade this building.');
+							if (this.get_settlement().is_player()) {
+								this.get_core().error('You don`t have enough ' + item + ' to upgrade this building.');
+							}
 							return false;
 						}
 					}
@@ -180,20 +182,24 @@ civitas.objects.building = function(params) {
 						}
 					}
 					this.set_level(next_level);
-					var building_image = self.get_type();
-					if (self.get_type().slice(0, 5) === 'house') {
-						building_image = self.get_type().slice(0, 5);
+					if (this.get_settlement().is_player()) {
+						var building_image = self.get_type();
+						if (self.get_type().slice(0, 5) === 'house') {
+							building_image = self.get_type().slice(0, 5);
+						}
+						var image = (typeof _c.visible_upgrades === 'undefined' || _c.visible_upgrades === false) ? building_image + '1' : building_image + self.get_level();
+						$('section.game .building[data-type=' + this.get_type() + ']').css({
+							'background-image': 'url(./images/buildings/' + image + '.png)'
+						});
 					}
-					var image = (typeof _c.visible_upgrades === 'undefined' || _c.visible_upgrades === false) ? building_image + '1' : building_image + self.get_level();
-					$('section.game .building[data-type=' + this.get_type() + ']').css({
-						'background-image': 'url(./images/buildings/' + image + '.png)'
-					});
 					if (typeof _c.storage !== 'undefined') {
 						this.get_settlement().storage = this.get_settlement().storage + _c.storage;
 					}
 					this.get_settlement().buildings_list[bl_id].level = this.get_level();
-					this.get_core().save_and_refresh();
-					this.get_core().notify(this.get_name() + ' upgraded to level ' + this.get_level());
+					if (this.get_settlement().is_player()) {
+						this.get_core().save_and_refresh();
+						this.get_core().notify(this.get_name() + ' upgraded to level ' + this.get_level());
+					}
 					return true;
 				}
 			}
@@ -213,8 +219,10 @@ civitas.objects.building = function(params) {
 			if (bl_id !== false) {
 				--this.level;
 				this.get_settlement().buildings_list[bl_id].level = this.get_level();
-				this.get_core().save_and_refresh();
-				this.get_core().notify(this.get_name() + ' downgraded to level ' + this.get_level());
+				if (this.get_settlement().is_player()) {
+					this.get_core().save_and_refresh();
+					this.get_core().notify(this.get_name() + ' downgraded to level ' + this.get_level());
+				}
 				return true;
 			}
 		}
@@ -272,12 +280,14 @@ civitas.objects.building = function(params) {
 		var bl_id = this.get_settlement().buildings_list.findIndexM(this.get_type());
 		if (bl_id !== false) {
 			if (this.is_production_building()) {
-				this.get_core().notify(this.get_name() + '`s production started.');
+				if (this.get_settlement().is_player()) {
+					this.get_core().notify(this.get_name() + '`s production started.');
+					$('#building-' + this.get_handle()).empty();
+				}
 				this.get_settlement().buildings_list[bl_id].working = true;
 				this.working = true;
 				this.problems = false;
 				this.get_core().save_and_refresh();
-				$('#building-' + this.get_handle()).empty();
 				return true;
 			}
 		}
@@ -294,12 +304,14 @@ civitas.objects.building = function(params) {
 		var bl_id = this.get_settlement().buildings_list.findIndexM(this.get_type());
 		if (bl_id !== false) {
 			if (this.is_production_building()) {
-				this.get_core().notify(this.get_name() + '`s production stopped.');
+				if (this.get_settlement().is_player()) {
+					this.get_core().notify(this.get_name() + '`s production stopped.');
+					this.notify(civitas.NOTIFICATION_PRODUCTION_PAUSED);
+				}
 				this.get_settlement().buildings_list[bl_id].working = false;
 				this.working = false;
 				this.problems = true;
 				this.get_core().save_and_refresh();
-				this.notify(civitas.NOTIFICATION_PRODUCTION_PAUSED);
 				return true;
 			}
 		}
@@ -314,11 +326,15 @@ civitas.objects.building = function(params) {
 	 */
 	this.demolish = function() {
 		if (this.get_settlement().demolish(this.get_type())) {
-			$('section.game .building[data-type=' + this.get_type() + ']').remove();
-			this.get_core().notify(this.get_name() + ' demolished successfully!');
+			if (this.get_settlement().is_player()) {
+				$('section.game .building[data-type=' + this.get_type() + ']').remove();
+				this.get_core().notify(this.get_name() + ' demolished successfully!');
+			}
 			return true;
 		} else {
-			this.get_core().error('Unable to demolish the specified building `' + this.get_name() + '`!');
+			if (this.get_settlement().is_player()) {
+				this.get_core().error('Unable to demolish the specified building `' + this.get_name() + '`!');
+			}
 			return false;
 		}
 	};
@@ -338,8 +354,10 @@ civitas.objects.building = function(params) {
 			for (var i = 0; i < mats.length; i++) {
 				if (mats[i] !== 'coins') {
 					if (res[mats[i]] - mat[mats[i]] < 0) {
-						this.get_core().log(this.get_name() + ' doesn`t have enough ' + mats[i] + '.', true);
-						this.notify(civitas.NOTIFICATION_MISSING_RESOURCES);
+						if (this.get_settlement().is_player()) {
+							this.get_core().log(this.get_name() + ' doesn`t have enough ' + mats[i] + '.', true);
+							this.notify(civitas.NOTIFICATION_MISSING_RESOURCES);
+						}
 						this.problems = true;
 						return false;
 					}
@@ -347,8 +365,10 @@ civitas.objects.building = function(params) {
 			}
 		} else {
 			if (res[mats] - mat[mats] < 0) {
-				this.get_core().log(this.get_name() + ' doesn`t have enough ' + mats + '.', true);
-				this.notify(civitas.NOTIFICATION_MISSING_RESOURCES);
+				if (this.get_settlement().is_player()) {
+					this.get_core().log(this.get_name() + ' doesn`t have enough ' + mats + '.', true);
+					this.notify(civitas.NOTIFICATION_MISSING_RESOURCES);
+				}
 				this.problems = true;
 				return false;
 			}
@@ -369,11 +389,15 @@ civitas.objects.building = function(params) {
 		if (typeof material === 'object') {
 			for (var i = 0; i < material.length; i++) {
 				this.get_settlement().remove_resource(material[i], mat[material[i]]);
-				this.get_core().log(this.get_name() + ' used ' + mat[material[i]] + ' ' + material[i] + '.');
+				if (this.get_settlement().is_player()) {
+					this.get_core().log(this.get_name() + ' used ' + mat[material[i]] + ' ' + material[i] + '.');
+				}
 			}
 		} else {
 			this.get_settlement().remove_resource(material, mat[material]);
-			this.get_core().log(this.get_name() + ' used ' + mat[material] + ' ' + material + '.');
+			if (this.get_settlement().is_player()) {
+				this.get_core().log(this.get_name() + ' used ' + mat[material] + ' ' + material + '.');
+			}
 		}
 		return this;
 	};
@@ -446,13 +470,17 @@ civitas.objects.building = function(params) {
 							var rnd = Math.random();
 							if (rnd < building.chance[item] * this.get_level()) {
 								var random_amount = civitas.utils.get_random(1, 5);
-								this.get_core().log(this.get_name() + ' procced ' + random_amount + ' extra ' + civitas.utils.get_resource_name(item) + '.');
+								if (this.get_settlement().is_player()) {
+									this.get_core().log(this.get_name() + ' procced ' + random_amount + ' extra ' + civitas.utils.get_resource_name(item) + '.');
+								}
 								this.get_settlement().add_to_storage(item, random_amount);
 							}
 						}
 					}
 				}
-				this.get_core().log(this.get_name() + ' produced ' + amount + ' ' + material[i] + '.');
+				if (this.get_settlement().is_player()) {
+					this.get_core().log(this.get_name() + ' produced ' + amount + ' ' + material[i] + '.');
+				}
 			}
 		} else {
 			if (!this.is_producing()) {
@@ -479,13 +507,17 @@ civitas.objects.building = function(params) {
 						var rnd = Math.random();
 						if (rnd < building.chance[item]) {
 							var random_amount = civitas.utils.get_random(1, 5);
-							this.get_core().log(this.get_name() + ' procced ' + random_amount + ' extra ' + civitas.utils.get_resource_name(item) + '.');
+							if (this.get_settlement().is_player()) {
+								this.get_core().log(this.get_name() + ' procced ' + random_amount + ' extra ' + civitas.utils.get_resource_name(item) + '.');
+							}
 							this.get_settlement().add_to_storage(item, random_amount);
 						}
 					}
 				}
 			}
-			this.get_core().log(this.get_name() + ' produced ' + amount + ' ' + material + '.');
+			if (this.get_settlement().is_player()) {
+				this.get_core().log(this.get_name() + ' produced ' + amount + ' ' + material + '.');
+			}
 		}
 		return this;
 	};
@@ -508,7 +540,9 @@ civitas.objects.building = function(params) {
 				this.use_material(_m);
 				var amount = building.tax * this.get_level();
 				this.get_settlement().inc_coins(amount);
-				this.get_core().log(this.get_name() + ' gave ' + amount + ' coins via tax.');
+				if (this.get_settlement().is_player()) {
+					this.get_core().log(this.get_name() + ' gave ' + amount + ' coins via tax.');
+				}
 			}
 		}
 		return this;
@@ -529,16 +563,20 @@ civitas.objects.building = function(params) {
 				if (!this.get_settlement().is_building_built(item, required[item])) {
 					good = false;
 					var req = civitas.BUILDINGS[civitas.BUILDINGS.findIndexM(item)];
-					this.get_core().log(this.get_name() + ' doesn`t have the required level ' + required[item] + ' ' + req.name + '.', true);
-					this.notify(civitas.NOTIFICATION_MISSING_RESOURCES);
+					if (this.get_settlement().is_player()) {
+						this.get_core().log(this.get_name() + ' doesn`t have the required level ' + required[item] + ' ' + req.name + '.', true);
+						this.notify(civitas.NOTIFICATION_MISSING_RESOURCES);
+					}
 					this.problems = true;
 				}
 			}
 		}
 		if (typeof building.requires.settlement_level !== 'undefined') {
 			if (building.requires.settlement_level > this.get_settlement().get_level()) {
-				this.get_core().log('Your settlement level is too low for ' + this.get_name() + ' to be active.', true);
-				this.notify(civitas.NOTIFICATION_SETTLEMENT_LOW_LEVEL);
+				if (this.get_settlement().is_player()) {
+					this.get_core().log('Your settlement level is too low for ' + this.get_name() + ' to be active.', true);
+					this.notify(civitas.NOTIFICATION_SETTLEMENT_LOW_LEVEL);
+				}
 				good = false;
 				this.problems = true;
 			}
@@ -566,7 +604,9 @@ civitas.objects.building = function(params) {
 					this.use_material(_m);
 					var amount = building.tax * this.get_level();
 					this.get_settlement().inc_coins(amount);
-					this.get_core().log(this.get_name() + ' gave ' + amount + ' coins via tax.');
+					if (this.get_settlement().is_player()) {
+						this.get_core().log(this.get_name() + ' gave ' + amount + ' coins via tax.');
+					}
 				}
 			}
 		} else {
@@ -590,8 +630,10 @@ civitas.objects.building = function(params) {
 					this.problems = true;
 				}
 			} else {
-				this.get_core().log(this.get_name() + ' production is stopped.');
-				this.notify(civitas.NOTIFICATION_PRODUCTION_PAUSED);
+				if (this.get_settlement().is_player()) {
+					this.get_core().log(this.get_name() + ' production is stopped.');
+					this.notify(civitas.NOTIFICATION_PRODUCTION_PAUSED);
+				}
 				this.problems = true;
 			}
 		}
@@ -618,30 +660,10 @@ civitas.objects.building = function(params) {
 	 * @returns {civitas.objects.building}
 	 */
 	this.process = function() {
-		var building = this.get_building_data();
-		var res = this.get_settlement_resources();
-		var prd = building.production;
-		var mat = building.materials;
 		if (this.has_requirements() === false) {
 			return false;
 		}
-		/*
-		switch (this.get_type()) {
-			case 'warehouse':
-			case 'camp':
-			case 'tavern':
-			case 'tournir':
-			case 'castle':
-			case 'embassy':
-			case 'academy':
-			case 'church':
-			case 'monastery':
-			case 'marketplace':
-			default:
-		*/
 		this._process();
-		//		break;
-		//}
 		return this;
 	};
 
@@ -735,15 +757,17 @@ civitas.objects.building = function(params) {
 	 * @returns {civitas.objects.building}
 	 */
 	this.notify = function(notification_type) {
-		var handle = $('#building-' + this.get_handle());
-		switch (notification_type) {
-			case civitas.NOTIFICATION_PRODUCTION_PAUSED:
-				handle.empty().append('<span class="notification paused"></span>');
-				break;
-			case civitas.NOTIFICATION_MISSING_RESOURCES:
-			default:
-				handle.empty().append('<span class="notification error"></span>');
-				break;
+		if (this.get_settlement().is_player()) {
+			var handle = $('#building-' + this.get_handle());
+			switch (notification_type) {
+				case civitas.NOTIFICATION_PRODUCTION_PAUSED:
+					handle.empty().append('<span class="notification paused"></span>');
+					break;
+				case civitas.NOTIFICATION_MISSING_RESOURCES:
+				default:
+					handle.empty().append('<span class="notification error"></span>');
+					break;
+			}
 		}
 		return this;
 	};

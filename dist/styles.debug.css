@@ -2,7 +2,7 @@
  * Civitas empire-building game.
  *
  * @author sizeof(cat) <sizeofcat AT riseup.net>
- * @version 0.1.0.4232017
+ * @version 0.1.0.4242017
  * @license MIT
  */ @font-face {
 	font-family: 'Nova Oval';
@@ -487,7 +487,8 @@ header .top-panel span {
 .panel .worldmap .settlement,
 .panel .worldmap .army,
 .panel .worldmap .caravan,
-.panel .worldmap .spy {
+.panel .worldmap .spy,
+.panel .worldmap .messenger {
 	position: absolute;
 	width: 32px;
 	height: 32px;
@@ -1308,7 +1309,7 @@ td.icon {
 }
 
 .progress.big {
-	width: 300px;
+	width: 400px;
 }
 
 .progress.large {
@@ -1455,6 +1456,7 @@ table tr td:last-child a {
 	color: #fff !important;
 	text-transform: uppercase;
 	text-align: center;
+	display: inline-block;
 }
 
 table tr td a.disabled {
@@ -1889,6 +1891,32 @@ table tr td:last-child a:hover,
 	margin-left: 10px;
 }
 
+.popup {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0 0 4px #000;
+    z-index: 1;
+    padding: 10px;
+}
+
+.popup a {
+	display: block;
+	margin-bottom: 10px;
+}
+
+.popup a:last-of-type {
+	margin-bottom: 0;
+}
+
+#panel-settlement .pact,
+#panel-settlement .alliance,
+#panel-settlement .war,
+#panel-settlement .ceasefire {
+	display: none;
+}
+
 /* Top panel with resources */
 
 .top-panel span.coins {
@@ -1991,6 +2019,10 @@ footer .do-help {
 
 .panel .worldmap .army {
 	background: transparent url(../images/ui/army.png) no-repeat;
+}
+
+.panel .worldmap .messenger {
+	background: transparent url(../images/ui/diplomacy.png) no-repeat;
 }
 
 .panel .worldmap .battle.b2 {

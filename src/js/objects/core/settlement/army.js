@@ -63,7 +63,7 @@ civitas.objects.settlement.prototype.can_build_ships = function() {
  * @returns {Boolean}
  */
 civitas.objects.settlement.prototype.can_recruit_soldiers = function() {
-	return this.is_building_built('camp') || this.is_building_built('castle');
+	return this.is_building_built('camp');
 };
 
 /**
@@ -73,7 +73,7 @@ civitas.objects.settlement.prototype.can_recruit_soldiers = function() {
  * @param {String} name
  * @returns {Boolean}
  */
-civitas.objects.settlement.prototype.recruit_mercenary_army = function(name, hidden) {
+civitas.objects.settlement.prototype.recruit_mercenary_army = function(name) {
 	for (var i = 0; i < civitas.MERCENARIES.length; i++) {
 		if (name === civitas.MERCENARIES[i].handle) {
 			var price = civitas.MERCENARIES[i].cost;
@@ -93,10 +93,10 @@ civitas.objects.settlement.prototype.recruit_mercenary_army = function(name, hid
 				}
 			}
 			this.mercenary.push(army);
-			if (hidden !== true) {
+			if (this.is_player()) {
 				this.get_core().notify('The mercenaries of the ' + civitas.MERCENARIES[i].name + ' are now available for skirmish missions for the duration of one year.', 'Mercenaries recruited.');
-				this.get_core().save_and_refresh();
 			}
+			this.get_core().save_and_refresh();
 			return true;
 		}
 	}
@@ -116,8 +116,10 @@ civitas.objects.settlement.prototype.recruit_ship = function(ship_name) {
 	} else {
 		this.navy[ship_name] = 1;
 	}
-	this.get_core().save_and_refresh();
-	this.get_core().notify('A new ' + ship_name + ' ship has been constructed.', 'New ship');
+	if (this.is_player()) {
+		this.get_core().save_and_refresh();
+		this.get_core().notify('A new ' + ship_name + ' ship has been constructed.', 'New ship');
+	}
 	return true;
 };
 
@@ -134,41 +136,11 @@ civitas.objects.settlement.prototype.recruit_soldier = function(soldier_name) {
 	} else {
 		this.army[soldier_name] = 1;
 	}
-	this.get_core().save_and_refresh();
-	this.get_core().notify('A new ' + soldier_name + ' has been recruited.', 'New soldier');
+	if (this.is_player()) {
+		this.get_core().save_and_refresh();
+		this.get_core().notify('A new ' + soldier_name + ' has been recruited.', 'New soldier');
+	}
 	return true;
-};
-
-/**
- * Internal function for recruiting a ship for the settlement's navy.
- * 
- * @public
- * @param {String} ship_name
- * @returns {civitas.objects.settlement}
- */
-civitas.objects.settlement.prototype._recruit_ship = function(ship_name) {
-	if (typeof this.navy[ship_name] !== 'undefined') {
-		this.navy[ship_name] = this.navy[ship_name] + 1;
-	} else {
-		this.navy[ship_name] = 1;
-	}
-	return this;
-};
-
-/**
- * Internal function for recruiting a soldier for the settlement's army.
- * 
- * @public
- * @param {String} soldier_name
- * @returns {civitas.objects.settlement}
- */
-civitas.objects.settlement.prototype._recruit_soldier = function(soldier_name) {
-	if (typeof this.army[soldier_name] !== 'undefined') {
-		this.army[soldier_name] = this.army[soldier_name] + 1;
-	} else {
-		this.army[soldier_name] = 1;
-	}
-	return this;
 };
 
 /**
@@ -275,7 +247,9 @@ civitas.objects.settlement.prototype.set_army = function(value) {
  */
 civitas.objects.settlement.prototype.release_mercenaries = function() {
 	this.mercenary = [];
-	this.get_core().notify('At the end of the year, mercenaries from your city have been released.');
+	if (this.is_player()) {
+		this.get_core().notify('At the end of the year, mercenaries from your city have been released.');
+	}
 	return this;
 };
 
@@ -377,6 +351,8 @@ civitas.objects.settlement.prototype.is_mercenary_recruited = function(handle) {
 civitas.objects.settlement.prototype.release_mercenary = function(id) {
 	var mercenary_army_data = civitas.MERCENARIES[id];
 	this.mercenary.splice(id, 1);
-	this.get_core().notify(mercenary_army_data.name + ' has been released from its duties.');
+	if (this.is_player()) {
+		this.get_core().notify(mercenary_army_data.name + ' has been released from its duties.');
+	}
 	return this;
 };

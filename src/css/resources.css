@@ -102,6 +102,10 @@ footer .do-help {
 	background: transparent url(../images/ui/army.png) no-repeat;
 }
 
+.panel .worldmap .messenger {
+	background: transparent url(../images/ui/diplomacy.png) no-repeat;
+}
+
 .panel .worldmap .battle.b2 {
 	background: transparent url(../images/ui/battle2.png) no-repeat;
 }

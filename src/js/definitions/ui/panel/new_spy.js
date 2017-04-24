@@ -111,7 +111,6 @@ civitas.PANEL_NEW_SPY = {
 				data.religion = _religion;
 			}
 			if (core.add_campaign(my_settlement, settlement, civitas.CAMPAIGN_SPY, data)) {
-				core.save_and_refresh();
 				self.destroy();
 			} else {
 				core.error(civitas.l('There was an error creating and dispatching the spy, check the data you entered and try again.'));

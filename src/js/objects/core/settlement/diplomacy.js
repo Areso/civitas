@@ -2,24 +2,26 @@
  * Perform diplomacy missions.
  *
  * @public
- * @param {Number|civitas.objects.settlement|String} settlement
+ * @param {Number|civitas.objects.settlement} settlement
  * @param {Number} mode
  * @returns {Boolean}
  */
 civitas.objects.settlement.prototype.diplomacy = function(settlement, mode) {
-	if (this.can_diplomacy() === true) {
-		if (typeof settlement === 'number') {
-			this.status[settlement].status = mode;
-			if (mode === civitas.DIPLOMACY_WAR) {
-				this.status[settlement].influence = 0;
-			}
-		} else if (typeof settlement === 'object') {
-			this.status[settlement.get_id()].status = mode;
-			if (mode === civitas.DIPLOMACY_WAR) {
-				this.status[settlement].influence = 0;
-			}
-		} else {
-
+	if (typeof settlement === 'object') {
+		settlement = settlement.get_id();
+	}
+	if (this.can_diplomacy() === true && typeof settlement === 'number') {
+		this.status[settlement].status = mode;
+		if (mode === civitas.DIPLOMACY_WAR) {
+			this.reset_influence(settlement);
+		} else if (mode === civitas.DIPLOMACY_ALLIANCE) {
+			this.set_influence(settlement, civitas.MAX_INFLUENCE_VALUE);
+		} else if (mode === civitas.DIPLOMACY_PACT) {
+			this.set_influence(settlement, Math.ceil(civitas.MAX_INFLUENCE_VALUE / 2));
+		} else if (mode === civitas.DIPLOMACY_CEASE_FIRE) {
+			this.set_influence(settlement, Math.ceil(civitas.MAX_INFLUENCE_VALUE / 4));
+		} else if (mode === civitas.DIPLOMACY_VASSAL) {
+			this.set_influence(settlement, civitas.MAX_INFLUENCE_VALUE);
 		}
 		this.get_core().save_and_refresh();
 		return true;
@@ -101,7 +103,7 @@ civitas.objects.settlement.prototype.lower_influence = function(settlement, valu
  */
 civitas.objects.settlement.prototype.set_influence = function(settlement, value) {
 	if (typeof settlement === 'object') {
-		settlement = settlement.get_id();;
+		settlement = settlement.get_id();
 	} else if (typeof settlement === 'string') {
 		settlement = this.get_core().get_settlement(settlement);
 	}
@@ -130,7 +132,19 @@ civitas.objects.settlement.prototype.raise_influence = function(settlement, valu
 	}
 	return this.set_influence(settlement, this.get_influence_with_settlement(settlement) + value);
 };
-	
+
+/**
+ * Reset the influence of this settlement to 1.
+ * 
+ * @param {Number} settlement_id
+ * @returns {civitas.objects.settlement}
+ * @public
+ */
+civitas.objects.settlement.prototype.reset_influence = function(settlement_id) {
+	this.set_influence(settlement_id, 1);
+	return this;
+};
+
 /**
  * Return all the status of this settlement with all the other cities.
  * 
@@ -152,34 +166,4 @@ civitas.objects.settlement.prototype.get_diplomacy_status = function(settlement)
 		id: this.status[settlement].status,
 		name: civitas.DIPLOMACIES[this.status[settlement].status]
 	};
-};
-
-/**
- * Propose a pact to the specified settlement.
- *
- * @public
- * @returns {civitas.objects.settlement}
- * @param {civitas.objects.settlement}
- */
-civitas.objects.settlement.prototype.propose_pact = function(settlement) {
-	if (this.can_diplomacy() === true) {
-		// TODO
-		return true;
-	}
-	return false
-};
-
-/**
- * Assign a spy to the specified settlement.
- *
- * @public
- * @returns {civitas.objects.settlement}
- * @param {civitas.objects.settlement}
- */
-civitas.objects.settlement.prototype.assign_spy = function(settlement) {
-	if (this.can_diplomacy() === true) {
-		// TODO
-		return true;
-	}
-	return false
 };

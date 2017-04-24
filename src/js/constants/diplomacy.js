@@ -12,7 +12,9 @@ civitas.DIPLOMACIES = [
 	'cease fire',
 	'pact proposed',
 	'alliance proposed',
-	'cease fire proposed'
+	'cease fire proposed',
+	'proposed to join you',
+	'vassal'
 ];
 
 /**
@@ -102,6 +104,22 @@ civitas.DIPLOMACY_PROPOSE_ALLIANCE = 6;
  * @type {Number}
  */
 civitas.DIPLOMACY_PROPOSE_CEASE_FIRE = 7;
+
+/**
+ * Propose to join your settlement.
+ * 
+ * @constant
+ * @type {Number}
+ */
+civitas.DIPLOMACY_PROPOSE_JOIN = 8;
+
+/**
+ * Vassal villages count as part of your empire.
+ * 
+ * @constant
+ * @type {Number}
+ */
+civitas.DIPLOMACY_VASSAL = 9;
 
 /**
  * Influence gained when selling goods to a settlement.
