@@ -169,10 +169,16 @@ civitas.WINDOW_OPTIONS = {
 			$(el + ' .about-game').slideToggle();
 			return false;
 		}).on('click', '.do-restart', function () {
-			if (confirm(civitas.l('Are you sure you want to restart the game? You wll lose all progress!')) === true) {
-				core.reset_storage_data();
-				document.location.reload();
-			}
+			core.open_modal(
+				function(button) {
+					if (button === 'yes') {
+						core.reset_storage_data();
+						document.location.reload();
+					}
+				},
+				'Are you sure you want to restart the game? You wll lose all progress!',
+				'Civitas'
+			);
 			return false;
 		}).on('click', '.do-save', function () {
 			if (core.get_mode() === civitas.MODE_SINGLEPLAYER) {
@@ -184,11 +190,17 @@ civitas.WINDOW_OPTIONS = {
 				var el = $(this).parent();
 				var id = parseInt(el.data('id'));
 				if (id >= 1 && id <= 3) {
-					if (confirm(civitas.l('Are you sure you want to save the game in this slot? An already existing save will be overwritten!')) === true) {
-						var data = core.export(true, id);
-						el.children('span.load, span.delete').show();
-						el.children('span.date').html(civitas.utils.time_since(data.date) + ' ago');
-					}
+					core.open_modal(
+						function(button) {
+							if (button === 'yes') {
+								var data = core.export(true, id);
+								el.children('span.load, span.delete').show();
+								el.children('span.date').html(civitas.utils.time_since(data.date) + ' ago');
+							}
+						},
+						'Are you sure you want to save the game in this slot? An already existing save will be overwritten!',
+						'Civitas'
+					);
 				}
 			}
 			return false;
@@ -197,12 +209,18 @@ civitas.WINDOW_OPTIONS = {
 				var el = $(this).parent();
 				var id = parseInt(el.data('id'));
 				if (id >= 1 && id <= 3) {
-					if (confirm(civitas.l('Are you sure you want to delete the save game from this slot? All data from that game will be lost!')) === true) {
-						core.reset_storage_data('save' + id);
-						el.children('span.load, span.delete').hide();
-						el.children('span.date').html(civitas.l('empty save game'));
-						el.children('span.save').show();
-					}
+					core.open_modal(
+						function(button) {
+							if (button === 'yes') {
+								core.reset_storage_data('save' + id);
+								el.children('span.load, span.delete').hide();
+								el.children('span.date').html(civitas.l('empty save game'));
+								el.children('span.save').show();
+							}
+						},
+						'Are you sure you want to delete the save game from this slot? All data from that game will be lost!',
+						'Civitas'
+					);
 				}
 			}
 			return false;
@@ -211,17 +229,23 @@ civitas.WINDOW_OPTIONS = {
 				var el = $(this).parent();
 				var id = parseInt(el.data('id'));
 				if (id >= 1 && id <= 3) {
-					if (confirm(civitas.l('Are you sure you want to load the game from this slot? An already existing game will be lost!')) === true) {
-						if (core.swap_storage_data('save' + id, 'live') !== false) {
-							document.location.reload();
-						} else {
-							core.error('There was a problem loading the game data, it is probably corrupted. Save game data will be deleted now.');
-							core.reset_storage_data('save' + id);
-							el.children('span.load, span.delete').hide();
-							el.children('span.date').html(civitas.l('empty save game'));
-							el.children('span.save').show();
-						}
-					}
+					core.open_modal(
+						function(button) {
+							if (button === 'yes') {
+								if (core.swap_storage_data('save' + id, 'live') !== false) {
+									document.location.reload();
+								} else {
+									core.error('There was a problem loading the game data, it is probably corrupted. Save game data will be deleted now.');
+									core.reset_storage_data('save' + id);
+									el.children('span.load, span.delete').hide();
+									el.children('span.date').html(civitas.l('empty save game'));
+									el.children('span.save').show();
+								}
+							}
+						},
+						'Are you sure you want to load the game from this slot? An already existing game will be lost!',
+						'Civitas'
+					);
 				}
 			}
 			return false;

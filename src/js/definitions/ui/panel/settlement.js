@@ -45,42 +45,62 @@ civitas.PANEL_SETTLEMENT = {
 				core.error(civitas.l('You will need to construct an Embassy before being able to propose an alliance to other settlements.'));
 				return false;
 			}
-			if (confirm('Are you sure you want to propose an alliance to this settlement?')) {
-				if (!core.add_to_queue(my_settlement, settlement, civitas.ACTION_DIPLOMACY, civitas.DIPLOMACY_PROPOSE_ALLIANCE, {})) {
-					core.error(civitas.l('There was an error proposing an alliance to this settlement, check the data you entered and try again.'));
-				}
-			}
+			core.open_modal(
+				function(button) {
+					if (button === 'yes') {
+						if (!core.add_to_queue(my_settlement, settlement, civitas.ACTION_DIPLOMACY, civitas.DIPLOMACY_PROPOSE_ALLIANCE, {})) {
+							core.error(civitas.l('There was an error proposing an alliance to this settlement, check the data you entered and try again.'));
+						}
+					}
+				},
+				'Are you sure you want to propose an alliance to this settlement?'
+			);
 			return false;
 		}).on('click', '.pact', function () {
 			if (!my_settlement.can_diplomacy()) {
 				core.error(civitas.l('You will need to construct an Embassy before being able to propose a pact to other settlements.'));
 				return false;
 			}
-			if (confirm('Are you sure you want to propose a pact to this settlement?')) {
-				if (!core.add_to_queue(my_settlement, settlement, civitas.ACTION_DIPLOMACY, civitas.DIPLOMACY_PROPOSE_PACT, {})) {
-					core.error(civitas.l('There was an error proposing a pact to this settlement, check the data you entered and try again.'));
-				}
-			}
+			core.open_modal(
+				function(button) {
+					if (button === 'yes') {
+						if (!core.add_to_queue(my_settlement, settlement, civitas.ACTION_DIPLOMACY, civitas.DIPLOMACY_PROPOSE_PACT, {})) {
+							core.error(civitas.l('There was an error proposing a pact to this settlement, check the data you entered and try again.'));
+						}
+					}
+				},
+				'Are you sure you want to propose a pact to this settlement?'
+			);
 			return false;
 		}).on('click', '.ceasefire', function () {
 			if (!my_settlement.can_diplomacy()) {
 				core.error(civitas.l('You will need to construct an Embassy before being able to propose a cease fire to other settlements.'));
 				return false;
 			}
-			if (confirm('Are you sure you want to propose a cease fire to this settlement?')) {
-				if (!core.add_to_queue(my_settlement, settlement, civitas.ACTION_DIPLOMACY, civitas.DIPLOMACY_PROPOSE_CEASE_FIRE, {})) {
-					core.error(civitas.l('There was an error proposing a cease fire to this settlement, check the data you entered and try again.'));
-				}
-			}
+			core.open_modal(
+				function(button) {
+					if (button === 'yes') {
+						if (!core.add_to_queue(my_settlement, settlement, civitas.ACTION_DIPLOMACY, civitas.DIPLOMACY_PROPOSE_CEASE_FIRE, {})) {
+							core.error(civitas.l('There was an error proposing a cease fire to this settlement, check the data you entered and try again.'));
+						}
+					}
+				},
+				'Are you sure you want to propose a cease fire to this settlement?'
+			);
 			return false;
 		}).on('click', '.war', function () {
 			if (!my_settlement.can_diplomacy()) {
 				core.error(civitas.l('You will need to construct an Embassy before being able to declare war to other settlements.'));
 				return false;
 			}
-			if (confirm('Are you sure you want to declare war to this settlement?')) {
-				my_settlement.diplomacy(settlement.get_id(), civitas.DIPLOMACY_WAR);
-			}
+			core.open_modal(
+				function(button) {
+					if (button === 'yes') {
+						my_settlement.diplomacy(settlement.get_id(), civitas.DIPLOMACY_WAR);
+					}
+				},
+				'Are you sure you want to declare war to this settlement?<br /><br />You will lose all influence over ' + settlement.get_name() + ' and the settlement might retaliate back!'
+			);
 			return false;
 		}).on('click', '.caravan', function () {
 			if (!my_settlement.can_trade()) {

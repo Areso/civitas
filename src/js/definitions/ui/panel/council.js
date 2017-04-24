@@ -27,11 +27,16 @@ civitas.PANEL_COUNCIL = {
 			core.error('Not implemented yet.');
 			return false;
 		}).on('click', '.disband-merc', function () {
-			if (confirm(civitas.l('Are you sure you want to release this mercenary army? You won`t be able to use them anymore!')) === true) {
-				var _army = parseInt($(this).data('id'));
-				core.get_settlement().release_mercenary(_army);
-				core.save_and_refresh();
-			}
+			self.get_core().open_modal(
+				function(button) {
+					if (button === 'yes') {
+						var _army = parseInt($(this).data('id'));
+						core.get_settlement().release_mercenary(_army);
+						core.save_and_refresh();
+					}
+				},
+				'Are you sure you want to release this mercenary army? You won`t be able to use them anymore!'
+			);
 			return false;
 		}).on('click', '.building-info', function() {
 			var handle = $(this).data('handle');

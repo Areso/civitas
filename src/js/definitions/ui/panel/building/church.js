@@ -14,9 +14,14 @@ civitas.PANEL_CHURCH = {
 		this.on_refresh();
 		$(this.handle).on('click', '.religion', function() {
 			var id = parseInt($(this).data('id'));
-			if (confirm(civitas.l('Are you sure you want to switch religions? You will lose all your city`s faith!')) === true) {
-				settlement.change_religion(id);
-			}
+			self.get_core().open_modal(
+				function(button) {
+					if (button === 'yes') {
+						settlement.change_religion(id);
+					}
+				},
+				'Are you sure you want to switch religions? You will lose all your city`s faith!'
+			);
 			return false;
 		});
 	},

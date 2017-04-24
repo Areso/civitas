@@ -53,6 +53,7 @@ gulp.task('app', function() {
 		'src/js/objects/core/event.js',
 		'src/js/objects/core/building.js',
 		'src/js/objects/core/window.js',
+		'src/js/objects/core/modal.js',
 		'src/js/objects/core/panel.js',
 		'src/js/objects/game.js',
 		'src/js/definitions/ui/panel/settlement.js',

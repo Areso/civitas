@@ -131,6 +131,8 @@ civitas.game = function () {
 
 	this.ai = null;
 
+	this.modal = null;
+
 	/**
 	 * Object constructor.
 	 * 
@@ -1333,6 +1335,9 @@ civitas.game = function () {
 		var clicked = false;
 		var clickY, clickX;
 		var _t = '';
+		this.modal = new civitas.controls.modal({
+			core: self
+		});
 		$('.game').on({
 			mousemove: function (e) {
 				clicked && update_scroll_pos(e);
@@ -2022,6 +2027,7 @@ civitas.game = function () {
 				this.notify('Your ' + class_name + ' was dispatched towards ' + destination_settlement.get_name() + ' and will reach its destination in ' + duration + ' days.');
 			}
 		} else if (mode === civitas.ACTION_DIPLOMACY) {
+			duration = Math.ceil(duration / 2);
 			if (source_settlement.get_id() === this.get_settlement().get_id()) {
 				this.notify('Your proposal was dispatched towards ' + destination_settlement.get_name() + ' and will reach its destination in ' + duration + ' days.');
 			}
@@ -2115,6 +2121,24 @@ civitas.game = function () {
 		}
 		return false;
 	};
+
+	/**
+	 * Open a modal window (usually to ask for confirmations).
+	 *
+	 * @public
+	 * @param {Function} callback
+	 * @param {String} text
+	 * @param {String} title
+	 * @returns {civitas.game}
+	 */
+	this.open_modal = function(callback, text, title) {
+		this.modal.alert({
+			title: typeof title !== 'undefined' ? title : 'City Council',
+			text: text,
+			on_click: callback
+		});
+		return this;
+	}
 
 	// Fire up the constructor
 	return this.__init();

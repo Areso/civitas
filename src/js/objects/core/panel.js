@@ -146,21 +146,31 @@ civitas.controls.panel = function (params) {
 					$(this.handle + ' .start, ' + this.handle + ' .pause').remove();
 				}
 				$(this.handle).on('click', '.upgrade', function () {
-					if (confirm(civitas.l('Are you sure you want to upgrade this building?')) === true) {
-						if (building.upgrade()) {
-							if (!building.is_upgradable()) {
-								$(self.handle + ' .footer .upgrade').remove();
+					self.get_core().open_modal(
+						function(button) {
+							if (button === 'yes') {
+								if (building.upgrade()) {
+									if (!building.is_upgradable()) {
+										$(self.handle + ' .footer .upgrade').remove();
+									}
+								}
 							}
-						}
-					}
+						},
+						'Are you sure you want to upgrade this building?'
+					);
 					return false;
 				}).on('click', '.demolish', function () {
-					if (confirm(civitas.l('Are you sure you want to demolish this building?')) === true) {
-						if (building.demolish()) {
-							self.destroy();
-							core.refresh();
-						}
-					}
+					self.get_core().open_modal(
+						function(button) {
+							if (button === 'yes') {
+								if (building.demolish()) {
+									self.destroy();
+									core.refresh();
+								}
+							}
+						},
+						'Are you sure you want to demolish this building?'
+					);
 					return false;
 				}).on('click', '.pause', function () {
 					if (building.stop_production()) {

@@ -2,7 +2,7 @@
  * Civitas empire-building game.
  *
  * @author sizeof(cat) <sizeofcat AT riseup.net>
- * @version 0.1.0.4242017
+ * @version 0.1.0.4252017
  * @license MIT
  */ 'use strict';
 
@@ -10958,6 +10958,99 @@ civitas.controls.window = function (params) {
 };
 
 /**
+ * Main modal object.
+ * 
+ * @param {Object} params
+ * @class {civitas.controls.modal}
+ * @returns {civitas.controls.modal}
+ */
+civitas.controls.modal = function (params) {
+	this.core = null;
+	this.skeleton = '<div class="modal-overlay">' +
+			'<div class="modal">' +
+				'<div class="header"></div>' +
+				'<div class="content"></div>' +
+				'<div class="footer"></div>' +
+			'</div>' +
+		'</div>';
+
+	this.__init = function(params) {
+		this.core = params.core;
+		var self = this;
+		$('body').append(this.skeleton);
+		$(window).bind('resize', function() {
+			self.resize();
+		});
+	};
+
+	this.alert = function(options) {
+		if (this.is_open()) {
+			return false;
+		}
+		this.core.show_loader();
+		$('.modal').css({
+			width: '400px'
+		});
+		this.resize();
+		$('.modal .header').html(options.title);
+		$('.modal .footer').html('<a data-id="yes" href="#" class="btn float-right">' + civitas.l('Yes') + '</a>' +
+			'<a data-id="no" href="#" class="btn">' + civitas.l('No') + '</a>');
+		$('.modal .content').html('<img class="avatar" src="' + civitas.ASSETS_URL + 'images/avatars/avatar' + this.core.get_settlement().get_ruler_avatar() + '.png" />' +
+			'<p>' + options.text + '</p>');
+		this.listen();
+		$('.modal-overlay, .modal').show();
+		if (typeof options.on_click === 'function') {
+			this.on_click = options.on_click;
+		}
+	};
+
+	this.is_open = function() {
+		return $('.modal').css('display') === "block";
+	};
+
+	this.clear = function() {
+		$('.modal-overlay').remove();
+		$('body').append(this.skeleton);
+		this.core.hide_loader();
+		this.resize();
+	};
+
+	this.listen = function() {
+		var self = this;
+		$('.modal .footer a').click(function() {
+			self.action($(this).data('id'));
+		});
+	};
+
+	this.action = function(key) {
+		if (key === 'no' || key === 'yes') {
+			this.clear();
+		}
+		this.on_click(key);
+	};
+
+	this.resize = function() {
+		var lbox = $('.modal');
+		var height = parseInt((lbox.css('height')).replace('px', ''));
+		var width = parseInt((lbox.css('width')).replace('px', ''));
+		lbox.css({
+			top: ($(window).height() / 2) - 100 + 'px',
+			left: ($(window).width() - width) / 2 + 'px'
+		});
+	};
+
+	this.on_click = function() {};
+
+	this.destroy = function() {
+		$('.modal-overlay').remove();
+		$(window).unbind('resize');
+	};
+
+	// Fire up the constructor
+	return this.__init(params);
+};
+
+/**
  * Main Game panel object.
  * 
  * @param {Object} params
@@ -11105,21 +11198,31 @@ civitas.controls.panel = function (params) {
 					$(this.handle + ' .start, ' + this.handle + ' .pause').remove();
 				}
 				$(this.handle).on('click', '.upgrade', function () {
-					if (confirm(civitas.l('Are you sure you want to upgrade this building?')) === true) {
-						if (building.upgrade()) {
-							if (!building.is_upgradable()) {
-								$(self.handle + ' .footer .upgrade').remove();
+					self.get_core().open_modal(
+						function(button) {
+							if (button === 'yes') {
+								if (building.upgrade()) {
+									if (!building.is_upgradable()) {
+										$(self.handle + ' .footer .upgrade').remove();
+									}
+								}
 							}
-						}
-					}
+						},
+						'Are you sure you want to upgrade this building?'
+					);
 					return false;
 				}).on('click', '.demolish', function () {
-					if (confirm(civitas.l('Are you sure you want to demolish this building?')) === true) {
-						if (building.demolish()) {
-							self.destroy();
-							core.refresh();
-						}
-					}
+					self.get_core().open_modal(
+						function(button) {
+							if (button === 'yes') {
+								if (building.demolish()) {
+									self.destroy();
+									core.refresh();
+								}
+							}
+						},
+						'Are you sure you want to demolish this building?'
+					);
 					return false;
 				}).on('click', '.pause', function () {
 					if (building.stop_production()) {
@@ -11311,6 +11414,8 @@ civitas.game = function () {
 	this.mode = civitas.MODE_SINGLEPLAYER;
 
 	this.ai = null;
+
+	this.modal = null;
 
 	/**
 	 * Object constructor.
@@ -12514,6 +12619,9 @@ civitas.game = function () {
 		var clicked = false;
 		var clickY, clickX;
 		var _t = '';
+		this.modal = new civitas.controls.modal({
+			core: self
+		});
 		$('.game').on({
 			mousemove: function (e) {
 				clicked && update_scroll_pos(e);
@@ -13203,6 +13311,7 @@ civitas.game = function () {
 				this.notify('Your ' + class_name + ' was dispatched towards ' + destination_settlement.get_name() + ' and will reach its destination in ' + duration + ' days.');
 			}
 		} else if (mode === civitas.ACTION_DIPLOMACY) {
+			duration = Math.ceil(duration / 2);
 			if (source_settlement.get_id() === this.get_settlement().get_id()) {
 				this.notify('Your proposal was dispatched towards ' + destination_settlement.get_name() + ' and will reach its destination in ' + duration + ' days.');
 			}
@@ -13297,6 +13406,24 @@ civitas.game = function () {
 		return false;
 	};
 
+	/**
+	 * Open a modal window (usually to ask for confirmations).
+	 *
+	 * @public
+	 * @param {Function} callback
+	 * @param {String} text
+	 * @param {String} title
+	 * @returns {civitas.game}
+	 */
+	this.open_modal = function(callback, text, title) {
+		this.modal.alert({
+			title: typeof title !== 'undefined' ? title : 'City Council',
+			text: text,
+			on_click: callback
+		});
+		return this;
+	}
+
 	// Fire up the constructor
 	return this.__init();
 };
@@ -13352,42 +13479,62 @@ civitas.PANEL_SETTLEMENT = {
 				core.error(civitas.l('You will need to construct an Embassy before being able to propose an alliance to other settlements.'));
 				return false;
 			}
-			if (confirm('Are you sure you want to propose an alliance to this settlement?')) {
-				if (!core.add_to_queue(my_settlement, settlement, civitas.ACTION_DIPLOMACY, civitas.DIPLOMACY_PROPOSE_ALLIANCE, {})) {
-					core.error(civitas.l('There was an error proposing an alliance to this settlement, check the data you entered and try again.'));
-				}
-			}
+			core.open_modal(
+				function(button) {
+					if (button === 'yes') {
+						if (!core.add_to_queue(my_settlement, settlement, civitas.ACTION_DIPLOMACY, civitas.DIPLOMACY_PROPOSE_ALLIANCE, {})) {
+							core.error(civitas.l('There was an error proposing an alliance to this settlement, check the data you entered and try again.'));
+						}
+					}
+				},
+				'Are you sure you want to propose an alliance to this settlement?'
+			);
 			return false;
 		}).on('click', '.pact', function () {
 			if (!my_settlement.can_diplomacy()) {
 				core.error(civitas.l('You will need to construct an Embassy before being able to propose a pact to other settlements.'));
 				return false;
 			}
-			if (confirm('Are you sure you want to propose a pact to this settlement?')) {
-				if (!core.add_to_queue(my_settlement, settlement, civitas.ACTION_DIPLOMACY, civitas.DIPLOMACY_PROPOSE_PACT, {})) {
-					core.error(civitas.l('There was an error proposing a pact to this settlement, check the data you entered and try again.'));
-				}
-			}
+			core.open_modal(
+				function(button) {
+					if (button === 'yes') {
+						if (!core.add_to_queue(my_settlement, settlement, civitas.ACTION_DIPLOMACY, civitas.DIPLOMACY_PROPOSE_PACT, {})) {
+							core.error(civitas.l('There was an error proposing a pact to this settlement, check the data you entered and try again.'));
+						}
+					}
+				},
+				'Are you sure you want to propose a pact to this settlement?'
+			);
 			return false;
 		}).on('click', '.ceasefire', function () {
 			if (!my_settlement.can_diplomacy()) {
 				core.error(civitas.l('You will need to construct an Embassy before being able to propose a cease fire to other settlements.'));
 				return false;
 			}
-			if (confirm('Are you sure you want to propose a cease fire to this settlement?')) {
-				if (!core.add_to_queue(my_settlement, settlement, civitas.ACTION_DIPLOMACY, civitas.DIPLOMACY_PROPOSE_CEASE_FIRE, {})) {
-					core.error(civitas.l('There was an error proposing a cease fire to this settlement, check the data you entered and try again.'));
-				}
-			}
+			core.open_modal(
+				function(button) {
+					if (button === 'yes') {
+						if (!core.add_to_queue(my_settlement, settlement, civitas.ACTION_DIPLOMACY, civitas.DIPLOMACY_PROPOSE_CEASE_FIRE, {})) {
+							core.error(civitas.l('There was an error proposing a cease fire to this settlement, check the data you entered and try again.'));
+						}
+					}
+				},
+				'Are you sure you want to propose a cease fire to this settlement?'
+			);
 			return false;
 		}).on('click', '.war', function () {
 			if (!my_settlement.can_diplomacy()) {
 				core.error(civitas.l('You will need to construct an Embassy before being able to declare war to other settlements.'));
 				return false;
 			}
-			if (confirm('Are you sure you want to declare war to this settlement?')) {
-				my_settlement.diplomacy(settlement.get_id(), civitas.DIPLOMACY_WAR);
-			}
+			core.open_modal(
+				function(button) {
+					if (button === 'yes') {
+						my_settlement.diplomacy(settlement.get_id(), civitas.DIPLOMACY_WAR);
+					}
+				},
+				'Are you sure you want to declare war to this settlement?<br /><br />You will lose all influence over ' + settlement.get_name() + ' and the settlement might retaliate back!'
+			);
 			return false;
 		}).on('click', '.caravan', function () {
 			if (!my_settlement.can_trade()) {
@@ -14577,11 +14724,16 @@ civitas.PANEL_COUNCIL = {
 			core.error('Not implemented yet.');
 			return false;
 		}).on('click', '.disband-merc', function () {
-			if (confirm(civitas.l('Are you sure you want to release this mercenary army? You won`t be able to use them anymore!')) === true) {
-				var _army = parseInt($(this).data('id'));
-				core.get_settlement().release_mercenary(_army);
-				core.save_and_refresh();
-			}
+			self.get_core().open_modal(
+				function(button) {
+					if (button === 'yes') {
+						var _army = parseInt($(this).data('id'));
+						core.get_settlement().release_mercenary(_army);
+						core.save_and_refresh();
+					}
+				},
+				'Are you sure you want to release this mercenary army? You won`t be able to use them anymore!'
+			);
 			return false;
 		}).on('click', '.building-info', function() {
 			var handle = $(this).data('handle');
@@ -15482,9 +15634,14 @@ civitas.PANEL_CHURCH = {
 		this.on_refresh();
 		$(this.handle).on('click', '.religion', function() {
 			var id = parseInt($(this).data('id'));
-			if (confirm(civitas.l('Are you sure you want to switch religions? You will lose all your city`s faith!')) === true) {
-				settlement.change_religion(id);
-			}
+			self.get_core().open_modal(
+				function(button) {
+					if (button === 'yes') {
+						settlement.change_religion(id);
+					}
+				},
+				'Are you sure you want to switch religions? You will lose all your city`s faith!'
+			);
 			return false;
 		});
 	},
@@ -15792,10 +15949,16 @@ civitas.WINDOW_OPTIONS = {
 			$(el + ' .about-game').slideToggle();
 			return false;
 		}).on('click', '.do-restart', function () {
-			if (confirm(civitas.l('Are you sure you want to restart the game? You wll lose all progress!')) === true) {
-				core.reset_storage_data();
-				document.location.reload();
-			}
+			core.open_modal(
+				function(button) {
+					if (button === 'yes') {
+						core.reset_storage_data();
+						document.location.reload();
+					}
+				},
+				'Are you sure you want to restart the game? You wll lose all progress!',
+				'Civitas'
+			);
 			return false;
 		}).on('click', '.do-save', function () {
 			if (core.get_mode() === civitas.MODE_SINGLEPLAYER) {
@@ -15807,11 +15970,17 @@ civitas.WINDOW_OPTIONS = {
 				var el = $(this).parent();
 				var id = parseInt(el.data('id'));
 				if (id >= 1 && id <= 3) {
-					if (confirm(civitas.l('Are you sure you want to save the game in this slot? An already existing save will be overwritten!')) === true) {
-						var data = core.export(true, id);
-						el.children('span.load, span.delete').show();
-						el.children('span.date').html(civitas.utils.time_since(data.date) + ' ago');
-					}
+					core.open_modal(
+						function(button) {
+							if (button === 'yes') {
+								var data = core.export(true, id);
+								el.children('span.load, span.delete').show();
+								el.children('span.date').html(civitas.utils.time_since(data.date) + ' ago');
+							}
+						},
+						'Are you sure you want to save the game in this slot? An already existing save will be overwritten!',
+						'Civitas'
+					);
 				}
 			}
 			return false;
@@ -15820,12 +15989,18 @@ civitas.WINDOW_OPTIONS = {
 				var el = $(this).parent();
 				var id = parseInt(el.data('id'));
 				if (id >= 1 && id <= 3) {
-					if (confirm(civitas.l('Are you sure you want to delete the save game from this slot? All data from that game will be lost!')) === true) {
-						core.reset_storage_data('save' + id);
-						el.children('span.load, span.delete').hide();
-						el.children('span.date').html(civitas.l('empty save game'));
-						el.children('span.save').show();
-					}
+					core.open_modal(
+						function(button) {
+							if (button === 'yes') {
+								core.reset_storage_data('save' + id);
+								el.children('span.load, span.delete').hide();
+								el.children('span.date').html(civitas.l('empty save game'));
+								el.children('span.save').show();
+							}
+						},
+						'Are you sure you want to delete the save game from this slot? All data from that game will be lost!',
+						'Civitas'
+					);
 				}
 			}
 			return false;
@@ -15834,17 +16009,23 @@ civitas.WINDOW_OPTIONS = {
 				var el = $(this).parent();
 				var id = parseInt(el.data('id'));
 				if (id >= 1 && id <= 3) {
-					if (confirm(civitas.l('Are you sure you want to load the game from this slot? An already existing game will be lost!')) === true) {
-						if (core.swap_storage_data('save' + id, 'live') !== false) {
-							document.location.reload();
-						} else {
-							core.error('There was a problem loading the game data, it is probably corrupted. Save game data will be deleted now.');
-							core.reset_storage_data('save' + id);
-							el.children('span.load, span.delete').hide();
-							el.children('span.date').html(civitas.l('empty save game'));
-							el.children('span.save').show();
-						}
-					}
+					core.open_modal(
+						function(button) {
+							if (button === 'yes') {
+								if (core.swap_storage_data('save' + id, 'live') !== false) {
+									document.location.reload();
+								} else {
+									core.error('There was a problem loading the game data, it is probably corrupted. Save game data will be deleted now.');
+									core.reset_storage_data('save' + id);
+									el.children('span.load, span.delete').hide();
+									el.children('span.date').html(civitas.l('empty save game'));
+									el.children('span.save').show();
+								}
+							}
+						},
+						'Are you sure you want to load the game from this slot? An already existing game will be lost!',
+						'Civitas'
+					);
 				}
 			}
 			return false;
