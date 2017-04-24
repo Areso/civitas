@@ -46,7 +46,7 @@ civitas.PANEL_SETTLEMENT = {
 				return false;
 			}
 			if (confirm('Are you sure you want to propose an alliance to this settlement?')) {
-				if (!core.add_proposal(my_settlement, settlement, civitas.DIPLOMACY_PROPOSE_ALLIANCE, {})) {
+				if (!core.add_to_queue(my_settlement, settlement, civitas.ACTION_DIPLOMACY, civitas.DIPLOMACY_PROPOSE_ALLIANCE, {})) {
 					core.error(civitas.l('There was an error proposing an alliance to this settlement, check the data you entered and try again.'));
 				}
 			}
@@ -57,7 +57,7 @@ civitas.PANEL_SETTLEMENT = {
 				return false;
 			}
 			if (confirm('Are you sure you want to propose a pact to this settlement?')) {
-				if (!core.add_proposal(my_settlement, settlement, civitas.DIPLOMACY_PROPOSE_PACT, {})) {
+				if (!core.add_to_queue(my_settlement, settlement, civitas.ACTION_DIPLOMACY, civitas.DIPLOMACY_PROPOSE_PACT, {})) {
 					core.error(civitas.l('There was an error proposing a pact to this settlement, check the data you entered and try again.'));
 				}
 			}
@@ -68,7 +68,7 @@ civitas.PANEL_SETTLEMENT = {
 				return false;
 			}
 			if (confirm('Are you sure you want to propose a cease fire to this settlement?')) {
-				if (!core.add_proposal(my_settlement, settlement, civitas.DIPLOMACY_PROPOSE_CEASE_FIRE, {})) {
+				if (!core.add_to_queue(my_settlement, settlement, civitas.ACTION_DIPLOMACY, civitas.DIPLOMACY_PROPOSE_CEASE_FIRE, {})) {
 					core.error(civitas.l('There was an error proposing a cease fire to this settlement, check the data you entered and try again.'));
 				}
 			}

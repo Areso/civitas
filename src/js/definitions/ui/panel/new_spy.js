@@ -110,7 +110,7 @@ civitas.PANEL_NEW_SPY = {
 				var _religion = parseInt($(self.handle + ' .espionage-religion').val());
 				data.religion = _religion;
 			}
-			if (core.add_campaign(my_settlement, settlement, civitas.CAMPAIGN_SPY, data)) {
+			if (core.add_to_queue(my_settlement, settlement, civitas.ACTION_CAMPAIGN, civitas.CAMPAIGN_SPY, data)) {
 				self.destroy();
 			} else {
 				core.error(civitas.l('There was an error creating and dispatching the spy, check the data you entered and try again.'));

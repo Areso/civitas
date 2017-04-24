@@ -1897,56 +1897,6 @@ civitas.game = function () {
 	};
 
 	/**
-	 * Add a proposal for another settlement to the game queue.
-	 *
-	 * @public
-	 * @param {civitas.objects.settlement} source_settlement
-	 * @param {civitas.objects.settlement} destination_settlement
-	 * @param {Number} type
-	 * @param {Object} data
-	 * @returns {Object}
-	 */
-	this.add_proposal = function(source_settlement, destination_settlement, type, data) {
-		if (!source_settlement.can_diplomacy()) {
-			return false;
-		}
-		if (source_settlement.get_id() === this.get_settlement().get_id()) {
-			var s_loc = civitas['SETTLEMENT_LOCATION_' + source_settlement.get_climate().name.toUpperCase()];
-		} else {
-			var s_loc = civitas.SETTLEMENTS[source_settlement.get_id()].location;
-		}
-		if (destination_settlement.get_id() === this.get_settlement().get_id()) {
-			var d_loc = civitas['SETTLEMENT_LOCATION_' + destination_settlement.get_climate().name.toUpperCase()];
-		} else {
-			var d_loc = civitas.SETTLEMENTS[destination_settlement.get_id()].location;
-		}
-		var duration = civitas.utils.get_distance_in_days(s_loc, d_loc) / 2;
-		var action = {
-			mode: civitas.ACTION_DIPLOMACY,
-			source: {
-				x: s_loc.x,
-				y: s_loc.y,
-				id: source_settlement.get_id()
-			},
-			destination: {
-				x: d_loc.x,
-				y: d_loc.y,
-				id: destination_settlement.get_id()
-			},
-			duration: duration,
-			passed: 0,
-			type: type,
-			data: data
-		};
-		this.queue.push(action);
-		this.save_and_refresh();
-		if (source_settlement.get_id() === this.get_settlement().get_id()) {
-			this.notify('Your proposal was dispatched towards ' + destination_settlement.get_name() + ' and will reach its destination in ' + duration + ' days.');
-		}
-		return action;
-	};
-
-	/**
 	 * Add a campaign to the game queue.
 	 *
 	 * @public
@@ -1956,7 +1906,7 @@ civitas.game = function () {
 	 * @param {Object} data
 	 * @returns {Object}
 	 */
-	this.add_campaign = function(source_settlement, destination_settlement, type, data) {
+	this.add_to_queue = function(source_settlement, destination_settlement, mode, type, data) {
 		var class_name = '';
 		if (source_settlement.get_id() === this.get_settlement().get_id()) {
 			var s_loc = civitas['SETTLEMENT_LOCATION_' + source_settlement.get_climate().name.toUpperCase()];
@@ -1969,100 +1919,109 @@ civitas.game = function () {
 			var d_loc = civitas.SETTLEMENTS[destination_settlement.get_id()].location;
 		}
 		var duration = civitas.utils.get_distance_in_days(s_loc, d_loc);
-		if (type === civitas.CAMPAIGN_ARMY) {
-			if (!source_settlement.can_recruit_soldiers()) {
-				return false;
-			}
-			class_name = 'army';
-			var army = source_settlement.get_army_total();
-			var navy = source_settlement.get_navy_total();
-			var mission_costs = civitas.ARMY_COSTS;
-			for (var item in mission_costs) {
-				if (item === 'coins') {
-					mission_costs[item] = civitas.ARMY_COSTS[item] * duration;
-				} else if (item === 'provisions') {
-					mission_costs[item] = Math.ceil((civitas.ARMY_COSTS[item] * duration) / 2);
+		if (mode === civitas.ACTION_CAMPAIGN) {
+			if (type === civitas.CAMPAIGN_ARMY) {
+				if (!source_settlement.can_recruit_soldiers()) {
+					return false;
 				}
-			}
-			var merged = $.extend({}, data.resources);
-			for (var prop in mission_costs) {
-				if (merged[prop]) {
-					merged[prop] += mission_costs[prop];
-				} else {
-					merged[prop] = mission_costs[prop];
+				class_name = 'army';
+				var army = source_settlement.get_army_total();
+				var navy = source_settlement.get_navy_total();
+				var mission_costs = civitas.ARMY_COSTS;
+				for (var item in mission_costs) {
+					if (item === 'coins') {
+						mission_costs[item] = civitas.ARMY_COSTS[item] * duration;
+					} else if (item === 'provisions') {
+						mission_costs[item] = Math.ceil((civitas.ARMY_COSTS[item] * duration) / 2);
+					}
 				}
-			}
-			if (!source_settlement.remove_resources(merged)) {
-				return false;
-			}
-			for (var item in army.army) {
-				if (army.army[item] - data.army[item] < 0) {
+				var merged = $.extend({}, data.resources);
+				for (var prop in mission_costs) {
+					if (merged[prop]) {
+						merged[prop] += mission_costs[prop];
+					} else {
+						merged[prop] = mission_costs[prop];
+					}
+				}
+				if (!source_settlement.remove_resources(merged)) {
+					return false;
+				}
+				for (var item in army.army) {
+					if (army.army[item] - data.army[item] < 0) {
+						return false;
+					}
+				}
+				for (var item in navy.navy) {
+					if (navy.navy[item] - data.navy[item] < 0) {
+						return false;
+					}
+				}
+				for (var item in army.army) {
+					army.army[item] = army.army[item] - data.army[item];
+				}
+				for (var item in navy.navy) {
+					navy.navy[item] = navy.navy[item] - data.navy[item];
+				}
+				var settlement_type = destination_settlement.get_settlement_type();
+				source_settlement.diplomacy(destination_settlement.get_id(), civitas.DIPLOMACY_WAR, civitas.SETTLEMENT_TYPES[settlement_type]);
+			} else if (type === civitas.CAMPAIGN_SPY) {
+				if (!source_settlement.can_diplomacy()) {
+					return false;
+				}
+				class_name = 'spy';
+				if (data.espionage > source_settlement.get_espionage()) {
+					return false;
+				}
+				var mission_costs = civitas.SPY_COSTS;
+				for (var item in mission_costs) {
+					if (item === 'coins') {
+						mission_costs[item] = civitas.SPY_COSTS[item] * duration;
+					} else if (item === 'provisions') {
+						mission_costs[item] = Math.ceil((civitas.SPY_COSTS[item] * duration) / 2);
+					}
+				}
+				if (!source_settlement.remove_resources(mission_costs)) {
+					return false;
+				}
+				source_settlement.lower_espionage(data.espionage);
+				if (data.mission === civitas.SPY_MISSION_RELIGION) {
+					source_settlement.reset_faith();
+				}
+			} else if (type === civitas.CAMPAIGN_CARAVAN) {
+				if (!source_settlement.can_trade()) {
+					return false;
+				}
+				class_name = 'caravan';
+				var mission_costs = civitas.CARAVAN_COSTS;
+				for (var item in mission_costs) {
+					if (item === 'coins') {
+						mission_costs[item] = civitas.CARAVAN_COSTS[item] * duration;
+					} else if (item === 'provisions') {
+						mission_costs[item] = Math.ceil((civitas.CARAVAN_COSTS[item] * duration) / 2);
+					}
+				}
+				var merged = $.extend({}, data.resources);
+				for (var prop in mission_costs) {
+					if (merged[prop]) {
+						merged[prop] += mission_costs[prop];
+					} else {
+						merged[prop] = mission_costs[prop];
+					}
+				}
+				if (!source_settlement.remove_resources(merged)) {
 					return false;
 				}
 			}
-			for (var item in navy.navy) {
-				if (navy.navy[item] - data.navy[item] < 0) {
-					return false;
-				}
+			if (source_settlement.get_id() === this.get_settlement().get_id()) {
+				this.notify('Your ' + class_name + ' was dispatched towards ' + destination_settlement.get_name() + ' and will reach its destination in ' + duration + ' days.');
 			}
-			for (var item in army.army) {
-				army.army[item] = army.army[item] - data.army[item];
-			}
-			for (var item in navy.navy) {
-				navy.navy[item] = navy.navy[item] - data.navy[item];
-			}
-			var settlement_type = destination_settlement.get_settlement_type();
-			source_settlement.diplomacy(destination_settlement.get_id(), civitas.DIPLOMACY_WAR, civitas.SETTLEMENT_TYPES[settlement_type]);
-		} else if (type === civitas.CAMPAIGN_SPY) {
-			if (!source_settlement.can_diplomacy()) {
-				return false;
-			}
-			class_name = 'spy';
-			if (data.espionage > source_settlement.get_espionage()) {
-				return false;
-			}
-			var mission_costs = civitas.SPY_COSTS;
-			for (var item in mission_costs) {
-				if (item === 'coins') {
-					mission_costs[item] = civitas.SPY_COSTS[item] * duration;
-				} else if (item === 'provisions') {
-					mission_costs[item] = Math.ceil((civitas.SPY_COSTS[item] * duration) / 2);
-				}
-			}
-			if (!source_settlement.remove_resources(mission_costs)) {
-				return false;
-			}
-			source_settlement.lower_espionage(data.espionage);
-			if (data.mission === civitas.SPY_MISSION_RELIGION) {
-				source_settlement.reset_faith();
-			}
-		} else if (type === civitas.CAMPAIGN_CARAVAN) {
-			if (!source_settlement.can_trade()) {
-				return false;
-			}
-			class_name = 'caravan';
-			var mission_costs = civitas.CARAVAN_COSTS;
-			for (var item in mission_costs) {
-				if (item === 'coins') {
-					mission_costs[item] = civitas.CARAVAN_COSTS[item] * duration;
-				} else if (item === 'provisions') {
-					mission_costs[item] = Math.ceil((civitas.CARAVAN_COSTS[item] * duration) / 2);
-				}
-			}
-			var merged = $.extend({}, data.resources);
-			for (var prop in mission_costs) {
-				if (merged[prop]) {
-					merged[prop] += mission_costs[prop];
-				} else {
-					merged[prop] = mission_costs[prop];
-				}
-			}
-			if (!source_settlement.remove_resources(merged)) {
-				return false;
+		} else if (mode === civitas.ACTION_DIPLOMACY) {
+			if (source_settlement.get_id() === this.get_settlement().get_id()) {
+				this.notify('Your proposal was dispatched towards ' + destination_settlement.get_name() + ' and will reach its destination in ' + duration + ' days.');
 			}
 		}
 		var action = {
-			mode: civitas.ACTION_CAMPAIGN,
+			mode: mode,
 			source: {
 				x: s_loc.x,
 				y: s_loc.y,
@@ -2080,9 +2039,6 @@ civitas.game = function () {
 		};
 		this.queue.push(action);
 		this.save_and_refresh();
-		if (source_settlement.get_id() === this.get_settlement().get_id()) {
-			this.notify('Your ' + class_name + ' was dispatched towards ' + destination_settlement.get_name() + ' and will reach its destination in ' + duration + ' days.');
-		}
 		return action;
 	};
 
