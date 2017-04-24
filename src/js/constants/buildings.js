@@ -562,7 +562,7 @@ civitas.BUILDINGS = [{
 			tools: 20
 		},
 		production: {
-			fish: 4
+			fish: 3
 		},
 		requires: {
 			settlement_level: 10
@@ -709,7 +709,7 @@ civitas.BUILDINGS = [{
 			x: 342,
 			y: 253
 		},
-		levels: 5,
+		levels: 3,
 		chance: {
 			gems: 0.0001
 		},
@@ -768,7 +768,7 @@ civitas.BUILDINGS = [{
 			x: 640,
 			y: 182
 		},
-		levels: 5,
+		levels: 3,
 		chance: {
 			gems: 0.0001
 		},
@@ -816,7 +816,7 @@ civitas.BUILDINGS = [{
 			x: 732,
 			y: 133
 		},
-		levels: 5,
+		levels: 3,
 		chance: {
 			gems: 0.0001
 		},
@@ -910,7 +910,7 @@ civitas.BUILDINGS = [{
 			pottery: 4
 		},
 		materials: {
-			clay: 6
+			clay: 8
 		},
 		position: {
 			x: 1360,

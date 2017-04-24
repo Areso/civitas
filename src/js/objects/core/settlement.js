@@ -684,6 +684,7 @@ civitas.objects.settlement = function(params) {
 			if (id > 0) {
 				this.buildings.splice(id, 1);
 				this.buildings_list.splice(id, 1);
+				this.get_core().save_and_refresh();
 				return true;
 			}
 		} else if (typeof id === 'string') {
@@ -697,7 +698,7 @@ civitas.objects.settlement = function(params) {
 				if (bl_id !== false) {
 				    this.buildings_list.splice(bl_id, 1);
 				}
-				this.get_core().save();
+				this.get_core().save_and_refresh();
 				return true;
 			}
  		}

@@ -165,7 +165,6 @@ civitas.controls.panel = function (params) {
 							if (button === 'yes') {
 								if (building.demolish()) {
 									self.destroy();
-									core.refresh();
 								}
 							}
 						},
