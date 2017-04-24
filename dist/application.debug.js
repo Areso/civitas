@@ -1203,6 +1203,78 @@ civitas.PERSONALITY_DIPLOMAT = 2;
 civitas.PERSONALITY_WARLORD = 3;
 
 /**
+ * Militia
+ * 
+ * @constant
+ * @type {Number}
+ */
+civitas.SOLDIER_MILITIA = 0;
+
+/**
+ * Swordsman
+ * 
+ * @constant
+ * @type {Number}
+ */
+civitas.SOLDIER_SWORDSMAN = 1;
+
+/**
+ * Axemen
+ * 
+ * @constant
+ * @type {Number}
+ */
+civitas.SOLDIER_AXEMAN = 2;
+
+/**
+ * Knights
+ * 
+ * @constant
+ * @type {Number}
+ */
+civitas.SOLDIER_KNIGHT = 3;
+
+/**
+ * Bowmen
+ * 
+ * @constant
+ * @type {Number}
+ */
+civitas.SOLDIER_BOWMAN = 4;
+
+/**
+ * Crossbowmen
+ * 
+ * @constant
+ * @type {Number}
+ */
+civitas.SOLDIER_CROSSBOWMAN = 5;
+
+/**
+ * Pikemen
+ * 
+ * @constant
+ * @type {Number}
+ */
+civitas.SOLDIER_PIKEMAN = 6;
+
+/**
+ * Legionnaires
+ * 
+ * @constant
+ * @type {Number}
+ */
+civitas.SOLDIER_LEGIONNAIRE = 7;
+
+/**
+ * Crusaders
+ * 
+ * @constant
+ * @type {Number}
+ */
+civitas.SOLDIER_CRUSADER = 8;
+
+/**
  * List of soldier types, their attributes and cost.
  * 
  * @type {Object}
@@ -1318,78 +1390,6 @@ civitas.SOLDIERS = {
 		}
 	}
 };
-
-/**
- * Militia
- * 
- * @constant
- * @type {Number}
- */
-civitas.SOLDIER_MILITIA = 0;
-
-/**
- * Swordsman
- * 
- * @constant
- * @type {Number}
- */
-civitas.SOLDIER_SWORDSMAN = 1;
-
-/**
- * Axemen
- * 
- * @constant
- * @type {Number}
- */
-civitas.SOLDIER_AXEMAN = 2;
-
-/**
- * Knights
- * 
- * @constant
- * @type {Number}
- */
-civitas.SOLDIER_KNIGHT = 3;
-
-/**
- * Bowmen
- * 
- * @constant
- * @type {Number}
- */
-civitas.SOLDIER_BOWMAN = 4;
-
-/**
- * Crossbowmen
- * 
- * @constant
- * @type {Number}
- */
-civitas.SOLDIER_CROSSBOWMAN = 5;
-
-/**
- * Pikemen
- * 
- * @constant
- * @type {Number}
- */
-civitas.SOLDIER_PIKEMAN = 6;
-
-/**
- * Legionnaires
- * 
- * @constant
- * @type {Number}
- */
-civitas.SOLDIER_LEGIONNAIRE = 7;
-
-/**
- * Crusaders
- * 
- * @constant
- * @type {Number}
- */
-civitas.SOLDIER_CRUSADER = 8;
 
 /**
  * List of mercenary armies available for hire.
@@ -1559,6 +1559,54 @@ civitas.MERCENARIES = [{
 }];
 
 /**
+ * Corsair ship.
+ * 
+ * @constant
+ * @type {Number}
+ */
+civitas.SHIP_CORSAIR = 0;
+
+/**
+ * Caravel ship.
+ * 
+ * @constant
+ * @type {Number}
+ */
+civitas.SHIP_CARAVEL = 1;
+
+/**
+ * Warship ship.
+ * 
+ * @constant
+ * @type {Number}
+ */
+civitas.SHIP_WARSHIP = 2;
+
+/**
+ * Galleon ship.
+ * 
+ * @constant
+ * @type {Number}
+ */
+civitas.SHIP_GALLEON = 3;
+
+/**
+ * Ship of the Line ship.
+ * 
+ * @constant
+ * @type {Number}
+ */
+civitas.SHIP_SHIPOFTHELINE = 4;
+
+/**
+ * Frigate ship.
+ * 
+ * @constant
+ * @type {Number}
+ */
+civitas.SHIP_FRIGATE = 5;
+
+/**
  * List of ship types, their attributes and cost.
  * 
  * @type {Object}
@@ -1676,54 +1724,6 @@ civitas.SHIPS = {
 		}
 	}
 };
-
-/**
- * Corsair ship.
- * 
- * @constant
- * @type {Number}
- */
-civitas.SHIP_CORSAIR = 0;
-
-/**
- * Caravel ship.
- * 
- * @constant
- * @type {Number}
- */
-civitas.SHIP_CARAVEL = 1;
-
-/**
- * Warship ship.
- * 
- * @constant
- * @type {Number}
- */
-civitas.SHIP_WARSHIP = 2;
-
-/**
- * Galleon ship.
- * 
- * @constant
- * @type {Number}
- */
-civitas.SHIP_GALLEON = 3;
-
-/**
- * Ship of the Line ship.
- * 
- * @constant
- * @type {Number}
- */
-civitas.SHIP_SHIPOFTHELINE = 4;
-
-/**
- * Frigate ship.
- * 
- * @constant
- * @type {Number}
- */
-civitas.SHIP_FRIGATE = 5;
 
 /**
  * Buildings native to the tropical climate.
@@ -2382,7 +2382,7 @@ civitas.BUILDINGS = [{
 			wood: 2
 		},
 		production: {
-			woodplanks: 1
+			woodplanks: 2
 		},
 		levels: 5,
 		position: {
@@ -9334,15 +9334,21 @@ civitas.objects.settlement.prototype.get_mercenary = function() {
  * @returns {Object}
  */
 civitas.objects.settlement.prototype.get_navy_total = function(navy) {
+	var attack = 0;
+	var defense = 0;
+	var total = 0;
 	if (typeof navy === 'undefined') {
 		navy = this.navy;
 	}
-	var total = 0;
 	for (var item in navy) {
+		attack += civitas.SHIPS[item].attack * navy[item];
+		defense += civitas.SHIPS[item].defense * navy[item];
 		total = total + navy[item];
 	}
 	return {
 		total: total,
+		attack: attack,
+		defense: defense,
 		navy: navy
 	};
 };
@@ -9356,14 +9362,20 @@ civitas.objects.settlement.prototype.get_navy_total = function(navy) {
  */
 civitas.objects.settlement.prototype.get_army_total = function(army) {
 	var total = 0;
+	var attack = 0;
+	var defense = 0;
 	if (typeof army === 'undefined') {
 		army = this.army;
 	}
 	for (var item in army) {
-		total = total + army[item];
+		attack += civitas.SOLDIERS[item].attack * army[item];
+		defense += civitas.SOLDIERS[item].defense * army[item];
+		total += army[item];
 	}
 	return {
 		total: total,
+		attack: attack,
+		defense: defense,
 		army: army
 	};
 };
@@ -12954,6 +12966,12 @@ civitas.game = function () {
 			}
 			switch (campaign.type) {
 				case civitas.CAMPAIGN_ARMY:
+					var source_army = settlement.get_army_total();
+					var destination_army = destination_settlement.get_army_total();
+					var diff1 = source_army.attack - destination_army.defense;
+					var diff2 = source_army.defense - destination_army.attack;
+					// TODO
+					//console.log(diff1 + '=' + diff2);
 					break;
 				case civitas.CAMPAIGN_SPY:
 					if (typeof campaign.data.espionage !== 'undefined') {

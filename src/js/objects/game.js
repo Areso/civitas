@@ -1785,6 +1785,12 @@ civitas.game = function () {
 			}
 			switch (campaign.type) {
 				case civitas.CAMPAIGN_ARMY:
+					var source_army = settlement.get_army_total();
+					var destination_army = destination_settlement.get_army_total();
+					var diff1 = source_army.attack - destination_army.defense;
+					var diff2 = source_army.defense - destination_army.attack;
+					// TODO
+					//console.log(diff1 + '=' + diff2);
 					break;
 				case civitas.CAMPAIGN_SPY:
 					if (typeof campaign.data.espionage !== 'undefined') {

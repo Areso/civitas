@@ -291,15 +291,21 @@ civitas.objects.settlement.prototype.get_mercenary = function() {
  * @returns {Object}
  */
 civitas.objects.settlement.prototype.get_navy_total = function(navy) {
+	var attack = 0;
+	var defense = 0;
+	var total = 0;
 	if (typeof navy === 'undefined') {
 		navy = this.navy;
 	}
-	var total = 0;
 	for (var item in navy) {
+		attack += civitas.SHIPS[item].attack * navy[item];
+		defense += civitas.SHIPS[item].defense * navy[item];
 		total = total + navy[item];
 	}
 	return {
 		total: total,
+		attack: attack,
+		defense: defense,
 		navy: navy
 	};
 };
@@ -313,14 +319,20 @@ civitas.objects.settlement.prototype.get_navy_total = function(navy) {
  */
 civitas.objects.settlement.prototype.get_army_total = function(army) {
 	var total = 0;
+	var attack = 0;
+	var defense = 0;
 	if (typeof army === 'undefined') {
 		army = this.army;
 	}
 	for (var item in army) {
-		total = total + army[item];
+		attack += civitas.SOLDIERS[item].attack * army[item];
+		defense += civitas.SOLDIERS[item].defense * army[item];
+		total += army[item];
 	}
 	return {
 		total: total,
+		attack: attack,
+		defense: defense,
 		army: army
 	};
 };

@@ -1,4 +1,52 @@
 /**
+ * Corsair ship.
+ * 
+ * @constant
+ * @type {Number}
+ */
+civitas.SHIP_CORSAIR = 0;
+
+/**
+ * Caravel ship.
+ * 
+ * @constant
+ * @type {Number}
+ */
+civitas.SHIP_CARAVEL = 1;
+
+/**
+ * Warship ship.
+ * 
+ * @constant
+ * @type {Number}
+ */
+civitas.SHIP_WARSHIP = 2;
+
+/**
+ * Galleon ship.
+ * 
+ * @constant
+ * @type {Number}
+ */
+civitas.SHIP_GALLEON = 3;
+
+/**
+ * Ship of the Line ship.
+ * 
+ * @constant
+ * @type {Number}
+ */
+civitas.SHIP_SHIPOFTHELINE = 4;
+
+/**
+ * Frigate ship.
+ * 
+ * @constant
+ * @type {Number}
+ */
+civitas.SHIP_FRIGATE = 5;
+
+/**
  * List of ship types, their attributes and cost.
  * 
  * @type {Object}
@@ -116,51 +164,3 @@ civitas.SHIPS = {
 		}
 	}
 };
-
-/**
- * Corsair ship.
- * 
- * @constant
- * @type {Number}
- */
-civitas.SHIP_CORSAIR = 0;
-
-/**
- * Caravel ship.
- * 
- * @constant
- * @type {Number}
- */
-civitas.SHIP_CARAVEL = 1;
-
-/**
- * Warship ship.
- * 
- * @constant
- * @type {Number}
- */
-civitas.SHIP_WARSHIP = 2;
-
-/**
- * Galleon ship.
- * 
- * @constant
- * @type {Number}
- */
-civitas.SHIP_GALLEON = 3;
-
-/**
- * Ship of the Line ship.
- * 
- * @constant
- * @type {Number}
- */
-civitas.SHIP_SHIPOFTHELINE = 4;
-
-/**
- * Frigate ship.
- * 
- * @constant
- * @type {Number}
- */
-civitas.SHIP_FRIGATE = 5;

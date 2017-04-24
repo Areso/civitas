@@ -1,4 +1,76 @@
 /**
+ * Militia
+ * 
+ * @constant
+ * @type {Number}
+ */
+civitas.SOLDIER_MILITIA = 0;
+
+/**
+ * Swordsman
+ * 
+ * @constant
+ * @type {Number}
+ */
+civitas.SOLDIER_SWORDSMAN = 1;
+
+/**
+ * Axemen
+ * 
+ * @constant
+ * @type {Number}
+ */
+civitas.SOLDIER_AXEMAN = 2;
+
+/**
+ * Knights
+ * 
+ * @constant
+ * @type {Number}
+ */
+civitas.SOLDIER_KNIGHT = 3;
+
+/**
+ * Bowmen
+ * 
+ * @constant
+ * @type {Number}
+ */
+civitas.SOLDIER_BOWMAN = 4;
+
+/**
+ * Crossbowmen
+ * 
+ * @constant
+ * @type {Number}
+ */
+civitas.SOLDIER_CROSSBOWMAN = 5;
+
+/**
+ * Pikemen
+ * 
+ * @constant
+ * @type {Number}
+ */
+civitas.SOLDIER_PIKEMAN = 6;
+
+/**
+ * Legionnaires
+ * 
+ * @constant
+ * @type {Number}
+ */
+civitas.SOLDIER_LEGIONNAIRE = 7;
+
+/**
+ * Crusaders
+ * 
+ * @constant
+ * @type {Number}
+ */
+civitas.SOLDIER_CRUSADER = 8;
+
+/**
  * List of soldier types, their attributes and cost.
  * 
  * @type {Object}
@@ -114,78 +186,6 @@ civitas.SOLDIERS = {
 		}
 	}
 };
-
-/**
- * Militia
- * 
- * @constant
- * @type {Number}
- */
-civitas.SOLDIER_MILITIA = 0;
-
-/**
- * Swordsman
- * 
- * @constant
- * @type {Number}
- */
-civitas.SOLDIER_SWORDSMAN = 1;
-
-/**
- * Axemen
- * 
- * @constant
- * @type {Number}
- */
-civitas.SOLDIER_AXEMAN = 2;
-
-/**
- * Knights
- * 
- * @constant
- * @type {Number}
- */
-civitas.SOLDIER_KNIGHT = 3;
-
-/**
- * Bowmen
- * 
- * @constant
- * @type {Number}
- */
-civitas.SOLDIER_BOWMAN = 4;
-
-/**
- * Crossbowmen
- * 
- * @constant
- * @type {Number}
- */
-civitas.SOLDIER_CROSSBOWMAN = 5;
-
-/**
- * Pikemen
- * 
- * @constant
- * @type {Number}
- */
-civitas.SOLDIER_PIKEMAN = 6;
-
-/**
- * Legionnaires
- * 
- * @constant
- * @type {Number}
- */
-civitas.SOLDIER_LEGIONNAIRE = 7;
-
-/**
- * Crusaders
- * 
- * @constant
- * @type {Number}
- */
-civitas.SOLDIER_CRUSADER = 8;
 
 /**
  * List of mercenary armies available for hire.

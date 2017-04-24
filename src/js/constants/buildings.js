@@ -655,7 +655,7 @@ civitas.BUILDINGS = [{
 			wood: 2
 		},
 		production: {
-			woodplanks: 1
+			woodplanks: 2
 		},
 		levels: 5,
 		position: {
