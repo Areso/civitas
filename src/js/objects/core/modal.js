@@ -7,7 +7,8 @@
  */
 civitas.controls.modal = function (params) {
 	this.core = null;
-	this.skeleton = '<div class="modal-overlay">' +
+
+	this.template = '<div class="modal-overlay">' +
 			'<div class="modal">' +
 				'<div class="header"></div>' +
 				'<div class="content"></div>' +
@@ -18,7 +19,7 @@ civitas.controls.modal = function (params) {
 	this.__init = function(params) {
 		this.core = params.core;
 		var self = this;
-		$('body').append(this.skeleton);
+		$('body').append(this.template);
 		$(window).bind('resize', function() {
 			self.resize();
 		});
@@ -51,15 +52,16 @@ civitas.controls.modal = function (params) {
 
 	this.clear = function() {
 		$('.modal-overlay').remove();
-		$('body').append(this.skeleton);
+		$('body').append(this.template);
 		this.core.hide_loader();
 		this.resize();
 	};
 
 	this.listen = function() {
 		var self = this;
-		$('.modal .footer a').click(function() {
+		$('.modal .footer').on('click', 'a', function() {
 			self.action($(this).data('id'));
+			return false;
 		});
 	};
 
