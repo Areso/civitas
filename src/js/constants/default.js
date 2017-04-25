@@ -299,3 +299,11 @@ civitas.ACTION_DIPLOMACY = 0;
  * @type {Number}
  */
 civitas.ACTION_CAMPAIGN = 1;
+
+civitas.NOTIFY_ERROR = 0;
+
+civitas.NOTIFY_ACHIEVEMENT = 1;
+
+civitas.NOTIFY_NORMAL = 2;
+
+civitas.NOTIFY_EVENT = 3;

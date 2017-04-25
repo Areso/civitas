@@ -764,6 +764,23 @@ civitas.objects.settlement = function(params) {
 		this.resources.coins = value;
 		return this;
 	};
+		
+	/**
+	 * Remove a specific amount of a resource silently from this settlement's storage.
+	 * 
+	 * @public
+	 * @param {String} resource
+	 * @param {Number} amount
+	 * @returns {Boolean}
+	 */
+	this.remove_resource_silent = function(resource, amount) {
+		var res = this.get_resources();
+		res[resource] = res[resource] - amount;
+		if (res[resource] < 0) {
+			res[resource] = 0;
+		}
+		return true;
+	};
 	
 	/**
 	 * Remove a specific amount of a resource from this settlement's storage.

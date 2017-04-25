@@ -321,6 +321,14 @@ civitas.ACTION_DIPLOMACY = 0;
  */
 civitas.ACTION_CAMPAIGN = 1;
 
+civitas.NOTIFY_ERROR = 0;
+
+civitas.NOTIFY_ACHIEVEMENT = 1;
+
+civitas.NOTIFY_NORMAL = 2;
+
+civitas.NOTIFY_EVENT = 3;
+
 civitas.lang = {};
 
 /**
@@ -5871,118 +5879,6 @@ civitas.NAMES = [
 ];
 
 /**
- * Event responsable for destroying a building.
- * 
- * @type {Number}
- * @constant
- */
-civitas.EVENT_EFFECT_DESTROY_BUILDING = 0;
-
-/**
- * Event responsable for losing coins.
- * 
- * @type {Number}
- * @constant
- */
-civitas.EVENT_EFFECT_LOSE_COINS = 1;
-
-/**
- * Event responsable for gaining coins.
- * 
- * @type {Number}
- * @constant
- */
-civitas.EVENT_EFFECT_GAIN_COINS = 2;
-
-/**
- * Event responsable for raising the influence with another city.
- * 
- * @constant
- * @type {Number}
- */
-civitas.EVENT_EFFECT_RAISE_INFLUENCE = 3;
-
-/**
- * Event responsable for lowering the influence with another city.
- * 
- * @constant
- * @type {Number}
- */
-civitas.EVENT_EFFECT_LOWER_INFLUENCE = 4;
-
-/**
- * Event responsable for losing fame.
- * 
- * @type {Number}
- * @constant
- */
-civitas.EVENT_EFFECT_LOSE_FAME = 5;
-
-/**
- * Event responsable for gaining fame.
- * 
- * @type {Number}
- * @constant
- */
-civitas.EVENT_EFFECT_GAIN_FAME = 6;
-
-/**
- * Event responsable for losing espionage.
- * 
- * @type {Number}
- * @constant
- */
-civitas.EVENT_EFFECT_LOSE_ESPIONAGE = 7;
-
-/**
- * Event responsable for gaining espionage.
- * 
- * @type {Number}
- * @constant
- */
-civitas.EVENT_EFFECT_GAIN_ESPIONAGE = 8;
-
-/**
- * Event responsable for losing faith.
- * 
- * @type {Number}
- * @constant
- */
-civitas.EVENT_EFFECT_LOSE_FAITH = 9;
-
-/**
- * Event responsable for gaining faith.
- * 
- * @type {Number}
- * @constant
- */
-civitas.EVENT_EFFECT_GAIN_FAITH = 10;
-
-/**
- * Event responsable for losing research.
- * 
- * @type {Number}
- * @constant
- */
-civitas.EVENT_EFFECT_LOSE_RESEARCH = 11;
-
-/**
- * Event responsable for gaining research.
- * 
- * @type {Number}
- * @constant
- */
-civitas.EVENT_EFFECT_GAIN_RESEARCH = 12;
-
-/**
- * Event responsable for upgrading a random building.
- * 
- * @type {Number}
- * @constant
- */
-civitas.EVENT_EFFECT_UPGRADE_BUILDING = 13;
-
-/**
  * List of all available in-game events.
  * 
  * @constant
@@ -5991,50 +5887,45 @@ civitas.EVENT_EFFECT_UPGRADE_BUILDING = 13;
 civitas.EVENTS = [{
 	name: 'Great earthquake',
 	description: '',
-	chance: 0.0001,
-	effect: civitas.EVENT_EFFECT_DESTROY_BUILDING,
-	data: {
+	chance: 0.00001,
+	destroy: {
 		amount: 1
 	}
 }, {
 	name: 'Royal marriage',
-	description: 'A marriage was arranged between a member of your family and the royal family of SETTLEMENT. This raises your influence on SETTLEMENT. Good job!',
-	chance: 0.003,
-	effect: civitas.EVENT_EFFECT_RAISE_INFLUENCE,
-	data: {
-		amount: 10
+	description: 'A marriage was arranged between a member of your family and the royal family of SETTLEMENT. This raises your influence on SETTLEMENT by INFLUENCE. Good job!',
+	chance: 0.0003,
+	raise: {
+		influence: 10
 	}
 }, {
 	name: 'Raiders attack',
-	description: 'A band of raiders attacked the outskirts of your settlement. Repairing the affected buildings costs your settlement AMOUNT coins.',
-	chance: 0.001,
-	effect: civitas.EVENT_EFFECT_LOSE_COINS,
-	data: {
-		amount: 1000
+	description: 'A band of raiders attacked the outskirts of your settlement. Repairing the affected buildings costs your settlement COINS coins.',
+	chance: 0.0002,
+	lower: {
+		coins: 1000
 	}
 }, {
 	name: 'Discovery',
-	description: 'The engineers in your settlement made a great discovery which made you more famous, thus gaining AMOUNT fame.',
-	chance: 0.006,
-	effect: civitas.EVENT_EFFECT_GAIN_FAME,
-	data: {
-		amount: 100,
+	description: 'The engineers in your settlement made a great discovery which made you more famous, thus gaining FAME fame and RESEARCH research.',
+	chance: 0.0004,
+	raise: {
+		fame: 100,
+		research: 10
 	}
 }, {
 	name: 'Foreign spy discovered',
-	description: 'A spy from SETTLEMENT was found hiding in your settlement, as a reward for finding him you gain AMOUNT espionage.',
+	description: 'A spy from SETTLEMENT was found hiding in your settlement, as a reward for finding him you gain ESPIONAGE espionage.',
 	chance: 0.006,
-	effect: civitas.EVENT_EFFECT_GAIN_ESPIONAGE,
-	data: {
-		amount: 10
+	raise: {
+		espionage: 10
 	}
 }, {
 	name: 'Your spy uncovered',
-	description: 'One of your spies in SETTLEMENT was discovered, SETTLEMENT`s ruler is angry so you lose AMOUNT prestige.',
+	description: 'One of your spies in SETTLEMENT was discovered, SETTLEMENT`s ruler is angry so you lose PRESTIGE prestige.',
 	chance: 0.008,
-	effect: civitas.EVENT_EFFECT_LOSE_PRESTIGE,
-	data: {
-		amount: 2
+	lower: {
+		prestige: 2
 	}
 }];
 
@@ -8192,6 +8083,23 @@ civitas.objects.settlement = function(params) {
 		this.resources.coins = value;
 		return this;
 	};
+		
+	/**
+	 * Remove a specific amount of a resource silently from this settlement's storage.
+	 * 
+	 * @public
+	 * @param {String} resource
+	 * @param {Number} amount
+	 * @returns {Boolean}
+	 */
+	this.remove_resource_silent = function(resource, amount) {
+		var res = this.get_resources();
+		res[resource] = res[resource] - amount;
+		if (res[resource] < 0) {
+			res[resource] = 0;
+		}
+		return true;
+	};
 	
 	/**
 	 * Remove a specific amount of a resource from this settlement's storage.
@@ -9973,12 +9881,20 @@ civitas.objects.event = function (params) {
 	this.description = null;
 
 	/**
-	 * Event data.
+	 * Event data for lowering stuff.
 	 *
 	 * @private
 	 * @type {Object}
 	 */
-	this.data = null;
+	this.lower = null;
+
+	/**
+	 * Event data for raising stuff.
+	 *
+	 * @private
+	 * @type {Object}
+	 */
+	this.raise = null;
 
 	/**
 	 * Object constructor.
@@ -9992,8 +9908,8 @@ civitas.objects.event = function (params) {
 		this.name = params.name;
 		this.chance = (typeof params.chance !== 'undefined') ? params.chance : 0.001;
 		this.description = params.description;
-		this.data = params.data;
-		this.effect = params.effect;
+		this.raise = typeof params.raise !== 'undefined' ? params.raise : null;
+		this.lower = typeof params.lower !== 'undefined' ? params.lower : null;
 		this.process();
 		return this;
 	};
@@ -10002,78 +9918,41 @@ civitas.objects.event = function (params) {
 	 * Process the event data.
 	 * 
 	 * @public
-	 * @returns {Boolean}
-	 */
-	this.process = function () {
-		var random = Math.random().toFixed(4);
-		if (random <= this.chance) {
-			this._process();
-			return true;
-		}
-		return false;
-	};
-
-	/**
-	 * Internal function for processing the event data.
-	 * 
-	 * @private
 	 * @returns {civitas.objects.event}
 	 */
-	this._process = function () {
+	this.process = function () {
 		var core = this.get_core();
-		var amount = this.data.amount;
 		var random_settlement_id = civitas.utils.get_random(1, core.settlements.length);
 		var with_settlement = core.get_settlement(random_settlement_id);
-		switch (this.effect) {
-			case civitas.EVENT_EFFECT_LOSE_COINS:
-				core.get_settlement().dec_coins(amount);
-				break;
-			case civitas.EVENT_EFFECT_GAIN_COINS:
-				core.get_settlement().inc_coins(amount);
-				break;
-			case civitas.EVENT_EFFECT_RAISE_INFLUENCE:
-				core.get_settlement().raise_influence(with_settlement.get_id(), amount);
-				break;
-			case civitas.EVENT_EFFECT_LOWER_INFLUENCE:
-				core.get_settlement().lower_influence(with_settlement.get_id(), amount);
-				break;
-			case civitas.EVENT_EFFECT_GAIN_FAME:
-				core.get_settlement().raise_fame(amount);
-				break;
-			case civitas.EVENT_EFFECT_LOSE_FAME:
-				core.get_settlement().lower_fame(amount);
-				break;
-			case civitas.EVENT_EFFECT_GAIN_ESPIONAGE:
-				core.get_settlement().raise_espionage(amount);
-				break;
-			case civitas.EVENT_EFFECT_LOSE_ESPIONAGE:
-				core.get_settlement().lower_espionage(amount);
-				break;
-			case civitas.EVENT_EFFECT_LOSE_FAITH:
-				core.get_settlement().lower_faith(amount);
-				break;
-			case civitas.EVENT_EFFECT_GAIN_FAITH:
-				core.get_settlement().raise_faith(amount);
-				break;
-			case civitas.EVENT_EFFECT_LOSE_RESEARCH:
-				core.get_settlement().lower_research(amount);
-				break;
-			case civitas.EVENT_EFFECT_GAIN_RESEARCH:
-				core.get_settlement().raise_research(amount);
-				break;
-			case civitas.EVENT_EFFECT_DESTROY_BUILDING:
-				break;
-			case civitas.EVENT_EFFECT_UPGRADE_BUILDING:
-				break;
+		var description = this.description.replace(/SETTLEMENT/g, with_settlement.get_name());
+		if (this.raise !== null) {
+			for (var item in this.raise) {
+				if (item === 'influence') {
+					core.get_settlement().raise_influence(with_settlement.get_id(), this.raise[item]);
+				} else {
+					core.get_settlement().add_to_storage(item, this.raise[item]);
+				}
+				var replace = new RegExp(item.toUpperCase(), 'g');
+				description = description.replace(replace, this.raise[item]);
+			}
+		}
+		if (this.lower !== null) {
+			for (var item in this.lower) {
+				if (item === 'influence') {
+					core.get_settlement().lower_influence(with_settlement.get_id(), this.lower[item]);
+				} else {
+					core.get_settlement().remove_resource_silent(item, this.lower[item]);
+				}
+				var replace = new RegExp(item.toUpperCase(), 'g');
+				description = description.replace(replace, this.lower[item]);
+			}
 		}
 		if (core.get_settlement().is_player()) {
 			core._notify({
 				title: 'Event occured: ' + this.name,
-				content: this.description
-					.replace(/SETTLEMENT/g, with_settlement.get_name())
-					.replace(/AMOUNT/g, this.data.amount),
+				content: description,
 				timeout: false,
-				other: true
+				mode: civitas.NOTIFY_EVENT
 			});
 		}
 		return this;
@@ -12088,9 +11967,17 @@ civitas.game = function () {
 	 * @returns {civitas.game}
 	 */
 	this._check_for_events = function() {
-		var event = civitas.EVENTS[civitas.utils.get_random(0, civitas.EVENTS.length - 1)];
-		event.core = this;
-		new civitas.objects.event(event);
+		var random = Math.random().toFixed(5);
+		var event;
+		for (var i = 0; i < civitas.EVENTS.length; i++) {
+			var _event = civitas.EVENTS[i];
+			if (random <= _event.chance) {
+				event = _event;
+				event.core = this;
+				new civitas.objects.event(event);
+				return this;
+			}
+		}
 		return this;
 	};
 
@@ -12420,18 +12307,15 @@ civitas.game = function () {
 			title: undefined,
 			content: undefined,
 			timeout: 15000,
-			img: civitas.ASSETS_URL + 'images/ui/icon_notification_1.png',
-			showTime: true,
-			error: false,
-			achievement: false,
-			other: false
+			img: undefined,
+			mode: civitas.NOTIFY_NORMAL
 		}, settings);
-		if (settings.achievement === false) {
-			_container = "notifications";
+		if (settings.mode === civitas.NOTIFY_ACHIEVEMENT) {
+			_container = 'achievements-notifications';
 		} else {
-			_container = "achievements-notifications";
+			_container = 'notifications';
 		}
-		container = $("." + _container);
+		container = $('.' + _container);
 		if (!container.length) {
 			container = $("<div>", {
 				'class': _container
@@ -12440,8 +12324,8 @@ civitas.game = function () {
 		$('.achievements-notifications').css({
 			left: ($(window).width() / 2) - (container.width() / 2)
 		});
-		notty = $("<div>");
-		notty.addClass("notty");
+		notty = $('<div>');
+		notty.addClass('notty');
 		hide = $("<div>", {
 			click: function () {
 				$(this).parent().delay(300).queue(function () {
@@ -12456,29 +12340,27 @@ civitas.game = function () {
 				});
 			}
 		});
-		hide.addClass("hide");
-		if (settings.error === true) {
+		hide.addClass('hide');
+		if (settings.mode === civitas.NOTIFY_ERROR) {
 			notty.addClass('error');
 			settings.img = civitas.ASSETS_URL + 'images/ui/icon_notification_2.png';
-		}
-		if (settings.other === true) {
-			notty.addClass('other');
-			settings.img = civitas.ASSETS_URL + 'images/ui/icon_notification_1.png';
-		}
-		if (settings.achievement === true) {
+		} else if (settings.mode === civitas.NOTIFY_EVENT) {
+			notty.addClass('event');
+			settings.img = civitas.ASSETS_URL + 'images/ui/icon_research.png';
+		} else if (settings.mode === civitas.NOTIFY_ACHIEVEMENT) {
 			notty.addClass('achievement');
 			settings.img = civitas.ASSETS_URL + 'images/ui/icon_achievement.png';
+		} else {
+			settings.img = civitas.ASSETS_URL + 'images/ui/icon_notification_1.png';
 		}
-		image = $("<div>", {
+		image = $('<div>', {
 			style: "background: url('" + settings.img + "')"
 		});
-		image.addClass("img");
+		image.addClass('img');
 		left = $("<div class='left'>");
 		right = $("<div class='right'>");
-		var html_title = "<h2>" + settings.title + "</h2>";
-		var html_content = settings.content;
-		inner = $("<div>", {
-			html: html_title + html_content
+		inner = $('<div>', {
+			html: '<h2>' + settings.title + '</h2>' + settings.content
 		});
 		inner.addClass("inner");
 		inner.appendTo(right);
@@ -12486,7 +12368,7 @@ civitas.game = function () {
 		left.appendTo(notty);
 		right.appendTo(notty);
 		hide.appendTo(notty);
-		if (settings.achievement === false) {
+		if (settings.mode !== civitas.NOTIFY_ACHIEVEMENT) {
 			var timestamp = Number(new Date());
 			var timeHTML = $("<div>", {
 				html: "<strong>" + civitas.utils.time_since(timestamp) + "</strong> ago"
@@ -12530,7 +12412,7 @@ civitas.game = function () {
 	this.error = function (message, title, no_console) {
 		this._notify({
 			title: (typeof title !== 'undefined') ? title : civitas.l('City Council'),
-			error: true,
+			mode: civitas.NOTIFY_ERROR,
 			content: message
 		});
 		if (typeof no_console === 'undefined' || no_console === false) {
@@ -12963,8 +12845,7 @@ civitas.game = function () {
 		});
 		this._notify({
 			title: 'Achievement Completed',
-			other: true,
-			achievement: true,
+			mode: civitas.NOTIFY_ACHIEVEMENT,
 			content: achievement.description,
 			timeout: false
 		});

@@ -697,9 +697,17 @@ civitas.game = function () {
 	 * @returns {civitas.game}
 	 */
 	this._check_for_events = function() {
-		var event = civitas.EVENTS[civitas.utils.get_random(0, civitas.EVENTS.length - 1)];
-		event.core = this;
-		new civitas.objects.event(event);
+		var random = Math.random().toFixed(5);
+		var event;
+		for (var i = 0; i < civitas.EVENTS.length; i++) {
+			var _event = civitas.EVENTS[i];
+			if (random <= _event.chance) {
+				event = _event;
+				event.core = this;
+				new civitas.objects.event(event);
+				return this;
+			}
+		}
 		return this;
 	};
 
@@ -1029,18 +1037,15 @@ civitas.game = function () {
 			title: undefined,
 			content: undefined,
 			timeout: 15000,
-			img: civitas.ASSETS_URL + 'images/ui/icon_notification_1.png',
-			showTime: true,
-			error: false,
-			achievement: false,
-			other: false
+			img: undefined,
+			mode: civitas.NOTIFY_NORMAL
 		}, settings);
-		if (settings.achievement === false) {
-			_container = "notifications";
+		if (settings.mode === civitas.NOTIFY_ACHIEVEMENT) {
+			_container = 'achievements-notifications';
 		} else {
-			_container = "achievements-notifications";
+			_container = 'notifications';
 		}
-		container = $("." + _container);
+		container = $('.' + _container);
 		if (!container.length) {
 			container = $("<div>", {
 				'class': _container
@@ -1049,8 +1054,8 @@ civitas.game = function () {
 		$('.achievements-notifications').css({
 			left: ($(window).width() / 2) - (container.width() / 2)
 		});
-		notty = $("<div>");
-		notty.addClass("notty");
+		notty = $('<div>');
+		notty.addClass('notty');
 		hide = $("<div>", {
 			click: function () {
 				$(this).parent().delay(300).queue(function () {
@@ -1065,29 +1070,27 @@ civitas.game = function () {
 				});
 			}
 		});
-		hide.addClass("hide");
-		if (settings.error === true) {
+		hide.addClass('hide');
+		if (settings.mode === civitas.NOTIFY_ERROR) {
 			notty.addClass('error');
 			settings.img = civitas.ASSETS_URL + 'images/ui/icon_notification_2.png';
-		}
-		if (settings.other === true) {
-			notty.addClass('other');
-			settings.img = civitas.ASSETS_URL + 'images/ui/icon_notification_1.png';
-		}
-		if (settings.achievement === true) {
+		} else if (settings.mode === civitas.NOTIFY_EVENT) {
+			notty.addClass('event');
+			settings.img = civitas.ASSETS_URL + 'images/ui/icon_research.png';
+		} else if (settings.mode === civitas.NOTIFY_ACHIEVEMENT) {
 			notty.addClass('achievement');
 			settings.img = civitas.ASSETS_URL + 'images/ui/icon_achievement.png';
+		} else {
+			settings.img = civitas.ASSETS_URL + 'images/ui/icon_notification_1.png';
 		}
-		image = $("<div>", {
+		image = $('<div>', {
 			style: "background: url('" + settings.img + "')"
 		});
-		image.addClass("img");
+		image.addClass('img');
 		left = $("<div class='left'>");
 		right = $("<div class='right'>");
-		var html_title = "<h2>" + settings.title + "</h2>";
-		var html_content = settings.content;
-		inner = $("<div>", {
-			html: html_title + html_content
+		inner = $('<div>', {
+			html: '<h2>' + settings.title + '</h2>' + settings.content
 		});
 		inner.addClass("inner");
 		inner.appendTo(right);
@@ -1095,7 +1098,7 @@ civitas.game = function () {
 		left.appendTo(notty);
 		right.appendTo(notty);
 		hide.appendTo(notty);
-		if (settings.achievement === false) {
+		if (settings.mode !== civitas.NOTIFY_ACHIEVEMENT) {
 			var timestamp = Number(new Date());
 			var timeHTML = $("<div>", {
 				html: "<strong>" + civitas.utils.time_since(timestamp) + "</strong> ago"
@@ -1139,7 +1142,7 @@ civitas.game = function () {
 	this.error = function (message, title, no_console) {
 		this._notify({
 			title: (typeof title !== 'undefined') ? title : civitas.l('City Council'),
-			error: true,
+			mode: civitas.NOTIFY_ERROR,
 			content: message
 		});
 		if (typeof no_console === 'undefined' || no_console === false) {
@@ -1572,8 +1575,7 @@ civitas.game = function () {
 		});
 		this._notify({
 			title: 'Achievement Completed',
-			other: true,
-			achievement: true,
+			mode: civitas.NOTIFY_ACHIEVEMENT,
 			content: achievement.description,
 			timeout: false
 		});
