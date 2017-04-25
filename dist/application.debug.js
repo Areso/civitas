@@ -321,12 +321,36 @@ civitas.ACTION_DIPLOMACY = 0;
  */
 civitas.ACTION_CAMPAIGN = 1;
 
+/**
+ * Error notification
+ *
+ * @constant
+ * @type {Number}
+ */
 civitas.NOTIFY_ERROR = 0;
 
+/**
+ * Achievement notification
+ *
+ * @constant
+ * @type {Number}
+ */
 civitas.NOTIFY_ACHIEVEMENT = 1;
 
+/**
+ * Normal notification
+ *
+ * @constant
+ * @type {Number}
+ */
 civitas.NOTIFY_NORMAL = 2;
 
+/**
+ * Event notification.
+ *
+ * @constant
+ * @type {Number}
+ */
 civitas.NOTIFY_EVENT = 3;
 
 civitas.lang = {};
