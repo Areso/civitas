@@ -2067,7 +2067,7 @@ civitas.BUILDINGS = [{
 		large: true,
 		visible_upgrades: true,
 		production: {
-			fame: 10
+			fame: 5
 		},
 		cost: {
 			coins: 100000
@@ -2110,7 +2110,7 @@ civitas.BUILDINGS = [{
 		is_municipal: true,
 		is_production: true,
 		production: {
-			fame: 20,
+			fame: 10,
 			faith: 1
 		},
 		materials: {
@@ -2157,7 +2157,7 @@ civitas.BUILDINGS = [{
 		is_municipal: true,
 		is_production: true, 
 		production: {
-			fame: 10,
+			fame: 5,
 			research: 1
 		},
 		materials: {
@@ -2184,7 +2184,7 @@ civitas.BUILDINGS = [{
 		is_municipal: true,
 		is_production: true, 
 		production: {
-			fame: 10,
+			fame: 5,
 			espionage: 1
 		},
 		materials: {
@@ -2238,7 +2238,7 @@ civitas.BUILDINGS = [{
 		is_municipal: true,
 		is_production: true,
 		production: {
-			fame: 10,
+			fame: 5,
 			faith: 2
 		},
 		materials: {
@@ -5918,7 +5918,7 @@ civitas.EVENTS = [{
 }, {
 	name: 'Royal marriage',
 	description: 'A marriage was arranged between a member of your family and the royal family of SETTLEMENT. This raises your influence on SETTLEMENT by INFLUENCE. Good job!',
-	chance: 0.0003,
+	chance: 0.0001,
 	raise: {
 		influence: 10
 	}
@@ -5940,14 +5940,14 @@ civitas.EVENTS = [{
 }, {
 	name: 'Foreign spy discovered',
 	description: 'A spy from SETTLEMENT was found hiding in your settlement, as a reward for finding him you gain ESPIONAGE espionage.',
-	chance: 0.006,
+	chance: 0.002,
 	raise: {
 		espionage: 10
 	}
 }, {
 	name: 'Your spy uncovered',
 	description: 'One of your spies in SETTLEMENT was discovered, SETTLEMENT`s ruler is angry so you lose PRESTIGE prestige.',
-	chance: 0.008,
+	chance: 0.003,
 	lower: {
 		prestige: 2
 	}
@@ -14835,6 +14835,7 @@ civitas.PANEL_COUNCIL = {
 				'<dt>' + civitas.l('Population') + '</dt><dd>' + civitas.utils.nice_numbers(settlement.get_population()) + '</dd>' +
 				'<dt>' + civitas.l('Religion') + '</dt><dd>' + settlement.get_religion().name.capitalize() + '</dd>' +
 				'<dt>' + civitas.l('Level') + '</dt><dd>' + civitas.ui.progress((settlement.get_level() * 100) / civitas.MAX_SETTLEMENT_LEVEL, 'small', settlement.get_level()) + '</dd>' +
+				'<dt>' + civitas.l('Fame') + '</dt><dd>' + civitas.ui.progress((settlement.get_fame() * 100) / civitas.LEVELS[civitas.MAX_SETTLEMENT_LEVEL - 1], 'small', civitas.utils.nice_numbers(settlement.get_fame())) + '</dd>' +
 				'<dt>' + civitas.l('Prestige') + '</dt><dd>' + civitas.ui.progress((settlement.get_prestige() * 100) / civitas.MAX_PRESTIGE_VALUE, 'small', settlement.get_prestige()) + '</dd>' +
 				'<dt>' + civitas.l('Espionage') + '</dt><dd>' + civitas.ui.progress((settlement.get_espionage() * 100) / civitas.MAX_ESPIONAGE_VALUE, 'small', settlement.get_espionage()) + '</dd>' +
 				'<dt>' + civitas.l('Faith') + '</dt><dd>' + civitas.ui.progress((settlement.get_faith() * 100) / civitas.MAX_FAITH_VALUE, 'small', settlement.get_faith()) + '</dd>' +

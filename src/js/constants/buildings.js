@@ -308,7 +308,7 @@ civitas.BUILDINGS = [{
 		large: true,
 		visible_upgrades: true,
 		production: {
-			fame: 10
+			fame: 5
 		},
 		cost: {
 			coins: 100000
@@ -351,7 +351,7 @@ civitas.BUILDINGS = [{
 		is_municipal: true,
 		is_production: true,
 		production: {
-			fame: 20,
+			fame: 10,
 			faith: 1
 		},
 		materials: {
@@ -398,7 +398,7 @@ civitas.BUILDINGS = [{
 		is_municipal: true,
 		is_production: true, 
 		production: {
-			fame: 10,
+			fame: 5,
 			research: 1
 		},
 		materials: {
@@ -425,7 +425,7 @@ civitas.BUILDINGS = [{
 		is_municipal: true,
 		is_production: true, 
 		production: {
-			fame: 10,
+			fame: 5,
 			espionage: 1
 		},
 		materials: {
@@ -479,7 +479,7 @@ civitas.BUILDINGS = [{
 		is_municipal: true,
 		is_production: true,
 		production: {
-			fame: 10,
+			fame: 5,
 			faith: 2
 		},
 		materials: {

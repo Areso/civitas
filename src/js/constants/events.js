@@ -14,7 +14,7 @@ civitas.EVENTS = [{
 }, {
 	name: 'Royal marriage',
 	description: 'A marriage was arranged between a member of your family and the royal family of SETTLEMENT. This raises your influence on SETTLEMENT by INFLUENCE. Good job!',
-	chance: 0.0003,
+	chance: 0.0001,
 	raise: {
 		influence: 10
 	}
@@ -36,14 +36,14 @@ civitas.EVENTS = [{
 }, {
 	name: 'Foreign spy discovered',
 	description: 'A spy from SETTLEMENT was found hiding in your settlement, as a reward for finding him you gain ESPIONAGE espionage.',
-	chance: 0.006,
+	chance: 0.002,
 	raise: {
 		espionage: 10
 	}
 }, {
 	name: 'Your spy uncovered',
 	description: 'One of your spies in SETTLEMENT was discovered, SETTLEMENT`s ruler is angry so you lose PRESTIGE prestige.',
-	chance: 0.008,
+	chance: 0.003,
 	lower: {
 		prestige: 2
 	}
