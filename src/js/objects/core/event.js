@@ -23,14 +23,6 @@ civitas.objects.event = function (params) {
 	this.name = null;
 
 	/**
-	 * Handle of the event.
-	 *
-	 * @private
-	 * @type {String}
-	 */
-	this.handle = null;
-
-	/**
 	 * Event's chance to occur.
 	 *
 	 * @private
@@ -72,7 +64,6 @@ civitas.objects.event = function (params) {
 	this.__init = function (params) {
 		this.core = params.core;
 		this.name = params.name;
-		this.handle = params.handle;
 		this.chance = (typeof params.chance !== 'undefined') ? params.chance : 0.001;
 		this.description = params.description;
 		this.data = params.data;
@@ -97,17 +88,63 @@ civitas.objects.event = function (params) {
 	};
 
 	/**
-	 * Notify the player that this event occured.
-	 *
-	 * @public
+	 * Internal function for processing the event data.
+	 * 
+	 * @private
 	 * @returns {civitas.objects.event}
 	 */
-	this.notify = function() {
-		if (this.core.get_settlement().is_player()) {
-			this.core._notify({
+	this._process = function () {
+		var core = this.get_core();
+		var amount = this.data.amount;
+		var random_settlement_id = civitas.utils.get_random(1, core.settlements.length);
+		var with_settlement = core.get_settlement(random_settlement_id);
+		switch (this.effect) {
+			case civitas.EVENT_EFFECT_LOSE_COINS:
+				core.get_settlement().dec_coins(amount);
+				break;
+			case civitas.EVENT_EFFECT_GAIN_COINS:
+				core.get_settlement().inc_coins(amount);
+				break;
+			case civitas.EVENT_EFFECT_RAISE_INFLUENCE:
+				core.get_settlement().raise_influence(with_settlement.get_id(), amount);
+				break;
+			case civitas.EVENT_EFFECT_LOWER_INFLUENCE:
+				core.get_settlement().lower_influence(with_settlement.get_id(), amount);
+				break;
+			case civitas.EVENT_EFFECT_GAIN_FAME:
+				core.get_settlement().raise_fame(amount);
+				break;
+			case civitas.EVENT_EFFECT_LOSE_FAME:
+				core.get_settlement().lower_fame(amount);
+				break;
+			case civitas.EVENT_EFFECT_GAIN_ESPIONAGE:
+				core.get_settlement().raise_espionage(amount);
+				break;
+			case civitas.EVENT_EFFECT_LOSE_ESPIONAGE:
+				core.get_settlement().lower_espionage(amount);
+				break;
+			case civitas.EVENT_EFFECT_LOSE_FAITH:
+				core.get_settlement().lower_faith(amount);
+				break;
+			case civitas.EVENT_EFFECT_GAIN_FAITH:
+				core.get_settlement().raise_faith(amount);
+				break;
+			case civitas.EVENT_EFFECT_LOSE_RESEARCH:
+				core.get_settlement().lower_research(amount);
+				break;
+			case civitas.EVENT_EFFECT_GAIN_RESEARCH:
+				core.get_settlement().raise_research(amount);
+				break;
+			case civitas.EVENT_EFFECT_DESTROY_BUILDING:
+				break;
+			case civitas.EVENT_EFFECT_UPGRADE_BUILDING:
+				break;
+		}
+		if (core.get_settlement().is_player()) {
+			core._notify({
 				title: 'Event occured: ' + this.name,
 				content: this.description
-					.replace(/SETTLEMENT/g, this.data.settlement)
+					.replace(/SETTLEMENT/g, with_settlement.get_name())
 					.replace(/AMOUNT/g, this.data.amount),
 				timeout: false,
 				other: true
@@ -117,43 +154,13 @@ civitas.objects.event = function (params) {
 	};
 
 	/**
-	 * Internal function for processing the event data.
+	 * Return a pointer to the game core.
 	 * 
-	 * @private
-	 * @returns {civitas.objects.event}
+	 * @public
+	 * @returns {civitas.game}
 	 */
-	this._process = function () {
-		this.notify();
-		var with_settlement = this.core.get_settlement(this.data.settlement);
-		switch (this.effect) {
-			case civitas.EVENT_EFFECT_LOSE_COINS:
-				this.core.get_settlement().dec_coins(this.data.amount);
-				break;
-			case civitas.EVENT_EFFECT_GAIN_COINS:
-				this.core.get_settlement().inc_coins(this.data.amount);
-				break;
-			case civitas.EVENT_EFFECT_RAISE_INFLUENCE:
-				this.core.get_settlement().raise_influence(with_settlement.get_id(), this.data.amount, 'city');
-				break;
-			case civitas.EVENT_EFFECT_LOWER_INFLUENCE:
-				this.core.get_settlement().lower_influence(with_settlement.get_id(), this.data.amount, 'city');
-				break;
-			case civitas.EVENT_EFFECT_GAIN_FAME:
-				this.core.get_settlement().raise_fame(this.data.amount);
-				break;
-			case civitas.EVENT_EFFECT_LOSE_FAME:
-				this.core.get_settlement().lower_fame(this.data.amount);
-				break;
-			case civitas.EVENT_EFFECT_GAIN_ESPIONAGE:
-				this.core.get_settlement().raise_espionage(this.data.amount);
-				break;
-			case civitas.EVENT_EFFECT_LOSE_ESPIONAGE:
-				this.core.get_settlement().lower_espionage(this.data.amount);
-				break;
-			case civitas.EVENT_EFFECT_DESTROY_BUILDING:
-				break;
-		}
-		return this;
+	this.get_core = function() {
+		return this.core;
 	};
 
 	// Fire up the constructor

@@ -53,6 +53,8 @@ civitas.controls.modal = function (params) {
 	 * @returns {civitas.objects.modal}
 	 */
 	this.alert = function(options) {
+		var self = this;
+		var settlement = this.core.get_settlement();
 		if (this._is_open()) {
 			return false;
 		}
@@ -64,7 +66,7 @@ civitas.controls.modal = function (params) {
 		$('.modal .header').html(options.title);
 		$('.modal .footer').html('<a data-id="yes" href="#" class="btn float-right">' + civitas.l('Yes') + '</a>' +
 			'<a data-id="no" href="#" class="btn">' + civitas.l('No') + '</a>');
-		$('.modal .content').html('<img class="avatar" src="' + civitas.ASSETS_URL + 'images/avatars/avatar' + this.core.get_settlement().get_ruler_avatar() + '.png" />' +
+		$('.modal .content').html((settlement ? '<img class="avatar" src="' + civitas.ASSETS_URL + 'images/avatars/avatar' + this.core.get_settlement().get_ruler_avatar() + '.png" />' : '') +
 			'<p>' + options.text + '</p>');
 		$('.modal .footer').on('click', 'a', function() {
 			self._action($(this).data('id'));

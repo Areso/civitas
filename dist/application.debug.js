@@ -5943,6 +5943,46 @@ civitas.EVENT_EFFECT_LOSE_ESPIONAGE = 7;
 civitas.EVENT_EFFECT_GAIN_ESPIONAGE = 8;
 
 /**
+ * Event responsable for losing faith.
+ * 
+ * @type {Number}
+ * @constant
+ */
+civitas.EVENT_EFFECT_LOSE_FAITH = 9;
+
+/**
+ * Event responsable for gaining faith.
+ * 
+ * @type {Number}
+ * @constant
+ */
+civitas.EVENT_EFFECT_GAIN_FAITH = 10;
+
+/**
+ * Event responsable for losing research.
+ * 
+ * @type {Number}
+ * @constant
+ */
+civitas.EVENT_EFFECT_LOSE_RESEARCH = 11;
+
+/**
+ * Event responsable for gaining research.
+ * 
+ * @type {Number}
+ * @constant
+ */
+civitas.EVENT_EFFECT_GAIN_RESEARCH = 12;
+
+/**
+ * Event responsable for upgrading a random building.
+ * 
+ * @type {Number}
+ * @constant
+ */
+civitas.EVENT_EFFECT_UPGRADE_BUILDING = 13;
+
+/**
  * List of all available in-game events.
  * 
  * @constant
@@ -5950,7 +5990,6 @@ civitas.EVENT_EFFECT_GAIN_ESPIONAGE = 8;
  */
 civitas.EVENTS = [{
 	name: 'Great earthquake',
-	handle: 'earthquake1',
 	description: '',
 	chance: 0.0001,
 	effect: civitas.EVENT_EFFECT_DESTROY_BUILDING,
@@ -5959,17 +5998,14 @@ civitas.EVENTS = [{
 	}
 }, {
 	name: 'Royal marriage',
-	handle: 'marriage',
 	description: 'A marriage was arranged between a member of your family and the royal family of SETTLEMENT. This raises your influence on SETTLEMENT. Good job!',
 	chance: 0.003,
 	effect: civitas.EVENT_EFFECT_RAISE_INFLUENCE,
 	data: {
-		amount: 50,
-		settlement: 'Rome'
+		amount: 10
 	}
 }, {
 	name: 'Raiders attack',
-	handle: 'raiders',
 	description: 'A band of raiders attacked the outskirts of your settlement. Repairing the affected buildings costs your settlement AMOUNT coins.',
 	chance: 0.001,
 	effect: civitas.EVENT_EFFECT_LOSE_COINS,
@@ -5978,7 +6014,6 @@ civitas.EVENTS = [{
 	}
 }, {
 	name: 'Discovery',
-	handle: 'discovery',
 	description: 'The engineers in your settlement made a great discovery which made you more famous, thus gaining AMOUNT fame.',
 	chance: 0.006,
 	effect: civitas.EVENT_EFFECT_GAIN_FAME,
@@ -5986,24 +6021,20 @@ civitas.EVENTS = [{
 		amount: 100,
 	}
 }, {
-	name: 'Spy found',
-	handle: 'spyfound',
+	name: 'Foreign spy discovered',
 	description: 'A spy from SETTLEMENT was found hiding in your settlement, as a reward for finding him you gain AMOUNT espionage.',
 	chance: 0.006,
 	effect: civitas.EVENT_EFFECT_GAIN_ESPIONAGE,
 	data: {
-		amount: 10,
-		settlement: 'Uruk'
+		amount: 10
 	}
 }, {
-	name: 'Spy uncovered',
-	handle: 'spydiscovered',
-	description: 'One of your spies in SETTLEMENT was discovered, SETTLEMENT`s ruler is angry so you lose AMOUNT espionage.',
+	name: 'Your spy uncovered',
+	description: 'One of your spies in SETTLEMENT was discovered, SETTLEMENT`s ruler is angry so you lose AMOUNT prestige.',
 	chance: 0.008,
-	effect: civitas.EVENT_EFFECT_LOSE_ESPIONAGE,
+	effect: civitas.EVENT_EFFECT_LOSE_PRESTIGE,
 	data: {
-		amount: 10,
-		settlement: 'Carthage'
+		amount: 2
 	}
 }];
 
@@ -9918,14 +9949,6 @@ civitas.objects.event = function (params) {
 	this.name = null;
 
 	/**
-	 * Handle of the event.
-	 *
-	 * @private
-	 * @type {String}
-	 */
-	this.handle = null;
-
-	/**
 	 * Event's chance to occur.
 	 *
 	 * @private
@@ -9967,7 +9990,6 @@ civitas.objects.event = function (params) {
 	this.__init = function (params) {
 		this.core = params.core;
 		this.name = params.name;
-		this.handle = params.handle;
 		this.chance = (typeof params.chance !== 'undefined') ? params.chance : 0.001;
 		this.description = params.description;
 		this.data = params.data;
@@ -9992,17 +10014,63 @@ civitas.objects.event = function (params) {
 	};
 
 	/**
-	 * Notify the player that this event occured.
-	 *
-	 * @public
+	 * Internal function for processing the event data.
+	 * 
+	 * @private
 	 * @returns {civitas.objects.event}
 	 */
-	this.notify = function() {
-		if (this.core.get_settlement().is_player()) {
-			this.core._notify({
+	this._process = function () {
+		var core = this.get_core();
+		var amount = this.data.amount;
+		var random_settlement_id = civitas.utils.get_random(1, core.settlements.length);
+		var with_settlement = core.get_settlement(random_settlement_id);
+		switch (this.effect) {
+			case civitas.EVENT_EFFECT_LOSE_COINS:
+				core.get_settlement().dec_coins(amount);
+				break;
+			case civitas.EVENT_EFFECT_GAIN_COINS:
+				core.get_settlement().inc_coins(amount);
+				break;
+			case civitas.EVENT_EFFECT_RAISE_INFLUENCE:
+				core.get_settlement().raise_influence(with_settlement.get_id(), amount);
+				break;
+			case civitas.EVENT_EFFECT_LOWER_INFLUENCE:
+				core.get_settlement().lower_influence(with_settlement.get_id(), amount);
+				break;
+			case civitas.EVENT_EFFECT_GAIN_FAME:
+				core.get_settlement().raise_fame(amount);
+				break;
+			case civitas.EVENT_EFFECT_LOSE_FAME:
+				core.get_settlement().lower_fame(amount);
+				break;
+			case civitas.EVENT_EFFECT_GAIN_ESPIONAGE:
+				core.get_settlement().raise_espionage(amount);
+				break;
+			case civitas.EVENT_EFFECT_LOSE_ESPIONAGE:
+				core.get_settlement().lower_espionage(amount);
+				break;
+			case civitas.EVENT_EFFECT_LOSE_FAITH:
+				core.get_settlement().lower_faith(amount);
+				break;
+			case civitas.EVENT_EFFECT_GAIN_FAITH:
+				core.get_settlement().raise_faith(amount);
+				break;
+			case civitas.EVENT_EFFECT_LOSE_RESEARCH:
+				core.get_settlement().lower_research(amount);
+				break;
+			case civitas.EVENT_EFFECT_GAIN_RESEARCH:
+				core.get_settlement().raise_research(amount);
+				break;
+			case civitas.EVENT_EFFECT_DESTROY_BUILDING:
+				break;
+			case civitas.EVENT_EFFECT_UPGRADE_BUILDING:
+				break;
+		}
+		if (core.get_settlement().is_player()) {
+			core._notify({
 				title: 'Event occured: ' + this.name,
 				content: this.description
-					.replace(/SETTLEMENT/g, this.data.settlement)
+					.replace(/SETTLEMENT/g, with_settlement.get_name())
 					.replace(/AMOUNT/g, this.data.amount),
 				timeout: false,
 				other: true
@@ -10012,43 +10080,13 @@ civitas.objects.event = function (params) {
 	};
 
 	/**
-	 * Internal function for processing the event data.
+	 * Return a pointer to the game core.
 	 * 
-	 * @private
-	 * @returns {civitas.objects.event}
+	 * @public
+	 * @returns {civitas.game}
 	 */
-	this._process = function () {
-		this.notify();
-		var with_settlement = this.core.get_settlement(this.data.settlement);
-		switch (this.effect) {
-			case civitas.EVENT_EFFECT_LOSE_COINS:
-				this.core.get_settlement().dec_coins(this.data.amount);
-				break;
-			case civitas.EVENT_EFFECT_GAIN_COINS:
-				this.core.get_settlement().inc_coins(this.data.amount);
-				break;
-			case civitas.EVENT_EFFECT_RAISE_INFLUENCE:
-				this.core.get_settlement().raise_influence(with_settlement.get_id(), this.data.amount, 'city');
-				break;
-			case civitas.EVENT_EFFECT_LOWER_INFLUENCE:
-				this.core.get_settlement().lower_influence(with_settlement.get_id(), this.data.amount, 'city');
-				break;
-			case civitas.EVENT_EFFECT_GAIN_FAME:
-				this.core.get_settlement().raise_fame(this.data.amount);
-				break;
-			case civitas.EVENT_EFFECT_LOSE_FAME:
-				this.core.get_settlement().lower_fame(this.data.amount);
-				break;
-			case civitas.EVENT_EFFECT_GAIN_ESPIONAGE:
-				this.core.get_settlement().raise_espionage(this.data.amount);
-				break;
-			case civitas.EVENT_EFFECT_LOSE_ESPIONAGE:
-				this.core.get_settlement().lower_espionage(this.data.amount);
-				break;
-			case civitas.EVENT_EFFECT_DESTROY_BUILDING:
-				break;
-		}
-		return this;
+	this.get_core = function() {
+		return this.core;
 	};
 
 	// Fire up the constructor
@@ -11013,6 +11051,8 @@ civitas.controls.modal = function (params) {
 	 * @returns {civitas.objects.modal}
 	 */
 	this.alert = function(options) {
+		var self = this;
+		var settlement = this.core.get_settlement();
 		if (this._is_open()) {
 			return false;
 		}
@@ -11024,7 +11064,7 @@ civitas.controls.modal = function (params) {
 		$('.modal .header').html(options.title);
 		$('.modal .footer').html('<a data-id="yes" href="#" class="btn float-right">' + civitas.l('Yes') + '</a>' +
 			'<a data-id="no" href="#" class="btn">' + civitas.l('No') + '</a>');
-		$('.modal .content').html('<img class="avatar" src="' + civitas.ASSETS_URL + 'images/avatars/avatar' + this.core.get_settlement().get_ruler_avatar() + '.png" />' +
+		$('.modal .content').html((settlement ? '<img class="avatar" src="' + civitas.ASSETS_URL + 'images/avatars/avatar' + this.core.get_settlement().get_ruler_avatar() + '.png" />' : '') +
 			'<p>' + options.text + '</p>');
 		$('.modal .footer').on('click', 'a', function() {
 			self._action($(this).data('id'));
