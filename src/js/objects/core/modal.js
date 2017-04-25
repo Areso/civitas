@@ -54,7 +54,11 @@ civitas.controls.modal = function (params) {
 	 */
 	this.alert = function(options) {
 		var self = this;
-		var settlement = this.core.get_settlement();
+		var settlement = false;
+		console.log(this.core);
+		if (this.core.settlements.length > 0) {
+			settlement = this.core.get_settlement();
+		}
 		if (this._is_open()) {
 			return false;
 		}

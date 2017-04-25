@@ -141,6 +141,9 @@ civitas.game = function () {
 	 */
 	this.__init = function () {
 		this._build_ui();
+		this.modal = new civitas.controls.modal({
+			core: this
+		});
 		this._setup_audio();
 		this._setup_ui();
 		if (this.get_storage_data() === false) {
@@ -1335,9 +1338,6 @@ civitas.game = function () {
 		var clicked = false;
 		var clickY, clickX;
 		var _t = '';
-		this.modal = new civitas.controls.modal({
-			core: self
-		});
 		$('.game').on({
 			mousemove: function (e) {
 				clicked && update_scroll_pos(e);

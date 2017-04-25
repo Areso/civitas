@@ -2610,7 +2610,7 @@ civitas.BUILDINGS = [{
 		description: 'The Bakery creates bread from flour, thus providing your settlers with basic food.',
 		is_production: true,
 		production: {
-			bread: 5
+			bread: 4
 		},
 		materials: {
 			flour: 2
@@ -2714,7 +2714,7 @@ civitas.BUILDINGS = [{
 		description: 'The Butcher slaughters cattle for meat, providing food that is more nutritious. Hides will be processed further at the Tannery.',
 		is_production: true,
 		production: {
-			meat: 4,
+			meat: 3,
 			hides: 2
 		},
 		materials: {
@@ -2815,7 +2815,7 @@ civitas.BUILDINGS = [{
 		description: 'The trapper captures wild animals and gathers their furs.',
 		is_production: true,
 		production: {
-			furs: 3
+			furs: 2
 		},
 		position: {
 			x: 160,
@@ -11052,7 +11052,11 @@ civitas.controls.modal = function (params) {
 	 */
 	this.alert = function(options) {
 		var self = this;
-		var settlement = this.core.get_settlement();
+		var settlement = false;
+		console.log(this.core);
+		if (this.core.settlements.length > 0) {
+			settlement = this.core.get_settlement();
+		}
 		if (this._is_open()) {
 			return false;
 		}
@@ -11528,6 +11532,9 @@ civitas.game = function () {
 	 */
 	this.__init = function () {
 		this._build_ui();
+		this.modal = new civitas.controls.modal({
+			core: this
+		});
 		this._setup_audio();
 		this._setup_ui();
 		if (this.get_storage_data() === false) {
@@ -12722,9 +12729,6 @@ civitas.game = function () {
 		var clicked = false;
 		var clickY, clickX;
 		var _t = '';
-		this.modal = new civitas.controls.modal({
-			core: self
-		});
 		$('.game').on({
 			mousemove: function (e) {
 				clicked && update_scroll_pos(e);
