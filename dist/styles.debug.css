@@ -209,11 +209,11 @@ header .top-panel span {
 }
 
 .game .building .notification {
-	width: 20px;
-	height: 20px;
+	width: 46px;
+	height: 46px;
 	position: absolute;
-	top: 0;
-	right: 0;
+	top: 30%;
+	left: 30%;
 }
 
 .game .slots {
@@ -949,8 +949,7 @@ input[type=text].small {
 
 .notifications .notty,
 .achievements-notifications .notty,
-.achievement,
-.research {
+.achievement {
 	padding: 10px;
 	margin-bottom: 10px;
 	color: #444;
@@ -964,24 +963,20 @@ input[type=text].small {
 	opacity: 0.8;
 }
 
-.achievement,
-.research {
+.achievement {
 	opacity: 1;
 }
 
-.research-list .research,
 .achievements-list .achievement {
 	width: 324px;
 	float: left;
 	margin-right: 20px;
 }
 
-.research-list .research:nth-child(even),
 .achievements-list .achievement:nth-child(even) {
 	margin-right: 0;
 }
 
-.research-list,
 .achievements-list {
 	padding: 20px;
 	max-height: 420px;
@@ -1008,12 +1003,6 @@ input[type=text].small {
 	background-image: -webkit-linear-gradient(top, #f5f36b, #c6c438);
 	background-image: -moz-linear-gradient(top, #f5f36b, #c6c438);
 	background-image: linear-gradient(to bottom, #f5f36b, #c6c438);
-}
-
-.research {
-	border-radius: 60px;
-	-moz-border-radius: 60px;
-	-webkit-border-radius: 60px;
 }
 
 .notifications .notty.error {
@@ -1045,8 +1034,7 @@ input[type=text].small {
 
 .notifications .notty .right,
 .achievements-notifications .notty .right,
-.achievement div.right,
-.research div.right {
+.achievement div.right {
 	width: 79%;
 	height: 100%;
 	float: left;
@@ -1055,38 +1043,33 @@ input[type=text].small {
 
 .notifications .notty .left,
 .achievements-notifications .notty .left,
-.achievement div.left,
-.research div.left {
+.achievement div.left {
 	height: 100%;
 	float: left;
 	display: block !important;
 }
 
 .notifications .notty .time,
-.achievement .time,
-.research .time {
+.achievement .time {
 	font-size: 9px;
 	position: relative;
 	float: right;
 }
 
 .notifications .notty .right .time,
-.achievement .right .time,
-.research .right .time {
+.achievement .right .time {
 	margin-right: 10px;
 }
 
 .notifications .notty .left,
 .achievements-notifications .notty .left,
-.achievement .left,
-.research .left {
+.achievement .left {
 	width: 20%;
 }
 
 .notifications .notty .right .inner,
 .achievements-notifications .notty .right .inner,
-.achievement .right .inner,
-.research .right .inner {
+.achievement .right .inner {
 	padding-left: 10px;
 }
 
@@ -1103,8 +1086,7 @@ input[type=text].small {
 
 .notifications .notty .left .img,
 .achievements-notifications .notty .left .img,
-.achievement .left .img,
-.research .left .img {
+.achievement .left .img {
 	width: 46px;
 	background-size: auto 100%;
 	height: 46px;
@@ -1113,8 +1095,7 @@ input[type=text].small {
 
 .notifications .notty:after,
 .achievements-notifications .notty:after,
-.achievement:after,
-.research:after {
+.achievement:after {
 	content: "."; 
 	visibility: hidden; 
 	display: block; 
@@ -1129,13 +1110,6 @@ input[type=text].small {
 	margin: 0 0 5px 0;
 	font-size: 14px;
 	color: #444;
-	text-transform: uppercase;
-}
-
-.research h2 {
-	margin: 0 0 5px 0;
-	font-size: 14px;
-	color: #fff;
 	text-transform: uppercase;
 }
 
@@ -1664,8 +1638,7 @@ table tfoot td {
 table tr td:last-child a:hover,
 .panel .toolbar .btn:hover,
 .modal .btn:hover,
-#window-options .button.highlight:hover,
-.research {
+#window-options .button.highlight:hover {
 	background-color: #422712;
 	border: 1px solid #422712;
 	background-image: -webkit-gradient(linear, left top, left bottom, from(#694224), to(#422712));
@@ -1991,6 +1964,8 @@ footer .do-help {
 	background: transparent url(../images/ui/toolbar/help.png) no-repeat;
 }
 
+/* Panel footer icons */
+
 .panel header .close {
 	background: transparent url(../images/ui/icons/close.png) no-repeat;
 }
@@ -2043,57 +2018,57 @@ footer .do-help {
 	background: transparent url(../images/ui/icons/upgrade.png) no-repeat;
 }
 
+/* World map objects */
+
 .panel .worldmap .army {
-	background: transparent url(../images/ui/army.png) no-repeat;
+	background: transparent url(../images/ui/world/army.png) no-repeat;
 }
 
 .panel .worldmap .messenger {
-	background: transparent url(../images/ui/diplomacy.png) no-repeat;
+	background: transparent url(../images/ui/world/diplomacy.png) no-repeat;
 }
 
 .panel .worldmap .caravan {
-	background: transparent url(../images/ui/caravan.png) no-repeat;
+	background: transparent url(../images/ui/world/caravan.png) no-repeat;
 }
 
 .panel .worldmap .spy {
-	background: transparent url(../images/ui/spy.png) no-repeat;
+	background: transparent url(../images/ui/world/spy.png) no-repeat;
 }
 
 .panel .worldmap .settlement.v1 {
-	background: transparent url(../images/ui/settlement1.png) no-repeat;
+	background: transparent url(../images/ui/world/settlement1.png) no-repeat;
 }
 
 .panel .worldmap .settlement.c1 {
-	background: transparent url(../images/ui/city1.png) no-repeat;
+	background: transparent url(../images/ui/world/city1.png) no-repeat;
 }
 
 .panel .worldmap .settlement.c2 {
-	background: transparent url(../images/ui/city2.png) no-repeat;
+	background: transparent url(../images/ui/world/city2.png) no-repeat;
 }
 
 .panel .worldmap .settlement.c3 {
-	background: transparent url(../images/ui/city3.png) no-repeat;
+	background: transparent url(../images/ui/world/city3.png) no-repeat;
 }
 
 .panel .worldmap .settlement.c4 {
-	background: transparent url(../images/ui/city4.png) no-repeat;
+	background: transparent url(../images/ui/world/city4.png) no-repeat;
 }
 
 .panel .worldmap .settlement.c5 {
-	background: transparent url(../images/ui/city5.png) no-repeat;
+	background: transparent url(../images/ui/world/city5.png) no-repeat;
 }
 
 .panel .worldmap .settlement.c6 {
-	background: transparent url(../images/ui/city6.png) no-repeat;
+	background: transparent url(../images/ui/world/city6.png) no-repeat;
 }
 
 .panel .worldmap .settlement.c7 {
-	background: transparent url(../images/ui/city7.png) no-repeat;
+	background: transparent url(../images/ui/world/city7.png) no-repeat;
 }
 
-.game {
-	background: #000 url(../images/city/map.jpg) no-repeat;
-}
+/* World Maps variants */
 
 .panel .worldmap.w1 {
 	background: transparent url(../images/world/map1.png) no-repeat;
@@ -2111,12 +2086,14 @@ footer .do-help {
 	background: transparent url(../images/world/map4.png) no-repeat;
 }
 
+/* Others */
+
 .game .building .notification.error {
-	background: transparent url(../images/ui/error_small.png) no-repeat;
+	background: transparent url(../images/ui/icons/notify-error.png) no-repeat;
 }
 
 .game .building .notification.paused {
-	background: transparent url(../images/ui/pause_small.png) no-repeat;
+	background: transparent url(../images/ui/icons/notify-pause.png) no-repeat;
 }
 
 #window-options .save-slots li span.load {
@@ -2133,10 +2110,6 @@ footer .do-help {
 
 .ach.img {
 	background: transparent url(../images/ui/icon_achievement.png) no-repeat;
-}
-
-.res.img {
-	background: transparent url(../images/ui/icon_research.png) no-repeat;
 }
 
 .scrollbar .up {
@@ -2157,7 +2130,7 @@ footer .do-help {
 
 .notifications .notty .hide,
 .achievements-notifications .notty .hide {
-	background: transparent url(../images/ui/close.png) no-repeat;
+	background: transparent url(../images/ui/icons/close.png) no-repeat;
 }
 
 .ui > header {
@@ -2174,4 +2147,8 @@ footer .do-help {
 
 .religion-list .religion {
 	background: transparent url(../images/ui/religion.png) no-repeat center;
+}
+
+.game {
+	background: #000 url(../images/city/map.jpg) no-repeat;
 }

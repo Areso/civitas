@@ -330,13 +330,15 @@ civitas.objects.building = function(params) {
 	 * @param {String} material
 	 * @returns {Boolean}
 	 */
-	this._has_material = function(material) {
+	this._has_material = function(material, notify) {
 		var building = this.get_building_data();
 		var materials = building.materials;
 		var resources = this.get_settlement_resources();
 		if (resources[material] - materials[material] < 0) {
 			if (this.get_settlement().is_player()) {
-				this.get_core().log(this.get_name() + ' doesn`t have enough ' + material + '.', true);
+				if (typeof notify !== 'undefined' && notify === true) {
+					this.get_core().log(this.get_name() + ' doesn`t have enough ' + material + '.', true);
+				}
 				this.notify(civitas.NOTIFICATION_MISSING_RESOURCES);
 			}
 			this.problems = true;
@@ -352,15 +354,15 @@ civitas.objects.building = function(params) {
 	 * @param {Array|String} materials
 	 * @returns {Boolean}
 	 */
-	this.has_materials = function(materials) {
+	this.has_materials = function(materials, notify) {
 		if (typeof materials === 'object') {
 			for (var i = 0; i < materials.length; i++) {
 				if (materials[i] !== 'coins') {
-					return this._has_material(materials[i]);
+					return this._has_material(materials[i], notify);
 				}
 			}
 		} else {
-			return this._has_material(materials);
+			return this._has_material(materials, notify);
 		}
 		return true;
 	};
