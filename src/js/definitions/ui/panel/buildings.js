@@ -4,14 +4,7 @@
  * @type {Object}
  */
 civitas.PANEL_BUILDINGS = {
-	template: '' +
-		'<div id="panel-buildings" class="panel">' +
-			'<header>' +
-				'<span class="title">' + civitas.l('City Buildings') + '</span>' +
-				'<a class="tips btn close" title="' + civitas.l('Close this panel') + '"></a>' +
-			'</header>' +
-			'<div class="contents"></div>' +
-		'</div>',
+	template: civitas.ui.generic_panel_template(civitas.l('City Buildings')),
 	id: 'buildings',
 	on_show: function(params) {
 		var self = this;
@@ -79,7 +72,7 @@ civitas.PANEL_BUILDINGS = {
 				'</fieldset>' +
 				'<div class="toolbar"></div>' +
 			'</div>';
-		$(el + ' .contents').append(_t);
+		$(el + ' section').append(_t);
 		$(el).on('click', '.building-item', function () {
 			$(el).addClass('expanded');
 			$(el + ' .building-item').removeClass('active');
@@ -87,7 +80,7 @@ civitas.PANEL_BUILDINGS = {
 			$(el + ' .b-chance, ' + el + ' .b-tax, ' + el + ' .b-store, ' + el + ' .b-req, ' + el + ' .b-cost, ' + el + ' .b-name, ' + el + ' .b-desc, ' + el + ' .b-mats, ' + el + ' .b-prod, ' + el + ' .toolbar').empty();
 			var handle = $(this).data('handle');
 			var building = civitas.BUILDINGS[civitas.BUILDINGS.findIndexM(handle)];
-			$(el + ' header .title').html(civitas.l('City Buildings') + ' - ' + building.name);
+			$(el + ' header span').empty().html(civitas.l('City Buildings') + ' - ' + building.name);
 			$(el + ' .b-desc').html(building.description);
 			var _z = '<dl class="nomg">';
 			for (var y in building.cost) {

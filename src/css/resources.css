@@ -74,28 +74,56 @@ footer .do-help {
 	background: transparent url(../images/ui/toolbar/help.png) no-repeat;
 }
 
-.panel header .btn.close {
-	background: transparent url(../images/ui/close.png) no-repeat;
+.panel header .close {
+	background: transparent url(../images/ui/icons/close.png) no-repeat;
 }
 
-.panel .footer .btn.start {
-	background: transparent url(../images/ui/icon_start_production.png) no-repeat;
+.panel footer .attack {
+	background: transparent url(../images/ui/icons/attack.png) no-repeat;
 }
 
-.panel .footer .btn.pause {
-	background: transparent url(../images/ui/icon_stop_production.png) no-repeat;
+.panel footer .spy {
+	background: transparent url(../images/ui/icons/spy.png) no-repeat;
 }
 
-.panel .footer .btn.demolish {
-	background: transparent url(../images/ui/icon_demolish.png) no-repeat;
+.panel footer .ceasefire {
+	background: transparent url(../images/ui/icons/sign.png) no-repeat;
 }
 
-.panel .footer .btn.resources {
-	background: transparent url(../images/ui/icon_resources.png) no-repeat;
+.panel footer .caravan {
+	background: transparent url(../images/ui/icons/caravan.png) no-repeat;
 }
 
-.panel .footer .btn.upgrade {
-	background: transparent url(../images/ui/icon_upgrade.png) no-repeat;
+.panel footer .join {
+	background: transparent url(../images/ui/icons/home.png) no-repeat;
+}
+
+.panel footer .alliance {
+	background: transparent url(../images/ui/icons/alliance.png) no-repeat;
+}
+
+.panel footer .pact {
+	background: transparent url(../images/ui/icons/pact.png) no-repeat;
+}
+
+.panel footer .start {
+	background: transparent url(../images/ui/icons/start.png) no-repeat;
+}
+
+.panel footer .pause {
+	background: transparent url(../images/ui/icons/stop.png) no-repeat;
+}
+
+.panel footer .demolish {
+	background: transparent url(../images/ui/icons/demolish.png) no-repeat;
+}
+
+.panel footer .war {
+	background: transparent url(../images/ui/icons/war.png) no-repeat;
+}
+
+.panel footer .upgrade {
+	background: transparent url(../images/ui/icons/upgrade.png) no-repeat;
 }
 
 .panel .worldmap .army {
@@ -175,11 +203,11 @@ footer .do-help {
 }
 
 #window-options .save-slots li span.load {
-	background: transparent url(../images/ui/icon_back.png) no-repeat center;
+	background: transparent url(../images/ui/icons/back.png) no-repeat center;
 }
 
 #window-options .save-slots li span.save {
-	background: transparent url(../images/ui/icon_start_production.png) no-repeat center;
+	background: transparent url(../images/ui/icons/start.png) no-repeat center;
 }
 
 #window-options .save-slots li span.delete {

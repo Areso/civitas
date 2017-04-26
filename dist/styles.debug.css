@@ -263,7 +263,7 @@ header .top-panel span {
 	cursor: move;
 }
 
-.ui .panel .contents,
+.ui .panel section,
 .ui .panel .toolbar {
 	font-size: 12px;
 }
@@ -272,6 +272,7 @@ header .top-panel span {
 	border-top: 1px solid #ccc;
 	padding-top: 10px;
 	margin-top: 10px;
+	clear: both;
 }
 
 .panel .toolbar {
@@ -299,13 +300,13 @@ header .top-panel span {
 	margin-right: 4px;
 }
 
-.panel .contents .buildings.left {
+.panel section .buildings.left {
 	width: 510px;
 	float: left;
 	position: relative;
 }
 
-.panel .contents .buildings-info.right {
+.panel section .buildings-info.right {
 	display: none;
 	float: left;
 	width: 310px;
@@ -326,7 +327,7 @@ header .top-panel span {
 	margin: 0 0 10px 0;
 }
 
-.panel header .btn {
+.panel header a {
 	width: 24px;
 	height: 24px;
 	display: block;
@@ -335,7 +336,7 @@ header .top-panel span {
 	margin-left: 8px;
 }
 
-.panel .footer .btn {
+.panel footer a {
 	width: 46px;
 	height: 46px;
 	display: block;
@@ -351,12 +352,12 @@ header .top-panel span {
 	border-collapse: separate;
 }
 
-.ui .panel .contents dl,
+.ui .panel section dl,
 #window-options dl {
 	margin: 10px auto;
 }
 
-.ui .panel .contents dt,
+.ui .panel section dt,
 #window-options dt {
 	float: left;
 	text-align: right;
@@ -365,13 +366,13 @@ header .top-panel span {
 	margin-bottom: 5px;
 }
 
-#panel-council .contents dd,
-#panel-camp .contents dd,
-#panel-shipyard .contents dd {
+#panel-council section dd,
+#panel-camp section dd,
+#panel-shipyard section dd {
 	width: auto;
 }
 
-.ui .panel .contents dd,
+.ui .panel section dd,
 #window-options dd {
 	margin-left: 50%;
 	line-height: 20px;
@@ -1876,7 +1877,7 @@ table tr td:last-child a:hover,
 	box-shadow: 0 0 5px #000;
 }
 
-.modal .header {
+.modal header {
 	background-color: #694224;
 	background-image: -webkit-gradient(linear, left top, left bottom, from(#9b6b46), to(#694224));
 	background-image: -webkit-linear-gradient(top, #9b6b46, #694224);
@@ -1889,7 +1890,7 @@ table tr td:last-child a:hover,
 	text-transform: uppercase;
 }
 
-.modal .content {
+.modal section {
 	background-color: #fff;
 	border-bottom: 1px solid #bfbfbf;
 	min-height: 50px;
@@ -1897,7 +1898,7 @@ table tr td:last-child a:hover,
 	text-align: left;
 }
 
-.modal .footer {
+.modal footer {
 	background-color: #efefef;
 	padding: 10px;
 }
@@ -1990,28 +1991,56 @@ footer .do-help {
 	background: transparent url(../images/ui/toolbar/help.png) no-repeat;
 }
 
-.panel header .btn.close {
-	background: transparent url(../images/ui/close.png) no-repeat;
+.panel header .close {
+	background: transparent url(../images/ui/icons/close.png) no-repeat;
 }
 
-.panel .footer .btn.start {
-	background: transparent url(../images/ui/icon_start_production.png) no-repeat;
+.panel footer .attack {
+	background: transparent url(../images/ui/icons/attack.png) no-repeat;
 }
 
-.panel .footer .btn.pause {
-	background: transparent url(../images/ui/icon_stop_production.png) no-repeat;
+.panel footer .spy {
+	background: transparent url(../images/ui/icons/spy.png) no-repeat;
 }
 
-.panel .footer .btn.demolish {
-	background: transparent url(../images/ui/icon_demolish.png) no-repeat;
+.panel footer .ceasefire {
+	background: transparent url(../images/ui/icons/sign.png) no-repeat;
 }
 
-.panel .footer .btn.resources {
-	background: transparent url(../images/ui/icon_resources.png) no-repeat;
+.panel footer .caravan {
+	background: transparent url(../images/ui/icons/caravan.png) no-repeat;
 }
 
-.panel .footer .btn.upgrade {
-	background: transparent url(../images/ui/icon_upgrade.png) no-repeat;
+.panel footer .join {
+	background: transparent url(../images/ui/icons/home.png) no-repeat;
+}
+
+.panel footer .alliance {
+	background: transparent url(../images/ui/icons/alliance.png) no-repeat;
+}
+
+.panel footer .pact {
+	background: transparent url(../images/ui/icons/pact.png) no-repeat;
+}
+
+.panel footer .start {
+	background: transparent url(../images/ui/icons/start.png) no-repeat;
+}
+
+.panel footer .pause {
+	background: transparent url(../images/ui/icons/stop.png) no-repeat;
+}
+
+.panel footer .demolish {
+	background: transparent url(../images/ui/icons/demolish.png) no-repeat;
+}
+
+.panel footer .war {
+	background: transparent url(../images/ui/icons/war.png) no-repeat;
+}
+
+.panel footer .upgrade {
+	background: transparent url(../images/ui/icons/upgrade.png) no-repeat;
 }
 
 .panel .worldmap .army {
@@ -2091,11 +2120,11 @@ footer .do-help {
 }
 
 #window-options .save-slots li span.load {
-	background: transparent url(../images/ui/icon_back.png) no-repeat center;
+	background: transparent url(../images/ui/icons/back.png) no-repeat center;
 }
 
 #window-options .save-slots li span.save {
-	background: transparent url(../images/ui/icon_start_production.png) no-repeat center;
+	background: transparent url(../images/ui/icons/start.png) no-repeat center;
 }
 
 #window-options .save-slots li span.delete {

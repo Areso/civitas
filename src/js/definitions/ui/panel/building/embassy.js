@@ -4,20 +4,18 @@
  * @type {Object}
  */
 civitas.PANEL_EMBASSY = {
-	template: civitas.ui.building_panel_template('embassy', civitas.l('Embassy')),
+	template: civitas.ui.building_panel_template(),
 	id: 'embassy',
 	on_show: function(params) {
 		var self = this;
-		this.params_data = params.data;
 		var core = this.get_core();
 		var settlement = core.get_settlement();
 		var settlements = core.get_settlements();
 		var status = settlement.status();
 		var building = core.get_settlement().get_building(this.params_data.handle);
 		var level = building.get_level();
-		$(this.handle + ' .contents').append(civitas.ui.tabs([civitas.l('Info'), civitas.l('Diplomacy'), civitas.l('Espionage')]));
+		$(this.handle + ' section').append(civitas.ui.tabs([civitas.l('Info'), civitas.l('Diplomacy'), civitas.l('Espionage')]));
 		$(this.handle + ' #tab-diplomacy').empty().append('<div class="settlements-list"></div>');
-		this.on_refresh();
 		$(this.handle).on('click', '.view', function () {
 			var _settlement_id = parseInt($(this).data('id'));
 			var _settlement = core.get_settlement(_settlement_id);

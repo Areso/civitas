@@ -30,6 +30,14 @@ civitas.controls.panel = function (params) {
 	this.id = null;
 
 	/**
+	 * Data passed to this panel.
+	 *
+	 * @private
+	 * @type {Object}
+	 */
+	this.params_data = null;
+
+	/**
 	 * Localized title of the panel.
 	 * 
 	 * @type {String}
@@ -102,6 +110,7 @@ civitas.controls.panel = function (params) {
 		this.core = params.core;
 		this.id = params.id;
 		this.handle = '#panel-' + this.id;
+		this.params_data = params.data;
 		if (params.on_show instanceof Function) {
 			this.on_show = params.on_show;
 		} else {
@@ -121,20 +130,20 @@ civitas.controls.panel = function (params) {
 			this.destroy();
 		}
 		this.get_core().console_log('creating panel with id `' + this.id + '`');
-		if (params.on_template instanceof Function) {
-			$('.ui').append(params.on_template.call(this, params));
-		} else {
-			$('.ui').append(params.template);
+		$('.ui').append(params.template.replace(/{ID}/g, params.id));
+		if (typeof this.params_data !== 'undefined' && typeof this.params_data.name !== 'undefined' && typeof this.params_data.name !== 'function') {
+			$(this.handle + ' header').append(this.params_data.name);
 		}
 		this.on_show.call(this, params);
+		this.on_refresh.call(this, params);
 		if (typeof params.data !== 'undefined') {
 			var building = this.get_core().get_settlement().get_building(params.data.handle);
 			if (building !== false) {
 				if (!building.is_upgradable()) {
-					$(this.handle + ' .footer .upgrade').remove();
+					$(this.handle + ' footer .upgrade').remove();
 				}
 				if (building.is_marketplace()) {
-					$(this.handle + ' .footer .demolish').remove();
+					$(this.handle + ' footer .demolish').remove();
 				}
 				if (building.is_production_building()) {
 					if (!building.is_stopped()) {
@@ -151,7 +160,7 @@ civitas.controls.panel = function (params) {
 							if (button === 'yes') {
 								if (building.upgrade()) {
 									if (!building.is_upgradable()) {
-										$(self.handle + ' .footer .upgrade').remove();
+										$(self.handle + ' footer .upgrade').remove();
 									}
 								}
 							}

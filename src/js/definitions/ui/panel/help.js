@@ -4,22 +4,14 @@
  * @type {Object}
  */
 civitas.PANEL_HELP = {
-	template: '' +
-		'<div id="panel-help" class="panel">' +
-			'<header>' +
-				'<span class="title"></span>' +
-				'<a class="tips btn close" title="' + civitas.l('Close this panel') + '"></a>' +
-			'</header>' +
-			'<div class="contents">' +
-			'</div>' +
-		'</div>',
+	template: civitas.ui.generic_panel_template(),
 	id: 'help',
 	on_show: function(params) {
 		var self = this;
 		var core = this.get_core();
 		var settlement = core.get_settlement();
-		$(this.handle + ' .contents').append(civitas.ui.tabs([civitas.l('About'), civitas.l('Buildings'), civitas.l('Settlements'), civitas.l('Religion'), civitas.l('Research'), civitas.l('Cheats')]));
-		$(this.handle + ' header .title').html(civitas.l('Help'));
+		$(this.handle + ' section').append(civitas.ui.tabs([civitas.l('About'), civitas.l('Buildings'), civitas.l('Settlements'), civitas.l('Religion'), civitas.l('Research'), civitas.l('Cheats')]));
+		$(this.handle + ' header').append(civitas.l('Help'));
 		$(this.handle + ' #tab-buildings').empty().append(
 			'<fieldset>' +
 				'<legend>Table of Contents</legend>' +

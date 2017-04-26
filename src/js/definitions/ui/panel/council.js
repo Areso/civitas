@@ -4,19 +4,11 @@
  * @type {Object}
  */
 civitas.PANEL_COUNCIL = {
-	template: '' +
-		'<div id="panel-council" class="panel">' +
-			'<header>' +
-				'<span class="title">' + civitas.l('City Council') + '</span>' +
-				'<a class="tips btn close" title="' + civitas.l('Close this panel') + '"></a>' +
-			'</header>' +
-			'<div class="contents"></div>' +
-		'</div>',
+	template: civitas.ui.generic_panel_template(civitas.l('City Council')),
 	id: 'council',
 	on_show: function(params) {
 		var core = this.get_core();
-		$(this.handle + ' .contents').append(civitas.ui.tabs([civitas.l('Info'), civitas.l('Tips'), civitas.l('Production'), civitas.l('Housing'), civitas.l('Municipal'), civitas.l('Mercenary'), civitas.l('Achievements')]));
-		this.on_refresh();
+		$(this.handle + ' section').append(civitas.ui.tabs([civitas.l('Info'), civitas.l('Tips'), civitas.l('Production'), civitas.l('Housing'), civitas.l('Municipal'), civitas.l('Mercenary'), civitas.l('Achievements')]));
 		$(this.handle).on('click', '.view-merc', function () {
 			var _army = parseInt($(this).data('id'));
 			var data = civitas.MERCENARIES[_army];
@@ -99,7 +91,7 @@ civitas.PANEL_COUNCIL = {
 		$(this.handle + ' #tab-mercenary').empty().append(_t);
 		_t = '<div class="achievements-list">';
 		for (var i = 0; i < civitas.ACHIEVEMENTS.length; i++) {
-			var has_ach = core.has_achievement(civitas.ACHIEVEMENTS[i]);
+			var has_ach = core.has_achievement(i);
 			_t += '<div class="achievement' + (has_ach !== false ? ' has' : '') + '">' +
 				'<div class="left">' +
 					'<div class="ach img"></div>' +

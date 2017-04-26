@@ -32,7 +32,7 @@ civitas.SETTLEMENTS = {
 			espionage: 400
 		},
 		trades: {
-			'imports': {
+			imports: {
 				gold: civitas.IMPORTANCE_MEDIUM,
 				milk: civitas.IMPORTANCE_HIGH,
 				goldores: civitas.IMPORTANCE_HIGH,
@@ -48,7 +48,7 @@ civitas.SETTLEMENTS = {
 				fish: civitas.IMPORTANCE_MEDIUM,
 				catapults: civitas.IMPORTANCE_MEDIUM
 			},
-			'exports': {
+			exports: {
 				hemp: civitas.IMPORTANCE_VITAL,
 				indigo: civitas.IMPORTANCE_HIGH,
 				armor: civitas.IMPORTANCE_MEDIUM,
@@ -60,19 +60,19 @@ civitas.SETTLEMENTS = {
 			}
 		},
 		army: {
-			'Militia': 40,
-			'Axeman': 30,
-			'Knight': 10,
-			'Bowman': 20,
-			'Crossbowman': 10,
-			'Pikeman': 30
+			militia: 40,
+			axeman: 30,
+			knight: 10,
+			bowman: 20,
+			crossbowman: 10,
+			pikeman: 30
 		},
 		navy: {
-			'Corsair': 4,
-			'Caravel': 2,
-			'Galleon': 2,
-			'Warship': 6,
-			'Ship of the Line': 1
+			corsair: 4,
+			caravel: 2,
+			galleon: 2,
+			warship: 6,
+			shipoftheline: 1
 		},
 		location: {
 			x: 380,
@@ -90,7 +90,7 @@ civitas.SETTLEMENTS = {
 			espionage: 1000
 		},
 		trades: {
-			'imports': {
+			imports: {
 				wax: civitas.IMPORTANCE_HIGH,
 				pottery: civitas.IMPORTANCE_HIGH,
 				sugar: civitas.IMPORTANCE_VITAL,
@@ -105,7 +105,7 @@ civitas.SETTLEMENTS = {
 				pearls: civitas.IMPORTANCE_LOW,
 				salt: civitas.IMPORTANCE_HIGH
 			},
-			'exports': {
+			exports: {
 				leather: civitas.IMPORTANCE_MEDIUM,
 				indigo: civitas.IMPORTANCE_LOW,
 				flour: civitas.IMPORTANCE_VITAL,
@@ -120,19 +120,19 @@ civitas.SETTLEMENTS = {
 			}
 		},
 		navy: {
-			'Corsair': 6,
-			'Caravel': 4,
-			'Galleon': 2,
-			'Warship': 3,
-			'Ship of the Line': 4
+			corsair: 6,
+			caravel: 4,
+			galleon: 2,
+			warship: 3,
+			shipoftheline: 4
 		},
 		army: {
-			'Militia': 40,
-			'Axeman': 50,
-			'Knight': 10,
-			'Bowman': 50,
-			'Crossbowman': 50,
-			'Pikeman': 40
+			militia: 40,
+			axeman: 50,
+			knight: 10,
+			bowman: 50,
+			crossbowman: 50,
+			pikeman: 40
 		},
 		navy: {
 
@@ -153,7 +153,7 @@ civitas.SETTLEMENTS = {
 			espionage: 800
 		},
 		trades: {
-			'imports': {
+			imports: {
 				wheat: civitas.IMPORTANCE_VITAL,
 				wood: civitas.IMPORTANCE_HIGH,
 				barrels: civitas.IMPORTANCE_MEDIUM,
@@ -167,7 +167,7 @@ civitas.SETTLEMENTS = {
 				sugarcane: civitas.IMPORTANCE_LOW,
 				clay: civitas.IMPORTANCE_VITAL
 			},
-			'exports': {
+			exports: {
 				herbs: civitas.IMPORTANCE_HIGH,
 				silver: civitas.IMPORTANCE_VITAL,
 				sugarcane: civitas.IMPORTANCE_HIGH,
@@ -179,10 +179,10 @@ civitas.SETTLEMENTS = {
 			}
 		},
 		army: {
-			'Militia': 1210,
-			'Axeman': 520,
-			'Crossbowman': 320,
-			'Pikeman': 300
+			militia: 1210,
+			axeman: 520,
+			crossbowman: 320,
+			pikeman: 300
 		},
 		location: {
 			x: 240,
@@ -200,7 +200,7 @@ civitas.SETTLEMENTS = {
 			espionage: 300
 		},
 		trades: {
-			'imports': {
+			imports: {
 				flour: civitas.IMPORTANCE_HIGH,
 				milk: civitas.IMPORTANCE_VITAL,
 				brass: civitas.IMPORTANCE_HIGH,
@@ -213,7 +213,7 @@ civitas.SETTLEMENTS = {
 				cattle: civitas.IMPORTANCE_MEDIUM,
 				wheat: civitas.IMPORTANCE_VITAL
 			},
-			'exports': {
+			exports: {
 				meat: civitas.IMPORTANCE_VITAL,
 				clothes: civitas.IMPORTANCE_VITAL,
 				fish: civitas.IMPORTANCE_HIGH,
@@ -227,11 +227,11 @@ civitas.SETTLEMENTS = {
 			}
 		},
 		army: {
-			'Militia': 90,
-			'Axeman': 70,
-			'Bowman': 50,
-			'Crossbowman': 30,
-			'Pikeman': 90
+			militia: 90,
+			axeman: 70,
+			bowman: 50,
+			crossbowman: 30,
+			pikeman: 90
 		},
 		location: {
 			x: 890,
@@ -249,7 +249,7 @@ civitas.SETTLEMENTS = {
 			espionage: 900
 		},
 		trades: {
-			'imports': {
+			imports: {
 				barrels: civitas.IMPORTANCE_HIGH,
 				books: civitas.IMPORTANCE_LOW,
 				paper: civitas.IMPORTANCE_LOW,
@@ -262,7 +262,7 @@ civitas.SETTLEMENTS = {
 				woodplanks: civitas.IMPORTANCE_HIGH,
 				indigo: civitas.IMPORTANCE_HIGH
 			},
-			'exports': {
+			exports: {
 				coal: civitas.IMPORTANCE_VITAL,
 				ironores: civitas.IMPORTANCE_LOW,
 				copper: civitas.IMPORTANCE_MEDIUM,
@@ -276,12 +276,12 @@ civitas.SETTLEMENTS = {
 			}
 		},
 		army: {
-			'Militia': 40,
-			'Axeman': 120,
-			'Knight': 10,
-			'Bowman': 120,
-			'Crossbowman': 30,
-			'Pikeman': 50
+			militia: 40,
+			axeman: 120,
+			knight: 10,
+			bowman: 120,
+			crossbowman: 30,
+			pikeman: 50
 		},
 		location: {
 			x: 830,
@@ -299,7 +299,7 @@ civitas.SETTLEMENTS = {
 			espionage: 500
 		},
 		trades: {
-			'imports': {
+			imports: {
 				meat: civitas.IMPORTANCE_HIGH,
 				milk: civitas.IMPORTANCE_LOW,
 				weapons: civitas.IMPORTANCE_VITAL,
@@ -312,7 +312,7 @@ civitas.SETTLEMENTS = {
 				iron: civitas.IMPORTANCE_VITAL,
 				ironores: civitas.IMPORTANCE_VITAL
 			},
-			'exports': {
+			exports: {
 				brine: civitas.IMPORTANCE_MEDIUM,
 				clothes: civitas.IMPORTANCE_HIGH,
 				glass: civitas.IMPORTANCE_HIGH,
@@ -324,8 +324,8 @@ civitas.SETTLEMENTS = {
 			}
 		},
 		army: {
-			'Militia': 200,
-			'Bowman': 200,
+			militia: 200,
+			bowman: 200,
 		},
 		location: {
 			x: 690,
@@ -338,12 +338,12 @@ civitas.SETTLEMENTS = {
 		religion: civitas.RELIGION_CHRISTIANITY,
 		level: 22,
 		resources: {
-			coins: 1300000,
+			coins: 6300000,
 			prestige: 780,
 			espionage: 400
 		},
 		trades: {
-			'imports': {
+			imports: {
 				silk: civitas.IMPORTANCE_LOW,
 				clothes: civitas.IMPORTANCE_HIGH,
 				leather: civitas.IMPORTANCE_HIGH,
@@ -355,7 +355,7 @@ civitas.SETTLEMENTS = {
 				pottery: civitas.IMPORTANCE_HIGH,
 				meat: civitas.IMPORTANCE_MEDIUM
 			},
-			'exports': {
+			exports: {
 				ropes: civitas.IMPORTANCE_MEDIUM,
 				gold: civitas.IMPORTANCE_LOW,
 				iron: civitas.IMPORTANCE_VITAL,
@@ -369,12 +369,12 @@ civitas.SETTLEMENTS = {
 			}
 		},
 		army: {
-			'Militia': 40,
-			'Axeman': 30,
-			'Knight': 10,
-			'Bowman': 20,
-			'Crossbowman': 10,
-			'Pikeman': 30
+			militia: 40,
+			axeman: 30,
+			knight: 10,
+			bowman: 20,
+			crossbowman: 10,
+			pikeman: 30
 		},
 		location: {
 			x: 300,
@@ -392,7 +392,7 @@ civitas.SETTLEMENTS = {
 			espionage: 850
 		},
 		trades: {
-			'imports': {
+			imports: {
 				furs: civitas.IMPORTANCE_HIGH,
 				goldores: civitas.IMPORTANCE_HIGH,
 				gold: civitas.IMPORTANCE_VITAL,
@@ -404,7 +404,7 @@ civitas.SETTLEMENTS = {
 				fish: civitas.IMPORTANCE_VITAL,
 				furcoats: civitas.IMPORTANCE_VITAL
 			},
-			'exports': {
+			exports: {
 				herbs: civitas.IMPORTANCE_VITAL,
 				statues: civitas.IMPORTANCE_VITAL,
 				camels: civitas.IMPORTANCE_HIGH,
@@ -416,12 +416,12 @@ civitas.SETTLEMENTS = {
 			}
 		},
 		army: {
-			'Militia': 40,
-			'Axeman': 30,
-			'Knight': 10,
-			'Bowman': 20,
-			'Crossbowman': 10,
-			'Pikeman': 30
+			militia: 40,
+			axeman: 30,
+			knight: 10,
+			bowman: 20,
+			crossbowman: 10,
+			pikeman: 30
 		},
 		location: {
 			x: 700,
@@ -439,7 +439,7 @@ civitas.SETTLEMENTS = {
 			espionage: 900
 		},
 		trades: {
-			'imports': {
+			imports: {
 				perfume: civitas.IMPORTANCE_MEDIUM,
 				coffee: civitas.IMPORTANCE_LOW,
 				cider: civitas.IMPORTANCE_HIGH,
@@ -452,7 +452,7 @@ civitas.SETTLEMENTS = {
 				woodplanks: civitas.IMPORTANCE_HIGH,
 				silk: civitas.IMPORTANCE_MEDIUM
 			},
-			'exports': {
+			exports: {
 				statues: civitas.IMPORTANCE_VITAL,
 				barrels: civitas.IMPORTANCE_MEDIUM,
 				brine: civitas.IMPORTANCE_LOW,
@@ -470,12 +470,12 @@ civitas.SETTLEMENTS = {
 			}
 		},
 		army: {
-			'Militia': 40,
-			'Axeman': 320,
-			'Knight': 10,
-			'Bowman': 220,
-			'Crossbowman': 210,
-			'Pikeman': 90
+			militia: 40,
+			axeman: 320,
+			knight: 10,
+			bowman: 220,
+			crossbowman: 210,
+			pikeman: 90
 		},
 		location: {
 			x: 920,
@@ -493,7 +493,7 @@ civitas.SETTLEMENTS = {
 			espionage: 500
 		},
 		trades: {
-			'imports': {
+			imports: {
 				flour: civitas.IMPORTANCE_LOW,
 				bread: civitas.IMPORTANCE_HIGH,
 				fibers: civitas.IMPORTANCE_HIGH,
@@ -506,7 +506,7 @@ civitas.SETTLEMENTS = {
 				clay: civitas.IMPORTANCE_MEDIUM,
 				coal: civitas.IMPORTANCE_VITAL
 			},
-			'exports': {
+			exports: {
 				wood: civitas.IMPORTANCE_LOW,
 				meat: civitas.IMPORTANCE_HIGH,
 				jewelery: civitas.IMPORTANCE_HIGH,
@@ -517,12 +517,12 @@ civitas.SETTLEMENTS = {
 			}
 		},
 		army: {
-			'Militia': 90,
-			'Axeman': 90,
-			'Knight': 1,
-			'Bowman': 20,
-			'Crossbowman': 20,
-			'Pikeman': 30
+			militia: 90,
+			axeman: 90,
+			knight: 1,
+			bowman: 20,
+			crossbowman: 20,
+			pikeman: 30
 		},
 		location: {
 			x: 900,
@@ -540,7 +540,7 @@ civitas.SETTLEMENTS = {
 			espionage: 450
 		},
 		trades: {
-			'imports': {
+			imports: {
 				furs: civitas.IMPORTANCE_LOW,
 				bread: civitas.IMPORTANCE_VITAL,
 				hides: civitas.IMPORTANCE_MEDIUM,
@@ -553,7 +553,7 @@ civitas.SETTLEMENTS = {
 				furcoats: civitas.IMPORTANCE_HIGH,
 				leather: civitas.IMPORTANCE_LOW
 			},
-			'exports': {
+			exports: {
 				spyglasses: civitas.IMPORTANCE_VITAL,
 				wax: civitas.IMPORTANCE_LOW,
 				bottles: civitas.IMPORTANCE_HIGH,
@@ -566,18 +566,18 @@ civitas.SETTLEMENTS = {
 			}
 		},
 		army: {
-			'Militia': 40,
-			'Axeman': 30,
-			'Knight': 10,
-			'Bowman': 20,
-			'Crossbowman': 10,
-			'Pikeman': 30
+			militia: 40,
+			axeman: 30,
+			knight: 10,
+			bowman: 20,
+			crossbowman: 10,
+			pikeman: 30
 		},
 		navy: {
-			'Corsair': 2,
-			'Caravel': 2,
-			'Galleon': 2,
-			'Warship': 2
+			corsair: 2,
+			caravel: 2,
+			galleon: 2,
+			warship: 2
 		},
 		location: {
 			x: 144,
@@ -595,7 +595,7 @@ civitas.SETTLEMENTS = {
 			espionage: 300
 		},
 		trades: {
-			'imports': {
+			imports: {
 				cider: civitas.IMPORTANCE_LOW,
 				ropes: civitas.IMPORTANCE_LOW,
 				armor: civitas.IMPORTANCE_HIGH,
@@ -607,7 +607,7 @@ civitas.SETTLEMENTS = {
 				woodplanks: civitas.IMPORTANCE_MEDIUM,
 				stones: civitas.IMPORTANCE_VITAL
 			},
-			'exports': {
+			exports: {
 				almonds: civitas.IMPORTANCE_LOW,
 				roses: civitas.IMPORTANCE_HIGH,
 				grapes: civitas.IMPORTANCE_LOW,
@@ -620,12 +620,12 @@ civitas.SETTLEMENTS = {
 			}
 		},
 		army: {
-			'Militia': 40,
-			'Axeman': 30,
-			'Knight': 10,
-			'Bowman': 20,
-			'Crossbowman': 10,
-			'Pikeman': 30
+			militia: 40,
+			axeman: 30,
+			knight: 10,
+			bowman: 20,
+			crossbowman: 10,
+			pikeman: 30
 		},
 		location: {
 			x: 300,
@@ -643,7 +643,7 @@ civitas.SETTLEMENTS = {
 			espionage: 450
 		},
 		trades: {
-			'imports': {
+			imports: {
 				meat: civitas.IMPORTANCE_LOW,
 				milk: civitas.IMPORTANCE_LOW,
 				copper: civitas.IMPORTANCE_VITAL,
@@ -657,7 +657,7 @@ civitas.SETTLEMENTS = {
 				iron: civitas.IMPORTANCE_VITAL,
 				ironores: civitas.IMPORTANCE_HIGH
 			},
-			'exports': {
+			exports: {
 				brine: civitas.IMPORTANCE_MEDIUM,
 				clothes: civitas.IMPORTANCE_LOW,
 				armor: civitas.IMPORTANCE_HIGH,
@@ -670,8 +670,8 @@ civitas.SETTLEMENTS = {
 			}
 		},
 		army: {
-			'Militia': 120,
-			'Bowman': 32,
+			militia: 120,
+			bowman: 32,
 		},
 		location: {
 			x: 700,
@@ -689,7 +689,7 @@ civitas.SETTLEMENTS = {
 			espionage: 580
 		},
 		trades: {
-			'imports': {
+			imports: {
 				meat: civitas.IMPORTANCE_LOW,
 				milk: civitas.IMPORTANCE_LOW,
 				weapons: civitas.IMPORTANCE_LOW,
@@ -700,7 +700,7 @@ civitas.SETTLEMENTS = {
 				iron: civitas.IMPORTANCE_VITAL,
 				ironores: civitas.IMPORTANCE_VITAL
 			},
-			'exports': {
+			exports: {
 				brine: civitas.IMPORTANCE_MEDIUM,
 				clothes: civitas.IMPORTANCE_LOW,
 				glass: civitas.IMPORTANCE_HIGH,
@@ -712,12 +712,12 @@ civitas.SETTLEMENTS = {
 			}
 		},
 		army: {
-			'Militia': 40,
-			'Axeman': 30,
-			'Knight': 10,
-			'Bowman': 20,
-			'Crossbowman': 10,
-			'Pikeman': 30
+			militia: 40,
+			axeman: 30,
+			knight: 10,
+			bowman: 20,
+			crossbowman: 10,
+			pikeman: 30
 		},
 		location: {
 			x: 680,
@@ -735,7 +735,7 @@ civitas.SETTLEMENTS = {
 			espionage: 200
 		},
 		trades: {
-			'imports': {
+			imports: {
 				meat: civitas.IMPORTANCE_LOW,
 				iron: civitas.IMPORTANCE_HIGH,
 				brass: civitas.IMPORTANCE_LOW,
@@ -750,7 +750,7 @@ civitas.SETTLEMENTS = {
 				woodplanks: civitas.IMPORTANCE_HIGH,
 				ironores: civitas.IMPORTANCE_HIGH
 			},
-			'exports': {
+			exports: {
 				wine: civitas.IMPORTANCE_HIGH,
 				silk: civitas.IMPORTANCE_LOW,
 				wood: civitas.IMPORTANCE_MEDIUM,
@@ -762,12 +762,12 @@ civitas.SETTLEMENTS = {
 			}
 		},
 		army: {
-			'Militia': 40,
-			'Axeman': 30,
-			'Knight': 10,
-			'Bowman': 20,
-			'Crossbowman': 10,
-			'Pikeman': 30
+			militia: 40,
+			axeman: 30,
+			knight: 10,
+			bowman: 20,
+			crossbowman: 10,
+			pikeman: 30
 		},
 		location: {
 			x: 180,
@@ -785,7 +785,7 @@ civitas.SETTLEMENTS = {
 			espionage: 500
 		},
 		trades: {
-			'imports': {
+			imports: {
 				furs: civitas.IMPORTANCE_LOW,
 				hides: civitas.IMPORTANCE_VITAL,
 				milk: civitas.IMPORTANCE_MEDIUM,
@@ -799,7 +799,7 @@ civitas.SETTLEMENTS = {
 				catapults: civitas.IMPORTANCE_MEDIUM,
 				clay: civitas.IMPORTANCE_LOW
 			},
-			'exports': {
+			exports: {
 				silver: civitas.IMPORTANCE_VITAL,
 				wax: civitas.IMPORTANCE_MEDIUM,
 				candles: civitas.IMPORTANCE_LOW,
@@ -811,12 +811,12 @@ civitas.SETTLEMENTS = {
 			}
 		},
 		army: {
-			'Militia': 40,
-			'Axeman': 30,
-			'Knight': 10,
-			'Bowman': 20,
-			'Crossbowman': 10,
-			'Pikeman': 30
+			militia: 40,
+			axeman: 30,
+			knight: 10,
+			bowman: 20,
+			crossbowman: 10,
+			pikeman: 30
 		},
 		location: {
 			x: 400,
@@ -834,7 +834,7 @@ civitas.SETTLEMENTS = {
 			espionage: 500
 		},
 		trades: {
-			'imports': {
+			imports: {
 				wheat: civitas.IMPORTANCE_VITAL,
 				mosaic: civitas.IMPORTANCE_MEDIUM,
 				wood: civitas.IMPORTANCE_HIGH,
@@ -844,7 +844,7 @@ civitas.SETTLEMENTS = {
 				sugarcane: civitas.IMPORTANCE_LOW,
 				clay: civitas.IMPORTANCE_VITAL
 			},
-			'exports': {
+			exports: {
 				silver: civitas.IMPORTANCE_VITAL,
 				glasses: civitas.IMPORTANCE_LOW,
 				tools: civitas.IMPORTANCE_HIGH,
@@ -857,12 +857,12 @@ civitas.SETTLEMENTS = {
 			}
 		},
 		army: {
-			'Militia': 40,
-			'Axeman': 30,
-			'Knight': 10,
-			'Bowman': 20,
-			'Crossbowman': 10,
-			'Pikeman': 30
+			militia: 40,
+			axeman: 30,
+			knight: 10,
+			bowman: 20,
+			crossbowman: 10,
+			pikeman: 30
 		},
 		location: {
 			x: 130,
@@ -880,7 +880,7 @@ civitas.SETTLEMENTS = {
 			espionage: 800
 		},
 		trades: {
-			'imports': {
+			imports: {
 				salt: civitas.IMPORTANCE_MEDIUM,
 				stones: civitas.IMPORTANCE_VITAL,
 				armor: civitas.IMPORTANCE_MEDIUM,
@@ -891,7 +891,7 @@ civitas.SETTLEMENTS = {
 				pottery: civitas.IMPORTANCE_HIGH,
 				pearls: civitas.IMPORTANCE_LOW
 			},
-			'exports': {
+			exports: {
 				donkeys: civitas.IMPORTANCE_VITAL,
 				sulphur: civitas.IMPORTANCE_VITAL,
 				silk: civitas.IMPORTANCE_MEDIUM,
@@ -905,11 +905,11 @@ civitas.SETTLEMENTS = {
 			}
 		},
 		army: {
-			'Militia': 80,
-			'Axeman': 40,
-			'Bowman': 10,
-			'Crossbowman': 30,
-			'Pikeman': 10
+			militia: 80,
+			axeman: 40,
+			bowman: 10,
+			crossbowman: 30,
+			pikeman: 10
 		},
 		location: {
 			x: 600,
@@ -927,7 +927,7 @@ civitas.SETTLEMENTS = {
 			espionage: 700
 		},
 		trades: {
-			'imports': {
+			imports: {
 				gold: civitas.IMPORTANCE_LOW,
 				goldores: civitas.IMPORTANCE_HIGH,
 				weapons: civitas.IMPORTANCE_LOW,
@@ -939,7 +939,7 @@ civitas.SETTLEMENTS = {
 				gems: civitas.IMPORTANCE_LOW,
 				pearls: civitas.IMPORTANCE_LOW
 			},
-			'exports': {
+			exports: {
 				donkeys: civitas.IMPORTANCE_VITAL,
 				sulphur: civitas.IMPORTANCE_VITAL,
 				silk: civitas.IMPORTANCE_MEDIUM,
@@ -954,12 +954,12 @@ civitas.SETTLEMENTS = {
 			}
 		},
 		army: {
-			'Militia': 40,
-			'Axeman': 30,
-			'Knight': 10,
-			'Bowman': 20,
-			'Crossbowman': 10,
-			'Pikeman': 30
+			militia: 40,
+			axeman: 30,
+			knight: 10,
+			bowman: 20,
+			crossbowman: 10,
+			pikeman: 30
 		},
 		location: {
 			x: 800,
@@ -977,7 +977,7 @@ civitas.SETTLEMENTS = {
 			espionage: 200
 		},
 		trades: {
-			'imports': {
+			imports: {
 				gold: civitas.IMPORTANCE_HIGH,
 				goldores: civitas.IMPORTANCE_MEDIUM,
 				fibers: civitas.IMPORTANCE_HIGH,
@@ -991,7 +991,7 @@ civitas.SETTLEMENTS = {
 				clay: civitas.IMPORTANCE_HIGH,
 				pearls: civitas.IMPORTANCE_LOW
 			},
-			'exports': {
+			exports: {
 				donkeys: civitas.IMPORTANCE_VITAL,
 				sulphur: civitas.IMPORTANCE_VITAL,
 				silk: civitas.IMPORTANCE_MEDIUM,
@@ -1007,12 +1007,12 @@ civitas.SETTLEMENTS = {
 			}
 		},
 		army: {
-			'Militia': 20,
-			'Axeman': 20,
-			'Knight': 20,
-			'Bowman': 20,
-			'Crossbowman': 20,
-			'Pikeman': 20
+			militia: 20,
+			axeman: 20,
+			knight: 20,
+			bowman: 20,
+			crossbowman: 20,
+			pikeman: 20
 		},
 		location: {
 			x: 30,
@@ -1036,8 +1036,8 @@ civitas.SETTLEMENTS = {
 		},
 		population: 1290,
 		army: {
-			'Militia': 3,
-			'Bowman': 3
+			militia: 3,
+			bowman: 3
 		}
 	},
 	22: {
@@ -1057,8 +1057,8 @@ civitas.SETTLEMENTS = {
 			y: 100
 		},
 		army: {
-			'Militia': 3,
-			'Bowman': 2
+			militia: 3,
+			bowman: 2
 		}
 	},
 	23: {
@@ -1078,8 +1078,8 @@ civitas.SETTLEMENTS = {
 			y: 300
 		},
 		army: {
-			'Militia': 3,
-			'Bowman': 2
+			militia: 3,
+			bowman: 2
 		}
 	},
 	24: {
@@ -1099,8 +1099,8 @@ civitas.SETTLEMENTS = {
 			y: 70
 		},
 		army: {
-			'Militia': 3,
-			'Bowman': 2
+			militia: 3,
+			bowman: 2
 		}
 	},
 	25: {
@@ -1120,8 +1120,8 @@ civitas.SETTLEMENTS = {
 			y: 560
 		},
 		army: {
-			'Militia': 3,
-			'Bowman': 2
+			militia: 3,
+			bowman: 2
 		}
 	},
 	26: {
@@ -1143,7 +1143,7 @@ civitas.SETTLEMENTS = {
 			y: 400
 		},
 		army: {
-			'Militia': 6
+			militia: 6
 		}
 	}
 };

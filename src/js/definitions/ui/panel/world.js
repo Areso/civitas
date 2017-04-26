@@ -4,23 +4,14 @@
  * @type {Object}
  */
 civitas.PANEL_WORLD = {
-	template: '' +
-		'<div id="panel-world" class="panel">' +
-			'<header>' +
-				'<span class="title">' + civitas.l('World Map') + '</span>' +
-				'<a class="tips btn close" title="' + civitas.l('Close this panel') + '"></a>' +
-			'</header>' +
-			'<div class="contents">' +
-				'<div class="worldmap"></div>' +
-			'</div>' +
-		'</div>',
+	template: civitas.ui.generic_panel_template(civitas.l('World Map')),
 	id: 'world',
 	on_show: function(params) {
 		var self = this;
 		var core = this.get_core();
 		var map = core.get_worldmap();
+		$(this.handle + ' section').append('<div class="worldmap"></div>');
 		$(this.handle + ' .worldmap').addClass('w' + map);
-		this.on_refresh();
 		$(this.handle).on('click', '.settlement', function () {
 			var _settlement_name = $(this).data('name');
 			if (_settlement_name === 'yoursettlement') {
@@ -78,6 +69,6 @@ civitas.PANEL_WORLD = {
 				out += '<div data-id="' + i + '" class="tips messenger" title="Diplomatic mission from ' + _source.name() + ' to ' + _destination.name() + '" style="left:' + x + 'px;top:' + y + 'px"></div>';
 			}
 		}
-		$(this.handle + ' .contents .worldmap').empty().append(out);
+		$(this.handle + ' section .worldmap').empty().append(out);
 	}
 };

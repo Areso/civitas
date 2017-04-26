@@ -5,12 +5,11 @@
  */
 civitas.PANEL_NEW_CARAVAN = {
 	template: '' +
-		'<div id="panel-new-caravan" class="panel">' +
-			'<header>' +
-				'<span class="title">' + civitas.l('Create caravan') + '</span>' +
-				'<a class="tips btn close" title="' + civitas.l('Close this panel') + '"></a>' +
+		'<div id="panel-{ID}" class="panel">' +
+			'<header>' + civitas.l('Create caravan') +
+				'<a class="tips close" title="' + civitas.l('Close') + '"></a>' +
 			'</header>' +
-			'<div class="contents"></div>' +
+			'<section></section>' +
 			'<div class="toolbar">' +
 				'<a class="btn dispatch" href="#">' + civitas.l('Dispatch') + '</a>' +
 			'</div>' +
@@ -67,7 +66,7 @@ civitas.PANEL_NEW_CARAVAN = {
 			'<input title="' + civitas.l('Amount of selected resource to add to the caravan.') + '" type="number" value="1" class="tips caravan-resources-amount" min="1" max="999" />' +
 			'<div class="caravan-resources clearfix"></div>' +
 		'</fieldset>';
-		$(this.handle + ' .contents').empty().append(_t);
+		$(this.handle + ' section').empty().append(_t);
 		this.generate_table_data = function() {
 			var _t = '<table class="caravan-resources clearfix">' +
 				'<thead>' +

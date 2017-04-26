@@ -5,334 +5,334 @@
  * @type {Object}
  */
 civitas.RESOURCES = {
-	'coins': {
+	coins: {
 		name: 'Coins'
 	},
-	'fame': {
+	fame: {
 		name: 'Fame'
 	},
-	'prestige': {
+	prestige: {
 		name: 'Prestige'
 	},
-	'espionage': {
+	espionage: {
 		name: 'Espionage'
 	},
-	'research': {
+	research: {
 		name: 'Research'
 	},
-	'faith': {
+	faith: {
 		name: 'Faith'
 	},
-	'almonds': {
+	almonds: {
 		name: 'Almonds',
 		price: 180
 	},
-	'armor': {
+	armor: {
 		name: 'Armor',
 		price: 220
 	},
-	'barrels': {
+	barrels: {
 		name: 'Barrels',
 		price: 60
 	},
-	'beer': {
+	beer: {
 		name: 'Beer',
 		price: 30
 	},
-	'books': {
+	books: {
 		name: 'Books',
 		price: 100
 	},
-	'bottles': {
+	bottles: {
 		name: 'Bottles',
 		price: 10,
 		imported: true
 	},
-	'bread': {
+	bread: {
 		name: 'Bread',
 		price: 30
 	},
-	'brine': {
+	brine: {
 		name: 'Brine',
 		price: 10
 	},
-	'brass': {
+	brass: {
 		name: 'Brass',
 		price: 60
 	},
-	'camels': {
+	camels: {
 		name: 'Camels',
 		price: 110,
 		imported: true
 	},
-	'candles': {
+	candles: {
 		name: 'Candles',
 		price: 100
 	},
-	'candlesticks': {
+	candlesticks: {
 		name: 'Candlesticks',
 		price: 170
 	},
-	'cannons': {
+	cannons: {
 		name: 'Cannons',
 		price: 700
 	},
-	'carpets': {
+	carpets: {
 		name: 'Carpets',
 		price: 400,
 		imported: true
 	},
-	'catapults': {
+	catapults: {
 		name: 'Catapults',
 		price: 1200
 	},
-	'cattle': {
+	cattle: {
 		name: 'Cattle',
 		price: 43
 	},
-	'cider': {
+	cider: {
 		name: 'Cider',
 		price: 45
 	},
-	'clay': {
+	clay: {
 		name: 'Clay',
 		price: 20
 	},
-	'clothes': {
+	clothes: {
 		name: 'Clothes',
 		price: 104
 	},
-	'coal': {
+	coal: {
 		name: 'Coal',
 		price: 36
 	},
-	'coffee': {
+	coffee: {
 		name: 'Coffee',
 		price: 300
 	},
-	'coffeebeans': {
+	coffeebeans: {
 		name: 'Coffee Beans',
 		price: 220
 	},
-	'copper': {
+	copper: {
 		name: 'Copper',
 		price: 43
 	},
-	'dates': {
+	dates: {
 		name: 'Dates',
 		price: 160,
 		imported: true
 	},
-	'donkeys': {
+	donkeys: {
 		name: 'Donkeys',
 		price: 90,
 		imported: true
 	},
-	'fibers': {
+	fibers: {
 		name: 'Fibers',
 		price: 80
 	},
-	'fish': {
+	fish: {
 		name: 'Fish',
 		price: 16
 	},
-	'flour': {
+	flour: {
 		name: 'Flour',
 		price: 40
 	},
-	'furcoats': {
+	furcoats: {
 		name: 'Fur coats',
 		price: 122
 	},
-	'furs': {
+	furs: {
 		name: 'Furs',
 		price: 78
 	},
-	'gems': {
+	gems: {
 		name: 'Gems',
 		price: 460
 	},
-	'glass': {
+	glass: {
 		name: 'Glass',
 		price: 86
 	},
-	'glasses': {
+	glasses: {
 		name: 'Glasses',
 		price: 140
 	},
-	'gold': {
+	gold: {
 		name: 'Gold',
 		price: 260
 	},
-	'goldores': {
+	goldores: {
 		name: 'Gold ores',
 		price: 80
 	},
-	'grapes': {
+	grapes: {
 		name: 'Grapes',
 		price: 35
 	},
-	'gunpowder': {
+	gunpowder: {
 		name: 'Gunpowder',
 		price: 420
 	},
-	'hemp': {
+	hemp: {
 		name: 'Hemp',
 		price: 46
 	},
-	'herbs': {
+	herbs: {
 		name: 'Herbs',
 		price: 18
 	},
-	'hides': {
+	hides: {
 		name: 'Hides',
 		price: 25
 	},
-	'indigo': {
+	indigo: {
 		name: 'Indigo',
 		price: 80
 	},
-	'iron': {
+	iron: {
 		name: 'Iron',
 		price: 82
 	},
-	'ironores': {
+	ironores: {
 		name: 'Iron ores',
 		price: 42
 	},
-	'jewelery': {
+	jewelery: {
 		name: 'Jewelery',
 		price: 900
 	},
-	'leather': {
+	leather: {
 		name: 'Leather',
 		price: 60
 	},
-	'marzipan': {
+	marzipan: {
 		name: 'Marzipan',
 		price: 150
 	},
-	'meat': {
+	meat: {
 		name: 'Meat',
 		price: 30
 	},
-	'milk': {
+	milk: {
 		name: 'Milk',
 		price: 30
 	},
-	'mosaic': {
+	mosaic: {
 		name: 'Mosaic',
 		price: 200
 	},
-	'oil': {
+	oil: {
 		name: 'Oil',
 		price: 370,
 		imported: true
 	},
-	'paper': {
+	paper: {
 		name: 'Paper',
 		price: 70
 	},
-	'pearls': {
+	pearls: {
 		name: 'Pearls',
 		price: 450
 	},
-	'perfume': {
+	perfume: {
 		name: 'Perfume',
 		price: 305
 	},
-	'pottery': {
+	pottery: {
 		name: 'Pottery',
 		price: 55
 	},
-	'provisions': {
+	provisions: {
 		name: 'Provisions',
 		price: 300
 	},
-	'quartz': {
+	quartz: {
 		name: 'Quartz',
 		price: 18
 	},
-	'robes': {
+	robes: {
 		name: 'Robes',
 		price: 400
 	},
-	'ropes': {
+	ropes: {
 		name: 'Ropes',
 		price: 42
 	},
-	'roses': {
+	roses: {
 		name: 'Roses',
 		price: 70
 	},
-	'salt': {
+	salt: {
 		name: 'Salt',
 		price: 20
 	},
-	'silk': {
+	silk: {
 		name: 'Silk',
 		price: 320
 	},
-	'silver': {
+	silver: {
 		name: 'Silver',
 		price: 300,
 		imported: true
 	},
-	'spices': {
+	spices: {
 		name: 'Spices',
 		price: 285
 	},
-	'spyglasses': {
+	spyglasses: {
 		name: 'Spyglasses',
 		price: 280,
 		imported: true
 	},
-	'statues': {
+	statues: {
 		name: 'Statues',
 		price: 1200,
 		imported: true
 	},
-	'stones': {
+	stones: {
 		name: 'Stones',
 		price: 16
 	},
-	'sugar': {
+	sugar: {
 		name: 'Sugar',
 		price: 145
 	},
-	'sugarcane': {
+	sugarcane: {
 		name: 'Sugarcane',
 		price: 120
 	},
-	'sulphur': {
+	sulphur: {
 		name: 'Sulphur',
 		price: 180
 	},
-	'tools': {
+	tools: {
 		name: 'Tools',
 		price: 35
 	},
-	'wax': {
+	wax: {
 		name: 'Wax',
 		price: 40
 	},
-	'weapons': {
+	weapons: {
 		name: 'Weapons',
 		price: 220
 	},
-	'wheat': {
+	wheat: {
 		name: 'Wheat',
 		price: 25
 	},
-	'wine': {
+	wine: {
 		name: 'Wine',
 		price: 95
 	},
-	'wood': {
+	wood: {
 		name: 'Wood',
 		price: 17
 	},
-	'woodplanks': {
+	woodplanks: {
 		name: 'Wood Planks',
 		price: 40
 	}

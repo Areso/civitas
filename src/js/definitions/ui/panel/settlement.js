@@ -5,22 +5,21 @@
  */
 civitas.PANEL_SETTLEMENT = {
 	template: '' +
-		'<div id="panel-settlement" class="panel">' +
+		'<div id="panel-{ID}" class="panel">' +
 			'<header>' +
-				'<span class="title"></span>' +
-				'<a class="tips btn close" title="' + civitas.l('Close this panel') + '"></a>' +
+				'<a class="tips close" title="' + civitas.l('Close') + '"></a>' +
 			'</header>' +
-			'<div class="contents"></div>' +
-			'<div class="toolbar clearfix">' +
-				'<a class="tips attack btn iblock" title="' + civitas.l('Attack this settlement.') + '" href="#">' + civitas.l('Attack') + '</a>' +
-				'<a class="tips caravan btn iblock" title="' + civitas.l('Send a caravan to this settlement.') + '" href="#">' + civitas.l('Caravan') + '</a>' +
-				'<a class="tips spy btn iblock" title="' + civitas.l('Send a spy to this settlement.') + '" href="#">' + civitas.l('Spy') + '</a>' +
-				'<a class="tips alliance btn iblock" title="' + civitas.l('Propose an alliance to this settlement.') + '" href="#">' + civitas.l('Alliance') + '</a>' +
-				'<a class="tips pact btn iblock" title="' + civitas.l('Propose a pact to this settlement.') + '" href="#">' + civitas.l('Pact') + '</a>' +
-				'<a class="tips ceasefire btn iblock" title="' + civitas.l('Propose a cease fire to this settlement.') + '" href="#">' + civitas.l('Cease fire') + '</a>' +
-				'<a class="tips join btn iblock" title="' + civitas.l('Ask this settlement to join your city.') + '" href="#">' + civitas.l('Join') + '</a>' +
-				'<a class="tips war btn iblock" title="' + civitas.l('Declare war to this settlement.') + '" href="#">' + civitas.l('War') + '</a>' +
-			'</div>' +
+			'<section></section>' +
+			'<footer>' +
+				'<a class="tips attack" title="' + civitas.l('Attack this settlement.') + '" href="#"></a>' +
+				'<a class="tips caravan" title="' + civitas.l('Send a caravan to this settlement.') + '" href="#"></a>' +
+				'<a class="tips spy" title="' + civitas.l('Send a spy to this settlement.') + '" href="#"></a>' +
+				'<a class="tips alliance" title="' + civitas.l('Propose an alliance to this settlement.') + '" href="#"></a>' +
+				'<a class="tips pact" title="' + civitas.l('Propose a pact to this settlement.') + '" href="#"></a>' +
+				'<a class="tips ceasefire" title="' + civitas.l('Propose a cease fire to this settlement.') + '" href="#"></a>' +
+				'<a class="tips join" title="' + civitas.l('Ask this settlement to join your city.') + '" href="#"></a>' +
+				'<a class="tips war" title="' + civitas.l('Declare war to this settlement.') + '" href="#"></a>' +
+			'</footer>' +
 		'</div>',
 	params_data: null,
 	id: 'settlement',
@@ -33,13 +32,12 @@ civitas.PANEL_SETTLEMENT = {
 		this.params_data = params;
 		var trades = settlement.get_trades();
 		var location = civitas['SETTLEMENT_LOCATION_' + my_settlement.climate().name.toUpperCase()];
-		$(this.handle + ' header .title').html((settlement.is_city() ? civitas.l('City of') + ' ' : civitas.l('Village of') + ' ') + settlement.name());
+		$(this.handle + ' header').append((settlement.is_city() ? civitas.l('City of') + ' ' : civitas.l('Village of') + ' ') + settlement.name());
 		if (settlement.is_city()) {
-			$(this.handle + ' .contents').append(civitas.ui.tabs([civitas.l('Info'), civitas.l('Army'), civitas.l('Navy'), civitas.l('Resources'), civitas.l('Imports'), civitas.l('Exports')]));
+			$(this.handle + ' section').append(civitas.ui.tabs([civitas.l('Info'), civitas.l('Army'), civitas.l('Navy'), civitas.l('Resources'), civitas.l('Imports'), civitas.l('Exports')]));
 		} else {
-			$(this.handle + ' .contents').append(civitas.ui.tabs([civitas.l('Info'), civitas.l('Army'), civitas.l('Navy'), civitas.l('Resources')]));
+			$(this.handle + ' section').append(civitas.ui.tabs([civitas.l('Info'), civitas.l('Army'), civitas.l('Navy'), civitas.l('Resources')]));
 		}
-		this.on_refresh();
 		$(this.handle).on('click', '.alliance', function () {
 			if (!my_settlement.can_diplomacy()) {
 				core.error(civitas.l('You will need to construct an Embassy before being able to propose an alliance to other settlements.'));
@@ -174,30 +172,32 @@ civitas.PANEL_SETTLEMENT = {
 			$(this.handle + ' .btn.attack, ' + this.handle + ' .btn.spy').show();
 		}
 		$(this.handle + ' #tab-resources').empty().append(out);
-		if (_status.id === civitas.DIPLOMACY_PACT && settlement_type === civitas.CITY) {
-			$(this.handle + ' .btn.alliance').show();
-		} else {
-			$(this.handle + ' .btn.alliance').hide();
-		}
-		if (_status.id === civitas.DIPLOMACY_TRUCE || _status.id === civitas.DIPLOMACY_CEASE_FIRE) {
-			$(this.handle + ' .btn.pact').show();
-		} else {
-			$(this.handle + ' .btn.pact').hide();
-		}
-		if (_status.id === civitas.DIPLOMACY_WAR) {
-			$(this.handle + ' .btn.ceasefire').show();
-		} else {
-			$(this.handle + ' .btn.ceasefire').hide();
-		}
-		if (_status.id !== civitas.DIPLOMACY_WAR && _status.id !== civitas.DIPLOMACY_VASSAL) {
-			$(this.handle + ' .btn.war').show();
-		} else {
-			$(this.handle + ' .btn.war').hide();
-		}
-		if (_status.id === civitas.DIPLOMACY_PACT && settlement_type === civitas.VILLAGE) {
-			$(this.handle + ' .btn.join').show();
-		} else {
-			$(this.handle + ' .btn.join').hide();
+		if (my_settlement.can_diplomacy()) {
+			if (_status.id === civitas.DIPLOMACY_PACT && settlement_type === civitas.CITY) {
+				$(this.handle + ' footer .alliance').show();
+			} else {
+				$(this.handle + ' footer .alliance').hide();
+			}
+			if (_status.id === civitas.DIPLOMACY_TRUCE || _status.id === civitas.DIPLOMACY_CEASE_FIRE) {
+				$(this.handle + ' footer .pact').show();
+			} else {
+				$(this.handle + ' footer .pact').hide();
+			}
+			if (_status.id === civitas.DIPLOMACY_WAR) {
+				$(this.handle + ' footer .ceasefire').show();
+			} else {
+				$(this.handle + ' footer .ceasefire').hide();
+			}
+			if (_status.id !== civitas.DIPLOMACY_WAR && _status.id !== civitas.DIPLOMACY_VASSAL) {
+				$(this.handle + ' footer .war').show();
+			} else {
+				$(this.handle + ' footer .war').hide();
+			}
+			if (_status.id === civitas.DIPLOMACY_PACT && settlement_type === civitas.VILLAGE) {
+				$(this.handle + ' footer .join').show();
+			} else {
+				$(this.handle + ' footer .join').hide();
+			}
 		}
 	}
 };

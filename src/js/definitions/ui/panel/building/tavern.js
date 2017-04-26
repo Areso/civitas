@@ -4,12 +4,10 @@
  * @type {Object}
  */
 civitas.PANEL_TAVERN = {
-	template: civitas.ui.building_panel_template('tavern', civitas.l('Tavern')),
+	template: civitas.ui.building_panel_template(),
 	id: 'tavern',
 	on_show: function(params) {
-		this.params_data = params.data;
-		$(this.handle + ' .contents').append(civitas.ui.tabs([civitas.l('Info'), civitas.l('Heroes')]));
-		this.on_refresh();
+		$(this.handle + ' section').append(civitas.ui.tabs([civitas.l('Info'), civitas.l('Heroes')]));
 	},
 	on_refresh: function() {
 		var core = this.get_core();

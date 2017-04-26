@@ -4,19 +4,10 @@
  * @type {Object}
  */
 civitas.PANEL_RANKS = {
-	template: '' +
-		'<div id="panel-ranks" class="panel">' +
-			'<header>' +
-				'<span class="title">' + civitas.l('World Ranks') + '</span>' +
-				'<a class="tips btn close" title="' + civitas.l('Close this panel') + '"></a>' +
-			'</header>' +
-			'<div class="contents">' +
-				'<div class="ranks-list"></div>' +
-			'</div>' +
-		'</div>',
+	template: civitas.ui.generic_panel_template(civitas.l('World Rankings')),
 	id: 'ranks',
 	on_show: function(params) {
-		this.on_refresh();
+		$(this.handle + ' section').append('<div class="ranks-list"></div>');
 	},
 	on_refresh: function() {
 		var ranking_list = [];

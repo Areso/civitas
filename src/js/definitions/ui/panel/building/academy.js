@@ -4,12 +4,10 @@
  * @type {Object}
  */
 civitas.PANEL_ACADEMY = {
-	template: civitas.ui.building_panel_template('academy', civitas.l('Academy')),
+	template: civitas.ui.building_panel_template(),
 	id: 'academy',
 	on_show: function(params) {
-		this.params_data = params.data;
-		$(this.handle + ' .contents').append(civitas.ui.tabs([civitas.l('Info'), civitas.l('Research')]));
-		this.on_refresh();
+		$(this.handle + ' section').append(civitas.ui.tabs([civitas.l('Info'), civitas.l('Research')]));
 	},
 	on_refresh: function() {
 		var core = this.get_core();

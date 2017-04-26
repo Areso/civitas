@@ -5,12 +5,11 @@
  */
 civitas.PANEL_NEW_SPY = {
 	template: '' +
-		'<div id="panel-new-spy" class="panel">' +
-			'<header>' +
-				'<span class="title">' + civitas.l('Create spy') + '</span>' +
-				'<a class="tips btn close" title="' + civitas.l('Close this panel') + '"></a>' +
+		'<div id="panel-{ID}" class="panel">' +
+			'<header>' + civitas.l('Create spy') +
+				'<a class="tips close" title="' + civitas.l('Close') + '"></a>' +
 			'</header>' +
-			'<div class="contents"></div>' +
+			'<section></section>' +
 			'<div class="toolbar">' +
 				'<a class="btn dispatch" href="#">' + civitas.l('Dispatch') + '</a>' +
 			'</div>' +
@@ -75,7 +74,7 @@ civitas.PANEL_NEW_SPY = {
 		_t += '</select>' +
 		'<p><strong>' + civitas.l('Note') + '!</strong> ' + civitas.l('Attempting to change a settlement`s religion uses up all your accumulated faith.') + '</p>' +
 		'</fieldset>';
-		$(this.handle + ' .contents').empty().append(_t);
+		$(this.handle + ' section').empty().append(_t);
 		$(this.handle).on('change', '.espionage-range', function() {
 			var value = parseInt($(this).val());
 			$(self.handle + ' .espionage-value').val(value);

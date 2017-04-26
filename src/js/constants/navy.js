@@ -5,7 +5,8 @@
  * @constant
  */
 civitas.SHIPS = {
-	'Corsair': {
+	corsair: {
+		name: 'Corsair',
 		attack: 5,
 		defense: 5,
 		cost: {
@@ -21,7 +22,8 @@ civitas.SHIPS = {
 			gunpowder: 2
 		}
 	},
-	'Caravel': {
+	caravel: {
+		name: 'Caravel',
 		attack: 10,
 		defense: 10,
 		cost: {
@@ -38,7 +40,8 @@ civitas.SHIPS = {
 			weapons: 10
 		}
 	},
-	'Frigate': {
+	frigate: {
+		name: 'Frigate',
 		attack: 17,
 		defense: 8,
 		cost: {
@@ -55,7 +58,8 @@ civitas.SHIPS = {
 			weapons: 10
 		}
 	},
-	'Galleon': {
+	galleon: {
+		name: 'Galleon',
 		attack: 15,
 		defense: 15,
 		cost: {
@@ -72,7 +76,8 @@ civitas.SHIPS = {
 			weapons: 15
 		}
 	},
-	'Warship': {
+	warship: {
+		name: 'Warship',
 		attack: 35,
 		defense: 30,
 		cost: {
@@ -90,7 +95,8 @@ civitas.SHIPS = {
 			carpets: 10
 		}
 	},
-	'Ship of the Line': {
+	shipoftheline: {
+		name: 'Ship of the Line',
 		attack: 55,
 		defense: 50,
 		cost: {

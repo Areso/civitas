@@ -4,14 +4,7 @@
  * @type {Object}
  */
 civitas.PANEL_CAMPAIGN = {
-	template: '' +
-		'<div id="panel-campaign" class="panel">' +
-			'<header>' +
-				'<span class="title"></span>' +
-				'<a class="tips btn close" title="' + civitas.l('Close this panel') + '"></a>' +
-			'</header>' +
-			'<div class="contents"></div>' +
-		'</div>',
+	template: civitas.ui.generic_panel_template(),
 	params_data: null,
 	id: 'campaign',
 	on_show: function(params) {
@@ -28,15 +21,14 @@ civitas.PANEL_CAMPAIGN = {
 		} else if (campaign.type === civitas.CAMPAIGN_SPY) {
 			class_name = 'spy';
 		}
-		$(this.handle + ' .title').empty().html(class_name.capitalize() + ' ' + civitas.l('mission'));
+		$(this.handle + ' header').append(class_name.capitalize() + ' ' + civitas.l('mission'));
 		if (campaign.type === civitas.CAMPAIGN_ARMY) {
-			$(this.handle + ' .contents').append(civitas.ui.tabs([civitas.l('Info'), civitas.l('Army'), civitas.l('Navy'), civitas.l('War Machines')]));
+			$(this.handle + ' section').append(civitas.ui.tabs([civitas.l('Info'), civitas.l('Army'), civitas.l('Navy'), civitas.l('War Machines')]));
 		} else if (campaign.type === civitas.CAMPAIGN_CARAVAN) {
-			$(this.handle + ' .contents').append(civitas.ui.tabs([civitas.l('Info'), civitas.l('Resources')]));
+			$(this.handle + ' section').append(civitas.ui.tabs([civitas.l('Info'), civitas.l('Resources')]));
 		} else if (campaign.type === civitas.CAMPAIGN_SPY) {
-			$(this.handle + ' .contents').append(civitas.ui.tabs([civitas.l('Info'), civitas.l('Spy')]));
+			$(this.handle + ' section').append(civitas.ui.tabs([civitas.l('Info'), civitas.l('Spy')]));
 		}
-		this.on_refresh();
 	},
 	on_refresh: function() {
 		var self = this;

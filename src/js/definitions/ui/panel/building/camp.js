@@ -4,13 +4,12 @@
  * @type {Object}
  */
 civitas.PANEL_CAMP = {
-	template: civitas.ui.building_panel_template('camp', civitas.l('Military Camp')),
+	template: civitas.ui.building_panel_template(),
 	id: 'camp',
 	on_show: function(params) {
 		var self = this;
-		this.params_data = params.data;
 		var core = this.get_core();
-		$(this.handle + ' .contents').append(civitas.ui.tabs([civitas.l('Info'), civitas.l('Army')]));
+		$(this.handle + ' section').append(civitas.ui.tabs([civitas.l('Info'), civitas.l('Army')]));
 		var _t = '<div class="army-list">' +
 				'</div>' +
 				'<div class="army-recruiter">';
@@ -30,12 +29,11 @@ civitas.PANEL_CAMP = {
 						'<dt>Defense</dt><dd>' + civitas.SOLDIERS[item].defense + '</dd>' +
 					'</dl>' +
 				'</div>' +
-				'<img data-handle="' + item + '" title="' + civitas.l('Recruit') + ' ' + item + '" class="tips recruit-soldier" src="' + civitas.ASSETS_URL + 'images/armies/' + item.toLowerCase() + '.png" />' +
+				'<img data-handle="' + item + '" title="' + civitas.l('Recruit') + ' ' + item.name + '" class="tips recruit-soldier" src="' + civitas.ASSETS_URL + 'images/armies/' + item.toLowerCase() + '.png" />' +
 			'</fieldset>';
 		}
 		_t += '</div>';
 		$(this.handle + ' #tab-army').empty().append(_t);
-		this.on_refresh();
 		$(this.handle).on('click', '.recruit-soldier', function () {
 			var soldier = $(this).data('handle');
 			if (core.get_settlement().recruit_soldier(soldier)) {

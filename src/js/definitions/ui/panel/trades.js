@@ -4,14 +4,7 @@
  * @type {Object}
  */
 civitas.PANEL_TRADES = {
-	template: '' +
-		'<div id="panel-trades" class="panel">' +
-			'<header>' +
-				'<span class="title">' + civitas.l('World Market') + '</span>' +
-				'<a class="tips btn close" title="' + civitas.l('Close this panel') + '"></a>' +
-			'</header>' +
-			'<div class="contents"></div>' +
-		'</div>',
+	template: civitas.ui.generic_panel_template(civitas.l('World Market')),
 	id: 'trades',
 	on_show: function(params) {
 		var self = this;
@@ -20,7 +13,7 @@ civitas.PANEL_TRADES = {
 		var el = this.handle;
 		var _t = '';
 		_t += civitas.ui.tabs([civitas.l('Export'), civitas.l('Import'), civitas.l('Mercenaries'), civitas.l('BlackMarket'), civitas.l('Prices')]);
-		$(el + ' .contents').append(_t);
+		$(el + ' section').append(_t);
 		$(el + ' #tab-import').append('<p>' + civitas.l('Below is a list of goods that the other cities in the world are looking to sell. The goods replenish every six months, so plan accordingly. You will need to build a Trading Post before being able to sell goods.') + '</p><div class="contents"></div>');
 		$(el + ' #tab-export').append('<p>' + civitas.l('Below is a list of goods that the other cities in the world are looking to buy. The goods replenish every six months, so plan accordingly. You will need to build a Trading Post before being able to buy goods.') + '</p><div class="contents"></div>');
 		$(el + ' #tab-mercenaries').append('<p>' + civitas.l('Below is a list of mercenary armies that are looking for hire. Mercenaries are available only for raiding and conquest missions, they do not join your city so they will not participate in defense.') + '</p><div class="contents"></div>');
@@ -57,7 +50,6 @@ civitas.PANEL_TRADES = {
 			}
 		}
 		$(el + ' .bm-materials').empty().append(out);
-		this.on_refresh();
 		$(el).on('click', '.buy:not(.disabled)', function () {
 			if (!settlement.can_trade()) {
 				core.error(civitas.l('You will need to construct a Trading Post before being able to trade resources with other settlements.'));

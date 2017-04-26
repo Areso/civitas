@@ -3,17 +3,32 @@
  */
 civitas.ui = {
 
-	building_panel_template: function(id, title) {
-		var out = '<div id="panel-' + id + '" class="panel">' +
-			'<header>' +
-				'<span class="title">' + title + '</span>' +
-				'<a class="tips btn close" title="' + civitas.l('Close this panel') + '"></a>' +
+	generic_panel_template: function(title) {
+		if (typeof title === 'undefined') {
+			title = '';
+		}
+		var out = '<div id="panel-{ID}" class="panel">' +
+			'<header>' + title +
+				'<a class="tips close" title="' + civitas.l('Close') + '"></a>' +
 			'</header>' +
-			'<div class="contents"></div>' +
-			'<footer class="footer clearfix">' +
-				'<a class="tips demolish btn" title="' + civitas.l('Demolish this building') + '"></a>' +
-				'<a class="tips pause start btn" title="' + civitas.l('Control (start/pause) production') + '"></a>' +
-				'<a class="tips upgrade btn" title="' + civitas.l('Upgrade building') + '"></a>' +
+			'<section></section>' +
+		'</div>';
+		return out;
+	},
+
+	building_panel_template: function(title) {
+		if (typeof title === 'undefined') {
+			title = '';
+		}
+		var out = '<div id="panel-{ID}" class="panel">' +
+			'<header>' + title +
+				'<a class="tips close" title="' + civitas.l('Close') + '"></a>' +
+			'</header>' +
+			'<section></section>' +
+			'<footer>' +
+				'<a class="tips demolish" title="' + civitas.l('Demolish this building') + '"></a>' +
+				'<a class="tips pause start" title="' + civitas.l('Control (start/pause) production') + '"></a>' +
+				'<a class="tips upgrade" title="' + civitas.l('Upgrade building') + '"></a>' +
 			'</footer>' +
 		'</div>';
 		return out;
@@ -84,8 +99,12 @@ civitas.ui = {
 		'</div>';
 	},
 
+	navy_img: function (name) {
+		return '<img class="tips" title="' + civitas.SHIPS[name].name + '" src="' + civitas.ASSETS_URL + 'images/armies/' + name.toLowerCase().replace(/ /g,"_") + '_small.png" />';
+	},
+
 	army_img: function (name) {
-		return '<img class="tips" title="' + name + '" src="' + civitas.ASSETS_URL + 'images/armies/' + name.toLowerCase().replace(/ /g,"_") + '_small.png" />';
+		return '<img class="tips" title="' + civitas.SOLDIERS[name].name + '" src="' + civitas.ASSETS_URL + 'images/armies/' + name.toLowerCase().replace(/ /g,"_") + '_small.png" />';
 	},
 
 	army_list: function (army, no_margin) {
@@ -158,7 +177,7 @@ civitas.ui = {
 		for (var ship in army.navy) {
 			if (army.navy[ship] > 0) {
 				out += '<dt>' + army.navy[ship] + '</dt>' +
-						'<dd>' + civitas.ui.army_img(ship) + '</dd>';
+						'<dd>' + civitas.ui.navy_img(ship) + '</dd>';
 				total += army.navy[ship];
 			}
 		}

@@ -5,14 +5,13 @@
  */
 civitas.PANEL_NEW_ARMY = {
 	template: '' +
-		'<div id="panel-new-army" class="panel">' +
-			'<header>' +
-				'<span class="title">' + civitas.l('Create army') + '</span>' +
-				'<a class="tips btn close" title="' + civitas.l('Close this panel') + '"></a>' +
+		'<div id="panel-{ID}" class="panel">' +
+			'<header>' + civitas.l('Create army') +
+				'<a class="tips close" title="' + civitas.l('Close') + '"></a>' +
 			'</header>' +
-			'<div class="contents"></div>' +
+			'<section></section>' +
 			'<div class="toolbar clearfix">' +
-				'<a class="btn dispatch iblock" href="#">' + civitas.l('Dispatch') + '</a>' +
+				'<a class="dispatch btn iblock" href="#">' + civitas.l('Dispatch') + '</a>' +
 			'</div>' +
 		'</div>',
 	id: 'new-army',
@@ -122,7 +121,7 @@ civitas.PANEL_NEW_ARMY = {
 			_t += '<p><strong>' + civitas.l('Note') + '!</strong> ' + civitas.l('Build a Tavern to be able to recruit powerful heroes and assign them to your armies.') + '</p>';		
 		}
 		_t += '</div>';
-		$(this.handle + ' .contents').empty().append(_t);
+		$(this.handle + ' section').empty().append(_t);
 		this.generate_table_data = function() {
 			var _t = '<table class="army-resources clearfix">' +
 				'<thead>' +

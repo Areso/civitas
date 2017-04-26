@@ -8,35 +8,35 @@ civitas.START_ARMY = [
 	/* Easy difficulty */
 	{
 		army: {
-			'Militia': 10,
-			'Axeman': 2,
-			'Bowman': 4
+			militia: 10,
+			axeman: 2,
+			bowman: 4
 		},
 		navy: {
-			'Corsair': 2,
-			'Caravel': 1
+			corsair: 2,
+			caravel: 1
 		}
 	},
 	/* Medium difficulty */
 	{
 		army: {
-			'Militia': 5,
-			'Axeman': 1,
-			'Bowman': 2
+			militia: 5,
+			axeman: 1,
+			bowman: 2
 		},
 		navy: {
-			'Corsair': 1,
-			'Caravel': 1
+			corsair: 1,
+			caravel: 1
 		}
 	},
 	/* Hard difficulty */
 	{
 		army: {
-			'Militia': 3,
-			'Bowman': 2
+			militia: 3,
+			bowman: 2
 		},
 		navy: {
-			'Corsair': 1
+			corsair: 1
 		}
 	},
 	/* Hardcore difficulty */

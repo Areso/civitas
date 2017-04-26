@@ -4,12 +4,11 @@
  * @type {Object}
  */
 civitas.PANEL_SHIPYARD = {
-	template: civitas.ui.building_panel_template('shipyard', civitas.l('Shipyard')),
+	template: civitas.ui.building_panel_template(),
 	id: 'shipyard',
 	on_show: function(params) {
-		this.params_data = params.data;
 		var core = this.get_core();
-		$(this.handle + ' .contents').append(civitas.ui.tabs([civitas.l('Info'), civitas.l('Navy')]));
+		$(this.handle + ' section').append(civitas.ui.tabs([civitas.l('Info'), civitas.l('Navy')]));
 		var _t = '<div class="navy-list">' +
 				'</div>' +
 				'<div class="navy-recruiter">';
@@ -29,12 +28,11 @@ civitas.PANEL_SHIPYARD = {
 					'<dt>' + civitas.l('Defense') + '</dt><dd>' + civitas.SHIPS[item].defense + '</dd>' +
 					'</dl>' +
 					'</div>' +
-					'<img data-handle="' + item + '" title="' + civitas.l('Recruit') + ' ' + item + '" class="tips recruit-ship" src="' + civitas.ASSETS_URL + 'images/armies/' + item.toLowerCase().replace(/ /g,"_") + '.png" />' +
+					'<img data-handle="' + item + '" title="' + civitas.l('Recruit') + ' ' + item.name + '" class="tips recruit-ship" src="' + civitas.ASSETS_URL + 'images/armies/' + item.toLowerCase().replace(/ /g,"_") + '.png" />' +
 					'</fieldset>';
 		}
 		_t += '</div>';
 		$(this.handle + ' #tab-navy').empty().append(_t);
-		this.on_refresh();
 		$(this.handle).on('click', '.recruit-ship', function () {
 			var ship = $(this).data('handle');
 			core.error(civitas.l('Not implemented yet.'));

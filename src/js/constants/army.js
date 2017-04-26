@@ -5,7 +5,8 @@
  * @constant
  */
 civitas.SOLDIERS = {
-	'Militia': {
+	militia: {
+		name: 'Militia',
 		attack: 1,
 		defense: 1,
 		cost: {
@@ -14,7 +15,8 @@ civitas.SOLDIERS = {
 			weapons: 1
 		}
 	},
-	'Swordsman': {
+	swordsman: {
+		name: 'Swordsman',
 		attack: 3,
 		defense: 2,
 		cost: {
@@ -24,7 +26,8 @@ civitas.SOLDIERS = {
 			weapons: 2
 		}
 	},
-	'Axeman': {
+	axeman: {
+		name: 'Axeman',
 		attack: 4,
 		defense: 4,
 		cost: {
@@ -34,7 +37,8 @@ civitas.SOLDIERS = {
 			weapons: 2
 		}
 	},
-	'Bowman': {
+	bowman: {
+		name: 'Bowman',
 		attack: 6,
 		defense: 1,
 		cost: {
@@ -44,7 +48,8 @@ civitas.SOLDIERS = {
 			weapons: 4
 		}
 	},
-	'Pikeman': {
+	pikeman: {
+		name: 'Pikeman',
 		attack: 5,
 		defense: 4,
 		cost: {
@@ -56,7 +61,8 @@ civitas.SOLDIERS = {
 			armor: 1
 		}
 	},
-	'Crossbowman': {
+	crossbowman: {
+		name: 'Crossbowman',
 		attack: 7,
 		defense: 2,
 		cost: {
@@ -68,7 +74,8 @@ civitas.SOLDIERS = {
 			armor: 1
 		}
 	},
-	'Knight': {
+	knight: {
+		name: 'Knight',
 		attack: 6,
 		defense: 9,
 		cost: {
@@ -80,7 +87,8 @@ civitas.SOLDIERS = {
 			armor: 4
 		}
 	},
-	'Legionnaire': {
+	legionnaire: {
+		name: 'Legionnaire',
 		attack: 12,
 		defense: 14,
 		cost: {
@@ -92,7 +100,8 @@ civitas.SOLDIERS = {
 			armor: 12
 		}
 	},
-	'Crusader': {
+	crusader: {
+		name: 'Crusader',
 		attack: 16,
 		defense: 18,
 		cost: {
@@ -118,11 +127,11 @@ civitas.MERCENARIES = [{
 	handle: 'legio1',
 	icon: 1,
 	army: {
-		'Axeman': 300,
-		'Knight': 100,
-		'Crossbowman': 220,
-		'Pikeman': 200,
-		'Legionnaire': 100
+		axeman: 300,
+		knight: 100,
+		crossbowman: 220,
+		pikeman: 200,
+		legionnaire: 100
 	},
 	cost: 120000
 }, {
@@ -131,11 +140,11 @@ civitas.MERCENARIES = [{
 	handle: 'legio2',
 	icon: 8,
 	army: {
-		'Axeman': 220,
-		'Knight': 100,
-		'Crossbowman': 300,
-		'Pikeman': 100,
-		'Legionnaire': 100
+		axeman: 220,
+		knight: 100,
+		crossbowman: 300,
+		pikeman: 100,
+		legionnaire: 100
 	},
 	cost: 130000
 }, {
@@ -144,10 +153,10 @@ civitas.MERCENARIES = [{
 	handle: 'legio3',
 	icon: 15,
 	army: {
-		'Axeman': 280,
-		'Crossbowman': 500,
-		'Pikeman': 180,
-		'Legionnaire': 100
+		axeman: 280,
+		crossbowman: 500,
+		pikeman: 180,
+		legionnaire: 100
 	},
 	cost: 100000
 }, {
@@ -156,13 +165,13 @@ civitas.MERCENARIES = [{
 	handle: 'legio4',
 	icon: 9,
 	army: {
-		'Militia': 140,
-		'Axeman': 190,
-		'Knight': 90,
-		'Bowman': 20,
-		'Crossbowman': 100,
-		'Pikeman': 180,
-		'Legionnaire': 100
+		militia: 140,
+		axeman: 190,
+		knight: 90,
+		bowman: 20,
+		crossbowman: 100,
+		pikeman: 180,
+		legionnaire: 100
 	},
 	cost: 190000
 }, {
@@ -171,10 +180,10 @@ civitas.MERCENARIES = [{
 	handle: 'legio5',
 	icon: 16,
 	army: {
-		'Militia': 100,
-		'Axeman': 200,
-		'Bowman': 190,
-		'Legionnaire': 130
+		militia: 100,
+		axeman: 200,
+		bowman: 190,
+		legionnaire: 130
 	},
 	cost: 110000
 }, {
@@ -183,11 +192,11 @@ civitas.MERCENARIES = [{
 	handle: 'legio6',
 	icon: 22,
 	army: {
-		'Militia': 330,
-		'Axeman': 230,
-		'Knight': 100,
-		'Bowman': 100,
-		'Legionnaire': 100
+		militia: 330,
+		axeman: 230,
+		knight: 100,
+		bowman: 100,
+		legionnaire: 100
 	},
 	cost: 140000
 }, {
@@ -196,11 +205,11 @@ civitas.MERCENARIES = [{
 	handle: 'varangian',
 	icon: 18,
 	army: {
-		'Militia': 410,
-		'Axeman': 210,
-		'Bowman': 190,
-		'Crossbowman': 100,
-		'Pikeman': 220
+		militia: 410,
+		axeman: 210,
+		bowman: 190,
+		crossbowman: 100,
+		pikeman: 220
 	},
 	cost: 120000
 }, {
@@ -210,10 +219,10 @@ civitas.MERCENARIES = [{
 	handle: 'catalan',
 	icon: 23,
 	army: {
-		'Axeman': 310,
-		'Knight': 120,
-		'Bowman': 210,
-		'Pikeman': 310
+		axeman: 310,
+		knight: 120,
+		bowman: 210,
+		pikeman: 310
 	},
 	cost: 100000
 }, {
@@ -223,10 +232,10 @@ civitas.MERCENARIES = [{
 	handle: 'western',
 	icon: 27,
 	army: {
-		'Axeman': 290,
-		'Knight': 40,
-		'Bowman': 170,
-		'Pikeman': 300
+		axeman: 290,
+		knight: 40,
+		bowman: 170,
+		pikeman: 300
 	},
 	cost: 90000
 }, {
@@ -237,10 +246,10 @@ civitas.MERCENARIES = [{
 	handle: 'scholae',
 	icon: 26,
 	army: {
-		'Axeman': 10,
-		'Knight': 200,
-		'Bowman': 100,
-		'Pikeman': 210
+		axeman: 10,
+		knight: 200,
+		bowman: 100,
+		pikeman: 210
 	},
 	cost: 290000
 }, {
@@ -251,10 +260,10 @@ civitas.MERCENARIES = [{
 	handle: 'forbidden',
 	icon: 25,
 	army: {
-		'Axeman': 290,
-		'Knight': 80,
-		'Bowman': 100,
-		'Pikeman': 210
+		axeman: 290,
+		knight: 80,
+		bowman: 100,
+		pikeman: 210
 	},
 	cost: 130000
 }, {
@@ -265,10 +274,10 @@ civitas.MERCENARIES = [{
 	handle: 'maltesenavy',
 	icon: 28,
 	navy: {
-		'Corsair': 19,
-		'Caravel': 14,
-		'Warship': 12,
-		'Ship of the Line': 10
+		corsair: 19,
+		caravel: 14,
+		warship: 12,
+		shipoftheline: 10
 	},
 	cost: 1500000
 }];

@@ -1054,7 +1054,7 @@ civitas.game = function () {
 		hide.addClass('hide');
 		if (settings.mode === civitas.NOTIFY_ERROR) {
 			notty.addClass('error');
-			settings.img = civitas.ASSETS_URL + 'images/ui/icon_notification_2.png';
+			settings.img = civitas.ASSETS_URL + 'images/ui/icon_error.png';
 		} else if (settings.mode === civitas.NOTIFY_EVENT) {
 			notty.addClass('event');
 			settings.img = civitas.ASSETS_URL + 'images/ui/icon_research.png';
@@ -1062,7 +1062,7 @@ civitas.game = function () {
 			notty.addClass('achievement');
 			settings.img = civitas.ASSETS_URL + 'images/ui/icon_achievement.png';
 		} else {
-			settings.img = civitas.ASSETS_URL + 'images/ui/icon_notification_1.png';
+			settings.img = civitas.ASSETS_URL + 'images/ui/icon_notification.png';
 		}
 		image = $('<div>', {
 			style: "background: url('" + settings.img + "')"
@@ -1446,106 +1446,78 @@ civitas.game = function () {
 		var settlement = this.get_settlement();
 		for (var i = 0; i < civitas.ACHIEVEMENTS.length; i++) {
 			achievement = civitas.ACHIEVEMENTS[i];
-			for (var z = 0; z < civitas.ACHIEVEMENTS[i].conditions.length; z++) {
-				var id = civitas.ACHIEVEMENTS[i].id;
-				if (this.has_achievement(achievement) === false) {
-					condition = achievement.conditions[z];
-					if (typeof condition.settlement_level !== 'undefined') {
-						if (settlement.level() === condition.settlement_level) {
-							this.achievement(achievement);
+			if (!this.has_achievement(i)) {
+				for (var cond_item in achievement.conditions) {
+					condition = achievement.conditions[cond_item];
+					if (cond_item === 'settlement_level') {
+						if (settlement.level() === condition) {
+							this.achievement(i, achievement);
 						}
 					}
-					if (typeof condition.soldiers !== 'undefined') {
+					if (cond_item === 'soldiers') {
 						var army = settlement.get_army_total();
-						if (army.total >= condition.soldiers) {
-							this.achievement(achievement);
+						if (army.total >= condition) {
+							this.achievement(i, achievement);
 						}
 					}
-					if (typeof condition.ships !== 'undefined') {
+					if (cond_item === 'ships') {
 						var navy = settlement.get_navy_total();
-						if (navy.total >= condition.ships) {
-							this.achievement(achievement);
+						if (navy.total >= condition) {
+							this.achievement(i, achievement);
 						}
 					}
-					if (typeof condition.coins !== 'undefined') {
-						if (settlement.coins() >= condition.coins) {
-							this.achievement(achievement);
+					if (cond_item === 'population') {
+						if (settlement.population() >= condition) {
+							this.achievement(i, achievement);
 						}
 					}
-					if (typeof condition.research !== 'undefined') {
-						if (settlement.research() >= condition.research) {
-							this.achievement(achievement);
-						}
-					}
-					if (typeof condition.faith !== 'undefined') {
-						if (settlement.faith() >= condition.faith) {
-							this.achievement(achievement);
-						}
-					}
-					if (typeof condition.population !== 'undefined') {
-						if (settlement.population() >= condition.population) {
-							this.achievement(achievement);
-						}
-					}
-					if (typeof condition.prestige !== 'undefined') {
-						if (settlement.prestige() >= condition.prestige) {
-							this.achievement(achievement);
-						}
-					}
-					if (typeof condition.espionage !== 'undefined') {
-						if (settlement.espionage() >= condition.espionage) {
-							this.achievement(achievement);
-						}
-					}
-					if (typeof condition.buildings !== 'undefined') {
-						for (var item in condition.buildings) {
+					if (cond_item === 'buildings') {
+						for (var item in condition) {
 							var good = true;
-							if (!settlement.is_building_built(item, condition.buildings[item])) {
+							if (!settlement.is_building_built(item, condition[item])) {
 								good = false;
 								break;
 							}
 						}
 						if (good === true) {
-							this.achievement(achievement);
+							this.achievement(i, achievement);
 						}
 					}
-					if (typeof condition.resources !== 'undefined') {
+					if (cond_item === 'resources') {
 						var good = true;
-						for (var s = 0; s < condition.resources.length; s++) {
-							for (var item in condition.resources[s]) {
-								var amount = settlement.resources[item];
-								if (amount < condition.resources[s][item]) {
-									good = false;
-									break;
-								}
+						for (var item in condition) {
+							var amount = settlement.resources[item];
+							if (amount < condition[item]) {
+								good = false;
+								break;
 							}
 						}
 						if (good === true) {
-							this.achievement(achievement);
+							this.achievement(i, achievement);
 						}
 					}
-					if (typeof condition.storage !== 'undefined') {
-						if (condition.storage === 0) {
+					if (cond_item === 'storage') {
+						if (condition === 0) {
 							if (!settlement.has_storage_space()) {
-								this.achievement(achievement);
+								this.achievement(i, achievement);
 							}
 						}
 					}
-					if (typeof condition.achievements !== 'undefined') {
-						if (condition.achievements === this.achievements.length) {
-							this.achievement(achievement);
+					if (cond_item === 'achievements') {
+						if (condition === this.achievements.length) {
+							this.achievement(i, achievement);
 						}
 					}
-					if (typeof condition.mercenary !== 'undefined') {
+					if (cond_item === 'mercenary') {
 						var merc = settlement.mercenary();
-						if (merc.length >= condition.mercenary) {
-							this.achievement(achievement);
+						if (merc.length >= condition) {
+							this.achievement(i, achievement);
 						}
 					}
-					if (typeof condition.diplomacy !== 'undefined') {
+					if (cond_item === 'diplomacy') {
 						var queue_actions = this.get_queue();
 						for (var m = 0; m < queue_actions.length; m++) {
-							for (var item in condition.diplomacy) {
+							for (var item in condition) {
 								if ((item === 'spy' && queue_actions[m].mode === civitas.ACTION_CAMPAIGN && queue_actions[m].type === civitas.CAMPAIGN_SPY) ||
 									(item === 'caravan' && queue_actions[m].mode === civitas.ACTION_CAMPAIGN && queue_actions[m].type === civitas.CAMPAIGN_CARAVAN) ||
 									(item === 'army' && queue_actions[m].mode === civitas.ACTION_CAMPAIGN && queue_actions[m].type === civitas.CAMPAIGN_ARMY) ||
@@ -1554,7 +1526,7 @@ civitas.game = function () {
 									(item === 'alliance' && queue_actions[m].mode === civitas.ACTION_DIPLOMACY && queue_actions[m].type === civitas.DIPLOMACY_ALLIANCE) ||
 									(item === 'join' && queue_actions[m].mode === civitas.ACTION_DIPLOMACY && queue_actions[m].type === civitas.DIPLOMACY_JOIN))
 								{
-									this.achievement(achievement);
+									this.achievement(i, achievement);
 								}
 							}
 						}
@@ -1572,9 +1544,9 @@ civitas.game = function () {
 	 * @param {Object} achievement
 	 * @returns {civitas.game}
 	 */
-	this.achievement = function (achievement) {
+	this.achievement = function (id, achievement) {
 		this.achievements.push({
-			id: achievement.id,
+			id: id,
 			date: + new Date()
 		});
 		this._notify({
@@ -1591,29 +1563,13 @@ civitas.game = function () {
 	 * Check if the current player has the achievement specified by its id.
 	 *
 	 * @public
-	 * @param {Object} achievement
+	 * @param {Object} id
 	 * @returns {Boolean}
 	 */
-	this.has_achievement = function(achievement) {
+	this.has_achievement = function(id) {
 		for (var i = 0; i < this.achievements.length; i++) {
-			if (this.achievements[i].id === achievement.id) {
+			if (this.achievements[i].id === id) {
 				return this.achievements[i];
-			}
-		}
-		return false;
-	};
-
-	/**
-	 * Return a pointer to an existing achievement, searching by id.
-	 *
-	 * @public
-	 * @param {Number} id
-	 * @returns {Object|Boolean}
-	 */
-	this.get_achievement_by_id = function(id) {
-		for (var i = 0; i < civitas.ACHIEVEMENTS.length; i++) {
-			if (civitas.ACHIEVEMENTS[i].id === id) {
-				return civitas.ACHIEVEMENTS[i];
 			}
 		}
 		return false;

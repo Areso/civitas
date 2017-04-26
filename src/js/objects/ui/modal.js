@@ -22,9 +22,9 @@ civitas.controls.modal = function (params) {
 	 */
 	this.template = '<div class="modal-overlay">' +
 			'<div class="modal">' +
-				'<div class="header"></div>' +
-				'<div class="content"></div>' +
-				'<div class="footer"></div>' +
+				'<header></header>' +
+				'<section></section>' +
+				'<footer></footer>' +
 			'</div>' +
 		'</div>';
 
@@ -66,12 +66,12 @@ civitas.controls.modal = function (params) {
 			width: '400px'
 		});
 		this._resize();
-		$('.modal .header').html(options.title);
-		$('.modal .footer').html('<a data-id="yes" href="#" class="btn float-right">' + civitas.l('Yes') + '</a>' +
+		$('.modal header').html(options.title);
+		$('.modal footer').html('<a data-id="yes" href="#" class="btn float-right">' + civitas.l('Yes') + '</a>' +
 			'<a data-id="no" href="#" class="btn">' + civitas.l('No') + '</a>');
-		$('.modal .content').html((settlement ? '<img class="avatar" src="' + civitas.ASSETS_URL + 'images/avatars/avatar' + this.core.get_settlement().ruler().avatar + '.png" />' : '') +
+		$('.modal section').html((settlement ? '<img class="avatar" src="' + civitas.ASSETS_URL + 'images/avatars/avatar' + this.core.get_settlement().ruler().avatar + '.png" />' : '') +
 			'<p>' + options.text + '</p>');
-		$('.modal .footer').on('click', 'a', function() {
+		$('.modal footer').on('click', 'a', function() {
 			self._action($(this).data('id'));
 			return false;
 		});

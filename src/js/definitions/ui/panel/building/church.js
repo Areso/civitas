@@ -4,14 +4,12 @@
  * @type {Object}
  */
 civitas.PANEL_CHURCH = {
-	template: civitas.ui.building_panel_template('church', civitas.l('Church')),
+	template: civitas.ui.building_panel_template(),
 	id: 'church',
 	on_show: function(params) {
 		var self = this;
-		this.params_data = params.data;
 		var settlement = this.get_core().get_settlement();
-		$(this.handle + ' .contents').append(civitas.ui.tabs([civitas.l('Info'), civitas.l('Religion')]));
-		this.on_refresh();
+		$(this.handle + ' section').append(civitas.ui.tabs([civitas.l('Info'), civitas.l('Religion')]));
 		$(this.handle).on('click', '.religion', function() {
 			var id = parseInt($(this).data('id'));
 			self.get_core().open_modal(

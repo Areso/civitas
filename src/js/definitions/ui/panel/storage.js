@@ -4,20 +4,12 @@
  * @type {Object}
  */
 civitas.PANEL_STORAGE = {
-	template: '' +
-		'<div id="panel-storage" class="panel">' +
-			'<header>' +
-				'<span class="title">' + civitas.l('City Storage') + '</span>' +
-				'<a class="tips btn close" title="' + civitas.l('Close this panel') + '"></a>' +
-			'</header>' +
-			'<div class="contents"></div>' +
-		'</div>',
+	template: civitas.ui.generic_panel_template(civitas.l('City Storage')),
 	expanded: false,
 	id: 'storage',
 	on_show: function(params) {
 		var self = this;
 		var core = this.get_core();
-		this.on_refresh();
 		$(this.handle).on('click', '.toggle-storage', function () {
 			if ($('.toggle-storage').html() === civitas.l('Show Less Goods')) {
 				self.expanded = false;
@@ -56,7 +48,7 @@ civitas.PANEL_STORAGE = {
 		'<div class="toolbar">' +
 			'<a class="btn iblock toggle-storage" href="#">' + civitas.l('Show More Goods') + '</a>' +
 		'</div>';
-		$(this.handle + ' .contents').empty().append(out);
+		$(this.handle + ' section').empty().append(out);
 		if (this.expanded === true) {
 			$(this.handle + ' .toggle-storage').trigger('click');
 		}
