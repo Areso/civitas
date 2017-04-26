@@ -2,7 +2,7 @@
  * Civitas empire-building game.
  *
  * @author sizeof(cat) <sizeofcat AT riseup.net>
- * @version 0.1.0.4262017
+ * @version 0.1.0.4272017
  * @license MIT
  */ @font-face {
 	font-family: 'Nova Oval';
@@ -2084,6 +2084,30 @@ footer .do-help {
 
 .panel .worldmap.w4 {
 	background: transparent url(../images/world/map4.png) no-repeat;
+}
+
+.panel .worldmap.w5 {
+	background: transparent url(../images/world/map5.png) no-repeat;
+}
+
+.panel .worldmap.w6 {
+	background: transparent url(../images/world/map6.png) no-repeat;
+}
+
+.panel .worldmap.w7 {
+	background: transparent url(../images/world/map7.png) no-repeat;
+}
+
+.panel .worldmap.w8 {
+	background: transparent url(../images/world/map8.png) no-repeat;
+}
+
+.panel .worldmap.w9 {
+	background: transparent url(../images/world/map9.png) no-repeat;
+}
+
+.panel .worldmap.w10 {
+	background: transparent url(../images/world/map10.png) no-repeat;
 }
 
 /* Others */

@@ -2,7 +2,7 @@
  * Civitas empire-building game.
  *
  * @author sizeof(cat) <sizeofcat AT riseup.net>
- * @version 0.1.0.4262017
+ * @version 0.1.0.4272017
  * @license MIT
  */ 'use strict';
 
@@ -134,7 +134,7 @@ civitas.BLACK_MARKET_DISCOUNT = 80;
  * @constant
  * @type {Number}
  */
-civitas.WORLDMAPS = 4;
+civitas.WORLDMAPS = 10;
 
 /**
  * The resources that will be shown on the toolbar.
@@ -5645,6 +5645,9 @@ civitas.SETTLEMENT_NAMES = [
 	'Peshawar',
 	'Uruk',
 	'Abydos',
+	'Actium',
+	'Tripolis',
+	'Troia',
 	'Chengdu',
 	'Mombasa',
 	'Apullum',
@@ -10888,7 +10891,7 @@ civitas.game = function () {
 	 * @type {Number}
 	 * @private
 	 */
-	this.worldmap = 1;
+	this.worldmap = null;
 
 	/**
 	 * Game mode, single player or multi player.

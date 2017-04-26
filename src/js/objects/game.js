@@ -119,7 +119,7 @@ civitas.game = function () {
 	 * @type {Number}
 	 * @private
 	 */
-	this.worldmap = 1;
+	this.worldmap = null;
 
 	/**
 	 * Game mode, single player or multi player.

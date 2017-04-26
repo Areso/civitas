@@ -196,6 +196,30 @@ footer .do-help {
 	background: transparent url(../images/world/map4.png) no-repeat;
 }
 
+.panel .worldmap.w5 {
+	background: transparent url(../images/world/map5.png) no-repeat;
+}
+
+.panel .worldmap.w6 {
+	background: transparent url(../images/world/map6.png) no-repeat;
+}
+
+.panel .worldmap.w7 {
+	background: transparent url(../images/world/map7.png) no-repeat;
+}
+
+.panel .worldmap.w8 {
+	background: transparent url(../images/world/map8.png) no-repeat;
+}
+
+.panel .worldmap.w9 {
+	background: transparent url(../images/world/map9.png) no-repeat;
+}
+
+.panel .worldmap.w10 {
+	background: transparent url(../images/world/map10.png) no-repeat;
+}
+
 /* Others */
 
 .game .building .notification.error {
