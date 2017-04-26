@@ -16,8 +16,8 @@
 	background: transparent url(../images/ui/topbar/meat.png) no-repeat left center;
 }
 
-.top-panel span.wheat {
-	background: transparent url(../images/ui/topbar/wheat.png) no-repeat left center;
+.top-panel span.tools {
+	background: transparent url(../images/ui/topbar/tools.png) no-repeat left center;
 }
 
 .top-panel span.ironores {
@@ -40,8 +40,8 @@
 	background: transparent url(../images/ui/topbar/iron.png) no-repeat left center;
 }
 
-.top-panel span.cattle {
-	background: transparent url(../images/ui/topbar/cattle.png) no-repeat left center;
+.top-panel span.gold {
+	background: transparent url(../images/ui/topbar/gold.png) no-repeat left center;
 }
 
 /* Bottom panel with game actions */
@@ -104,14 +104,6 @@ footer .do-help {
 
 .panel .worldmap .messenger {
 	background: transparent url(../images/ui/diplomacy.png) no-repeat;
-}
-
-.panel .worldmap .battle.b2 {
-	background: transparent url(../images/ui/battle2.png) no-repeat;
-}
-
-.panel .worldmap .battle.b3 {
-	background: transparent url(../images/ui/battle3.png) no-repeat;
 }
 
 .panel .worldmap .caravan {

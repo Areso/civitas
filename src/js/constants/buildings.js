@@ -859,7 +859,7 @@ civitas.BUILDINGS = [{
 		description: 'The Mill produces flour from the wheat cultivated by your Grain Farm.',
 		is_production: true,
 		production: {
-			flour: 2
+			flour: 3
 		},
 		materials: {
 			wheat: 2
@@ -868,7 +868,6 @@ civitas.BUILDINGS = [{
 			x: 1170,
 			y: 500
 		},
-		levels: 3,
 		cost: {
 			coins: 10000,
 			woodplanks: 20,
@@ -1023,7 +1022,7 @@ civitas.BUILDINGS = [{
 			x: 1300,
 			y: 100
 		},
-		levels: 3,
+		levels: 5,
 		cost: {
 			coins: 40000,
 			woodplanks: 40,
@@ -1470,14 +1469,15 @@ civitas.BUILDINGS = [{
 	}, {
 		name: 'Marzipan Workshop',
 		handle: 'marzipanworkshop',
-		description: 'The Marzipan Workshop uses almonds and sugar from storage to create delicious marzipan. Your settlers will definitely appreciate it.',
+		description: 'The Marzipan Workshop uses milk, almonds and sugar from city storage to create delicious marzipan. Your settlers will definitely appreciate it.',
 		is_production: true,
 		production: {
 			marzipan: 1
 		},
 		materials: {
 			almonds: 2,
-			sugar: 2
+			sugar: 2,
+			milk: 4
 		},
 		position: {
 			x: 1380,

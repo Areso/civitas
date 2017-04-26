@@ -126,7 +126,7 @@ civitas.PANEL_COUNCIL = {
 				'<dt>' + civitas.l('Population') + '</dt><dd>' + civitas.utils.nice_numbers(settlement.get_population()) + '</dd>' +
 				'<dt>' + civitas.l('Religion') + '</dt><dd>' + settlement.get_religion().name.capitalize() + '</dd>' +
 				'<dt>' + civitas.l('Level') + '</dt><dd>' + civitas.ui.progress((settlement.get_level() * 100) / civitas.MAX_SETTLEMENT_LEVEL, 'small', settlement.get_level()) + '</dd>' +
-				'<dt>' + civitas.l('Fame') + '</dt><dd>' + civitas.ui.progress((settlement.get_fame() * 100) / civitas.LEVELS[civitas.MAX_SETTLEMENT_LEVEL - 1], 'small', civitas.utils.nice_numbers(settlement.get_fame())) + '</dd>' +
+				'<dt>' + civitas.l('Fame') + '</dt><dd>' + civitas.ui.progress((settlement.get_fame() * 100) / civitas.LEVELS[civitas.MAX_SETTLEMENT_LEVEL - 1], 'small', civitas.utils.nice_numbers(settlement.get_fame()) + ' / ' + civitas.utils.nice_numbers(civitas.LEVELS[settlement.get_level()])) + '</dd>' +
 				'<dt>' + civitas.l('Prestige') + '</dt><dd>' + civitas.ui.progress((settlement.get_prestige() * 100) / civitas.MAX_PRESTIGE_VALUE, 'small', settlement.get_prestige()) + '</dd>' +
 				'<dt>' + civitas.l('Espionage') + '</dt><dd>' + civitas.ui.progress((settlement.get_espionage() * 100) / civitas.MAX_ESPIONAGE_VALUE, 'small', settlement.get_espionage()) + '</dd>' +
 				'<dt>' + civitas.l('Faith') + '</dt><dd>' + civitas.ui.progress((settlement.get_faith() * 100) / civitas.MAX_FAITH_VALUE, 'small', settlement.get_faith()) + '</dd>' +

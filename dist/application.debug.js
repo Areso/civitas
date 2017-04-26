@@ -2,7 +2,7 @@
  * Civitas empire-building game.
  *
  * @author sizeof(cat) <sizeofcat AT riseup.net>
- * @version 0.1.0.4252017
+ * @version 0.1.0.4262017
  * @license MIT
  */ 'use strict';
 
@@ -147,12 +147,12 @@ civitas.TOOLBAR_RESOURCES = [
 	'wood',
 	'stones',
 	'woodplanks',
-	'wheat',
 	'bread',
-	'cattle',
 	'meat',
 	'iron',
-	'weapons'
+	'weapons',
+	'tools',
+	'gold'
 ];
 
 /**
@@ -2618,7 +2618,7 @@ civitas.BUILDINGS = [{
 		description: 'The Mill produces flour from the wheat cultivated by your Grain Farm.',
 		is_production: true,
 		production: {
-			flour: 2
+			flour: 3
 		},
 		materials: {
 			wheat: 2
@@ -2627,7 +2627,6 @@ civitas.BUILDINGS = [{
 			x: 1170,
 			y: 500
 		},
-		levels: 3,
 		cost: {
 			coins: 10000,
 			woodplanks: 20,
@@ -2782,7 +2781,7 @@ civitas.BUILDINGS = [{
 			x: 1300,
 			y: 100
 		},
-		levels: 3,
+		levels: 5,
 		cost: {
 			coins: 40000,
 			woodplanks: 40,
@@ -3229,14 +3228,15 @@ civitas.BUILDINGS = [{
 	}, {
 		name: 'Marzipan Workshop',
 		handle: 'marzipanworkshop',
-		description: 'The Marzipan Workshop uses almonds and sugar from storage to create delicious marzipan. Your settlers will definitely appreciate it.',
+		description: 'The Marzipan Workshop uses milk, almonds and sugar from city storage to create delicious marzipan. Your settlers will definitely appreciate it.',
 		is_production: true,
 		production: {
 			marzipan: 1
 		},
 		materials: {
 			almonds: 2,
-			sugar: 2
+			sugar: 2,
+			milk: 4
 		},
 		position: {
 			x: 1380,
@@ -4485,7 +4485,7 @@ civitas.SETTLEMENTS = {
 		religion: civitas.RELIGION_CHRISTIANITY,
 		level: 35,
 		resources: {
-			coins: 230000,
+			coins: 2300000,
 			prestige: 700,
 			espionage: 400
 		},
@@ -4543,7 +4543,7 @@ civitas.SETTLEMENTS = {
 		religion: civitas.RELIGION_TAOISM,
 		level: 32,
 		resources: {
-			coins: 230000,
+			coins: 2300000,
 			prestige: 700,
 			espionage: 1000
 		},
@@ -4606,7 +4606,7 @@ civitas.SETTLEMENTS = {
 		religion: civitas.RELIGION_JUDAISM,
 		level: 30,
 		resources: {
-			coins: 160000,
+			coins: 1600000,
 			prestige: 1000,
 			espionage: 800
 		},
@@ -4653,7 +4653,7 @@ civitas.SETTLEMENTS = {
 		religion: civitas.RELIGION_BUDDHISM,
 		level: 28,
 		resources: {
-			coins: 200000,
+			coins: 2000000,
 			prestige: 500,
 			espionage: 300
 		},
@@ -4663,6 +4663,7 @@ civitas.SETTLEMENTS = {
 				milk: civitas.IMPORTANCE_VITAL,
 				brass: civitas.IMPORTANCE_HIGH,
 				furs: civitas.IMPORTANCE_LOW,
+				goldores: civitas.IMPORTANCE_HIGH,
 				fibers: civitas.IMPORTANCE_MEDIUM,
 				fish: civitas.IMPORTANCE_VITAL,
 				cider: civitas.IMPORTANCE_LOW,
@@ -4701,7 +4702,7 @@ civitas.SETTLEMENTS = {
 		religion: civitas.RELIGION_ISLAM,
 		level: 39,
 		resources: {
-			coins: 200000,
+			coins: 2000000,
 			prestige: 800,
 			espionage: 900
 		},
@@ -4751,7 +4752,7 @@ civitas.SETTLEMENTS = {
 		religion: civitas.RELIGION_HINDUISM,
 		level: 29,
 		resources: {
-			coins: 190000,
+			coins: 1900000,
 			prestige: 700,
 			espionage: 500
 		},
@@ -4763,9 +4764,11 @@ civitas.SETTLEMENTS = {
 				roses: civitas.IMPORTANCE_MEDIUM,
 				fibers: civitas.IMPORTANCE_HIGH,
 				perfume: civitas.IMPORTANCE_LOW,
+				sulphur: civitas.IMPORTANCE_HIGH,
+				goldores: civitas.IMPORTANCE_HIGH,
 				jewelery: civitas.IMPORTANCE_HIGH,
 				iron: civitas.IMPORTANCE_VITAL,
-				ironores: civitas.IMPORTANCE_HIGH
+				ironores: civitas.IMPORTANCE_VITAL
 			},
 			'exports': {
 				brine: civitas.IMPORTANCE_MEDIUM,
@@ -4793,7 +4796,7 @@ civitas.SETTLEMENTS = {
 		religion: civitas.RELIGION_CHRISTIANITY,
 		level: 22,
 		resources: {
-			coins: 130000,
+			coins: 1300000,
 			prestige: 780,
 			espionage: 400
 		},
@@ -4803,6 +4806,7 @@ civitas.SETTLEMENTS = {
 				clothes: civitas.IMPORTANCE_HIGH,
 				leather: civitas.IMPORTANCE_HIGH,
 				bottles: civitas.IMPORTANCE_HIGH,
+				brine: civitas.IMPORTANCE_MEDIUM,
 				hides: civitas.IMPORTANCE_HIGH,
 				clay: civitas.IMPORTANCE_MEDIUM,
 				bottles: civitas.IMPORTANCE_MEDIUM,
@@ -4841,13 +4845,15 @@ civitas.SETTLEMENTS = {
 		religion: civitas.RELIGION_CHRISTIANITY,
 		level: 29,
 		resources: {
-			coins: 300000,
+			coins: 3000000,
 			prestige: 200,
 			espionage: 850
 		},
 		trades: {
 			'imports': {
 				furs: civitas.IMPORTANCE_HIGH,
+				goldores: civitas.IMPORTANCE_HIGH,
+				gold: civitas.IMPORTANCE_VITAL,
 				milk: civitas.IMPORTANCE_MEDIUM,
 				brine: civitas.IMPORTANCE_VITAL,
 				leather: civitas.IMPORTANCE_LOW,
@@ -4886,7 +4892,7 @@ civitas.SETTLEMENTS = {
 		religion: civitas.RELIGION_CONFUCIANISM,
 		level: 30,
 		resources: {
-			coins: 330000,
+			coins: 3300000,
 			prestige: 900,
 			espionage: 900
 		},
@@ -4940,7 +4946,7 @@ civitas.SETTLEMENTS = {
 		religion: civitas.RELIGION_BUDDHISM,
 		level: 28,
 		resources: {
-			coins: 220000,
+			coins: 2200000,
 			prestige: 160,
 			espionage: 500
 		},
@@ -4952,6 +4958,8 @@ civitas.SETTLEMENTS = {
 				woodplanks: civitas.IMPORTANCE_MEDIUM,
 				armor: civitas.IMPORTANCE_HIGH,
 				brass: civitas.IMPORTANCE_MEDIUM,
+				sulphur: civitas.IMPORTANCE_HIGH,
+				brine: civitas.IMPORTANCE_MEDIUM,
 				copper: civitas.IMPORTANCE_VITAL,
 				clay: civitas.IMPORTANCE_MEDIUM,
 				coal: civitas.IMPORTANCE_VITAL
@@ -4985,7 +4993,7 @@ civitas.SETTLEMENTS = {
 		religion: civitas.RELIGION_TAOISM,
 		level: 23,
 		resources: {
-			coins: 180000,
+			coins: 1800000,
 			prestige: 200,
 			espionage: 450
 		},
@@ -4998,6 +5006,8 @@ civitas.SETTLEMENTS = {
 				milk: civitas.IMPORTANCE_LOW,
 				fibers: civitas.IMPORTANCE_MEDIUM,
 				tools: civitas.IMPORTANCE_HIGH,
+				goldores: civitas.IMPORTANCE_HIGH,
+				gold: civitas.IMPORTANCE_HIGH,
 				furcoats: civitas.IMPORTANCE_HIGH,
 				leather: civitas.IMPORTANCE_LOW
 			},
@@ -5038,7 +5048,7 @@ civitas.SETTLEMENTS = {
 		religion: civitas.RELIGION_ISLAM,
 		level: 27,
 		resources: {
-			coins: 180000,
+			coins: 1800000,
 			prestige: 300,
 			espionage: 300
 		},
@@ -5086,7 +5096,7 @@ civitas.SETTLEMENTS = {
 		religion: civitas.RELIGION_ISLAM,
 		level: 36,
 		resources: {
-			coins: 200000,
+			coins: 2000000,
 			prestige: 710,
 			espionage: 450
 		},
@@ -5099,10 +5109,11 @@ civitas.SETTLEMENTS = {
 				roses: civitas.IMPORTANCE_MEDIUM,
 				perfume: civitas.IMPORTANCE_LOW,
 				sugarcane: civitas.IMPORTANCE_HIGH,
+				sulphur: civitas.IMPORTANCE_HIGH,
 				tools: civitas.IMPORTANCE_HIGH,
 				provisions: civitas.IMPORTANCE_HIGH,
 				iron: civitas.IMPORTANCE_VITAL,
-				ironores: civitas.IMPORTANCE_LOW
+				ironores: civitas.IMPORTANCE_HIGH
 			},
 			'exports': {
 				brine: civitas.IMPORTANCE_MEDIUM,
@@ -5112,6 +5123,7 @@ civitas.SETTLEMENTS = {
 				wheat: civitas.IMPORTANCE_VITAL,
 				stones: civitas.IMPORTANCE_HIGH,
 				hides: civitas.IMPORTANCE_LOW,
+				pottery: civitas.IMPORTANCE_HIGH,
 				paper: civitas.IMPORTANCE_LOW
 			}
 		},
@@ -5130,7 +5142,7 @@ civitas.SETTLEMENTS = {
 		religion: civitas.RELIGION_CHRISTIANITY,
 		level: 38,
 		resources: {
-			coins: 280000,
+			coins: 2800000,
 			prestige: 600,
 			espionage: 580
 		},
@@ -5144,7 +5156,7 @@ civitas.SETTLEMENTS = {
 				roses: civitas.IMPORTANCE_MEDIUM,
 				perfume: civitas.IMPORTANCE_LOW,
 				iron: civitas.IMPORTANCE_VITAL,
-				ironores: civitas.IMPORTANCE_LOW
+				ironores: civitas.IMPORTANCE_VITAL
 			},
 			'exports': {
 				brine: civitas.IMPORTANCE_MEDIUM,
@@ -5176,7 +5188,7 @@ civitas.SETTLEMENTS = {
 		religion: civitas.RELIGION_JUDAISM,
 		level: 29,
 		resources: {
-			coins: 110000,
+			coins: 1100000,
 			prestige: 180,
 			espionage: 200
 		},
@@ -5188,12 +5200,13 @@ civitas.SETTLEMENTS = {
 				cider: civitas.IMPORTANCE_LOW,
 				stones: civitas.IMPORTANCE_HIGH,
 				copper: civitas.IMPORTANCE_VITAL,
+				brine: civitas.IMPORTANCE_MEDIUM,
 				grapes: civitas.IMPORTANCE_LOW,
 				jewelery: civitas.IMPORTANCE_HIGH,
 				pottery: civitas.IMPORTANCE_HIGH,
 				coal: civitas.IMPORTANCE_MEDIUM,
 				woodplanks: civitas.IMPORTANCE_HIGH,
-				ironores: civitas.IMPORTANCE_LOW
+				ironores: civitas.IMPORTANCE_HIGH
 			},
 			'exports': {
 				wine: civitas.IMPORTANCE_HIGH,
@@ -5225,7 +5238,7 @@ civitas.SETTLEMENTS = {
 		religion: civitas.RELIGION_JUDAISM,
 		level: 22,
 		resources: {
-			coins: 100000,
+			coins: 1000000,
 			prestige: 360,
 			espionage: 500
 		},
@@ -5237,6 +5250,8 @@ civitas.SETTLEMENTS = {
 				gems: civitas.IMPORTANCE_LOW,
 				brass: civitas.IMPORTANCE_VITAL,
 				sugarcane: civitas.IMPORTANCE_HIGH,
+				sulphur: civitas.IMPORTANCE_HIGH,
+				goldores: civitas.IMPORTANCE_HIGH,
 				wheat: civitas.IMPORTANCE_HIGH,
 				stones: civitas.IMPORTANCE_HIGH,
 				catapults: civitas.IMPORTANCE_MEDIUM,
@@ -5248,6 +5263,7 @@ civitas.SETTLEMENTS = {
 				candles: civitas.IMPORTANCE_LOW,
 				salt: civitas.IMPORTANCE_VITAL,
 				pearls: civitas.IMPORTANCE_MEDIUM,
+				pottery: civitas.IMPORTANCE_MEDIUM,
 				oil: civitas.IMPORTANCE_HIGH,
 				ropes: civitas.IMPORTANCE_MEDIUM
 			}
@@ -5271,7 +5287,7 @@ civitas.SETTLEMENTS = {
 		religion: civitas.RELIGION_ISLAM,
 		level: 26,
 		resources: {
-			coins: 190000,
+			coins: 1900000,
 			prestige: 400,
 			espionage: 500
 		},
@@ -5317,7 +5333,7 @@ civitas.SETTLEMENTS = {
 		religion: civitas.RELIGION_CHRISTIANITY,
 		level: 29,
 		resources: {
-			coins: 240000,
+			coins: 2400000,
 			prestige: 500,
 			espionage: 800
 		},
@@ -5327,6 +5343,7 @@ civitas.SETTLEMENTS = {
 				stones: civitas.IMPORTANCE_VITAL,
 				armor: civitas.IMPORTANCE_MEDIUM,
 				jewelery: civitas.IMPORTANCE_HIGH,
+				brine: civitas.IMPORTANCE_MEDIUM,
 				gems: civitas.IMPORTANCE_LOW,
 				hides: civitas.IMPORTANCE_VITAL,
 				pottery: civitas.IMPORTANCE_HIGH,
@@ -5363,7 +5380,7 @@ civitas.SETTLEMENTS = {
 		religion: civitas.RELIGION_ISLAM,
 		level: 27,
 		resources: {
-			coins: 240000,
+			coins: 2400000,
 			prestige: 420,
 			espionage: 700
 		},
@@ -5413,7 +5430,7 @@ civitas.SETTLEMENTS = {
 		religion: civitas.RELIGION_CONFUCIANISM,
 		level: 34,
 		resources: {
-			coins: 320000,
+			coins: 3200000,
 			prestige: 490,
 			espionage: 200
 		},
@@ -6706,7 +6723,7 @@ civitas.ACHIEVEMENTS = [
 		]
 	}, {
 		id: 39,
-		description: 'Reach 10 milion in population',
+		description: 'Reach 10 milion in population.',
 		name: 'Megalopolis',
 		conditions: [
 			{
@@ -6715,7 +6732,7 @@ civitas.ACHIEVEMENTS = [
 		]
 	}, {
 		id: 40,
-		description: 'Upgrade Academy to level 3',
+		description: 'Upgrade Academy to level 3.',
 		name: 'Too much research',
 		conditions: [
 			{
@@ -6726,7 +6743,7 @@ civitas.ACHIEVEMENTS = [
 		]
 	}, {
 		id: 41,
-		description: 'Upgrade Castle to level 3',
+		description: 'Upgrade Castle to level 3.',
 		name: 'Goldilocks',
 		conditions: [
 			{
@@ -6737,7 +6754,7 @@ civitas.ACHIEVEMENTS = [
 		]
 	}, {
 		id: 42,
-		description: 'Upgrade Church to level 3',
+		description: 'Upgrade Church to level 3.',
 		name: 'Cathedral',
 		conditions: [
 			{
@@ -6748,12 +6765,89 @@ civitas.ACHIEVEMENTS = [
 		]
 	}, {
 		id: 43,
-		description: 'Build a Tournir Area',
+		description: 'Build a Tournir Area.',
 		name: 'Richard Lionheart',
 		conditions: [
 			{
 				buildings: {
 					tournir: 1
+				}
+			}
+		]
+	}, {
+		id: 44,
+		description: 'Send a caravan.',
+		name: 'Donkey Lord',
+		conditions: [
+			{
+				diplomacy: {
+					caravan: 1
+				}
+			}
+		]
+	}, {
+		id: 45,
+		description: 'Send a spy.',
+		name: 'Bond. James Bond.',
+		conditions: [
+			{
+				diplomacy: {
+					spy: 1
+				}
+			}
+		]
+	}, {
+		id: 46,
+		description: 'Send an army.',
+		name: 'Warrior',
+		conditions: [
+			{
+				diplomacy: {
+					army: 1
+				}
+			}
+		]
+	}, {
+		id: 47,
+		description: 'Declare war to another settlement.',
+		name: 'Warlord',
+		conditions: [
+			{
+				diplomacy: {
+					war: 1
+				}
+			}
+		]
+	}, {
+		id: 48,
+		description: 'Propose to another settlement to join you.',
+		name: 'The One to Rule Them All',
+		conditions: [
+			{
+				diplomacy: {
+					join: 1
+				}
+			}
+		]
+	}, {
+		id: 49,
+		description: 'Propose a pact to another settlement.',
+		name: 'The Friendly',
+		conditions: [
+			{
+				diplomacy: {
+					pact: 1
+				}
+			}
+		]
+	}, {
+		id: 50,
+		description: 'Propose an alliance to another settlement.',
+		name: 'The Pacifist',
+		conditions: [
+			{
+				diplomacy: {
+					alliance: 1
 				}
 			}
 		]
@@ -8700,18 +8794,12 @@ civitas.objects.settlement.prototype.lower_fame = function(amount) {
  * @returns {Number}
  */
 civitas.objects.settlement.prototype.set_fame = function(value) {
-	var needed = civitas.LEVELS[this.get_level()];
 	if (this.resources.fame >= civitas.LEVELS[civitas.MAX_SETTLEMENT_LEVEL - 1]) {
 		this.resources.fame = civitas.LEVELS[civitas.MAX_SETTLEMENT_LEVEL - 1];
 	} else if (value < 0 || this.resources.fame < 0) {
 		this.resources.fame = 0;
 	} else {
 		this.resources.fame = value;
-	}
-	if (this.is_player()) {
-		$('header .cityfame > span').css({
-			width: Math.floor((this.get_fame() * 100) / needed) + '%'
-		});
 	}
 	return value;
 };
@@ -8998,9 +9086,6 @@ civitas.objects.settlement.prototype.set_prestige = function(value) {
 	}
 	if (this.resources.prestige >= civitas.MAX_PRESTIGE_VALUE) {
 		this.resources.prestige = civitas.MAX_PRESTIGE_VALUE;
-	}
-	if (this.is_player()) {
-		$('.cityprestige').html(this.get_prestige());
 	}
 	return this.get_prestige();
 };
@@ -11700,16 +11785,9 @@ civitas.game = function () {
 	this._build_ui = function() {
 		var out = '<section class="ui">' +
 			'<header>' +
-				'<div class="cityavatar"></div>' +
-				'<div class="cityclock">' +
-					'<div class="container">' +
-						'<div class="hand"></div>' +
-					'</div>' +
-				'</div>' +
+				'<div title="' + civitas.l('City Council') + '" class="tips cityavatar"></div>' +
 				'<span title="' + civitas.l('City level') + '" class="tips citylevel"></span>' +
-				'<span title="' + civitas.l('City prestige') + '" class="tips cityprestige"></span>' +
 				'<div title="' + civitas.l('City name') + '" class="tips cityname"></div>' +
-				'<div title="' + civitas.l('City fame') + '" class="tips cityfame">' +
 					'<span></span>' +
 				'</div>' +
 				'<div class="top-panel"></div>' +
@@ -11757,9 +11835,6 @@ civitas.game = function () {
 	 * @param {Number} difficulty
 	 */
 	this.start_game = function (name, cityname, nation, climate, avatar, difficulty) {
-		$('.ui header .cityclock .container').css({
-			animation: 'rotate ' + civitas.SECONDS_TO_DAY + 's infinite steps(10)'
-		});
 		var self = this;
 		var data = null;
 		this.difficulty = parseInt(difficulty);
@@ -11803,9 +11878,6 @@ civitas.game = function () {
 	 */
 	this.pause = function() {
 		this.paused = true;
-		$('.ui header .cityclock .container').css({
-			animation: 'none'
-		});
 		return this;
 	};
 
@@ -11817,9 +11889,6 @@ civitas.game = function () {
 	 */
 	this.unpause = function() {
 		this.paused = false;
-		$('.ui header .cityclock .container').css({
-			animation: 'rotate ' + civitas.SECONDS_TO_DAY + 's infinite steps(10)'
-		});
 		return this;
 	};
 
@@ -12155,14 +12224,9 @@ civitas.game = function () {
 			var storage_space = settlement.get_storage_space();
 			var needed = civitas.LEVELS[settlement.get_level()];
 			$('.citylevel').html(settlement.get_level());
-			$('.cityprestige').html(settlement.get_prestige());
 			if (settlement.get_fame() >= needed) {
 				settlement.level_up();
-				needed = civitas.LEVELS[settlement.get_level()];
 			}
-			$('header .cityfame > span').css({
-				width: Math.floor((settlement.get_fame() * 100) / needed) + '%'
-			});
 		}
 		return this;
 	};
@@ -12675,6 +12739,10 @@ civitas.game = function () {
 		}).on('click', '.up', function () {
 			$('.console .contents').scrollTo('-=97px', 500);
 		});
+		$('.ui').on('click', '.cityavatar', function () {
+			self.open_panel(civitas.PANEL_COUNCIL);
+			return false;
+		})
 		$('.toolbar').on('click', '.do-worldmap', function () {
 			self.open_panel(civitas.PANEL_WORLD);
 			return false;
@@ -12847,6 +12915,23 @@ civitas.game = function () {
 						var merc = settlement.get_mercenary();
 						if (merc.length >= condition.mercenary) {
 							this.achievement(achievement);
+						}
+					}
+					if (typeof condition.diplomacy !== 'undefined') {
+						var queue_actions = this.get_queue();
+						for (var m = 0; m < queue_actions.length; m++) {
+							for (var item in condition.diplomacy) {
+								if ((item === 'spy' && queue_actions[m].mode === civitas.ACTION_CAMPAIGN && queue_actions[m].type === civitas.CAMPAIGN_SPY) ||
+									(item === 'caravan' && queue_actions[m].mode === civitas.ACTION_CAMPAIGN && queue_actions[m].type === civitas.CAMPAIGN_CARAVAN) ||
+									(item === 'army' && queue_actions[m].mode === civitas.ACTION_CAMPAIGN && queue_actions[m].type === civitas.CAMPAIGN_ARMY) ||
+									(item === 'war' && queue_actions[m].mode === civitas.ACTION_DIPLOMACY && queue_actions[m].type === civitas.DIPLOMACY_WAR) ||
+									(item === 'pact' && queue_actions[m].mode === civitas.ACTION_DIPLOMACY && queue_actions[m].type === civitas.DIPLOMACY_PACT) ||
+									(item === 'alliance' && queue_actions[m].mode === civitas.ACTION_DIPLOMACY && queue_actions[m].type === civitas.DIPLOMACY_ALLIANCE) ||
+									(item === 'join' && queue_actions[m].mode === civitas.ACTION_DIPLOMACY && queue_actions[m].type === civitas.DIPLOMACY_JOIN))
+								{
+									this.achievement(achievement);
+								}
+							}
 						}
 					}
 				}
@@ -14835,7 +14920,7 @@ civitas.PANEL_COUNCIL = {
 				'<dt>' + civitas.l('Population') + '</dt><dd>' + civitas.utils.nice_numbers(settlement.get_population()) + '</dd>' +
 				'<dt>' + civitas.l('Religion') + '</dt><dd>' + settlement.get_religion().name.capitalize() + '</dd>' +
 				'<dt>' + civitas.l('Level') + '</dt><dd>' + civitas.ui.progress((settlement.get_level() * 100) / civitas.MAX_SETTLEMENT_LEVEL, 'small', settlement.get_level()) + '</dd>' +
-				'<dt>' + civitas.l('Fame') + '</dt><dd>' + civitas.ui.progress((settlement.get_fame() * 100) / civitas.LEVELS[civitas.MAX_SETTLEMENT_LEVEL - 1], 'small', civitas.utils.nice_numbers(settlement.get_fame())) + '</dd>' +
+				'<dt>' + civitas.l('Fame') + '</dt><dd>' + civitas.ui.progress((settlement.get_fame() * 100) / civitas.LEVELS[civitas.MAX_SETTLEMENT_LEVEL - 1], 'small', civitas.utils.nice_numbers(settlement.get_fame()) + ' / ' + civitas.utils.nice_numbers(civitas.LEVELS[settlement.get_level()])) + '</dd>' +
 				'<dt>' + civitas.l('Prestige') + '</dt><dd>' + civitas.ui.progress((settlement.get_prestige() * 100) / civitas.MAX_PRESTIGE_VALUE, 'small', settlement.get_prestige()) + '</dd>' +
 				'<dt>' + civitas.l('Espionage') + '</dt><dd>' + civitas.ui.progress((settlement.get_espionage() * 100) / civitas.MAX_ESPIONAGE_VALUE, 'small', settlement.get_espionage()) + '</dd>' +
 				'<dt>' + civitas.l('Faith') + '</dt><dd>' + civitas.ui.progress((settlement.get_faith() * 100) / civitas.MAX_FAITH_VALUE, 'small', settlement.get_faith()) + '</dd>' +

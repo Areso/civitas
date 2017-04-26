@@ -63,8 +63,5 @@ civitas.objects.settlement.prototype.set_prestige = function(value) {
 	if (this.resources.prestige >= civitas.MAX_PRESTIGE_VALUE) {
 		this.resources.prestige = civitas.MAX_PRESTIGE_VALUE;
 	}
-	if (this.is_player()) {
-		$('.cityprestige').html(this.get_prestige());
-	}
 	return this.get_prestige();
 };

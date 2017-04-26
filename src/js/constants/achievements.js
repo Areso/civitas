@@ -378,7 +378,7 @@ civitas.ACHIEVEMENTS = [
 		]
 	}, {
 		id: 39,
-		description: 'Reach 10 milion in population',
+		description: 'Reach 10 milion in population.',
 		name: 'Megalopolis',
 		conditions: [
 			{
@@ -387,7 +387,7 @@ civitas.ACHIEVEMENTS = [
 		]
 	}, {
 		id: 40,
-		description: 'Upgrade Academy to level 3',
+		description: 'Upgrade Academy to level 3.',
 		name: 'Too much research',
 		conditions: [
 			{
@@ -398,7 +398,7 @@ civitas.ACHIEVEMENTS = [
 		]
 	}, {
 		id: 41,
-		description: 'Upgrade Castle to level 3',
+		description: 'Upgrade Castle to level 3.',
 		name: 'Goldilocks',
 		conditions: [
 			{
@@ -409,7 +409,7 @@ civitas.ACHIEVEMENTS = [
 		]
 	}, {
 		id: 42,
-		description: 'Upgrade Church to level 3',
+		description: 'Upgrade Church to level 3.',
 		name: 'Cathedral',
 		conditions: [
 			{
@@ -420,12 +420,89 @@ civitas.ACHIEVEMENTS = [
 		]
 	}, {
 		id: 43,
-		description: 'Build a Tournir Area',
+		description: 'Build a Tournir Area.',
 		name: 'Richard Lionheart',
 		conditions: [
 			{
 				buildings: {
 					tournir: 1
+				}
+			}
+		]
+	}, {
+		id: 44,
+		description: 'Send a caravan.',
+		name: 'Donkey Lord',
+		conditions: [
+			{
+				diplomacy: {
+					caravan: 1
+				}
+			}
+		]
+	}, {
+		id: 45,
+		description: 'Send a spy.',
+		name: 'Bond. James Bond.',
+		conditions: [
+			{
+				diplomacy: {
+					spy: 1
+				}
+			}
+		]
+	}, {
+		id: 46,
+		description: 'Send an army.',
+		name: 'Warrior',
+		conditions: [
+			{
+				diplomacy: {
+					army: 1
+				}
+			}
+		]
+	}, {
+		id: 47,
+		description: 'Declare war to another settlement.',
+		name: 'Warlord',
+		conditions: [
+			{
+				diplomacy: {
+					war: 1
+				}
+			}
+		]
+	}, {
+		id: 48,
+		description: 'Propose to another settlement to join you.',
+		name: 'The One to Rule Them All',
+		conditions: [
+			{
+				diplomacy: {
+					join: 1
+				}
+			}
+		]
+	}, {
+		id: 49,
+		description: 'Propose a pact to another settlement.',
+		name: 'The Friendly',
+		conditions: [
+			{
+				diplomacy: {
+					pact: 1
+				}
+			}
+		]
+	}, {
+		id: 50,
+		description: 'Propose an alliance to another settlement.',
+		name: 'The Pacifist',
+		conditions: [
+			{
+				diplomacy: {
+					alliance: 1
 				}
 			}
 		]

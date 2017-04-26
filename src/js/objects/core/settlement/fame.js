@@ -44,18 +44,12 @@ civitas.objects.settlement.prototype.lower_fame = function(amount) {
  * @returns {Number}
  */
 civitas.objects.settlement.prototype.set_fame = function(value) {
-	var needed = civitas.LEVELS[this.get_level()];
 	if (this.resources.fame >= civitas.LEVELS[civitas.MAX_SETTLEMENT_LEVEL - 1]) {
 		this.resources.fame = civitas.LEVELS[civitas.MAX_SETTLEMENT_LEVEL - 1];
 	} else if (value < 0 || this.resources.fame < 0) {
 		this.resources.fame = 0;
 	} else {
 		this.resources.fame = value;
-	}
-	if (this.is_player()) {
-		$('header .cityfame > span').css({
-			width: Math.floor((this.get_fame() * 100) / needed) + '%'
-		});
 	}
 	return value;
 };

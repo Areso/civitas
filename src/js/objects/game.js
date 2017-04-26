@@ -406,16 +406,9 @@ civitas.game = function () {
 	this._build_ui = function() {
 		var out = '<section class="ui">' +
 			'<header>' +
-				'<div class="cityavatar"></div>' +
-				'<div class="cityclock">' +
-					'<div class="container">' +
-						'<div class="hand"></div>' +
-					'</div>' +
-				'</div>' +
+				'<div title="' + civitas.l('City Council') + '" class="tips cityavatar"></div>' +
 				'<span title="' + civitas.l('City level') + '" class="tips citylevel"></span>' +
-				'<span title="' + civitas.l('City prestige') + '" class="tips cityprestige"></span>' +
 				'<div title="' + civitas.l('City name') + '" class="tips cityname"></div>' +
-				'<div title="' + civitas.l('City fame') + '" class="tips cityfame">' +
 					'<span></span>' +
 				'</div>' +
 				'<div class="top-panel"></div>' +
@@ -463,9 +456,6 @@ civitas.game = function () {
 	 * @param {Number} difficulty
 	 */
 	this.start_game = function (name, cityname, nation, climate, avatar, difficulty) {
-		$('.ui header .cityclock .container').css({
-			animation: 'rotate ' + civitas.SECONDS_TO_DAY + 's infinite steps(10)'
-		});
 		var self = this;
 		var data = null;
 		this.difficulty = parseInt(difficulty);
@@ -509,9 +499,6 @@ civitas.game = function () {
 	 */
 	this.pause = function() {
 		this.paused = true;
-		$('.ui header .cityclock .container').css({
-			animation: 'none'
-		});
 		return this;
 	};
 
@@ -523,9 +510,6 @@ civitas.game = function () {
 	 */
 	this.unpause = function() {
 		this.paused = false;
-		$('.ui header .cityclock .container').css({
-			animation: 'rotate ' + civitas.SECONDS_TO_DAY + 's infinite steps(10)'
-		});
 		return this;
 	};
 
@@ -861,14 +845,9 @@ civitas.game = function () {
 			var storage_space = settlement.get_storage_space();
 			var needed = civitas.LEVELS[settlement.get_level()];
 			$('.citylevel').html(settlement.get_level());
-			$('.cityprestige').html(settlement.get_prestige());
 			if (settlement.get_fame() >= needed) {
 				settlement.level_up();
-				needed = civitas.LEVELS[settlement.get_level()];
 			}
-			$('header .cityfame > span').css({
-				width: Math.floor((settlement.get_fame() * 100) / needed) + '%'
-			});
 		}
 		return this;
 	};
@@ -1381,6 +1360,10 @@ civitas.game = function () {
 		}).on('click', '.up', function () {
 			$('.console .contents').scrollTo('-=97px', 500);
 		});
+		$('.ui').on('click', '.cityavatar', function () {
+			self.open_panel(civitas.PANEL_COUNCIL);
+			return false;
+		})
 		$('.toolbar').on('click', '.do-worldmap', function () {
 			self.open_panel(civitas.PANEL_WORLD);
 			return false;
@@ -1553,6 +1536,23 @@ civitas.game = function () {
 						var merc = settlement.get_mercenary();
 						if (merc.length >= condition.mercenary) {
 							this.achievement(achievement);
+						}
+					}
+					if (typeof condition.diplomacy !== 'undefined') {
+						var queue_actions = this.get_queue();
+						for (var m = 0; m < queue_actions.length; m++) {
+							for (var item in condition.diplomacy) {
+								if ((item === 'spy' && queue_actions[m].mode === civitas.ACTION_CAMPAIGN && queue_actions[m].type === civitas.CAMPAIGN_SPY) ||
+									(item === 'caravan' && queue_actions[m].mode === civitas.ACTION_CAMPAIGN && queue_actions[m].type === civitas.CAMPAIGN_CARAVAN) ||
+									(item === 'army' && queue_actions[m].mode === civitas.ACTION_CAMPAIGN && queue_actions[m].type === civitas.CAMPAIGN_ARMY) ||
+									(item === 'war' && queue_actions[m].mode === civitas.ACTION_DIPLOMACY && queue_actions[m].type === civitas.DIPLOMACY_WAR) ||
+									(item === 'pact' && queue_actions[m].mode === civitas.ACTION_DIPLOMACY && queue_actions[m].type === civitas.DIPLOMACY_PACT) ||
+									(item === 'alliance' && queue_actions[m].mode === civitas.ACTION_DIPLOMACY && queue_actions[m].type === civitas.DIPLOMACY_ALLIANCE) ||
+									(item === 'join' && queue_actions[m].mode === civitas.ACTION_DIPLOMACY && queue_actions[m].type === civitas.DIPLOMACY_JOIN))
+								{
+									this.achievement(achievement);
+								}
+							}
 						}
 					}
 				}

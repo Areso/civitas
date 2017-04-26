@@ -2,7 +2,7 @@
  * Civitas empire-building game.
  *
  * @author sizeof(cat) <sizeofcat AT riseup.net>
- * @version 0.1.0.4252017
+ * @version 0.1.0.4262017
  * @license MIT
  */ @font-face {
 	font-family: 'Nova Oval';
@@ -91,8 +91,8 @@ ul, li {
 /* Header */
 
 .ui > header {
-	width: 220px;
-	height: 112px;
+	width: 218px;
+	height: 81px;
 	left: 0;
 	z-index: 9999;
 	top: 0;
@@ -105,23 +105,14 @@ ul, li {
 	background-color: transparent;
 	background-repeat: no-repeat;
 	margin: 10px 15px;
-}
-
-.ui > header .cityfame {
-	width: 142px;
-	height: 19px;
-	position: absolute;
-	left: 8px;
-	bottom: 7px;
-	z-index: 9999;
-	padding: 0;
+	cursor: pointer;
 }
 
 .ui > header .cityname {
 	position: absolute;
 	top: 5px;
 	font-family: 'Nova Oval';
-	font-size: 18px;
+	font-size: 16px;
 	left: 84px;
 	width: 124px;
 	text-align: center;
@@ -140,68 +131,13 @@ ul, li {
 	top: 22px;
 }
 
-.ui header .cityclock {
-	position: absolute;
-	left: 84px;
-	top: 28px;
-	width: 50px;
-	height: 50px;
-	background-color: #222;
-	-webkit-border-radius: 100%;
-	-moz-border-radius: 100%;
-	border-radius: 100%;
-}
-
-.ui header .cityclock .hand {
-	background: #aaa;
-	height: 40%;
-	left: 49%;
-	position: absolute;
-	top: 10%;
-	transform-origin: 50% 100%;
-	width: 5%;
-}
-
-.ui header .cityclock .container {
-	position: absolute;
-	top: 0;
-	right: 0;
-	bottom: 0;
-	left: 0;
-	animation: none;
-}
-
-.ui header .cityprestige {
-	color: #bbb;
-	font-size: 20px;
-	font-weight: bold;
-	text-align: center;
-	position: absolute;
-	font-family: 'Nova Oval';
-	right: 7px;
-	width: 60px;
-	bottom: 5px;
-	width: 54px;
-}
-
-.ui .cityfame > span {
-	background: -moz-linear-gradient(top, #472e18 0%, #fff 49%, #25140a 100%);
-	background: -webkit-linear-gradient(top, #472e18 0%, #fff 49%, #25140a 100%);
-	background: linear-gradient(top, #472e18 0%, #fff 49%, #25140a 100%);
-	height: 19px;
-	display: inline-block;
-	color: #fff;
-	font-size: 11px;
-	line-height: 20px;
-}
-
 header .top-panel {
 	background: transparent url(../images/ui/top-panel.jpg) no-repeat;
 	width: 406px;
 	height: 30px;
 	position: absolute;
 	top: 0;
-	left: 220px;
+	left: 218px;
 	padding: 10px 18px;
 }
 
@@ -1996,8 +1932,8 @@ table tr td:last-child a:hover,
 	background: transparent url(../images/ui/topbar/meat.png) no-repeat left center;
 }
 
-.top-panel span.wheat {
-	background: transparent url(../images/ui/topbar/wheat.png) no-repeat left center;
+.top-panel span.tools {
+	background: transparent url(../images/ui/topbar/tools.png) no-repeat left center;
 }
 
 .top-panel span.ironores {
@@ -2020,8 +1956,8 @@ table tr td:last-child a:hover,
 	background: transparent url(../images/ui/topbar/iron.png) no-repeat left center;
 }
 
-.top-panel span.cattle {
-	background: transparent url(../images/ui/topbar/cattle.png) no-repeat left center;
+.top-panel span.gold {
+	background: transparent url(../images/ui/topbar/gold.png) no-repeat left center;
 }
 
 /* Bottom panel with game actions */
@@ -2084,14 +2020,6 @@ footer .do-help {
 
 .panel .worldmap .messenger {
 	background: transparent url(../images/ui/diplomacy.png) no-repeat;
-}
-
-.panel .worldmap .battle.b2 {
-	background: transparent url(../images/ui/battle2.png) no-repeat;
-}
-
-.panel .worldmap .battle.b3 {
-	background: transparent url(../images/ui/battle3.png) no-repeat;
 }
 
 .panel .worldmap .caravan {
