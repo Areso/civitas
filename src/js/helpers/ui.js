@@ -27,7 +27,7 @@ civitas.ui = {
 			'<section></section>' +
 			'<footer>' +
 				'<a class="tips demolish" title="' + civitas.l('Demolish this building') + '"></a>' +
-				'<a class="tips pause start" title="' + civitas.l('Control (start/pause) production') + '"></a>' +
+				'<a class="tips pause start"></a>' +
 				'<a class="tips upgrade" title="' + civitas.l('Upgrade building') + '"></a>' +
 			'</footer>' +
 		'</div>';

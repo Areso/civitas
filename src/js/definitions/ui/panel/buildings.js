@@ -36,39 +36,40 @@ civitas.PANEL_BUILDINGS = {
 			_t += '</div>';
 		}
 		_t += '</div>' +
-			'</div><div class="buildings-info right">' +
+			'</div>' +
+			'<div class="buildings-info right">' +
 				'<div class="b-desc"></div>' +
 				'<fieldset class="levels">' +
-				'<legend>' + civitas.l('Levels') + '</legend>' +
-				'<div class="b-levels"></div>' +
+					'<legend>' + civitas.l('Levels') + '</legend>' +
+					'<div class="b-levels"></div>' +
 				'</fieldset>' +
 				'<fieldset>' +
-				'<legend>' + civitas.l('Cost') + '</legend>' +
-				'<div class="b-cost"></div>' +
+					'<legend>' + civitas.l('Cost') + '</legend>' +
+					'<div class="b-cost"></div>' +
 				'</fieldset>' +
 				'<fieldset class="materials">' +
-				'<legend>' + civitas.l('Materials') + '</legend>' +
-				'<div class="b-mats"></div>' +
+					'<legend>' + civitas.l('Materials') + '</legend>' +
+					'<div class="b-mats"></div>' +
 				'</fieldset>' +
 				'<fieldset class="production">' +
-				'<legend>' + civitas.l('Production') + '</legend>' +
-				'<div class="b-prod"></div>' +
+					'<legend>' + civitas.l('Production') + '</legend>' +
+					'<div class="b-prod"></div>' +
 				'</fieldset>' +
 				'<fieldset class="extra">' +
-				'<legend>' + civitas.l('Extra materials') + '</legend>' +
-				'<div class="b-chance"></div>' +
+					'<legend>' + civitas.l('Extra materials') + '</legend>' +
+					'<div class="b-chance"></div>' +
 				'</fieldset>' +
 				'<fieldset class="storage">' +
-				'<legend>' + civitas.l('Storage') + '</legend>' +
-				'<div class="b-store"></div>' +
+					'<legend>' + civitas.l('Storage') + '</legend>' +
+					'<div class="b-store"></div>' +
 				'</fieldset>' +
 				'<fieldset class="taxes">' +
-				'<legend>' + civitas.l('Taxes') + '</legend>' +
-				'<div class="b-tax"></div>' +
+					'<legend>' + civitas.l('Taxes') + '</legend>' +
+					'<div class="b-tax"></div>' +
 				'</fieldset>' +
 				'<fieldset>' +
-				'<legend>' + civitas.l('Requirements') + '</legend>' +
-				'<div class="b-req"></div>' +
+					'<legend>' + civitas.l('Requirements') + '</legend>' +
+					'<div class="b-req"></div>' +
 				'</fieldset>' +
 				'<div class="toolbar"></div>' +
 			'</div>';

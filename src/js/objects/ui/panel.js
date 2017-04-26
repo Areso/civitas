@@ -147,9 +147,9 @@ civitas.controls.panel = function (params) {
 				}
 				if (building.is_production_building()) {
 					if (!building.is_stopped()) {
-						$(this.handle + ' .pause').removeClass('start');
+						$(this.handle + ' .pause').removeClass('start').attr('title', civitas.l('Stop production'));
 					} else {
-						$(this.handle + ' .start').removeClass('pause');
+						$(this.handle + ' .start').removeClass('pause').attr('title', civitas.l('Start production'));
 					}
 				} else {
 					$(this.handle + ' .start, ' + this.handle + ' .pause').remove();
@@ -184,11 +184,13 @@ civitas.controls.panel = function (params) {
 				}).on('click', '.pause', function () {
 					if (building.stop_production()) {
 						$(this).removeClass('pause').addClass('start');
+						$(this).attr('title', civitas.l('Start production'));
 					}
 					return false;
 				}).on('click', '.start', function () {
 					if (building.start_production()) {
 						$(this).removeClass('start').addClass('pause');
+						$(this).attr('title', civitas.l('Stop production'));
 					}
 					return false;
 				});

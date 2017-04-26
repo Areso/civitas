@@ -31,33 +31,35 @@ civitas.PANEL_EMBASSY = {
 		var settlements = core.get_settlements();
 		var status = settlement.status();
 		var building = core.get_settlement().get_building(this.params_data.handle);
-		var level = building.get_level();
-		$(this.handle + ' #tab-info').empty().append(civitas.ui.building_panel(this.params_data, level));
-		$(this.handle + ' #tab-espionage').empty().append('<div class="section">' +
-			civitas.ui.progress((settlement.espionage() * 100) / civitas.MAX_ESPIONAGE_VALUE, 'large', settlement.espionage()) +
-		'</div>');
-		var _t = '<table class="normal">';
-		for (var i = 1; i < settlements.length; i++) {
-			var _status = settlement.get_diplomacy_status(settlements[i].id());
-			var settlement_type = settlements[i].get_type();
-			_t += '<tr>' +
-					'<td class="icon">' +
-						'<a data-id="' + settlements[i].id() + '" title="' + civitas.l('View info about this settlement.') + '" class="tips view" href="#">' +
-							'<img src="' + civitas.ASSETS_URL + 'images/avatars/avatar' + settlements[i].ruler().avatar + '.png" />' +
-						'</a>' +
-					'</td>' +
-					'<td>' +
-						'<p class="title">' + (settlements[i].is_city() ? 'City of' : 'Village of') + ' ' + settlements[i].name() + '</p> ' +
-						'<div data-id="' + settlements[i].id() + '" >' + civitas.ui.progress(status[settlements[i].id()].influence, 'big') + '</div>' +
-					'</td>' +
-					'<td>' +
-						'<p>' + civitas.l('Leader') + ': <strong>' + settlements[i].ruler().name + '</strong>' + '</p>' +
-						'<p>' + civitas.l('Personality') + ': <strong>' + settlements[i].personality().name + '</strong>' + '</p>' +
-						'<p>' + civitas.l('Diplomatic Status') + ': <strong>' + settlement.get_diplomacy_status(settlements[i].id()).name + '</strong>' + '</p>' +
-					'</td>' +
-				'</tr>';
+		if (building) {
+			var level = building.get_level();
+			$(this.handle + ' #tab-info').empty().append(civitas.ui.building_panel(this.params_data, level));
+			$(this.handle + ' #tab-espionage').empty().append('<div class="section">' +
+				civitas.ui.progress((settlement.espionage() * 100) / civitas.MAX_ESPIONAGE_VALUE, 'large', settlement.espionage()) +
+			'</div>');
+			var _t = '<table class="normal">';
+			for (var i = 1; i < settlements.length; i++) {
+				var _status = settlement.get_diplomacy_status(settlements[i].id());
+				var settlement_type = settlements[i].get_type();
+				_t += '<tr>' +
+						'<td class="icon">' +
+							'<a data-id="' + settlements[i].id() + '" title="' + civitas.l('View info about this settlement.') + '" class="tips view" href="#">' +
+								'<img src="' + civitas.ASSETS_URL + 'images/avatars/avatar' + settlements[i].ruler().avatar + '.png" />' +
+							'</a>' +
+						'</td>' +
+						'<td>' +
+							'<p class="title">' + (settlements[i].is_city() ? 'City of' : 'Village of') + ' ' + settlements[i].name() + '</p> ' +
+							'<div data-id="' + settlements[i].id() + '" >' + civitas.ui.progress(status[settlements[i].id()].influence, 'big') + '</div>' +
+						'</td>' +
+						'<td>' +
+							'<p>' + civitas.l('Leader') + ': <strong>' + settlements[i].ruler().name + '</strong>' + '</p>' +
+							'<p>' + civitas.l('Personality') + ': <strong>' + settlements[i].personality().name + '</strong>' + '</p>' +
+							'<p>' + civitas.l('Diplomatic Status') + ': <strong>' + settlement.get_diplomacy_status(settlements[i].id()).name + '</strong>' + '</p>' +
+						'</td>' +
+					'</tr>';
+			}
+			_t += '</table>';
+			$(this.handle + ' .settlements-list').empty().append(_t);
 		}
-		_t += '</table>';
-		$(this.handle + ' .settlements-list').empty().append(_t);
 	}
 };
