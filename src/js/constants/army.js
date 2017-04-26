@@ -1,76 +1,4 @@
 /**
- * Militia
- * 
- * @constant
- * @type {Number}
- */
-civitas.SOLDIER_MILITIA = 0;
-
-/**
- * Swordsman
- * 
- * @constant
- * @type {Number}
- */
-civitas.SOLDIER_SWORDSMAN = 1;
-
-/**
- * Axemen
- * 
- * @constant
- * @type {Number}
- */
-civitas.SOLDIER_AXEMAN = 2;
-
-/**
- * Knights
- * 
- * @constant
- * @type {Number}
- */
-civitas.SOLDIER_KNIGHT = 3;
-
-/**
- * Bowmen
- * 
- * @constant
- * @type {Number}
- */
-civitas.SOLDIER_BOWMAN = 4;
-
-/**
- * Crossbowmen
- * 
- * @constant
- * @type {Number}
- */
-civitas.SOLDIER_CROSSBOWMAN = 5;
-
-/**
- * Pikemen
- * 
- * @constant
- * @type {Number}
- */
-civitas.SOLDIER_PIKEMAN = 6;
-
-/**
- * Legionnaires
- * 
- * @constant
- * @type {Number}
- */
-civitas.SOLDIER_LEGIONNAIRE = 7;
-
-/**
- * Crusaders
- * 
- * @constant
- * @type {Number}
- */
-civitas.SOLDIER_CRUSADER = 8;
-
-/**
  * List of soldier types, their attributes and cost.
  * 
  * @type {Object}
@@ -78,7 +6,6 @@ civitas.SOLDIER_CRUSADER = 8;
  */
 civitas.SOLDIERS = {
 	'Militia': {
-		id: civitas.SOLDIER_MILITIA,
 		attack: 1,
 		defense: 1,
 		cost: {
@@ -88,7 +15,6 @@ civitas.SOLDIERS = {
 		}
 	},
 	'Swordsman': {
-		id: civitas.SOLDIER_SWORDSMAN,
 		attack: 3,
 		defense: 2,
 		cost: {
@@ -99,7 +25,6 @@ civitas.SOLDIERS = {
 		}
 	},
 	'Axeman': {
-		id: civitas.SOLDIER_AXEMAN,
 		attack: 4,
 		defense: 4,
 		cost: {
@@ -110,7 +35,6 @@ civitas.SOLDIERS = {
 		}
 	},
 	'Bowman': {
-		id: civitas.SOLDIER_BOWMAN,
 		attack: 6,
 		defense: 1,
 		cost: {
@@ -121,7 +45,6 @@ civitas.SOLDIERS = {
 		}
 	},
 	'Pikeman': {
-		id: civitas.SOLDIER_PIKEMAN,
 		attack: 5,
 		defense: 4,
 		cost: {
@@ -134,7 +57,6 @@ civitas.SOLDIERS = {
 		}
 	},
 	'Crossbowman': {
-		id: civitas.SOLDIER_CROSSBOWMAN,
 		attack: 7,
 		defense: 2,
 		cost: {
@@ -147,7 +69,6 @@ civitas.SOLDIERS = {
 		}
 	},
 	'Knight': {
-		id: civitas.SOLDIER_KNIGHT,
 		attack: 6,
 		defense: 9,
 		cost: {
@@ -160,7 +81,6 @@ civitas.SOLDIERS = {
 		}
 	},
 	'Legionnaire': {
-		id: civitas.SOLDIER_LEGIONNAIRE,
 		attack: 12,
 		defense: 14,
 		cost: {
@@ -173,7 +93,6 @@ civitas.SOLDIERS = {
 		}
 	},
 	'Crusader': {
-		id: civitas.SOLDIER_CRUSADER,
 		attack: 16,
 		defense: 18,
 		cost: {

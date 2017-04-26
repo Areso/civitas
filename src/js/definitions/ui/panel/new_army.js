@@ -24,8 +24,8 @@ civitas.PANEL_NEW_ARMY = {
 		var settlement = params.data;
 		var settlements = core.get_settlements();
 		var army = my_settlement.get_army_total();
-		var location = civitas['SETTLEMENT_LOCATION_' + my_settlement.get_climate().name.toUpperCase()];
-		var distance = civitas.utils.get_distance_in_days(location, civitas.SETTLEMENTS[settlement.get_id()].location);
+		var location = civitas['SETTLEMENT_LOCATION_' + my_settlement.climate().name.toUpperCase()];
+		var distance = civitas.utils.get_distance_in_days(location, civitas.SETTLEMENTS[settlement.id()].location);
 		this.assigned_army = {};
 		this.assigned_navy = {};
 		for (var item in army.army) {
@@ -69,7 +69,7 @@ civitas.PANEL_NEW_ARMY = {
 			'<select class="army-destination">' +
 				'<option value="0">-- ' + civitas.l('select') + ' --</option>';
 		for (var i = 1; i < settlements.length; i++) {
-			_t += '<option ' + (settlement && (settlements[i].get_id() === settlement.get_id()) ? 'selected ' : '') + 'value="' + settlements[i].get_id() + '">' + (settlements[i].is_city() ? civitas.l('City of') + ' ' : civitas.l('Village of') + ' ') + settlements[i].get_name() + '</option>';
+			_t += '<option ' + (settlement && (settlements[i].id() === settlement.id()) ? 'selected ' : '') + 'value="' + settlements[i].id() + '">' + (settlements[i].is_city() ? civitas.l('City of') + ' ' : civitas.l('Village of') + ' ') + settlements[i].name() + '</option>';
 		}
 		_t += '</select>' +
 			'</fieldset>' +
@@ -210,7 +210,7 @@ civitas.PANEL_NEW_ARMY = {
 				return false;
 			}
 			var destination = parseInt($(self.handle + ' .army-destination').val());
-			if ((settlement && settlement.get_id() !== destination) || !settlement) {
+			if ((settlement && settlement.id() !== destination) || !settlement) {
 				settlement = core.get_settlement(destination);
 			}
 			if (destination === 0 || !settlement || (my_settlement.get_army_total(self.assigned_army).total === 0 && my_settlement.get_navy_total(self.assigned_navy).total === 0)) {

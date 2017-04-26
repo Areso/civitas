@@ -9,16 +9,6 @@ civitas.objects.settlement.prototype.can_research = function() {
 };
 
 /**
- * Return the value of this settlement's research.
- * 
- * @public
- * @returns {Number}
- */
-civitas.objects.settlement.prototype.get_research = function() {
-	return this.resources.research;
-};
-
-/**
  * Raise the research of this settlement by the specified amount.
  * 
  * @public
@@ -29,7 +19,7 @@ civitas.objects.settlement.prototype.raise_research = function(amount) {
 	if (typeof amount === 'undefined') {
 		amount = 1;
 	}
-	return this.set_research(this.get_research() + amount);
+	return this.research(this.research() + amount);
 };
 
 /**
@@ -43,35 +33,36 @@ civitas.objects.settlement.prototype.lower_research = function(amount) {
 	if (typeof amount === 'undefined') {
 		amount = 1;
 	}
-	return this.set_research(this.get_research() - amount);
+	return this.research(this.research() - amount);
 };
 
 /**
  * Reset the research of this settlement to 1.
  * 
- * @returns {civitas.objects.settlement}
+ * @returns {Number}
  * @public
  */
 civitas.objects.settlement.prototype.reset_research = function() {
-	this.resources.research = 1;
-	return this;
+	return this.research(1);
 };
 
 /**
- * Set the research of this settlement.
+ * Get/set the research of this settlement.
  * 
  * @public
- * @returns {civitas.objects.settlement}
+ * @returns {Number}
  * @param {Number} value
  */
-civitas.objects.settlement.prototype.set_research = function(value) {
-	if (value < 1 || this.resources.research < 1) {
-		this.resources.research = 1;
-	} else {
-		this.resources.research = value;
+civitas.objects.settlement.prototype.research = function(value) {
+	if (typeof value !== 'undefined') {
+		if (value < 1 || this.resources.research < 1) {
+			this.resources.research = 1;
+		} else {
+			this.resources.research = value;
+		}
+		if (this.resources.research >= civitas.MAX_RESEARCH_VALUE) {
+			this.resources.research = civitas.MAX_RESEARCH_VALUE;
+		}
 	}
-	if (this.resources.research >= civitas.MAX_RESEARCH_VALUE) {
-		this.resources.research = civitas.MAX_RESEARCH_VALUE;
-	}
-	return this.get_research();
+	return this.resources.research;
 };

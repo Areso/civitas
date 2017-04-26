@@ -90,11 +90,11 @@ civitas.objects.event = function (params) {
 		var core = this.get_core();
 		var random_settlement_id = civitas.utils.get_random(1, core.settlements.length);
 		var with_settlement = core.get_settlement(random_settlement_id);
-		var description = this.description.replace(/SETTLEMENT/g, with_settlement.get_name());
+		var description = this.description.replace(/SETTLEMENT/g, with_settlement.name());
 		if (this.raise !== null) {
 			for (var item in this.raise) {
 				if (item === 'influence') {
-					core.get_settlement().raise_influence(with_settlement.get_id(), this.raise[item]);
+					core.get_settlement().raise_influence(with_settlement.id(), this.raise[item]);
 				} else {
 					core.get_settlement().add_to_storage(item, this.raise[item]);
 				}
@@ -105,7 +105,7 @@ civitas.objects.event = function (params) {
 		if (this.lower !== null) {
 			for (var item in this.lower) {
 				if (item === 'influence') {
-					core.get_settlement().lower_influence(with_settlement.get_id(), this.lower[item]);
+					core.get_settlement().lower_influence(with_settlement.id(), this.lower[item]);
 				} else {
 					core.get_settlement().remove_resource_silent(item, this.lower[item]);
 				}

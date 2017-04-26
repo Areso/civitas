@@ -1095,18 +1095,6 @@ civitas.NATION_JAPANESE = 21;
 civitas.NATION_FRENCH = 22;
 
 /**
- * List of all the heroes in the world.
- *
- * @type {Object}
- */
-civitas.HEROES = {
-	1: {
-		name: 'Achilles',
-		religion: civitas.RELIGION_TAOISM
-	}
-};
-
-/**
  * List of the possible climate types.
  * 
  * @constant
@@ -1235,78 +1223,6 @@ civitas.PERSONALITY_DIPLOMAT = 2;
 civitas.PERSONALITY_WARLORD = 3;
 
 /**
- * Militia
- * 
- * @constant
- * @type {Number}
- */
-civitas.SOLDIER_MILITIA = 0;
-
-/**
- * Swordsman
- * 
- * @constant
- * @type {Number}
- */
-civitas.SOLDIER_SWORDSMAN = 1;
-
-/**
- * Axemen
- * 
- * @constant
- * @type {Number}
- */
-civitas.SOLDIER_AXEMAN = 2;
-
-/**
- * Knights
- * 
- * @constant
- * @type {Number}
- */
-civitas.SOLDIER_KNIGHT = 3;
-
-/**
- * Bowmen
- * 
- * @constant
- * @type {Number}
- */
-civitas.SOLDIER_BOWMAN = 4;
-
-/**
- * Crossbowmen
- * 
- * @constant
- * @type {Number}
- */
-civitas.SOLDIER_CROSSBOWMAN = 5;
-
-/**
- * Pikemen
- * 
- * @constant
- * @type {Number}
- */
-civitas.SOLDIER_PIKEMAN = 6;
-
-/**
- * Legionnaires
- * 
- * @constant
- * @type {Number}
- */
-civitas.SOLDIER_LEGIONNAIRE = 7;
-
-/**
- * Crusaders
- * 
- * @constant
- * @type {Number}
- */
-civitas.SOLDIER_CRUSADER = 8;
-
-/**
  * List of soldier types, their attributes and cost.
  * 
  * @type {Object}
@@ -1314,7 +1230,6 @@ civitas.SOLDIER_CRUSADER = 8;
  */
 civitas.SOLDIERS = {
 	'Militia': {
-		id: civitas.SOLDIER_MILITIA,
 		attack: 1,
 		defense: 1,
 		cost: {
@@ -1324,7 +1239,6 @@ civitas.SOLDIERS = {
 		}
 	},
 	'Swordsman': {
-		id: civitas.SOLDIER_SWORDSMAN,
 		attack: 3,
 		defense: 2,
 		cost: {
@@ -1335,7 +1249,6 @@ civitas.SOLDIERS = {
 		}
 	},
 	'Axeman': {
-		id: civitas.SOLDIER_AXEMAN,
 		attack: 4,
 		defense: 4,
 		cost: {
@@ -1346,7 +1259,6 @@ civitas.SOLDIERS = {
 		}
 	},
 	'Bowman': {
-		id: civitas.SOLDIER_BOWMAN,
 		attack: 6,
 		defense: 1,
 		cost: {
@@ -1357,7 +1269,6 @@ civitas.SOLDIERS = {
 		}
 	},
 	'Pikeman': {
-		id: civitas.SOLDIER_PIKEMAN,
 		attack: 5,
 		defense: 4,
 		cost: {
@@ -1370,7 +1281,6 @@ civitas.SOLDIERS = {
 		}
 	},
 	'Crossbowman': {
-		id: civitas.SOLDIER_CROSSBOWMAN,
 		attack: 7,
 		defense: 2,
 		cost: {
@@ -1383,7 +1293,6 @@ civitas.SOLDIERS = {
 		}
 	},
 	'Knight': {
-		id: civitas.SOLDIER_KNIGHT,
 		attack: 6,
 		defense: 9,
 		cost: {
@@ -1396,7 +1305,6 @@ civitas.SOLDIERS = {
 		}
 	},
 	'Legionnaire': {
-		id: civitas.SOLDIER_LEGIONNAIRE,
 		attack: 12,
 		defense: 14,
 		cost: {
@@ -1409,7 +1317,6 @@ civitas.SOLDIERS = {
 		}
 	},
 	'Crusader': {
-		id: civitas.SOLDIER_CRUSADER,
 		attack: 16,
 		defense: 18,
 		cost: {
@@ -1591,54 +1498,6 @@ civitas.MERCENARIES = [{
 }];
 
 /**
- * Corsair ship.
- * 
- * @constant
- * @type {Number}
- */
-civitas.SHIP_CORSAIR = 0;
-
-/**
- * Caravel ship.
- * 
- * @constant
- * @type {Number}
- */
-civitas.SHIP_CARAVEL = 1;
-
-/**
- * Warship ship.
- * 
- * @constant
- * @type {Number}
- */
-civitas.SHIP_WARSHIP = 2;
-
-/**
- * Galleon ship.
- * 
- * @constant
- * @type {Number}
- */
-civitas.SHIP_GALLEON = 3;
-
-/**
- * Ship of the Line ship.
- * 
- * @constant
- * @type {Number}
- */
-civitas.SHIP_SHIPOFTHELINE = 4;
-
-/**
- * Frigate ship.
- * 
- * @constant
- * @type {Number}
- */
-civitas.SHIP_FRIGATE = 5;
-
-/**
  * List of ship types, their attributes and cost.
  * 
  * @type {Object}
@@ -1646,7 +1505,6 @@ civitas.SHIP_FRIGATE = 5;
  */
 civitas.SHIPS = {
 	'Corsair': {
-		id: civitas.SHIP_CORSAIR,
 		attack: 5,
 		defense: 5,
 		cost: {
@@ -1663,7 +1521,6 @@ civitas.SHIPS = {
 		}
 	},
 	'Caravel': {
-		id: civitas.SHIP_CARAVEL,
 		attack: 10,
 		defense: 10,
 		cost: {
@@ -1681,7 +1538,6 @@ civitas.SHIPS = {
 		}
 	},
 	'Frigate': {
-		id: civitas.SHIP_FRIGATE,
 		attack: 17,
 		defense: 8,
 		cost: {
@@ -1699,7 +1555,6 @@ civitas.SHIPS = {
 		}
 	},
 	'Galleon': {
-		id: civitas.SHIP_GALLEON,
 		attack: 15,
 		defense: 15,
 		cost: {
@@ -1717,7 +1572,6 @@ civitas.SHIPS = {
 		}
 	},
 	'Warship': {
-		id: civitas.SHIP_WARSHIP,
 		attack: 35,
 		defense: 30,
 		cost: {
@@ -1736,7 +1590,6 @@ civitas.SHIPS = {
 		}
 	},
 	'Ship of the Line': {
-		id: civitas.SHIP_SHIPOFTHELINE,
 		attack: 55,
 		defense: 50,
 		cost: {
@@ -4446,17 +4299,6 @@ civitas.BUILDINGS = [{
 	}];
 
 /**
- * Settlement types.
- *
- * @constant
- * @type {Array}
- */
-civitas.SETTLEMENT_TYPES = [
-	'city',
-	'village'
-];
-
-/**
  * City settlement.
  *
  * @constant
@@ -5478,7 +5320,7 @@ civitas.SETTLEMENTS = {
 		}
 	},
 	21: {
-		settlement_type: civitas.VILLAGE,
+		type: civitas.VILLAGE,
 		religion: civitas.RELIGION_HINDUISM,
 		resources: {
 			prestige: 1,
@@ -5499,7 +5341,7 @@ civitas.SETTLEMENTS = {
 		}
 	},
 	22: {
-		settlement_type: civitas.VILLAGE,
+		type: civitas.VILLAGE,
 		religion: civitas.RELIGION_ISLAM,
 		resources: {
 			prestige: 1,
@@ -5520,7 +5362,7 @@ civitas.SETTLEMENTS = {
 		}
 	},
 	23: {
-		settlement_type: civitas.VILLAGE,
+		type: civitas.VILLAGE,
 		religion: civitas.RELIGION_ISLAM,
 		resources: {
 			prestige: 1,
@@ -5541,7 +5383,7 @@ civitas.SETTLEMENTS = {
 		}
 	},
 	24: {
-		settlement_type: civitas.VILLAGE,
+		type: civitas.VILLAGE,
 		religion: civitas.RELIGION_CHRISTIANITY,
 		resources: {
 			prestige: 1,
@@ -5562,7 +5404,7 @@ civitas.SETTLEMENTS = {
 		}
 	},
 	25: {
-		settlement_type: civitas.VILLAGE,
+		type: civitas.VILLAGE,
 		religion: civitas.RELIGION_CHRISTIANITY,
 		resources: {
 			prestige: 1,
@@ -5583,7 +5425,7 @@ civitas.SETTLEMENTS = {
 		}
 	},
 	26: {
-		settlement_type: civitas.VILLAGE,
+		type: civitas.VILLAGE,
 		religion: civitas.RELIGION_CHRISTIANITY,
 		resources: {
 			prestige: 1,
@@ -7445,37 +7287,34 @@ civitas.ui = {
 civitas.objects.settlement = function(params) {
 	
 	/**
-	 * The ID of this settlement.
+	 * Settlement properties.
 	 *
 	 * @private
-	 * @type {Number}
+	 * @type {Object}
 	 */
-	this.id = null;
+	this.properties = {
+		id: null,
+		type: null,
+		name: null,
+		storage: null,
+		population: null,
+		climate: null,
+		level: null,
+		icon: null,
+		population: null,
+		ruler: null,
+		religion: null,
+		player: null
+	};
 
 	/**
-	 * Settlement type.
+	 * Diplomacy status with all the settlements in the world.
 	 *
 	 * @private
-	 * @type {Number}
+	 * @type {Object}
 	 */
-	this.settlement_type = null;
+	this._status = {};
 
-	/**
-	 * The name of this settlement.
-	 * 
-	 * @private
-	 * @type {String}
-	 */
-	this.name = null;
-	
-	/**
-	 * The settlement ruler.
-	 * 
-	 * @private
-	 * @type {String}
-	 */
-	this.ruler = null;
-	
 	/**
 	 * Pointer to the game core.
 	 * 
@@ -7491,40 +7330,7 @@ civitas.objects.settlement = function(params) {
 	 * @type {Array}
 	 */
 	this.buildings = [];
-	
-	/**
-	 * List of buildings in a special export format.
-	 *
-	 * @type {Array}
-	 * @private
-	 */
-	this.buildings_list = [];
-	
-	/**
-	 * Storage space available in this settlement.
-	 * 
-	 * @private
-	 * @type {Number}
-	 */
-	this.storage = 0;
 
-	/**
-	 * Settlement population.
-	 *
-	 * @private
-	 * @type {Number}
-	 */
-	this.population = 1;
-
-	/**
-	 * The climate of the zone the settlement resides in. It affects the type of
-	 * the buildings you can construct.
-	 * 
-	 * @private
-	 * @type {String}
-	 */
-	this.climate = null;
-	
 	/**
 	 * Soldiers headquartered in this settlement.
 	 * 
@@ -7532,14 +7338,6 @@ civitas.objects.settlement = function(params) {
 	 * @type {Number}
 	 */
 	this.army = {};
-	
-	/**
-	 * Flag whether this settlement belongs to a player or is AI-controlled.
-	 *
-	 * @private
-	 * @type {Boolean}
-	 */
-	this.player = false;
 
 	/**
 	 * Ships built in this settlement.
@@ -7555,7 +7353,7 @@ civitas.objects.settlement = function(params) {
 	 * @private
 	 * @type {Number}
 	 */
-	this.mercenary = [];
+	this._mercenary = [];
 	
 	/**
 	 * The resources of this settlement.
@@ -7569,18 +7367,10 @@ civitas.objects.settlement = function(params) {
 	 * The settlement heroes.
 	 *
 	 * @private
-	 * @type {Object}
+	 * @type {Array}
 	 */
-	this.heroes = {};
+	this._heroes = [];
 
-	/**
-	 * The level of the settlement.
-	 * 
-	 * @private
-	 * @type {Number}
-	 */
-	this.level = 1;
-	
 	/**
 	 * List of the imports and exports of this settlement.
 	 * 
@@ -7588,22 +7378,6 @@ civitas.objects.settlement = function(params) {
 	 * @type {Object}
 	 */
 	this.trades = null;
-	
-	/**
-	 * The icon of this settlement.
-	 * 
-	 * @type {Number}
-	 * @private
-	 */
-	this.icon = null;
-
-	/**
-	 * The diplomatic status of this settlement.
-	 *
-	 * @type {Object}
-	 * @private
-	 */
-	this.status = null;
 
 	/**
 	 * Object constructor.
@@ -7614,21 +7388,21 @@ civitas.objects.settlement = function(params) {
 	 */
 	this.__init = function(params) {
 		this.core = params.core;
-		this.id = params.id;
-		this.name = params.name;
-		this.player = (typeof params.player !== 'undefined') ? params.player : false;
-		this.level = (typeof params.level !== 'undefined') ? params.level : 1;
-		this.climate = (typeof params.climate !== 'undefined') ? params.climate : civitas.CLIMATE_TEMPERATE;
-		this.religion = (typeof params.religion !== 'undefined') ? params.religion : civitas.RELIGION_NONE;
-		this.ruler = params.ruler;
-		this.icon = (typeof params.icon !== 'undefined') ? params.icon : 1;
-		this.population = (typeof params.population !== 'undefined') ? params.population : this.level * civitas.POPULATION_PER_LEVEL;
-		this.settlement_type = (typeof params.settlement_type !== 'undefined') ? params.settlement_type : civitas.CITY;
+		this.properties.id = params.properties.id;
+		this.properties.name = params.properties.name;
+		this.properties.player = (typeof params.properties.player !== 'undefined') ? params.properties.player : false;
+		this.properties.level = (typeof params.properties.level !== 'undefined') ? params.properties.level : 1;
+		this.properties.climate = (typeof params.properties.climate !== 'undefined') ? params.properties.climate : civitas.CLIMATE_TEMPERATE;
+		this.properties.religion = (typeof params.properties.religion !== 'undefined') ? params.properties.religion : civitas.RELIGION_NONE;
+		this.properties.ruler = params.properties.ruler;
+		this.properties.icon = (typeof params.properties.icon !== 'undefined') ? params.properties.icon : 1;
+		this.properties.population = (typeof params.properties.population !== 'undefined') ? params.properties.population : this.properties.level * civitas.POPULATION_PER_LEVEL;
+		this.properties.type = (typeof params.properties.type !== 'undefined') ? params.properties.type : civitas.CITY;
 		this.army = this._setup_army(params.army);
 		this.navy = this._setup_navy(params.navy);
-		this.mercenary = (typeof params.mercenary !== 'undefined') ? params.mercenary : [];
-		this.status = (typeof params.status !== 'undefined') ? params.status : {};
-		this.heroes = (typeof params.heroes !== 'undefined') ? params.heroes : {};
+		this._mercenary = (typeof params.mercenary !== 'undefined') ? params.mercenary : [];
+		this._status = (typeof params.status !== 'undefined') ? params.status : {};
+		this._heroes = (typeof params.heroes !== 'undefined') ? params.heroes : [];
 		this.resources = this._build_resources(params.resources);
 		if (typeof params.trades !== 'undefined') {
 			this.trades = params.trades;
@@ -7636,7 +7410,7 @@ civitas.objects.settlement = function(params) {
 			this.reset_trades();
 		}
 		if (this.is_player() === false) {
-			this.resources.fame = civitas.LEVELS[this.get_level()];
+			this.resources.fame = civitas.LEVELS[this.level()];
 		}
 		return this;
 	};
@@ -7649,165 +7423,43 @@ civitas.objects.settlement = function(params) {
 	 */
 	this.export = function() {
 		var data = {
-			id: this.get_id(),
-			name: this.get_name(),
-			player: this.is_player(),
-			level: this.get_level(),
-			climate: this.get_climate().id,
-			religion: this.get_religion().id,
-			ruler: this.get_ruler(),
-			icon: this.get_icon(),
+			properties: this.get_properties(),
 			trades: this.get_trades(),
 			resources: this.get_resources(),
 			army: this.get_army_total().army,
 			navy: this.get_navy_total().navy,
-			buildings: this.get_buildings_list(),
-			settlement_type: this.get_settlement_type(),
-			population: this.get_population(),
-			mercenary: this.get_mercenary(),
-			heroes: this.get_heroes()
+			buildings: this.export_buildings(),
+			mercenary: this.mercenary(),
+			heroes: this.heroes()
 		};
 		if (this.is_player()) {
-			data.status = this.get_status();
+			data.status = this.status();
 		}
 		return data;
 	};
 
 	/**
-	 * Adjust the resources according to the settlement owner.
+	 * Get the settlement properties.
 	 *
-	 * @private
+	 * @public
 	 * @returns {Object}
 	 */
-	this._build_resources = function(_resources) {
-		var difficulty = this.get_core().get_difficulty();
-		var _trades = {};
-		if (!this.is_player()) {
-			if (this.is_city() && typeof civitas.SETTLEMENTS[this.get_id()] !== 'undefined') {
-				_trades = civitas.SETTLEMENTS[this.get_id()].trades.exports;
-			}
-			for (var item in civitas.RESOURCES) {
-				if (typeof _resources[item] === 'undefined') {
-					if (typeof _trades[item] !== 'undefined') {
-						_resources[item] = civitas.utils.get_random_by_importance(_trades[item]);
-					} else {
-						_resources[item] = 0;
-					}
-				}
-			}
-		} else {
-			if (typeof _resources === 'undefined') {
-				_resources = civitas.START_RESOURCES[difficulty - 1];
-			}
-			for (var item in civitas.RESOURCES) {
-				if (typeof _resources[item] === 'undefined') {
-					_resources[item] = 0;
-				}
-			}
-		}
-		return _resources;
+	this.get_properties = function() {
+		return this.properties;
 	};
 
 	/**
-	 * Add a specified amount of a resource to the storage of this settlement.
-	 * 
-	 * @public
-	 * @param {String} item
-	 * @param {Number} amount
-	 * @returns {Boolean}
-	 */
-	this.add_to_storage = function(item, amount) {
-		if (!civitas.utils.resource_exists(item)) {
-			if (this.is_player()) {
-				this.get_core().error('The resource you specified does not exist.');
-			}
-			return false;
-		}
-		var res = this.get_resources();
-		if (typeof res[item] !== 'undefined') {
-			res[item] = res[item] + amount;
-		} else {
-			res[item] = amount;
-		}
-		return true;
-	};
-	
-	/**
-	 * Check if the settlement has the required coins to create this building.
-	 * 
-	 * @public
-	 * @param {Number} coins
-	 * @param {Boolean} alert
-	 * @returns {Boolean}
-	 */
-	this.has_coins = function(coins, alert) {
-		var resources = this.get_resources();
-		if (this.get_coins() - coins < 0) {
-			if (alert !== false) {
-				if (this.is_player()) {
-					this.get_core().error(this.get_name() + ' doesn`t have enough ' + civitas.utils.get_resource_name('coins') + '.');
-				}
-			}
-			return false;
-		}
-		return true;
-	};
-	
-	/**
-	 * Check if this settlement has the specified goods in storage.
-	 * 
-	 * @public
-	 * @param {String} resource
-	 * @param {Number} amount
-	 * @returns {Boolean}
-	 */
-	this.has_resources = function(resource, amount) {
-		if (!civitas.utils.resource_exists(resource)) {
-			if (this.is_player()) {
-				this.get_core().error('The resource you specified does not exist.');
-			}
-			return false;
-		}
-		var res = this.get_resources();
-		if ((res[resource] - amount) < 0) {
-			if (this.is_player()) {
-				this.get_core().error(this.get_name() + ' does not have enough ' + civitas.utils.get_resource_name(resource) + '.');
-			}
-			return false;
-		}
-		return true;
-	};
-
-	/**
-	 * Get the list of all the buildings in this settlement.
-	 * 
-	 * @public
-	 * @returns {Array}
-	 */
-	this.get_buildings = function() {
-		return this.buildings;
-	};
-
-	/**
-	 * Get the name of this settlement.
-	 * 
-	 * @public
-	 * @returns {String}
-	 */
-	this.get_name = function() {
-		return this.name;
-	};
-
-	/**
-	 * Set the name of this settlement.
+	 * Get/set the name of this settlement.
 	 * 
 	 * @public
 	 * @param {String} value
-	 * @returns {civitas.objects.settlement}
+	 * @returns {String}
 	 */
-	this.set_name = function(value) {
-		this.name = value;
-		return this;
+	this.name = function(value) {
+		if (typeof value !== 'undefined') {
+			this.properties.name = value;
+		}
+		return this.properties.name;
 	};
 
 	/**
@@ -7827,14 +7479,14 @@ civitas.objects.settlement = function(params) {
 	 * @returns {civitas.objects.settlement}
 	 */
 	this.level_up = function() {
-		var level = this.get_level();
-		this.set_fame(civitas.LEVELS[level]);
-		this.level++;
-		this.calc_population();
+		var level = this.level();
+		this.fame(civitas.LEVELS[level]);
+		this.properties.level++;
+		this.properties.population = this.properties.level * civitas.POPULATION_PER_LEVEL;
 		if (this.is_player()) {
 			this.get_core().refresh_panels();
-			$('.citylevel').html(this.level);
-			this.get_core().notify('The city of ' + this.get_name() + ' is now level ' + this.level + '.');
+			$('.citylevel').html(this.properties.level);
+			this.get_core().notify('The city of ' + this.name() + ' is now level ' + this.properties.level + '.');
 		}
 		return this;
 	};
@@ -7844,226 +7496,12 @@ civitas.objects.settlement = function(params) {
 	 * 
 	 * @public
 	 * @param {String} value
-	 * @returns {civitas.objects.settlement}
+	 * @returns {String}
 	 */
 	this.rename = function(value) {
-		this.name = value;
-		return this;
+		return this.name(value);
 	};
 
-	/**
-	 * Check if the specified building is already built.
-	 * 
-	 * @public
-	 * @param {String} handle
-	 * @param {Number} level
-	 * @returns {Boolean}
-	 */
-	this.is_building_built = function(handle, level) {
-		if (typeof level === 'undefined') {
-			level = 1;
-		}
-		var buildings = this.get_buildings();
-		for (var i = 0; i < buildings.length; i++) {
-			if (typeof buildings[i] !== 'undefined') {
-				if (buildings[i].type === handle && buildings[i].level >= level) {
-					return true;
-				}
-			}
-		}
-		return false;
-	};
-
-	/**
-	 * Check if the settlement has a specific storage space.
-	 * 
-	 * @public
-	 * @param {Number} quantity
-	 * @returns {Boolean}
-	 */
-	this.has_storage_space_for = function(quantity) {
-		var storage = this.get_storage_space();
-		if (!this.has_storage_space(true)) {
-			return false;
-		}
-		if ((storage.occupied + quantity) > storage.all) {
-			//this.get_core().error('There is no storage space in your city to accomodate the new goods.');
-			return false;
-		}
-		return true;
-	};
-	
-	/**
-	 * Check if this settlement has enough storage space.
-	 * 
-	 * @public
-	 * @returns {Boolean}
-	 */
-	this.has_storage_space = function(alert) {
-		var storage = this.get_storage_space();
-		if (storage.occupied >= storage.all) {
-			if (alert === true) {
-				if (this.is_player()) {
-					this.get_core().error('There is no storage space in your city.');
-				}
-			}
-			return false;
-		}
-		return true;
-	};
-	
-	/**
-	 * Get the storage space of this settlement.
-	 * 
-	 * @public
-	 * @returns {Object}
-	 */
-	this.get_storage_space = function() {
-		var storage = 0;
-		for (var item in this.get_resources()) {
-			if ($.inArray(item, civitas.NON_RESOURCES) === -1) {
-				storage += this.get_resources()[item];
-			}
-		}
-		return {
-			occupied: storage,
-			all: this.storage
-		};
-	};
-	
-	/**
-	 * Internal function for building the specified buildings, bypassing
-	 * the requirements.
-	 * 
-	 * @public
-	 * @param {String|Object} building_type
-	 * @param {Boolean} hidden
-	 * @returns {civitas.objects.building|Boolean}
-	 */
-	this._create_buildings = function(building_type, hidden) {
-		hidden = (typeof hidden !== 'undefined') && hidden === true ? true : false;
-		if (typeof building_type === 'object') {
-			for (var i = 0; i < building_type.length; i++) {
-				var handle = typeof building_type[i].handle !== 'undefined' ? building_type[i].handle : building_type[i];
-				var level = typeof building_type[i].level !== 'undefined' ? building_type[i].level : 1;
-				var working = typeof building_type[i].working !== 'undefined' ? building_type[i].working : true;
-				var _b = civitas.BUILDINGS.findIndexM(handle);
-				if (_b !== false) {
-					var _c = civitas.BUILDINGS[_b];
-					if (level > 1) {
-						_c.level = level;
-					}
-					var _building = new civitas.objects.building({
-						settlement: this,
-						type: handle,
-						data: _c,
-						hidden: hidden,
-						working: working
-					});
-					this.buildings.push(_building);
-					this.buildings_list.push({
-						handle: handle,
-						level: level,
-						working: working
-					});
-				}
-			}
-		} else {
-			var handle = typeof building_type.handle !== 'undefined' ? building_type.handle : building_type;
-			var level = typeof building_type.level !== 'undefined' ? building_type.level : 1;
-			var working = typeof building_type.working !== 'undefined' ? building_type.working : true;
-			var _b = civitas.BUILDINGS.findIndexM(handle);
-			if (_b !== false) {
-				var _c = civitas.BUILDINGS[_b];
-				if (level > 1) {
-					_c.level = level;
-				}
-				var _building = new civitas.objects.building({
-					settlement: this,
-					type: handle,
-					data: _c,
-					hidden: hidden,
-					working: working
-				});
-				this.buildings.push(_building);
-				this.buildings_list.push({
-					handle: handle,
-					level: level,
-					working: working
-				});
-			}
-		}
-		return false;
-	};
-	
-	/**
-	 * Build the specified building.
-	 * 
-	 * @public
-	 * @param {String} building_type
-	 * @returns {civitas.objects.building|Boolean}
-	 */
-	this.build = function(building_type) {
-		var _b = civitas.BUILDINGS.findIndexM(building_type);
-		if (_b !== false) {
-			var _c = civitas.BUILDINGS[_b];
-			if ((typeof _c.requires.settlement_level !== 'undefined') && (this.level < _c.requires.settlement_level)) {
-				if (this.is_player()) {
-					this.get_core().error('Your city level is too low to construct this building.');
-				}
-				return false;
-			}
-			if (typeof _c.requires.buildings !== 'undefined') {
-				var required = _c.requires.buildings;
-				for (var item in required) {
-					if (!this.is_building_built(item, required[item])) {
-						var _z = civitas.BUILDINGS.findIndexM(item);
-						_z = civitas.BUILDINGS[_z];
-						if (this.is_player()) {
-							this.get_core().error('You don`t have the required level ' + required[item] + ' ' + _z.name + '.');
-						}
-						return false;
-					}
-				}
-			}
-			for (var item in _c.cost) {
-				if ((this.get_resources()[item] - _c.cost[item]) < 0) {
-					if (this.is_player()) {
-						this.get_core().error('You don`t have enough ' + item + ' to construct this building.');
-					}
-					return false;
-				}
-			}
-			for (var item in _c.cost) {
-				if ((this.get_resources()[item] - _c.cost[item]) >= 0) {
-					this.get_resources()[item] = this.get_resources()[item] - _c.cost[item];
-				}
-			}
-			var _building = new civitas.objects.building({
-				settlement: this,
-				type: building_type,
-				data: _c
-			});
-			this.buildings.push(_building);
-			this.buildings_list.push({
-				handle: building_type,
-				level: 1,
-				stopped: false
-			});
-			this.raise_prestige();
-			if (this.is_player()) {
-				this.get_core().save_and_refresh();
-				this.get_core().notify('New building constructed: ' + _building.get_name());
-				$('.tips').tipsy({
-					gravity: $.fn.tipsy.autoNS,
-					html: true
-				});
-			}
-			return _building;
-		}
-		return false;
-	};
-	
 	/**
 	 * Get the rank of this settlement
 	 * 
@@ -8071,189 +7509,22 @@ civitas.objects.settlement = function(params) {
 	 * @returns {Number}
 	 */
 	this.get_rank = function() {
-		var level = this.get_level();
+		var level = this.level();
 		var half_level = Math.round(level / 2);
 		return {
-			fame: this.get_fame(),
-			prestige: this.get_prestige(),
-			espionage: this.get_espionage(),
+			fame: this.fame(),
+			prestige: this.prestige(),
+			espionage: this.espionage(),
 			army: this.get_army_total().total,
 			navy: this.get_navy_total().total,
 			score: Math.floor((
-				((this.get_fame() > 0 ? this.get_fame() : 1) / half_level)
-				+ (this.get_prestige() / half_level)
-				+ (this.get_espionage() / half_level)
+				((this.fame() > 0 ? this.fame() : 1) / half_level)
+				+ (this.prestige() / half_level)
+				+ (this.espionage() / half_level)
 				+ ((this.get_army_total().total > 0 ? this.get_army_total().total : 1) / half_level)
 				+ ((this.get_navy_total().total > 0 ? this.get_navy_total().total : 1) / (half_level / 2))
 			) / half_level)
 		};
-	};
-	
-	/**
-	 * Return a pointer to the specified building in this settlement by the specified
-	 * handle.
-	 * 
-	 * @public
-	 * @param {String} handle
-	 * @returns {civitas.objects.building|Boolean}
-	 */
-	this.get_building_by_handle = function(handle) {
-		var buildings = this.get_buildings();
-		for (var i = 0; i < buildings.length; i++) {
-			if (typeof buildings[i] !== 'undefined') {
-				if (buildings[i].get_type() === handle) {
-					return buildings[i];
-				}
-			}
-		}
-		return false;
-	};
-	
-	/**
-	 * Demolish a settlement building
-	 * 
-	 * @public
-	 * @param {Number|String} id
-	 * @returns {Boolean}
-	 */
-	this.demolish = function(id) {
-		if (typeof id === 'number') {
-			if (id > 0) {
-				this.buildings.splice(id, 1);
-				this.buildings_list.splice(id, 1);
-				this.get_core().save_and_refresh();
-				return true;
-			}
-		} else if (typeof id === 'string') {
-			if (id !== 'marketplace') {
-				for (var i = 0; i < this.buildings.length; i++) {
-					if (this.buildings[i].get_type() === id) {
-						this.buildings.splice(i, 1);
-					}
-				}
-				var bl_id = this.buildings_list.findIndexM(id);
-				if (bl_id !== false) {
-				    this.buildings_list.splice(bl_id, 1);
-				}
-				this.get_core().save_and_refresh();
-				return true;
-			}
- 		}
-		return false;
-	};
-	
-	/**
-	 * Get the coins this settlement has. This is the coins object.
-	 * 
-	 * @public
-	 * @returns {Object}
-	 */
-	this.get_coins = function() {
-		return this.resources.coins;
-	};
-	
-	/**
-	 * Increase this settlement's coins by the specified amount.
-	 * 
-	 * @public
-	 * @param {Number} value
-	 * @returns {Number}
-	 */
-	this.inc_coins = function(value) {
-		return this.set_coins(this.get_coins() + value);
-	};
-	
-	/**
-	 * Decrease this settlement's coins by the specified amount.
-	 * 
-	 * @public
-	 * @param {Number} value
-	 * @returns {Number}
-	 */
-	this.dec_coins = function(value) {
-		if (!this.has_coins(value)) {
-			return false;
-		}
-		this.set_coins(this.get_coins() - value);
-		return true;
-	};
-	
-	/**
-	 * Set this settlement's coins to the specified value.
-	 * 
-	 * @public
-	 * @param {Number} value
-	 * @returns {Number}
-	 */
-	this.set_coins = function(value) {
-		this.resources.coins = value;
-		return value;
-	};
-	
-	/**
-	 * Set the coins of the settlement.
-	 * 
-	 * @public
-	 * @param {Object} value
-	 * @returns {civitas.objects.settlement}
-	 */
-	this.set_coins = function(value) {
-		this.resources.coins = value;
-		return this;
-	};
-		
-	/**
-	 * Remove a specific amount of a resource silently from this settlement's storage.
-	 * 
-	 * @public
-	 * @param {String} resource
-	 * @param {Number} amount
-	 * @returns {Boolean}
-	 */
-	this.remove_resource_silent = function(resource, amount) {
-		var res = this.get_resources();
-		res[resource] = res[resource] - amount;
-		if (res[resource] < 0) {
-			res[resource] = 0;
-		}
-		return true;
-	};
-	
-	/**
-	 * Remove a specific amount of a resource from this settlement's storage.
-	 * 
-	 * @public
-	 * @param {String} resource
-	 * @param {Number} amount
-	 * @returns {Boolean}
-	 */
-	this.remove_resource = function(resource, amount) {
-		var res = this.get_resources();
-		if (!this.has_resources(resource, amount)) {
-			return false;
-		}
-		res[resource] = res[resource] - amount;
-		return true;
-	};
-	
-	/**
-	 * Remove resources from this settlement's storage.
-	 * 
-	 * @public
-	 * @param {Object} resources
-	 * @returns {Boolean}
-	 */
-	this.remove_resources = function(resources) {
-		var res = this.get_resources();
-		for (var resource in resources) {
-			if (!this.has_resources(resource, resources[resource])) {
-				return false;
-			}
-		}
-		for (var resource in resources) {
-			res[resource] = res[resource] - resources[resource];
-		}
-		return true;
 	};
 	
 	/**
@@ -8264,7 +7535,7 @@ civitas.objects.settlement = function(params) {
 	 */
 	this.city_council = function() {
 		var resources = this.get_resources();
-		var storage = this.get_storage_space();
+		var storage = this.storage();
 		var advices = [];
 		var army = this.get_army_total();
 		var navy = this.get_navy_total();
@@ -8331,226 +7602,110 @@ civitas.objects.settlement = function(params) {
 	};
 	
 	/**
-	 * Get the resources available in this settlement.
-	 * 
-	 * @public
-	 * @returns {Object}
-	 */
-	this.get_resources = function() {
-		return this.resources;
-	};
-	
-	/**
-	 * Set the resources of the settlement.
+	 * Get/set the ruler object of this settlement.
 	 * 
 	 * @public
 	 * @param {Object} value
-	 * @returns {civitas.objects.settlement}
+	 * @returns {Object}
 	 */
-	this.set_resources = function(value) {
-		this.resources = value;
-		return this;
+	this.ruler = function(value) {
+		if (typeof value !== 'undefined') {
+			this.properties.ruler = value;
+		}
+		return this.properties.ruler;
 	};
 
 	/**
-	 * Return the ruler object of this settlement.
-	 * 
-	 * @public
-	 * @returns {String}
-	 */
-	this.get_ruler = function() {
-		return this.ruler;
-	};
-
-	/**
-	 * Return the ruler name of this settlement.
-	 * 
-	 * @public
-	 * @returns {String}
-	 */
-	this.get_ruler_name = function() {
-		return this.ruler.name;
-	};
-
-	/**
-	 * Return the ruler personality of this settlement.
-	 * 
-	 * @public
-	 * @returns {String}
-	 */
-	this.get_ruler_personality = function() {
-		return this.ruler.personality;
-	};
-
-	/**
-	 * Return the ruler nationality of this settlement.
-	 * 
-	 * @public
-	 * @returns {String}
-	 */
-	this.get_ruler_nationality = function() {
-		return this.ruler.nationality;
-	};
-
-	/**
-	 * Set the ruler name of the settlement.
-	 * 
-	 * @public
-	 * @param {String} value
-	 * @returns {civitas.objects.settlement}
-	 */
-	this.set_ruler = function(value) {
-		this.ruler = value;
-		return this;
-	};
-	
-	/**
-	 * Set the level of the settlement.
+	 * Get/set the level of this settlement.
 	 * 
 	 * @public
 	 * @param {Number} value
-	 * @returns {civitas.objects.settlement}
-	 */
-	this.set_level = function(value) {
-		this.level = value;
-		return this;
-	};
-	
-	/**
-	 * Return the level of this settlement.
-	 * 
-	 * @public
 	 * @returns {Number}
 	 */
-	this.get_level = function() {
-		return this.level;
+	this.level = function(value) {
+		if (typeof value !== 'undefined') {
+			this.properties.level = value;
+		}
+		return this.properties.level;
 	};
 
 	/**
-	 * Return the personality of the ruler of this settlement.
+	 * Get/set the personality of the ruler of this settlement.
 	 * 
 	 * @public
+	 * @param {Number} value
 	 * @returns {Object}
 	 */
-	this.get_personality = function() {
+	this.personality = function(value) {
+		if (typeof value !== 'undefined') {
+			this.properties.ruler.personality = value;
+		}
 		return {
-			id: this.ruler.personality,
-			name: civitas.PERSONALITIES[this.ruler.personality]
+			id: this.properties.ruler.personality,
+			name: civitas.PERSONALITIES[this.properties.ruler.personality].capitalize()
 		};
 	};
 
 	/**
-	 * Return the climate of the area of this settlement.
+	 * Get/set the climate of the area of this settlement.
 	 * 
 	 * @public
+	 * @param {Number} value
 	 * @returns {Object}
 	 */
-	this.get_climate = function() {
+	this.climate = function(value) {
+		if (typeof value !== 'undefined') {
+			this.properties.climate = value;
+		}
 		return {
-			id: this.climate,
-			name: civitas.CLIMATES[this.climate]
+			id: this.properties.climate,
+			name: civitas.CLIMATES[this.properties.climate].capitalize()
+		};
+	};
+	
+	/**
+	 * Get/set the nationality of this settlement.
+	 * 
+	 * @public
+	 * @param {Number} value
+	 * @returns {Object}
+	 */
+	this.nationality = function(value) {
+		if (typeof value !== 'undefined') {
+			this.properties.nationality = value;
+		}
+		return {
+			id: this.properties.ruler.nationality,
+			name: civitas.NATIONS[this.properties.ruler.nationality].capitalize()
 		};
 	};
 
 	/**
-	 * Return the nationality of this settlement.
+	 * Get/set the icon of this settlement.
 	 * 
 	 * @public
-	 * @returns {Object}
-	 */
-	this.get_nationality = function() {
-		return {
-			id: this.ruler.nationality,
-			name: civitas.NATIONS[this.ruler.nationality]
-		};
-	};
-
-	/**
-	 * Get the icon of this settlement.
-	 * 
-	 * @public
+	 * @param {Number} value
 	 * @returns {Number}
 	 */
-	this.get_icon = function() {
-		return this.icon;
-	};
-	
-	/**
-	 * Set the icon of this settlement.
-	 * 
-	 * @public
-	 * @returns {civitas.objects.settlement}
-	 * @param {Number} value
-	 */
-	this.set_icon = function(value) {
-		this.icon = value;
-		return this;
+	this.icon = function(value) {
+		if (typeof value !== 'undefined') {
+			this.properties.icon = value;
+		}
+		return this.properties.icon;
 	};
 
 	/**
-	 * Get the avatar of the ruler of this settlement.
-	 * 
+	 * Get/set the id of this settlement.
+	 *
 	 * @public
+	 * @param {Number} value
 	 * @returns {Number}
 	 */
-	this.get_ruler_avatar = function() {
-		return this.ruler.avatar;
-	};
-	
-	/**
-	 * Set the climate of this settlement.
-	 * 
-	 * @public
-	 * @returns {civitas.objects.settlement}
-	 * @param {Number} value
-	 */
-	this.set_climate = function(value) {
-		this.climate = value;
-		return this;
-	};
-	
-	/**
-	 * Set the nationality of this settlement.
-	 * 
-	 * @public
-	 * @returns {civitas.objects.settlement}
-	 * @param {Number} value
-	 */
-	this.set_nationality = function(value) {
-		this.nationality = value;
-		return this;
-	};
-	
-	/**
-	 * Get the list of settlement buildings, for export reasons.
-	 *
-	 * @public
-	 * @returns {Array}
-	 */
-	this.get_buildings_list = function() {
-		return this.buildings_list;
-	};
-
-	/**
-	 * Get the id of this settlement.
-	 *
-	 * @public
-	 * @returns {Number}
-	 */
-	this.get_id = function() {
-		return this.id;
-	};
-
-	/**
-	 * Set the id of this settlement.
-	 *
-	 * @public
-	 * @param {Number}
-	 * @returns {civitas.game}
-	 */
-	this.set_id = function(id) {
-		this.id = id;
-		return this;
+	this.id = function(value) {
+		if (typeof value !== 'undefined') {
+			this.properties.id = id;
+		}
+		return this.properties.id;
 	};
 
 	/**
@@ -8560,7 +7715,7 @@ civitas.objects.settlement = function(params) {
 	 * @returns {Boolean}
 	 */
 	this.is_player = function() {
-		return this.player;
+		return this.properties.player;
 	};
 
 	/**
@@ -8569,8 +7724,8 @@ civitas.objects.settlement = function(params) {
 	 * @public
 	 * @returns {Number}
 	 */
-	this.get_settlement_type = function() {
-		return this.settlement_type;
+	this.get_type = function() {
+		return this.properties.type;
 	};
 
 	/**
@@ -8579,8 +7734,8 @@ civitas.objects.settlement = function(params) {
 	 * @public
 	 * @returns {Number}
 	 */
-	this.get_population = function() {
-		return this.population;
+	this.population = function() {
+		return this.properties.population;
 	};
 
 	/**
@@ -8590,17 +7745,7 @@ civitas.objects.settlement = function(params) {
 	 * @returns {Boolean}
 	 */
 	this.is_city = function() {
-		return this.settlement_type === civitas.CITY;
-	};
-
-	/**
-	 * Calculate the number of people living in your settlement.
-	 *
-	 * @public
-	 * @returns {Number}
-	 */
-	this.calc_population = function() {
-		return this.population = this.get_level() * civitas.POPULATION_PER_LEVEL;
+		return this.properties.type === civitas.CITY;
 	};
 
 	/**
@@ -8610,7 +7755,7 @@ civitas.objects.settlement = function(params) {
 	 * @returns {Boolean}
 	 */
 	this.is_village = function() {
-		return this.settlement_type === civitas.VILLAGE;
+		return this.properties.type === civitas.VILLAGE;
 	};
 
 	/**
@@ -8633,11 +7778,11 @@ civitas.objects.settlement = function(params) {
 	 * @public
 	 */
 	this.has_same_nationality = function(settlement) {
-		if (typeof settlement === 'object' && this.get_nationality().id === settlement.get_nationality().id) {
+		if (typeof settlement === 'object' && this.nationality().id === settlement.nationality().id) {
 			return true;
 		} else if (typeof settlement === 'number' || typeof settlement === 'string') {
 			settlement = this.get_core().get_settlement(settlement);
-			if (this.get_nationality().id === settlement.get_nationality().id) {
+			if (this.nationality().id === settlement.nationality().id) {
 				return true;
 			}
 		}
@@ -8645,25 +7790,16 @@ civitas.objects.settlement = function(params) {
 	};
 
 	/**
-	 * Set the heroes of the settlement.
-	 *
-	 * @public
-	 * @param {Object} value
-	 * @returns {civitas.objects.settlement}
-	 */
-	this.set_heroes = function(value) {
-		this.heroes = value;
-		return this;
-	};
-
-	/**
-	 * Get the heroes of the settlement.
+	 * Get/set the heroes of the settlement.
 	 *
 	 * @public
 	 * @returns {Object}
 	 */
-	this.get_heroes = function() {
-		return this.heroes;
+	this.heroes = function(value) {
+		if (typeof value !== 'undefined') {
+			this._heroes = value;
+		}
+		return this._heroes;
 	};
 
 	// Fire up the constructor
@@ -8681,16 +7817,6 @@ civitas.objects.settlement.prototype.can_research = function() {
 };
 
 /**
- * Return the value of this settlement's research.
- * 
- * @public
- * @returns {Number}
- */
-civitas.objects.settlement.prototype.get_research = function() {
-	return this.resources.research;
-};
-
-/**
  * Raise the research of this settlement by the specified amount.
  * 
  * @public
@@ -8701,7 +7827,7 @@ civitas.objects.settlement.prototype.raise_research = function(amount) {
 	if (typeof amount === 'undefined') {
 		amount = 1;
 	}
-	return this.set_research(this.get_research() + amount);
+	return this.research(this.research() + amount);
 };
 
 /**
@@ -8715,47 +7841,38 @@ civitas.objects.settlement.prototype.lower_research = function(amount) {
 	if (typeof amount === 'undefined') {
 		amount = 1;
 	}
-	return this.set_research(this.get_research() - amount);
+	return this.research(this.research() - amount);
 };
 
 /**
  * Reset the research of this settlement to 1.
  * 
- * @returns {civitas.objects.settlement}
+ * @returns {Number}
  * @public
  */
 civitas.objects.settlement.prototype.reset_research = function() {
-	this.resources.research = 1;
-	return this;
+	return this.research(1);
 };
 
 /**
- * Set the research of this settlement.
+ * Get/set the research of this settlement.
  * 
  * @public
- * @returns {civitas.objects.settlement}
+ * @returns {Number}
  * @param {Number} value
  */
-civitas.objects.settlement.prototype.set_research = function(value) {
-	if (value < 1 || this.resources.research < 1) {
-		this.resources.research = 1;
-	} else {
-		this.resources.research = value;
+civitas.objects.settlement.prototype.research = function(value) {
+	if (typeof value !== 'undefined') {
+		if (value < 1 || this.resources.research < 1) {
+			this.resources.research = 1;
+		} else {
+			this.resources.research = value;
+		}
+		if (this.resources.research >= civitas.MAX_RESEARCH_VALUE) {
+			this.resources.research = civitas.MAX_RESEARCH_VALUE;
+		}
 	}
-	if (this.resources.research >= civitas.MAX_RESEARCH_VALUE) {
-		this.resources.research = civitas.MAX_RESEARCH_VALUE;
-	}
-	return this.get_research();
-};
-
-/**
- * Get the fame this settlement has.
- * 
- * @public
- * @returns {Object}
- */
-civitas.objects.settlement.prototype.get_fame = function() {
-	return this.resources.fame;
+	return this.resources.research;
 };
 
 /**
@@ -8769,7 +7886,7 @@ civitas.objects.settlement.prototype.raise_fame = function(amount) {
 	if (typeof amount === 'undefined') {
 		amount = 1;
 	}
-	return this.set_fame(this.get_fame() + amount);
+	return this.fame(this.fame() + amount);
 };
 
 /**
@@ -8783,36 +7900,39 @@ civitas.objects.settlement.prototype.lower_fame = function(amount) {
 	if (typeof amount === 'undefined') {
 		amount = 1;
 	}
-	return this.set_fame(this.get_fame() - amount);
+	return this.fame(this.fame() - amount);
 };
 
 /**
- * Set this settlement's fame to the specified value.
+ * Get/set this settlement's fame.
  * 
  * @public
  * @param {Number} value
  * @returns {Number}
  */
-civitas.objects.settlement.prototype.set_fame = function(value) {
-	if (this.resources.fame >= civitas.LEVELS[civitas.MAX_SETTLEMENT_LEVEL - 1]) {
-		this.resources.fame = civitas.LEVELS[civitas.MAX_SETTLEMENT_LEVEL - 1];
-	} else if (value < 0 || this.resources.fame < 0) {
-		this.resources.fame = 0;
+civitas.objects.settlement.prototype.fame = function(value) {
+	if (typeof value !== 'undefined') {
+		if (this.resources.fame >= civitas.LEVELS[civitas.MAX_SETTLEMENT_LEVEL - 1]) {
+			this.resources.fame = civitas.LEVELS[civitas.MAX_SETTLEMENT_LEVEL - 1];
+		} else if (value < 0 || this.resources.fame < 0) {
+			this.resources.fame = 0;
+		} else {
+			this.resources.fame = value;
+		}
+		return value;
 	} else {
-		this.resources.fame = value;
+		return this.resources.fame;
 	}
-	return value;
 };
 
 /**
  * Reset the fame of this settlement to 1.
  * 
- * @returns {civitas.objects.settlement}
+ * @returns {Number}
  * @public
  */
 civitas.objects.settlement.prototype.reset_fame = function() {
-	this.set_fame(0);
-	return this;
+	return this.fame(0);
 };
 
 /**
@@ -8823,23 +7943,23 @@ civitas.objects.settlement.prototype.reset_fame = function() {
  * @returns {Boolean}
  */
 civitas.objects.settlement.prototype.change_religion = function(id) {
-	if (this.get_faith() !== civitas.MAX_FAITH_VALUE && id !== 0) {
+	if (this.faith() !== civitas.MAX_FAITH_VALUE && id !== 0) {
 		if (this.is_player()) {
 			this.get_core().error('You don`t have enough faith to switch religions.');
 		}
 		return false;
 	}
-	if ((typeof id === 'number' && this.get_religion().id === id) || (typeof id === 'string' && this.get_religion().name === id)) {
+	if ((typeof id === 'number' && this.religion().id === id) || (typeof id === 'string' && this.religion().name === id)) {
 		if (this.is_player()) {
 			this.get_core().error('You cannot switch religion to your already existing one.');
 		}
 		return false;
 	}
-	if (this.set_religion(id)) {
+	if (this.religion(id)) {
 		this.reset_faith();
 		this.refresh_heroes();
 		if (this.is_player()) {
-			this.get_core().notify('Your settlement`s new religion is <strong>' + this.get_religion().name.capitalize() + '</strong>');
+			this.get_core().notify('Your settlement`s new religion is <strong>' + this.religion().name + '</strong>');
 		}
 		this.get_core().save_and_refresh();
 		return true;
@@ -8853,47 +7973,28 @@ civitas.objects.settlement.prototype.change_religion = function(id) {
 };
 
 /**
- * Set religion to the specified value.
- *
- * @public
- * @param {Number|String} value
- * @returns {Boolean}
- */
-civitas.objects.settlement.prototype.set_religion = function(value) {
-	if (typeof value === 'number') {
-		this.religion = value;
-		return true;
-	} else if (typeof value === 'string') {
-		var pos = $.inArray(value, civitas.RELIGIONS);
-		if (pos !== -1) {
-			this.religion = pos;
-			return true;
-		}
-	}
-	return false;
-};
-
-/**
- * Return the religion of this settlement.
+ * Get/set the religion of this settlement.
  * 
  * @public
  * @returns {Object}
  */
-civitas.objects.settlement.prototype.get_religion = function() {
+civitas.objects.settlement.prototype.religion = function(value) {
+	if (typeof value !== 'undefined') {
+		if (typeof value === 'number') {
+			this.properties.religion = value;
+			return true;
+		} else if (typeof value === 'string') {
+			var pos = $.inArray(value, civitas.RELIGIONS);
+			if (pos !== -1) {
+				this.properties.religion = pos;
+				return true;
+			}
+		}
+	}
 	return {
-		id: this.religion,
-		name: civitas.RELIGIONS[this.religion]
+		id: this.properties.religion,
+		name: civitas.RELIGIONS[this.properties.religion].capitalize()
 	};
-};
-
-/**
- * Return the value of this settlement's faith.
- * 
- * @public
- * @returns {Number}
- */
-civitas.objects.settlement.prototype.get_faith = function() {
-	return this.resources.faith;
 };
 
 /**
@@ -8907,7 +8008,7 @@ civitas.objects.settlement.prototype.raise_faith = function(value) {
 	if (typeof value === 'undefined') {
 		value = 1;
 	}
-	return this.set_faith(this.get_faith() + value);
+	return this.faith(this.faith() + value);
 };
 
 /**
@@ -8921,7 +8022,7 @@ civitas.objects.settlement.prototype.lower_faith = function(value) {
 	if (typeof value === 'undefined') {
 		value = 1;
 	}
-	return this.set_faith(this.get_faith() - value);
+	return this.faith(this.faith() - value);
 };
 
 /**
@@ -8931,37 +8032,28 @@ civitas.objects.settlement.prototype.lower_faith = function(value) {
  * @public
  */
 civitas.objects.settlement.prototype.reset_faith = function() {
-	this.resources.faith = 1;
-	return this;
+	return this.faith(1);
 };
 
 /**
- * Set the faith of this settlement.
+ * Get/set the faith of this settlement.
  * 
  * @public
  * @returns {Number}
  * @param {Number} value
  */
-civitas.objects.settlement.prototype.set_faith = function(value) {
-	if (value < 1 || this.resources.faith < 1) {
-		this.resources.faith = 1;
-	} else {
-		this.resources.faith = value;
+civitas.objects.settlement.prototype.faith = function(value) {
+	if (typeof value !== 'undefined') {
+		if (value < 1 || this.resources.faith < 1) {
+			this.resources.faith = 1;
+		} else {
+			this.resources.faith = value;
+		}
+		if (this.resources.faith >= civitas.MAX_FAITH_VALUE) {
+			this.resources.faith = civitas.MAX_FAITH_VALUE;
+		}
 	}
-	if (this.resources.faith >= civitas.MAX_FAITH_VALUE) {
-		this.resources.faith = civitas.MAX_FAITH_VALUE;
-	}
-	return this.get_faith();
-};
-
-/**
- * Return the value of this settlement's espionage.
- * 
- * @public
- * @returns {Number}
- */
-civitas.objects.settlement.prototype.get_espionage = function() {
-	return this.resources.espionage;
+	return this.resources.faith;
 };
 
 /**
@@ -8975,7 +8067,7 @@ civitas.objects.settlement.prototype.raise_espionage = function(value) {
 	if (typeof value === 'undefined') {
 		value = 1;
 	}
-	return this.set_espionage(this.get_espionage() + value);
+	return this.espionage(this.espionage() + value);
 };
 
 /**
@@ -8989,7 +8081,7 @@ civitas.objects.settlement.prototype.lower_espionage = function(value) {
 	if (typeof value === 'undefined') {
 		value = 1;
 	}
-	return this.set_espionage(this.get_espionage() - value);
+	return this.espionage(this.espionage() - value);
 };
 
 /**
@@ -8999,37 +8091,28 @@ civitas.objects.settlement.prototype.lower_espionage = function(value) {
  * @public
  */
 civitas.objects.settlement.prototype.reset_espionage = function() {
-	this.resources.espionage = 1;
-	return this;
+	return this.espionage(1);
 };
 
 /**
- * Set the espionage of this settlement.
+ * Get/set the espionage of this settlement.
  * 
  * @public
  * @returns {Number}
  * @param {Number} value
  */
-civitas.objects.settlement.prototype.set_espionage = function(value) {
-	if (value < 1 || this.resources.espionage < 1) {
-		this.resources.espionage = 1;
-	} else {
-		this.resources.espionage = value;
+civitas.objects.settlement.prototype.espionage = function(value) {
+	if (typeof value !== 'undefined') {
+		if (value < 1 || this.resources.espionage < 1) {
+			this.resources.espionage = 1;
+		} else {
+			this.resources.espionage = value;
+		}
+		if (this.resources.espionage >= civitas.MAX_ESPIONAGE_VALUE) {
+			this.resources.espionage = civitas.MAX_ESPIONAGE_VALUE;
+		}
 	}
-	if (this.resources.espionage >= civitas.MAX_ESPIONAGE_VALUE) {
-		this.resources.espionage = civitas.MAX_ESPIONAGE_VALUE;
-	}
-	return this.get_espionage();
-};
-
-/**
- * Return the value of this settlement's prestige.
- * 
- * @public
- * @returns {Number}
- */
-civitas.objects.settlement.prototype.get_prestige = function() {
-	return this.resources.prestige;
+	return this.resources.espionage;
 };
 
 /**
@@ -9043,7 +8126,7 @@ civitas.objects.settlement.prototype.raise_prestige = function(amount) {
 	if (typeof amount === 'undefined') {
 		amount = 1;
 	}
-	return this.set_prestige(this.get_prestige() + amount);
+	return this.prestige(this.prestige() + amount);
 };
 
 /**
@@ -9057,37 +8140,521 @@ civitas.objects.settlement.prototype.lower_prestige = function(amount) {
 	if (typeof amount === 'undefined') {
 		amount = 1;
 	}
-	return this.set_prestige(this.get_prestige() - amount);
+	return this.prestige(this.prestige() - amount);
 };
 
 /**
  * Reset the prestige of this settlement to 1.
  * 
- * @returns {civitas.objects.settlement}
+ * @returns {Number}
  * @public
  */
 civitas.objects.settlement.prototype.reset_prestige = function() {
-	this.resources.prestige = 1;
+	return this.prestige(1);
+};
+
+/**
+ * Get/set the prestige of this settlement.
+ * 
+ * @public
+ * @returns {Number}
+ * @param {Number} value
+ */
+civitas.objects.settlement.prototype.prestige = function(value) {
+	if (typeof value !== 'undefined') {
+		if (value < 1 || this.resources.prestige < 1) {
+			this.resources.prestige = 1;
+		} else {
+			this.resources.prestige = value;
+		}
+		if (this.resources.prestige >= civitas.MAX_PRESTIGE_VALUE) {
+			this.resources.prestige = civitas.MAX_PRESTIGE_VALUE;
+		}
+	}
+	return this.resources.prestige;
+};
+
+/**
+ * Increase this settlement's coins by the specified amount.
+ * 
+ * @public
+ * @param {Number} value
+ * @returns {Number}
+ */
+civitas.objects.settlement.prototype.inc_coins = function(value) {
+	return this.coins(this.coins() + value);
+};
+	
+/**
+ * Decrease this settlement's coins by the specified amount.
+ * 
+ * @public
+ * @param {Number} value
+ * @returns {Number}
+ */
+civitas.objects.settlement.prototype.dec_coins = function(value) {
+	if (!this.has_coins(value)) {
+		return false;
+	}
+	this.coins(this.coins() - value);
+	return true;
+};
+	
+/**
+ * Get/set the coins of the settlement.
+ * 
+ * @public
+ * @param {Number} value
+ * @returns {Number}
+ */
+civitas.objects.settlement.prototype.coins = function(value) {
+	if (typeof value !== 'undefined') {
+		this.resources.coins = value;
+	}
+	return this.resources.coins;
+};
+		
+/**
+ * Remove a specific amount of a resource silently from this settlement's storage.
+ * 
+ * @public
+ * @param {String} resource
+ * @param {Number} amount
+ * @returns {Boolean}
+ */
+civitas.objects.settlement.prototype.remove_resource_silent = function(resource, amount) {
+	var res = this.get_resources();
+	res[resource] = res[resource] - amount;
+	if (res[resource] < 0) {
+		res[resource] = 0;
+	}
+	return true;
+};
+	
+/**
+ * Remove a specific amount of a resource from this settlement's storage.
+ * 
+ * @public
+ * @param {String} resource
+ * @param {Number} amount
+ * @returns {Boolean}
+ */
+civitas.objects.settlement.prototype.remove_resource = function(resource, amount) {
+	var res = this.get_resources();
+	if (!this.has_resources(resource, amount)) {
+		return false;
+	}
+	res[resource] = res[resource] - amount;
+	return true;
+};
+	
+/**
+ * Remove resources from this settlement's storage.
+ * 
+ * @public
+ * @param {Object} resources
+ * @returns {Boolean}
+ */
+civitas.objects.settlement.prototype.remove_resources = function(resources) {
+	var res = this.get_resources();
+	for (var resource in resources) {
+		if (!this.has_resources(resource, resources[resource])) {
+			return false;
+		}
+	}
+	for (var resource in resources) {
+		res[resource] = res[resource] - resources[resource];
+	}
+	return true;
+};
+
+/**
+ * Check if the settlement has a specific storage space.
+ * 
+ * @public
+ * @param {Number} quantity
+ * @returns {Boolean}
+ */
+civitas.objects.settlement.prototype.has_storage_space_for = function(quantity) {
+	var storage = this.storage();
+	if (!this.has_storage_space(true)) {
+		return false;
+	}
+	if ((storage.occupied + quantity) > storage.all) {
+		//this.get_core().error('There is no storage space in your city to accomodate the new goods.');
+		return false;
+	}
+	return true;
+};
+	
+/**
+ * Check if this settlement has enough storage space.
+ * 
+ * @public
+ * @returns {Boolean}
+ */
+civitas.objects.settlement.prototype.has_storage_space = function(alert) {
+	var storage = this.storage();
+	if (storage.occupied >= storage.all) {
+		if (alert === true) {
+			if (this.is_player()) {
+				this.get_core().error('There is no storage space in your city.');
+			}
+		}
+		return false;
+	}
+	return true;
+};
+	
+/**
+ * Get/set the storage space of this settlement.
+ * 
+ * @public
+ * @returns {Object}
+ */
+civitas.objects.settlement.prototype.storage = function(value) {
+	if (typeof value !== 'undefined') {
+		this.properties.storage = value;
+	}
+	var storage = 0;
+	for (var item in this.get_resources()) {
+		if ($.inArray(item, civitas.NON_RESOURCES) === -1) {
+			storage += this.get_resources()[item];
+		}
+	}
+	return {
+		occupied: storage,
+		all: this.properties.storage
+	};
+};
+	
+/**
+ * Adjust the resources according to the settlement owner.
+ *
+ * @private
+ * @returns {Object}
+ */
+civitas.objects.settlement.prototype._build_resources = function(_resources) {
+	var difficulty = this.get_core().get_difficulty();
+	var _trades = {};
+	if (!this.is_player()) {
+		if (this.is_city() && typeof civitas.SETTLEMENTS[this.id()] !== 'undefined') {
+			_trades = civitas.SETTLEMENTS[this.id()].trades.exports;
+		}
+		for (var item in civitas.RESOURCES) {
+			if (typeof _resources[item] === 'undefined') {
+				if (typeof _trades[item] !== 'undefined') {
+					_resources[item] = civitas.utils.get_random_by_importance(_trades[item]);
+				} else {
+					_resources[item] = 0;
+				}
+			}
+		}
+	} else {
+		if (typeof _resources === 'undefined') {
+			_resources = civitas.START_RESOURCES[difficulty - 1];
+		}
+		for (var item in civitas.RESOURCES) {
+			if (typeof _resources[item] === 'undefined') {
+				_resources[item] = 0;
+			}
+		}
+	}
+	return _resources;
+};
+
+/**
+ * Add a specified amount of a resource to the storage of this settlement.
+ * 
+ * @public
+ * @param {String} item
+ * @param {Number} amount
+ * @returns {Boolean}
+ */
+civitas.objects.settlement.prototype.add_to_storage = function(item, amount) {
+	if (!civitas.utils.resource_exists(item)) {
+		if (this.is_player()) {
+			this.get_core().error('The resource you specified does not exist.');
+		}
+		return false;
+	}
+	var res = this.get_resources();
+	if (typeof res[item] !== 'undefined') {
+		res[item] = res[item] + amount;
+	} else {
+		res[item] = amount;
+	}
+	return true;
+};
+	
+/**
+ * Check if the settlement has the required coins to create this building.
+ * 
+ * @public
+ * @param {Number} coins
+ * @param {Boolean} alert
+ * @returns {Boolean}
+ */
+civitas.objects.settlement.prototype.has_coins = function(coins, alert) {
+	if (this.coins() - coins < 0) {
+		if (alert !== false) {
+			if (this.is_player()) {
+				this.get_core().error(this.name() + ' doesn`t have enough ' + civitas.utils.get_resource_name('coins') + '.');
+			}
+		}
+		return false;
+	}
+	return true;
+};
+	
+/**
+ * Check if this settlement has the specified goods in storage.
+ * 
+ * @public
+ * @param {String} resource
+ * @param {Number} amount
+ * @returns {Boolean}
+ */
+civitas.objects.settlement.prototype.has_resources = function(resource, amount) {
+	if (!civitas.utils.resource_exists(resource)) {
+		if (this.is_player()) {
+			this.get_core().error('The resource you specified does not exist.');
+		}
+		return false;
+	}
+	var res = this.get_resources();
+	if ((res[resource] - amount) < 0) {
+		if (this.is_player()) {
+			this.get_core().error(this.name() + ' does not have enough ' + civitas.utils.get_resource_name(resource) + '.');
+		}
+		return false;
+	}
+	return true;
+};
+
+/**
+ * Get the resources available in this settlement.
+ * 
+ * @public
+ * @returns {Object}
+ */
+civitas.objects.settlement.prototype.get_resources = function() {
+	return this.resources;
+};
+	
+/**
+ * Set the resources of the settlement.
+ * 
+ * @public
+ * @param {Object} value
+ * @returns {civitas.objects.settlement}
+ */
+civitas.objects.settlement.prototype.set_resources = function(value) {
+	this.resources = value;
 	return this;
 };
 
 /**
- * Set the prestige of this settlement.
+ * Get the list of settlement buildings, for export reasons.
+ *
+ * @public
+ * @returns {Array}
+ */
+civitas.objects.settlement.prototype.export_buildings = function() {
+	var buildings_list = [];
+	for (var i = 0; i < this.buildings.length; i++) {
+		buildings_list.push({
+			handle: this.buildings[i].get_handle(),
+			level: this.buildings[i].get_level(),
+			stopped: this.buildings[i].is_stopped()
+		});
+	}
+	return buildings_list;
+};
+
+/**
+ * Return a pointer to the specified building in this settlement by the specified
+ * handle.
  * 
  * @public
- * @returns {civitas.objects.settlement}
- * @param {Number} value
+ * @param {String} handle
+ * @returns {civitas.objects.building|Boolean}
  */
-civitas.objects.settlement.prototype.set_prestige = function(value) {
-	if (value < 1 || this.resources.prestige < 1) {
-		this.resources.prestige = 1;
+civitas.objects.settlement.prototype.get_building = function(handle) {
+	var buildings = this.get_buildings();
+	if (typeof handle === 'string') {
+		for (var i = 0; i < buildings.length; i++) {
+			if (typeof buildings[i] !== 'undefined') {
+				if (buildings[i].get_type() === handle) {
+					return buildings[i];
+				}
+			}
+		}
+	}
+	return false;
+};
+
+/**
+ * Internal method for creating a building.
+ *
+ * @private
+ * @param {String|Object} building
+ * @param {Boolean} hidden
+ * returns {Boolean}
+ */
+civitas.objects.settlement.prototype._create_building = function(building, hidden) {
+	hidden = (typeof hidden !== 'undefined') && hidden === true ? true : false;
+	var building_data = false;
+	var handle = typeof building.handle !== 'undefined' ? building.handle : building;
+	var level = typeof building.level !== 'undefined' ? building.level : 1;
+	var stopped = typeof building.stopped !== 'undefined' ? building.stopped : false;
+	if (building_data = this.get_building_data(handle)) {
+		if (level > 1) {
+			building_data.level = level;
+		}
+		var _building = new civitas.objects.building({
+			settlement: this,
+			type: handle,
+			data: building_data,
+			hidden: hidden,
+			stopped: stopped
+		});
+		this.buildings.push(_building);
+		return true;
+	}
+	return false;
+};
+
+/**
+ * Internal function for building the specified buildings, bypassing
+ * the requirements.
+ * 
+ * @public
+ * @param {String|Object} building_type
+ * @param {Boolean} hidden
+ * @returns {Boolean}
+ */
+civitas.objects.settlement.prototype._create_buildings = function(building_type, hidden) {
+	if (typeof building_type === 'object') {
+		for (var i = 0; i < building_type.length; i++) {
+			this._create_building(building_type[i], hidden);
+		}
+		return true;
 	} else {
-		this.resources.prestige = value;
+		this._create_building(building_type, hidden);
+		return true;
 	}
-	if (this.resources.prestige >= civitas.MAX_PRESTIGE_VALUE) {
-		this.resources.prestige = civitas.MAX_PRESTIGE_VALUE;
+	return false;
+};
+
+/**
+ * Get the building data.
+ *
+ * @public
+ * @param {String} handle
+ * @returns {Object|Boolean}
+ */
+civitas.objects.settlement.prototype.get_building_data = function(handle) {
+	var id = civitas.BUILDINGS.findIndexM(handle);
+	if (id !== false) {
+		return civitas.BUILDINGS[id];
 	}
-	return this.get_prestige();
+	return false;
+};
+
+/**
+ * Build the specified building.
+ * 
+ * @public
+ * @param {String} building_type
+ * @returns {civitas.objects.building|Boolean}
+ */
+civitas.objects.settlement.prototype.build = function(building_type) {
+	var building_data = false;
+	if (building_data = this.get_building_data(building_type)) {
+		if ((typeof building_data.requires.settlement_level !== 'undefined') && (this.properties.level < building_data.requires.settlement_level)) {
+			if (this.is_player()) {
+				this.get_core().error('Your city level is too low to construct this building.');
+			}
+			return false;
+		}
+		if (typeof building_data.requires.buildings !== 'undefined') {
+			var required = building_data.requires.buildings;
+			for (var item in required) {
+				if (!this.is_building_built(item, required[item])) {
+					var _z = civitas.BUILDINGS.findIndexM(item);
+					_z = civitas.BUILDINGS[_z];
+					if (this.is_player()) {
+						this.get_core().error('You don`t have the required level ' + required[item] + ' ' + _z.name + '.');
+					}
+					return false;
+				}
+			}
+		}
+		for (var item in building_data.cost) {
+			if ((this.get_resources()[item] - building_data.cost[item]) < 0) {
+				if (this.is_player()) {
+					this.get_core().error('You don`t have enough ' + item + ' to construct this building.');
+				}
+				return false;
+			}
+		}
+		for (var item in building_data.cost) {
+			if ((this.get_resources()[item] - building_data.cost[item]) >= 0) {
+				this.get_resources()[item] = this.get_resources()[item] - building_data.cost[item];
+			}
+		}
+		var _building = new civitas.objects.building({
+			settlement: this,
+			type: building_type,
+			data: building_data
+		});
+		this.buildings.push(_building);
+		this.raise_prestige();
+		if (this.is_player()) {
+			this.get_core().save_and_refresh();
+			this.get_core().notify('New building constructed: ' + _building.get_name());
+			$('.tips').tipsy({
+				gravity: $.fn.tipsy.autoNS,
+				html: true
+			});
+		}
+		return _building;
+	}
+	return false;
+};
+
+/**
+ * Check if the specified building is already built.
+ * 
+ * @public
+ * @param {String} handle
+ * @param {Number} level
+ * @returns {Boolean}
+ */
+civitas.objects.settlement.prototype.is_building_built = function(handle, level) {
+	if (typeof level === 'undefined') {
+		level = 1;
+	}
+	var buildings = this.get_buildings();
+	for (var i = 0; i < buildings.length; i++) {
+		if (typeof buildings[i] !== 'undefined') {
+			if (buildings[i].type === handle && buildings[i].level >= level) {
+				return true;
+			}
+		}
+	}
+	return false;
+};
+
+/**
+ * Get the list of all the buildings in this settlement.
+ * 
+ * @public
+ * @returns {Array}
+ */
+civitas.objects.settlement.prototype.get_buildings = function() {
+	return this.buildings;
 };
 
 /**
@@ -9129,13 +8696,17 @@ civitas.objects.settlement.prototype._setup_navy = function(params) {
 };
 
 /**
- * Get the list of settlement mercenary armies, for export reasons.
+ * Get the list of settlement mercenary armies.
  *
  * @public
+ * @param {Array} value
  * @returns {Array}
  */
-civitas.objects.settlement.prototype.get_mercenary = function() {
-	return this.mercenary;
+civitas.objects.settlement.prototype.mercenary = function(value) {
+	if (typeof value !== 'undefined') {
+		this._mercenary = value;
+	}
+	return this._mercenary;
 };
 
 /**
@@ -9184,7 +8755,7 @@ civitas.objects.settlement.prototype.recruit_mercenary_army = function(name) {
 					army.army[item] = 0;
 				}
 			}
-			this.mercenary.push(army);
+			this._mercenary.push(army);
 			if (this.is_player()) {
 				this.get_core().notify('The mercenaries of the ' + civitas.MERCENARIES[i].name + ' are now available for skirmish missions for the duration of one year.', 'Mercenaries recruited.');
 			}
@@ -9296,18 +8867,6 @@ civitas.objects.settlement.prototype.disband_soldier = function(soldier_name) {
 };
 
 /**
- * Set the mercenaries of the settlement.
- * 
- * @public
- * @param {Number} value
- * @returns {civitas.objects.settlement}
- */
-civitas.objects.settlement.prototype.set_mercenary = function(value) {
-	this.mercenary = value;
-	return this;
-};
-
-/**
  * Set the navy of the settlement.
  * 
  * @public
@@ -9338,7 +8897,7 @@ civitas.objects.settlement.prototype.set_army = function(value) {
  * @returns {civitas.objects.settlement}
  */
 civitas.objects.settlement.prototype.release_mercenaries = function() {
-	this.mercenary = [];
+	this._mercenary = [];
 	if (this.is_player()) {
 		this.get_core().notify('At the end of the year, mercenaries from your city have been released.');
 	}
@@ -9363,16 +8922,6 @@ civitas.objects.settlement.prototype.get_army = function() {
  */
 civitas.objects.settlement.prototype.get_navy = function() {
 	return this.navy;
-};
-
-/**
- * Get the total number of mercenaries available for this settlement.
- * 
- * @public
- * @returns {Number}
- */
-civitas.objects.settlement.prototype.get_mercenary = function() {
-	return this.mercenary;
 };
 
 /**
@@ -9437,8 +8986,8 @@ civitas.objects.settlement.prototype.get_army_total = function(army) {
  * @returns {Boolean}
  */
 civitas.objects.settlement.prototype.is_mercenary_recruited = function(handle) {
-	for (var i = 0; i < this.mercenary.length; i++) {
-		if (this.mercenary[i].handle === handle) {
+	for (var i = 0; i < this._mercenary.length; i++) {
+		if (this._mercenary[i].handle === handle) {
 			return true;
 		}
 	}
@@ -9454,7 +9003,7 @@ civitas.objects.settlement.prototype.is_mercenary_recruited = function(handle) {
  */
 civitas.objects.settlement.prototype.release_mercenary = function(id) {
 	var mercenary_army_data = civitas.MERCENARIES[id];
-	this.mercenary.splice(id, 1);
+	this._mercenary.splice(id, 1);
 	if (this.is_player()) {
 		this.get_core().notify(mercenary_army_data.name + ' has been released from its duties.');
 	}
@@ -9471,10 +9020,10 @@ civitas.objects.settlement.prototype.release_mercenary = function(id) {
  */
 civitas.objects.settlement.prototype.diplomacy = function(settlement, mode) {
 	if (typeof settlement === 'object') {
-		settlement = settlement.get_id();
+		settlement = settlement.id();
 	}
 	if (this.can_diplomacy() === true && typeof settlement === 'number') {
-		this.status[settlement].status = mode;
+		this._status[settlement].status = mode;
 		if (mode === civitas.DIPLOMACY_WAR) {
 			this.reset_influence(settlement);
 		} else if (mode === civitas.DIPLOMACY_ALLIANCE) {
@@ -9490,6 +9039,17 @@ civitas.objects.settlement.prototype.diplomacy = function(settlement, mode) {
 		return true;
 	}
 	return false;
+};
+
+civitas.objects.settlement.prototype.status = function(settlement, value) {
+	if (typeof value !== 'undefined') {
+		this._status[settlement] = value;
+	}
+	if (typeof settlement !== 'undefined') {
+		return this._status[settlement];
+	} else {
+		return this._status;
+	}
 };
 
 /**
@@ -9521,26 +9081,14 @@ civitas.objects.settlement.prototype.can_diplomacy = function() {
  */
 civitas.objects.settlement.prototype.get_influence_with_settlement = function(settlement) {
 	if (typeof settlement === 'number') {
-		return this.status[settlement].influence;
+		return this._status[settlement].influence;
 	} else if (typeof settlement === 'object') {
-		return this.status[settlement.get_id()].influence;
+		return this._status[settlement.id()].influence;
 	} else if (typeof settlement === 'string') {
-		return this.status[this.get_core().get_settlement(settlement)].influence;
+		return this._status[this.get_core().get_settlement(settlement)].influence;
 	}
 };
-	
-/**
- * Set the influence of this settlement.
- * 
- * @public
- * @returns {civitas.objects.settlement}
- * @param {Object} value
- */
-civitas.objects.settlement.prototype.set_status = function(value) {
-	this.status = value;
-	return this;
-};
-	
+
 /**
  * Decrease the influence of this settlement.
  * 
@@ -9566,17 +9114,17 @@ civitas.objects.settlement.prototype.lower_influence = function(settlement, valu
  */
 civitas.objects.settlement.prototype.set_influence = function(settlement, value) {
 	if (typeof settlement === 'object') {
-		settlement = settlement.get_id();
+		settlement = settlement.id();
 	} else if (typeof settlement === 'string') {
 		settlement = this.get_core().get_settlement(settlement);
 	}
-	if (value < 1 || this.status[settlement].influence < 1) {
-		this.status[settlement].influence = 1;
+	if (value < 1 || this._status[settlement].influence < 1) {
+		this._status[settlement].influence = 1;
 	} else {
-		this.status[settlement].influence = value;
+		this._status[settlement].influence = value;
 	}
-	if (this.status[settlement].influence >= civitas.MAX_INFLUENCE_VALUE) {
-		this.status[settlement].influence = civitas.MAX_INFLUENCE_VALUE;
+	if (this._status[settlement].influence >= civitas.MAX_INFLUENCE_VALUE) {
+		this._status[settlement].influence = civitas.MAX_INFLUENCE_VALUE;
 	}
 	return this.get_influence_with_settlement(settlement);
 };
@@ -9607,16 +9155,6 @@ civitas.objects.settlement.prototype.reset_influence = function(settlement_id) {
 	this.set_influence(settlement_id, 1);
 	return this;
 };
-
-/**
- * Return all the status of this settlement with all the other cities.
- * 
- * @public
- * @returns {Object}
- */
-civitas.objects.settlement.prototype.get_status = function() {
-	return this.status;
-};
 	
 /**
  * Return the diplomacy status of this settlement.
@@ -9626,8 +9164,8 @@ civitas.objects.settlement.prototype.get_status = function() {
  */
 civitas.objects.settlement.prototype.get_diplomacy_status = function(settlement) {
 	return {
-		id: this.status[settlement].status,
-		name: civitas.DIPLOMACIES[this.status[settlement].status]
+		id: this._status[settlement].status,
+		name: civitas.DIPLOMACIES[this._status[settlement].status].capitalize()
 	};
 };
 
@@ -9671,7 +9209,7 @@ civitas.objects.settlement.prototype.buy_from_settlement = function(settlement, 
 		} else {
 			_settlement = settlement;
 		}
-		var is_double = this.get_religion().id === _settlement.get_religion().id ? true : false;
+		var is_double = this.religion().id === _settlement.religion().id ? true : false;
 		var trades = _settlement.get_trades();
 		if (trades === null) {
 			if (this.is_player()) {
@@ -9706,15 +9244,15 @@ civitas.objects.settlement.prototype.buy_from_settlement = function(settlement, 
 				_settlement.inc_coins(settlement_price);
 				this.add_to_storage(item, amount);
 				this.remove_from_exports(_settlement, item, amount);
-				this.raise_influence(_settlement.get_id(), (is_double ? civitas.IMPORT_INFLUENCE * 2 : civitas.IMPORT_INFLUENCE));
+				this.raise_influence(_settlement.id(), (is_double ? civitas.IMPORT_INFLUENCE * 2 : civitas.IMPORT_INFLUENCE));
 				this.raise_prestige(is_double ? civitas.IMPORT_PRESTIGE * 2 : civitas.IMPORT_PRESTIGE);
 				this.raise_fame(50);
 				this.get_core().refresh();
 				if (this.is_player()) {
-					this.get_core().notify(this.get_name() + ' bought <strong>' + amount + '</strong> ' + civitas.utils.get_resource_name(item) + ' from ' + settlement + ' for <strong>' + item_discount_price + '</strong> coins each, for a total of <strong>' + price + '</strong> coins.', civitas.l('World Market'));
+					this.get_core().notify(this.name() + ' bought <strong>' + amount + '</strong> ' + civitas.utils.get_resource_name(item) + ' from ' + settlement + ' for <strong>' + item_discount_price + '</strong> coins each, for a total of <strong>' + price + '</strong> coins.', civitas.l('World Market'));
 				}
 				return {
-					buyer: this.get_name(),
+					buyer: this.name(),
 					amount: amount,
 					goods: civitas.utils.get_resource_name(item),
 					seller: settlement,
@@ -9743,8 +9281,8 @@ civitas.objects.settlement.prototype.reset_trades = function() {
 		'exports': {}
 	};
 	var amount = 0;
-	if (typeof civitas.SETTLEMENTS[this.get_id()] !== 'undefined') {
-		var _trades = civitas.SETTLEMENTS[this.get_id()].trades;
+	if (typeof civitas.SETTLEMENTS[this.id()] !== 'undefined') {
+		var _trades = civitas.SETTLEMENTS[this.id()].trades;
 		for (var goods_type in _trades) {
 			for (var item in _trades[goods_type]) {
 				amount = civitas.utils.get_random_by_importance(_trades[goods_type][item])
@@ -9789,10 +9327,10 @@ civitas.objects.settlement.prototype.list_black_market = function(resource, amou
 		this.get_core().add_black_market(resource, amount, price);
 		this.get_core().refresh();
 		if (this.is_player()) {
-			this.get_core().notify(this.get_name() + ' placed ' + amount + ' ' + civitas.utils.get_resource_name(resource) + ' on the Black Market and will receive ' + price + ' coins next month.', civitas.l('Black Market'));
+			this.get_core().notify(this.name() + ' placed ' + amount + ' ' + civitas.utils.get_resource_name(resource) + ' on the Black Market and will receive ' + price + ' coins next month.', civitas.l('Black Market'));
 		}
 		return {
-			seller: this.get_name(),
+			seller: this.name(),
 			amount: amount,
 			goods: civitas.utils.get_resource_name(resource),
 			price: price,
@@ -9832,7 +9370,7 @@ civitas.objects.settlement.prototype.sell_to_settlement = function(settlement, r
 		} else {
 			_settlement = settlement;
 		}
-		var is_double = this.get_religion().id === _settlement.get_religion().id ? true : false;
+		var is_double = this.religion().id === _settlement.religion().id ? true : false;
 		var trades = _settlement.get_trades();
 		if (trades === null) {
 			if (this.is_player()) {
@@ -9867,15 +9405,15 @@ civitas.objects.settlement.prototype.sell_to_settlement = function(settlement, r
 				}
 				_settlement.add_to_storage(item, amount);
 				this.remove_from_imports(_settlement, item, amount);
-				this.raise_influence(_settlement.get_id(), (is_double ? civitas.EXPORT_INFLUENCE * 2 : civitas.EXPORT_INFLUENCE));
+				this.raise_influence(_settlement.id(), (is_double ? civitas.EXPORT_INFLUENCE * 2 : civitas.EXPORT_INFLUENCE));
 				this.raise_prestige(is_double ? civitas.EXPORT_PRESTIGE * 2 : civitas.EXPORT_PRESTIGE);
 				this.raise_fame(50);
 				this.get_core().refresh();
 				if (this.is_player()) {
-					this.get_core().notify(this.get_name() + ' sold <strong>' + amount + '</strong> ' + civitas.utils.get_resource_name(item) + ' to ' + settlement + ' for <strong>' + item_discount_price + '</strong> coins each, for a total of <strong>' + price + '</strong> coins.', civitas.l('World Market'));
+					this.get_core().notify(this.name() + ' sold <strong>' + amount + '</strong> ' + civitas.utils.get_resource_name(item) + ' to ' + settlement + ' for <strong>' + item_discount_price + '</strong> coins each, for a total of <strong>' + price + '</strong> coins.', civitas.l('World Market'));
 				}
 				return {
-					seller: this.get_name(),
+					seller: this.name(),
 					amount: amount,
 					goods: civitas.utils.get_resource_name(item),
 					buyer: settlement,
@@ -10033,11 +9571,11 @@ civitas.objects.event = function (params) {
 		var core = this.get_core();
 		var random_settlement_id = civitas.utils.get_random(1, core.settlements.length);
 		var with_settlement = core.get_settlement(random_settlement_id);
-		var description = this.description.replace(/SETTLEMENT/g, with_settlement.get_name());
+		var description = this.description.replace(/SETTLEMENT/g, with_settlement.name());
 		if (this.raise !== null) {
 			for (var item in this.raise) {
 				if (item === 'influence') {
-					core.get_settlement().raise_influence(with_settlement.get_id(), this.raise[item]);
+					core.get_settlement().raise_influence(with_settlement.id(), this.raise[item]);
 				} else {
 					core.get_settlement().add_to_storage(item, this.raise[item]);
 				}
@@ -10048,7 +9586,7 @@ civitas.objects.event = function (params) {
 		if (this.lower !== null) {
 			for (var item in this.lower) {
 				if (item === 'influence') {
-					core.get_settlement().lower_influence(with_settlement.get_id(), this.lower[item]);
+					core.get_settlement().lower_influence(with_settlement.id(), this.lower[item]);
 				} else {
 					core.get_settlement().remove_resource_silent(item, this.lower[item]);
 				}
@@ -10128,7 +9666,7 @@ civitas.objects.building = function(params) {
 	 * @type {Boolean}
 	 * @private
 	 */
-	this.working = true;
+	this.stopped = false;
 
 	/**
 	 * Check if this is a production building.
@@ -10186,7 +9724,7 @@ civitas.objects.building = function(params) {
 		this.is_municipal = (typeof params.data.is_municipal !== 'undefined' && params.data.is_municipal === true) ? true : false;
 		this.is_housing = (typeof params.data.is_housing !== 'undefined' && params.data.is_housing === true) ? true : false;
 		this.level = (typeof params.data.level !== 'undefined') ? params.data.level : 1;
-		this.working = (typeof params.working !== 'undefined') ? params.working : true;
+		this.stopped = (typeof params.stopped !== 'undefined') ? params.stopped : false;
 		this.handle = params.data.handle;
 		params.data.level = this.get_level();
 		if (params.hidden !== true && this.settlement.is_player()) {
@@ -10199,23 +9737,21 @@ civitas.objects.building = function(params) {
 				}
 				return false;
 			});
+			if (this.stopped === true) {
+				this.problems = true;
+				this.notify(civitas.NOTIFICATION_PRODUCTION_PAUSED);
+			} else {
+				this.problems = false;
+				$('section.game > #building-' + this.get_handle()).empty();
+			}
+			this.get_core().refresh();
 		}
 		var building = this.get_building_data();
 		switch (this.get_type()) {
 			case 'marketplace':
 			case 'warehouse':
-				this.get_settlement().storage = this.get_settlement().storage + (building.storage * this.get_level());
+				this.get_settlement().storage(this.get_settlement().storage().all + (building.storage * this.get_level()));
 				break;
-		}
-		if (params.hidden !== true) {
-			if (this.working === false) {
-				this.problems = true;
-				this.notify(civitas.NOTIFICATION_PRODUCTION_PAUSED);
-			} else {
-				this.problems = false;
-				$('#building-' + this.get_handle()).empty();
-			}
-			this.get_core().refresh();
 		}
 		return this;
 	};
@@ -10241,51 +9777,43 @@ civitas.objects.building = function(params) {
 	 * @returns {Boolean}
 	 */
 	this.upgrade = function() {
-		var self = this;
+		var core = this.get_core();
 		var settlement = this.get_settlement();
 		var resources = settlement.get_resources();
 		var next_level = this.get_level() + 1;
-		var _b = civitas.BUILDINGS.findIndexM(this.get_type());
-		if (_b !== false) {
-			var _c = civitas.BUILDINGS[_b];
-			if (this.is_upgradable()) {
-				var bl_id = settlement.buildings_list.findIndexM(this.get_type());
-				if (bl_id !== false) {
-					for (var item in _c.cost) {
-						if ((settlement.get_resources()[item] - (_c.cost[item] * next_level)) < 0) {
-							if (this.get_settlement().is_player()) {
-								this.get_core().error('You don`t have enough ' + item + ' to upgrade this building.');
-							}
-							return false;
-						}
+		var data = this.get_building_data(this.get_type());
+		var building_image = this.get_type();
+		if (data && this.is_upgradable() && settlement.is_building_built(this.get_type())) {
+			for (var item in data.cost) {
+				if ((resources[item] - (data.cost[item] * next_level)) < 0) {
+					if (settlement.is_player()) {
+						core.error('You don`t have enough ' + item + ' to upgrade this building.');
 					}
-					for (var item in _c.cost) {
-						if ((settlement.get_resources()[item] - (_c.cost[item] * next_level)) >= 0) {
-							settlement.get_resources()[item] = settlement.get_resources()[item] - (_c.cost[item] * next_level);
-						}
-					}
-					this.set_level(next_level);
-					if (this.get_settlement().is_player()) {
-						var building_image = self.get_type();
-						if (self.get_type().slice(0, 5) === 'house') {
-							building_image = self.get_type().slice(0, 5);
-						}
-						var image = (typeof _c.visible_upgrades === 'undefined' || _c.visible_upgrades === false) ? building_image + '1' : building_image + self.get_level();
-						$('section.game .building[data-type=' + this.get_type() + ']').css({
-							'background-image': 'url(./images/buildings/' + image + '.png)'
-						});
-					}
-					if (typeof _c.storage !== 'undefined') {
-						this.get_settlement().storage = this.get_settlement().storage + _c.storage;
-					}
-					this.get_settlement().buildings_list[bl_id].level = this.get_level();
-					if (this.get_settlement().is_player()) {
-						this.get_core().save_and_refresh();
-						this.get_core().notify(this.get_name() + ' upgraded to level ' + this.get_level());
-					}
-					return true;
+					return false;
 				}
 			}
+			for (var item in data.cost) {
+				if ((resources[item] - (data.cost[item] * next_level)) >= 0) {
+					resources[item] = resources[item] - (data.cost[item] * next_level);
+				}
+			}
+			this.set_level(next_level);
+			if (settlement.is_player()) {
+				if (this.get_type().slice(0, 5) === 'house') {
+					building_image = this.get_type().slice(0, 5);
+				}
+				$('section.game .building[data-type=' + this.get_type() + ']').css({
+					'background-image': 'url(./images/buildings/' + ((typeof data.visible_upgrades === 'undefined' || data.visible_upgrades === false) ? building_image + '1' : building_image + this.get_level()) + '.png)'
+				});
+			}
+			if (typeof data.storage !== 'undefined') {
+				settlement.storage(settlement.storage().all + data.storage);
+			}
+			if (settlement.is_player()) {
+				core.save_and_refresh();
+				core.notify(this.get_name() + ' upgraded to level ' + this.get_level());
+			}
+			return true;
 		}
 		return false;
 	};
@@ -10297,17 +9825,13 @@ civitas.objects.building = function(params) {
 	 * @returns {Boolean}
 	 */
 	this.downgrade = function() {
-		if (this.get_level() > 1) {
-			var bl_id = this.get_settlement().buildings_list.findIndexM(this.get_type());
-			if (bl_id !== false) {
-				--this.level;
-				this.get_settlement().buildings_list[bl_id].level = this.get_level();
-				if (this.get_settlement().is_player()) {
-					this.get_core().save_and_refresh();
-					this.get_core().notify(this.get_name() + ' downgraded to level ' + this.get_level());
-				}
-				return true;
+		if (this.get_level() > 1 && this.get_settlement().is_building_built(this.get_type())) {
+			--this.level;
+			if (this.get_settlement().is_player()) {
+				this.get_core().save_and_refresh();
+				this.get_core().notify(this.get_name() + ' downgraded to level ' + this.get_level());
 			}
+			return true;
 		}
 		return false;
 	};
@@ -10349,8 +9873,8 @@ civitas.objects.building = function(params) {
 	 * @public
 	 * @returns {Boolean}
 	 */
-	this.is_producing = function() {
-		return this.working;
+	this.is_stopped = function() {
+		return this.stopped;
 	};
 
 	/**
@@ -10360,19 +9884,15 @@ civitas.objects.building = function(params) {
 	 * @returns {Boolean}
 	 */
 	this.start_production = function() {
-		var bl_id = this.get_settlement().buildings_list.findIndexM(this.get_type());
-		if (bl_id !== false) {
-			if (this.is_production_building()) {
-				if (this.get_settlement().is_player()) {
-					this.get_core().notify(this.get_name() + '`s production started.');
-					$('#building-' + this.get_handle()).empty();
-				}
-				this.get_settlement().buildings_list[bl_id].working = true;
-				this.working = true;
-				this.problems = false;
-				this.get_core().save_and_refresh();
-				return true;
+		if (this.get_settlement().is_building_built(this.get_type()) && this.is_production_building()) {
+			if (this.get_settlement().is_player()) {
+				this.get_core().notify(this.get_name() + '`s production started.');
+				$('#building-' + this.get_handle()).empty();
 			}
+			this.stopped = false;
+			this.problems = false;
+			this.get_core().save_and_refresh();
+			return true;
 		}
 		return false;
 	};
@@ -10384,19 +9904,15 @@ civitas.objects.building = function(params) {
 	 * @returns {Boolean}
 	 */
 	this.stop_production = function() {
-		var bl_id = this.get_settlement().buildings_list.findIndexM(this.get_type());
-		if (bl_id !== false) {
-			if (this.is_production_building()) {
-				if (this.get_settlement().is_player()) {
-					this.get_core().notify(this.get_name() + '`s production stopped.');
-					this.notify(civitas.NOTIFICATION_PRODUCTION_PAUSED);
-				}
-				this.get_settlement().buildings_list[bl_id].working = false;
-				this.working = false;
-				this.problems = true;
-				this.get_core().save_and_refresh();
-				return true;
+		if (this.get_settlement().is_building_built(this.get_type()) && this.is_production_building()) {
+			if (this.get_settlement().is_player()) {
+				this.get_core().notify(this.get_name() + '`s production stopped.');
+				this.notify(civitas.NOTIFICATION_PRODUCTION_PAUSED);
 			}
+			this.stopped = true;
+			this.problems = true;
+			this.get_core().save_and_refresh();
+			return true;
 		}
 		return false;
 	};
@@ -10408,14 +9924,20 @@ civitas.objects.building = function(params) {
 	 * @returns {boolean}
 	 */
 	this.demolish = function() {
-		if (this.get_settlement().demolish(this.get_type())) {
-			if (this.get_settlement().is_player()) {
-				$('section.game .building[data-type=' + this.get_type() + ']').remove();
+		var settlement = this.get_settlement();
+		if (this.get_type() !== 'marketplace') {
+			for (var i = 0; i < settlement.buildings.length; i++) {
+				if (settlement.buildings[i].get_type() === this.get_type()) {
+					settlement.buildings.splice(i, 1);
+				}
+			}
+			if (settlement.is_player()) {
+				$('section.game > .building[data-type=' + this.get_type() + ']').remove();
 				this.get_core().notify(this.get_name() + ' demolished successfully!');
 			}
 			return true;
 		} else {
-			if (this.get_settlement().is_player()) {
+			if (settlement.is_player()) {
 				this.get_core().error('Unable to demolish the specified building `' + this.get_name() + '`!');
 			}
 			return false;
@@ -10423,38 +9945,43 @@ civitas.objects.building = function(params) {
 	};
 
 	/**
+	 * Internal helper method for checking if the settlement has the required material.
+	 *
+	 * @private
+	 * @param {String} material
+	 * @returns {Boolean}
+	 */
+	this._has_material = function(material) {
+		var building = this.get_building_data();
+		var materials = building.materials;
+		var resources = this.get_settlement_resources();
+		if (resources[material] - materials[material] < 0) {
+			if (this.get_settlement().is_player()) {
+				this.get_core().log(this.get_name() + ' doesn`t have enough ' + material + '.', true);
+				this.notify(civitas.NOTIFICATION_MISSING_RESOURCES);
+			}
+			this.problems = true;
+			return false;
+		}
+		return true;
+	};
+
+	/**
 	 * Check if the settlement has the required materials to create this building.
 	 * 
 	 * @public
-	 * @param {Array|String} mats
+	 * @param {Array|String} materials
 	 * @returns {Boolean}
 	 */
-	this.has_materials = function(mats) {
-		var building = this.get_building_data();
-		var res = this.get_settlement_resources();
-		var mat = building.materials;
-		if (typeof mats === 'object') {
-			for (var i = 0; i < mats.length; i++) {
-				if (mats[i] !== 'coins') {
-					if (res[mats[i]] - mat[mats[i]] < 0) {
-						if (this.get_settlement().is_player()) {
-							this.get_core().log(this.get_name() + ' doesn`t have enough ' + mats[i] + '.', true);
-							this.notify(civitas.NOTIFICATION_MISSING_RESOURCES);
-						}
-						this.problems = true;
-						return false;
-					}
+	this.has_materials = function(materials) {
+		if (typeof materials === 'object') {
+			for (var i = 0; i < materials.length; i++) {
+				if (materials[i] !== 'coins') {
+					return this._has_material(materials[i]);
 				}
 			}
 		} else {
-			if (res[mats] - mat[mats] < 0) {
-				if (this.get_settlement().is_player()) {
-					this.get_core().log(this.get_name() + ' doesn`t have enough ' + mats + '.', true);
-					this.notify(civitas.NOTIFICATION_MISSING_RESOURCES);
-				}
-				this.problems = true;
-				return false;
-			}
+			return this._has_material(materials);
 		}
 		return true;
 	};
@@ -10467,19 +9994,20 @@ civitas.objects.building = function(params) {
 	 * @returns {civitas.objects.building}
 	 */
 	this.use_material = function(material) {
+		var settlement = this.get_settlement();
 		var building = this.get_building_data();
-		var mat = building.materials;
+		var _material = building.materials;
 		if (typeof material === 'object') {
 			for (var i = 0; i < material.length; i++) {
-				this.get_settlement().remove_resource(material[i], mat[material[i]]);
-				if (this.get_settlement().is_player()) {
-					this.get_core().log(this.get_name() + ' used ' + mat[material[i]] + ' ' + material[i] + '.');
+				settlement.remove_resource(material[i], _material[material[i]]);
+				if (settlement.is_player()) {
+					this.get_core().log(this.get_name() + ' used ' + _material[material[i]] + ' ' + material[i] + '.');
 				}
 			}
 		} else {
-			this.get_settlement().remove_resource(material, mat[material]);
-			if (this.get_settlement().is_player()) {
-				this.get_core().log(this.get_name() + ' used ' + mat[material] + ' ' + material + '.');
+			settlement.remove_resource(material, _material[material]);
+			if (settlement.is_player()) {
+				this.get_core().log(this.get_name() + ' used ' + _material[material] + ' ' + material + '.');
 			}
 		}
 		return this;
@@ -10496,16 +10024,6 @@ civitas.objects.building = function(params) {
 	};
 
 	/**
-	 * Get building data.
-	 * 
-	 * @public
-	 * @returns {Object}
-	 */
-	this.get_data = function() {
-		return this.data;
-	};
-
-	/**
 	 * Get the settlement resources object
 	 * 
 	 * @public
@@ -10516,6 +10034,58 @@ civitas.objects.building = function(params) {
 	};
 
 	/**
+	 * Internal helper method to produce a material.
+	 *
+	 * @private
+	 * @param {String} material
+	 * @returns {civitas.objects.building}
+	 */
+	this._produce_material = function(material) {
+		if (this.is_stopped()) {
+			return this;
+		}
+		var settlement = this.get_settlement();
+		var resources = settlement.get_resources();
+		var building = this.get_building_data();
+		var production = building.production;
+		var amount = production[material] * this.get_level();
+		var chance;
+		var random_amount;
+		if (material === 'faith') {
+			this.get_settlement().raise_faith(amount);
+		} else if (material === 'research') {
+			this.get_settlement().raise_research(amount);
+		} else if (material === 'espionage') {
+			this.get_settlement().raise_espionage(amount);
+		} else if (material === 'fame') {
+			this.get_settlement().raise_fame(amount);
+		} else if (material === 'prestige') {
+			this.get_settlement().raise_prestige(amount);
+		} else {
+			if (!this.get_settlement().has_storage_space_for(amount)) {
+				return this;
+			}
+			this.get_settlement().add_to_storage(material, amount);
+			if (typeof building.chance !== 'undefined') {
+				for (var item in building.chance) {
+					chance = Math.random();
+					if (chance < building.chance[item]) {
+						random_amount = civitas.utils.get_random(1, 5);
+						if (this.get_settlement().is_player()) {
+							this.get_core().log(this.get_name() + ' procced ' + random_amount + ' extra ' + civitas.utils.get_resource_name(item) + '.');
+						}
+						this.get_settlement().add_to_storage(item, random_amount);
+					}
+				}
+			}
+		}
+		if (this.get_settlement().is_player()) {
+			this.get_core().log(this.get_name() + ' produced ' + amount + ' ' + material + '.');
+		}
+		return this;
+	};
+
+	/**
 	 * Produce the materials.
 	 * 
 	 * @public
@@ -10523,84 +10093,12 @@ civitas.objects.building = function(params) {
 	 * @returns {civitas.objects.building}
 	 */
 	this.produce_material = function(material) {
-		var settlement = this.get_settlement();
-		var resources = settlement.get_resources();
-		var building = this.get_building_data();
-		var prd = building.production;
 		if (typeof material === 'object') {
 			for (var i = 0; i < material.length; i++) {
-				if (!this.is_producing()) {
-					return this;
-				}
-				var amount = prd[material[i]] * this.get_level();
-				if (material[i] === 'faith') {
-					this.get_settlement().raise_faith(amount);
-				} else if (material[i] === 'research') {
-					this.get_settlement().raise_research(amount);
-				} else if (material[i] === 'espionage') {
-					this.get_settlement().raise_espionage(amount);
-				} else if (material[i] === 'fame') {
-					this.get_settlement().raise_fame(amount);
-				} else if (material[i] === 'prestige') {
-					this.get_settlement().raise_prestige(amount);
-				} else {
-					if (!this.get_settlement().has_storage_space_for(amount)) {
-						return this;
-					}
-					this.get_settlement().add_to_storage(material[i], amount);
-					if (typeof building.chance !== 'undefined') {
-						for (var item in building.chance) {
-							var rnd = Math.random();
-							if (rnd < building.chance[item] * this.get_level()) {
-								var random_amount = civitas.utils.get_random(1, 5);
-								if (this.get_settlement().is_player()) {
-									this.get_core().log(this.get_name() + ' procced ' + random_amount + ' extra ' + civitas.utils.get_resource_name(item) + '.');
-								}
-								this.get_settlement().add_to_storage(item, random_amount);
-							}
-						}
-					}
-				}
-				if (this.get_settlement().is_player()) {
-					this.get_core().log(this.get_name() + ' produced ' + amount + ' ' + material[i] + '.');
-				}
+				this._produce_material(material[i]);
 			}
 		} else {
-			if (!this.is_producing()) {
-				return this;
-			}
-			var amount = prd[material] * this.get_level();
-			if (material === 'faith') {
-				this.get_settlement().raise_faith(amount);
-			} else if (material === 'research') {
-				this.get_settlement().raise_research(amount);
-			} else if (material === 'espionage') {
-				this.get_settlement().raise_espionage(amount);
-			} else if (material === 'fame') {
-				this.get_settlement().raise_fame(amount);
-			} else if (material === 'prestige') {
-				this.get_settlement().raise_prestige(amount);
-			} else {
-				if (!this.get_settlement().has_storage_space_for(amount)) {
-					return this;
-				}
-				this.get_settlement().add_to_storage(material, amount);
-				if (typeof building.chance !== 'undefined') {
-					for (var item in building.chance) {
-						var rnd = Math.random();
-						if (rnd < building.chance[item]) {
-							var random_amount = civitas.utils.get_random(1, 5);
-							if (this.get_settlement().is_player()) {
-								this.get_core().log(this.get_name() + ' procced ' + random_amount + ' extra ' + civitas.utils.get_resource_name(item) + '.');
-							}
-							this.get_settlement().add_to_storage(item, random_amount);
-						}
-					}
-				}
-			}
-			if (this.get_settlement().is_player()) {
-				this.get_core().log(this.get_name() + ' produced ' + amount + ' ' + material + '.');
-			}
+			this._produce_material(material);
 		}
 		return this;
 	};
@@ -10612,16 +10110,17 @@ civitas.objects.building = function(params) {
 	 * @returns {civitas.objects.building}
 	 */
 	this.process_tax = function() {
-		var _m = [];
+		var materials = [];
 		var building = this.get_building_data();
-		var mat = building.materials;
-		for (var item in mat) {
-			_m.push(item);
+		var building_materials = building.materials;
+		var amount;
+		for (var item in building_materials) {
+			materials.push(item);
 		}
-		if (_m.length > 0) {
-			if (this.has_materials(_m)) {
-				this.use_material(_m);
-				var amount = building.tax * this.get_level();
+		if (materials.length > 0) {
+			if (this.has_materials(materials)) {
+				this.use_material(materials);
+				amount = building.tax * this.get_level();
 				this.get_settlement().inc_coins(amount);
 				if (this.get_settlement().is_player()) {
 					this.get_core().log(this.get_name() + ' gave ' + amount + ' coins via tax.');
@@ -10645,9 +10144,8 @@ civitas.objects.building = function(params) {
 			for (var item in required) {
 				if (!this.get_settlement().is_building_built(item, required[item])) {
 					good = false;
-					var req = civitas.BUILDINGS[civitas.BUILDINGS.findIndexM(item)];
 					if (this.get_settlement().is_player()) {
-						this.get_core().log(this.get_name() + ' doesn`t have the required level ' + required[item] + ' ' + req.name + '.', true);
+						this.get_core().log(this.get_name() + ' doesn`t have the required level ' + required[item] + ' ' + this.get_building_data(item).name + '.', true);
 						this.notify(civitas.NOTIFICATION_MISSING_RESOURCES);
 					}
 					this.problems = true;
@@ -10655,7 +10153,7 @@ civitas.objects.building = function(params) {
 			}
 		}
 		if (typeof building.requires.settlement_level !== 'undefined') {
-			if (building.requires.settlement_level > this.get_settlement().get_level()) {
+			if (building.requires.settlement_level > this.get_settlement().level()) {
 				if (this.get_settlement().is_player()) {
 					this.get_core().log('Your settlement level is too low for ' + this.get_name() + ' to be active.', true);
 					this.notify(civitas.NOTIFICATION_SETTLEMENT_LOW_LEVEL);
@@ -10668,12 +10166,15 @@ civitas.objects.building = function(params) {
 	};
 
 	/**
-	 * Internal function for further processing of the production chain.
+	 * Main threading method for the building, this does the actual processing each turn.
 	 * 
-	 * @private
+	 * @public
 	 * @returns {civitas.objects.building}
 	 */
-	this._process = function() {
+	this.process = function() {
+		if (!this.has_requirements()) {
+			return false;
+		}
 		var _p = [];
 		var _m = [];
 		var building = this.get_building_data();
@@ -10693,7 +10194,7 @@ civitas.objects.building = function(params) {
 				}
 			}
 		} else {
-			if (this.is_producing()) {
+			if (!this.is_stopped()) {
 				var prd = building.production;
 				for (var item in prd) {
 					_p.push(item);
@@ -10734,20 +10235,6 @@ civitas.objects.building = function(params) {
 			return true;
 		}
 		return false;
-	};
-
-	/**
-	 * Main threading method for the building, this does the actual processing each turn.
-	 * 
-	 * @public
-	 * @returns {civitas.objects.building}
-	 */
-	this.process = function() {
-		if (this.has_requirements() === false) {
-			return false;
-		}
-		this._process();
-		return this;
 	};
 
 	/**
@@ -11041,7 +10528,6 @@ civitas.controls.modal = function (params) {
 	this.alert = function(options) {
 		var self = this;
 		var settlement = false;
-		console.log(this.core);
 		if (this.core.settlements.length > 0) {
 			settlement = this.core.get_settlement();
 		}
@@ -11056,7 +10542,7 @@ civitas.controls.modal = function (params) {
 		$('.modal .header').html(options.title);
 		$('.modal .footer').html('<a data-id="yes" href="#" class="btn float-right">' + civitas.l('Yes') + '</a>' +
 			'<a data-id="no" href="#" class="btn">' + civitas.l('No') + '</a>');
-		$('.modal .content').html((settlement ? '<img class="avatar" src="' + civitas.ASSETS_URL + 'images/avatars/avatar' + this.core.get_settlement().get_ruler_avatar() + '.png" />' : '') +
+		$('.modal .content').html((settlement ? '<img class="avatar" src="' + civitas.ASSETS_URL + 'images/avatars/avatar' + this.core.get_settlement().ruler().avatar + '.png" />' : '') +
 			'<p>' + options.text + '</p>');
 		$('.modal .footer').on('click', 'a', function() {
 			self._action($(this).data('id'));
@@ -11276,7 +10762,7 @@ civitas.controls.panel = function (params) {
 		}
 		this.on_show.call(this, params);
 		if (typeof params.data !== 'undefined') {
-			var building = this.get_core().get_settlement().get_building_by_handle(params.data.handle);
+			var building = this.get_core().get_settlement().get_building(params.data.handle);
 			if (building !== false) {
 				if (!building.is_upgradable()) {
 					$(this.handle + ' .footer .upgrade').remove();
@@ -11285,7 +10771,7 @@ civitas.controls.panel = function (params) {
 					$(this.handle + ' .footer .demolish').remove();
 				}
 				if (building.is_production_building()) {
-					if (building.is_producing()) {
+					if (!building.is_stopped()) {
 						$(this.handle + ' .pause').removeClass('start');
 					} else {
 						$(this.handle + ' .start').removeClass('pause');
@@ -11313,6 +10799,7 @@ civitas.controls.panel = function (params) {
 							if (button === 'yes') {
 								if (building.demolish()) {
 									self.destroy();
+									self.get_core().save_and_refresh();
 								}
 							}
 						},
@@ -11745,7 +11232,7 @@ civitas.game = function () {
 		this.refresh();
 		$('#tab-blackmarket > .contents > table > tbody').empty();
 		if (total > 0) {
-			this.notify(this.get_settlement().get_name() + ' ' + civitas.l('received') + ' ' + total + ' ' + civitas.l('coins from the Black Market for selling goods.'), civitas.l('Black Market'));
+			this.notify(this.get_settlement().name() + ' ' + civitas.l('received') + ' ' + total + ' ' + civitas.l('coins from the Black Market for selling goods.'), civitas.l('Black Market'));
 		}
 		return this;
 	};
@@ -11846,9 +11333,9 @@ civitas.game = function () {
 		}
 		this._setup_neighbours(data);
 		this.save();
-		$('header .cityname').html(this.get_settlement().get_name());
+		$('header .cityname').html(this.get_settlement().name());
 		$('header .cityavatar').css({
-			'background-image': 'url(' + civitas.ASSETS_URL + 'images/avatars/avatar' + this.get_settlement().get_ruler_avatar() + '.png)'
+			'background-image': 'url(' + civitas.ASSETS_URL + 'images/avatars/avatar' + this.get_settlement().ruler().avatar + '.png)'
 		});
 		this.refresh();
 		var seconds = 1;
@@ -11970,13 +11457,13 @@ civitas.game = function () {
 		}
 		if (typeof name === 'string') {
 			for (var i = 0; i < settlements.length; i++) {
-				if (settlements[i].get_name() === name) {
+				if (settlements[i].name() === name) {
 					return settlements[i];
 				}
 			}
 		} else if (typeof name === 'number') {
 			for (var i = 0; i < settlements.length; i++) {
-				if (settlements[i].get_id() === name) {
+				if (settlements[i].id() === name) {
 					return settlements[i];
 				}
 			}
@@ -12016,17 +11503,19 @@ civitas.game = function () {
 	this._create_settlement = function (name, cityname, nation, climate, avatar) {
 		var difficulty = this.get_difficulty();
 		var my_settlement = new civitas.objects.settlement({
-			name: cityname,
-			climate: climate,
-			avatar: avatar,
-			id: 99,
-			player: true,
-			ruler: {
-				name: name,
-				title: '',
+			properties: {
+				name: cityname,
+				climate: climate,
 				avatar: avatar,
-				nationality: nation,
-				personality: civitas.PERSONALITY_BALANCED
+				id: 0,
+				player: true,
+				ruler: {
+					name: name,
+					title: '',
+					avatar: avatar,
+					nationality: nation,
+					personality: civitas.PERSONALITY_BALANCED
+				},
 			},
 			army: civitas.START_ARMY[difficulty - 1].army,
 			navy: civitas.START_ARMY[difficulty - 1].navy,
@@ -12221,10 +11710,10 @@ civitas.game = function () {
 	this.refresh_ui = function () {
 		var settlement = this.get_settlement();
 		if (typeof settlement !== 'undefined') {
-			var storage_space = settlement.get_storage_space();
-			var needed = civitas.LEVELS[settlement.get_level()];
-			$('.citylevel').html(settlement.get_level());
-			if (settlement.get_fame() >= needed) {
+			var storage_space = settlement.storage();
+			var needed = civitas.LEVELS[settlement.level()];
+			$('.citylevel').html(settlement.level());
+			if (settlement.fame() >= needed) {
 				settlement.level_up();
 			}
 		}
@@ -12286,18 +11775,18 @@ civitas.game = function () {
 		for (var i = 1; i < settlements.length; i++) {
 			if (typeof settlements[i] !== 'undefined') {
 				if (settlements[i].is_city()) {
-					if (this.get_settlement().get_religion().id === settlements[i].get_religion().id) {
-						this.get_settlement().raise_influence(settlements[i].get_id(), civitas.YEARLY_INFLUENCE_GAIN);
-					} else if ((this.get_settlement().get_diplomacy_status(settlements[i].get_id()) === civitas.DIPLOMACY_VASSAL) || (this.get_settlement().get_diplomacy_status(settlements[i].get_id()) === civitas.DIPLOMACY_ALLIANCE)) {
-						this.get_settlement().raise_influence(settlements[i].get_id());
+					if (this.get_settlement().religion().id === settlements[i].religion().id) {
+						this.get_settlement().raise_influence(settlements[i].id(), civitas.YEARLY_INFLUENCE_GAIN);
+					} else if ((this.get_settlement().get_diplomacy_status(settlements[i].id()) === civitas.DIPLOMACY_VASSAL) || (this.get_settlement().get_diplomacy_status(settlements[i].id()) === civitas.DIPLOMACY_ALLIANCE)) {
+						this.get_settlement().raise_influence(settlements[i].id());
 					} else {
-						this.get_settlement().lower_influence(settlements[i].get_id(), civitas.YEARLY_INFLUENCE_LOSS);
+						this.get_settlement().lower_influence(settlements[i].id(), civitas.YEARLY_INFLUENCE_LOSS);
 					}
 				} else {
-					if (this.get_settlement().get_religion().id === settlements[i].get_religion().id) {
-						this.get_settlement().raise_influence(settlements[i].get_id(), civitas.YEARLY_INFLUENCE_GAIN);
-					} else if ((this.get_settlement().get_diplomacy_status(settlements[i].get_id()) === civitas.DIPLOMACY_VASSAL) || (this.get_settlement().get_diplomacy_status(settlements[i].get_id()) === civitas.DIPLOMACY_ALLIANCE)) {
-						this.get_settlement().raise_influence(settlements[i].get_id());
+					if (this.get_settlement().religion().id === settlements[i].religion().id) {
+						this.get_settlement().raise_influence(settlements[i].id(), civitas.YEARLY_INFLUENCE_GAIN);
+					} else if ((this.get_settlement().get_diplomacy_status(settlements[i].id()) === civitas.DIPLOMACY_VASSAL) || (this.get_settlement().get_diplomacy_status(settlements[i].id()) === civitas.DIPLOMACY_ALLIANCE)) {
+						this.get_settlement().raise_influence(settlements[i].id());
 					}
 				}
 			}
@@ -12516,7 +12005,7 @@ civitas.game = function () {
 	 * @returns {Object}
 	 */
 	this.calc_storage = function () {
-		var storage = this.get_settlement().get_storage_space();
+		var storage = this.get_settlement().storage();
 		if (storage.occupied >= storage.all) {
 			this.error('You ran out of storage space and all goods produced will be lost. Upgrade your warehouse or marketplace.', 'No storage space');
 		} else if ((storage.all - storage.occupied) < 100) {
@@ -12619,7 +12108,7 @@ civitas.game = function () {
 				settlement_data = data.settlements[i];
 				settlement_data.core = this;
 				new_settlement = new civitas.objects.settlement(settlement_data);
-				var climate = new_settlement.get_climate();
+				var climate = new_settlement.climate();
 				var climate_buildings = 'SETTLEMENT_BUILDINGS_' + climate.name.toUpperCase();
 				new_settlement._create_buildings(civitas[climate_buildings], true);
 				this.settlements.push(new_settlement);
@@ -12628,8 +12117,8 @@ civitas.game = function () {
 			for (var item in civitas.SETTLEMENTS) {
 				item = parseInt(item);
 				settlement_data = civitas.SETTLEMENTS[item];
-				settlement_data.settlement_type = typeof settlement_data.settlement_type === 'undefined' || settlement_data.settlement_type === civitas.CITY ? civitas.CITY : civitas.VILLAGE;
-				if (settlement_data.settlement_type === civitas.VILLAGE) {
+				settlement_data.type = typeof settlement_data.type === 'undefined' || settlement_data.type === civitas.CITY ? civitas.CITY : civitas.VILLAGE;
+				if (settlement_data.type === civitas.VILLAGE) {
 					ruler = {
 						title: 'Mayor',
 						avatar: 40,
@@ -12642,29 +12131,31 @@ civitas.game = function () {
 				}
 				new_settlement = new civitas.objects.settlement({
 					core: this,
-					id: item,
-					population: settlement_data.population,
-					settlement_type: settlement_data.settlement_type,
-					name: civitas.utils.get_random_unique(civitas.SETTLEMENT_NAMES),
-					player: false,
-					level: settlement_data.level,
-					religion: settlement_data.religion,
-					climate: settlement_data.settlement_type === civitas.CITY ? settlement_data.climate : civitas.CLIMATE_TEMPERATE,
-					ruler: ruler,
+					properties: {
+						id: item,
+						population: settlement_data.population,
+						type: settlement_data.type,
+						name: civitas.utils.get_random_unique(civitas.SETTLEMENT_NAMES),
+						player: false,
+						level: settlement_data.level,
+						religion: settlement_data.religion,
+						climate: settlement_data.type === civitas.CITY ? settlement_data.climate : civitas.CLIMATE_TEMPERATE,
+						ruler: ruler,
+						icon: settlement_data.type === civitas.CITY ? settlement_data.icon : 1
+					},
 					resources: settlement_data.resources,
-					icon: settlement_data.settlement_type === civitas.CITY ? settlement_data.icon : 1,
 					army: settlement_data.army,
 					navy: settlement_data.navy
 				});
-				if (settlement_data.settlement_type === civitas.CITY) {
-					var climate = new_settlement.get_climate();
+				if (settlement_data.type === civitas.CITY) {
+					var climate = new_settlement.climate();
 					var climate_buildings = 'SETTLEMENT_BUILDINGS_' + climate.name.toUpperCase();
 					new_settlement._create_buildings(civitas[climate_buildings], true);
 				}
-				this.get_settlement().status[item] = {
+				this.get_settlement().status(item, {
 					influence: 50,
 					status: civitas.DIPLOMACY_TRUCE
-				}
+				});
 				this.settlements.push(new_settlement);
 			}
 		}
@@ -12682,7 +12173,7 @@ civitas.game = function () {
 		var settlements = this.get_settlements();
 		for (var i = 1; i < settlements.length; i++) {
 			if (typeof settlements[i] !== 'undefined') {
-				data[settlements[i].get_id()] = settlements[i].get_trades();
+				data[settlements[i].id()] = settlements[i].get_trades();
 			}
 		}
 		return data;
@@ -12826,7 +12317,7 @@ civitas.game = function () {
 				if (this.has_achievement(achievement) === false) {
 					condition = achievement.conditions[z];
 					if (typeof condition.settlement_level !== 'undefined') {
-						if (settlement.get_level() === condition.settlement_level) {
+						if (settlement.level() === condition.settlement_level) {
 							this.achievement(achievement);
 						}
 					}
@@ -12843,32 +12334,32 @@ civitas.game = function () {
 						}
 					}
 					if (typeof condition.coins !== 'undefined') {
-						if (settlement.get_coins() >= condition.coins) {
+						if (settlement.coins() >= condition.coins) {
 							this.achievement(achievement);
 						}
 					}
 					if (typeof condition.research !== 'undefined') {
-						if (settlement.get_research() >= condition.research) {
+						if (settlement.research() >= condition.research) {
 							this.achievement(achievement);
 						}
 					}
 					if (typeof condition.faith !== 'undefined') {
-						if (settlement.get_faith() >= condition.faith) {
+						if (settlement.faith() >= condition.faith) {
 							this.achievement(achievement);
 						}
 					}
 					if (typeof condition.population !== 'undefined') {
-						if (settlement.get_population() >= condition.population) {
+						if (settlement.population() >= condition.population) {
 							this.achievement(achievement);
 						}
 					}
 					if (typeof condition.prestige !== 'undefined') {
-						if (settlement.get_prestige() >= condition.prestige) {
+						if (settlement.prestige() >= condition.prestige) {
 							this.achievement(achievement);
 						}
 					}
 					if (typeof condition.espionage !== 'undefined') {
-						if (settlement.get_espionage() >= condition.espionage) {
+						if (settlement.espionage() >= condition.espionage) {
 							this.achievement(achievement);
 						}
 					}
@@ -12912,7 +12403,7 @@ civitas.game = function () {
 						}
 					}
 					if (typeof condition.mercenary !== 'undefined') {
-						var merc = settlement.get_mercenary();
+						var merc = settlement.mercenary();
 						if (merc.length >= condition.mercenary) {
 							this.achievement(achievement);
 						}
@@ -13183,29 +12674,29 @@ civitas.game = function () {
 						switch (campaign.data.mission) {
 							case civitas.SPY_MISSION_RELIGION:
 								if (random <= Math.ceil(campaign.data.espionage / civitas.MAX_ESPIONAGE_SUCESS_RATE)) {
-									if (campaign.source.id === settlement.get_id()) {
-										destination_settlement.set_religion(campaign.data.religion);
-										var religion = destination_settlement.get_religion();
-										this.notify('The spy you sent ' + campaign.duration + ' days ago to ' + destination_settlement.get_name() + ' reached its destination and managed to convince the settlement council to change the religion to ' + religion.name + '.');
-									} else if (campaign.destination.id === settlement.get_id()) {
+									if (campaign.source.id === settlement.id()) {
+										destination_settlement.religion(campaign.data.religion);
+										var religion = destination_settlement.religion();
+										this.notify('The spy you sent ' + campaign.duration + ' days ago to ' + destination_settlement.name() + ' reached its destination and managed to convince the settlement council to change the religion to ' + religion.name + '.');
+									} else if (campaign.destination.id === settlement.id()) {
 										destination_settlement = this.get_settlement(campaign.source.id);
-										settlement.set_religion(campaign.data.religio);
-										var religion = settlement.get_religion();
-										this.notify('The spy sent by ' + destination_settlement.get_name() + ' ' + campaign.duration + ' days ago to our city reached its destination and managed to convince your city council to change the religion to ' + religion.name + '.');
+										settlement.religion(campaign.data.religio);
+										var religion = settlement.religion();
+										this.notify('The spy sent by ' + destination_settlement.name() + ' ' + campaign.duration + ' days ago to our city reached its destination and managed to convince your city council to change the religion to ' + religion.name + '.');
 									}
 									failed = false;
 								}
 								break;
 							case civitas.SPY_MISSION_INFLUENCE:
 								if (random <= Math.ceil(campaign.data.espionage / civitas.MAX_ESPIONAGE_SUCESS_RATE)) {
-									if (campaign.source.id === settlement.get_id()) {
+									if (campaign.source.id === settlement.id()) {
 										settlement.raise_influence(campaign.destination.id, amount);
-										this.notify('The spy you sent ' + campaign.duration + ' days ago to ' + destination_settlement.get_name() + ' reached its destination and increased your influence over this settlement.');
-									} else if (campaign.destination.id === settlement.get_id()) {
+										this.notify('The spy you sent ' + campaign.duration + ' days ago to ' + destination_settlement.name() + ' reached its destination and increased your influence over this settlement.');
+									} else if (campaign.destination.id === settlement.id()) {
 										destination_settlement = this.get_settlement(campaign.source.id);
 										// TODO
 										//destination_settlement.raise_influence(campaign.destination.id, amount);
-										this.notify('The spy sent by ' + destination_settlement.get_name() + ' ' + campaign.duration + ' days ago to our city reached its destination and lowered your influence over this settlement.');
+										this.notify('The spy sent by ' + destination_settlement.name() + ' ' + campaign.duration + ' days ago to our city reached its destination and lowered your influence over this settlement.');
 									}
 									failed = false;
 								}
@@ -13218,13 +12709,13 @@ civitas.game = function () {
 								break;
 							case civitas.SPY_MISSION_INSTIGATE:
 								if (random <= Math.ceil(campaign.data.espionage / civitas.MAX_ESPIONAGE_SUCESS_RATE)) {
-									if (campaign.source.id === settlement.get_id()) {
+									if (campaign.source.id === settlement.id()) {
 										destination_settlement.lower_prestige(amount);
-										this.notify('The spy you sent ' + campaign.duration + ' days ago to ' + destination_settlement.get_name() + ' reached its destination and incited the population to revolt, therefore lowering the prestige of the city.');
-									} else if (campaign.destination.id === settlement.get_id()) {
+										this.notify('The spy you sent ' + campaign.duration + ' days ago to ' + destination_settlement.name() + ' reached its destination and incited the population to revolt, therefore lowering the prestige of the city.');
+									} else if (campaign.destination.id === settlement.id()) {
 										destination_settlement = this.get_settlement(campaign.source.id);
 										settlement.lower_prestige(amount);
-										this.notify('The spy sent by ' + destination_settlement.get_name() + ' ' + campaign.duration + ' days ago to our city reached its destination and incited our population to revolt, therefore lowering the prestige of our city.');
+										this.notify('The spy sent by ' + destination_settlement.name() + ' ' + campaign.duration + ' days ago to our city reached its destination and incited our population to revolt, therefore lowering the prestige of our city.');
 									}
 									failed = false;
 								}
@@ -13248,11 +12739,11 @@ civitas.game = function () {
 					break;
 			}
 			if (failed === true) {
-				if (campaign.source.id === settlement.get_id()) {
-					this.notify('The ' + class_name + ' you sent ' + campaign.duration + ' days ago to ' + destination_settlement.get_name() + ' reached its destination.');
-				} else if (campaign.destination.id === settlement.get_id()) {
+				if (campaign.source.id === settlement.id()) {
+					this.notify('The ' + class_name + ' you sent ' + campaign.duration + ' days ago to ' + destination_settlement.name() + ' reached its destination.');
+				} else if (campaign.destination.id === settlement.id()) {
 					destination_settlement = this.get_settlement(campaign.source.id);
-					this.notify('The ' + class_name + ' sent by ' + destination_settlement.get_name() + ' ' + campaign.duration + ' days ago reached our city.');
+					this.notify('The ' + class_name + ' sent by ' + destination_settlement.name() + ' ' + campaign.duration + ' days ago reached our city.');
 				}
 			}
 		} else if (campaign.mode === civitas.ACTION_DIPLOMACY) {
@@ -13279,8 +12770,8 @@ civitas.game = function () {
 					break;
 			}
 			if (failed === true) {
-				if (campaign.source.id === settlement.get_id()) {
-					this.notify('The proposal you sent ' + campaign.duration + ' days ago to ' + destination_settlement.get_name() + ' was accepted.');
+				if (campaign.source.id === settlement.id()) {
+					this.notify('The proposal you sent ' + campaign.duration + ' days ago to ' + destination_settlement.name() + ' was accepted.');
 				}
 			}
 		}
@@ -13300,15 +12791,15 @@ civitas.game = function () {
 	 */
 	this.add_to_queue = function(source_settlement, destination_settlement, mode, type, data) {
 		var class_name = '';
-		if (source_settlement.get_id() === this.get_settlement().get_id()) {
-			var s_loc = civitas['SETTLEMENT_LOCATION_' + source_settlement.get_climate().name.toUpperCase()];
+		if (source_settlement.id() === this.get_settlement().id()) {
+			var s_loc = civitas['SETTLEMENT_LOCATION_' + source_settlement.climate().name.toUpperCase()];
 		} else {
-			var s_loc = civitas.SETTLEMENTS[source_settlement.get_id()].location;
+			var s_loc = civitas.SETTLEMENTS[source_settlement.id()].location;
 		}
-		if (destination_settlement.get_id() === this.get_settlement().get_id()) {
-			var d_loc = civitas['SETTLEMENT_LOCATION_' + destination_settlement.get_climate().name.toUpperCase()];
+		if (destination_settlement.id() === this.get_settlement().id()) {
+			var d_loc = civitas['SETTLEMENT_LOCATION_' + destination_settlement.climate().name.toUpperCase()];
 		} else {
-			var d_loc = civitas.SETTLEMENTS[destination_settlement.get_id()].location;
+			var d_loc = civitas.SETTLEMENTS[destination_settlement.id()].location;
 		}
 		var duration = civitas.utils.get_distance_in_days(s_loc, d_loc);
 		if (mode === civitas.ACTION_CAMPAIGN) {
@@ -13354,14 +12845,14 @@ civitas.game = function () {
 				for (var item in navy.navy) {
 					navy.navy[item] = navy.navy[item] - data.navy[item];
 				}
-				var settlement_type = destination_settlement.get_settlement_type();
-				source_settlement.diplomacy(destination_settlement.get_id(), civitas.DIPLOMACY_WAR, civitas.SETTLEMENT_TYPES[settlement_type]);
+				var settlement_type = destination_settlement.get_type();
+				source_settlement.diplomacy(destination_settlement.id(), civitas.DIPLOMACY_WAR);
 			} else if (type === civitas.CAMPAIGN_SPY) {
 				if (!source_settlement.can_diplomacy()) {
 					return false;
 				}
 				class_name = 'spy';
-				if (data.espionage > source_settlement.get_espionage()) {
+				if (data.espionage > source_settlement.espionage()) {
 					return false;
 				}
 				var mission_costs = civitas.SPY_COSTS;
@@ -13404,13 +12895,13 @@ civitas.game = function () {
 					return false;
 				}
 			}
-			if (source_settlement.get_id() === this.get_settlement().get_id()) {
-				this.notify('Your ' + class_name + ' was dispatched towards ' + destination_settlement.get_name() + ' and will reach its destination in ' + duration + ' days.');
+			if (source_settlement.id() === this.get_settlement().id()) {
+				this.notify('Your ' + class_name + ' was dispatched towards ' + destination_settlement.name() + ' and will reach its destination in ' + duration + ' days.');
 			}
 		} else if (mode === civitas.ACTION_DIPLOMACY) {
 			duration = Math.ceil(duration / 2);
-			if (source_settlement.get_id() === this.get_settlement().get_id()) {
-				this.notify('Your proposal was dispatched towards ' + destination_settlement.get_name() + ' and will reach its destination in ' + duration + ' days.');
+			if (source_settlement.id() === this.get_settlement().id()) {
+				this.notify('Your proposal was dispatched towards ' + destination_settlement.name() + ' and will reach its destination in ' + duration + ' days.');
 			}
 		}
 		var action = {
@@ -13418,12 +12909,12 @@ civitas.game = function () {
 			source: {
 				x: s_loc.x,
 				y: s_loc.y,
-				id: source_settlement.get_id()
+				id: source_settlement.id()
 			},
 			destination: {
 				x: d_loc.x,
 				y: d_loc.y,
-				id: destination_settlement.get_id()
+				id: destination_settlement.id()
 			},
 			duration: duration,
 			passed: 0,
@@ -13560,11 +13051,11 @@ civitas.PANEL_SETTLEMENT = {
 		var core = this.get_core();
 		var my_settlement = core.get_settlement();
 		var settlement = params.data;
-		var settlement_type = settlement.get_settlement_type();
+		var settlement_type = settlement.get_type();
 		this.params_data = params;
 		var trades = settlement.get_trades();
-		var location = civitas['SETTLEMENT_LOCATION_' + my_settlement.get_climate().name.toUpperCase()];
-		$(this.handle + ' header .title').html((settlement.is_city() ? civitas.l('City of') + ' ' : civitas.l('Village of') + ' ') + settlement.get_name());
+		var location = civitas['SETTLEMENT_LOCATION_' + my_settlement.climate().name.toUpperCase()];
+		$(this.handle + ' header .title').html((settlement.is_city() ? civitas.l('City of') + ' ' : civitas.l('Village of') + ' ') + settlement.name());
 		if (settlement.is_city()) {
 			$(this.handle + ' .contents').append(civitas.ui.tabs([civitas.l('Info'), civitas.l('Army'), civitas.l('Navy'), civitas.l('Resources'), civitas.l('Imports'), civitas.l('Exports')]));
 		} else {
@@ -13627,10 +13118,10 @@ civitas.PANEL_SETTLEMENT = {
 			core.open_modal(
 				function(button) {
 					if (button === 'yes') {
-						my_settlement.diplomacy(settlement.get_id(), civitas.DIPLOMACY_WAR);
+						my_settlement.diplomacy(settlement.id(), civitas.DIPLOMACY_WAR);
 					}
 				},
-				'Are you sure you want to declare war to this settlement?<br /><br />You will lose all influence over ' + settlement.get_name() + ' and the settlement might retaliate back!'
+				'Are you sure you want to declare war to this settlement?<br /><br />You will lose all influence over ' + settlement.name() + ' and the settlement might retaliate back!'
 			);
 			return false;
 		}).on('click', '.caravan', function () {
@@ -13661,27 +13152,27 @@ civitas.PANEL_SETTLEMENT = {
 		var core = this.get_core();
 		var my_settlement = core.get_settlement();
 		var settlement = this.params_data.data;
-		var settlement_type = settlement.get_settlement_type();
+		var settlement_type = settlement.get_type();
 		var trades = settlement.get_trades();
-		var _status = my_settlement.get_diplomacy_status(settlement.get_id());
-		var location = civitas['SETTLEMENT_LOCATION_' + my_settlement.get_climate().name.toUpperCase()];
+		var _status = my_settlement.get_diplomacy_status(settlement.id());
+		var location = civitas['SETTLEMENT_LOCATION_' + my_settlement.climate().name.toUpperCase()];
 		$(this.handle + ' #tab-info').empty().append('' +
-			'<img class="avatar" src="' + civitas.ASSETS_URL + 'images/avatars/avatar' + settlement.get_ruler_avatar() + '.png" />' +
+			'<img class="avatar" src="' + civitas.ASSETS_URL + 'images/avatars/avatar' + settlement.ruler().avatar + '.png" />' +
 			'<dl>' +
-				'<dt>' + settlement.get_ruler().title + '</dt><dd>' + settlement.get_ruler_name() + '</dd>' +
-				'<dt>' + civitas.l('Climate') + '</dt><dd>' + settlement.get_climate().name.capitalize() + '</dd>' +
-				'<dt>' + civitas.l('Personality') + '</dt><dd>' + settlement.get_personality().name.capitalize() + '</dd>' +
-				'<dt>' + civitas.l('Nationality') + '</dt><dd>' + settlement.get_nationality().name.capitalize() + '</dd>' +
+				'<dt>' + settlement.ruler().title + '</dt><dd>' + settlement.ruler().name + '</dd>' +
+				'<dt>' + civitas.l('Climate') + '</dt><dd>' + settlement.climate().name + '</dd>' +
+				'<dt>' + civitas.l('Personality') + '</dt><dd>' + settlement.personality().name + '</dd>' +
+				'<dt>' + civitas.l('Nationality') + '</dt><dd>' + settlement.nationality().name + '</dd>' +
 				(settlement.is_city() ? 
-				'<dt>' + civitas.l('Level') + '</dt><dd>' + settlement.get_level() + '</dd>' +
-				'<dt>' + civitas.l('Prestige') + '</dt><dd>' + civitas.ui.progress((settlement.get_prestige() * 100) / civitas.MAX_PRESTIGE_VALUE, 'small', settlement.get_prestige()) + '</dd>' 
+				'<dt>' + civitas.l('Level') + '</dt><dd>' + settlement.level() + '</dd>' +
+				'<dt>' + civitas.l('Prestige') + '</dt><dd>' + civitas.ui.progress((settlement.prestige() * 100) / civitas.MAX_PRESTIGE_VALUE, 'small', settlement.prestige()) + '</dd>' 
 				: '' ) + 
-				'<dt>' + civitas.l('Coins') + '</dt><dd>' + civitas.utils.nice_numbers(settlement.get_coins()) + '</dd>' +
-				'<dt>' + civitas.l('Population') + '</dt><dd>' + civitas.utils.nice_numbers(settlement.get_population()) + '</dd>' +
-				'<dt>' + civitas.l('Religion') + '</dt><dd>' + settlement.get_religion().name.capitalize() + '</dd>' +
-				'<dt>' + civitas.l('Influence') + '</dt><dd>' + civitas.ui.progress(my_settlement.get_influence_with_settlement(settlement.get_id()), 'small') + '</dd>' +
-				'<dt>' + civitas.l('Diplomatic Status') + '</dt><dd>' + my_settlement.get_diplomacy_status(settlement.get_id()).name.capitalize() + '</dd>' +
-				'<dt>' + civitas.l('Distance') + '</dt><dd>' + civitas.utils.get_distance(location, civitas.SETTLEMENTS[settlement.get_id()].location) + ' miles (' + civitas.utils.get_distance_in_days(location, civitas.SETTLEMENTS[settlement.get_id()].location) + ' days)</dd>' +
+				'<dt>' + civitas.l('Coins') + '</dt><dd>' + civitas.utils.nice_numbers(settlement.coins()) + '</dd>' +
+				'<dt>' + civitas.l('Population') + '</dt><dd>' + civitas.utils.nice_numbers(settlement.population()) + '</dd>' +
+				'<dt>' + civitas.l('Religion') + '</dt><dd>' + settlement.religion().name + '</dd>' +
+				'<dt>' + civitas.l('Influence') + '</dt><dd>' + civitas.ui.progress(my_settlement.get_influence_with_settlement(settlement.id()), 'small') + '</dd>' +
+				'<dt>' + civitas.l('Diplomatic Status') + '</dt><dd>' + my_settlement.get_diplomacy_status(settlement.id()).name + '</dd>' +
+				'<dt>' + civitas.l('Distance') + '</dt><dd>' + civitas.utils.get_distance(location, civitas.SETTLEMENTS[settlement.id()].location) + ' miles (' + civitas.utils.get_distance_in_days(location, civitas.SETTLEMENTS[settlement.id()].location) + ' days)</dd>' +
 			'</dl>');
 		$(this.handle + ' #tab-army').empty().append(civitas.ui.army_list(settlement.get_army_total()));
 		$(this.handle + ' #tab-navy').empty().append(civitas.ui.navy_list(settlement.get_navy_total()));
@@ -13967,7 +13458,7 @@ civitas.PANEL_BUILDING = {
 		this.on_refresh();
 	},
 	on_refresh: function() {
-		var building = this.get_core().get_settlement().get_building_by_handle(this.params_data.handle);
+		var building = this.get_core().get_settlement().get_building(this.params_data.handle);
 		$(this.handle + ' .contents').empty().append(civitas.ui.building_panel(this.params_data, building.get_level()));
 	}
 };
@@ -14022,10 +13513,10 @@ civitas.PANEL_CAMPAIGN = {
 		var destination = core.get_settlement(campaign.destination.id);
 		var distance = civitas.utils.get_distance(campaign.source, campaign.destination);
 		$(this.handle + ' #tab-info').empty().append('' +
-			'<img class="avatar" src="' + civitas.ASSETS_URL + 'images/avatars/avatar' + source.get_ruler_avatar() + '.png" />' +
+			'<img class="avatar" src="' + civitas.ASSETS_URL + 'images/avatars/avatar' + source.ruler().avatar + '.png" />' +
 			'<dl>' +
-				'<dt>' + civitas.l('Sent By') + '</dt><dd>' + source.get_name() + '</dd>' +
-				'<dt>' + civitas.l('Destination') + '</dt><dd>' + destination.get_name() + '</dd>' +
+				'<dt>' + civitas.l('Sent By') + '</dt><dd>' + source.name() + '</dd>' +
+				'<dt>' + civitas.l('Destination') + '</dt><dd>' + destination.name() + '</dd>' +
 				'<dt>-empty-</dt><dd>-test-</dd>' +
 				'<dt>' + civitas.l('Distance') + '</dt><dd>' + distance + ' miles (' + campaign.duration + ' ' + civitas.l('days') + ')</dd>' +
 				'<dt>' + civitas.l('Remaining') + '</dt><dd>' + (10 * (campaign.duration - campaign.passed)) + ' miles (' + (campaign.duration - campaign.passed) + ' ' + civitas.l('days') + ')</dd>' +
@@ -14109,7 +13600,7 @@ civitas.PANEL_STORAGE = {
 	on_refresh: function() {
 		var settlement = this.get_core().get_settlement();
 		var resources = settlement.get_resources();
-		var storage_space = settlement.get_storage_space();
+		var storage_space = settlement.storage();
 		var out = '<div class="main-storage">';
 		var main_storage = '';
 		var extra_storage = '';
@@ -14185,13 +13676,13 @@ civitas.PANEL_WORLD = {
 		var settlements = core.get_settlements();
 		var queue_actions = core.get_queue();
 		var class_name = '';
-		var loc = civitas['SETTLEMENT_LOCATION_' + settlement.get_climate().name.toUpperCase()];
-		var out = '<div data-name="yoursettlement" class="tips settlement c1" title="' + civitas.l('City of') + ' ' + settlement.get_name() + '" style="left:' + loc.x + 'px;top:' + loc.y + 'px"></div>';
+		var loc = civitas['SETTLEMENT_LOCATION_' + settlement.climate().name.toUpperCase()];
+		var out = '<div data-name="yoursettlement" class="tips settlement c1" title="' + civitas.l('City of') + ' ' + settlement.name() + '" style="left:' + loc.x + 'px;top:' + loc.y + 'px"></div>';
 		for (var i = 1; i < settlements.length; i++) {
-			if (settlements[i].get_settlement_type() === civitas.CITY) {
-				out += '<div data-name="' + settlements[i].get_name() + '" class="tips settlement c' + civitas.SETTLEMENTS[settlements[i].get_id()].icon + '" title="' + civitas.l('City of') + ' ' + settlements[i].get_name() + '" style="left:' + civitas.SETTLEMENTS[settlements[i].get_id()].location.x + 'px;top:' + civitas.SETTLEMENTS[settlements[i].get_id()].location.y + 'px"></div>';
+			if (settlements[i].get_type() === civitas.CITY) {
+				out += '<div data-name="' + settlements[i].name() + '" class="tips settlement c' + civitas.SETTLEMENTS[settlements[i].id()].icon + '" title="' + civitas.l('City of') + ' ' + settlements[i].name() + '" style="left:' + civitas.SETTLEMENTS[settlements[i].id()].location.x + 'px;top:' + civitas.SETTLEMENTS[settlements[i].id()].location.y + 'px"></div>';
 			} else {
-				out += '<div data-name="' + settlements[i].get_name() + '" class="tips settlement v1" title="' + civitas.l('Village of') + ' ' + settlements[i].get_name() + '" style="left:' + civitas.SETTLEMENTS[settlements[i].get_id()].location.x + 'px;top:' + civitas.SETTLEMENTS[settlements[i].get_id()].location.y + 'px"></div>';
+				out += '<div data-name="' + settlements[i].name() + '" class="tips settlement v1" title="' + civitas.l('Village of') + ' ' + settlements[i].name() + '" style="left:' + civitas.SETTLEMENTS[settlements[i].id()].location.x + 'px;top:' + civitas.SETTLEMENTS[settlements[i].id()].location.y + 'px"></div>';
 			}
 		}
 		for (var i = 0; i < queue_actions.length; i++) {
@@ -14214,9 +13705,9 @@ civitas.PANEL_WORLD = {
 			var x = source.x + Math.floor(((destination.x - source.x) / distance_in_days) * action.passed);
 			var y = source.y - Math.floor(((source.y - destination.y) / distance_in_days) * action.passed);
 			if (action.mode === civitas.ACTION_CAMPAIGN) {
-				out += '<div data-id="' + i + '" class="tips ' + class_name + '" title="' + class_name.capitalize() + ' from ' + _source.get_name() + ' to ' + _destination.get_name() + '" style="left:' + x + 'px;top:' + y + 'px"></div>';
+				out += '<div data-id="' + i + '" class="tips ' + class_name + '" title="' + class_name.capitalize() + ' from ' + _source.name() + ' to ' + _destination.name() + '" style="left:' + x + 'px;top:' + y + 'px"></div>';
 			} else if (action.mode === civitas.ACTION_DIPLOMACY) {
-				out += '<div data-id="' + i + '" class="tips messenger" title="Diplomatic mission from ' + _source.get_name() + ' to ' + _destination.get_name() + '" style="left:' + x + 'px;top:' + y + 'px"></div>';
+				out += '<div data-id="' + i + '" class="tips messenger" title="Diplomatic mission from ' + _source.name() + ' to ' + _destination.name() + '" style="left:' + x + 'px;top:' + y + 'px"></div>';
 			}
 		}
 		$(this.handle + ' .contents .worldmap').empty().append(out);
@@ -14247,9 +13738,9 @@ civitas.PANEL_RANKS = {
 		var ranking_list = [];
 		var settlements = this.get_core().get_settlements();
 		for (var i = 0; i < settlements.length; i++) {
-			if (settlements[i].get_settlement_type() === civitas.CITY) {
+			if (settlements[i].get_type() === civitas.CITY) {
 				ranking_list.push({
-					name: settlements[i].get_name(),
+					name: settlements[i].name(),
 					data: settlements[i].get_rank()
 				});
 			}
@@ -14313,8 +13804,8 @@ civitas.PANEL_NEW_ARMY = {
 		var settlement = params.data;
 		var settlements = core.get_settlements();
 		var army = my_settlement.get_army_total();
-		var location = civitas['SETTLEMENT_LOCATION_' + my_settlement.get_climate().name.toUpperCase()];
-		var distance = civitas.utils.get_distance_in_days(location, civitas.SETTLEMENTS[settlement.get_id()].location);
+		var location = civitas['SETTLEMENT_LOCATION_' + my_settlement.climate().name.toUpperCase()];
+		var distance = civitas.utils.get_distance_in_days(location, civitas.SETTLEMENTS[settlement.id()].location);
 		this.assigned_army = {};
 		this.assigned_navy = {};
 		for (var item in army.army) {
@@ -14358,7 +13849,7 @@ civitas.PANEL_NEW_ARMY = {
 			'<select class="army-destination">' +
 				'<option value="0">-- ' + civitas.l('select') + ' --</option>';
 		for (var i = 1; i < settlements.length; i++) {
-			_t += '<option ' + (settlement && (settlements[i].get_id() === settlement.get_id()) ? 'selected ' : '') + 'value="' + settlements[i].get_id() + '">' + (settlements[i].is_city() ? civitas.l('City of') + ' ' : civitas.l('Village of') + ' ') + settlements[i].get_name() + '</option>';
+			_t += '<option ' + (settlement && (settlements[i].id() === settlement.id()) ? 'selected ' : '') + 'value="' + settlements[i].id() + '">' + (settlements[i].is_city() ? civitas.l('City of') + ' ' : civitas.l('Village of') + ' ') + settlements[i].name() + '</option>';
 		}
 		_t += '</select>' +
 			'</fieldset>' +
@@ -14499,7 +13990,7 @@ civitas.PANEL_NEW_ARMY = {
 				return false;
 			}
 			var destination = parseInt($(self.handle + ' .army-destination').val());
-			if ((settlement && settlement.get_id() !== destination) || !settlement) {
+			if ((settlement && settlement.id() !== destination) || !settlement) {
 				settlement = core.get_settlement(destination);
 			}
 			if (destination === 0 || !settlement || (my_settlement.get_army_total(self.assigned_army).total === 0 && my_settlement.get_navy_total(self.assigned_navy).total === 0)) {
@@ -14548,9 +14039,9 @@ civitas.PANEL_NEW_SPY = {
 		var my_settlement = core.get_settlement();
 		var settlement = params.data;
 		var settlements = core.get_settlements();
-		var espionage = my_settlement.get_espionage();
-		var location = civitas['SETTLEMENT_LOCATION_' + my_settlement.get_climate().name.toUpperCase()];
-		var distance = civitas.utils.get_distance_in_days(location, civitas.SETTLEMENTS[settlement.get_id()].location);
+		var espionage = my_settlement.espionage();
+		var location = civitas['SETTLEMENT_LOCATION_' + my_settlement.climate().name.toUpperCase()];
+		var distance = civitas.utils.get_distance_in_days(location, civitas.SETTLEMENTS[settlement.id()].location);
 		var _t = '<fieldset>' +
 			'<legend>' + civitas.l('Initial costs') + '</legend>' +
 			'<dl>';
@@ -14573,7 +14064,7 @@ civitas.PANEL_NEW_SPY = {
 			'<select class="espionage-destination">' +
 				'<option value="0">-- ' + civitas.l('select') + ' --</option>';
 		for (var i = 1; i < settlements.length; i++) {
-			_t += '<option ' + (settlement && (settlements[i].get_id() === settlement.get_id()) ? 'selected ' : '') + 'value="' + settlements[i].get_id() + '">' + (settlements[i].is_city() ? civitas.l('City of') + ' ' : civitas.l('Village of') + ' ') + settlements[i].get_name() + '</option>';
+			_t += '<option ' + (settlement && (settlements[i].id() === settlement.id()) ? 'selected ' : '') + 'value="' + settlements[i].id() + '">' + (settlements[i].is_city() ? civitas.l('City of') + ' ' : civitas.l('Village of') + ' ') + settlements[i].name() + '</option>';
 		}
 		_t += '</select>' +
 		'</fieldset>' +
@@ -14593,10 +14084,10 @@ civitas.PANEL_NEW_SPY = {
 		_t += '</select>' +
 		'</fieldset>' +
 		'<fieldset class="espionage-rel">' +
-			'<legend>' + civitas.l('Religion') + (settlement ? ' (currently ' + settlement.get_religion().name.capitalize() + ')': '') + '</legend>' +
+			'<legend>' + civitas.l('Religion') + (settlement ? ' (currently ' + settlement.religion().name + ')': '') + '</legend>' +
 			'<select class="espionage-religion">';
 		for (var i = 0; i < civitas.RELIGIONS.length; i++) {
-			_t += '<option value="' + i + '">' + civitas.RELIGIONS[i].capitalize() + (i === my_settlement.get_religion().id ? ' (' + civitas.l('your religion') + ')' : '') + '</option>';
+			_t += '<option value="' + i + '">' + civitas.RELIGIONS[i].capitalize() + (i === my_settlement.religion().id ? ' (' + civitas.l('your religion') + ')' : '') + '</option>';
 		}
 		_t += '</select>' +
 		'<p><strong>' + civitas.l('Note') + '!</strong> ' + civitas.l('Attempting to change a settlement`s religion uses up all your accumulated faith.') + '</p>' +
@@ -14621,7 +14112,7 @@ civitas.PANEL_NEW_SPY = {
 			var _espionage = parseInt($(self.handle + ' .espionage-value').val());
 			var destination = parseInt($(self.handle + ' .espionage-destination').val());
 			var mission = parseInt($(self.handle + ' .espionage-mission').val());
-			if ((settlement && settlement.get_id() !== destination) || !settlement) {
+			if ((settlement && settlement.id() !== destination) || !settlement) {
 				settlement = core.get_settlement(destination);
 			}
 			if (destination === 0 || _espionage > espionage || !settlement || mission <= 0) {
@@ -14647,7 +14138,7 @@ civitas.PANEL_NEW_SPY = {
 	on_refresh: function() {
 		var core = this.get_core();
 		var my_settlement = core.get_settlement();
-		var espionage = my_settlement.get_espionage();
+		var espionage = my_settlement.espionage();
 		$(this.handle + ' .espionage-range').attr('max', espionage);
 	}
 };
@@ -14677,8 +14168,8 @@ civitas.PANEL_NEW_CARAVAN = {
 		var my_settlement = core.get_settlement();
 		var settlement = params.data;
 		var settlements = core.get_settlements();
-		var location = civitas['SETTLEMENT_LOCATION_' + my_settlement.get_climate().name.toUpperCase()];
-		var distance = civitas.utils.get_distance_in_days(location, civitas.SETTLEMENTS[settlement.get_id()].location);
+		var location = civitas['SETTLEMENT_LOCATION_' + my_settlement.climate().name.toUpperCase()];
+		var distance = civitas.utils.get_distance_in_days(location, civitas.SETTLEMENTS[settlement.id()].location);
 		var _t = '<fieldset>' +
 			'<legend>' + civitas.l('Initial costs') + '</legend>' +
 			'<dl>';
@@ -14701,7 +14192,7 @@ civitas.PANEL_NEW_CARAVAN = {
 			'<select class="caravan-destination">' +
 				'<option value="0">-- ' + civitas.l('select') + ' --</option>';
 		for (var i = 1; i < settlements.length; i++) {
-			_t += '<option ' + (settlement && (settlements[i].get_id() === settlement.get_id()) ? 'selected ' : '') + 'value="' + settlements[i].get_id() + '">' + (settlements[i].is_city() ? civitas.l('City of') + ' ' : civitas.l('Village of') + ' ') + settlements[i].get_name() + '</option>';
+			_t += '<option ' + (settlement && (settlements[i].id() === settlement.id()) ? 'selected ' : '') + 'value="' + settlements[i].id() + '">' + (settlements[i].is_city() ? civitas.l('City of') + ' ' : civitas.l('Village of') + ' ') + settlements[i].name() + '</option>';
 		}
 		_t += '</select>' +
 		'</fieldset>' +
@@ -14773,7 +14264,7 @@ civitas.PANEL_NEW_CARAVAN = {
 				return false;
 			}
 			var destination = parseInt($(self.handle + ' .caravan-destination').val());
-			if ((settlement && settlement.get_id() !== destination) || !settlement) {
+			if ((settlement && settlement.id() !== destination) || !settlement) {
 				settlement = core.get_settlement(destination);
 			}
 			if (destination === 0 || !settlement || $.isEmptyObject(self.resources)) {
@@ -14866,18 +14357,19 @@ civitas.PANEL_COUNCIL = {
 			research: 0,
 			faith: 0
 		}
+		var mercenary = settlement.mercenary();
 		var _t = '<p>' + civitas.l('Mercenary armies are available to hire for a fixed price, they do not cost additional resources but they are only available for raiding and campaign missions, they do not participate in the defense of your city.') + '</p>' +
 				'<p>' + civitas.l('Also, keep in mind that once a mercenary army is hired, they are at your disposal until the end of the current year.') + '</p>' +
 				'<div class="hired-mercenaries-list">';
-		if (settlement.mercenary.length > 0) {
+		if (mercenary.length > 0) {
 			_t += '<table class="normal">';
-			for (var i = 0; i < settlement.mercenary.length; i++) {
-				army_data = civitas.MERCENARIES[settlement.mercenary[i].id];
+			for (var i = 0; i < mercenary.length; i++) {
+				army_data = civitas.MERCENARIES[mercenary[i].id];
 				_t += '<tr>' +
 						'<td class="icon"><img src="' + civitas.ASSETS_URL + 'images/armies/' + army_data.icon + '.png" /></td>' +
 						'<td><p class="title">' + army_data.name + '</p><p class="description">' + army_data.description + '</p></td>' +
 						'<td class="large">' +
-						'<a title="' + civitas.l('View info on this mercenary army.') + '" data-id="' + settlement.mercenary[i].id + '" class="tips view-merc" href="#">' + civitas.l('view') + '</a> ' +
+						'<a title="' + civitas.l('View info on this mercenary army.') + '" data-id="' + mercenary[i].id + '" class="tips view-merc" href="#">' + civitas.l('view') + '</a> ' +
 						'<a title="' + civitas.l('Send this mercenary army on a raiding mission towards a specific settlement.') + '" data-id="' + i + '" class="tips raid-merc" href="#">' + civitas.l('raid') + '</a> ' +
 						'<a title="' + civitas.l('Disband this mercenary army? They will be available for hire later when you need them.') + '" data-id="' + i + '" class="tips disband-merc" href="#">' + civitas.l('release') + '</a>' +
 						'</td>' +
@@ -14910,21 +14402,21 @@ civitas.PANEL_COUNCIL = {
 		}
 		_t += '</div>';
 		$(this.handle + ' #tab-achievements').empty().append(_t);
-		_t = '<img class="avatar" src="' + civitas.ASSETS_URL + 'images/avatars/avatar' + settlement.get_ruler_avatar() + '.png" />' +
+		_t = '<img class="avatar" src="' + civitas.ASSETS_URL + 'images/avatars/avatar' + settlement.ruler().avatar + '.png" />' +
 				'<dl>' +
 				'<dt>' + civitas.l('Current date') + '</dt><dd class="citydate">' + core.get_date() + '</dd>' +
-				'<dt>' + civitas.l('Ruler') + '</dt><dd>' + settlement.get_ruler_name() + '</dd>' +
-				'<dt>' + civitas.l('Climate') + '</dt><dd>' + settlement.get_climate().name.capitalize() + '</dd>' +
-				'<dt>' + civitas.l('Personality') + '</dt><dd>' + settlement.get_personality().name.capitalize() + '</dd>' +
-				'<dt>' + civitas.l('Nationality') + '</dt><dd>' + settlement.get_nationality().name.capitalize() + '</dd>' +
-				'<dt>' + civitas.l('Population') + '</dt><dd>' + civitas.utils.nice_numbers(settlement.get_population()) + '</dd>' +
-				'<dt>' + civitas.l('Religion') + '</dt><dd>' + settlement.get_religion().name.capitalize() + '</dd>' +
-				'<dt>' + civitas.l('Level') + '</dt><dd>' + civitas.ui.progress((settlement.get_level() * 100) / civitas.MAX_SETTLEMENT_LEVEL, 'small', settlement.get_level()) + '</dd>' +
-				'<dt>' + civitas.l('Fame') + '</dt><dd>' + civitas.ui.progress((settlement.get_fame() * 100) / civitas.LEVELS[civitas.MAX_SETTLEMENT_LEVEL - 1], 'small', civitas.utils.nice_numbers(settlement.get_fame()) + ' / ' + civitas.utils.nice_numbers(civitas.LEVELS[settlement.get_level()])) + '</dd>' +
-				'<dt>' + civitas.l('Prestige') + '</dt><dd>' + civitas.ui.progress((settlement.get_prestige() * 100) / civitas.MAX_PRESTIGE_VALUE, 'small', settlement.get_prestige()) + '</dd>' +
-				'<dt>' + civitas.l('Espionage') + '</dt><dd>' + civitas.ui.progress((settlement.get_espionage() * 100) / civitas.MAX_ESPIONAGE_VALUE, 'small', settlement.get_espionage()) + '</dd>' +
-				'<dt>' + civitas.l('Faith') + '</dt><dd>' + civitas.ui.progress((settlement.get_faith() * 100) / civitas.MAX_FAITH_VALUE, 'small', settlement.get_faith()) + '</dd>' +
-				'<dt>' + civitas.l('Research') + '</dt><dd>' + civitas.ui.progress((settlement.get_research() * 100) / civitas.MAX_RESEARCH_VALUE, 'small', settlement.get_research()) + '</dd>' +
+				'<dt>' + civitas.l('Ruler') + '</dt><dd>' + settlement.ruler().name + '</dd>' +
+				'<dt>' + civitas.l('Climate') + '</dt><dd>' + settlement.climate().name + '</dd>' +
+				'<dt>' + civitas.l('Personality') + '</dt><dd>' + settlement.personality().name + '</dd>' +
+				'<dt>' + civitas.l('Nationality') + '</dt><dd>' + settlement.nationality().name + '</dd>' +
+				'<dt>' + civitas.l('Population') + '</dt><dd>' + civitas.utils.nice_numbers(settlement.population()) + '</dd>' +
+				'<dt>' + civitas.l('Religion') + '</dt><dd>' + settlement.religion().name + '</dd>' +
+				'<dt>' + civitas.l('Level') + '</dt><dd>' + civitas.ui.progress((settlement.level() * 100) / civitas.MAX_SETTLEMENT_LEVEL, 'small', settlement.level()) + '</dd>' +
+				'<dt>' + civitas.l('Fame') + '</dt><dd>' + civitas.ui.progress((settlement.fame() * 100) / civitas.LEVELS[civitas.MAX_SETTLEMENT_LEVEL - 1], 'small', civitas.utils.nice_numbers(settlement.fame()) + ' / ' + civitas.utils.nice_numbers(civitas.LEVELS[settlement.level()])) + '</dd>' +
+				'<dt>' + civitas.l('Prestige') + '</dt><dd>' + civitas.ui.progress((settlement.prestige() * 100) / civitas.MAX_PRESTIGE_VALUE, 'small', settlement.prestige()) + '</dd>' +
+				'<dt>' + civitas.l('Espionage') + '</dt><dd>' + civitas.ui.progress((settlement.espionage() * 100) / civitas.MAX_ESPIONAGE_VALUE, 'small', settlement.espionage()) + '</dd>' +
+				'<dt>' + civitas.l('Faith') + '</dt><dd>' + civitas.ui.progress((settlement.faith() * 100) / civitas.MAX_FAITH_VALUE, 'small', settlement.faith()) + '</dd>' +
+				'<dt>' + civitas.l('Research') + '</dt><dd>' + civitas.ui.progress((settlement.research() * 100) / civitas.MAX_RESEARCH_VALUE, 'small', settlement.research()) + '</dd>' +
 			'</dl>';
 		$(this.handle + ' #tab-info').empty().append(_t);
 		_t = '';
@@ -15056,7 +14548,7 @@ civitas.PANEL_COUNCIL = {
 						}
 					}
 				_t += '</td>' +
-					'<td class="center">' + ((buildings[l].is_producing()) ? civitas.l('no') : civitas.l('yes')) + '</td>' +
+					'<td class="center">' + ((!buildings[l].is_stopped()) ? civitas.l('no') : civitas.l('yes')) + '</td>' +
 				'</tr>';
 			}
 		}
@@ -15122,7 +14614,7 @@ civitas.PANEL_BUILDINGS = {
 		var resources = settlement.get_resources();
 		var el = this.handle;
 		var _t = '<div class="left buildings">';
-		var available_buildings = civitas['SETTLEMENT_BUILDINGS_' + settlement.get_climate().name.toUpperCase()];
+		var available_buildings = civitas['SETTLEMENT_BUILDINGS_' + settlement.climate().name.toUpperCase()];
 		_t += '<div class="tabs">' +
 				'<ul>';
 		for (var category in civitas.BUILDINGS_CATEGORIES) {
@@ -15458,14 +14950,14 @@ civitas.PANEL_TRADES = {
 					var discount = Math.ceil((civitas.RESOURCES[item].price * civitas.TRADES_DISCOUNT) / 100);
 					var discount_price = Math.ceil(civitas.RESOURCES[item].price - discount);
 					out += '<tr>' +
-							'<td>' + settlements[z].get_name() + '</td>' +
+							'<td>' + settlements[z].name() + '</td>' +
 							'<td class="center">' + civitas.ui.resource_small_img(item) + '</td>' +
 							'<td class="center">' + imports[item] + '</td>' +
 							'<td class="center">' + civitas.RESOURCES[item].price + civitas.ui.resource_small_img('coins') + '</td>' +
 							'<td class="center">' + discount + civitas.ui.resource_small_img('coins') + '</td>' +
 							'<td class="center">' + discount_price + civitas.ui.resource_small_img('coins') + '</td>' +
 							'<td class="center">' + Math.ceil(discount_price * imports[item]) + civitas.ui.resource_small_img('coins') + '</td>' +
-							'<td class="center"><a title="' + civitas.l('Sell those goods') + '" data-resource="' + item + '" data-settlement="' + settlements[z].get_name() + '" class="tips sell' + (imports[item] === 0 ? ' disabled' : '') + '" href="#">' + civitas.l('sell') + '</a></td>' +
+							'<td class="center"><a title="' + civitas.l('Sell those goods') + '" data-resource="' + item + '" data-settlement="' + settlements[z].name() + '" class="tips sell' + (imports[item] === 0 ? ' disabled' : '') + '" href="#">' + civitas.l('sell') + '</a></td>' +
 							'</tr>';
 				}
 			}
@@ -15530,14 +15022,14 @@ civitas.PANEL_TRADES = {
 					var discount = Math.ceil((civitas.RESOURCES[item].price * civitas.TRADES_ADDITION) / 100);
 					var discount_price = Math.ceil(civitas.RESOURCES[item].price + discount);
 					out += '<tr>' +
-							'<td>' + settlements[z].get_name() + '</td>' +
+							'<td>' + settlements[z].name() + '</td>' +
 							'<td class="center">' + civitas.ui.resource_small_img(item) + '</td>' +
 							'<td class="center">' + exports[item] + '</td>' +
 							'<td class="center">' + civitas.RESOURCES[item].price + civitas.ui.resource_small_img('coins') + '</td>' +
 							'<td class="center">' + discount + civitas.ui.resource_small_img('coins') + '</td>' +
 							'<td class="center">' + discount_price + civitas.ui.resource_small_img('coins') + '</td>' +
 							'<td class="center">' + Math.ceil(discount_price * exports[item]) + civitas.ui.resource_small_img('coins') + '</td>' +
-							'<td class="center"><a title="' + civitas.l('Buy those goods') + '" data-resource="' + item + '" data-settlement="' + settlements[z].get_name() + '" class="tips buy' + (exports[item] === 0 ? ' disabled' : '') + '" href="#">' + civitas.l('buy') + '</a></td>' +
+							'<td class="center"><a title="' + civitas.l('Buy those goods') + '" data-resource="' + item + '" data-settlement="' + settlements[z].name() + '" class="tips buy' + (exports[item] === 0 ? ' disabled' : '') + '" href="#">' + civitas.l('buy') + '</a></td>' +
 							'</tr>';
 				}
 			}
@@ -15651,7 +15143,7 @@ civitas.PANEL_CAMP = {
 	on_refresh: function() {
 		var core = this.get_core();
 		var settlement = core.get_settlement();
-		var building = core.get_settlement().get_building_by_handle(this.params_data.handle);
+		var building = core.get_settlement().get_building(this.params_data.handle);
 		$(this.handle + ' #tab-info').empty().append(civitas.ui.building_panel(this.params_data, building.get_level()));
 		$(this.handle + ' .army-list').empty().append('<fieldset>' +
 				'<legend>' + civitas.l('Current Army') + '</legend>' +
@@ -15706,7 +15198,7 @@ civitas.PANEL_SHIPYARD = {
 	on_refresh: function() {
 		var core = this.get_core();
 		var settlement = core.get_settlement();
-		var building = core.get_settlement().get_building_by_handle(this.params_data.handle);
+		var building = core.get_settlement().get_building(this.params_data.handle);
 		var level = building.get_level();
 		$(this.handle + ' #tab-info').empty().append(civitas.ui.building_panel(this.params_data, level));
 		$(this.handle + ' .navy-list').empty().append('<fieldset>' +
@@ -15746,15 +15238,15 @@ civitas.PANEL_CHURCH = {
 	on_refresh: function() {
 		var core = this.get_core();
 		var settlement = core.get_settlement();
-		var building = core.get_settlement().get_building_by_handle(this.params_data.handle);
+		var building = core.get_settlement().get_building(this.params_data.handle);
 		$(this.handle + ' #tab-info').empty().append(civitas.ui.building_panel(this.params_data, building.get_level()));
 		var _t = '<div class="section">' +
-			civitas.ui.progress((settlement.get_faith() * 100) / civitas.MAX_FAITH_VALUE, 'large', settlement.get_faith()) +
+			civitas.ui.progress((settlement.faith() * 100) / civitas.MAX_FAITH_VALUE, 'large', settlement.faith()) +
 		'</div>' +
 		'<p>Changing your settlement`s religion requires <strong>' + civitas.MAX_FAITH_VALUE + '</strong> faith, each religion gives you access to different heroes in your Tavern and gives you a boost to the influence with the cities sharing the same religion.</p>' +
 		'<div class="religion-list">';
 		for (var i = 0; i < civitas.RELIGIONS.length; i++) {
-			_t += '<div data-handle="' + civitas.RELIGIONS[i] + '" data-id="' + i + '" class="religion' + (settlement.get_religion().id === i ? ' selected' : '') + '">' +
+			_t += '<div data-handle="' + civitas.RELIGIONS[i] + '" data-id="' + i + '" class="religion' + (settlement.religion().id === i ? ' selected' : '') + '">' +
 				'<span>' + civitas.RELIGIONS[i].capitalize() + '</span>' +
 			'</div>';
 		}
@@ -15777,8 +15269,8 @@ civitas.PANEL_EMBASSY = {
 		var core = this.get_core();
 		var settlement = core.get_settlement();
 		var settlements = core.get_settlements();
-		var status = settlement.get_status();
-		var building = core.get_settlement().get_building_by_handle(this.params_data.handle);
+		var status = settlement.status();
+		var building = core.get_settlement().get_building(this.params_data.handle);
 		var level = building.get_level();
 		$(this.handle + ' .contents').append(civitas.ui.tabs([civitas.l('Info'), civitas.l('Diplomacy'), civitas.l('Espionage')]));
 		$(this.handle + ' #tab-diplomacy').empty().append('<div class="settlements-list"></div>');
@@ -15796,31 +15288,31 @@ civitas.PANEL_EMBASSY = {
 		var core = this.get_core();
 		var settlement = core.get_settlement();
 		var settlements = core.get_settlements();
-		var status = settlement.get_status();
-		var building = core.get_settlement().get_building_by_handle(this.params_data.handle);
+		var status = settlement.status();
+		var building = core.get_settlement().get_building(this.params_data.handle);
 		var level = building.get_level();
 		$(this.handle + ' #tab-info').empty().append(civitas.ui.building_panel(this.params_data, level));
 		$(this.handle + ' #tab-espionage').empty().append('<div class="section">' +
-			civitas.ui.progress((settlement.get_espionage() * 100) / civitas.MAX_ESPIONAGE_VALUE, 'large', settlement.get_espionage()) +
+			civitas.ui.progress((settlement.espionage() * 100) / civitas.MAX_ESPIONAGE_VALUE, 'large', settlement.espionage()) +
 		'</div>');
 		var _t = '<table class="normal">';
 		for (var i = 1; i < settlements.length; i++) {
-			var _status = settlement.get_diplomacy_status(settlements[i].get_id());
-			var settlement_type = settlements[i].get_settlement_type();
+			var _status = settlement.get_diplomacy_status(settlements[i].id());
+			var settlement_type = settlements[i].get_type();
 			_t += '<tr>' +
 					'<td class="icon">' +
-						'<a data-id="' + settlements[i].get_id() + '" title="' + civitas.l('View info about this settlement.') + '" class="tips view" href="#">' +
-							'<img src="' + civitas.ASSETS_URL + 'images/avatars/avatar' + settlements[i].get_ruler_avatar() + '.png" />' +
+						'<a data-id="' + settlements[i].id() + '" title="' + civitas.l('View info about this settlement.') + '" class="tips view" href="#">' +
+							'<img src="' + civitas.ASSETS_URL + 'images/avatars/avatar' + settlements[i].ruler().avatar + '.png" />' +
 						'</a>' +
 					'</td>' +
 					'<td>' +
-						'<p class="title">' + (settlements[i].is_city() ? 'City of' : 'Village of') + ' ' + settlements[i].get_name() + '</p> ' +
-						'<div data-id="' + settlements[i].get_id() + '" >' + civitas.ui.progress(status[settlements[i].get_id()].influence, 'big') + '</div>' +
+						'<p class="title">' + (settlements[i].is_city() ? 'City of' : 'Village of') + ' ' + settlements[i].name() + '</p> ' +
+						'<div data-id="' + settlements[i].id() + '" >' + civitas.ui.progress(status[settlements[i].id()].influence, 'big') + '</div>' +
 					'</td>' +
 					'<td>' +
-						'<p>' + civitas.l('Leader') + ': <strong>' + settlements[i].get_ruler_name() + '</strong>' + '</p>' +
-						'<p>' + civitas.l('Personality') + ': <strong>' + settlements[i].get_personality().name.capitalize() + '</strong>' + '</p>' +
-						'<p>' + civitas.l('Diplomatic Status') + ': <strong>' + settlement.get_diplomacy_status(settlements[i].get_id()).name.capitalize() + '</strong>' + '</p>' +
+						'<p>' + civitas.l('Leader') + ': <strong>' + settlements[i].ruler().name + '</strong>' + '</p>' +
+						'<p>' + civitas.l('Personality') + ': <strong>' + settlements[i].personality().name + '</strong>' + '</p>' +
+						'<p>' + civitas.l('Diplomatic Status') + ': <strong>' + settlement.get_diplomacy_status(settlements[i].id()).name + '</strong>' + '</p>' +
 					'</td>' +
 				'</tr>';
 		}
@@ -15844,7 +15336,7 @@ civitas.PANEL_TAVERN = {
 	},
 	on_refresh: function() {
 		var core = this.get_core();
-		var building = core.get_settlement().get_building_by_handle(this.params_data.handle);
+		var building = core.get_settlement().get_building(this.params_data.handle);
 		$(this.handle + ' #tab-info').empty().append(civitas.ui.building_panel(this.params_data, building.get_level()));
 		$(this.handle + ' #tab-heroes').empty().append('<p>Not implemented yet.</p>');
 	}
@@ -15866,8 +15358,8 @@ civitas.PANEL_ACADEMY = {
 	on_refresh: function() {
 		var core = this.get_core();
 		var settlement = core.get_settlement();
-		var research = settlement.get_research();
-		var building = core.get_settlement().get_building_by_handle(this.params_data.handle);
+		var research = settlement.research();
+		var building = core.get_settlement().get_building(this.params_data.handle);
 		$(this.handle + ' #tab-info').empty().append(civitas.ui.building_panel(this.params_data, building.get_level()));
 		$(this.handle + ' #tab-research').empty().append('<div class="section">' +
 				civitas.ui.progress((research * 100) / civitas.MAX_RESEARCH_VALUE, 'large', research) +

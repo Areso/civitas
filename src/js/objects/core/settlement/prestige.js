@@ -1,14 +1,4 @@
 /**
- * Return the value of this settlement's prestige.
- * 
- * @public
- * @returns {Number}
- */
-civitas.objects.settlement.prototype.get_prestige = function() {
-	return this.resources.prestige;
-};
-
-/**
  * Raise the prestige of this settlement by the specified amount.
  * 
  * @public
@@ -19,7 +9,7 @@ civitas.objects.settlement.prototype.raise_prestige = function(amount) {
 	if (typeof amount === 'undefined') {
 		amount = 1;
 	}
-	return this.set_prestige(this.get_prestige() + amount);
+	return this.prestige(this.prestige() + amount);
 };
 
 /**
@@ -33,35 +23,36 @@ civitas.objects.settlement.prototype.lower_prestige = function(amount) {
 	if (typeof amount === 'undefined') {
 		amount = 1;
 	}
-	return this.set_prestige(this.get_prestige() - amount);
+	return this.prestige(this.prestige() - amount);
 };
 
 /**
  * Reset the prestige of this settlement to 1.
  * 
- * @returns {civitas.objects.settlement}
+ * @returns {Number}
  * @public
  */
 civitas.objects.settlement.prototype.reset_prestige = function() {
-	this.resources.prestige = 1;
-	return this;
+	return this.prestige(1);
 };
 
 /**
- * Set the prestige of this settlement.
+ * Get/set the prestige of this settlement.
  * 
  * @public
- * @returns {civitas.objects.settlement}
+ * @returns {Number}
  * @param {Number} value
  */
-civitas.objects.settlement.prototype.set_prestige = function(value) {
-	if (value < 1 || this.resources.prestige < 1) {
-		this.resources.prestige = 1;
-	} else {
-		this.resources.prestige = value;
+civitas.objects.settlement.prototype.prestige = function(value) {
+	if (typeof value !== 'undefined') {
+		if (value < 1 || this.resources.prestige < 1) {
+			this.resources.prestige = 1;
+		} else {
+			this.resources.prestige = value;
+		}
+		if (this.resources.prestige >= civitas.MAX_PRESTIGE_VALUE) {
+			this.resources.prestige = civitas.MAX_PRESTIGE_VALUE;
+		}
 	}
-	if (this.resources.prestige >= civitas.MAX_PRESTIGE_VALUE) {
-		this.resources.prestige = civitas.MAX_PRESTIGE_VALUE;
-	}
-	return this.get_prestige();
+	return this.resources.prestige;
 };

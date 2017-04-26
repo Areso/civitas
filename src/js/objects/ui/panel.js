@@ -128,7 +128,7 @@ civitas.controls.panel = function (params) {
 		}
 		this.on_show.call(this, params);
 		if (typeof params.data !== 'undefined') {
-			var building = this.get_core().get_settlement().get_building_by_handle(params.data.handle);
+			var building = this.get_core().get_settlement().get_building(params.data.handle);
 			if (building !== false) {
 				if (!building.is_upgradable()) {
 					$(this.handle + ' .footer .upgrade').remove();
@@ -137,7 +137,7 @@ civitas.controls.panel = function (params) {
 					$(this.handle + ' .footer .demolish').remove();
 				}
 				if (building.is_production_building()) {
-					if (building.is_producing()) {
+					if (!building.is_stopped()) {
 						$(this.handle + ' .pause').removeClass('start');
 					} else {
 						$(this.handle + ' .start').removeClass('pause');
@@ -165,6 +165,7 @@ civitas.controls.panel = function (params) {
 							if (button === 'yes') {
 								if (building.demolish()) {
 									self.destroy();
+									self.get_core().save_and_refresh();
 								}
 							}
 						},

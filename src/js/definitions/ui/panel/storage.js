@@ -33,7 +33,7 @@ civitas.PANEL_STORAGE = {
 	on_refresh: function() {
 		var settlement = this.get_core().get_settlement();
 		var resources = settlement.get_resources();
-		var storage_space = settlement.get_storage_space();
+		var storage_space = settlement.storage();
 		var out = '<div class="main-storage">';
 		var main_storage = '';
 		var extra_storage = '';

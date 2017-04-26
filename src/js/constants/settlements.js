@@ -1,15 +1,4 @@
 /**
- * Settlement types.
- *
- * @constant
- * @type {Array}
- */
-civitas.SETTLEMENT_TYPES = [
-	'city',
-	'village'
-];
-
-/**
  * City settlement.
  *
  * @constant
@@ -1031,7 +1020,7 @@ civitas.SETTLEMENTS = {
 		}
 	},
 	21: {
-		settlement_type: civitas.VILLAGE,
+		type: civitas.VILLAGE,
 		religion: civitas.RELIGION_HINDUISM,
 		resources: {
 			prestige: 1,
@@ -1052,7 +1041,7 @@ civitas.SETTLEMENTS = {
 		}
 	},
 	22: {
-		settlement_type: civitas.VILLAGE,
+		type: civitas.VILLAGE,
 		religion: civitas.RELIGION_ISLAM,
 		resources: {
 			prestige: 1,
@@ -1073,7 +1062,7 @@ civitas.SETTLEMENTS = {
 		}
 	},
 	23: {
-		settlement_type: civitas.VILLAGE,
+		type: civitas.VILLAGE,
 		religion: civitas.RELIGION_ISLAM,
 		resources: {
 			prestige: 1,
@@ -1094,7 +1083,7 @@ civitas.SETTLEMENTS = {
 		}
 	},
 	24: {
-		settlement_type: civitas.VILLAGE,
+		type: civitas.VILLAGE,
 		religion: civitas.RELIGION_CHRISTIANITY,
 		resources: {
 			prestige: 1,
@@ -1115,7 +1104,7 @@ civitas.SETTLEMENTS = {
 		}
 	},
 	25: {
-		settlement_type: civitas.VILLAGE,
+		type: civitas.VILLAGE,
 		religion: civitas.RELIGION_CHRISTIANITY,
 		resources: {
 			prestige: 1,
@@ -1136,7 +1125,7 @@ civitas.SETTLEMENTS = {
 		}
 	},
 	26: {
-		settlement_type: civitas.VILLAGE,
+		type: civitas.VILLAGE,
 		religion: civitas.RELIGION_CHRISTIANITY,
 		resources: {
 			prestige: 1,

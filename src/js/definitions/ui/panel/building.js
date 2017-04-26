@@ -28,7 +28,7 @@ civitas.PANEL_BUILDING = {
 		this.on_refresh();
 	},
 	on_refresh: function() {
-		var building = this.get_core().get_settlement().get_building_by_handle(this.params_data.handle);
+		var building = this.get_core().get_settlement().get_building(this.params_data.handle);
 		$(this.handle + ' .contents').empty().append(civitas.ui.building_panel(this.params_data, building.get_level()));
 	}
 };

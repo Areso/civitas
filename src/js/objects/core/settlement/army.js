@@ -37,13 +37,17 @@ civitas.objects.settlement.prototype._setup_navy = function(params) {
 };
 
 /**
- * Get the list of settlement mercenary armies, for export reasons.
+ * Get the list of settlement mercenary armies.
  *
  * @public
+ * @param {Array} value
  * @returns {Array}
  */
-civitas.objects.settlement.prototype.get_mercenary = function() {
-	return this.mercenary;
+civitas.objects.settlement.prototype.mercenary = function(value) {
+	if (typeof value !== 'undefined') {
+		this._mercenary = value;
+	}
+	return this._mercenary;
 };
 
 /**
@@ -92,7 +96,7 @@ civitas.objects.settlement.prototype.recruit_mercenary_army = function(name) {
 					army.army[item] = 0;
 				}
 			}
-			this.mercenary.push(army);
+			this._mercenary.push(army);
 			if (this.is_player()) {
 				this.get_core().notify('The mercenaries of the ' + civitas.MERCENARIES[i].name + ' are now available for skirmish missions for the duration of one year.', 'Mercenaries recruited.');
 			}
@@ -204,18 +208,6 @@ civitas.objects.settlement.prototype.disband_soldier = function(soldier_name) {
 };
 
 /**
- * Set the mercenaries of the settlement.
- * 
- * @public
- * @param {Number} value
- * @returns {civitas.objects.settlement}
- */
-civitas.objects.settlement.prototype.set_mercenary = function(value) {
-	this.mercenary = value;
-	return this;
-};
-
-/**
  * Set the navy of the settlement.
  * 
  * @public
@@ -246,7 +238,7 @@ civitas.objects.settlement.prototype.set_army = function(value) {
  * @returns {civitas.objects.settlement}
  */
 civitas.objects.settlement.prototype.release_mercenaries = function() {
-	this.mercenary = [];
+	this._mercenary = [];
 	if (this.is_player()) {
 		this.get_core().notify('At the end of the year, mercenaries from your city have been released.');
 	}
@@ -271,16 +263,6 @@ civitas.objects.settlement.prototype.get_army = function() {
  */
 civitas.objects.settlement.prototype.get_navy = function() {
 	return this.navy;
-};
-
-/**
- * Get the total number of mercenaries available for this settlement.
- * 
- * @public
- * @returns {Number}
- */
-civitas.objects.settlement.prototype.get_mercenary = function() {
-	return this.mercenary;
 };
 
 /**
@@ -345,8 +327,8 @@ civitas.objects.settlement.prototype.get_army_total = function(army) {
  * @returns {Boolean}
  */
 civitas.objects.settlement.prototype.is_mercenary_recruited = function(handle) {
-	for (var i = 0; i < this.mercenary.length; i++) {
-		if (this.mercenary[i].handle === handle) {
+	for (var i = 0; i < this._mercenary.length; i++) {
+		if (this._mercenary[i].handle === handle) {
 			return true;
 		}
 	}
@@ -362,7 +344,7 @@ civitas.objects.settlement.prototype.is_mercenary_recruited = function(handle) {
  */
 civitas.objects.settlement.prototype.release_mercenary = function(id) {
 	var mercenary_army_data = civitas.MERCENARIES[id];
-	this.mercenary.splice(id, 1);
+	this._mercenary.splice(id, 1);
 	if (this.is_player()) {
 		this.get_core().notify(mercenary_army_data.name + ' has been released from its duties.');
 	}

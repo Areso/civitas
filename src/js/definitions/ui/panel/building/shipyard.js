@@ -44,7 +44,7 @@ civitas.PANEL_SHIPYARD = {
 	on_refresh: function() {
 		var core = this.get_core();
 		var settlement = core.get_settlement();
-		var building = core.get_settlement().get_building_by_handle(this.params_data.handle);
+		var building = core.get_settlement().get_building(this.params_data.handle);
 		var level = building.get_level();
 		$(this.handle + ' #tab-info').empty().append(civitas.ui.building_panel(this.params_data, level));
 		$(this.handle + ' .navy-list').empty().append('<fieldset>' +

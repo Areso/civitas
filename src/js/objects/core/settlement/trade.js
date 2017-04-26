@@ -38,7 +38,7 @@ civitas.objects.settlement.prototype.buy_from_settlement = function(settlement, 
 		} else {
 			_settlement = settlement;
 		}
-		var is_double = this.get_religion().id === _settlement.get_religion().id ? true : false;
+		var is_double = this.religion().id === _settlement.religion().id ? true : false;
 		var trades = _settlement.get_trades();
 		if (trades === null) {
 			if (this.is_player()) {
@@ -73,15 +73,15 @@ civitas.objects.settlement.prototype.buy_from_settlement = function(settlement, 
 				_settlement.inc_coins(settlement_price);
 				this.add_to_storage(item, amount);
 				this.remove_from_exports(_settlement, item, amount);
-				this.raise_influence(_settlement.get_id(), (is_double ? civitas.IMPORT_INFLUENCE * 2 : civitas.IMPORT_INFLUENCE));
+				this.raise_influence(_settlement.id(), (is_double ? civitas.IMPORT_INFLUENCE * 2 : civitas.IMPORT_INFLUENCE));
 				this.raise_prestige(is_double ? civitas.IMPORT_PRESTIGE * 2 : civitas.IMPORT_PRESTIGE);
 				this.raise_fame(50);
 				this.get_core().refresh();
 				if (this.is_player()) {
-					this.get_core().notify(this.get_name() + ' bought <strong>' + amount + '</strong> ' + civitas.utils.get_resource_name(item) + ' from ' + settlement + ' for <strong>' + item_discount_price + '</strong> coins each, for a total of <strong>' + price + '</strong> coins.', civitas.l('World Market'));
+					this.get_core().notify(this.name() + ' bought <strong>' + amount + '</strong> ' + civitas.utils.get_resource_name(item) + ' from ' + settlement + ' for <strong>' + item_discount_price + '</strong> coins each, for a total of <strong>' + price + '</strong> coins.', civitas.l('World Market'));
 				}
 				return {
-					buyer: this.get_name(),
+					buyer: this.name(),
 					amount: amount,
 					goods: civitas.utils.get_resource_name(item),
 					seller: settlement,
@@ -110,8 +110,8 @@ civitas.objects.settlement.prototype.reset_trades = function() {
 		'exports': {}
 	};
 	var amount = 0;
-	if (typeof civitas.SETTLEMENTS[this.get_id()] !== 'undefined') {
-		var _trades = civitas.SETTLEMENTS[this.get_id()].trades;
+	if (typeof civitas.SETTLEMENTS[this.id()] !== 'undefined') {
+		var _trades = civitas.SETTLEMENTS[this.id()].trades;
 		for (var goods_type in _trades) {
 			for (var item in _trades[goods_type]) {
 				amount = civitas.utils.get_random_by_importance(_trades[goods_type][item])
@@ -156,10 +156,10 @@ civitas.objects.settlement.prototype.list_black_market = function(resource, amou
 		this.get_core().add_black_market(resource, amount, price);
 		this.get_core().refresh();
 		if (this.is_player()) {
-			this.get_core().notify(this.get_name() + ' placed ' + amount + ' ' + civitas.utils.get_resource_name(resource) + ' on the Black Market and will receive ' + price + ' coins next month.', civitas.l('Black Market'));
+			this.get_core().notify(this.name() + ' placed ' + amount + ' ' + civitas.utils.get_resource_name(resource) + ' on the Black Market and will receive ' + price + ' coins next month.', civitas.l('Black Market'));
 		}
 		return {
-			seller: this.get_name(),
+			seller: this.name(),
 			amount: amount,
 			goods: civitas.utils.get_resource_name(resource),
 			price: price,
@@ -199,7 +199,7 @@ civitas.objects.settlement.prototype.sell_to_settlement = function(settlement, r
 		} else {
 			_settlement = settlement;
 		}
-		var is_double = this.get_religion().id === _settlement.get_religion().id ? true : false;
+		var is_double = this.religion().id === _settlement.religion().id ? true : false;
 		var trades = _settlement.get_trades();
 		if (trades === null) {
 			if (this.is_player()) {
@@ -234,15 +234,15 @@ civitas.objects.settlement.prototype.sell_to_settlement = function(settlement, r
 				}
 				_settlement.add_to_storage(item, amount);
 				this.remove_from_imports(_settlement, item, amount);
-				this.raise_influence(_settlement.get_id(), (is_double ? civitas.EXPORT_INFLUENCE * 2 : civitas.EXPORT_INFLUENCE));
+				this.raise_influence(_settlement.id(), (is_double ? civitas.EXPORT_INFLUENCE * 2 : civitas.EXPORT_INFLUENCE));
 				this.raise_prestige(is_double ? civitas.EXPORT_PRESTIGE * 2 : civitas.EXPORT_PRESTIGE);
 				this.raise_fame(50);
 				this.get_core().refresh();
 				if (this.is_player()) {
-					this.get_core().notify(this.get_name() + ' sold <strong>' + amount + '</strong> ' + civitas.utils.get_resource_name(item) + ' to ' + settlement + ' for <strong>' + item_discount_price + '</strong> coins each, for a total of <strong>' + price + '</strong> coins.', civitas.l('World Market'));
+					this.get_core().notify(this.name() + ' sold <strong>' + amount + '</strong> ' + civitas.utils.get_resource_name(item) + ' to ' + settlement + ' for <strong>' + item_discount_price + '</strong> coins each, for a total of <strong>' + price + '</strong> coins.', civitas.l('World Market'));
 				}
 				return {
-					seller: this.get_name(),
+					seller: this.name(),
 					amount: amount,
 					goods: civitas.utils.get_resource_name(item),
 					buyer: settlement,

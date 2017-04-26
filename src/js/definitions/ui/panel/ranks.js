@@ -22,9 +22,9 @@ civitas.PANEL_RANKS = {
 		var ranking_list = [];
 		var settlements = this.get_core().get_settlements();
 		for (var i = 0; i < settlements.length; i++) {
-			if (settlements[i].get_settlement_type() === civitas.CITY) {
+			if (settlements[i].get_type() === civitas.CITY) {
 				ranking_list.push({
-					name: settlements[i].get_name(),
+					name: settlements[i].name(),
 					data: settlements[i].get_rank()
 				});
 			}
