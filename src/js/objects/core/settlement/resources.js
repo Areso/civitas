@@ -47,10 +47,10 @@ civitas.objects.settlement.prototype.coins = function(value) {
  * @returns {Boolean}
  */
 civitas.objects.settlement.prototype.remove_resource_silent = function(resource, amount) {
-	var res = this.get_resources();
-	res[resource] = res[resource] - amount;
-	if (res[resource] < 0) {
-		res[resource] = 0;
+	var resources = this.get_resources();
+	resources[resource] = resources[resource] - amount;
+	if (resources[resource] < 0) {
+		resources[resource] = 0;
 	}
 	return true;
 };
@@ -64,11 +64,11 @@ civitas.objects.settlement.prototype.remove_resource_silent = function(resource,
  * @returns {Boolean}
  */
 civitas.objects.settlement.prototype.remove_resource = function(resource, amount) {
-	var res = this.get_resources();
+	var resources = this.get_resources();
 	if (!this.has_resources(resource, amount)) {
 		return false;
 	}
-	res[resource] = res[resource] - amount;
+	resources[resource] = resources[resource] - amount;
 	return true;
 };
 	

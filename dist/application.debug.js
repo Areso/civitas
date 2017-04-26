@@ -8223,10 +8223,10 @@ civitas.objects.settlement.prototype.coins = function(value) {
  * @returns {Boolean}
  */
 civitas.objects.settlement.prototype.remove_resource_silent = function(resource, amount) {
-	var res = this.get_resources();
-	res[resource] = res[resource] - amount;
-	if (res[resource] < 0) {
-		res[resource] = 0;
+	var resources = this.get_resources();
+	resources[resource] = resources[resource] - amount;
+	if (resources[resource] < 0) {
+		resources[resource] = 0;
 	}
 	return true;
 };
@@ -8240,11 +8240,11 @@ civitas.objects.settlement.prototype.remove_resource_silent = function(resource,
  * @returns {Boolean}
  */
 civitas.objects.settlement.prototype.remove_resource = function(resource, amount) {
-	var res = this.get_resources();
+	var resources = this.get_resources();
 	if (!this.has_resources(resource, amount)) {
 		return false;
 	}
-	res[resource] = res[resource] - amount;
+	resources[resource] = resources[resource] - amount;
 	return true;
 };
 	
@@ -9742,7 +9742,7 @@ civitas.objects.building = function(params) {
 				this.notify(civitas.NOTIFICATION_PRODUCTION_PAUSED);
 			} else {
 				this.problems = false;
-				$('section.game > #building-' + this.get_handle()).empty();
+				this.notify();
 			}
 			this.get_core().refresh();
 		}
@@ -9887,7 +9887,7 @@ civitas.objects.building = function(params) {
 		if (this.get_settlement().is_building_built(this.get_type()) && this.is_production_building()) {
 			if (this.get_settlement().is_player()) {
 				this.get_core().notify(this.get_name() + '`s production started.');
-				$('#building-' + this.get_handle()).empty();
+				this.notify();
 			}
 			this.stopped = false;
 			this.problems = false;
@@ -10100,33 +10100,7 @@ civitas.objects.building = function(params) {
 		} else {
 			this._produce_material(material);
 		}
-		return this;
-	};
-
-	/**
-	 * Calculate if the house has the required food and processes the tax.
-	 * 
-	 * @public
-	 * @returns {civitas.objects.building}
-	 */
-	this.process_tax = function() {
-		var materials = [];
-		var building = this.get_building_data();
-		var building_materials = building.materials;
-		var amount;
-		for (var item in building_materials) {
-			materials.push(item);
-		}
-		if (materials.length > 0) {
-			if (this.has_materials(materials)) {
-				this.use_material(materials);
-				amount = building.tax * this.get_level();
-				this.get_settlement().inc_coins(amount);
-				if (this.get_settlement().is_player()) {
-					this.get_core().log(this.get_name() + ' gave ' + amount + ' coins via tax.');
-				}
-			}
-		}
+		this.notify();
 		return this;
 	};
 
@@ -10191,6 +10165,7 @@ civitas.objects.building = function(params) {
 					if (this.get_settlement().is_player()) {
 						this.get_core().log(this.get_name() + ' gave ' + amount + ' coins via tax.');
 					}
+					this.notify();
 				}
 			}
 		} else {
@@ -10210,6 +10185,7 @@ civitas.objects.building = function(params) {
 						this.produce_material(_p);
 						this.problems = false;
 					}
+					this.notify();
 				} else {
 					this.problems = true;
 				}
@@ -10327,17 +10303,21 @@ civitas.objects.building = function(params) {
 	 * @returns {civitas.objects.building}
 	 */
 	this.notify = function(notification_type) {
-		if (this.get_settlement().is_player()) {
-			var handle = $('#building-' + this.get_handle());
-			switch (notification_type) {
-				case civitas.NOTIFICATION_PRODUCTION_PAUSED:
-					handle.empty().append('<span class="notification paused"></span>');
-					break;
-				case civitas.NOTIFICATION_MISSING_RESOURCES:
-				default:
-					handle.empty().append('<span class="notification error"></span>');
-					break;
+		if (typeof notification_type !== 'undefined') {
+			if (this.get_settlement().is_player()) {
+				var handle = $('section.game > #building-' + this.get_handle());
+				switch (notification_type) {
+					case civitas.NOTIFICATION_PRODUCTION_PAUSED:
+						handle.empty().append('<span class="notification paused"></span>');
+						break;
+					case civitas.NOTIFICATION_MISSING_RESOURCES:
+					default:
+						handle.empty().append('<span class="notification error"></span>');
+						break;
+				}
 			}
+		} else {
+			$('section.game > #building-' + this.get_handle()).empty();
 		}
 		return this;
 	};
@@ -13347,6 +13327,7 @@ civitas.PANEL_HELP = {
 					'<a href="#" class="btn iblock eight">' + civitas.l('+1M coins') + '</a> <br /><br />' +
 					'<a href="#" class="btn iblock two">' + civitas.l('+100 wood') + '</a> ' +
 					'<a href="#" class="btn iblock three">' + civitas.l('+100 stones') + '</a> ' +
+					'<a href="#" class="btn iblock thirty">' + civitas.l('+4 bread') + '</a> ' +
 					'<a href="#" class="btn iblock fifteen">' + civitas.l('+1000 provisions') + '</a> ' +
 					'<a href="#" class="btn iblock four">' + civitas.l('+100 wood planks') + '</a> <br /><br />' +
 					'<a href="#" class="btn iblock five">' + civitas.l('level up') + '</a> ' +
@@ -13397,6 +13378,10 @@ civitas.PANEL_HELP = {
 				return false;
 			}).on('click', '.two', function() {
 				settlement.add_to_storage('wood', 100);
+				core.save_and_refresh();
+				return false;
+			}).on('click', '.thirty', function() {
+				settlement.add_to_storage('bread', 4);
 				core.save_and_refresh();
 				return false;
 			}).on('click', '.three', function() {

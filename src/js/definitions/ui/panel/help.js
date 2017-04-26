@@ -121,6 +121,7 @@ civitas.PANEL_HELP = {
 					'<a href="#" class="btn iblock eight">' + civitas.l('+1M coins') + '</a> <br /><br />' +
 					'<a href="#" class="btn iblock two">' + civitas.l('+100 wood') + '</a> ' +
 					'<a href="#" class="btn iblock three">' + civitas.l('+100 stones') + '</a> ' +
+					'<a href="#" class="btn iblock thirty">' + civitas.l('+4 bread') + '</a> ' +
 					'<a href="#" class="btn iblock fifteen">' + civitas.l('+1000 provisions') + '</a> ' +
 					'<a href="#" class="btn iblock four">' + civitas.l('+100 wood planks') + '</a> <br /><br />' +
 					'<a href="#" class="btn iblock five">' + civitas.l('level up') + '</a> ' +
@@ -171,6 +172,10 @@ civitas.PANEL_HELP = {
 				return false;
 			}).on('click', '.two', function() {
 				settlement.add_to_storage('wood', 100);
+				core.save_and_refresh();
+				return false;
+			}).on('click', '.thirty', function() {
+				settlement.add_to_storage('bread', 4);
 				core.save_and_refresh();
 				return false;
 			}).on('click', '.three', function() {
