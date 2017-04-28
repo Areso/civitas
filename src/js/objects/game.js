@@ -233,23 +233,6 @@ civitas.game = function () {
 	};
 
 	/**
-	 * Swap game storage data between two keys.
-	 * 
-	 * @param {String} from
-	 * @param {String} to
-	 * @public
-	 * @returns {Boolean}
-	 */
-	this.swap_storage_data = function(from, to) {
-		var data = this.get_storage_data(from);
-		if (data !== false) {
-			this.set_storage_data(to, data);
-			return true;
-		}
-		return false;
-	};
-
-	/**
 	 * Reset (empty) game storage data.
 	 * 
 	 * @param {String} key
@@ -307,7 +290,12 @@ civitas.game = function () {
 			padding: CryptoJS.pad.Pkcs7,
 			mode: CryptoJS.mode.CBC
 		});
-  		return decrypted.toString(CryptoJS.enc.Utf8);
+		try {
+  			decrypted = decrypted.toString(CryptoJS.enc.Utf8);
+  		} catch (err) {
+  			return false;
+  		}
+  		return decrypted;
 	};
 
 	/**
@@ -329,8 +317,11 @@ civitas.game = function () {
 	 * @public
 	 * @returns {Boolean}
 	 */
-	this.has_storage_data = function() {
-		if (localStorage.getItem(civitas.STORAGE_KEY + '.live') !== null) {
+	this.has_storage_data = function(key) {
+		if (typeof key === 'undefined') {
+			key = 'live';
+		}
+		if (localStorage.getItem(civitas.STORAGE_KEY + '.' + key) !== null) {
 			return true;
 		} else {
 			return false;
@@ -349,10 +340,12 @@ civitas.game = function () {
 			key = 'live';
 		}
 		if (localStorage.getItem(civitas.STORAGE_KEY + '.' + key) !== null) {
-			return JSON.parse(this.decrypt(localStorage.getItem(civitas.STORAGE_KEY + '.' + key)));
-		} else {
-			return false;
+			var decrypted = this.decrypt(localStorage.getItem(civitas.STORAGE_KEY + '.' + key));
+			if (decrypted !== false) {
+				return JSON.parse(decrypted);
+			}
 		}
+		return false;
 	};
 
 	/**
@@ -517,33 +510,14 @@ civitas.game = function () {
 	};
 
 	/**
-	 * Start the game.
-	 * 
+	 * Internal method for starting up a game.
+	 *
+	 * @private
+	 * @param {Object} data
 	 * @returns {civitas.game}
-	 * @public
-	 * @param {String} name
-	 * @param {String} cityname
-	 * @param {Number} nation
-	 * @param {Number} climate
-	 * @param {Number} avatar
-	 * @param {Number} difficulty
-	 * @param {String} password
 	 */
-	this.start_game = function (name, cityname, nation, climate, avatar, difficulty, password) {
+	this._setup_game = function(data) {
 		var self = this;
-		var data = null;
-		if (typeof cityname === 'undefined') {
-			this.encryption.key = name;
-		} else {
-			this.encryption.key = password;
-		}
-		this.difficulty = parseInt(difficulty);
-		this.worldmap = civitas.utils.get_random(1, civitas.WORLDMAPS);
-		if (this.get_storage_data() !== false) {
-			data = this._load_settlement(this.import());
-		} else {
-			this._create_settlement(name, cityname, nation, climate, avatar);
-		}
 		this._setup_neighbours(data);
 		this.save();
 		$('header .cityname').html(this.get_settlement().name());
@@ -568,6 +542,52 @@ civitas.game = function () {
 		});
 		this.hide_loader();
 		return this;
+	};
+
+	/**
+	 * Start a new game.
+	 *
+	 * @public
+	 * @param {String} name
+	 * @param {String} cityname
+	 * @param {Number} nation
+	 * @param {Number} climate
+	 * @param {Number} avatar
+	 * @param {Number} difficulty
+	 * @param {String} password
+	 * @returns {Boolean}
+	 */
+	this.new_game = function(name, cityname, nation, climate, avatar, difficulty, password) {
+		this.show_loader();
+		var data = null;
+		var game_data = this.get_storage_data();
+		this.encryption.key = password;
+		this.difficulty = parseInt(difficulty);
+		this.worldmap = civitas.utils.get_random(1, civitas.WORLDMAPS);
+		this._create_settlement(name, cityname, nation, climate, avatar);
+		this._setup_game(null);
+		return true;
+	};
+
+	/**
+	 * Load a game decrypting it with the specified password.
+	 *
+	 * @public
+	 * @param {String} password
+	 * @returns {Boolean}
+	 */
+	this.load_game = function(password) {
+		var data = null;
+		this.encryption.key = password;
+		var game_data = this.get_storage_data();
+		if (game_data) {
+			this.show_loader();
+			data = this._load_settlement(this.import(game_data.data));
+		} else {
+			return false;
+		}
+		this._setup_game(data);
+		return true;
 	};
 
 	/**
@@ -1243,8 +1263,7 @@ civitas.game = function () {
 	 * @public
 	 * @returns {Object}
 	 */
-	this.import = function() {
-		var data = this.get_storage_data().data;
+	this.import = function(data) {
 		if (data !== false) {
 			this.set_difficulty(data.difficulty);
 			this.set_worldmap(data.worldmap);

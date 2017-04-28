@@ -10,12 +10,12 @@ civitas.WINDOW_SIGNIN = {
 			'<div class="logo">Civitas</div>' +
 			'<fieldset>' +
 				'<div class="new-game">' +
-					'<p>There is at least one save game, enter your city password to decrypt and play it.</p>' +
+					'<p>Enter the city password to decrypt the game data.</p>' +
 					'<dl>' +
 						'<dt class="clearfix">' + civitas.l('City Password') + ':</dt>' +
 						'<dd><input type="password" class="password text-input" /></dd>' +
 					'</dl>' +
-					'<a href="#" class="do-login highlight button">' + civitas.l('Start Playing') + '</a>' +
+					'<a href="#" class="do-start highlight button">' + civitas.l('Load Game') + '</a>' +
 				'</div>' +
 				'<a href="#" class="do-restart button">' + civitas.l('Restart') + '</a>' +
 				'<a href="#" class="do-about button">' + civitas.l('About') + '</a>' +
@@ -34,17 +34,21 @@ civitas.WINDOW_SIGNIN = {
 	on_show: function() {
 		var self = this;
 		var avatar = 1;
+		var savegame = null;
 		var core = this.get_core();
 		var el = '#window-' + this.id;
-		$(el).on('click', '.do-login', function () {
+		var saved_slots = false;
+		$(el).on('click', '.do-start', function () {
 			var password = $(el + ' .password').val();
 			if (password === '') {
 				core.error('Enter your city password.', 'Error', true);
 				return false;
 			}
-			core.show_loader();
-			core.start_game(password);
-			self.destroy();
+			if (!core.load_game(password)) {
+				core.error('Error decrypting the game data with the specified password. Try again.', 'Error', true);
+			} else {
+				self.destroy();
+			}
 			return false;
 		}).on('click', '.do-restart', function () {
 			core.open_modal(

@@ -100,8 +100,7 @@ civitas.WINDOW_SIGNUP = {
 				core.error('Your passwords do not match.', 'Error', true);
 				return false;
 			}
-			core.show_loader();
-			core.start_game(name, cityname, nation, climate, avatar, difficulty, password);
+			core.new_game(name, cityname, nation, climate, avatar, difficulty, password);
 			self.destroy();
 			return false;
 		}).on('click', '.down', function () {

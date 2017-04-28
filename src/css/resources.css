@@ -230,18 +230,6 @@ footer .do-help {
 	background: transparent url(../images/ui/icons/notify-pause.png) no-repeat;
 }
 
-#window-options .save-slots li span.load {
-	background: transparent url(../images/ui/icons/back.png) no-repeat center;
-}
-
-#window-options .save-slots li span.save {
-	background: transparent url(../images/ui/icons/start.png) no-repeat center;
-}
-
-#window-options .save-slots li span.delete {
-	background: transparent url(../images/ui/icon_demolish.png) no-repeat center;
-}
-
 .ach.img {
 	background: transparent url(../images/ui/icon_achievement.png) no-repeat;
 }
