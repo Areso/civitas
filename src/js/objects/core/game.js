@@ -107,7 +107,9 @@ civitas.game = function () {
 		key: null,
 		key_size: 256,
 		iv_size: 128,
-		iterations: 100
+		iterations: 100,
+		mode: CryptoJS.mode.CBC,
+		padding: CryptoJS.pad.Pkcs7
 	};
 
 	/**
@@ -142,8 +144,12 @@ civitas.game = function () {
 	 */
 	this.mode = civitas.MODE_SINGLEPLAYER;
 
-	this.ai = null;
-
+	/**
+	 * Modal window instance.
+	 *
+	 * @private
+	 * @type {Object}
+	 */
 	this.modal = null;
 
 	/**
@@ -161,9 +167,6 @@ civitas.game = function () {
 		} else {
 			this.open_window(civitas.WINDOW_SIGNIN);
 		}
-		this.ai = new civitas.modules.ai({
-			core: this
-		});
 		return this;
 	};
 
@@ -500,7 +503,6 @@ civitas.game = function () {
 			this.day = 1;
 			this.month = 1;
 		}
-		this.ai.process();
 		this.save_and_refresh();
 		return this;
 	};

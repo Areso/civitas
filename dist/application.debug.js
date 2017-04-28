@@ -6849,42 +6849,6 @@ civitas.utils = {
 };
 
 /**
- * Main Game AI (Artificial Intelligence) object.
- * 
- * @param {Object} params
- * @class {civitas.modules.ai}
- * @returns {civitas.modules.ai}
- */
-civitas.modules.ai = function (params) {
-
-	/**
-	 * Reference to the core object.
-	 * 
-	 * @type {civitas.game}
-	 */
-	this.core = null;
-
-	/**
-	 * Object constructor.
-	 * 
-	 * @private
-	 * @returns {civitas.modules.ai}
-	 * @param {Object} params
-	 */
-	this.__init = function (params) {
-		this.core = params.core;
-		return this;
-	};
-
-	this.process = function() {
-
-	};
-
-	// Fire up the constructor
-	return this.__init(params);
-};
-
-/**
  * Main Game UI interface.
  */
 civitas.ui = {
@@ -10917,7 +10881,9 @@ civitas.game = function () {
 		key: null,
 		key_size: 256,
 		iv_size: 128,
-		iterations: 100
+		iterations: 100,
+		mode: CryptoJS.mode.CBC,
+		padding: CryptoJS.pad.Pkcs7
 	};
 
 	/**
@@ -10952,8 +10918,12 @@ civitas.game = function () {
 	 */
 	this.mode = civitas.MODE_SINGLEPLAYER;
 
-	this.ai = null;
-
+	/**
+	 * Modal window instance.
+	 *
+	 * @private
+	 * @type {Object}
+	 */
 	this.modal = null;
 
 	/**
@@ -10971,9 +10941,6 @@ civitas.game = function () {
 		} else {
 			this.open_window(civitas.WINDOW_SIGNIN);
 		}
-		this.ai = new civitas.modules.ai({
-			core: this
-		});
 		return this;
 	};
 
@@ -11310,7 +11277,6 @@ civitas.game = function () {
 			this.day = 1;
 			this.month = 1;
 		}
-		this.ai.process();
 		this.save_and_refresh();
 		return this;
 	};
@@ -11801,8 +11767,8 @@ civitas.game.prototype.encrypt = function(data) {
 	var iv = CryptoJS.lib.WordArray.random(128 / 8);
 	var encrypted = CryptoJS.AES.encrypt(data, key, { 
 		iv: iv,
-		padding: CryptoJS.pad.Pkcs7,
-		mode: CryptoJS.mode.CBC
+		padding: this.encryption.padding,
+		mode: this.encryption.mode
 	});
 	return salt.toString() + iv.toString() + encrypted.toString();
 };
@@ -11824,8 +11790,8 @@ civitas.game.prototype.decrypt = function(data) {
 	});
 	var decrypted = CryptoJS.AES.decrypt(encrypted, key, { 
 		iv: iv, 
-		padding: CryptoJS.pad.Pkcs7,
-		mode: CryptoJS.mode.CBC
+		padding: this.encryption.padding,
+		mode: this.encryption.mode
 	});
 	try {
   		decrypted = decrypted.toString(CryptoJS.enc.Utf8);
@@ -12169,100 +12135,100 @@ civitas.game.prototype.notify = function (message, title, timeout) {
  * @private
  */
 civitas.game.prototype._notify = function (settings) {
-		var container, notty, hide, image, right, left, inner, _container;
-		settings = $.extend({
-			title: undefined,
-			content: undefined,
-			timeout: 15000,
-			img: undefined,
-			mode: civitas.NOTIFY_NORMAL
-		}, settings);
-		if (settings.mode === civitas.NOTIFY_ACHIEVEMENT) {
-			_container = 'achievements-notifications';
-		} else {
-			_container = 'notifications';
-		}
-		container = $('.' + _container);
-		if (!container.length) {
-			container = $("<div>", {
-				'class': _container
-			}).appendTo(document.body);
-		}
-		$('.achievements-notifications').css({
-			left: ($(window).width() / 2) - (container.width() / 2)
-		});
-		notty = $('<div>');
-		notty.addClass('notty');
-		hide = $("<div>", {
-			click: function () {
-				$(this).parent().delay(300).queue(function () {
-					$(this).clearQueue();
-					$(this).remove();
-				});
-			},
-			touchstart: function () {
-				$(this).parent().delay(300).queue(function () {
-					$(this).clearQueue();
-					$(this).remove();
-				});
-			}
-		});
-		hide.addClass('hide');
-		if (settings.mode === civitas.NOTIFY_ERROR) {
-			notty.addClass('error');
-			settings.img = civitas.ASSETS_URL + 'images/ui/icon_error.png';
-		} else if (settings.mode === civitas.NOTIFY_EVENT) {
-			notty.addClass('event');
-			settings.img = civitas.ASSETS_URL + 'images/ui/icon_research.png';
-		} else if (settings.mode === civitas.NOTIFY_ACHIEVEMENT) {
-			notty.addClass('achievement');
-			settings.img = civitas.ASSETS_URL + 'images/ui/icon_achievement.png';
-		} else {
-			settings.img = civitas.ASSETS_URL + 'images/ui/icon_notification.png';
-		}
-		image = $('<div>', {
-			style: "background: url('" + settings.img + "')"
-		});
-		image.addClass('img');
-		left = $("<div class='left'>");
-		right = $("<div class='right'>");
-		inner = $('<div>', {
-			html: '<h2>' + settings.title + '</h2>' + settings.content
-		});
-		inner.addClass("inner");
-		inner.appendTo(right);
-		image.appendTo(left);
-		left.appendTo(notty);
-		right.appendTo(notty);
-		hide.appendTo(notty);
-		if (settings.mode !== civitas.NOTIFY_ACHIEVEMENT) {
-			var timestamp = Number(new Date());
-			var timeHTML = $("<div>", {
-				html: "<strong>" + civitas.utils.time_since(timestamp) + "</strong> ago"
+	var container, notty, hide, image, right, left, inner, _container;
+	settings = $.extend({
+		title: undefined,
+		content: undefined,
+		timeout: 15000,
+		img: undefined,
+		mode: civitas.NOTIFY_NORMAL
+	}, settings);
+	if (settings.mode === civitas.NOTIFY_ACHIEVEMENT) {
+		_container = 'achievements-notifications';
+	} else {
+		_container = 'notifications';
+	}
+	container = $('.' + _container);
+	if (!container.length) {
+		container = $("<div>", {
+			'class': _container
+		}).appendTo(document.body);
+	}
+	$('.achievements-notifications').css({
+		left: ($(window).width() / 2) - (container.width() / 2)
+	});
+	notty = $('<div>');
+	notty.addClass('notty');
+	hide = $("<div>", {
+		click: function () {
+			$(this).parent().delay(300).queue(function () {
+				$(this).clearQueue();
+				$(this).remove();
 			});
-			timeHTML.addClass("time").attr("title", timestamp);
-			timeHTML.appendTo(right);
-			setInterval(function () {
-				$(".time").each(function () {
-					var timing = $(this).attr("title");
-					$(this).html("<strong>" + civitas.utils.time_since(timing) + "</strong> ago");
-				});
-			}, 4000);
+		},
+		touchstart: function () {
+			$(this).parent().delay(300).queue(function () {
+				$(this).clearQueue();
+				$(this).remove();
+			});
 		}
-		notty.hover(function () {
-			hide.show();
-		}, function () {
-			hide.hide();
+	});
+	hide.addClass('hide');
+	if (settings.mode === civitas.NOTIFY_ERROR) {
+		notty.addClass('error');
+		settings.img = civitas.ASSETS_URL + 'images/ui/icon_error.png';
+	} else if (settings.mode === civitas.NOTIFY_EVENT) {
+		notty.addClass('event');
+		settings.img = civitas.ASSETS_URL + 'images/ui/icon_research.png';
+	} else if (settings.mode === civitas.NOTIFY_ACHIEVEMENT) {
+		notty.addClass('achievement');
+		settings.img = civitas.ASSETS_URL + 'images/ui/icon_achievement.png';
+	} else {
+		settings.img = civitas.ASSETS_URL + 'images/ui/icon_notification.png';
+	}
+	image = $('<div>', {
+		style: "background: url('" + settings.img + "')"
+	});
+	image.addClass('img');
+	left = $("<div class='left'>");
+	right = $("<div class='right'>");
+	inner = $('<div>', {
+		html: '<h2>' + settings.title + '</h2>' + settings.content
+	});
+	inner.addClass("inner");
+	inner.appendTo(right);
+	image.appendTo(left);
+	left.appendTo(notty);
+	right.appendTo(notty);
+	hide.appendTo(notty);
+	if (settings.mode !== civitas.NOTIFY_ACHIEVEMENT) {
+		var timestamp = Number(new Date());
+		var timeHTML = $("<div>", {
+			html: "<strong>" + civitas.utils.time_since(timestamp) + "</strong> ago"
 		});
-		notty.prependTo(container);
-		notty.show();
-		if (settings.timeout) {
-			setTimeout(function () {
-				notty.delay(300).queue(function () {
-					$(this).clearQueue();
-					$(this).remove();
-				});
-			}, settings.timeout);
+		timeHTML.addClass("time").attr("title", timestamp);
+		timeHTML.appendTo(right);
+		setInterval(function () {
+			$(".time").each(function () {
+				var timing = $(this).attr("title");
+				$(this).html("<strong>" + civitas.utils.time_since(timing) + "</strong> ago");
+			});
+		}, 4000);
+	}
+	notty.hover(function () {
+		hide.show();
+	}, function () {
+		hide.hide();
+	});
+	notty.prependTo(container);
+	notty.show();
+	if (settings.timeout) {
+		setTimeout(function () {
+			notty.delay(300).queue(function () {
+				$(this).clearQueue();
+				$(this).remove();
+			});
+		}, settings.timeout);
 	}
 	return this;
 };
@@ -12334,12 +12300,11 @@ civitas.game.prototype._setup_ui = function () {
 		_t += '<span class="' + civitas.TOOLBAR_RESOURCES[i] + '"></span>';
 	}
 	$('.top-panel').empty().append(_t);
-	$('.console').on('click', '.down', function () {
+	$('.ui').on('click', '.console .down', function () {
 		$('.console .contents').scrollTo('+=97px', 500);
-	}).on('click', '.up', function () {
+	}).on('click', '.console .up', function () {
 		$('.console .contents').scrollTo('-=97px', 500);
-	});
-	$('.ui').on('click', '.cityavatar', function () {
+	}).on('click', '.cityavatar', function () {
 		self.open_panel(civitas.PANEL_COUNCIL);
 		return false;
 	}).on('click', 'a[data-action=panel]', function () {

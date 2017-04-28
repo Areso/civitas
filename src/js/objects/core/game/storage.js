@@ -29,8 +29,8 @@ civitas.game.prototype.encrypt = function(data) {
 	var iv = CryptoJS.lib.WordArray.random(128 / 8);
 	var encrypted = CryptoJS.AES.encrypt(data, key, { 
 		iv: iv,
-		padding: CryptoJS.pad.Pkcs7,
-		mode: CryptoJS.mode.CBC
+		padding: this.encryption.padding,
+		mode: this.encryption.mode
 	});
 	return salt.toString() + iv.toString() + encrypted.toString();
 };
@@ -52,8 +52,8 @@ civitas.game.prototype.decrypt = function(data) {
 	});
 	var decrypted = CryptoJS.AES.decrypt(encrypted, key, { 
 		iv: iv, 
-		padding: CryptoJS.pad.Pkcs7,
-		mode: CryptoJS.mode.CBC
+		padding: this.encryption.padding,
+		mode: this.encryption.mode
 	});
 	try {
   		decrypted = decrypted.toString(CryptoJS.enc.Utf8);

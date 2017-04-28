@@ -204,100 +204,100 @@ civitas.game.prototype.notify = function (message, title, timeout) {
  * @private
  */
 civitas.game.prototype._notify = function (settings) {
-		var container, notty, hide, image, right, left, inner, _container;
-		settings = $.extend({
-			title: undefined,
-			content: undefined,
-			timeout: 15000,
-			img: undefined,
-			mode: civitas.NOTIFY_NORMAL
-		}, settings);
-		if (settings.mode === civitas.NOTIFY_ACHIEVEMENT) {
-			_container = 'achievements-notifications';
-		} else {
-			_container = 'notifications';
-		}
-		container = $('.' + _container);
-		if (!container.length) {
-			container = $("<div>", {
-				'class': _container
-			}).appendTo(document.body);
-		}
-		$('.achievements-notifications').css({
-			left: ($(window).width() / 2) - (container.width() / 2)
-		});
-		notty = $('<div>');
-		notty.addClass('notty');
-		hide = $("<div>", {
-			click: function () {
-				$(this).parent().delay(300).queue(function () {
-					$(this).clearQueue();
-					$(this).remove();
-				});
-			},
-			touchstart: function () {
-				$(this).parent().delay(300).queue(function () {
-					$(this).clearQueue();
-					$(this).remove();
-				});
-			}
-		});
-		hide.addClass('hide');
-		if (settings.mode === civitas.NOTIFY_ERROR) {
-			notty.addClass('error');
-			settings.img = civitas.ASSETS_URL + 'images/ui/icon_error.png';
-		} else if (settings.mode === civitas.NOTIFY_EVENT) {
-			notty.addClass('event');
-			settings.img = civitas.ASSETS_URL + 'images/ui/icon_research.png';
-		} else if (settings.mode === civitas.NOTIFY_ACHIEVEMENT) {
-			notty.addClass('achievement');
-			settings.img = civitas.ASSETS_URL + 'images/ui/icon_achievement.png';
-		} else {
-			settings.img = civitas.ASSETS_URL + 'images/ui/icon_notification.png';
-		}
-		image = $('<div>', {
-			style: "background: url('" + settings.img + "')"
-		});
-		image.addClass('img');
-		left = $("<div class='left'>");
-		right = $("<div class='right'>");
-		inner = $('<div>', {
-			html: '<h2>' + settings.title + '</h2>' + settings.content
-		});
-		inner.addClass("inner");
-		inner.appendTo(right);
-		image.appendTo(left);
-		left.appendTo(notty);
-		right.appendTo(notty);
-		hide.appendTo(notty);
-		if (settings.mode !== civitas.NOTIFY_ACHIEVEMENT) {
-			var timestamp = Number(new Date());
-			var timeHTML = $("<div>", {
-				html: "<strong>" + civitas.utils.time_since(timestamp) + "</strong> ago"
+	var container, notty, hide, image, right, left, inner, _container;
+	settings = $.extend({
+		title: undefined,
+		content: undefined,
+		timeout: 15000,
+		img: undefined,
+		mode: civitas.NOTIFY_NORMAL
+	}, settings);
+	if (settings.mode === civitas.NOTIFY_ACHIEVEMENT) {
+		_container = 'achievements-notifications';
+	} else {
+		_container = 'notifications';
+	}
+	container = $('.' + _container);
+	if (!container.length) {
+		container = $("<div>", {
+			'class': _container
+		}).appendTo(document.body);
+	}
+	$('.achievements-notifications').css({
+		left: ($(window).width() / 2) - (container.width() / 2)
+	});
+	notty = $('<div>');
+	notty.addClass('notty');
+	hide = $("<div>", {
+		click: function () {
+			$(this).parent().delay(300).queue(function () {
+				$(this).clearQueue();
+				$(this).remove();
 			});
-			timeHTML.addClass("time").attr("title", timestamp);
-			timeHTML.appendTo(right);
-			setInterval(function () {
-				$(".time").each(function () {
-					var timing = $(this).attr("title");
-					$(this).html("<strong>" + civitas.utils.time_since(timing) + "</strong> ago");
-				});
-			}, 4000);
+		},
+		touchstart: function () {
+			$(this).parent().delay(300).queue(function () {
+				$(this).clearQueue();
+				$(this).remove();
+			});
 		}
-		notty.hover(function () {
-			hide.show();
-		}, function () {
-			hide.hide();
+	});
+	hide.addClass('hide');
+	if (settings.mode === civitas.NOTIFY_ERROR) {
+		notty.addClass('error');
+		settings.img = civitas.ASSETS_URL + 'images/ui/icon_error.png';
+	} else if (settings.mode === civitas.NOTIFY_EVENT) {
+		notty.addClass('event');
+		settings.img = civitas.ASSETS_URL + 'images/ui/icon_research.png';
+	} else if (settings.mode === civitas.NOTIFY_ACHIEVEMENT) {
+		notty.addClass('achievement');
+		settings.img = civitas.ASSETS_URL + 'images/ui/icon_achievement.png';
+	} else {
+		settings.img = civitas.ASSETS_URL + 'images/ui/icon_notification.png';
+	}
+	image = $('<div>', {
+		style: "background: url('" + settings.img + "')"
+	});
+	image.addClass('img');
+	left = $("<div class='left'>");
+	right = $("<div class='right'>");
+	inner = $('<div>', {
+		html: '<h2>' + settings.title + '</h2>' + settings.content
+	});
+	inner.addClass("inner");
+	inner.appendTo(right);
+	image.appendTo(left);
+	left.appendTo(notty);
+	right.appendTo(notty);
+	hide.appendTo(notty);
+	if (settings.mode !== civitas.NOTIFY_ACHIEVEMENT) {
+		var timestamp = Number(new Date());
+		var timeHTML = $("<div>", {
+			html: "<strong>" + civitas.utils.time_since(timestamp) + "</strong> ago"
 		});
-		notty.prependTo(container);
-		notty.show();
-		if (settings.timeout) {
-			setTimeout(function () {
-				notty.delay(300).queue(function () {
-					$(this).clearQueue();
-					$(this).remove();
-				});
-			}, settings.timeout);
+		timeHTML.addClass("time").attr("title", timestamp);
+		timeHTML.appendTo(right);
+		setInterval(function () {
+			$(".time").each(function () {
+				var timing = $(this).attr("title");
+				$(this).html("<strong>" + civitas.utils.time_since(timing) + "</strong> ago");
+			});
+		}, 4000);
+	}
+	notty.hover(function () {
+		hide.show();
+	}, function () {
+		hide.hide();
+	});
+	notty.prependTo(container);
+	notty.show();
+	if (settings.timeout) {
+		setTimeout(function () {
+			notty.delay(300).queue(function () {
+				$(this).clearQueue();
+				$(this).remove();
+			});
+		}, settings.timeout);
 	}
 	return this;
 };
@@ -369,12 +369,11 @@ civitas.game.prototype._setup_ui = function () {
 		_t += '<span class="' + civitas.TOOLBAR_RESOURCES[i] + '"></span>';
 	}
 	$('.top-panel').empty().append(_t);
-	$('.console').on('click', '.down', function () {
+	$('.ui').on('click', '.console .down', function () {
 		$('.console .contents').scrollTo('+=97px', 500);
-	}).on('click', '.up', function () {
+	}).on('click', '.console .up', function () {
 		$('.console .contents').scrollTo('-=97px', 500);
-	});
-	$('.ui').on('click', '.cityavatar', function () {
+	}).on('click', '.cityavatar', function () {
 		self.open_panel(civitas.PANEL_COUNCIL);
 		return false;
 	}).on('click', 'a[data-action=panel]', function () {

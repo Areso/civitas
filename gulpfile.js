@@ -33,11 +33,10 @@ gulp.task('app', function() {
 		'src/js/constants/resources.js',
 		'src/js/constants/achievements.js',
 		'src/js/helpers/utils.js',
-		'src/js/objects/modules/ai.js',
 		/*
+		'src/js/objects/modules/ai.js',
 		'src/js/objects/modules/api.js',
 		'src/js/objects/modules/jailer.js',
-		'src/js/objects/modules/history.js',
 		*/
 		'src/js/helpers/ui.js',
 		'src/js/objects/core/settlement.js',
