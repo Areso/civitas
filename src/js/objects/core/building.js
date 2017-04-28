@@ -204,9 +204,18 @@ civitas.objects.building = function(params) {
 	 * @returns {Boolean}
 	 */
 	this.downgrade = function() {
+		var settlement = this.get_settlement();
 		if (this.get_level() > 1 && this.get_settlement().is_building_built(this.get_type())) {
+			var building_image = this.get_type();
+			var data = this.get_building_data(this.get_type());
 			--this.level;
-			if (this.get_settlement().is_player()) {
+			if (settlement.is_player()) {
+				if (this.get_type().slice(0, 5) === 'house') {
+					building_image = this.get_type().slice(0, 5);
+				}
+				$('section.game .building[data-type=' + this.get_type() + ']').css({
+					'background-image': 'url(./images/buildings/' + ((typeof data.visible_upgrades === 'undefined' || data.visible_upgrades === false) ? building_image + '1' : building_image + this.get_level()) + '.png)'
+				});
 				this.get_core().save_and_refresh();
 				this.get_core().notify(this.get_name() + ' downgraded to level ' + this.get_level());
 			}

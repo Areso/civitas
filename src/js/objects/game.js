@@ -98,6 +98,19 @@ civitas.game = function () {
 	this.paused = false;
 
 	/**
+	 * Encryption key for now it's safe (famous last words) since we're only doing local storage.
+	 *
+	 * @private
+	 * @type {String}
+	 */
+	this.encryption = {
+		key: null,
+		key_size: 256,
+		iv_size: 128,
+		iterations: 100
+	};
+
+	/**
 	 * Game difficulty.
 	 *
 	 * @type {Number}
@@ -146,10 +159,10 @@ civitas.game = function () {
 		});
 		this._setup_audio();
 		this._setup_ui();
-		if (this.get_storage_data() === false) {
-			this.open_window(civitas.WINDOW_OPTIONS);
+		if (!this.has_storage_data()) {
+			this.open_window(civitas.WINDOW_SIGNUP);
 		} else {
-			this.start_game();
+			this.open_window(civitas.WINDOW_SIGNIN);
 		}
 		this.ai = new civitas.modules.ai({
 			core: this
@@ -252,6 +265,52 @@ civitas.game = function () {
 	};
 
 	/**
+	 * Encrypt data using AES encryption.
+	 *
+	 * @public
+	 * @param {String} data
+	 * @returns {String}
+	 */
+	this.encrypt = function(data) {
+		var salt = CryptoJS.lib.WordArray.random(128 / 8);
+		var key = CryptoJS.PBKDF2(this.encryption.key, salt, {
+			keySize: this.encryption.key_size / 32,
+			iterations: this.encryption.iterations
+		});
+		var iv = CryptoJS.lib.WordArray.random(128 / 8);
+		var encrypted = CryptoJS.AES.encrypt(data, key, { 
+			iv: iv,
+			padding: CryptoJS.pad.Pkcs7,
+			mode: CryptoJS.mode.CBC
+		});
+		var output = salt.toString() + iv.toString() + encrypted.toString();
+		return output;
+	};
+
+	/**
+	 * Decrypt data using AES encryption.
+	 *
+	 * @public
+	 * @param {String} data
+	 * @returns {String}
+	 */
+	this.decrypt = function(data) {
+		var salt = CryptoJS.enc.Hex.parse(data.substr(0, 32));
+		var iv = CryptoJS.enc.Hex.parse(data.substr(32, 32))
+		var encrypted = data.substring(64);
+		var key = CryptoJS.PBKDF2(this.encryption.key, salt, {
+			keySize: this.encryption.key_size / 32,
+			iterations: this.encryption.iterations
+		});
+		var decrypted = CryptoJS.AES.decrypt(encrypted, key, { 
+			iv: iv, 
+			padding: CryptoJS.pad.Pkcs7,
+			mode: CryptoJS.mode.CBC
+		});
+  		return decrypted.toString(CryptoJS.enc.Utf8);
+	};
+
+	/**
 	 * Set game storage data.
 	 * 
 	 * @param {String} key
@@ -260,9 +319,23 @@ civitas.game = function () {
 	 * @returns {civitas.game}
 	 */
 	this.set_storage_data = function (key, value) {
-		localStorage.setItem(civitas.STORAGE_KEY + '.' + key, window.btoa(JSON.stringify(value)));
+		localStorage.setItem(civitas.STORAGE_KEY + '.' + key, this.encrypt(JSON.stringify(value)));
 		return this;
 	};
+
+	/**
+	 * Check if there is any stored data.
+	 *
+	 * @public
+	 * @returns {Boolean}
+	 */
+	this.has_storage_data = function() {
+		if (localStorage.getItem(civitas.STORAGE_KEY + '.live') !== null) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 
 	/**
 	 * Retrieve game storage data.
@@ -276,7 +349,7 @@ civitas.game = function () {
 			key = 'live';
 		}
 		if (localStorage.getItem(civitas.STORAGE_KEY + '.' + key) !== null) {
-			return JSON.parse(window.atob(localStorage.getItem(civitas.STORAGE_KEY + '.' + key)));
+			return JSON.parse(this.decrypt(localStorage.getItem(civitas.STORAGE_KEY + '.' + key)));
 		} else {
 			return false;
 		}
@@ -454,10 +527,16 @@ civitas.game = function () {
 	 * @param {Number} climate
 	 * @param {Number} avatar
 	 * @param {Number} difficulty
+	 * @param {String} password
 	 */
-	this.start_game = function (name, cityname, nation, climate, avatar, difficulty) {
+	this.start_game = function (name, cityname, nation, climate, avatar, difficulty, password) {
 		var self = this;
 		var data = null;
+		if (typeof cityname === 'undefined') {
+			this.encryption.key = name;
+		} else {
+			this.encryption.key = password;
+		}
 		this.difficulty = parseInt(difficulty);
 		this.worldmap = civitas.utils.get_random(1, civitas.WORLDMAPS);
 		if (this.get_storage_data() !== false) {

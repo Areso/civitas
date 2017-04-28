@@ -77,6 +77,8 @@ gulp.task('app', function() {
 		'src/js/definitions/ui/panel/building/embassy.js',
 		'src/js/definitions/ui/panel/building/tavern.js',
 		'src/js/definitions/ui/panel/building/academy.js',
+		'src/js/definitions/ui/window/signin.js',
+		'src/js/definitions/ui/window/signup.js',
 		'src/js/definitions/ui/window/options.js'
   	])
     .pipe(concat('application.debug.js'))
@@ -115,7 +117,8 @@ gulp.task('lib', function() {
 	  	'vendor/js/jquery.js',
 		'vendor/js/jquery.ui.js',
 		'vendor/js/jquery.scrollto.js',
-		'vendor/js/jquery.tipsy.js'
+		'vendor/js/jquery.tipsy.js',
+		'vendor/js/crypto.js'
   	])
     .pipe(concat('libraries.debug.js'))
     .pipe(gulp.dest('dist/'))

@@ -71,10 +71,11 @@ Civitas has ~18000 lines of code, ~250Kb minified and can be [downloaded from Gi
 Dependencies
 ============
 
-- jQuery 3.2.1
-- jQuery UI 1.11.2
-- jQuery Tipsy 1.0.0a
-- jQuery scrollTo 1.4.14
+- [jQuery 3.2.1](https://jquery.com/)
+- [jQuery UI 1.11.2](https://jqueryui.com/)
+- [jQuery Tipsy 1.0.0a](https://github.com/jaz303/tipsy)
+- [jQuery scrollTo 1.4.14](https://github.com/flesler/jquery.scrollTo)
+- [CryptoJS 3.1.9](https://github.com/brix/crypto-js)
 
 Thanks
 ======

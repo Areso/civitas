@@ -860,10 +860,12 @@ p {
 	width: 360px;
 	border: 0;
 }
+input[type=password].small,
 input[type=text].small {
 	width: 40px;
 }
 
+#window-options input[type=password],
 #window-options input[type=text],
 #window-options select {
 	border: 1px solid #908c68;
@@ -878,6 +880,7 @@ input[type=text].small {
 	width: 122px;
 }
 
+#window-options input[type=password],
 #window-options input[type=text] {
 	width: 100px;
 }
