@@ -165,7 +165,7 @@ header .top-panel span {
 	width: 480px;
 }
 
-.ui > footer .toolbar > div {
+.ui > footer .toolbar > a {
 	width: 40px;
 	height: 40px;
 	margin-right: 12.5px;

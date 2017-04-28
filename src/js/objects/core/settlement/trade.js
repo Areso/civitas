@@ -133,7 +133,36 @@ civitas.objects.settlement.prototype.reset_trades = function() {
 		return false;
 	}
 };
-	
+
+/**
+ * Add the specified resource amount and the total price to the
+ * Black Market goods list.
+ * 
+ * @public
+ * @param {String} resource
+ * @param {Number} amount
+ * @param {Number} price
+ * @returns {Object}
+ */
+civitas.objects.settlement.prototype.add_black_market = function (resource, amount, price) {
+	var core = this.get_core();
+	if (typeof core.black_market[resource] !== 'undefined') {
+		var old = core.black_market[resource];
+		core.black_market[resource] = {
+			resource: resource,
+			amount: old.amount + amount,
+			price: old.price + price
+		};
+	} else {
+		core.black_market[resource] = {
+			resource: resource,
+			amount: amount,
+			price: price
+		};
+	}
+	return core.black_market;
+};
+
 /**
  * List the specified goods onto the Black Market.
  * 
@@ -153,7 +182,7 @@ civitas.objects.settlement.prototype.list_black_market = function(resource, amou
 	if (this.remove_resource(resource, amount)) {
 		var discount = Math.ceil((civitas.RESOURCES[resource].price * civitas.BLACK_MARKET_DISCOUNT) / 100);
 		var price = civitas.utils.calc_price_minus_discount(amount, resource, discount);
-		this.get_core().add_black_market(resource, amount, price);
+		this.add_black_market(resource, amount, price);
 		this.get_core().refresh();
 		if (this.is_player()) {
 			this.get_core().notify(this.name() + ' placed ' + amount + ' ' + civitas.utils.get_resource_name(resource) + ' on the Black Market and will receive ' + price + ' coins next month.', civitas.l('Black Market'));

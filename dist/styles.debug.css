@@ -171,7 +171,7 @@ header .top-panel span {
 	width: 480px;
 }
 
-.ui > footer .toolbar > div {
+.ui > footer .toolbar > a {
 	width: 40px;
 	height: 40px;
 	margin-right: 12.5px;
@@ -1896,31 +1896,31 @@ table tr td:last-child a:hover,
 
 /* Bottom panel with game actions */
 
-footer .do-trades {
+footer a[data-panel=trades] {
 	background: transparent url(../images/ui/toolbar/trades.png) no-repeat;
 }
 
-footer .do-storage {
+footer a[data-panel=storage] {
 	background: transparent url(../images/ui/toolbar/storage.png) no-repeat;
 }
 
-footer .do-build {
+footer a[data-panel=buildings] {
 	background: transparent url(../images/ui/toolbar/buildings.png) no-repeat;
 }
 
-footer .do-council {
+footer a[data-panel=council] {
 	background: transparent url(../images/ui/toolbar/council.png) no-repeat;
 }
 
-footer .do-worldmap {
+footer a[data-panel=world] {
 	background: transparent url(../images/ui/toolbar/worldmap.png) no-repeat;
 }
 
-footer .do-ranks {
+footer a[data-panel=ranks] {
 	background: transparent url(../images/ui/toolbar/ranks.png) no-repeat;
 }
 
-footer .do-help {
+footer a[data-panel=help] {
 	background: transparent url(../images/ui/toolbar/help.png) no-repeat;
 }
 
