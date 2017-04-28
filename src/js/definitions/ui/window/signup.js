@@ -4,23 +4,23 @@
  * @type {Object}
  */
 civitas.WINDOW_SIGNUP = {
-	id: 'options',
+	id: 'signup',
 	template: '' +
-		'<section id="window-options" class="window">' +
+		'<section id="window-{ID}" class="window">' +
 			'<div class="logo">Civitas</div>' +
 			'<fieldset>' +
 				'<div class="new-game">' +
 					'<p>' + civitas.l('Choose your city details well, climate changes and game difficulty affects your building options and resources.') + '</p>' +
 					'<dl>' +
 						'<dt class="clearfix">' + civitas.l('Your Name') + ':</dt>' +
-						'<dd><input type="text" class="name text-input" /></dd>' +
-						'<dt class="clearfix">' + civitas.l('Your Password') + ':</dt>' +
+						'<dd><input type="text" maxlength="12" title="' + civitas.l('Maximum of 12 characters.') + '" class="tips name text-input" /></dd>' +
+						'<dt class="clearfix">' + civitas.l('Password') + ':</dt>' +
 						'<dd><input type="password" class="password text-input" /></dd>' +
 						'<dt class="clearfix">' + civitas.l('Confirm Password') + ':</dt>' +
 						'<dd><input type="password" class="password2 text-input" /></dd>' +
 						'<div class="hr"></div>' +
 						'<dt class="clearfix">' + civitas.l('City Name') + ':</dt>' +
-						'<dd><input type="text" class="cityname text-input" /></dd>' +
+						'<dd><input type="text" maxlength="12" title="' + civitas.l('Maximum of 12 characters.') + '" class="tips cityname text-input" /></dd>' +
 						'<dt class="clearfix">' + civitas.l('Nationality') + ':</dt>' +
 						'<dd>' +
 							'<select class="nation text-input"></select>' +
@@ -49,41 +49,36 @@ civitas.WINDOW_SIGNUP = {
 					'</dl>' +
 					'<a href="#" class="do-start highlight button">' + civitas.l('Start Playing') + '</a>' +
 				'</div>' +
-				'<a href="#" class="do-about button">' + civitas.l('About') + '</a>' +
-				'<div class="about-game">' +
-					'<a class="github" target="_blank" href="https://github.com/sizeofcat/civitas"><img class="tips" title="' + civitas.l('Visit the project page on GitHub') + '" src="../images/ui/github.png" /></a>' +
-					'<p>' + civitas.l('Civitas is written by <a target="_blank" href="https://sizeof.cat">sizeof(cat)</a>.') + '</p>' +
-					'<p>' + civitas.l('Big thanks to') + ':</p>' +
-					'<ul>' +
-						'<li><a target="_blank" href="https://soundcloud.com/shantifax">Shantifax</a> for the music (Glandula Pinealis).</li>' +
-						'<li><a target="_blank" href="https://brendaneich.com/">Brendan Eich</a> for Javascript.</li>' +
-						'<li><a target="_blank" href="http://bluebyte.com">Blue Byte</a> for Anno 1404.</li>' +
-					'</ul>' +
-				'</div>' +
+				civitas.ui.window_about_section() +
 			'</fieldset>' +
 		'</section>',
 	on_show: function() {
 		var self = this;
 		var avatar = 1;
 		var core = this.get_core();
-		var el = '#window-' + this.id;
 		for (var i = 1; i < civitas.CLIMATES.length; i++) {
-			$(el + ' .climate').append('<option value="' + civitas['CLIMATE_' + civitas.CLIMATES[i].toUpperCase()] + '">' + civitas.CLIMATES[i].capitalize() + '</option>');
+			$(this.handle + ' .climate').append('<option value="' + civitas['CLIMATE_' + civitas.CLIMATES[i].toUpperCase()] + '">' + civitas.CLIMATES[i].capitalize() + '</option>');
 		}
 		for (var i = 1; i < civitas.NATIONS.length; i++) {
-			$(el + ' .nation').append('<option value="' + civitas['NATION_' + civitas.NATIONS[i].toUpperCase()] + '">' + civitas.NATIONS[i].capitalize() + '</option>');
+			$(this.handle + ' .nation').append('<option value="' + civitas['NATION_' + civitas.NATIONS[i].toUpperCase()] + '">' + civitas.NATIONS[i].capitalize() + '</option>');
 		}
 		for (var i = 1; i <= civitas.AVATARS; i++) {
-			$(el + ' .avatar-select').append('<img src="' + civitas.ASSETS_URL + 'images/avatars/avatar' + i + '.png" />');
+			$(this.handle + ' .avatar-select').append('<img src="' + civitas.ASSETS_URL + 'images/avatars/avatar' + i + '.png" />');
 		}
-		$(el).on('click', '.do-start', function () {
-			var password = $(el + ' .password').val();
-			var password2 = $(el + ' .password2').val();
-			var name = $(el + ' .name').val();
-			var cityname = $(el + ' .cityname').val();
-			var nation = parseInt($(el + ' .nation').val());
-			var climate = parseInt($(el + ' .climate').val());
-			var difficulty = parseInt($(el + ' .difficulty').val());
+		$(this.handle).on('click', '.do-start', function () {
+			var password = $(self.handle + ' .password').val();
+			var password2 = $(self.handle + ' .password2').val();
+			var name = $(self.handle + ' .name').val();
+			var cityname = $(self.handle + ' .cityname').val();
+			var nation = parseInt($(self.handle + ' .nation').val());
+			var climate = parseInt($(self.handle + ' .climate').val());
+			var difficulty = parseInt($(self.handle + ' .difficulty').val());
+			if (name.length > 12) {
+				name = name.substring(0, 12);
+			}
+			if (cityname.length > 12) {
+				cityname = cityname.substring(0, 12);
+			}
 			if (name === '') {
 				core.error('Enter your ruler name, for example <strong>Ramses</strong>.', 'Error', true);
 				return false;
@@ -107,14 +102,14 @@ civitas.WINDOW_SIGNUP = {
 			if (avatar < civitas.AVATARS) {
 				avatar = avatar + 1;
 			}
-			$(el + ' .avatar-select').scrollTo('+=64px', 500);
+			$(self.handle + ' .avatar-select').scrollTo('+=64px', 500);
 		}).on('click', '.up', function () {
 			if (avatar > 1) {
 				avatar = avatar - 1;
 			}
-			$(el + ' .avatar-select').scrollTo('-=64px', 500);
+			$(self.handle + ' .avatar-select').scrollTo('-=64px', 500);
 		}).on('click', '.do-about', function () {
-			$(el + ' .about-game').slideToggle();
+			$(self.handle + ' .about-game').slideToggle();
 			return false;
 		});
 	},

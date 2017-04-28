@@ -6853,6 +6853,21 @@ civitas.utils = {
  */
 civitas.ui = {
 
+	window_about_section: function() {
+		var out = '<a href="#" class="do-about button">' + civitas.l('About') + '</a>' +
+			'<div class="about-game">' +
+				'<a class="github" target="_blank" href="https://github.com/sizeofcat/civitas"><img class="tips" title="' + civitas.l('Visit the project page on GitHub') + '" src="../images/ui/github.png" /></a>' +
+				'<p>' + civitas.l('Civitas is written by <a target="_blank" href="https://sizeof.cat">sizeof(cat)</a>.') + '</p>' +
+				'<p>' + civitas.l('Big thanks to') + ':</p>' +
+				'<ul>' +
+					'<li><a target="_blank" href="https://soundcloud.com/shantifax">Shantifax</a> for the music (Glandula Pinealis).</li>' +
+					'<li><a target="_blank" href="https://brendaneich.com/">Brendan Eich</a> for Javascript.</li>' +
+					'<li><a target="_blank" href="http://bluebyte.com">Blue Byte</a> for Anno 1404.</li>' +
+				'</ul>' +
+			'</div>';
+		return out;
+	},
+
 	generic_panel_template: function(title) {
 		if (typeof title === 'undefined') {
 			title = '';
@@ -10346,7 +10361,7 @@ civitas.controls.window = function (params) {
 			this.destroy();
 		}
 		this.get_core().console_log('creating window with id `' + this.id + '`');
-		$('body').append(params.template);
+		$('body').append(params.template.replace(/{ID}/g, params.id));
 		this.on_show.call(this);
 		$(this.handle + ' .tips').tipsy({
 			gravity: 's'
@@ -12995,6 +13010,22 @@ civitas.PANEL_SETTLEMENT = {
 				'Are you sure you want to propose an alliance to this settlement?'
 			);
 			return false;
+		}).on('click', '.join', function () {
+			if (!my_settlement.can_diplomacy()) {
+				core.error(civitas.l('You will need to construct an Embassy before being able to ask other settlements to join your city.'));
+				return false;
+			}
+			core.open_modal(
+				function(button) {
+					if (button === 'yes') {
+						if (!core.add_to_queue(my_settlement, settlement, civitas.ACTION_DIPLOMACY, civitas.DIPLOMACY_PROPOSE_JOIN, {})) {
+							core.error(civitas.l('There was an error proposing this settlement to join your city, check the data you entered and try again.'));
+						}
+					}
+				},
+				'Are you sure you want to propose this this settlement to join you?'
+			);
+			return false;
 		}).on('click', '.pact', function () {
 			if (!my_settlement.can_diplomacy()) {
 				core.error(civitas.l('You will need to construct an Embassy before being able to propose a pact to other settlements.'));
@@ -14677,7 +14708,7 @@ civitas.PANEL_TRADES = {
 								'<option value="1000">1000</option>' +
 								'<option value="10000">10000</option>' +
 							'</select>' +
-							' ' + civitas.l('or enter manually') + ' <input type="text" placeholder="' + civitas.l('amount') + '" class="small bm-qty-manual" />' +
+							' ' + civitas.l('or enter manually') + ' <input type="number" min="1" max="100000" placeholder="' + civitas.l('amount') + '" class="small bm-qty-manual" />' +
 						'</td>' +
 						'<td>' +
 							'<a title="' + civitas.l('List goods on Black Market') + '" class="tips bmarket" href="#">' + civitas.l('List') + '</a>' +
@@ -15203,31 +15234,21 @@ civitas.PANEL_ACADEMY = {
  * @type {Object}
  */
 civitas.WINDOW_SIGNIN = {
-	id: 'options',
+	id: 'signin',
 	template: '' +
-		'<section id="window-options" class="window">' +
+		'<section id="window-{ID}" class="window">' +
 			'<div class="logo">Civitas</div>' +
 			'<fieldset>' +
 				'<div class="new-game">' +
-					'<p>Enter the city password to decrypt the game data.</p>' +
+					'<p>' + civitas.l('Enter the city password to decrypt the game data.') + '</p>' +
 					'<dl>' +
-						'<dt class="clearfix">' + civitas.l('City Password') + ':</dt>' +
+						'<dt class="clearfix">' + civitas.l('Password') + ':</dt>' +
 						'<dd><input type="password" class="password text-input" /></dd>' +
 					'</dl>' +
 					'<a href="#" class="do-start highlight button">' + civitas.l('Load Game') + '</a>' +
 				'</div>' +
 				'<a href="#" class="do-restart button">' + civitas.l('Restart') + '</a>' +
-				'<a href="#" class="do-about button">' + civitas.l('About') + '</a>' +
-				'<div class="about-game">' +
-					'<a class="github" target="_blank" href="https://github.com/sizeofcat/civitas"><img class="tips" title="' + civitas.l('Visit the project page on GitHub') + '" src="../images/ui/github.png" /></a>' +
-					'<p>' + civitas.l('Civitas is written by <a target="_blank" href="https://sizeof.cat">sizeof(cat)</a>.') + '</p>' +
-					'<p>' + civitas.l('Big thanks to') + ':</p>' +
-					'<ul>' +
-						'<li><a target="_blank" href="https://soundcloud.com/shantifax">Shantifax</a> for the music (Glandula Pinealis).</li>' +
-						'<li><a target="_blank" href="https://brendaneich.com/">Brendan Eich</a> for Javascript.</li>' +
-						'<li><a target="_blank" href="http://bluebyte.com">Blue Byte</a> for Anno 1404.</li>' +
-					'</ul>' +
-				'</div>' +
+				civitas.ui.window_about_section() +
 			'</fieldset>' +
 		'</section>',
 	on_show: function() {
@@ -15235,10 +15256,8 @@ civitas.WINDOW_SIGNIN = {
 		var avatar = 1;
 		var savegame = null;
 		var core = this.get_core();
-		var el = '#window-' + this.id;
-		var saved_slots = false;
-		$(el).on('click', '.do-start', function () {
-			var password = $(el + ' .password').val();
+		$(this.handle).on('click', '.do-start', function () {
+			var password = $(self.handle + ' .password').val();
 			if (password === '') {
 				core.error('Enter your city password.', 'Error', true);
 				return false;
@@ -15262,7 +15281,7 @@ civitas.WINDOW_SIGNIN = {
 			);
 			return false;
 		}).on('click', '.do-about', function () {
-			$(el + ' .about-game').slideToggle();
+			$(self.handle + ' .about-game').slideToggle();
 			return false;
 		});
 	},
@@ -15277,23 +15296,23 @@ civitas.WINDOW_SIGNIN = {
  * @type {Object}
  */
 civitas.WINDOW_SIGNUP = {
-	id: 'options',
+	id: 'signup',
 	template: '' +
-		'<section id="window-options" class="window">' +
+		'<section id="window-{ID}" class="window">' +
 			'<div class="logo">Civitas</div>' +
 			'<fieldset>' +
 				'<div class="new-game">' +
 					'<p>' + civitas.l('Choose your city details well, climate changes and game difficulty affects your building options and resources.') + '</p>' +
 					'<dl>' +
 						'<dt class="clearfix">' + civitas.l('Your Name') + ':</dt>' +
-						'<dd><input type="text" class="name text-input" /></dd>' +
-						'<dt class="clearfix">' + civitas.l('Your Password') + ':</dt>' +
+						'<dd><input type="text" maxlength="12" title="' + civitas.l('Maximum of 12 characters.') + '" class="tips name text-input" /></dd>' +
+						'<dt class="clearfix">' + civitas.l('Password') + ':</dt>' +
 						'<dd><input type="password" class="password text-input" /></dd>' +
 						'<dt class="clearfix">' + civitas.l('Confirm Password') + ':</dt>' +
 						'<dd><input type="password" class="password2 text-input" /></dd>' +
 						'<div class="hr"></div>' +
 						'<dt class="clearfix">' + civitas.l('City Name') + ':</dt>' +
-						'<dd><input type="text" class="cityname text-input" /></dd>' +
+						'<dd><input type="text" maxlength="12" title="' + civitas.l('Maximum of 12 characters.') + '" class="tips cityname text-input" /></dd>' +
 						'<dt class="clearfix">' + civitas.l('Nationality') + ':</dt>' +
 						'<dd>' +
 							'<select class="nation text-input"></select>' +
@@ -15322,41 +15341,36 @@ civitas.WINDOW_SIGNUP = {
 					'</dl>' +
 					'<a href="#" class="do-start highlight button">' + civitas.l('Start Playing') + '</a>' +
 				'</div>' +
-				'<a href="#" class="do-about button">' + civitas.l('About') + '</a>' +
-				'<div class="about-game">' +
-					'<a class="github" target="_blank" href="https://github.com/sizeofcat/civitas"><img class="tips" title="' + civitas.l('Visit the project page on GitHub') + '" src="../images/ui/github.png" /></a>' +
-					'<p>' + civitas.l('Civitas is written by <a target="_blank" href="https://sizeof.cat">sizeof(cat)</a>.') + '</p>' +
-					'<p>' + civitas.l('Big thanks to') + ':</p>' +
-					'<ul>' +
-						'<li><a target="_blank" href="https://soundcloud.com/shantifax">Shantifax</a> for the music (Glandula Pinealis).</li>' +
-						'<li><a target="_blank" href="https://brendaneich.com/">Brendan Eich</a> for Javascript.</li>' +
-						'<li><a target="_blank" href="http://bluebyte.com">Blue Byte</a> for Anno 1404.</li>' +
-					'</ul>' +
-				'</div>' +
+				civitas.ui.window_about_section() +
 			'</fieldset>' +
 		'</section>',
 	on_show: function() {
 		var self = this;
 		var avatar = 1;
 		var core = this.get_core();
-		var el = '#window-' + this.id;
 		for (var i = 1; i < civitas.CLIMATES.length; i++) {
-			$(el + ' .climate').append('<option value="' + civitas['CLIMATE_' + civitas.CLIMATES[i].toUpperCase()] + '">' + civitas.CLIMATES[i].capitalize() + '</option>');
+			$(this.handle + ' .climate').append('<option value="' + civitas['CLIMATE_' + civitas.CLIMATES[i].toUpperCase()] + '">' + civitas.CLIMATES[i].capitalize() + '</option>');
 		}
 		for (var i = 1; i < civitas.NATIONS.length; i++) {
-			$(el + ' .nation').append('<option value="' + civitas['NATION_' + civitas.NATIONS[i].toUpperCase()] + '">' + civitas.NATIONS[i].capitalize() + '</option>');
+			$(this.handle + ' .nation').append('<option value="' + civitas['NATION_' + civitas.NATIONS[i].toUpperCase()] + '">' + civitas.NATIONS[i].capitalize() + '</option>');
 		}
 		for (var i = 1; i <= civitas.AVATARS; i++) {
-			$(el + ' .avatar-select').append('<img src="' + civitas.ASSETS_URL + 'images/avatars/avatar' + i + '.png" />');
+			$(this.handle + ' .avatar-select').append('<img src="' + civitas.ASSETS_URL + 'images/avatars/avatar' + i + '.png" />');
 		}
-		$(el).on('click', '.do-start', function () {
-			var password = $(el + ' .password').val();
-			var password2 = $(el + ' .password2').val();
-			var name = $(el + ' .name').val();
-			var cityname = $(el + ' .cityname').val();
-			var nation = parseInt($(el + ' .nation').val());
-			var climate = parseInt($(el + ' .climate').val());
-			var difficulty = parseInt($(el + ' .difficulty').val());
+		$(this.handle).on('click', '.do-start', function () {
+			var password = $(self.handle + ' .password').val();
+			var password2 = $(self.handle + ' .password2').val();
+			var name = $(self.handle + ' .name').val();
+			var cityname = $(self.handle + ' .cityname').val();
+			var nation = parseInt($(self.handle + ' .nation').val());
+			var climate = parseInt($(self.handle + ' .climate').val());
+			var difficulty = parseInt($(self.handle + ' .difficulty').val());
+			if (name.length > 12) {
+				name = name.substring(0, 12);
+			}
+			if (cityname.length > 12) {
+				cityname = cityname.substring(0, 12);
+			}
 			if (name === '') {
 				core.error('Enter your ruler name, for example <strong>Ramses</strong>.', 'Error', true);
 				return false;
@@ -15380,14 +15394,14 @@ civitas.WINDOW_SIGNUP = {
 			if (avatar < civitas.AVATARS) {
 				avatar = avatar + 1;
 			}
-			$(el + ' .avatar-select').scrollTo('+=64px', 500);
+			$(self.handle + ' .avatar-select').scrollTo('+=64px', 500);
 		}).on('click', '.up', function () {
 			if (avatar > 1) {
 				avatar = avatar - 1;
 			}
-			$(el + ' .avatar-select').scrollTo('-=64px', 500);
+			$(self.handle + ' .avatar-select').scrollTo('-=64px', 500);
 		}).on('click', '.do-about', function () {
-			$(el + ' .about-game').slideToggle();
+			$(self.handle + ' .about-game').slideToggle();
 			return false;
 		});
 	},
@@ -15404,24 +15418,14 @@ civitas.WINDOW_SIGNUP = {
 civitas.WINDOW_OPTIONS = {
 	id: 'options',
 	template: '' +
-		'<section id="window-options" class="window">' +
+		'<section id="window-{ID}" class="window">' +
 			'<div class="logo">Civitas</div>' +
 			'<fieldset>' +
 				'<a href="#" class="do-pause button">' + civitas.l('Pause') + '</a>' +
 				'<a href="#" class="do-restart button">' + civitas.l('Restart') + '</a>' +
 				'<a href="#" class="do-options button">' + civitas.l('Options') + '</a>' +
 				'<div class="options-game"></div>' +
-				'<a href="#" class="do-about button">' + civitas.l('About') + '</a>' +
-				'<div class="about-game">' +
-					'<a class="github" target="_blank" href="https://github.com/sizeofcat/civitas"><img class="tips" title="' + civitas.l('Visit the project page on GitHub') + '" src="../images/ui/github.png" /></a>' +
-					'<p>' + civitas.l('Civitas is written by <a target="_blank" href="https://sizeof.cat">sizeof(cat)</a>.') + '</p>' +
-					'<p>' + civitas.l('Big thanks to') + ':</p>' +
-					'<ul>' +
-						'<li><a target="_blank" href="https://soundcloud.com/shantifax">Shantifax</a> for the music (Glandula Pinealis).</li>' +
-						'<li><a target="_blank" href="https://brendaneich.com/">Brendan Eich</a> for Javascript.</li>' +
-						'<li><a target="_blank" href="http://bluebyte.com">Blue Byte</a> for Anno 1404.</li>' +
-					'</ul>' +
-				'</div>' +
+				civitas.ui.window_about_section() +
 				'<br />' +
 				'<a href="#" class="do-resume button">' + civitas.l('Resume Playing') + '</a>' +
 			'</fieldset>' +
@@ -15430,17 +15434,16 @@ civitas.WINDOW_OPTIONS = {
 		var self = this;
 		var avatar = 1;
 		var core = this.get_core();
-		var el = '#window-' + this.id;
-		$(el + ' .options-game').append(civitas.ui.tabs([civitas.l('Sounds'), civitas.l('UI'), civitas.l('Gameplay')]));
-		$(el + ' #tab-sounds').append('<div>' +
+		$(this.handle + ' .options-game').append(civitas.ui.tabs([civitas.l('Sounds'), civitas.l('UI'), civitas.l('Gameplay')]));
+		$(this.handle + ' #tab-sounds').append('<div>' +
 			'<a href="#" class="music-control ui-control ' + ((this.core.get_settings('music') === true) ? 'on' : 'off') + '">' + civitas.l('toggle music') + '</a>' +
 			'<input class="music-volume" type="range" min="0" max="1" step="0.1" ' + ((this.core.get_settings('music') !== true) ? 'disabled' : '') + ' />' +
 			'</div>');
-		$(el + ' #tab-ui').append('<div>' +
+		$(this.handle + ' #tab-ui').append('<div>' +
 			'<a href="#" class="console-control ui-control ' + ((this.core.get_settings('console') === true) ? 'on' : 'off') + '">' + civitas.l('toggle console') + '</a>' +
 			'</div>');
-		$(el + ' .tabs').tabs();
-		$(el).on('click', '.do-resume', function () {
+		$(this.handle + ' .tabs').tabs();
+		$(this.handle).on('click', '.do-resume', function () {
 			core.hide_loader();
 			core.unpause();
 			self.destroy();
@@ -15457,10 +15460,10 @@ civitas.WINDOW_OPTIONS = {
 			}
 			return false;
 		}).on('click', '.do-options', function () {
-			$(el + ' .options-game').slideToggle();
+			$(self.handle + ' .options-game').slideToggle();
 			return false;
 		}).on('click', '.do-about', function () {
-			$(el + ' .about-game').slideToggle();
+			$(self.handle + ' .about-game').slideToggle();
 			return false;
 		}).on('click', '.do-restart', function () {
 			core.open_modal(

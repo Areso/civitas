@@ -54,6 +54,22 @@ civitas.PANEL_SETTLEMENT = {
 				'Are you sure you want to propose an alliance to this settlement?'
 			);
 			return false;
+		}).on('click', '.join', function () {
+			if (!my_settlement.can_diplomacy()) {
+				core.error(civitas.l('You will need to construct an Embassy before being able to ask other settlements to join your city.'));
+				return false;
+			}
+			core.open_modal(
+				function(button) {
+					if (button === 'yes') {
+						if (!core.add_to_queue(my_settlement, settlement, civitas.ACTION_DIPLOMACY, civitas.DIPLOMACY_PROPOSE_JOIN, {})) {
+							core.error(civitas.l('There was an error proposing this settlement to join your city, check the data you entered and try again.'));
+						}
+					}
+				},
+				'Are you sure you want to propose this this settlement to join you?'
+			);
+			return false;
 		}).on('click', '.pact', function () {
 			if (!my_settlement.can_diplomacy()) {
 				core.error(civitas.l('You will need to construct an Embassy before being able to propose a pact to other settlements.'));

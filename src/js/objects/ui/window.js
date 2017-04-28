@@ -101,7 +101,7 @@ civitas.controls.window = function (params) {
 			this.destroy();
 		}
 		this.get_core().console_log('creating window with id `' + this.id + '`');
-		$('body').append(params.template);
+		$('body').append(params.template.replace(/{ID}/g, params.id));
 		this.on_show.call(this);
 		$(this.handle + ' .tips').tipsy({
 			gravity: 's'

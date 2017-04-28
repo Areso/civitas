@@ -32,7 +32,7 @@ civitas.PANEL_TRADES = {
 								'<option value="1000">1000</option>' +
 								'<option value="10000">10000</option>' +
 							'</select>' +
-							' ' + civitas.l('or enter manually') + ' <input type="text" placeholder="' + civitas.l('amount') + '" class="small bm-qty-manual" />' +
+							' ' + civitas.l('or enter manually') + ' <input type="number" min="1" max="100000" placeholder="' + civitas.l('amount') + '" class="small bm-qty-manual" />' +
 						'</td>' +
 						'<td>' +
 							'<a title="' + civitas.l('List goods on Black Market') + '" class="tips bmarket" href="#">' + civitas.l('List') + '</a>' +

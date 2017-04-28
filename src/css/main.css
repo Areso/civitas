@@ -347,12 +347,12 @@ header .top-panel span {
 }
 
 .ui .panel section dl,
-#window-options dl {
+.window dl {
 	margin: 10px auto;
 }
 
 .ui .panel section dt,
-#window-options dt {
+.window dt {
 	float: left;
 	text-align: right;
 	width: 45%;
@@ -367,7 +367,7 @@ header .top-panel span {
 }
 
 .ui .panel section dd,
-#window-options dd {
+.window dd {
 	margin-left: 50%;
 	line-height: 20px;
 	margin-bottom: 5px;
@@ -747,43 +747,44 @@ p {
 
 /* Options window */
 
-#window-options ul {
+.window ul {
 	margin-left: 20px;
 }
 
-#window-options .about-game,
-#window-options .options-game {
+.window .about-game,
+.window .options-game {
 	position: relative;
 	display: none;
 	padding: 10px 0;
 	margin: 0;
 }
 
-#window-options li > a,
-#window-options p > a,
+.window li > a,
+.window p > a,
 #panel-help .ui-tabs-panel li > a,
 #panel-help p > a {
 	text-decoration: underline;
 }
 
-#window-options .github {
+.window .github {
 	position: absolute;
 	top: 10px;
 	right: 0;
 }
 
-#window-options .ui-tabs-panel > div {
+.window .ui-tabs-panel > div {
 	padding: 20px;
 }
 
-#window-options .tabs ul li a {
+.window .tabs ul li a {
 	text-decoration: none;
 }
 
-#window-options .tabs ul li.ui-tabs-active {
+.window .tabs ul li.ui-tabs-active {
 	background-color: #777;
 }
-#window-options .tabs > div {
+
+.window .tabs > div {
 	border: 1px solid #777;
 }
 
@@ -812,19 +813,21 @@ p {
 
 /* Start window */
 
-#window-options fieldset {
+.window fieldset {
 	margin: 20px auto 0 auto;
 	width: 360px;
 	border: 0;
 }
+
+input[type=number].small,
 input[type=password].small,
 input[type=text].small {
-	width: 40px;
+	width: 50px;
 }
 
-#window-options input[type=password],
-#window-options input[type=text],
-#window-options select {
+.window input[type=password],
+.window input[type=text],
+.window select {
 	border: 1px solid #908c68;
 	background: transparent;
 	color: #fff;
@@ -833,16 +836,16 @@ input[type=text].small {
 	font-size: 14px;
 }
 
-#window-options select {
+.window select {
 	width: 122px;
 }
 
-#window-options input[type=password],
-#window-options input[type=text] {
+.window input[type=password],
+.window input[type=text] {
 	width: 100px;
 }
 
-#window-options .button {
+.window .button {
 	display: block;
 	margin-top: 5px;
 	-webkit-border-radius: 3px;
@@ -861,7 +864,7 @@ input[type=text].small {
 	text-align: center;
 }
 
-#window-options .button:hover {
+.window .button:hover {
 	border: 1px solid #767255;
 	background-color: #938e6b;
 	background-image: -webkit-gradient(linear, left top, left bottom, from(#938e6b), to(#6f6947));
@@ -870,17 +873,17 @@ input[type=text].small {
 	background-image: linear-gradient(to bottom, #938e6b, #6f6947);
 }
 
-#window-options .avatar-select {
+.window .avatar-select {
 	width: 64px;
 	height: 64px;
 	overflow: hidden;
 }
 
-#window-options dt {
+.window dt {
 	line-height: 28px;
 }
 
-#window-options dl {
+.window dl {
 	width: 360px;
 }
 
@@ -1574,7 +1577,7 @@ a.disabled {
 }
 
 table tr td:last-child a,
-#window-options .button.highlight,
+.window .button.highlight,
 .tabs ul li.ui-tabs-active,
 .panel .toolbar .btn,
 table thead td,
@@ -1592,7 +1595,7 @@ table tfoot td {
 table tr td:last-child a:hover,
 .panel .toolbar .btn:hover,
 .modal .btn:hover,
-#window-options .button.highlight:hover {
+.window .button.highlight:hover {
 	background-color: #422712;
 	border: 1px solid #422712;
 	background-image: -webkit-gradient(linear, left top, left bottom, from(#694224), to(#422712));
