@@ -42,7 +42,7 @@ civitas.objects.settlement = function(params) {
 	 * @private
 	 * @type {civitas.game}
 	 */
-	this.core = null;
+	this._core = null;
 	
 	/**
 	 * List of the buildings in this settlement.
@@ -101,6 +101,14 @@ civitas.objects.settlement = function(params) {
 	this.trades = null;
 
 	/**
+	 * AI module for this settlement.
+	 *
+	 * @private
+	 * @type {civitas.modules.ai}
+	 */
+	this._ai = null;
+
+	/**
 	 * Object constructor.
 	 * 
 	 * @private
@@ -108,7 +116,7 @@ civitas.objects.settlement = function(params) {
 	 * @param {Object} params
 	 */
 	this.__init = function(params) {
-		this.core = params.core;
+		this._core = params.core;
 		this.properties.id = params.properties.id;
 		this.properties.name = params.properties.name;
 		this.properties.player = (typeof params.properties.player !== 'undefined') ? params.properties.player : false;
@@ -132,8 +140,24 @@ civitas.objects.settlement = function(params) {
 		}
 		if (this.is_player() === false) {
 			this.resources.fame = civitas.LEVELS[this.level()];
+			if (this.properties.type === civitas.CITY) {
+				this._ai = new civitas.modules.ai({
+					core: this,
+					type: this.properties.ruler.personality
+				});
+			}
 		}
 		return this;
+	};
+
+	/**
+	 * Get a reference to the AI module.
+	 *
+	 * @public
+	 * @returns {civitas.modules.ai}
+	 */
+	this.ai = function() {
+		return this._ai;
 	};
 
 	/**
@@ -189,8 +213,8 @@ civitas.objects.settlement = function(params) {
 	 * @public
 	 * @returns {civitas.game}
 	 */
-	this.get_core = function() {
-		return this.core;
+	this.core = function() {
+		return this._core;
 	};
 
 	/**
@@ -205,9 +229,9 @@ civitas.objects.settlement = function(params) {
 		this.properties.level++;
 		this.properties.population = this.properties.level * civitas.POPULATION_PER_LEVEL;
 		if (this.is_player()) {
-			this.get_core().refresh_panels();
+			this.core().refresh_panels();
 			$('.citylevel').html(this.properties.level);
-			this.get_core().notify('The city of ' + this.name() + ' is now level ' + this.properties.level + '.');
+			this.core().notify('The city of ' + this.name() + ' is now level ' + this.properties.level + '.');
 		}
 		return this;
 	};
@@ -502,7 +526,7 @@ civitas.objects.settlement = function(params) {
 		if (typeof settlement === 'object' && this.nationality().id === settlement.nationality().id) {
 			return true;
 		} else if (typeof settlement === 'number' || typeof settlement === 'string') {
-			settlement = this.get_core().get_settlement(settlement);
+			settlement = this.core().get_settlement(settlement);
 			if (this.nationality().id === settlement.nationality().id) {
 				return true;
 			}

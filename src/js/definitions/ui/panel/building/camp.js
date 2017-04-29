@@ -8,7 +8,7 @@ civitas.PANEL_CAMP = {
 	id: 'camp',
 	on_show: function(params) {
 		var self = this;
-		var core = this.get_core();
+		var core = this.core();
 		$(this.handle + ' section').append(civitas.ui.tabs([civitas.l('Info'), civitas.l('Army')]));
 		var _t = '<div class="army-list"></div>' +
 				'<div class="army-recruiter">';
@@ -42,7 +42,7 @@ civitas.PANEL_CAMP = {
 		});
 	},
 	on_refresh: function() {
-		var core = this.get_core();
+		var core = this.core();
 		var settlement = core.get_settlement();
 		var building = core.get_settlement().get_building(this.params_data.handle);
 		if (building) {

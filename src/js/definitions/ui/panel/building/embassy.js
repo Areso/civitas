@@ -8,7 +8,7 @@ civitas.PANEL_EMBASSY = {
 	id: 'embassy',
 	on_show: function(params) {
 		var self = this;
-		var core = this.get_core();
+		var core = this.core();
 		var settlement = core.get_settlement();
 		var settlements = core.get_settlements();
 		var status = settlement.status();
@@ -26,7 +26,7 @@ civitas.PANEL_EMBASSY = {
 		});
 	},
 	on_refresh: function() {
-		var core = this.get_core();
+		var core = this.core();
 		var settlement = core.get_settlement();
 		var settlements = core.get_settlements();
 		var status = settlement.status();

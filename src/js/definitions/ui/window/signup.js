@@ -55,24 +55,25 @@ civitas.WINDOW_SIGNUP = {
 	on_show: function() {
 		var self = this;
 		var avatar = 1;
-		var core = this.get_core();
+		var core = this.core();
+		var handle = this.handle();
 		for (var i = 1; i < civitas.CLIMATES.length; i++) {
-			$(this.handle + ' .climate').append('<option value="' + civitas['CLIMATE_' + civitas.CLIMATES[i].toUpperCase()] + '">' + civitas.CLIMATES[i].capitalize() + '</option>');
+			$(handle + ' .climate').append('<option value="' + civitas['CLIMATE_' + civitas.CLIMATES[i].toUpperCase()] + '">' + civitas.CLIMATES[i].capitalize() + '</option>');
 		}
 		for (var i = 1; i < civitas.NATIONS.length; i++) {
-			$(this.handle + ' .nation').append('<option value="' + civitas['NATION_' + civitas.NATIONS[i].toUpperCase()] + '">' + civitas.NATIONS[i].capitalize() + '</option>');
+			$(handle + ' .nation').append('<option value="' + civitas['NATION_' + civitas.NATIONS[i].toUpperCase()] + '">' + civitas.NATIONS[i].capitalize() + '</option>');
 		}
 		for (var i = 1; i <= civitas.AVATARS; i++) {
-			$(this.handle + ' .avatar-select').append('<img src="' + civitas.ASSETS_URL + 'images/avatars/avatar' + i + '.png" />');
+			$(handle + ' .avatar-select').append('<img src="' + civitas.ASSETS_URL + 'images/avatars/avatar' + i + '.png" />');
 		}
-		$(this.handle).on('click', '.do-start', function () {
-			var password = $(self.handle + ' .password').val();
-			var password2 = $(self.handle + ' .password2').val();
-			var name = $(self.handle + ' .name').val();
-			var cityname = $(self.handle + ' .cityname').val();
-			var nation = parseInt($(self.handle + ' .nation').val());
-			var climate = parseInt($(self.handle + ' .climate').val());
-			var difficulty = parseInt($(self.handle + ' .difficulty').val());
+		$(handle).on('click', '.do-start', function () {
+			var password = $(handle + ' .password').val();
+			var password2 = $(handle + ' .password2').val();
+			var name = $(handle + ' .name').val();
+			var cityname = $(handle + ' .cityname').val();
+			var nation = parseInt($(handle + ' .nation').val());
+			var climate = parseInt($(handle + ' .climate').val());
+			var difficulty = parseInt($(handle + ' .difficulty').val());
 			if (name.length > 12) {
 				name = name.substring(0, 12);
 			}
@@ -102,18 +103,18 @@ civitas.WINDOW_SIGNUP = {
 			if (avatar < civitas.AVATARS) {
 				avatar = avatar + 1;
 			}
-			$(self.handle + ' .avatar-select').scrollTo('+=64px', 500);
+			$(handle + ' .avatar-select').scrollTo('+=64px', 500);
 		}).on('click', '.up', function () {
 			if (avatar > 1) {
 				avatar = avatar - 1;
 			}
-			$(self.handle + ' .avatar-select').scrollTo('-=64px', 500);
+			$(handle + ' .avatar-select').scrollTo('-=64px', 500);
 		}).on('click', '.do-about', function () {
-			$(self.handle + ' .about-game').slideToggle();
+			$(handle + ' .about-game').slideToggle();
 			return false;
 		});
 	},
 	on_hide: function() {
-		this.get_core().hide_loader();
+		this.core().hide_loader();
 	}
 };

@@ -8,11 +8,12 @@ civitas.PANEL_CHURCH = {
 	id: 'church',
 	on_show: function(params) {
 		var self = this;
-		var settlement = this.get_core().get_settlement();
+		var core = this.core();
+		var settlement = core.get_settlement();
 		$(this.handle + ' section').append(civitas.ui.tabs([civitas.l('Info'), civitas.l('Religion')]));
 		$(this.handle).on('click', '.religion', function() {
 			var id = parseInt($(this).data('id'));
-			self.get_core().open_modal(
+			core.open_modal(
 				function(button) {
 					if (button === 'yes') {
 						settlement.change_religion(id);
@@ -24,7 +25,7 @@ civitas.PANEL_CHURCH = {
 		});
 	},
 	on_refresh: function() {
-		var core = this.get_core();
+		var core = this.core();
 		var settlement = core.get_settlement();
 		var building = core.get_settlement().get_building(this.params_data.handle);
 		if (building) {

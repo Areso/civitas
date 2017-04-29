@@ -9,10 +9,11 @@ civitas.objects.event = function (params) {
 
 	/**
 	 * Reference to the core object.
-	 * 
+	 *
+	 * @private
 	 * @type {civitas.game}
 	 */
-	this.core = null;
+	this._core = null;
 
 	/**
 	 * Name of the event.
@@ -20,7 +21,7 @@ civitas.objects.event = function (params) {
 	 * @private
 	 * @type {String}
 	 */
-	this.name = null;
+	this._name = null;
 
 	/**
 	 * Event's chance to occur.
@@ -28,7 +29,7 @@ civitas.objects.event = function (params) {
 	 * @private
 	 * @type {Number}
 	 */
-	this.chance = 0;
+	this._chance = 0;
 
 	/**
 	 * Event's effect.
@@ -36,7 +37,7 @@ civitas.objects.event = function (params) {
 	 * @private
 	 * @type {Number}
 	 */
-	this.effect = null;
+	this._effect = null;
 
 	/**
 	 * Description of the event.
@@ -44,7 +45,7 @@ civitas.objects.event = function (params) {
 	 * @private
 	 * @type {String}
 	 */
-	this.description = null;
+	this._description = null;
 
 	/**
 	 * Event data for lowering stuff.
@@ -52,7 +53,7 @@ civitas.objects.event = function (params) {
 	 * @private
 	 * @type {Object}
 	 */
-	this.lower = null;
+	this._lower = null;
 
 	/**
 	 * Event data for raising stuff.
@@ -60,7 +61,7 @@ civitas.objects.event = function (params) {
 	 * @private
 	 * @type {Object}
 	 */
-	this.raise = null;
+	this._raise = null;
 
 	/**
 	 * Object constructor.
@@ -70,12 +71,12 @@ civitas.objects.event = function (params) {
 	 * @param {Object} params
 	 */
 	this.__init = function (params) {
-		this.core = params.core;
-		this.name = params.name;
-		this.chance = (typeof params.chance !== 'undefined') ? params.chance : 0.001;
-		this.description = params.description;
-		this.raise = typeof params.raise !== 'undefined' ? params.raise : null;
-		this.lower = typeof params.lower !== 'undefined' ? params.lower : null;
+		this._core = params.core;
+		this._name = params.name;
+		this._chance = (typeof params.chance !== 'undefined') ? params.chance : 0.001;
+		this._description = params.description;
+		this._raise = typeof params.raise !== 'undefined' ? params.raise : null;
+		this._lower = typeof params.lower !== 'undefined' ? params.lower : null;
 		this.process();
 		return this;
 	};
@@ -87,35 +88,35 @@ civitas.objects.event = function (params) {
 	 * @returns {civitas.objects.event}
 	 */
 	this.process = function () {
-		var core = this.get_core();
+		var core = this.core();
 		var random_settlement_id = civitas.utils.get_random(1, core.settlements.length);
 		var with_settlement = core.get_settlement(random_settlement_id);
-		var description = this.description.replace(/SETTLEMENT/g, with_settlement.name());
-		if (this.raise !== null) {
-			for (var item in this.raise) {
+		var description = this._description.replace(/SETTLEMENT/g, with_settlement.name());
+		if (this._raise !== null) {
+			for (var item in this._raise) {
 				if (item === 'influence') {
-					core.get_settlement().raise_influence(with_settlement.id(), this.raise[item]);
+					core.get_settlement().raise_influence(with_settlement.id(), this._raise[item]);
 				} else {
-					core.get_settlement().add_to_storage(item, this.raise[item]);
+					core.get_settlement().add_to_storage(item, this._raise[item]);
 				}
 				var replace = new RegExp(item.toUpperCase(), 'g');
-				description = description.replace(replace, this.raise[item]);
+				description = description.replace(replace, this._raise[item]);
 			}
 		}
-		if (this.lower !== null) {
-			for (var item in this.lower) {
+		if (this._lower !== null) {
+			for (var item in this._lower) {
 				if (item === 'influence') {
-					core.get_settlement().lower_influence(with_settlement.id(), this.lower[item]);
+					core.get_settlement().lower_influence(with_settlement.id(), this._lower[item]);
 				} else {
-					core.get_settlement().remove_resource_silent(item, this.lower[item]);
+					core.get_settlement().remove_resource_silent(item, this._lower[item]);
 				}
 				var replace = new RegExp(item.toUpperCase(), 'g');
-				description = description.replace(replace, this.lower[item]);
+				description = description.replace(replace, this._lower[item]);
 			}
 		}
 		if (core.get_settlement().is_player()) {
 			core._notify({
-				title: 'Event occured: ' + this.name,
+				title: 'Event occured: ' + this._name,
 				content: description,
 				timeout: false,
 				mode: civitas.NOTIFY_EVENT
@@ -130,8 +131,8 @@ civitas.objects.event = function (params) {
 	 * @public
 	 * @returns {civitas.game}
 	 */
-	this.get_core = function() {
-		return this.core;
+	this.core = function() {
+		return this._core;
 	};
 
 	// Fire up the constructor

@@ -9,7 +9,7 @@ civitas.PANEL_CAMPAIGN = {
 	id: 'campaign',
 	on_show: function(params) {
 		var self = this;
-		var core = this.get_core();
+		var core = this.core();
 		var my_settlement = core.get_settlement();
 		var campaign = params.data;
 		var class_name = '';
@@ -32,7 +32,7 @@ civitas.PANEL_CAMPAIGN = {
 	},
 	on_refresh: function() {
 		var self = this;
-		var core = this.get_core();
+		var core = this.core();
 		var my_settlement = core.get_settlement();
 		var campaign = this.params_data.data;
 		var out = '';

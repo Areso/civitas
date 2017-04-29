@@ -7,7 +7,7 @@ civitas.PANEL_SHIPYARD = {
 	template: civitas.ui.building_panel_template(),
 	id: 'shipyard',
 	on_show: function(params) {
-		var core = this.get_core();
+		var core = this.core();
 		$(this.handle + ' section').append(civitas.ui.tabs([civitas.l('Info'), civitas.l('Navy')]));
 		var _t = '<div class="navy-list"></div>' +
 				'<div class="navy-recruiter">';
@@ -39,7 +39,7 @@ civitas.PANEL_SHIPYARD = {
 		});
 	},
 	on_refresh: function() {
-		var core = this.get_core();
+		var core = this.core();
 		var settlement = core.get_settlement();
 		var building = core.get_settlement().get_building(this.params_data.handle);
 		if (building) {

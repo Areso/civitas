@@ -20,7 +20,7 @@ civitas.objects.settlement.prototype.can_trade = function() {
 civitas.objects.settlement.prototype.buy_from_settlement = function(settlement, resource, amount) {
 	if (!civitas.utils.resource_exists(resource)) {
 		if (this.is_player()) {
-			this.get_core().error('The resource you specified does not exist.');
+			this.core().error('The resource you specified does not exist.');
 		}
 		return false;
 	}
@@ -28,10 +28,10 @@ civitas.objects.settlement.prototype.buy_from_settlement = function(settlement, 
 		var resources = this.get_resources();
 		var _settlement;
 		if (typeof settlement === 'string' || typeof settlement === 'number') {
-			_settlement = this.get_core().get_settlement(settlement);
+			_settlement = this.core().get_settlement(settlement);
 			if (settlement === false) {
 				if (this.is_player()) {
-					this.get_core().error(settlement + ' does not exist.');
+					this.core().error(settlement + ' does not exist.');
 				}
 				return false;
 			}
@@ -42,13 +42,13 @@ civitas.objects.settlement.prototype.buy_from_settlement = function(settlement, 
 		var trades = _settlement.get_trades();
 		if (trades === null) {
 			if (this.is_player()) {
-				this.get_core().error(settlement + ' does not trade any goods.');
+				this.core().error(settlement + ' does not trade any goods.');
 			}
 			return false;
 		}
 		if (typeof trades.exports === 'undefined') {
 			if (this.is_player()) {
-				this.get_core().error(settlement + ' does not export any goods.');
+				this.core().error(settlement + ' does not export any goods.');
 			}
 			return false;
 		}
@@ -76,9 +76,9 @@ civitas.objects.settlement.prototype.buy_from_settlement = function(settlement, 
 				this.raise_influence(_settlement.id(), (is_double ? civitas.IMPORT_INFLUENCE * 2 : civitas.IMPORT_INFLUENCE));
 				this.raise_prestige(is_double ? civitas.IMPORT_PRESTIGE * 2 : civitas.IMPORT_PRESTIGE);
 				this.raise_fame(50);
-				this.get_core().refresh();
+				this.core().refresh();
 				if (this.is_player()) {
-					this.get_core().notify(this.name() + ' bought <strong>' + amount + '</strong> ' + civitas.utils.get_resource_name(item) + ' from ' + settlement + ' for <strong>' + item_discount_price + '</strong> coins each, for a total of <strong>' + price + '</strong> coins.', civitas.l('World Market'));
+					this.core().notify(this.name() + ' bought <strong>' + amount + '</strong> ' + civitas.utils.get_resource_name(item) + ' from ' + settlement + ' for <strong>' + item_discount_price + '</strong> coins each, for a total of <strong>' + price + '</strong> coins.', civitas.l('World Market'));
 				}
 				return {
 					buyer: this.name(),
@@ -91,7 +91,7 @@ civitas.objects.settlement.prototype.buy_from_settlement = function(settlement, 
 			}
 		}
 		if (this.is_player()) {
-			this.get_core().error(settlement + ' does not export the requested goods.');
+			this.core().error(settlement + ' does not export the requested goods.');
 		}
 	}
 	return false;
@@ -145,7 +145,7 @@ civitas.objects.settlement.prototype.reset_trades = function() {
  * @returns {Object}
  */
 civitas.objects.settlement.prototype.add_black_market = function (resource, amount, price) {
-	var core = this.get_core();
+	var core = this.core();
 	if (typeof core.black_market[resource] !== 'undefined') {
 		var old = core.black_market[resource];
 		core.black_market[resource] = {
@@ -174,7 +174,7 @@ civitas.objects.settlement.prototype.add_black_market = function (resource, amou
 civitas.objects.settlement.prototype.list_black_market = function(resource, amount) {
 	if (!civitas.utils.resource_exists(resource)) {
 		if (this.is_player()) {
-			this.get_core().error('The resource you specified does not exist.');
+			this.core().error('The resource you specified does not exist.');
 		}
 		return false;
 	}
@@ -183,9 +183,9 @@ civitas.objects.settlement.prototype.list_black_market = function(resource, amou
 		var discount = Math.ceil((civitas.RESOURCES[resource].price * civitas.BLACK_MARKET_DISCOUNT) / 100);
 		var price = civitas.utils.calc_price_minus_discount(amount, resource, discount);
 		this.add_black_market(resource, amount, price);
-		this.get_core().refresh();
+		this.core().refresh();
 		if (this.is_player()) {
-			this.get_core().notify(this.name() + ' placed ' + amount + ' ' + civitas.utils.get_resource_name(resource) + ' on the Black Market and will receive ' + price + ' coins next month.', civitas.l('Black Market'));
+			this.core().notify(this.name() + ' placed ' + amount + ' ' + civitas.utils.get_resource_name(resource) + ' on the Black Market and will receive ' + price + ' coins next month.', civitas.l('Black Market'));
 		}
 		return {
 			seller: this.name(),
@@ -210,7 +210,7 @@ civitas.objects.settlement.prototype.list_black_market = function(resource, amou
 civitas.objects.settlement.prototype.sell_to_settlement = function(settlement, resource, amount) {
 	if (!civitas.utils.resource_exists(resource)) {
 		if (this.is_player()) {
-			this.get_core().error('The resource you specified does not exist.');
+			this.core().error('The resource you specified does not exist.');
 		}
 		return false;
 	}
@@ -218,10 +218,10 @@ civitas.objects.settlement.prototype.sell_to_settlement = function(settlement, r
 		var resources = this.get_resources();
 		var _settlement;
 		if (typeof settlement === 'string' || typeof settlement === 'number') {
-			_settlement = this.get_core().get_settlement(settlement);
+			_settlement = this.core().get_settlement(settlement);
 			if (settlement === false) {
 				if (this.is_player()) {
-					this.get_core().error(settlement + ' does not exist.');
+					this.core().error(settlement + ' does not exist.');
 				}
 				return false;
 			}
@@ -232,13 +232,13 @@ civitas.objects.settlement.prototype.sell_to_settlement = function(settlement, r
 		var trades = _settlement.get_trades();
 		if (trades === null) {
 			if (this.is_player()) {
-				this.get_core().error(settlement + ' does not trade any goods.');
+				this.core().error(settlement + ' does not trade any goods.');
 			}
 			return false;
 		}
 		if (typeof trades.imports === 'undefined') {
 			if (this.is_player()) {
-				this.get_core().error(settlement + ' does not import any goods.');
+				this.core().error(settlement + ' does not import any goods.');
 			}
 			return false;
 		}
@@ -257,7 +257,7 @@ civitas.objects.settlement.prototype.sell_to_settlement = function(settlement, r
 				this.inc_coins(price);
 				if (!_settlement.dec_coins(settlement_price)) {
 					if (this.is_player()) {
-						this.get_core().error(settlement + ' does not have enough coins.');
+						this.core().error(settlement + ' does not have enough coins.');
 					}
 					return false;
 				}
@@ -266,9 +266,9 @@ civitas.objects.settlement.prototype.sell_to_settlement = function(settlement, r
 				this.raise_influence(_settlement.id(), (is_double ? civitas.EXPORT_INFLUENCE * 2 : civitas.EXPORT_INFLUENCE));
 				this.raise_prestige(is_double ? civitas.EXPORT_PRESTIGE * 2 : civitas.EXPORT_PRESTIGE);
 				this.raise_fame(50);
-				this.get_core().refresh();
+				this.core().refresh();
 				if (this.is_player()) {
-					this.get_core().notify(this.name() + ' sold <strong>' + amount + '</strong> ' + civitas.utils.get_resource_name(item) + ' to ' + settlement + ' for <strong>' + item_discount_price + '</strong> coins each, for a total of <strong>' + price + '</strong> coins.', civitas.l('World Market'));
+					this.core().notify(this.name() + ' sold <strong>' + amount + '</strong> ' + civitas.utils.get_resource_name(item) + ' to ' + settlement + ' for <strong>' + item_discount_price + '</strong> coins each, for a total of <strong>' + price + '</strong> coins.', civitas.l('World Market'));
 				}
 				return {
 					seller: this.name(),
@@ -281,7 +281,7 @@ civitas.objects.settlement.prototype.sell_to_settlement = function(settlement, r
 			}
 		}
 		if (this.is_player()) {
-			this.get_core().error(settlement + ' does not import the specified goods.');
+			this.core().error(settlement + ' does not import the specified goods.');
 		}
 	}
 	return false;

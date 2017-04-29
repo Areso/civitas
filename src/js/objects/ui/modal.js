@@ -9,10 +9,11 @@ civitas.controls.modal = function (params) {
 
 	/**
 	 * Reference to the core object.
-	 * 
+	 *
+	 * @private
 	 * @type {civitas.game}
 	 */
-	this.core = null;
+	this._core = null;
 
 	/**
 	 * Template of the modal window.
@@ -20,7 +21,7 @@ civitas.controls.modal = function (params) {
 	 * @private
 	 * @type {String}
 	 */
-	this.template = '<div class="modal-overlay">' +
+	this._template = '<div class="modal-overlay">' +
 			'<div class="modal">' +
 				'<header></header>' +
 				'<section></section>' +
@@ -36,9 +37,9 @@ civitas.controls.modal = function (params) {
 	 * @param {Object} params
 	 */
 	this.__init = function(params) {
-		this.core = params.core;
+		this._core = params.core;
 		var self = this;
-		$('body').append(this.template);
+		$('body').append(this._template);
 		$(window).bind('resize', function() {
 			self._resize();
 		});
@@ -55,13 +56,13 @@ civitas.controls.modal = function (params) {
 	this.alert = function(options) {
 		var self = this;
 		var settlement = false;
-		if (this.core.settlements.length > 0) {
-			settlement = this.core.get_settlement();
+		if (this.core().settlements.length > 0) {
+			settlement = this.core().get_settlement();
 		}
 		if (this._is_open()) {
 			return false;
 		}
-		this.core.show_loader();
+		this.core().show_loader();
 		$('.modal').css({
 			width: '400px'
 		});
@@ -69,7 +70,7 @@ civitas.controls.modal = function (params) {
 		$('.modal header').html(options.title);
 		$('.modal footer').html('<a data-id="yes" href="#" class="btn float-right">' + civitas.l('Yes') + '</a>' +
 			'<a data-id="no" href="#" class="btn">' + civitas.l('No') + '</a>');
-		$('.modal section').html((settlement ? '<img class="avatar" src="' + civitas.ASSETS_URL + 'images/avatars/avatar' + this.core.get_settlement().ruler().avatar + '.png" />' : '') +
+		$('.modal section').html((settlement ? '<img class="avatar" src="' + civitas.ASSETS_URL + 'images/avatars/avatar' + this.core().get_settlement().ruler().avatar + '.png" />' : '') +
 			'<p>' + options.text + '</p>');
 		$('.modal footer').on('click', 'a', function() {
 			self._action($(this).data('id'));
@@ -100,8 +101,8 @@ civitas.controls.modal = function (params) {
 	 */
 	this._clear = function() {
 		$('.modal-overlay').remove();
-		$('body').append(this.template);
-		this.core.hide_loader();
+		$('body').append(this._template);
+		this.core().hide_loader();
 		this._resize();
 		return true;
 	};
@@ -141,6 +142,16 @@ civitas.controls.modal = function (params) {
 	 */
 	this.on_click = function() {
 		// nothing here, move along.
+	};
+
+	/**
+	 * Return a pointer to the game core.
+	 * 
+	 * @public
+	 * @returns {civitas.game}
+	 */
+	this.core = function() {
+		return this._core;
 	};
 
 	/**

@@ -8,7 +8,7 @@ civitas.PANEL_BUILDINGS = {
 	id: 'buildings',
 	on_show: function(params) {
 		var self = this;
-		var core = this.get_core();
+		var core = this.core();
 		var settlement = core.get_settlement();
 		var resources = settlement.get_resources();
 		var el = this.handle;

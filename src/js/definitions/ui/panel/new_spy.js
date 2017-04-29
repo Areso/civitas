@@ -17,7 +17,7 @@ civitas.PANEL_NEW_SPY = {
 	id: 'new-spy',
 	on_show: function(params) {
 		var self = this;
-		var core = this.get_core();
+		var core = this.core();
 		var my_settlement = core.get_settlement();
 		var settlement = params.data;
 		var settlements = core.get_settlements();
@@ -118,7 +118,7 @@ civitas.PANEL_NEW_SPY = {
 		});
 	},
 	on_refresh: function() {
-		var core = this.get_core();
+		var core = this.core();
 		var my_settlement = core.get_settlement();
 		var espionage = my_settlement.espionage();
 		$(this.handle + ' .espionage-range').attr('max', espionage);

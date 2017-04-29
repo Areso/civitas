@@ -20,7 +20,7 @@ civitas.game = function () {
 	 * @private
 	 * @type {Array}
 	 */
-	this.queue = [];
+	this._queue = [];
 
 	/**
 	 * List of currently completed achievements.
@@ -28,7 +28,7 @@ civitas.game = function () {
 	 * @private
 	 * @type {Array}
 	 */
-	this.achievements = [];
+	this._achievements = [];
 
 	/**
 	 * Pointer to the audio subsystem component.
@@ -39,36 +39,17 @@ civitas.game = function () {
 	this.music = null;
 
 	/**
-	 * Time day.
-	 * 
-	 * @type {Number}
+	 * Current game date.
+	 *
 	 * @private
+	 * @type {Object}
 	 */
-	this.day = 1;
-
-	/**
-	 * Time year.
-	 * 
-	 * @type {Number}
-	 * @private
-	 */
-	this.year = 1;
-
-	/**
-	 * Time month.
-	 * 
-	 * @type {Number}
-	 * @private
-	 */
-	this.month = 1;
-
-	/**
-	 * Time day of month 1-30.
-	 * 
-	 * @type {Number}
-	 * @private
-	 */
-	this.day_of_month = 1;
+	this._date = {
+		day: 1,
+		month: 1,
+		year: 1,
+		day_of_month: 1
+	};
 
 	/**
 	 * Black Market data.
@@ -143,14 +124,6 @@ civitas.game = function () {
 	 * @private
 	 */
 	this.mode = civitas.MODE_SINGLEPLAYER;
-
-	/**
-	 * Modal window instance.
-	 *
-	 * @private
-	 * @type {Object}
-	 */
-	this.modal = null;
 
 	/**
 	 * Object constructor.
@@ -399,21 +372,6 @@ civitas.game = function () {
 	};
 
 	/**
-	 * Set the current game date.
-	 * 
-	 * @public
-	 * @param {Object} data
-	 * @returns {civitas.game}
-	 */
-	this.set_date_time = function (data) {
-		this.day = data.day;
-		this.month = data.month;
-		this.year = data.year;
-		this.day_of_month = data.day_of_month;
-		return this;
-	};
-
-	/**
 	 * Setup the audio part of the game.
 	 * 
 	 * @private
@@ -466,42 +424,26 @@ civitas.game = function () {
 	};
 
 	/**
-	 * Process all buildings for materials, costs, etc.
-	 *
-	 * @public
-	 * @returns {civitas.game}
-	 */
-	this.process_all_buildings = function() {
-		var buildings = this.get_settlement().get_buildings();
-		for (var i = 0; i < buildings.length; i++) {
-			if (typeof buildings[i] !== 'undefined') {
-				buildings[i].process();
-			}
-		}
-		return this;
-	};
-
-	/**
 	 * Method that gets called each 'day'.
 	 * 
 	 * @private
 	 * @returns {civitas.game}
 	 */
 	this._do_daily = function () {
-		this.day++;
-		this.log('day ' + this.day_of_month + ' month ' + this.month + ' year ' + this.year);
-		this.process_all_buildings();
+		this._date.day++;
+		this.log(this.format_date());
+		this._process_settlements();
 		this._check_for_events();
 		this.calc_storage();
 		this.advance_queue();
-		this.day_of_month++;
-		if (this.day_of_month > 30) {
+		this._date.day_of_month++;
+		if (this._date.day_of_month > 30) {
 			this._do_monthly();
 		}
-		if (this.day >= 361) {
+		if (this._date.day >= 361) {
 			this._do_yearly();
-			this.day = 1;
-			this.month = 1;
+			this._date.day = 1;
+			this._date.month = 1;
 		}
 		this.save_and_refresh();
 		return this;
@@ -514,12 +456,12 @@ civitas.game = function () {
 	 * @returns {civitas.game}
 	 */
 	this._do_monthly = function () {
-		this.day_of_month = 1;
-		this.month++;
-		if (this.month === 3 || this.month === 6 || this.month === 9 || this.month === 12) {
+		this._date.day_of_month = 1;
+		this._date.month++;
+		if (this._date.month === 3 || this._date.month === 6 || this._date.month === 9 || this._date.month === 12) {
 			this._do_quarterly();
 		}
-		if (this.month === 6 || this.month === 12) {
+		if (this._date.month === 6 || this._date.month === 12) {
 			this._do_biannually();
 		}
 		this._reset_black_market();
@@ -618,7 +560,7 @@ civitas.game = function () {
 	this._do_yearly = function () {
 		this.get_settlement().release_mercenaries();
 		this._refresh_influence();
-		this.year++;
+		this._date.year++;
 		return this;
 	};
 
@@ -628,8 +570,8 @@ civitas.game = function () {
 	 * @public
 	 * @returns {String}
 	 */
-	this.get_date = function () {
-		return 'day ' + this.day_of_month + ' month ' + this.month + ' year ' + this.year;
+	this.format_date = function () {
+		return 'day ' + this._date.day_of_month + ' month ' + this._date.month + ' year ' + this._date.year;
 	};
 
 	/**
@@ -729,7 +671,7 @@ civitas.game = function () {
 	 * @public
 	 */
 	this.is_spring = function() {
-		if (this.month >= 3 && this.month < 6) {
+		if (this._date.month >= 3 && this._date.month < 6) {
 			return true;
 		}
 		return false;
@@ -742,10 +684,24 @@ civitas.game = function () {
 	 * @public
 	 */
 	this.is_summer = function() {
-		if (this.month >= 6 && this.month < 9) {
+		if (this._date.month >= 6 && this._date.month < 9) {
 			return true;
 		}
 		return false;
+	};
+
+	/**
+	 * Get/set the current game date.
+	 * 
+	 * @public
+	 * @param {Object} value
+	 * @returns {civitas.game}
+	 */
+	this.date = function(value) {
+		if (typeof value !== 'undefined') {
+			this._date = value;
+		}
+		return this._date;
 	};
 
 	/**
@@ -755,7 +711,7 @@ civitas.game = function () {
 	 * @public
 	 */
 	this.is_autumn = function() {
-		if (this.month >= 9 && this.month < 12) {
+		if (this._date.month >= 9 && this._date.month < 12) {
 			return true;
 		}
 		return false;
@@ -768,7 +724,7 @@ civitas.game = function () {
 	 * @public
 	 */
 	this.is_winter = function() {
-		if (this.month >= 12 || this.month < 3) {
+		if (this._date.month >= 12 || this._date.month < 3) {
 			return true;
 		}
 		return false;

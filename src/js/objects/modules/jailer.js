@@ -9,10 +9,11 @@ civitas.modules.jailer = function (params) {
 
 	/**
 	 * Reference to the core object.
-	 * 
+	 *
+	 * @private
 	 * @type {civitas.game}
 	 */
-	this.core = null;
+	this._core = null;
 
 	/**
 	 * Module version.
@@ -20,7 +21,8 @@ civitas.modules.jailer = function (params) {
 	 * @private
 	 * @type {String}
 	 */
-	this.version = '0.2.0';
+	this._version = '0.2.0';
+
 	/**
 	 * Object constructor.
 	 * 
@@ -29,7 +31,7 @@ civitas.modules.jailer = function (params) {
 	 * @param {Object} params
 	 */
 	this.__init = function (params) {
-		this.core = params.core;
+		this._core = params.core;
 		return this;
 	};
 
@@ -40,7 +42,7 @@ civitas.modules.jailer = function (params) {
 	 * @returns {String}
 	 */
 	this.get_version = function () {
-		return this.version;
+		return this._version;
 	};
 
 	/**
@@ -51,6 +53,16 @@ civitas.modules.jailer = function (params) {
 	 */
 	this.check = function () {
 		return true;
+	};
+
+	/**
+	 * Return a pointer to the game core.
+	 * 
+	 * @public
+	 * @returns {civitas.game}
+	 */
+	this.core = function() {
+		return this._core;
 	};
 
 	// Fire up the constructor

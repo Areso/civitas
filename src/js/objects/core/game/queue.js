@@ -1,23 +1,14 @@
 /**
- * Set the game queue.
- *
- * @public
- * @param {Array} value
- * @returns {civitas.game}
- */
-civitas.game.prototype.set_queue = function(value) {
-	this.queue = value;
-	return this;
-};
-
-/**
- * Return the game queue.
+ * Set/get the game queue.
  *
  * @public
  * @returns {Array}
  */
-civitas.game.prototype.get_queue = function() {
-	return this.queue;
+civitas.game.prototype.queue = function(value) {
+	if (typeof value !== 'undefined') {
+		this._queue = value;
+	}
+	return this._queue;
 };
 
 /**
@@ -27,11 +18,11 @@ civitas.game.prototype.get_queue = function() {
  * @returns {civitas.game}
  */
 civitas.game.prototype.advance_queue = function() {
-	for (var i = 0; i < this.queue.length; i++) {
-		if (this.queue[i].passed === this.queue[i].duration - 1) {
+	for (var i = 0; i < this._queue.length; i++) {
+		if (this._queue[i].passed === this._queue[i].duration - 1) {
 			this.process_action(i);
 		} else {
-			this.queue[i].passed++;
+			this._queue[i].passed++;
 		}
 	}
 	return this;
@@ -45,7 +36,7 @@ civitas.game.prototype.advance_queue = function() {
  * @returns {civitas.game}
  */
 civitas.game.prototype.process_action = function(id) {
-	var campaign = this.queue[id];
+	var campaign = this._queue[id];
 	var failed = true;
 	var settlement = this.get_settlement(campaign.source.id);
 	var destination_settlement = this.get_settlement(campaign.destination.id);
@@ -336,7 +327,7 @@ civitas.game.prototype.add_to_queue = function(source_settlement, destination_se
 		type: type,
 		data: data
 	};
-	this.queue.push(action);
+	this._queue.push(action);
 	this.save_and_refresh();
 	return action;
 };
@@ -353,6 +344,6 @@ civitas.game.prototype.remove_action = function(id) {
 	if (panel = this.get_panel('campaign')) {
 		panel.destroy();
 	}
-	this.queue.splice(id, 1);
+	this._queue.splice(id, 1);
 	return this;
 };

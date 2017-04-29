@@ -98,9 +98,9 @@ civitas.objects.settlement.prototype.recruit_mercenary_army = function(name) {
 			}
 			this._mercenary.push(army);
 			if (this.is_player()) {
-				this.get_core().notify('The mercenaries of the ' + civitas.MERCENARIES[i].name + ' are now available for skirmish missions for the duration of one year.', 'Mercenaries recruited.');
+				this.core().notify('The mercenaries of the ' + civitas.MERCENARIES[i].name + ' are now available for skirmish missions for the duration of one year.', 'Mercenaries recruited.');
 			}
-			this.get_core().save_and_refresh();
+			this.core().save_and_refresh();
 			return true;
 		}
 	}
@@ -121,8 +121,8 @@ civitas.objects.settlement.prototype.recruit_ship = function(ship_name) {
 		this.navy[ship_name] = 1;
 	}
 	if (this.is_player()) {
-		this.get_core().save_and_refresh();
-		this.get_core().notify('A new ' + ship_name + ' ship has been constructed.', 'New ship');
+		this.core().save_and_refresh();
+		this.core().notify('A new ' + ship_name + ' ship has been constructed.', 'New ship');
 	}
 	return true;
 };
@@ -141,8 +141,8 @@ civitas.objects.settlement.prototype.recruit_soldier = function(soldier_name) {
 		this.army[soldier_name] = 1;
 	}
 	if (this.is_player()) {
-		this.get_core().save_and_refresh();
-		this.get_core().notify('A new ' + soldier_name + ' has been recruited.', 'New soldier');
+		this.core().save_and_refresh();
+		this.core().notify('A new ' + soldier_name + ' has been recruited.', 'New soldier');
 	}
 	return true;
 };
@@ -240,7 +240,7 @@ civitas.objects.settlement.prototype.set_army = function(value) {
 civitas.objects.settlement.prototype.release_mercenaries = function() {
 	this._mercenary = [];
 	if (this.is_player()) {
-		this.get_core().notify('At the end of the year, mercenaries from your city have been released.');
+		this.core().notify('At the end of the year, mercenaries from your city have been released.');
 	}
 	return this;
 };
@@ -346,7 +346,7 @@ civitas.objects.settlement.prototype.release_mercenary = function(id) {
 	var mercenary_army_data = civitas.MERCENARIES[id];
 	this._mercenary.splice(id, 1);
 	if (this.is_player()) {
-		this.get_core().notify(mercenary_army_data.name + ' has been released from its duties.');
+		this.core().notify(mercenary_army_data.name + ' has been released from its duties.');
 	}
 	return this;
 };

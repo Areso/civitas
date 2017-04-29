@@ -105,7 +105,7 @@ civitas.objects.settlement.prototype.has_storage_space_for = function(quantity) 
 		return false;
 	}
 	if ((storage.occupied + quantity) > storage.all) {
-		//this.get_core().error('There is no storage space in your city to accomodate the new goods.');
+		//this.core().error('There is no storage space in your city to accomodate the new goods.');
 		return false;
 	}
 	return true;
@@ -122,7 +122,7 @@ civitas.objects.settlement.prototype.has_storage_space = function(alert) {
 	if (storage.occupied >= storage.all) {
 		if (alert === true) {
 			if (this.is_player()) {
-				this.get_core().error('There is no storage space in your city.');
+				this.core().error('There is no storage space in your city.');
 			}
 		}
 		return false;
@@ -159,7 +159,7 @@ civitas.objects.settlement.prototype.storage = function(value) {
  * @returns {Object}
  */
 civitas.objects.settlement.prototype._build_resources = function(_resources) {
-	var difficulty = this.get_core().get_difficulty();
+	var difficulty = this.core().get_difficulty();
 	var _trades = {};
 	if (!this.is_player()) {
 		if (this.is_city() && typeof civitas.SETTLEMENTS[this.id()] !== 'undefined') {
@@ -198,7 +198,7 @@ civitas.objects.settlement.prototype._build_resources = function(_resources) {
 civitas.objects.settlement.prototype.add_to_storage = function(item, amount) {
 	if (!civitas.utils.resource_exists(item)) {
 		if (this.is_player()) {
-			this.get_core().error('The resource you specified does not exist.');
+			this.core().error('The resource you specified does not exist.');
 		}
 		return false;
 	}
@@ -223,7 +223,7 @@ civitas.objects.settlement.prototype.has_coins = function(coins, alert) {
 	if (this.coins() - coins < 0) {
 		if (alert !== false) {
 			if (this.is_player()) {
-				this.get_core().error(this.name() + ' doesn`t have enough ' + civitas.utils.get_resource_name('coins') + '.');
+				this.core().error(this.name() + ' doesn`t have enough ' + civitas.utils.get_resource_name('coins') + '.');
 			}
 		}
 		return false;
@@ -242,14 +242,14 @@ civitas.objects.settlement.prototype.has_coins = function(coins, alert) {
 civitas.objects.settlement.prototype.has_resources = function(resource, amount) {
 	if (!civitas.utils.resource_exists(resource)) {
 		if (this.is_player()) {
-			this.get_core().error('The resource you specified does not exist.');
+			this.core().error('The resource you specified does not exist.');
 		}
 		return false;
 	}
 	var res = this.get_resources();
 	if ((res[resource] - amount) < 0) {
 		if (this.is_player()) {
-			this.get_core().error(this.name() + ' does not have enough ' + civitas.utils.get_resource_name(resource) + '.');
+			this.core().error(this.name() + ' does not have enough ' + civitas.utils.get_resource_name(resource) + '.');
 		}
 		return false;
 	}

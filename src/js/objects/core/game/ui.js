@@ -437,12 +437,10 @@ civitas.game.prototype.open_window = function(window_data, extra_data) {
  * @returns {civitas.game}
  */
 civitas.game.prototype.open_modal = function(callback, text, title) {
-	if (this.modal === null) {
-		this.modal = new civitas.controls.modal({
-			core: this
-		});
-	}
-	this.modal.alert({
+	var modal = new civitas.controls.modal({
+		core: this
+	});
+	modal.alert({
 		title: typeof title !== 'undefined' ? title : 'City Council',
 		text: text,
 		on_click: callback

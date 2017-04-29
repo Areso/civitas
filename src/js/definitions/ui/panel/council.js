@@ -7,7 +7,7 @@ civitas.PANEL_COUNCIL = {
 	template: civitas.ui.generic_panel_template(civitas.l('City Council')),
 	id: 'council',
 	on_show: function(params) {
-		var core = this.get_core();
+		var core = this.core();
 		$(this.handle + ' section').append(civitas.ui.tabs([civitas.l('Info'), civitas.l('Tips'), civitas.l('Production'), civitas.l('Housing'), civitas.l('Municipal'), civitas.l('Mercenary'), civitas.l('Achievements')]));
 		$(this.handle).on('click', '.view-merc', function () {
 			var _army = parseInt($(this).data('id'));
@@ -19,7 +19,7 @@ civitas.PANEL_COUNCIL = {
 			core.error('Not implemented yet.');
 			return false;
 		}).on('click', '.disband-merc', function () {
-			self.get_core().open_modal(
+			core.open_modal(
 				function(button) {
 					if (button === 'yes') {
 						var _army = parseInt($(this).data('id'));
@@ -45,12 +45,12 @@ civitas.PANEL_COUNCIL = {
 		});
 	},
 	on_refresh: function() {
-		var core = this.get_core();
+		var core = this.core();
 		var settlement = core.get_settlement();
 		var settlements = core.get_settlements();
 		var buildings = settlement.get_buildings();
 		var resources = settlement.get_resources();
-		var achievements = core.get_achievements();
+		var achievements = core.achievements();
 		var advices = settlement.city_council();
 		var total_costs = 0;
 		var total_tax = 0;
@@ -111,7 +111,7 @@ civitas.PANEL_COUNCIL = {
 		$(this.handle + ' #tab-achievements').empty().append(_t);
 		_t = '<img class="avatar" src="' + civitas.ASSETS_URL + 'images/avatars/avatar' + settlement.ruler().avatar + '.png" />' +
 				'<dl>' +
-				'<dt>' + civitas.l('Current date') + '</dt><dd class="citydate">' + core.get_date() + '</dd>' +
+				'<dt>' + civitas.l('Current date') + '</dt><dd class="citydate">' + core.format_date() + '</dd>' +
 				'<dt>' + civitas.l('Ruler') + '</dt><dd>' + settlement.ruler().name + '</dd>' +
 				'<dt>' + civitas.l('Climate') + '</dt><dd>' + settlement.climate().name + '</dd>' +
 				'<dt>' + civitas.l('Personality') + '</dt><dd>' + settlement.personality().name + '</dd>' +

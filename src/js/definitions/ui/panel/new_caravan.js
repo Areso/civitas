@@ -18,7 +18,7 @@ civitas.PANEL_NEW_CARAVAN = {
 	on_show: function(params) {
 		this.resources = {};
 		var self = this;
-		var core = this.get_core();
+		var core = this.core();
 		var my_settlement = core.get_settlement();
 		var settlement = params.data;
 		var settlements = core.get_settlements();

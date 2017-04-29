@@ -10,7 +10,7 @@ civitas.PANEL_ACADEMY = {
 		$(this.handle + ' section').append(civitas.ui.tabs([civitas.l('Info'), civitas.l('Research')]));
 	},
 	on_refresh: function() {
-		var core = this.get_core();
+		var core = this.core();
 		var settlement = core.get_settlement();
 		var research = settlement.research();
 		var building = core.get_settlement().get_building(this.params_data.handle);

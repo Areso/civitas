@@ -1,4 +1,34 @@
 /**
+ * Process each of the settlements in the world.
+ * 
+ * @private
+ * @param {String} name
+ * @returns {civitas.settlement|Boolean}
+ */
+civitas.game.prototype._process_settlements = function() {
+	var settlements = this.get_settlements();
+	for (var i = 0; i < settlements.length; i++) {
+		if (typeof settlements[i] !== 'undefined' && settlements[i].is_city()) {
+			if (i > 1) {
+				if (settlements[i].ai().process()) {
+					console.log('AI for ' + settlements[i].name() + ' processed!');
+				}
+			}
+			// For now, process just the player settlement.
+			// TODO
+			if (i === 0) {
+				var buildings = settlements[i].get_buildings();
+				for (var x = 0; x < buildings.length; x++) {
+					if (typeof buildings[x] !== 'undefined') {
+						buildings[x].process();
+					}
+				}
+			}
+		}
+	}
+};
+
+/**
  * Get a pointer to the player's settlement.
  * 
  * @public
@@ -27,7 +57,7 @@ civitas.game.prototype.get_settlement = function (name) {
 };
 
 /**
- * Load the main settlement data.
+ * Load the player settlement from localStorage data.
  * 
  * @private
  * @param {Object} data
@@ -47,7 +77,7 @@ civitas.game.prototype._load_settlement = function (data) {
 };
 
 /**
- * Setup the main settlement.
+ * Create the player settlement.
  * 
  * @private
  * @param {String} name
@@ -101,16 +131,18 @@ civitas.game.prototype.get_settlements = function () {
  * @returns {civitas.game}
  */
 civitas.game.prototype._setup_neighbours = function (data) {
-	var new_settlement = null;
-	var settlement_data = null;
-	var ruler = null;
+	var new_settlement;
+	var settlement_data;
+	var ruler;
+	var climate;
+	var climate_buildings;
 	if (data !== null) {
 		for (var i = 1; i < data.settlements.length; i++) {
 			settlement_data = data.settlements[i];
 			settlement_data.core = this;
 			new_settlement = new civitas.objects.settlement(settlement_data);
-			var climate = new_settlement.climate();
-			var climate_buildings = 'SETTLEMENT_BUILDINGS_' + climate.name.toUpperCase();
+			climate = new_settlement.climate();
+			climate_buildings = 'SETTLEMENT_BUILDINGS_' + climate.name.toUpperCase();
 			new_settlement._create_buildings(civitas[climate_buildings], true);
 			this.settlements.push(new_settlement);
 		}
@@ -149,8 +181,8 @@ civitas.game.prototype._setup_neighbours = function (data) {
 				navy: settlement_data.navy
 			});
 			if (settlement_data.type === civitas.CITY) {
-				var climate = new_settlement.climate();
-				var climate_buildings = 'SETTLEMENT_BUILDINGS_' + climate.name.toUpperCase();
+				climate = new_settlement.climate();
+				climate_buildings = 'SETTLEMENT_BUILDINGS_' + climate.name.toUpperCase();
 				new_settlement._create_buildings(civitas[climate_buildings], true);
 			}
 			this.get_settlement().status(item, {
@@ -161,21 +193,4 @@ civitas.game.prototype._setup_neighbours = function (data) {
 		}
 	}
 	return this;
-};
-
-/**
- * Get the list of imports and exports from all the world settlements (except main).
- * 
- * @private
- * @returns {Object}
- */
-civitas.game.prototype._get_neighbours_trades = function () {
-	var data = {};
-	var settlements = this.get_settlements();
-	for (var i = 1; i < settlements.length; i++) {
-		if (typeof settlements[i] !== 'undefined') {
-			data[settlements[i].id()] = settlements[i].get_trades();
-		}
-	}
-	return data;
 };

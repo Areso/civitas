@@ -9,10 +9,11 @@ civitas.modules.api = function (params) {
 
 	/**
 	 * Reference to the core object.
-	 * 
+	 *
+	 * @private
 	 * @type {civitas.game}
 	 */
-	this.core = null;
+	this._core = null;
 
 	/**
 	 * Module version.
@@ -20,7 +21,7 @@ civitas.modules.api = function (params) {
 	 * @private
 	 * @type {String}
 	 */
-	this.version = '0.2.0';
+	this._version = '0.2.0';
 
 	/**
 	 * Sign in a visitor using the specified data.
@@ -42,7 +43,7 @@ civitas.modules.api = function (params) {
 	 * @returns {String}
 	 */
 	this.get_version = function () {
-		return this.version;
+		return this._version;
 	};
 
 	/**
@@ -163,8 +164,18 @@ civitas.modules.api = function (params) {
 	 * @param {Object} params
 	 */
 	this.__init = function (params) {
-		this.core = params.core;
+		this._core = params.core;
 		return this;
+	};
+
+	/**
+	 * Return a pointer to the game core.
+	 * 
+	 * @public
+	 * @returns {civitas.game}
+	 */
+	this.core = function() {
+		return this._core;
 	};
 
 	// Fire up the constructor

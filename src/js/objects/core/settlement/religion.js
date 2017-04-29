@@ -8,13 +8,13 @@
 civitas.objects.settlement.prototype.change_religion = function(id) {
 	if (this.faith() !== civitas.MAX_FAITH_VALUE && id !== 0) {
 		if (this.is_player()) {
-			this.get_core().error('You don`t have enough faith to switch religions.');
+			this.core().error('You don`t have enough faith to switch religions.');
 		}
 		return false;
 	}
 	if ((typeof id === 'number' && this.religion().id === id) || (typeof id === 'string' && this.religion().name === id)) {
 		if (this.is_player()) {
-			this.get_core().error('You cannot switch religion to your already existing one.');
+			this.core().error('You cannot switch religion to your already existing one.');
 		}
 		return false;
 	}
@@ -22,13 +22,13 @@ civitas.objects.settlement.prototype.change_religion = function(id) {
 		this.reset_faith();
 		this.refresh_heroes();
 		if (this.is_player()) {
-			this.get_core().notify('Your settlement`s new religion is <strong>' + this.religion().name + '</strong>');
+			this.core().notify('Your settlement`s new religion is <strong>' + this.religion().name + '</strong>');
 		}
-		this.get_core().save_and_refresh();
+		this.core().save_and_refresh();
 		return true;
 	} else {
 		if (this.is_player()) {
-			this.get_core().error('Unable to switch religion to the specified one.');
+			this.core().error('Unable to switch religion to the specified one.');
 		}
 		return false;
 	}

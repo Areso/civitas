@@ -25,7 +25,7 @@ civitas.PANEL_SETTLEMENT = {
 	id: 'settlement',
 	on_show: function(params) {
 		var self = this;
-		var core = this.get_core();
+		var core = this.core();
 		var my_settlement = core.get_settlement();
 		var settlement = params.data;
 		var settlement_type = settlement.get_type();
@@ -141,7 +141,7 @@ civitas.PANEL_SETTLEMENT = {
 	},
 	on_refresh: function() {
 		var self = this;
-		var core = this.get_core();
+		var core = this.core();
 		var my_settlement = core.get_settlement();
 		var settlement = this.params_data.data;
 		var settlement_type = settlement.get_type();

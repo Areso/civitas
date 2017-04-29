@@ -9,7 +9,7 @@ civitas.PANEL_STORAGE = {
 	id: 'storage',
 	on_show: function(params) {
 		var self = this;
-		var core = this.get_core();
+		var core = this.core();
 		$(this.handle).on('click', '.toggle-storage', function () {
 			if ($('.toggle-storage').html() === civitas.l('Show Less Goods')) {
 				self.expanded = false;
@@ -23,7 +23,7 @@ civitas.PANEL_STORAGE = {
 		});
 	},
 	on_refresh: function() {
-		var settlement = this.get_core().get_settlement();
+		var settlement = this.core().get_settlement();
 		var resources = settlement.get_resources();
 		var storage_space = settlement.storage();
 		var out = '<div class="main-storage">';

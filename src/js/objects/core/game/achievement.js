@@ -68,7 +68,7 @@ civitas.game.prototype.check_achievements = function() {
 					}
 				}
 				if (cond_item === 'achievements') {
-					if (condition === this.achievements.length) {
+					if (condition === this._achievements.length) {
 						this.achievement(i, achievement);
 					}
 				}
@@ -79,7 +79,7 @@ civitas.game.prototype.check_achievements = function() {
 					}
 				}
 				if (cond_item === 'diplomacy') {
-					var queue_actions = this.get_queue();
+					var queue_actions = this.queue();
 					for (var m = 0; m < queue_actions.length; m++) {
 						for (var item in condition) {
 							if ((item === 'spy' && queue_actions[m].mode === civitas.ACTION_CAMPAIGN && queue_actions[m].type === civitas.CAMPAIGN_SPY) ||
@@ -110,7 +110,7 @@ civitas.game.prototype.check_achievements = function() {
  * @returns {civitas.game}
  */
 civitas.game.prototype.achievement = function (id, achievement) {
-	this.achievements.push({
+	this._achievements.push({
 		id: id,
 		date: + new Date()
 	});
@@ -131,32 +131,23 @@ civitas.game.prototype.achievement = function (id, achievement) {
  * @returns {Object|Boolean}
  */
 civitas.game.prototype.has_achievement = function(id) {
-	for (var i = 0; i < this.achievements.length; i++) {
-		if (this.achievements[i].id === id) {
-			return this.achievements[i];
+	for (var i = 0; i < this._achievements.length; i++) {
+		if (this._achievements[i].id === id) {
+			return this._achievements[i];
 		}
 	}
 	return false;
 };
 
 /**
- * Set the achievements to the specified value.
- *
- * @public
- * @param {Array} value
- * @returns {civitas.game}
- */
-civitas.game.prototype.set_achievements = function(value) {
-	this.achievements = value;
-	return this;
-};
-
-/**
- * Return the completed achievements.
+ * Set/get the achievements.
  *
  * @public
  * @returns {Array}
  */
-civitas.game.prototype.get_achievements = function() {
-	return this.achievements;
+civitas.game.prototype.achievements = function(value) {
+	if (typeof value !== 'undefined') {
+		this._achievements = value;
+	}
+	return this._achievements;
 };

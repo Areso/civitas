@@ -118,7 +118,7 @@ civitas.objects.settlement.prototype.build = function(building_type) {
 	if (building_data = this.get_building_data(building_type)) {
 		if ((typeof building_data.requires.settlement_level !== 'undefined') && (this.properties.level < building_data.requires.settlement_level)) {
 			if (this.is_player()) {
-				this.get_core().error('Your city level is too low to construct this building.');
+				this.core().error('Your city level is too low to construct this building.');
 			}
 			return false;
 		}
@@ -129,7 +129,7 @@ civitas.objects.settlement.prototype.build = function(building_type) {
 					var _z = civitas.BUILDINGS.findIndexM(item);
 					_z = civitas.BUILDINGS[_z];
 					if (this.is_player()) {
-						this.get_core().error('You don`t have the required level ' + required[item] + ' ' + _z.name + '.');
+						this.core().error('You don`t have the required level ' + required[item] + ' ' + _z.name + '.');
 					}
 					return false;
 				}
@@ -138,7 +138,7 @@ civitas.objects.settlement.prototype.build = function(building_type) {
 		for (var item in building_data.cost) {
 			if ((this.get_resources()[item] - building_data.cost[item]) < 0) {
 				if (this.is_player()) {
-					this.get_core().error('You don`t have enough ' + item + ' to construct this building.');
+					this.core().error('You don`t have enough ' + item + ' to construct this building.');
 				}
 				return false;
 			}
@@ -156,8 +156,8 @@ civitas.objects.settlement.prototype.build = function(building_type) {
 		this.buildings.push(_building);
 		this.raise_prestige();
 		if (this.is_player()) {
-			this.get_core().save_and_refresh();
-			this.get_core().notify('New building constructed: ' + _building.get_name());
+			this.core().save_and_refresh();
+			this.core().notify('New building constructed: ' + _building.get_name());
 			$('.tips').tipsy({
 				gravity: $.fn.tipsy.autoNS,
 				html: true

@@ -8,7 +8,7 @@ civitas.PANEL_TRADES = {
 	id: 'trades',
 	on_show: function(params) {
 		var self = this;
-		var core = this.get_core();
+		var core = this.core();
 		var settlement = core.get_settlement();
 		var el = this.handle;
 		var _t = '';
@@ -99,7 +99,7 @@ civitas.PANEL_TRADES = {
 		});
 	},
 	on_refresh: function() {
-		var core = this.get_core();
+		var core = this.core();
 		var settlement = core.get_settlement();
 		var settlements = core.get_settlements();
 		var out = '';

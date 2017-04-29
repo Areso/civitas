@@ -10,9 +10,18 @@ civitas.modules.ai = function (params) {
 	/**
 	 * Reference to the core object.
 	 * 
+	 * @private
 	 * @type {civitas.game}
 	 */
-	this.core = null;
+	this._core = null;
+
+	/**
+	 * Personality type for this AI.
+	 *
+	 * @private
+	 * @type {Number}
+	 */
+	this._type = null;
 
 	/**
 	 * Object constructor.
@@ -22,12 +31,29 @@ civitas.modules.ai = function (params) {
 	 * @param {Object} params
 	 */
 	this.__init = function (params) {
-		this.core = params.core;
+		this._core = params.core;
+		this._type = params.type;
 		return this;
 	};
 
+	/**
+	 * Perform the actual data processing for this AI.
+	 *
+	 * @public
+	 * @returns {Boolean}
+	 */
 	this.process = function() {
+		return true;
+	};
 
+	/**
+	 * Return a pointer to the game core.
+	 * 
+	 * @public
+	 * @returns {civitas.game}
+	 */
+	this.core = function() {
+		return this._core;
 	};
 
 	// Fire up the constructor

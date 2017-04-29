@@ -10,28 +10,31 @@ civitas.controls.window = function (params) {
 	/**
 	 * DOM handle of this window.
 	 *
+	 * @private
 	 * @type {String}
 	 */
-	this.handle = null;
+	this._handle = null;
 
 	/**
 	 * Reference to the core object.
-	 * 
+	 *
+	 * @private
 	 * @type {civitas.game}
 	 */
-	this.core = null;
+	this._core = null;
 
 	/**
 	 * DOM id of this panel.
 	 * 
 	 * @type {String}
-	 * @constant
+	 * @private
 	 */
 	this.id = null;
 
 	/**
 	 * Localized title of the window.
 	 * 
+	 * @private
 	 * @type {String}
 	 */
 	this.title = null;
@@ -59,8 +62,8 @@ civitas.controls.window = function (params) {
 	 * @returns {Boolean}
 	 */
 	this.__destroy = function () {
-		this.get_core().console_log('destroying window with id `' + this.id + '`');
-		$(this.handle).remove();
+		this.core().console_log('destroying window with id `' + this.id() + '`');
+		$(this.handle()).remove();
 		$('.tipsy').remove();
 		this.on_hide.call(this);
 		return false;
@@ -84,9 +87,9 @@ civitas.controls.window = function (params) {
 	 * @param {Object} params
 	 */
 	this.__init = function (params) {
-		this.core = params.core;
-		this.id = params.id;
-		this.handle = '#window-' + this.id;
+		this._core = params.core;
+		this._id = params.id;
+		this._handle = '#window-' + this.id();
 		if (params.on_show instanceof Function) {
 			this.on_show = params.on_show;
 		} else {
@@ -97,16 +100,36 @@ civitas.controls.window = function (params) {
 		} else {
 			this.on_hide = function() {};
 		}
-		if (civitas.ui.window_exists(this.handle)) {
+		if (civitas.ui.window_exists(this.handle())) {
 			this.destroy();
 		}
-		this.get_core().console_log('creating window with id `' + this.id + '`');
-		$('body').append(params.template.replace(/{ID}/g, params.id));
+		this.core().console_log('creating window with id `' + this.id() + '`');
+		$('body').append(params.template.replace(/{ID}/g, this.id()));
 		this.on_show.call(this);
-		$(this.handle + ' .tips').tipsy({
+		$(this.handle() + ' .tips').tipsy({
 			gravity: 's'
 		});
 		return this;
+	};
+
+	/**
+	 * Return a pointer to the window id.
+	 *
+	 * @public
+	 * @returns {String}
+	 */
+	this.id = function() {
+		return this._id;
+	};
+
+	/**
+	 * Return a pointer to the window DOM handle.
+	 *
+	 * @public
+	 * @returns {String}
+	 */
+	this.handle = function() {
+		return this._handle;
 	};
 
 	/**
@@ -115,8 +138,8 @@ civitas.controls.window = function (params) {
 	 * @public
 	 * @returns {civitas.game}
 	 */
-	this.get_core = function() {
-		return this.core;
+	this.core = function() {
+		return this._core;
 	};
 
 	// Fire up the constructor

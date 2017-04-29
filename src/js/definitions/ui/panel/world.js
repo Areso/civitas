@@ -8,7 +8,7 @@ civitas.PANEL_WORLD = {
 	id: 'world',
 	on_show: function(params) {
 		var self = this;
-		var core = this.get_core();
+		var core = this.core();
 		var map = core.get_worldmap();
 		$(this.handle + ' section').append('<div class="worldmap"></div>');
 		$(this.handle + ' .worldmap').addClass('w' + map);
@@ -30,10 +30,10 @@ civitas.PANEL_WORLD = {
 	},
 	on_refresh: function() {
 		var self = this;
-		var core = this.get_core();
+		var core = this.core();
 		var settlement = core.get_settlement();
 		var settlements = core.get_settlements();
-		var queue_actions = core.get_queue();
+		var queue_actions = core.queue();
 		var class_name = '';
 		var loc = civitas['SETTLEMENT_LOCATION_' + settlement.climate().name.toUpperCase()];
 		var out = '<div data-name="yoursettlement" class="tips settlement c1" title="' + civitas.l('City of') + ' ' + settlement.name() + '" style="left:' + loc.x + 'px;top:' + loc.y + 'px"></div>';

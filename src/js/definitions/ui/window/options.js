@@ -20,18 +20,18 @@ civitas.WINDOW_OPTIONS = {
 		'</section>',
 	on_show: function() {
 		var self = this;
-		var avatar = 1;
-		var core = this.get_core();
-		$(this.handle + ' .options-game').append(civitas.ui.tabs([civitas.l('Sounds'), civitas.l('UI'), civitas.l('Gameplay')]));
-		$(this.handle + ' #tab-sounds').append('<div>' +
-			'<a href="#" class="music-control ui-control ' + ((this.core.get_settings('music') === true) ? 'on' : 'off') + '">' + civitas.l('toggle music') + '</a>' +
-			'<input class="music-volume" type="range" min="0" max="1" step="0.1" ' + ((this.core.get_settings('music') !== true) ? 'disabled' : '') + ' />' +
+		var handle = this.handle();
+		var core = this.core();
+		$(handle + ' .options-game').append(civitas.ui.tabs([civitas.l('Sounds'), civitas.l('UI'), civitas.l('Gameplay')]));
+		$(handle + ' #tab-sounds').append('<div>' +
+			'<a href="#" class="music-control ui-control ' + ((core.get_settings('music') === true) ? 'on' : 'off') + '">' + civitas.l('toggle music') + '</a>' +
+			'<input class="music-volume" type="range" min="0" max="1" step="0.1" ' + ((core.get_settings('music') !== true) ? 'disabled' : '') + ' />' +
 			'</div>');
-		$(this.handle + ' #tab-ui').append('<div>' +
-			'<a href="#" class="console-control ui-control ' + ((this.core.get_settings('console') === true) ? 'on' : 'off') + '">' + civitas.l('toggle console') + '</a>' +
+		$(handle + ' #tab-ui').append('<div>' +
+			'<a href="#" class="console-control ui-control ' + ((core.get_settings('console') === true) ? 'on' : 'off') + '">' + civitas.l('toggle console') + '</a>' +
 			'</div>');
-		$(this.handle + ' .tabs').tabs();
-		$(this.handle).on('click', '.do-resume', function () {
+		$(handle + ' .tabs').tabs();
+		$(handle).on('click', '.do-resume', function () {
 			core.hide_loader();
 			core.unpause();
 			self.destroy();
@@ -48,10 +48,10 @@ civitas.WINDOW_OPTIONS = {
 			}
 			return false;
 		}).on('click', '.do-options', function () {
-			$(self.handle + ' .options-game').slideToggle();
+			$(handle + ' .options-game').slideToggle();
 			return false;
 		}).on('click', '.do-about', function () {
-			$(self.handle + ' .about-game').slideToggle();
+			$(handle + ' .about-game').slideToggle();
 			return false;
 		}).on('click', '.do-restart', function () {
 			core.open_modal(
@@ -95,6 +95,6 @@ civitas.WINDOW_OPTIONS = {
 		});
 	},
 	on_hide: function() {
-		this.get_core().hide_loader();
+		this.core().hide_loader();
 	}
 };

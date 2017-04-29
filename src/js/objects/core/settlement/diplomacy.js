@@ -23,7 +23,7 @@ civitas.objects.settlement.prototype.diplomacy = function(settlement, mode) {
 		} else if (mode === civitas.DIPLOMACY_VASSAL) {
 			this.set_influence(settlement, civitas.MAX_INFLUENCE_VALUE);
 		}
-		this.get_core().save_and_refresh();
+		this.core().save_and_refresh();
 		return true;
 	}
 	return false;
@@ -73,7 +73,7 @@ civitas.objects.settlement.prototype.get_influence_with_settlement = function(se
 	} else if (typeof settlement === 'object') {
 		return this._status[settlement.id()].influence;
 	} else if (typeof settlement === 'string') {
-		return this._status[this.get_core().get_settlement(settlement)].influence;
+		return this._status[this.core().get_settlement(settlement)].influence;
 	}
 };
 
@@ -104,7 +104,7 @@ civitas.objects.settlement.prototype.set_influence = function(settlement, value)
 	if (typeof settlement === 'object') {
 		settlement = settlement.id();
 	} else if (typeof settlement === 'string') {
-		settlement = this.get_core().get_settlement(settlement);
+		settlement = this.core().get_settlement(settlement);
 	}
 	if (value < 1 || this._status[settlement].influence < 1) {
 		this._status[settlement].influence = 1;

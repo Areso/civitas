@@ -10,22 +10,24 @@ civitas.controls.panel = function (params) {
 	/**
 	 * DOM handle of this panel.
 	 *
+	 * @private
 	 * @type {String}
 	 */
 	this.handle = null;
 
 	/**
 	 * Reference to the core object.
-	 * 
+	 *
+	 * @private
 	 * @type {civitas.game}
 	 */
-	this.core = null;
+	this._core = null;
 
 	/**
 	 * DOM id of this panel.
-	 * 
+	 *
+	 * @private
 	 * @type {String}
-	 * @constant
 	 */
 	this.id = null;
 
@@ -39,7 +41,8 @@ civitas.controls.panel = function (params) {
 
 	/**
 	 * Localized title of the panel.
-	 * 
+	 *
+	 * @private
 	 * @type {String}
 	 */
 	this.title = null;
@@ -75,9 +78,9 @@ civitas.controls.panel = function (params) {
 	 * @returns {Boolean}
 	 */
 	this.__destroy = function () {
-		this.get_core().console_log('destroying panel with id `' + this.id + '`');
+		this.core().console_log('destroying panel with id `' + this.id + '`');
 		$(this.handle).remove();
-		var panels = this.get_core().get_panels();
+		var panels = this.core().get_panels();
 		for (var i = 0; i < panels.length; i++) {
 			if (panels[i].id === this.id) {
 				panels.splice(i, 1);
@@ -107,7 +110,7 @@ civitas.controls.panel = function (params) {
 	 */
 	this.__init = function (params) {
 		var self = this;
-		this.core = params.core;
+		this._core = params.core;
 		this.id = params.id;
 		this.handle = '#panel-' + this.id;
 		this.params_data = params.data;
@@ -129,7 +132,7 @@ civitas.controls.panel = function (params) {
 		if (civitas.ui.panel_exists(this.handle)) {
 			this.destroy();
 		}
-		this.get_core().console_log('creating panel with id `' + this.id + '`');
+		this.core().console_log('creating panel with id `' + this.id + '`');
 		$('.ui').append(params.template.replace(/{ID}/g, params.id));
 		if (typeof this.params_data !== 'undefined' && typeof this.params_data.name !== 'undefined' && typeof this.params_data.name !== 'function') {
 			$(this.handle + ' header').append(this.params_data.name);
@@ -137,7 +140,7 @@ civitas.controls.panel = function (params) {
 		this.on_show.call(this, params);
 		this.on_refresh.call(this, params);
 		if (typeof params.data !== 'undefined') {
-			var building = this.get_core().get_settlement().get_building(params.data.handle);
+			var building = this.core().get_settlement().get_building(params.data.handle);
 			if (building !== false) {
 				if (!building.is_upgradable()) {
 					$(this.handle + ' footer .upgrade').remove();
@@ -155,7 +158,7 @@ civitas.controls.panel = function (params) {
 					$(this.handle + ' .start, ' + this.handle + ' .pause').remove();
 				}
 				$(this.handle).on('click', '.upgrade', function () {
-					self.get_core().open_modal(
+					self.core().open_modal(
 						function(button) {
 							if (button === 'yes') {
 								if (building.upgrade()) {
@@ -169,12 +172,12 @@ civitas.controls.panel = function (params) {
 					);
 					return false;
 				}).on('click', '.demolish', function () {
-					self.get_core().open_modal(
+					self.core().open_modal(
 						function(button) {
 							if (button === 'yes') {
 								if (building.demolish()) {
 									self.destroy();
-									self.get_core().save_and_refresh();
+									self.core().save_and_refresh();
 								}
 							}
 						},
@@ -233,8 +236,8 @@ civitas.controls.panel = function (params) {
 	 * @public
 	 * @returns {civitas.game}
 	 */
-	this.get_core = function() {
-		return this.core;
+	this.core = function() {
+		return this._core;
 	};
 
 	// Fire up the constructor

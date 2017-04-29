@@ -11,7 +11,7 @@ civitas.PANEL_RANKS = {
 	},
 	on_refresh: function() {
 		var ranking_list = [];
-		var settlements = this.get_core().get_settlements();
+		var settlements = this.core().get_settlements();
 		for (var i = 0; i < settlements.length; i++) {
 			if (settlements[i].get_type() === civitas.CITY) {
 				ranking_list.push({

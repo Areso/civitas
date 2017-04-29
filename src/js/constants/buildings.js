@@ -1,3 +1,45 @@
+/*
+civitas.SETTLEMENT_START_BUILDINGS_TROPICAL = [{
+		handle: 'marketplace',
+		level: 4
+	}, {
+		handle: 'lumberjack',
+		level: 1
+	}, {
+		handle: 'stone',
+		level: 1
+	}, {
+		handle: 'house1',
+		level: 6
+	}, {
+		handle: 'house2',
+		level: 6
+	}, {
+		handle: 'house3',
+		level: 6
+	}, {
+		handle: 'house4',
+		level: 6
+	}, {
+		handle: 'almondsfield',
+		level: 1
+	}, {
+		handle: 'almondsfarm',
+		level: 1
+	}, {
+		handle: 'sugarfield',
+		level: 1
+	}, {
+		handle: 'sugarfarm',
+		level: 1
+	}, {
+		handle: 'indigofield',
+		level: 1
+	}, {
+		handle: 'indigofarm',
+		level: 1
+	}];
+*/
 /**
  * Buildings native to the tropical climate.
  * 

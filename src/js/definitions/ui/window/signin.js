@@ -23,17 +23,16 @@ civitas.WINDOW_SIGNIN = {
 		'</section>',
 	on_show: function() {
 		var self = this;
-		var avatar = 1;
-		var savegame = null;
-		var core = this.get_core();
-		$(this.handle).on('click', '.do-start', function () {
-			var password = $(self.handle + ' .password').val();
+		var handle = this.handle();
+		var core = this.core();
+		$(handle).on('click', '.do-start', function () {
+			var password = $(handle + ' .password').val();
 			if (password === '') {
 				core.error('Enter your city password.', 'Error', true);
 				return false;
 			}
 			if (!core.load_game(password)) {
-				$(self.handle + ' .password').val('');
+				$(handle + ' .password').val('');
 				core.error('Error decrypting the game data with the specified password. Try again.', 'Error', true);
 			} else {
 				self.destroy();
@@ -52,11 +51,11 @@ civitas.WINDOW_SIGNIN = {
 			);
 			return false;
 		}).on('click', '.do-about', function () {
-			$(self.handle + ' .about-game').slideToggle();
+			$(handle + ' .about-game').slideToggle();
 			return false;
 		});
 	},
 	on_hide: function() {
-		this.get_core().hide_loader();
+		this.core().hide_loader();
 	}
 };
