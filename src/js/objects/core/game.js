@@ -71,14 +71,6 @@ civitas.game = function () {
 	};
 
 	/**
-	 * Is the game paused?
-	 *
-	 * @private
-	 * @type {Boolean}
-	 */
-	this.paused = false;
-
-	/**
 	 * Encryption data, for now it's safe (famous last words) since we're only doing local storage.
 	 *
 	 * @private
@@ -94,12 +86,17 @@ civitas.game = function () {
 	};
 
 	/**
-	 * Game difficulty.
+	 * Game properties.
 	 *
-	 * @type {Number}
 	 * @private
+	 * @type {Object}
 	 */
-	this.difficulty = civitas.DIFFICULTY_EASY;
+	this.properties = {
+		difficulty: civitas.DIFFICULTY_EASY,
+		mode: civitas.MODE_SINGLEPLAYER,
+		worldmap: null,
+		paused: false
+	};
 
 	/**
 	 * Array containing the list of all open panels.
@@ -108,22 +105,6 @@ civitas.game = function () {
 	 * @private
 	 */
 	this.panels = [];
-
-	/**
-	 * Game worldmap.
-	 *
-	 * @type {Number}
-	 * @private
-	 */
-	this.worldmap = null;
-
-	/**
-	 * Game mode, single player or multi player.
-	 *
-	 * @type {Number}
-	 * @private
-	 */
-	this.mode = civitas.MODE_SINGLEPLAYER;
 
 	/**
 	 * Object constructor.
@@ -311,8 +292,8 @@ civitas.game = function () {
 		var data = null;
 		var game_data = this.get_storage_data();
 		this.encryption.key = password;
-		this.difficulty = parseInt(difficulty);
-		this.worldmap = civitas.utils.get_random(1, civitas.WORLDMAPS);
+		this.properties.difficulty = parseInt(difficulty);
+		this.properties.worldmap = civitas.utils.get_random(1, civitas.WORLDMAPS);
 		this._create_settlement(name, cityname, nation, climate, avatar);
 		this._setup_game(null);
 		return true;
@@ -346,7 +327,7 @@ civitas.game = function () {
 	 * @returns {civitas.game}
 	 */
 	this.pause = function() {
-		this.paused = true;
+		this.properties.paused = true;
 		return this;
 	};
 
@@ -357,7 +338,7 @@ civitas.game = function () {
 	 * @returns {civitas.game}
 	 */
 	this.unpause = function() {
-		this.paused = false;
+		this.properties.paused = false;
 		return this;
 	};
 
@@ -368,7 +349,7 @@ civitas.game = function () {
 	 * @returns {Boolean}
 	 */
 	this.is_paused = function() {
-		return this.paused;
+		return this.properties.paused;
 	};
 
 	/**
@@ -490,7 +471,7 @@ civitas.game = function () {
 	};
 
 	/**
-	 * Refresh the UI, panels and save game.
+	 * Refresh the UI, panels, check for achievements and save game.
 	 *
 	 * @public
 	 * @returns {civitas.game}
@@ -601,67 +582,45 @@ civitas.game = function () {
 	};
 	
 	/**
-	 * Set the difficulty level of the game.
+	 * Get/set the difficulty level of the game.
 	 * 
 	 * @public
+	 * @param {Number} value
 	 * @returns {Number}
 	 */
-	this.set_difficulty = function(value) {
-		this.difficulty = value;
-		return this;
+	this.difficulty = function(value) {
+		if (typeof value !== 'undefined') {
+			this.properties.difficulty = value;
+		}
+		return this.properties.difficulty;
 	};
 
 	/**
-	 * Get the difficulty level of the game.
-	 * 
-	 * @public
-	 * @returns {Number}
-	 */
-	this.get_difficulty = function() {
-		return this.difficulty;
-	};
-
-	/**
-	 * Return the game mode.
-	 *
-	 * @public
-	 * @returns {Number}
-	 */
-	this.get_mode = function() {
-		return this.mode;
-	};
-
-	/**
-	 * Set the game mode.
+	 * Get/set the game mode.
 	 *
 	 * @public
 	 * @param {Number} value
-	 * @returns {civitas.game}
-	 */
-	this.set_mode = function(value) {
-		this.mode = value;
-	};
-
-	/**
-	 * Return the id of the current worldmap.
-	 *
-	 * @public
 	 * @returns {Number}
 	 */
-	this.get_worldmap = function() {
-		return this.worldmap;
+	this.mode = function(value) {
+		if (typeof value !== 'undefined') {
+			this.properties.mode = value;
+		}
+		return this.properties.mode;
 	};
 
 	/**
-	 * Set the id of the current worldmap.
+	 * Get/set the id of the current worldmap.
 	 *
 	 * @public
 	 * @param {Number} value
-	 * @returns {civitas.game}
+	 * @returns {Number}
 	 */
-	this.set_worldmap = function(value) {
-		this.worldmap = value;
-		return this;
+	this.worldmap = function() {
+		if (typeof value !== 'undefined') {
+			this.properties.worldmap = value;
+		}
+		return this.properties.worldmap;
 	};
 
 	/**
@@ -695,7 +654,7 @@ civitas.game = function () {
 	 * 
 	 * @public
 	 * @param {Object} value
-	 * @returns {civitas.game}
+	 * @returns {Object}
 	 */
 	this.date = function(value) {
 		if (typeof value !== 'undefined') {

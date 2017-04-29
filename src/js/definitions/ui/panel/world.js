@@ -9,7 +9,7 @@ civitas.PANEL_WORLD = {
 	on_show: function(params) {
 		var self = this;
 		var core = this.core();
-		var map = core.get_worldmap();
+		var map = core.worldmap();
 		$(this.handle + ' section').append('<div class="worldmap"></div>');
 		$(this.handle + ' .worldmap').addClass('w' + map);
 		$(this.handle).on('click', '.settlement', function () {

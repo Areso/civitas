@@ -159,7 +159,7 @@ civitas.objects.settlement.prototype.storage = function(value) {
  * @returns {Object}
  */
 civitas.objects.settlement.prototype._build_resources = function(_resources) {
-	var difficulty = this.core().get_difficulty();
+	var difficulty = this.core().difficulty();
 	var _trades = {};
 	if (!this.is_player()) {
 		if (this.is_city() && typeof civitas.SETTLEMENTS[this.id()] !== 'undefined') {

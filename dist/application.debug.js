@@ -8355,7 +8355,7 @@ civitas.objects.settlement.prototype.storage = function(value) {
  * @returns {Object}
  */
 civitas.objects.settlement.prototype._build_resources = function(_resources) {
-	var difficulty = this.core().get_difficulty();
+	var difficulty = this.core().difficulty();
 	var _trades = {};
 	if (!this.is_player()) {
 		if (this.is_city() && typeof civitas.SETTLEMENTS[this.id()] !== 'undefined') {
@@ -11026,14 +11026,6 @@ civitas.game = function () {
 	};
 
 	/**
-	 * Is the game paused?
-	 *
-	 * @private
-	 * @type {Boolean}
-	 */
-	this.paused = false;
-
-	/**
 	 * Encryption data, for now it's safe (famous last words) since we're only doing local storage.
 	 *
 	 * @private
@@ -11049,12 +11041,17 @@ civitas.game = function () {
 	};
 
 	/**
-	 * Game difficulty.
+	 * Game properties.
 	 *
-	 * @type {Number}
 	 * @private
+	 * @type {Object}
 	 */
-	this.difficulty = civitas.DIFFICULTY_EASY;
+	this.properties = {
+		difficulty: civitas.DIFFICULTY_EASY,
+		mode: civitas.MODE_SINGLEPLAYER,
+		worldmap: null,
+		paused: false
+	};
 
 	/**
 	 * Array containing the list of all open panels.
@@ -11063,22 +11060,6 @@ civitas.game = function () {
 	 * @private
 	 */
 	this.panels = [];
-
-	/**
-	 * Game worldmap.
-	 *
-	 * @type {Number}
-	 * @private
-	 */
-	this.worldmap = null;
-
-	/**
-	 * Game mode, single player or multi player.
-	 *
-	 * @type {Number}
-	 * @private
-	 */
-	this.mode = civitas.MODE_SINGLEPLAYER;
 
 	/**
 	 * Object constructor.
@@ -11266,8 +11247,8 @@ civitas.game = function () {
 		var data = null;
 		var game_data = this.get_storage_data();
 		this.encryption.key = password;
-		this.difficulty = parseInt(difficulty);
-		this.worldmap = civitas.utils.get_random(1, civitas.WORLDMAPS);
+		this.properties.difficulty = parseInt(difficulty);
+		this.properties.worldmap = civitas.utils.get_random(1, civitas.WORLDMAPS);
 		this._create_settlement(name, cityname, nation, climate, avatar);
 		this._setup_game(null);
 		return true;
@@ -11301,7 +11282,7 @@ civitas.game = function () {
 	 * @returns {civitas.game}
 	 */
 	this.pause = function() {
-		this.paused = true;
+		this.properties.paused = true;
 		return this;
 	};
 
@@ -11312,7 +11293,7 @@ civitas.game = function () {
 	 * @returns {civitas.game}
 	 */
 	this.unpause = function() {
-		this.paused = false;
+		this.properties.paused = false;
 		return this;
 	};
 
@@ -11323,7 +11304,7 @@ civitas.game = function () {
 	 * @returns {Boolean}
 	 */
 	this.is_paused = function() {
-		return this.paused;
+		return this.properties.paused;
 	};
 
 	/**
@@ -11445,7 +11426,7 @@ civitas.game = function () {
 	};
 
 	/**
-	 * Refresh the UI, panels and save game.
+	 * Refresh the UI, panels, check for achievements and save game.
 	 *
 	 * @public
 	 * @returns {civitas.game}
@@ -11556,67 +11537,45 @@ civitas.game = function () {
 	};
 	
 	/**
-	 * Set the difficulty level of the game.
+	 * Get/set the difficulty level of the game.
 	 * 
 	 * @public
+	 * @param {Number} value
 	 * @returns {Number}
 	 */
-	this.set_difficulty = function(value) {
-		this.difficulty = value;
-		return this;
+	this.difficulty = function(value) {
+		if (typeof value !== 'undefined') {
+			this.properties.difficulty = value;
+		}
+		return this.properties.difficulty;
 	};
 
 	/**
-	 * Get the difficulty level of the game.
-	 * 
-	 * @public
-	 * @returns {Number}
-	 */
-	this.get_difficulty = function() {
-		return this.difficulty;
-	};
-
-	/**
-	 * Return the game mode.
-	 *
-	 * @public
-	 * @returns {Number}
-	 */
-	this.get_mode = function() {
-		return this.mode;
-	};
-
-	/**
-	 * Set the game mode.
+	 * Get/set the game mode.
 	 *
 	 * @public
 	 * @param {Number} value
-	 * @returns {civitas.game}
-	 */
-	this.set_mode = function(value) {
-		this.mode = value;
-	};
-
-	/**
-	 * Return the id of the current worldmap.
-	 *
-	 * @public
 	 * @returns {Number}
 	 */
-	this.get_worldmap = function() {
-		return this.worldmap;
+	this.mode = function(value) {
+		if (typeof value !== 'undefined') {
+			this.properties.mode = value;
+		}
+		return this.properties.mode;
 	};
 
 	/**
-	 * Set the id of the current worldmap.
+	 * Get/set the id of the current worldmap.
 	 *
 	 * @public
 	 * @param {Number} value
-	 * @returns {civitas.game}
+	 * @returns {Number}
 	 */
-	this.set_worldmap = function(value) {
-		this.worldmap = value;
-		return this;
+	this.worldmap = function() {
+		if (typeof value !== 'undefined') {
+			this.properties.worldmap = value;
+		}
+		return this.properties.worldmap;
 	};
 
 	/**
@@ -11650,7 +11609,7 @@ civitas.game = function () {
 	 * 
 	 * @public
 	 * @param {Object} value
-	 * @returns {civitas.game}
+	 * @returns {Object}
 	 */
 	this.date = function(value) {
 		if (typeof value !== 'undefined') {
@@ -11783,7 +11742,7 @@ civitas.game.prototype._load_settlement = function (data) {
  * @returns {civitas.game}
  */
 civitas.game.prototype._create_settlement = function (name, cityname, nation, climate, avatar) {
-	var difficulty = this.get_difficulty();
+	var difficulty = this.difficulty();
 	var my_settlement = new civitas.objects.settlement({
 		properties: {
 			name: cityname,
@@ -12013,8 +11972,8 @@ civitas.game.prototype.get_storage_data = function (key) {
  */
 civitas.game.prototype.import = function(data) {
 	if (data !== false) {
-		this.set_difficulty(data.difficulty);
-		this.set_worldmap(data.worldmap);
+		this.difficulty(data.difficulty);
+		this.worldmap(data.worldmap);
 		this.queue(data.queue);
 		this.achievements(data.achievements);
 		this.date(data.date);
@@ -12044,12 +12003,12 @@ civitas.game.prototype.export = function(to_local_storage, slot) {
 	}
 	var data = {
 		settlements: settlements_list,
-		difficulty: this.get_difficulty(),
+		difficulty: this.difficulty(),
 		achievements: this.achievements(),
 		black_market: this.get_black_market(),
 		date: this.date(),
 		queue: this.queue(),
-		worldmap: this.get_worldmap(),
+		worldmap: this.worldmap(),
 		settings: this.get_settings()
 	};
 	if (to_local_storage === true) {
@@ -13666,7 +13625,7 @@ civitas.PANEL_WORLD = {
 	on_show: function(params) {
 		var self = this;
 		var core = this.core();
-		var map = core.get_worldmap();
+		var map = core.worldmap();
 		$(this.handle + ' section').append('<div class="worldmap"></div>');
 		$(this.handle + ' .worldmap').addClass('w' + map);
 		$(this.handle).on('click', '.settlement', function () {

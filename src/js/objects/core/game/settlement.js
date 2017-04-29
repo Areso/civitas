@@ -88,7 +88,7 @@ civitas.game.prototype._load_settlement = function (data) {
  * @returns {civitas.game}
  */
 civitas.game.prototype._create_settlement = function (name, cityname, nation, climate, avatar) {
-	var difficulty = this.get_difficulty();
+	var difficulty = this.difficulty();
 	var my_settlement = new civitas.objects.settlement({
 		properties: {
 			name: cityname,

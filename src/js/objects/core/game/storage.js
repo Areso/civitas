@@ -121,8 +121,8 @@ civitas.game.prototype.get_storage_data = function (key) {
  */
 civitas.game.prototype.import = function(data) {
 	if (data !== false) {
-		this.set_difficulty(data.difficulty);
-		this.set_worldmap(data.worldmap);
+		this.difficulty(data.difficulty);
+		this.worldmap(data.worldmap);
 		this.queue(data.queue);
 		this.achievements(data.achievements);
 		this.date(data.date);
@@ -152,12 +152,12 @@ civitas.game.prototype.export = function(to_local_storage, slot) {
 	}
 	var data = {
 		settlements: settlements_list,
-		difficulty: this.get_difficulty(),
+		difficulty: this.difficulty(),
 		achievements: this.achievements(),
 		black_market: this.get_black_market(),
 		date: this.date(),
 		queue: this.queue(),
-		worldmap: this.get_worldmap(),
+		worldmap: this.worldmap(),
 		settings: this.get_settings()
 	};
 	if (to_local_storage === true) {
