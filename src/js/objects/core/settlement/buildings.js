@@ -157,7 +157,7 @@ civitas.objects.settlement.prototype.build = function(building_type) {
 		this.raise_prestige();
 		if (this.is_player()) {
 			this.core().save_and_refresh();
-			this.core().notify('New building constructed: ' + _building.get_name());
+			this.core().notify('A new ' + _building.get_name() + ' was just constructed in your city.');
 			$('.tips').tipsy({
 				gravity: $.fn.tipsy.autoNS,
 				html: true

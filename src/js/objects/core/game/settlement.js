@@ -11,7 +11,7 @@ civitas.game.prototype._process_settlements = function() {
 		if (typeof settlements[i] !== 'undefined' && settlements[i].is_city()) {
 			if (i > 1) {
 				if (settlements[i].ai().process()) {
-					console.log('AI for ' + settlements[i].name() + ' processed!');
+					//console.log('AI for ' + settlements[i].name() + ' processed!');
 				}
 			}
 			// For now, process just the player settlement.

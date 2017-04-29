@@ -37,99 +37,7 @@ civitas.objects.settlement.prototype.coins = function(value) {
 	}
 	return this.resources.coins;
 };
-		
-/**
- * Remove a specific amount of a resource silently from this settlement's storage.
- * 
- * @public
- * @param {String} resource
- * @param {Number} amount
- * @returns {Boolean}
- */
-civitas.objects.settlement.prototype.remove_resource_silent = function(resource, amount) {
-	var resources = this.get_resources();
-	resources[resource] = resources[resource] - amount;
-	if (resources[resource] < 0) {
-		resources[resource] = 0;
-	}
-	return true;
-};
-	
-/**
- * Remove a specific amount of a resource from this settlement's storage.
- * 
- * @public
- * @param {String} resource
- * @param {Number} amount
- * @returns {Boolean}
- */
-civitas.objects.settlement.prototype.remove_resource = function(resource, amount) {
-	var resources = this.get_resources();
-	if (!this.has_resources(resource, amount)) {
-		return false;
-	}
-	resources[resource] = resources[resource] - amount;
-	return true;
-};
-	
-/**
- * Remove resources from this settlement's storage.
- * 
- * @public
- * @param {Object} resources
- * @returns {Boolean}
- */
-civitas.objects.settlement.prototype.remove_resources = function(resources) {
-	var res = this.get_resources();
-	for (var resource in resources) {
-		if (!this.has_resources(resource, resources[resource])) {
-			return false;
-		}
-	}
-	for (var resource in resources) {
-		res[resource] = res[resource] - resources[resource];
-	}
-	return true;
-};
 
-/**
- * Check if the settlement has a specific storage space.
- * 
- * @public
- * @param {Number} quantity
- * @returns {Boolean}
- */
-civitas.objects.settlement.prototype.has_storage_space_for = function(quantity) {
-	var storage = this.storage();
-	if (!this.has_storage_space(true)) {
-		return false;
-	}
-	if ((storage.occupied + quantity) > storage.all) {
-		//this.core().error('There is no storage space in your city to accomodate the new goods.');
-		return false;
-	}
-	return true;
-};
-	
-/**
- * Check if this settlement has enough storage space.
- * 
- * @public
- * @returns {Boolean}
- */
-civitas.objects.settlement.prototype.has_storage_space = function(alert) {
-	var storage = this.storage();
-	if (storage.occupied >= storage.all) {
-		if (alert === true) {
-			if (this.is_player()) {
-				this.core().error('There is no storage space in your city.');
-			}
-		}
-		return false;
-	}
-	return true;
-};
-	
 /**
  * Get/set the storage space of this settlement.
  * 
@@ -158,7 +66,7 @@ civitas.objects.settlement.prototype.storage = function(value) {
  * @private
  * @returns {Object}
  */
-civitas.objects.settlement.prototype._build_resources = function(_resources) {
+civitas.objects.settlement.prototype._fill_resources = function(_resources) {
 	var difficulty = this.core().difficulty();
 	var _trades = {};
 	if (!this.is_player()) {
@@ -197,9 +105,9 @@ civitas.objects.settlement.prototype._build_resources = function(_resources) {
  */
 civitas.objects.settlement.prototype.add_to_storage = function(item, amount) {
 	if (!civitas.utils.resource_exists(item)) {
-		if (this.is_player()) {
-			this.core().error('The resource you specified does not exist.');
-		}
+		return false;
+	}
+	if (!this.has_storage_space_for(item, amount)) {
 		return false;
 	}
 	var res = this.get_resources();
@@ -230,27 +138,102 @@ civitas.objects.settlement.prototype.has_coins = function(coins, alert) {
 	}
 	return true;
 };
-	
+
 /**
- * Check if this settlement has the specified goods in storage.
- * 
+ * Remove the specified resources from the settlement's storage.
+ *
+ * @public
+ * @param {Object} resources
+ * @returns {Boolean}
+ */
+civitas.objects.settlement.prototype.remove_resources = function(resources) {
+	var good = true;
+	for (var item in resources) {
+		good = this.remove_resource(item, resources[item]);
+		if (good === false) {
+			return false;
+		}
+	}
+	return true;
+};
+
+/**
+ * Remove the amount of specified resource from the settlement's storage.
+ *
  * @public
  * @param {String} resource
  * @param {Number} amount
  * @returns {Boolean}
  */
-civitas.objects.settlement.prototype.has_resources = function(resource, amount) {
-	if (!civitas.utils.resource_exists(resource)) {
-		if (this.is_player()) {
-			this.core().error('The resource you specified does not exist.');
+civitas.objects.settlement.prototype.remove_resource = function(resource, amount) {
+	var resources = this.get_resources();
+	resources[resource] = resources[resource] - amount;
+	if (resources[resource] < 0) {
+		resources[resource] = 0;
+	}
+	return true;
+};
+
+/**
+ * Check if the settlement has storage space for the amount of specified resource.
+ *
+ * @public
+ * @param {String|Object} resources
+ * @param {Number} amount
+ * @returns {Boolean}
+ */
+civitas.objects.settlement.prototype.has_storage_space_for = function(resources, amount) {
+	var total = 0;
+	if (typeof amount === 'undefined') {
+		for (var item in resources) {
+			if ($.inArray(item, civitas.NON_RESOURCES) === -1) {
+				total += resources[item];
+			}
 		}
+	} else {
+		if ($.inArray(resources, civitas.NON_RESOURCES) === -1) {
+			total += amount;
+		}
+	}
+	var storage = this.storage();
+	if ((storage.occupied + total) > storage.all) {
 		return false;
 	}
-	var res = this.get_resources();
-	if ((res[resource] - amount) < 0) {
-		if (this.is_player()) {
-			this.core().error(this.name() + ' does not have enough ' + civitas.utils.get_resource_name(resource) + '.');
+	return true;
+};
+
+/**
+ * Check if the settlement has the specified resources.
+ *
+ * @public
+ * @param {Object} resources
+ * @returns {Boolean}
+ */
+civitas.objects.settlement.prototype.has_resources = function(resources) {
+	var good = true;
+	for (var item in resources) {
+		good = this.has_resource(item, resources[item]);
+		if (good === false) {
+			return false;
 		}
+	}
+	return good;
+};
+
+/**
+ * Check if the settlement has the amount of specified resource.
+ *
+ * @public
+ * @param {String} resource
+ * @param {Number} amount
+ * @returns {Boolean}
+ */
+civitas.objects.settlement.prototype.has_resource = function(resource, amount) {
+	var resources = this.get_resources();
+	if (!civitas.utils.resource_exists(resource)) {
+		return false;
+	}
+	if (resources[resource] - amount < 0) {
 		return false;
 	}
 	return true;

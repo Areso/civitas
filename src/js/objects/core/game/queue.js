@@ -232,6 +232,9 @@ civitas.game.prototype.add_to_queue = function(source_settlement, destination_se
 					merged[prop] = mission_costs[prop];
 				}
 			}
+			if (!source_settlement.has_resources(merged)) {
+				return false;
+			}
 			if (!source_settlement.remove_resources(merged)) {
 				return false;
 			}
@@ -269,6 +272,9 @@ civitas.game.prototype.add_to_queue = function(source_settlement, destination_se
 					mission_costs[item] = Math.ceil((civitas.SPY_COSTS[item] * duration) / 2);
 				}
 			}
+			if (!source_settlement.has_resources(merged)) {
+				return false;
+			}
 			if (!source_settlement.remove_resources(mission_costs)) {
 				return false;
 			}
@@ -296,6 +302,9 @@ civitas.game.prototype.add_to_queue = function(source_settlement, destination_se
 				} else {
 					merged[prop] = mission_costs[prop];
 				}
+			}
+			if (!source_settlement.has_resources(merged)) {
+				return false;
 			}
 			if (!source_settlement.remove_resources(merged)) {
 				return false;

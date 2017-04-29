@@ -261,12 +261,20 @@ civitas.NOTIFICATION_MISSING_RESOURCES = 1;
 civitas.NOTIFICATION_PRODUCTION_PAUSED = 2;
 
 /**
+ * When a building is notifying the player it is missing its requirements.
+ *
+ * @constant
+ * @type {Number}
+ */
+civitas.NOTIFICATION_MISSING_REQUIREMENTS = 3;
+
+/**
  * When a building is notifying the player the level of the city is too low.
  *
  * @constant
  * @type {Number}
  */
-civitas.NOTIFICATION_SETTLEMENT_LOW_LEVEL = 3;
+civitas.NOTIFICATION_SETTLEMENT_LOW_LEVEL = 4;
 
 /**
  * Game type as single player (campaign, local).

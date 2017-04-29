@@ -14,7 +14,8 @@ civitas.PANEL_STORAGE = {
 		var storage_space = settlement.storage();
 		var _t = '<div class="main-storage"></div>' +
 			'<div class="extra-storage hidden"></div>' +
-			'<p class="clearfix">' + civitas.l('Total storage space') + ': ' + storage_space.all + ', ' + civitas.l('used') + ': ' + storage_space.occupied + '</p>' +
+			'<div class="clearfix"></div>' +
+			'<p>' + civitas.l('Total storage space') + ': ' + storage_space.all + ', ' + civitas.l('used') + ': ' + storage_space.occupied + '</p>' +
 			'<div class="toolbar">' +
 				'<a class="btn iblock toggle-storage" href="#">' + civitas.l('Show More Goods') + '</a>' +
 			'</div>';

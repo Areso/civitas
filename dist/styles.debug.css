@@ -2,7 +2,7 @@
  * Civitas empire-building game.
  *
  * @author sizeof(cat) <sizeofcat AT riseup.net>
- * @version 0.1.0.4292017
+ * @version 0.1.0.4302017
  * @license MIT
  */ /* Main rules */
 
@@ -1060,7 +1060,7 @@ table tr td:last-child a:hover,
 
 #panel-storage {
 	max-width: 790px;
-	max-height: 640px;
+	max-height: 700px;
 	height: auto;
 }
 
@@ -1694,6 +1694,10 @@ footer a[data-panel=help] {
 
 .game .building .notification.paused {
 	background: transparent url(../images/ui/icons/notify-pause.png) no-repeat;
+}
+
+.game .building .notification.requirements {
+	background: transparent url(../images/ui/icons/notify-missing.png) no-repeat;
 }
 
 .ach.img {

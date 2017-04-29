@@ -117,10 +117,8 @@ civitas.objects.building = function(params) {
 				return false;
 			});
 			if (this.stopped === true) {
-				this.problems = true;
 				this.notify(civitas.NOTIFICATION_PRODUCTION_PAUSED);
 			} else {
-				this.problems = false;
 				this.notify();
 			}
 			this.core().refresh();
@@ -150,6 +148,25 @@ civitas.objects.building = function(params) {
 	};
 
 	/**
+	 * Calculate the upgrade costs according to the next level.
+	 *
+	 * @public
+	 * @returns {Object}
+	 */
+	this.get_upgrade_costs = function() {
+		if (this.is_upgradable()) {
+			var next_level = this.get_level() + 1;
+			var costs = {};
+			var data = this.get_building_data(this.get_type());
+			for (var item in data.cost) {
+				costs[item] = data.cost[item] * next_level;
+			}
+			return costs;
+		}
+		return false;
+	};
+
+	/**
 	 * Upgrade this building.
 	 * 
 	 * @public
@@ -162,37 +179,33 @@ civitas.objects.building = function(params) {
 		var next_level = this.get_level() + 1;
 		var data = this.get_building_data(this.get_type());
 		var building_image = this.get_type();
+		var costs = this.get_upgrade_costs();
 		if (data && this.is_upgradable() && settlement.is_building_built(this.get_type())) {
-			for (var item in data.cost) {
-				if ((resources[item] - (data.cost[item] * next_level)) < 0) {
-					if (settlement.is_player()) {
-						core.error('You don`t have enough ' + item + ' to upgrade this building.');
+			if (costs && this.get_settlement().has_resources(costs)) {
+				this.get_settlement().remove_resources(costs);
+				this.set_level(next_level);
+				if (settlement.is_player()) {
+					if (this.get_type().slice(0, 5) === 'house') {
+						building_image = this.get_type().slice(0, 5);
 					}
-					return false;
+					$('section.game .building[data-type=' + this.get_type() + ']').css({
+						'background-image': 'url(./images/buildings/' + ((typeof data.visible_upgrades === 'undefined' || data.visible_upgrades === false) ? building_image + '1' : building_image + this.get_level()) + '.png)'
+					});
 				}
-			}
-			for (var item in data.cost) {
-				if ((resources[item] - (data.cost[item] * next_level)) >= 0) {
-					resources[item] = resources[item] - (data.cost[item] * next_level);
+				if (typeof data.storage !== 'undefined') {
+					settlement.storage(settlement.storage().all + data.storage);
 				}
-			}
-			this.set_level(next_level);
-			if (settlement.is_player()) {
-				if (this.get_type().slice(0, 5) === 'house') {
-					building_image = this.get_type().slice(0, 5);
+				if (settlement.is_player()) {
+					core.save_and_refresh();
+					core.notify(this.get_name() + ' upgraded to level ' + this.get_level());
 				}
-				$('section.game .building[data-type=' + this.get_type() + ']').css({
-					'background-image': 'url(./images/buildings/' + ((typeof data.visible_upgrades === 'undefined' || data.visible_upgrades === false) ? building_image + '1' : building_image + this.get_level()) + '.png)'
-				});
+				return true;
+			} else {
+				if (settlement.is_player()) {
+					core.error('You don`t have enough resources to upgrade this building.');
+				}
+				return false;
 			}
-			if (typeof data.storage !== 'undefined') {
-				settlement.storage(settlement.storage().all + data.storage);
-			}
-			if (settlement.is_player()) {
-				core.save_and_refresh();
-				core.notify(this.get_name() + ' upgraded to level ' + this.get_level());
-			}
-			return true;
 		}
 		return false;
 	};
@@ -275,10 +288,9 @@ civitas.objects.building = function(params) {
 		if (this.get_settlement().is_building_built(this.get_type()) && this.is_production_building()) {
 			if (this.get_settlement().is_player()) {
 				this.core().notify(this.get_name() + '`s production started.');
-				this.notify();
 			}
+			this.notify();
 			this.stopped = false;
-			this.problems = false;
 			this.core().save_and_refresh();
 			return true;
 		}
@@ -295,10 +307,9 @@ civitas.objects.building = function(params) {
 		if (this.get_settlement().is_building_built(this.get_type()) && this.is_production_building()) {
 			if (this.get_settlement().is_player()) {
 				this.core().notify(this.get_name() + '`s production stopped.');
-				this.notify(civitas.NOTIFICATION_PRODUCTION_PAUSED);
 			}
+			this.notify(civitas.NOTIFICATION_PRODUCTION_PAUSED);
 			this.stopped = true;
-			this.problems = true;
 			this.core().save_and_refresh();
 			return true;
 		}
@@ -333,84 +344,16 @@ civitas.objects.building = function(params) {
 	};
 
 	/**
-	 * Internal helper method for checking if the settlement has the required material.
-	 *
-	 * @private
-	 * @param {String} material
-	 * @returns {Boolean}
-	 */
-	this._has_material = function(material, notify) {
-		var building = this.get_building_data();
-		var materials = building.materials;
-		var resources = this.get_settlement_resources();
-		if (resources[material] - materials[material] < 0) {
-			if (this.get_settlement().is_player()) {
-				if (typeof notify !== 'undefined' && notify === true) {
-					this.core().log(this.get_name() + ' doesn`t have enough ' + material + '.', true);
-				}
-				this.notify(civitas.NOTIFICATION_MISSING_RESOURCES);
-			}
-			this.problems = true;
-			return false;
-		}
-		return true;
-	};
-
-	/**
-	 * Check if the settlement has the required materials to create this building.
-	 * 
-	 * @public
-	 * @param {Array|String} materials
-	 * @returns {Boolean}
-	 */
-	this.has_materials = function(materials, notify) {
-		if (typeof materials === 'object') {
-			for (var i = 0; i < materials.length; i++) {
-				if (materials[i] !== 'coins') {
-					return this._has_material(materials[i], notify);
-				}
-			}
-		} else {
-			return this._has_material(materials, notify);
-		}
-		return true;
-	};
-
-	/**
-	 * Use the materials required for this building's production.
-	 * 
-	 * @public
-	 * @param {String|Array} material
-	 * @returns {civitas.objects.building}
-	 */
-	this.use_material = function(material) {
-		var settlement = this.get_settlement();
-		var building = this.get_building_data();
-		var _material = building.materials;
-		if (typeof material === 'object') {
-			for (var i = 0; i < material.length; i++) {
-				settlement.remove_resource(material[i], _material[material[i]]);
-				if (settlement.is_player()) {
-					this.core().log(this.get_name() + ' used ' + _material[material[i]] + ' ' + material[i] + '.');
-				}
-			}
-		} else {
-			settlement.remove_resource(material, _material[material]);
-			if (settlement.is_player()) {
-				this.core().log(this.get_name() + ' used ' + _material[material] + ' ' + material + '.');
-			}
-		}
-		return this;
-	};
-
-	/**
 	 * Get building data from the main configuration array.
 	 * 
 	 * @public
 	 * @returns {Object}
 	 */
-	this.get_building_data = function() {
-		return civitas.BUILDINGS[civitas.BUILDINGS.findIndexM(this.type)];
+	this.get_building_data = function(type) {
+		if (typeof type === 'undefined') {
+			type = this.type;
+		}
+		return civitas.BUILDINGS[civitas.BUILDINGS.findIndexM(type)];
 	};
 
 	/**
@@ -421,77 +364,6 @@ civitas.objects.building = function(params) {
 	 */
 	this.get_settlement_resources = function() {
 		return this.get_settlement().get_resources();
-	};
-
-	/**
-	 * Internal helper method to produce a material.
-	 *
-	 * @private
-	 * @param {String} material
-	 * @returns {civitas.objects.building}
-	 */
-	this._produce_material = function(material) {
-		if (this.is_stopped()) {
-			return this;
-		}
-		var settlement = this.get_settlement();
-		var resources = settlement.get_resources();
-		var building = this.get_building_data();
-		var production = building.production;
-		var amount = production[material] * this.get_level();
-		var chance;
-		var random_amount;
-		if (material === 'faith') {
-			this.get_settlement().raise_faith(amount);
-		} else if (material === 'research') {
-			this.get_settlement().raise_research(amount);
-		} else if (material === 'espionage') {
-			this.get_settlement().raise_espionage(amount);
-		} else if (material === 'fame') {
-			this.get_settlement().raise_fame(amount);
-		} else if (material === 'prestige') {
-			this.get_settlement().raise_prestige(amount);
-		} else {
-			if (!this.get_settlement().has_storage_space_for(amount)) {
-				return this;
-			}
-			this.get_settlement().add_to_storage(material, amount);
-			if (typeof building.chance !== 'undefined') {
-				for (var item in building.chance) {
-					chance = Math.random();
-					if (chance < building.chance[item]) {
-						random_amount = civitas.utils.get_random(1, 5);
-						if (this.get_settlement().is_player()) {
-							this.core().log(this.get_name() + ' procced ' + random_amount + ' extra ' + civitas.utils.get_resource_name(item) + '.');
-						}
-						this.get_settlement().add_to_storage(item, random_amount);
-					}
-				}
-			}
-		}
-		if (this.get_settlement().is_player()) {
-			this.core().log(this.get_name() + ' produced ' + amount + ' ' + material + '.');
-		}
-		return this;
-	};
-
-	/**
-	 * Produce the materials.
-	 * 
-	 * @public
-	 * @param {String|Array} material
-	 * @returns {civitas.objects.building}
-	 */
-	this.produce_material = function(material) {
-		if (typeof material === 'object') {
-			for (var i = 0; i < material.length; i++) {
-				this._produce_material(material[i]);
-			}
-		} else {
-			this._produce_material(material);
-		}
-		this.notify();
-		return this;
 	};
 
 	/**
@@ -508,25 +380,70 @@ civitas.objects.building = function(params) {
 			for (var item in required) {
 				if (!this.get_settlement().is_building_built(item, required[item])) {
 					good = false;
-					if (this.get_settlement().is_player()) {
-						this.core().log(this.get_name() + ' doesn`t have the required level ' + required[item] + ' ' + this.get_building_data(item).name + '.', true);
-						this.notify(civitas.NOTIFICATION_MISSING_RESOURCES);
-					}
-					this.problems = true;
 				}
 			}
 		}
 		if (typeof building.requires.settlement_level !== 'undefined') {
 			if (building.requires.settlement_level > this.get_settlement().level()) {
-				if (this.get_settlement().is_player()) {
-					this.core().log('Your settlement level is too low for ' + this.get_name() + ' to be active.', true);
-					this.notify(civitas.NOTIFICATION_SETTLEMENT_LOW_LEVEL);
-				}
 				good = false;
-				this.problems = true;
 			}
 		}
 		return good;
+	};
+
+	/**
+	 * Tax this building.
+	 *
+	 * @public
+	 * @param {Number} amount
+	 * @returns {Boolean}
+	 */
+	this.tax = function(amount) {
+		amount = amount * this.get_level();
+		this.get_settlement().inc_coins(amount);
+		return this;
+	};
+
+	/**
+	 * Produce the resources.
+	 *
+	 * @public
+	 * @param {Object} materials
+	 * @returns {Boolean}
+	 */
+	this.produce = function(materials) {
+		if (!this.get_settlement().has_storage_space_for(materials)) {
+			return false;
+		}
+		var settlement = this.get_settlement();
+		var chance;
+		var building = this.get_building_data();
+		var random_amount;
+		for (var item in materials) {
+			if (item === 'faith') {
+				settlement.raise_faith(materials[item]);
+			} else if (item === 'research') {
+				settlement.raise_research(materials[item]);
+			} else if (item === 'espionage') {
+				settlement.raise_espionage(materials[item]);
+			} else if (item === 'fame') {
+				settlement.raise_fame(materials[item]);
+			} else if (item === 'prestige') {
+				settlement.raise_prestige(materials[item]);
+			} else {
+				settlement.add_to_storage(item, materials[item]);
+				if (typeof building.chance !== 'undefined') {
+					for (var itemo in building.chance) {
+						chance = Math.random();
+						if (chance < building.chance[itemo]) {
+							random_amount = civitas.utils.get_random(1, 5);
+							settlement.add_to_storage(itemo, random_amount);
+						}
+					}
+				}
+			}
+		}
+		return true;
 	};
 
 	/**
@@ -536,58 +453,60 @@ civitas.objects.building = function(params) {
 	 * @returns {civitas.objects.building}
 	 */
 	this.process = function() {
-		if (!this.has_requirements()) {
-			return false;
-		}
-		var _p = [];
-		var _m = [];
 		var building = this.get_building_data();
-		var mat = building.materials;
-		for (var item in mat) {
-			_m.push(item);
-		}
+		var materials = building.materials;
 		if (building.is_housing === true) {
-			if (_m.length > 0) {
-				if (this.has_materials(_m)) {
-					this.use_material(_m);
-					var amount = building.tax * this.get_level();
-					this.get_settlement().inc_coins(amount);
-					if (this.get_settlement().is_player()) {
-						this.core().log(this.get_name() + ' gave ' + amount + ' coins via tax.');
-					}
-					this.notify();
+			if (typeof materials !== 'undefined') {
+				if (this.get_settlement().has_resources(materials)) {
+					this.get_settlement().remove_resources(materials);
+					this.tax(building.tax);
+					this.log_to_console();
+				} else {
+					this.notify(civitas.NOTIFICATION_MISSING_RESOURCES);
+					return false;
 				}
 			}
-		} else {
+		} else if (building.is_production === true) {
 			if (!this.is_stopped()) {
-				var prd = building.production;
-				for (var item in prd) {
-					_p.push(item);
-				}
+				var products = building.production;
 				if (this.has_requirements()) {
-					if (_m.length > 0) {
-						if (this.has_materials(_m)) {
-							this.use_material(_m);
-							this.produce_material(_p);
-							this.problems = false;
+					if (typeof materials !== 'undefined') {
+						if (this.get_settlement().has_resources(materials)) {
+							if (this.get_settlement().has_storage_space_for(products)) {
+								this.get_settlement().remove_resources(materials);
+								if (this.produce(products)) {
+									this.log_to_console();
+								}
+							} else {
+								this.core().log('There is no storage space in your city to accomodate the new goods.', true);
+								this.problems = true;
+								return false;
+							}
+						} else {
+							this.notify(civitas.NOTIFICATION_MISSING_RESOURCES);
+							return false;
 						}
 					} else {
-						this.produce_material(_p);
-						this.problems = false;
+						if (this.get_settlement().has_storage_space_for(products)) {
+							if (this.produce(products)) {
+								this.log_to_console();
+							}
+						} else {
+							this.core().log('There is no storage space in your city to accomodate the new goods.', true);
+							this.problems = true;
+							return false;
+						}
 					}
-					this.notify();
 				} else {
-					this.problems = true;
+					this.notify(civitas.NOTIFICATION_MISSING_REQUIREMENTS);
+					return false;
 				}
 			} else {
-				if (this.get_settlement().is_player()) {
-					this.core().log(this.get_name() + ' production is stopped.');
-					this.notify(civitas.NOTIFICATION_PRODUCTION_PAUSED);
-				}
-				this.problems = true;
+				this.notify(civitas.NOTIFICATION_PRODUCTION_PAUSED);
+				return false;
 			}
 		}
-		return this;
+		return true;
 	};
 
 	/**
@@ -685,6 +604,32 @@ civitas.objects.building = function(params) {
 		return this.handle;
 	};
 
+	this.log_to_console = function() {
+		this.notify();
+		var building = this.get_building_data();
+		var _p = '';
+		var _m = '';
+		if (typeof building.production !== 'undefined') {
+			for (var item in building.production) {
+				_p += (building.production[item] * this.get_level()) + ' ' + item + ', ';
+			}
+			_p = _p.substring(0, _p.length - 2);
+		}
+		if (typeof building.materials !== 'undefined') {
+			for (var item in building.materials) {
+				_m += building.materials[item] + ' ' + item + ', ';
+			}
+			_m = _m.substring(0, _m.length - 2);
+		}
+		if (typeof building.tax !== 'undefined') {
+			this.core().log(this.get_name() + ' used ' + _m + ' and produced ' + (building.tax * this.get_level()) + ' coins.');
+		} else if (typeof building.production !== 'undefined' && typeof building.materials === 'undefined') {
+			this.core().log(this.get_name() + ' produced ' + _p + '.');
+		} else {
+			this.core().log(this.get_name() + ' used ' + _m + ' and produced ' + _p + '.');
+		}
+	};
+
 	/**
 	 * Perform building notifications.
 	 *
@@ -694,20 +639,34 @@ civitas.objects.building = function(params) {
 	 */
 	this.notify = function(notification_type) {
 		if (typeof notification_type !== 'undefined') {
+			this.problems = true;
 			if (this.get_settlement().is_player()) {
 				var handle = $('section.game > #building-' + this.get_handle());
 				switch (notification_type) {
+					case civitas.NOTIFICATION_MISSING_REQUIREMENTS:
+						this.core().log(this.get_name() + ' doesn`t have one of the buildings required to be operational.', true);
+						handle.empty().append('<span class="notification requirements"></span>');
+						break;
 					case civitas.NOTIFICATION_PRODUCTION_PAUSED:
+						this.core().log(this.get_name() + '`s production is stopped.', true);
 						handle.empty().append('<span class="notification paused"></span>');
+						break;
+					case civitas.NOTIFICATION_SETTLEMENT_LOW_LEVEL:
+						this.core().log('Your settlement level is too low for ' + this.get_name() + ' to be active.', true);
+						handle.empty().append('<span class="notification lowlevel"></span>');
 						break;
 					case civitas.NOTIFICATION_MISSING_RESOURCES:
 					default:
+						this.core().log(this.get_name() + ' is missing materials for production.', true);
 						handle.empty().append('<span class="notification error"></span>');
 						break;
 				}
 			}
 		} else {
-			$('section.game > #building-' + this.get_handle()).empty();
+			this.problems = false;
+			if (this.get_settlement().is_player()) {
+				$('section.game > #building-' + this.get_handle()).empty();
+			}
 		}
 		return this;
 	};

@@ -62,7 +62,8 @@ civitas.game.prototype.check_achievements = function() {
 				}
 				if (cond_item === 'storage') {
 					if (condition === 0) {
-						if (!settlement.has_storage_space()) {
+						var storage = settlement.storage();
+						if (storage.occupied >= storage.all) {
 							this.achievement(i, achievement);
 						}
 					}

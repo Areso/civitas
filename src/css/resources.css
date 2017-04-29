@@ -230,6 +230,10 @@ footer a[data-panel=help] {
 	background: transparent url(../images/ui/icons/notify-pause.png) no-repeat;
 }
 
+.game .building .notification.requirements {
+	background: transparent url(../images/ui/icons/notify-missing.png) no-repeat;
+}
+
 .ach.img {
 	background: transparent url(../images/ui/icon_achievement.png) no-repeat;
 }

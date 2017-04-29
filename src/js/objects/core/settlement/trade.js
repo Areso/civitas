@@ -62,9 +62,13 @@ civitas.objects.settlement.prototype.buy_from_settlement = function(settlement, 
 				var settlement_price = civitas.utils.calc_price(amount, item);
 				var item_discount_price = Math.ceil(civitas.RESOURCES[item].price + discount);
 				if (!this.has_storage_space_for(amount)) {
+					this.core().error(this.name() + ' does not have enough storage space for <strong>' + amount + '</strong> ' + civitas.utils.get_resource_name(item) + '.');
 					return false;
 				}
 				if (this.dec_coins(price) === false) {
+					return false;
+				}
+				if (!_settlement.has_resource(item, amount)) {
 					return false;
 				}
 				if (!_settlement.remove_resource(item, amount)) {
@@ -78,7 +82,7 @@ civitas.objects.settlement.prototype.buy_from_settlement = function(settlement, 
 				this.raise_fame(50);
 				this.core().refresh();
 				if (this.is_player()) {
-					this.core().notify(this.name() + ' bought <strong>' + amount + '</strong> ' + civitas.utils.get_resource_name(item) + ' from ' + settlement + ' for <strong>' + item_discount_price + '</strong> coins each, for a total of <strong>' + price + '</strong> coins.', civitas.l('World Market'));
+					this.core().notify(this.name() + ' bought <strong>' + amount + '</strong> ' + civitas.utils.get_resource_name(item) + ' from ' + settlement + ' for <strong>' + item_discount_price + '</strong> ' + civitas.utils.get_resource_name('coins') + ' each, for a total of <strong>' + price + '</strong> ' + civitas.utils.get_resource_name('coins') + '.', civitas.l('World Market'));
 				}
 				return {
 					buyer: this.name(),
@@ -173,19 +177,19 @@ civitas.objects.settlement.prototype.add_black_market = function (resource, amou
  */
 civitas.objects.settlement.prototype.list_black_market = function(resource, amount) {
 	if (!civitas.utils.resource_exists(resource)) {
-		if (this.is_player()) {
-			this.core().error('The resource you specified does not exist.');
-		}
 		return false;
 	}
 	var resources = this.get_resources();
+	if (!this.has_resource(resource, amount)) {
+		return false;
+	}
 	if (this.remove_resource(resource, amount)) {
 		var discount = Math.ceil((civitas.RESOURCES[resource].price * civitas.BLACK_MARKET_DISCOUNT) / 100);
 		var price = civitas.utils.calc_price_minus_discount(amount, resource, discount);
 		this.add_black_market(resource, amount, price);
 		this.core().refresh();
 		if (this.is_player()) {
-			this.core().notify(this.name() + ' placed ' + amount + ' ' + civitas.utils.get_resource_name(resource) + ' on the Black Market and will receive ' + price + ' coins next month.', civitas.l('Black Market'));
+			this.core().notify(this.name() + ' placed ' + amount + ' ' + civitas.utils.get_resource_name(resource) + ' on the Black Market and will receive ' + price + ' ' + civitas.utils.get_resource_name('coins') + ' next month.', civitas.l('Black Market'));
 		}
 		return {
 			seller: this.name(),
@@ -251,13 +255,17 @@ civitas.objects.settlement.prototype.sell_to_settlement = function(settlement, r
 				var price = civitas.utils.calc_price_minus_discount(amount, item, discount);
 				var settlement_price = civitas.utils.calc_price(amount, item);
 				var item_discount_price = Math.ceil(civitas.RESOURCES[item].price - discount);
+				if (!this.has_resource(item, amount)) {
+					this.core().error(this.name() + ' does not have enough ' + civitas.utils.get_resource_name(item) + ' to sell.');
+					return false;
+				}
 				if (!this.remove_resource(item, amount)) {
 					return false;
 				}
 				this.inc_coins(price);
 				if (!_settlement.dec_coins(settlement_price)) {
 					if (this.is_player()) {
-						this.core().error(settlement + ' does not have enough coins.');
+						this.core().error(settlement + ' does not have enough ' + civitas.utils.get_resource_name('coins') + '.');
 					}
 					return false;
 				}
@@ -268,7 +276,7 @@ civitas.objects.settlement.prototype.sell_to_settlement = function(settlement, r
 				this.raise_fame(50);
 				this.core().refresh();
 				if (this.is_player()) {
-					this.core().notify(this.name() + ' sold <strong>' + amount + '</strong> ' + civitas.utils.get_resource_name(item) + ' to ' + settlement + ' for <strong>' + item_discount_price + '</strong> coins each, for a total of <strong>' + price + '</strong> coins.', civitas.l('World Market'));
+					this.core().notify(this.name() + ' sold <strong>' + amount + '</strong> ' + civitas.utils.get_resource_name(item) + ' to ' + settlement + ' for <strong>' + item_discount_price + '</strong> ' + civitas.utils.get_resource_name('coins') + ' each, for a total of <strong>' + price + '</strong> ' + civitas.utils.get_resource_name('coins') + '.', civitas.l('World Market'));
 				}
 				return {
 					seller: this.name(),

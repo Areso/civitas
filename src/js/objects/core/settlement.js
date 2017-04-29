@@ -132,7 +132,7 @@ civitas.objects.settlement = function(params) {
 		this._mercenary = (typeof params.mercenary !== 'undefined') ? params.mercenary : [];
 		this._status = (typeof params.status !== 'undefined') ? params.status : {};
 		this._heroes = (typeof params.heroes !== 'undefined') ? params.heroes : [];
-		this.resources = this._build_resources(params.resources);
+		this.resources = this._fill_resources(params.resources);
 		if (typeof params.trades !== 'undefined') {
 			this.trades = params.trades;
 		} else {
@@ -231,7 +231,9 @@ civitas.objects.settlement = function(params) {
 		if (this.is_player()) {
 			this.core().refresh_panels();
 			$('.citylevel').html(this.properties.level);
-			this.core().notify('The city of ' + this.name() + ' is now level ' + this.properties.level + '.');
+			this.core().notify('Your city is now level ' + this.properties.level + '.');
+		} else {
+			this.core().log('The city of ' + this.name() + ' is now level ' + this.properties.level + '.');
 		}
 		return this;
 	};

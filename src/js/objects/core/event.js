@@ -97,7 +97,9 @@ civitas.objects.event = function (params) {
 				if (item === 'influence') {
 					core.get_settlement().raise_influence(with_settlement.id(), this._raise[item]);
 				} else {
-					core.get_settlement().add_to_storage(item, this._raise[item]);
+					if (core.get_settlement().has_storage_space_for(item, this._raise[item])) {
+						core.get_settlement().add_to_storage(item, this._raise[item]);
+					}
 				}
 				var replace = new RegExp(item.toUpperCase(), 'g');
 				description = description.replace(replace, this._raise[item]);
@@ -108,7 +110,7 @@ civitas.objects.event = function (params) {
 				if (item === 'influence') {
 					core.get_settlement().lower_influence(with_settlement.id(), this._lower[item]);
 				} else {
-					core.get_settlement().remove_resource_silent(item, this._lower[item]);
+					core.get_settlement().remove_resource(item, this._lower[item]);
 				}
 				var replace = new RegExp(item.toUpperCase(), 'g');
 				description = description.replace(replace, this._lower[item]);
