@@ -10,6 +10,15 @@ civitas.PANEL_STORAGE = {
 	on_show: function(params) {
 		var self = this;
 		var core = this.core();
+		var settlement = core.get_settlement();
+		var storage_space = settlement.storage();
+		var _t = '<div class="main-storage"></div>' +
+			'<div class="extra-storage hidden"></div>' +
+			'<p class="clearfix">' + civitas.l('Total storage space') + ': ' + storage_space.all + ', ' + civitas.l('used') + ': ' + storage_space.occupied + '</p>' +
+			'<div class="toolbar">' +
+				'<a class="btn iblock toggle-storage" href="#">' + civitas.l('Show More Goods') + '</a>' +
+			'</div>';
+		$(this.handle + ' section').empty().append(_t);
 		$(this.handle).on('click', '.toggle-storage', function () {
 			if ($('.toggle-storage').html() === civitas.l('Show Less Goods')) {
 				self.expanded = false;
@@ -25,8 +34,6 @@ civitas.PANEL_STORAGE = {
 	on_refresh: function() {
 		var settlement = this.core().get_settlement();
 		var resources = settlement.get_resources();
-		var storage_space = settlement.storage();
-		var out = '<div class="main-storage">';
 		var main_storage = '';
 		var extra_storage = '';
 		for (var resource in resources) {
@@ -38,19 +45,7 @@ civitas.PANEL_STORAGE = {
 				}
 			}
 		}
-		out += main_storage;
-		out += '</div>';
-		out += '<div class="extra-storage hidden">';
-		out += extra_storage;
-		out += '</div>';
-		out += '<div class="clearfix"></div>' +
-				'<p>' + civitas.l('Total storage space') + ': ' + storage_space.all + ', ' + civitas.l('used') + ': ' + storage_space.occupied + '</p>' +
-		'<div class="toolbar">' +
-			'<a class="btn iblock toggle-storage" href="#">' + civitas.l('Show More Goods') + '</a>' +
-		'</div>';
-		$(this.handle + ' section').empty().append(out);
-		if (this.expanded === true) {
-			$(this.handle + ' .toggle-storage').trigger('click');
-		}
+		$(this.handle + ' .main-storage').empty().append(main_storage);
+		$(this.handle + ' .extra-storage').empty().append(extra_storage);
 	}
 };

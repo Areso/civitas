@@ -134,7 +134,7 @@ civitas.BLACK_MARKET_DISCOUNT = 80;
  * @constant
  * @type {Number}
  */
-civitas.WORLDMAPS = 10;
+civitas.WORLDMAPS = 9;
 
 /**
  * The resources that will be shown on the toolbar.
@@ -7572,30 +7572,35 @@ civitas.objects.settlement = function(params) {
 			advices.push('You have a small navy, try to construct some more ships.');
 		}
 		if (storage.occupied >= storage.all) {
-			advices.push('You have no storage space to store your new goods and they ' +
-				'will be lost. Sell some goods or build a warehouse.');
+			advices.push('You have no storage space to store your new goods and they will be lost. Sell some goods or build a warehouse.');
 		} else if ((storage.all - storage.occupied) < 100) {
-			advices.push('You will soon run out of storage space and all goods produced ' +
-				'will be lost. Sell some goods or build a warehouse.');
+			advices.push('You will soon run out of storage space and all goods produced will be lost. Sell some goods or build a warehouse.');
 		}
 		if (resources.coins < 1000) {
-			advices.push('You seem to be losing coins fast, sell some goods or upgrade ' +
-				'your houses to get better taxes.');
+			advices.push('You seem to be losing coins fast, sell some goods or upgrade your houses to get better taxes.');
 		}
 		if (resources.wood < 100 || resources.stones < 100 || resources.woodplanks < 50) {
-			advices.push('You are lacking construction materials, buy some stones, wood ' +
-				'planks and/or wood off the World Trade Market.');
+			advices.push('You are lacking construction materials, buy some stones, wood planks and/or wood off the World Trade Market.');
 		}
 		if (resources.prestige < 100) {
 			advices.push('Your settlement`s prestige is too low, start doing trades with the other settlements to improve it.');
 		}
-		if (resources.faith >= 999) {
+		if (resources.faith < 100) {
+			advices.push('Your settlement`s faith is too low, build a Church or upgrade it to be able to gather faith and choose/switch reglinios.');
+		}
+		if (resources.faith === civitas.MAX_FAITH_VALUE) {
 			advices.push('You are at maximum faith, start using it from your settlement`s Church.');
 		}
-		if (resources.research >= 999) {
+		if (resources.research < 100) {
+			advices.push('Your settlement`s research is too low, build an Academy or upgrade it to be able to gather research and use it.');
+		}
+		if (resources.research === civitas.MAX_RESEARCH_VALUE) {
 			advices.push('You are at maximum research, start using it for settlement researches, from your Academy.');
 		}
-		if (resources.espionage >= 999) {
+		if (resources.espionage < 100) {
+			advices.push('Your settlement`s espionage is too low, build an Embassy or upgrade it to be able to gather espionage.');
+		}
+		if (resources.espionage === civitas.MAX_ESPIONAGE_VALUE) {
 			advices.push('You are at maximum espionage, start using it for espionage missiong from your Embassy.');
 		}
 		if (resources.coins > 100000) {
@@ -7604,7 +7609,7 @@ civitas.objects.settlement = function(params) {
 		for (var item in this.resources) {
 			if ($.inArray(item, civitas.NON_RESOURCES) === -1) {
 				if (resources[item] > 1000) {
-					advices.push('You seem to have a surplus of ' + civitas.utils.get_resource_name(item) + '. You can sell some and get coins instead.');
+					advices.push('You seem to have a surplus of ' + civitas.utils.get_resource_name(item) + '. You can sell some or place it on the Black Market and get coins instead.');
 				}
 			}
 		}
@@ -11572,7 +11577,7 @@ civitas.game = function () {
 	 * @param {Number} value
 	 * @returns {Number}
 	 */
-	this.worldmap = function() {
+	this.worldmap = function(value) {
 		if (typeof value !== 'undefined') {
 			this.properties.worldmap = value;
 		}
@@ -11993,10 +11998,9 @@ civitas.game.prototype.import = function(data) {
  *
  * @public
  * @param {Boolean} to_local_storage
- * @param {Number} slot
  * @returns {Object}
  */
-civitas.game.prototype.export = function(to_local_storage, slot) {
+civitas.game.prototype.export = function(to_local_storage) {
 	var settlement = this.get_settlement();
 	var settlements_list = [];
 	for (var i = 0; i < this.settlements.length; i++) {
@@ -12017,11 +12021,7 @@ civitas.game.prototype.export = function(to_local_storage, slot) {
 			date: Number(new Date()),
 			data: data
 		}
-		if (typeof slot !== 'undefined') {
-			this.set_storage_data('save' + slot, new_data);
-		} else {
-			this.set_storage_data('live', new_data);
-		}
+		this.set_storage_data('live', new_data);
 		return new_data;
 	}
 	return data;
@@ -13570,6 +13570,15 @@ civitas.PANEL_STORAGE = {
 	on_show: function(params) {
 		var self = this;
 		var core = this.core();
+		var settlement = core.get_settlement();
+		var storage_space = settlement.storage();
+		var _t = '<div class="main-storage"></div>' +
+			'<div class="extra-storage hidden"></div>' +
+			'<p class="clearfix">' + civitas.l('Total storage space') + ': ' + storage_space.all + ', ' + civitas.l('used') + ': ' + storage_space.occupied + '</p>' +
+			'<div class="toolbar">' +
+				'<a class="btn iblock toggle-storage" href="#">' + civitas.l('Show More Goods') + '</a>' +
+			'</div>';
+		$(this.handle + ' section').empty().append(_t);
 		$(this.handle).on('click', '.toggle-storage', function () {
 			if ($('.toggle-storage').html() === civitas.l('Show Less Goods')) {
 				self.expanded = false;
@@ -13585,8 +13594,6 @@ civitas.PANEL_STORAGE = {
 	on_refresh: function() {
 		var settlement = this.core().get_settlement();
 		var resources = settlement.get_resources();
-		var storage_space = settlement.storage();
-		var out = '<div class="main-storage">';
 		var main_storage = '';
 		var extra_storage = '';
 		for (var resource in resources) {
@@ -13598,20 +13605,8 @@ civitas.PANEL_STORAGE = {
 				}
 			}
 		}
-		out += main_storage;
-		out += '</div>';
-		out += '<div class="extra-storage hidden">';
-		out += extra_storage;
-		out += '</div>';
-		out += '<div class="clearfix"></div>' +
-				'<p>' + civitas.l('Total storage space') + ': ' + storage_space.all + ', ' + civitas.l('used') + ': ' + storage_space.occupied + '</p>' +
-		'<div class="toolbar">' +
-			'<a class="btn iblock toggle-storage" href="#">' + civitas.l('Show More Goods') + '</a>' +
-		'</div>';
-		$(this.handle + ' section').empty().append(out);
-		if (this.expanded === true) {
-			$(this.handle + ' .toggle-storage').trigger('click');
-		}
+		$(this.handle + ' .main-storage').empty().append(main_storage);
+		$(this.handle + ' .extra-storage').empty().append(extra_storage);
 	}
 };
 
@@ -14258,6 +14253,24 @@ civitas.PANEL_COUNCIL = {
 	on_show: function(params) {
 		var core = this.core();
 		$(this.handle + ' section').append(civitas.ui.tabs([civitas.l('Info'), civitas.l('Tips'), civitas.l('Production'), civitas.l('Housing'), civitas.l('Municipal'), civitas.l('Mercenary'), civitas.l('Achievements')]));
+		
+		var _t = '<div class="achievements-list">';
+		for (var i = 0; i < civitas.ACHIEVEMENTS.length; i++) {
+			_t += '<div data-id="' + i + '" class="achievement">' +
+				'<div class="left">' +
+					'<div class="ach img"></div>' +
+				'</div>' +
+				'<div class="right">' +
+					'<div class="inner">' +
+						'<h2>' + civitas.ACHIEVEMENTS[i].name + '</h2>' +
+						civitas.ACHIEVEMENTS[i].description +
+					'</div>' +
+					'<div class="time"></div>' +
+				'</div>' +
+			'</div>';
+		}
+		_t += '</div>';
+		$(this.handle + ' #tab-achievements').empty().append(_t);
 		$(this.handle).on('click', '.view-merc', function () {
 			var _army = parseInt($(this).data('id'));
 			var data = civitas.MERCENARIES[_army];
@@ -14338,26 +14351,13 @@ civitas.PANEL_COUNCIL = {
 		}
 		_t += '</div>';
 		$(this.handle + ' #tab-mercenary').empty().append(_t);
-		_t = '<div class="achievements-list">';
-		for (var i = 0; i < civitas.ACHIEVEMENTS.length; i++) {
-			var has_ach = core.has_achievement(i);
-			_t += '<div class="achievement' + (has_ach !== false ? ' has' : '') + '">' +
-				'<div class="left">' +
-					'<div class="ach img"></div>' +
-				'</div>' +
-				'<div class="right">' +
-					'<div class="inner">' +
-						'<h2>' + civitas.ACHIEVEMENTS[i].name + '</h2>' +
-						civitas.ACHIEVEMENTS[i].description +
-					'</div>' +
-					(has_ach !== false ? '<div class="time" title="' + has_ach.date + '">' +
-						'<strong>' + civitas.utils.time_since(has_ach.date) + '</strong> ago' +
-					'</div>' : '') +
-				'</div>' +
-			'</div>';
+		for (var f = 0; f < civitas.ACHIEVEMENTS.length; f++) {
+			if (core.has_achievement(f)) {
+				$(this.handle + ' .achievement[data-id=' + f + ']').addClass('has');
+			} else {
+				$(this.handle + ' .achievement[data-id=' + f + ']').removeClass('has');
+			}
 		}
-		_t += '</div>';
-		$(this.handle + ' #tab-achievements').empty().append(_t);
 		_t = '<img class="avatar" src="' + civitas.ASSETS_URL + 'images/avatars/avatar' + settlement.ruler().avatar + '.png" />' +
 				'<dl>' +
 				'<dt>' + civitas.l('Current date') + '</dt><dd class="citydate">' + core.format_date() + '</dd>' +

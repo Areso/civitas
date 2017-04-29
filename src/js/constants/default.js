@@ -113,7 +113,7 @@ civitas.BLACK_MARKET_DISCOUNT = 80;
  * @constant
  * @type {Number}
  */
-civitas.WORLDMAPS = 10;
+civitas.WORLDMAPS = 9;
 
 /**
  * The resources that will be shown on the toolbar.

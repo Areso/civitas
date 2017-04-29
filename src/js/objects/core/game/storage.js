@@ -141,10 +141,9 @@ civitas.game.prototype.import = function(data) {
  *
  * @public
  * @param {Boolean} to_local_storage
- * @param {Number} slot
  * @returns {Object}
  */
-civitas.game.prototype.export = function(to_local_storage, slot) {
+civitas.game.prototype.export = function(to_local_storage) {
 	var settlement = this.get_settlement();
 	var settlements_list = [];
 	for (var i = 0; i < this.settlements.length; i++) {
@@ -165,11 +164,7 @@ civitas.game.prototype.export = function(to_local_storage, slot) {
 			date: Number(new Date()),
 			data: data
 		}
-		if (typeof slot !== 'undefined') {
-			this.set_storage_data('save' + slot, new_data);
-		} else {
-			this.set_storage_data('live', new_data);
-		}
+		this.set_storage_data('live', new_data);
 		return new_data;
 	}
 	return data;

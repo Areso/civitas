@@ -616,7 +616,7 @@ civitas.game = function () {
 	 * @param {Number} value
 	 * @returns {Number}
 	 */
-	this.worldmap = function() {
+	this.worldmap = function(value) {
 		if (typeof value !== 'undefined') {
 			this.properties.worldmap = value;
 		}

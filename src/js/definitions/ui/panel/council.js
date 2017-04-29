@@ -9,6 +9,24 @@ civitas.PANEL_COUNCIL = {
 	on_show: function(params) {
 		var core = this.core();
 		$(this.handle + ' section').append(civitas.ui.tabs([civitas.l('Info'), civitas.l('Tips'), civitas.l('Production'), civitas.l('Housing'), civitas.l('Municipal'), civitas.l('Mercenary'), civitas.l('Achievements')]));
+		
+		var _t = '<div class="achievements-list">';
+		for (var i = 0; i < civitas.ACHIEVEMENTS.length; i++) {
+			_t += '<div data-id="' + i + '" class="achievement">' +
+				'<div class="left">' +
+					'<div class="ach img"></div>' +
+				'</div>' +
+				'<div class="right">' +
+					'<div class="inner">' +
+						'<h2>' + civitas.ACHIEVEMENTS[i].name + '</h2>' +
+						civitas.ACHIEVEMENTS[i].description +
+					'</div>' +
+					'<div class="time"></div>' +
+				'</div>' +
+			'</div>';
+		}
+		_t += '</div>';
+		$(this.handle + ' #tab-achievements').empty().append(_t);
 		$(this.handle).on('click', '.view-merc', function () {
 			var _army = parseInt($(this).data('id'));
 			var data = civitas.MERCENARIES[_army];
@@ -89,26 +107,13 @@ civitas.PANEL_COUNCIL = {
 		}
 		_t += '</div>';
 		$(this.handle + ' #tab-mercenary').empty().append(_t);
-		_t = '<div class="achievements-list">';
-		for (var i = 0; i < civitas.ACHIEVEMENTS.length; i++) {
-			var has_ach = core.has_achievement(i);
-			_t += '<div class="achievement' + (has_ach !== false ? ' has' : '') + '">' +
-				'<div class="left">' +
-					'<div class="ach img"></div>' +
-				'</div>' +
-				'<div class="right">' +
-					'<div class="inner">' +
-						'<h2>' + civitas.ACHIEVEMENTS[i].name + '</h2>' +
-						civitas.ACHIEVEMENTS[i].description +
-					'</div>' +
-					(has_ach !== false ? '<div class="time" title="' + has_ach.date + '">' +
-						'<strong>' + civitas.utils.time_since(has_ach.date) + '</strong> ago' +
-					'</div>' : '') +
-				'</div>' +
-			'</div>';
+		for (var f = 0; f < civitas.ACHIEVEMENTS.length; f++) {
+			if (core.has_achievement(f)) {
+				$(this.handle + ' .achievement[data-id=' + f + ']').addClass('has');
+			} else {
+				$(this.handle + ' .achievement[data-id=' + f + ']').removeClass('has');
+			}
 		}
-		_t += '</div>';
-		$(this.handle + ' #tab-achievements').empty().append(_t);
 		_t = '<img class="avatar" src="' + civitas.ASSETS_URL + 'images/avatars/avatar' + settlement.ruler().avatar + '.png" />' +
 				'<dl>' +
 				'<dt>' + civitas.l('Current date') + '</dt><dd class="citydate">' + core.format_date() + '</dd>' +
