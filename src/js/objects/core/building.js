@@ -202,7 +202,7 @@ civitas.objects.building = function(params) {
 				return true;
 			} else {
 				if (settlement.is_player()) {
-					core.error('You don`t have enough resources to upgrade this building.');
+					core.error('You don`t have enough resources to upgrade your ' + this.get_name() + '.');
 				}
 				return false;
 			}
@@ -367,28 +367,59 @@ civitas.objects.building = function(params) {
 	};
 
 	/**
-	 * Check if this building has the required additional buildings for production.
-	 * 
+	 * Check if this building has all the buildings requirements.
+	 *
 	 * @public
 	 * @returns {Boolean}
 	 */
-	this.has_requirements = function() {
+	this.has_building_requirements = function() {
 		var good = true;
 		var building = this.get_building_data();
 		if (typeof building.requires.buildings !== 'undefined') {
 			var required = building.requires.buildings;
 			for (var item in required) {
 				if (!this.get_settlement().is_building_built(item, required[item])) {
-					good = false;
+					var parent = this.get_settlement().get_building(item);
+					if (parent) {
+						good = parent.has_building_requirements();
+						if (good === false) {
+							return false;
+						}
+					} else {
+						return false;
+					}
+				} else {
+					return false;
 				}
 			}
 		}
+		return good;
+	};
+
+	/**
+	 * Check if this building has all the settlement level requirements.
+	 *
+	 * @public
+	 * @returns {Boolean}
+	 */
+	this.has_settlement_requirements = function() {
+		var building = this.get_building_data();
 		if (typeof building.requires.settlement_level !== 'undefined') {
 			if (building.requires.settlement_level > this.get_settlement().level()) {
-				good = false;
+				return false;
 			}
 		}
-		return good;
+		return true;
+	};
+
+	/**
+	 * Check if this building has all the requirements.
+	 *
+	 * @public
+	 * @returns {Boolean}
+	 */
+	this.has_requirements = function() {
+		return this.has_building_requirements() && this.has_settlement_requirements();
 	};
 
 	/**
@@ -469,7 +500,7 @@ civitas.objects.building = function(params) {
 		} else if (building.is_production === true) {
 			if (!this.is_stopped()) {
 				var products = building.production;
-				if (this.has_requirements()) {
+				if (this._has_requirements()) {
 					if (typeof materials !== 'undefined') {
 						if (this.get_settlement().has_resources(materials)) {
 							if (this.get_settlement().has_storage_space_for(products)) {
