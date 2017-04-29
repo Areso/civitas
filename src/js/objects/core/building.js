@@ -500,7 +500,7 @@ civitas.objects.building = function(params) {
 		} else if (building.is_production === true) {
 			if (!this.is_stopped()) {
 				var products = building.production;
-				if (this._has_requirements()) {
+				if (this.has_requirements()) {
 					if (typeof materials !== 'undefined') {
 						if (this.get_settlement().has_resources(materials)) {
 							if (this.get_settlement().has_storage_space_for(products)) {
