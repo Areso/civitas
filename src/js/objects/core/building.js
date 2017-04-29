@@ -374,22 +374,21 @@ civitas.objects.building = function(params) {
 	 */
 	this.has_building_requirements = function() {
 		var good = true;
+		var parent;
 		var building = this.get_building_data();
 		if (typeof building.requires.buildings !== 'undefined') {
 			var required = building.requires.buildings;
 			for (var item in required) {
-				if (!this.get_settlement().is_building_built(item, required[item])) {
-					var parent = this.get_settlement().get_building(item);
+				if (this.get_settlement().is_building_built(item, required[item])) {
+					parent = this.get_settlement().get_building(item);
 					if (parent) {
-						good = parent.has_building_requirements();
+						good = parent.has_building_requirements() && parent.has_settlement_requirements()
 						if (good === false) {
 							return false;
 						}
 					} else {
 						return false;
 					}
-				} else {
-					return false;
 				}
 			}
 		}
