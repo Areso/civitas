@@ -130,11 +130,19 @@ gulp.task('lib', function() {
 
 gulp.task('css', function() {
 	del([
-		'dist/styles.*.js'
+		'dist/styles.*.css'
     ]);
 	return gulp.src([
 	  	'src/css/main.css',
-		'src/css/resources.css'
+	  	'src/css/modal.css',
+	  	'src/css/notification.css',
+	  	'src/css/panel.css',
+	  	'src/css/progress.css',
+		'src/css/resources.css',
+		'src/css/table.css',
+		'src/css/tabs.css',
+		'src/css/tips.css',
+		'src/css/window.css'
   	])
     .pipe(concat('styles.debug.css'))
     .pipe(header(fs.readFileSync('HEADER', 'utf8'), { pkg: pkg } ))

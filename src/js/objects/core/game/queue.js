@@ -199,6 +199,7 @@ civitas.game.prototype.process_action = function(id) {
  * @public
  * @param {civitas.objects.settlement} source_settlement
  * @param {civitas.objects.settlement} destination_settlement
+ * @param {Number} mode
  * @param {Number} type
  * @param {Object} data
  * @returns {Object}

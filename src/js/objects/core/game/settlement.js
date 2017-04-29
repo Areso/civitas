@@ -3,7 +3,7 @@
  * 
  * @public
  * @param {String} name
- * @returns {civitas.settlement}
+ * @returns {civitas.settlement|Boolean}
  */
 civitas.game.prototype.get_settlement = function (name) {
 	var settlements = this.get_settlements();
@@ -30,13 +30,15 @@ civitas.game.prototype.get_settlement = function (name) {
  * Load the main settlement data.
  * 
  * @private
+ * @param {Object} data
  * @returns {Object|Boolean}
  */
 civitas.game.prototype._load_settlement = function (data) {
 	var player_settlement_data = data.settlements[0];
+	var new_settlement;
 	if (player_settlement_data) {
 		player_settlement_data.core = this;
-		var new_settlement = new civitas.objects.settlement(player_settlement_data);
+		new_settlement = new civitas.objects.settlement(player_settlement_data);
 		this.settlements.push(new_settlement);
 		new_settlement._create_buildings(player_settlement_data.buildings);
 		return data;

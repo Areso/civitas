@@ -2,7 +2,7 @@
  * Civitas empire-building game.
  *
  * @author sizeof(cat) <sizeofcat AT riseup.net>
- * @version 0.1.0.4282017
+ * @version 0.1.0.4292017
  * @license MIT
  */ 'use strict';
 
@@ -7061,7 +7061,7 @@ civitas.ui = {
 		return '<div data-type="' + params.type + '" data-level="' + params.data.level + '" ' +
 			'style="background:transparent url(' + civitas.ASSETS_URL + 'images/buildings/' + image + '.png) no-repeat;left:' + params.data.position.x + 'px;top:' + params.data.position.y + 'px" ' +
 			'title=\'' + params.data.name + '\' ' + 'id="building-' + params.data.handle + '"' +
-			'class="tips slots building' + (params.data.large === true ? ' large' : '') + (params.data.extralarge === true ? ' extralarge' : '') + '"></div>';
+			'class="tips building' + (params.data.large === true ? ' large' : '') + (params.data.extralarge === true ? ' extralarge' : '') + '"></div>';
 	},
 
 	resource_storage_small_el: function (resource, amount) {
@@ -11576,7 +11576,7 @@ $(document).ready(function () {
  * 
  * @public
  * @param {String} name
- * @returns {civitas.settlement}
+ * @returns {civitas.settlement|Boolean}
  */
 civitas.game.prototype.get_settlement = function (name) {
 	var settlements = this.get_settlements();
@@ -11603,13 +11603,15 @@ civitas.game.prototype.get_settlement = function (name) {
  * Load the main settlement data.
  * 
  * @private
+ * @param {Object} data
  * @returns {Object|Boolean}
  */
 civitas.game.prototype._load_settlement = function (data) {
 	var player_settlement_data = data.settlements[0];
+	var new_settlement;
 	if (player_settlement_data) {
 		player_settlement_data.core = this;
-		var new_settlement = new civitas.objects.settlement(player_settlement_data);
+		new_settlement = new civitas.objects.settlement(player_settlement_data);
 		this.settlements.push(new_settlement);
 		new_settlement._create_buildings(player_settlement_data.buildings);
 		return data;
@@ -11857,7 +11859,7 @@ civitas.game.prototype.get_storage_data = function (key) {
 	if (typeof key === 'undefined') {
 		key = 'live';
 	}
-	if (localStorage.getItem(civitas.STORAGE_KEY + '.' + key) !== null) {
+	if (this.has_storage_data(key)) {
 		var decrypted = this.decrypt(localStorage.getItem(civitas.STORAGE_KEY + '.' + key));
 		if (decrypted !== false) {
 			return JSON.parse(decrypted);
@@ -11949,7 +11951,7 @@ civitas.game.prototype.save = function () {
  *
  * @public
  * @param {String} id
- * @returns {civitas.game}
+ * @returns {civitas.controls.panel|Boolean}
  */
 civitas.game.prototype.get_panel = function(id) {
 	var panels = this.get_panels();
@@ -12037,12 +12039,12 @@ civitas.game.prototype.show_loader = function() {
 	return this;
 };
 
-	/**
-	 * Hide the game loader.
-	 *
-	 * @public
-	 * @returns {civitas.game}
-	 */
+/**
+ * Hide the game loader.
+ *
+ * @public
+ * @returns {civitas.game}
+ */
 civitas.game.prototype.hide_loader = function() {
 	$('.loading').hide();
 	return this;
@@ -12081,9 +12083,8 @@ civitas.game.prototype.refresh_toolbar = function() {
 		var resources = settlement.get_resources();
 		for (var i = 0; i < civitas.TOOLBAR_RESOURCES.length; i++) {
 			var resource = civitas.TOOLBAR_RESOURCES[i];
-			var el = $('.top-panel .' + resource);
 			if (typeof resources[resource] !== 'undefined') {
-				el.attr('title', resources[resource] + ' ' + civitas.utils.get_resource_name(resource));
+				$('.top-panel .' + resource).attr('title', resources[resource] + ' ' + civitas.utils.get_resource_name(resource));
 			}
 		}
 	}
@@ -12099,10 +12100,8 @@ civitas.game.prototype.refresh_toolbar = function() {
 civitas.game.prototype.refresh_ui = function () {
 	var settlement = this.get_settlement();
 	if (typeof settlement !== 'undefined') {
-		var storage_space = settlement.storage();
-		var needed = civitas.LEVELS[settlement.level()];
 		$('.citylevel').html(settlement.level());
-		if (settlement.fame() >= needed) {
+		if (settlement.fame() >= civitas.LEVELS[settlement.level()]) {
 			settlement.level_up();
 		}
 	}
@@ -12635,6 +12634,7 @@ civitas.game.prototype.process_action = function(id) {
  * @public
  * @param {civitas.objects.settlement} source_settlement
  * @param {civitas.objects.settlement} destination_settlement
+ * @param {Number} mode
  * @param {Number} type
  * @param {Object} data
  * @returns {Object}
@@ -12900,6 +12900,7 @@ civitas.game.prototype.check_achievements = function() {
  * 
  * @public
  * @param {Object} achievement
+ * @param {Number} id
  * @returns {civitas.game}
  */
 civitas.game.prototype.achievement = function (id, achievement) {
@@ -12920,8 +12921,8 @@ civitas.game.prototype.achievement = function (id, achievement) {
  * Check if the current player has the achievement specified by its id.
  *
  * @public
- * @param {Object} id
- * @returns {Boolean}
+ * @param {Number} id
+ * @returns {Object|Boolean}
  */
 civitas.game.prototype.has_achievement = function(id) {
 	for (var i = 0; i < this.achievements.length; i++) {
@@ -15263,6 +15264,7 @@ civitas.WINDOW_SIGNIN = {
 				return false;
 			}
 			if (!core.load_game(password)) {
+				$(self.handle + ' .password').val('');
 				core.error('Error decrypting the game data with the specified password. Try again.', 'Error', true);
 			} else {
 				self.destroy();

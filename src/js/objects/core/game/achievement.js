@@ -106,6 +106,7 @@ civitas.game.prototype.check_achievements = function() {
  * 
  * @public
  * @param {Object} achievement
+ * @param {Number} id
  * @returns {civitas.game}
  */
 civitas.game.prototype.achievement = function (id, achievement) {
@@ -126,8 +127,8 @@ civitas.game.prototype.achievement = function (id, achievement) {
  * Check if the current player has the achievement specified by its id.
  *
  * @public
- * @param {Object} id
- * @returns {Boolean}
+ * @param {Number} id
+ * @returns {Object|Boolean}
  */
 civitas.game.prototype.has_achievement = function(id) {
 	for (var i = 0; i < this.achievements.length; i++) {

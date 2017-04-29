@@ -3,7 +3,7 @@
  *
  * @public
  * @param {String} id
- * @returns {civitas.game}
+ * @returns {civitas.controls.panel|Boolean}
  */
 civitas.game.prototype.get_panel = function(id) {
 	var panels = this.get_panels();
@@ -91,12 +91,12 @@ civitas.game.prototype.show_loader = function() {
 	return this;
 };
 
-	/**
-	 * Hide the game loader.
-	 *
-	 * @public
-	 * @returns {civitas.game}
-	 */
+/**
+ * Hide the game loader.
+ *
+ * @public
+ * @returns {civitas.game}
+ */
 civitas.game.prototype.hide_loader = function() {
 	$('.loading').hide();
 	return this;
@@ -135,9 +135,8 @@ civitas.game.prototype.refresh_toolbar = function() {
 		var resources = settlement.get_resources();
 		for (var i = 0; i < civitas.TOOLBAR_RESOURCES.length; i++) {
 			var resource = civitas.TOOLBAR_RESOURCES[i];
-			var el = $('.top-panel .' + resource);
 			if (typeof resources[resource] !== 'undefined') {
-				el.attr('title', resources[resource] + ' ' + civitas.utils.get_resource_name(resource));
+				$('.top-panel .' + resource).attr('title', resources[resource] + ' ' + civitas.utils.get_resource_name(resource));
 			}
 		}
 	}
@@ -153,10 +152,8 @@ civitas.game.prototype.refresh_toolbar = function() {
 civitas.game.prototype.refresh_ui = function () {
 	var settlement = this.get_settlement();
 	if (typeof settlement !== 'undefined') {
-		var storage_space = settlement.storage();
-		var needed = civitas.LEVELS[settlement.level()];
 		$('.citylevel').html(settlement.level());
-		if (settlement.fame() >= needed) {
+		if (settlement.fame() >= civitas.LEVELS[settlement.level()]) {
 			settlement.level_up();
 		}
 	}

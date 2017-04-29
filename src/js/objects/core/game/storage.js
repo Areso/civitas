@@ -104,7 +104,7 @@ civitas.game.prototype.get_storage_data = function (key) {
 	if (typeof key === 'undefined') {
 		key = 'live';
 	}
-	if (localStorage.getItem(civitas.STORAGE_KEY + '.' + key) !== null) {
+	if (this.has_storage_data(key)) {
 		var decrypted = this.decrypt(localStorage.getItem(civitas.STORAGE_KEY + '.' + key));
 		if (decrypted !== false) {
 			return JSON.parse(decrypted);

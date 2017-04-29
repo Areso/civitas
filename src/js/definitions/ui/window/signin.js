@@ -33,6 +33,7 @@ civitas.WINDOW_SIGNIN = {
 				return false;
 			}
 			if (!core.load_game(password)) {
+				$(self.handle + ' .password').val('');
 				core.error('Error decrypting the game data with the specified password. Try again.', 'Error', true);
 			} else {
 				self.destroy();

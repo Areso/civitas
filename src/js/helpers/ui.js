@@ -211,7 +211,7 @@ civitas.ui = {
 		return '<div data-type="' + params.type + '" data-level="' + params.data.level + '" ' +
 			'style="background:transparent url(' + civitas.ASSETS_URL + 'images/buildings/' + image + '.png) no-repeat;left:' + params.data.position.x + 'px;top:' + params.data.position.y + 'px" ' +
 			'title=\'' + params.data.name + '\' ' + 'id="building-' + params.data.handle + '"' +
-			'class="tips slots building' + (params.data.large === true ? ' large' : '') + (params.data.extralarge === true ? ' extralarge' : '') + '"></div>';
+			'class="tips building' + (params.data.large === true ? ' large' : '') + (params.data.extralarge === true ? ' extralarge' : '') + '"></div>';
 	},
 
 	resource_storage_small_el: function (resource, amount) {
