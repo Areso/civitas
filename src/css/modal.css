@@ -13,7 +13,7 @@
 	box-shadow: 0 0 5px #000;
 }
 
-.modal header {
+.modal > header {
 	background-color: #694224;
 	background-image: -webkit-gradient(linear, left top, left bottom, from(#9b6b46), to(#694224));
 	background-image: -webkit-linear-gradient(top, #9b6b46, #694224);
@@ -26,7 +26,7 @@
 	text-transform: uppercase;
 }
 
-.modal section {
+.modal > section {
 	background-color: #fff;
 	border-bottom: 1px solid #bfbfbf;
 	min-height: 50px;
@@ -34,7 +34,7 @@
 	text-align: left;
 }
 
-.modal footer {
+.modal > footer {
 	background-color: #efefef;
 	padding: 10px;
 }

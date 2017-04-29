@@ -148,6 +148,16 @@ input[type=text].small {
 	width: 50px;
 }
 
+input[type=text],
+input[type=number],
+select {
+	border: 1px solid #908c68;
+	background: #fff;
+	color: #000;
+	padding: 2px 6px;
+	font-size: 12px;
+}
+
 p.title,
 p span.title {
 	font-size: 14px;
@@ -329,20 +339,20 @@ a.disabled {
 	opacity: 0.9;
 }
 
-.ui .console .scrollbar {
+.scrollbar {
 	position: absolute;
 	right:14px;
 	top: 20px;
 }
 
-.ui .console .scrollbar .up,
-.ui .console .scrollbar .down {
+.scrollbar .up,
+.scrollbar .down {
 	width: 24px;
 	height: 24px;
 	cursor: pointer;
 }
 
-.ui .console .scrollbar .up {
+.scrollbar .up {
 	margin-bottom: 5px;
 }
 
