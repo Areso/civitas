@@ -46,6 +46,11 @@ Screenshots
 
 [World Map](docs/images/world-map.png)
 
+Playing
+=======
+
+Choose an archive format from the Releases section, download and uncompress it. Point your browser to `index.html`, you don't need a game server to play.
+
 Releases
 ========
 
