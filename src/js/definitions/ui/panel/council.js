@@ -159,7 +159,7 @@ civitas.PANEL_COUNCIL = {
 			'<thead>' +
 				'<tr>' +
 					'<td></td>' +
-					'<td class="center">' + civitas.l('Level') + '</td>' +
+					'<td class="tips center" title="' + civitas.l('Current level / Maximum level') + '">' + civitas.l('Level') + '</td>' +
 					'<td>' + civitas.l('Raises') + '</td>' +
 					'<td>' + civitas.l('Uses') + '</td>' +
 				'</tr>' +
@@ -169,7 +169,7 @@ civitas.PANEL_COUNCIL = {
 				building_data = buildings[l].get_building_data();
 				_t += '<tr' + ((buildings[l].has_problems() === false) ? '' : ' class="notify"') +'>' +
 					'<td><a href="#" class="building-info" data-handle="' + buildings[l].get_handle() + '">' + buildings[l].get_name() + '</a></td>' +
-					'<td class="center">' + buildings[l].get_level() + '</td>' +
+					'<td class="center">' + buildings[l].get_level() + ' / ' + (typeof building_data.levels !== 'undefined' ? building_data.levels : 1) + '</td>' +
 					'<td>';
 					if (building_data.production) {
 						for (var item in building_data.production) {
@@ -208,7 +208,7 @@ civitas.PANEL_COUNCIL = {
 			'<thead>' +
 				'<tr>' +
 					'<td></td>' +
-					'<td class="center">' + civitas.l('Level') + '</td>' +
+					'<td class="tips center" title="' + civitas.l('Current level / Maximum level') + '">' + civitas.l('Level') + '</td>' +
 					'<td>' + civitas.l('Tax') + '</td>' +
 					'<td>' + civitas.l('Materials') + '</td>' +
 				'</tr>' +
@@ -218,7 +218,7 @@ civitas.PANEL_COUNCIL = {
 				building_data = buildings[l].get_building_data();
 				_t += '<tr' + ((buildings[l].has_problems() === false) ? '' : ' class="notify"') +'>' +
 					'<td><a href="#" class="building-info" data-handle="' + buildings[l].get_handle() + '">' + buildings[l].get_name() + '</a></td>' +
-					'<td class="center">' + buildings[l].get_level() + '</td>' +
+					'<td class="center">' + buildings[l].get_level() + ' / ' + (typeof building_data.levels !== 'undefined' ? building_data.levels : 1) + '</td>' +
 					'<td>';
 					if (building_data.tax) {
 						total_tax += (buildings[l].has_problems() === false) ? buildings[l].get_level() * building_data.tax : 0;
@@ -249,7 +249,7 @@ civitas.PANEL_COUNCIL = {
 			'<thead>' +
 				'<tr>' +
 					'<td></td>' +
-					'<td class="center">' + civitas.l('Level') + '</td>' +
+					'<td class="tips center" title="' + civitas.l('Current level / Maximum level') + '">' + civitas.l('Level') + '</td>' +
 					'<td>' + civitas.l('Production') + '</td>' +
 					'<td>' + civitas.l('Materials') + '</td>' +
 					'<td></td>' +
@@ -260,7 +260,7 @@ civitas.PANEL_COUNCIL = {
 				building_data = buildings[l].get_building_data();
 				_t += '<tr' + ((buildings[l].has_problems() === false) ? '' : ' class="notify"') +'>' +
 					'<td><a href="#" class="building-info" data-handle="' + buildings[l].get_handle() + '">' + buildings[l].get_name() + '</a></td>' +
-					'<td class="center">' + buildings[l].get_level() + '</td>' +
+					'<td class="center">' + buildings[l].get_level() + ' / ' + (typeof building_data.levels !== 'undefined' ? building_data.levels : 1) + '</td>' +
 					'<td>';
 					if (building_data.production) {
 						for (var item in building_data.production) {

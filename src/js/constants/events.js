@@ -45,6 +45,6 @@ civitas.EVENTS = [{
 	description: 'One of your spies in SETTLEMENT was discovered, SETTLEMENT`s ruler is angry so you lose PRESTIGE prestige.',
 	chance: 0.003,
 	lower: {
-		prestige: 2
+		prestige: 10
 	}
 }];

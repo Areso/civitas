@@ -1206,8 +1206,8 @@ civitas.BUILDINGS = [{
 			hemp: 4
 		},
 		position: {
-			x: 1355,
-			y: 496
+			x: 1600,
+			y: 900
 		},
 		levels: 3,
 		cost: {
