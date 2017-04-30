@@ -41,18 +41,21 @@ civitas.ui = {
 			'</header>' +
 			'<section></section>' +
 			'<footer>' +
-				'<a class="tips demolish" title="' + civitas.l('Demolish this building') + '"></a>' +
-				'<a class="tips pause start"></a>' +
-				'<a class="tips upgrade" title="' + civitas.l('Upgrade building') + '"></a>' +
+				'<a class="tips demolish" title="' + civitas.l('Demolish this building') + '" href="#"></a>' +
+				'<a class="tips pause start" href="#"></a>' +
+				'<a class="tips upgrade" title="' + civitas.l('Upgrade building') + '" href="#"></a>' +
 			'</footer>' +
 		'</div>';
 		return out;
 	},
 
 	building_panel: function (params, level) {
+		if (typeof params.levels === 'undefined') {
+			params.levels = 1;
+		}
 		var out = '<p>' + params.description + '</p>' +
 			'<dl>' +
-				civitas.ui.level_panel(params.level, level) +
+				civitas.ui.level_panel(params.level, level, params.levels) +
 				civitas.ui.cost_panel(params.cost, level, params.levels) +
 				civitas.ui.materials_panel(params.materials) +
 				civitas.ui.production_panel(params.production, level) +
@@ -72,9 +75,9 @@ civitas.ui = {
 		return out;
 	},
 
-	level_panel: function (level, new_level) {
+	level_panel: function (level, new_level, max_level) {
 		var out = '<dt>' + civitas.l('Level') + '</dt>' +
-			'<dd>' + new_level + '</dd>';
+			'<dd>' + new_level + ' / ' + max_level + ' </dd>';
 		return out;
 	},
 

@@ -159,7 +159,7 @@ civitas.IMPORT_PRESTIGE = 1;
  * @constant
  * @type {Number}
  */
-civitas.MAX_PRESTIGE_VALUE = 1000;
+civitas.MAX_PRESTIGE_VALUE = 10000;
 
 /**
  * The maximum value settlement research can have.

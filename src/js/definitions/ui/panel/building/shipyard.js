@@ -13,7 +13,7 @@ civitas.PANEL_SHIPYARD = {
 				'<div class="navy-recruiter">';
 		for (var item in civitas.SHIPS) {
 			_t += '<fieldset>' +
-					'<legend>' + item + '</legend>' +
+					'<legend>' + civitas.SHIPS[item].name + '</legend>' +
 					'<div class="cost">' +
 						'<dl class="nomg">';
 			for (var res in civitas.SHIPS[item].cost) {
@@ -27,7 +27,7 @@ civitas.PANEL_SHIPYARD = {
 							'<dt>' + civitas.l('Defense') + '</dt><dd>' + civitas.SHIPS[item].defense + '</dd>' +
 						'</dl>' +
 					'</div>' +
-					'<img data-handle="' + item + '" title="' + civitas.l('Recruit') + ' ' + item.name + '" class="tips recruit-ship" src="' + civitas.ASSETS_URL + 'images/armies/' + item.toLowerCase().replace(/ /g,"_") + '.png" />' +
+					'<img data-handle="' + item + '" title="' + civitas.l('Recruit') + ' ' + civitas.SHIPS[item].name + '" class="tips recruit-ship" src="' + civitas.ASSETS_URL + 'images/armies/' + item.toLowerCase().replace(/ /g,"_") + '.png" />' +
 				'</fieldset>';
 		}
 		_t += '</div>';

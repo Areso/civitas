@@ -181,6 +181,7 @@ civitas.objects.settlement.prototype.list_black_market = function(resource, amou
 	}
 	var resources = this.get_resources();
 	if (!this.has_resource(resource, amount)) {
+		this.core().error(this.name() + ' doesn`t have enough resources of this type.');
 		return false;
 	}
 	if (this.remove_resource(resource, amount)) {

@@ -759,7 +759,7 @@ civitas.IMPORT_PRESTIGE = 1;
  * @constant
  * @type {Number}
  */
-civitas.MAX_PRESTIGE_VALUE = 1000;
+civitas.MAX_PRESTIGE_VALUE = 10000;
 
 /**
  * The maximum value settlement research can have.
@@ -4393,7 +4393,7 @@ civitas.SETTLEMENTS = {
 		level: 35,
 		resources: {
 			coins: 2300000,
-			prestige: 700,
+			prestige: 3700,
 			espionage: 400
 		},
 		trades: {
@@ -4451,7 +4451,7 @@ civitas.SETTLEMENTS = {
 		level: 32,
 		resources: {
 			coins: 2300000,
-			prestige: 700,
+			prestige: 2700,
 			espionage: 1000
 		},
 		trades: {
@@ -4514,7 +4514,7 @@ civitas.SETTLEMENTS = {
 		level: 30,
 		resources: {
 			coins: 1600000,
-			prestige: 1000,
+			prestige: 4000,
 			espionage: 800
 		},
 		trades: {
@@ -4561,7 +4561,7 @@ civitas.SETTLEMENTS = {
 		level: 28,
 		resources: {
 			coins: 2000000,
-			prestige: 500,
+			prestige: 3500,
 			espionage: 300
 		},
 		trades: {
@@ -4610,7 +4610,7 @@ civitas.SETTLEMENTS = {
 		level: 39,
 		resources: {
 			coins: 2000000,
-			prestige: 800,
+			prestige: 7800,
 			espionage: 900
 		},
 		trades: {
@@ -4660,7 +4660,7 @@ civitas.SETTLEMENTS = {
 		level: 29,
 		resources: {
 			coins: 1900000,
-			prestige: 700,
+			prestige: 5700,
 			espionage: 500
 		},
 		trades: {
@@ -4704,7 +4704,7 @@ civitas.SETTLEMENTS = {
 		level: 22,
 		resources: {
 			coins: 6300000,
-			prestige: 780,
+			prestige: 2780,
 			espionage: 400
 		},
 		trades: {
@@ -4753,7 +4753,7 @@ civitas.SETTLEMENTS = {
 		level: 29,
 		resources: {
 			coins: 3000000,
-			prestige: 200,
+			prestige: 4200,
 			espionage: 850
 		},
 		trades: {
@@ -4800,7 +4800,7 @@ civitas.SETTLEMENTS = {
 		level: 30,
 		resources: {
 			coins: 3300000,
-			prestige: 900,
+			prestige: 6900,
 			espionage: 900
 		},
 		trades: {
@@ -4854,7 +4854,7 @@ civitas.SETTLEMENTS = {
 		level: 28,
 		resources: {
 			coins: 2200000,
-			prestige: 160,
+			prestige: 1460,
 			espionage: 500
 		},
 		trades: {
@@ -4901,7 +4901,7 @@ civitas.SETTLEMENTS = {
 		level: 23,
 		resources: {
 			coins: 1800000,
-			prestige: 200,
+			prestige: 1200,
 			espionage: 450
 		},
 		trades: {
@@ -4956,7 +4956,7 @@ civitas.SETTLEMENTS = {
 		level: 27,
 		resources: {
 			coins: 1800000,
-			prestige: 300,
+			prestige: 2300,
 			espionage: 300
 		},
 		trades: {
@@ -5004,7 +5004,7 @@ civitas.SETTLEMENTS = {
 		level: 36,
 		resources: {
 			coins: 2000000,
-			prestige: 710,
+			prestige: 6210,
 			espionage: 450
 		},
 		trades: {
@@ -5050,7 +5050,7 @@ civitas.SETTLEMENTS = {
 		level: 38,
 		resources: {
 			coins: 2800000,
-			prestige: 600,
+			prestige: 6400,
 			espionage: 580
 		},
 		trades: {
@@ -5096,7 +5096,7 @@ civitas.SETTLEMENTS = {
 		level: 29,
 		resources: {
 			coins: 1100000,
-			prestige: 180,
+			prestige: 2180,
 			espionage: 200
 		},
 		trades: {
@@ -5146,7 +5146,7 @@ civitas.SETTLEMENTS = {
 		level: 22,
 		resources: {
 			coins: 1000000,
-			prestige: 360,
+			prestige: 3640,
 			espionage: 500
 		},
 		trades: {
@@ -5195,7 +5195,7 @@ civitas.SETTLEMENTS = {
 		level: 26,
 		resources: {
 			coins: 1900000,
-			prestige: 400,
+			prestige: 4100,
 			espionage: 500
 		},
 		trades: {
@@ -5241,7 +5241,7 @@ civitas.SETTLEMENTS = {
 		level: 29,
 		resources: {
 			coins: 2400000,
-			prestige: 500,
+			prestige: 4500,
 			espionage: 800
 		},
 		trades: {
@@ -5288,7 +5288,7 @@ civitas.SETTLEMENTS = {
 		level: 27,
 		resources: {
 			coins: 2400000,
-			prestige: 420,
+			prestige: 2420,
 			espionage: 700
 		},
 		trades: {
@@ -5338,7 +5338,7 @@ civitas.SETTLEMENTS = {
 		level: 34,
 		resources: {
 			coins: 3200000,
-			prestige: 490,
+			prestige: 4390,
 			espionage: 200
 		},
 		trades: {
@@ -7003,18 +7003,21 @@ civitas.ui = {
 			'</header>' +
 			'<section></section>' +
 			'<footer>' +
-				'<a class="tips demolish" title="' + civitas.l('Demolish this building') + '"></a>' +
-				'<a class="tips pause start"></a>' +
-				'<a class="tips upgrade" title="' + civitas.l('Upgrade building') + '"></a>' +
+				'<a class="tips demolish" title="' + civitas.l('Demolish this building') + '" href="#"></a>' +
+				'<a class="tips pause start" href="#"></a>' +
+				'<a class="tips upgrade" title="' + civitas.l('Upgrade building') + '" href="#"></a>' +
 			'</footer>' +
 		'</div>';
 		return out;
 	},
 
 	building_panel: function (params, level) {
+		if (typeof params.levels === 'undefined') {
+			params.levels = 1;
+		}
 		var out = '<p>' + params.description + '</p>' +
 			'<dl>' +
-				civitas.ui.level_panel(params.level, level) +
+				civitas.ui.level_panel(params.level, level, params.levels) +
 				civitas.ui.cost_panel(params.cost, level, params.levels) +
 				civitas.ui.materials_panel(params.materials) +
 				civitas.ui.production_panel(params.production, level) +
@@ -7034,9 +7037,9 @@ civitas.ui = {
 		return out;
 	},
 
-	level_panel: function (level, new_level) {
+	level_panel: function (level, new_level, max_level) {
 		var out = '<dt>' + civitas.l('Level') + '</dt>' +
-			'<dd>' + new_level + '</dd>';
+			'<dd>' + new_level + ' / ' + max_level + ' </dd>';
 		return out;
 	},
 
@@ -9372,6 +9375,7 @@ civitas.objects.settlement.prototype.list_black_market = function(resource, amou
 	}
 	var resources = this.get_resources();
 	if (!this.has_resource(resource, amount)) {
+		this.core().error(this.name() + ' doesn`t have enough resources of this type.');
 		return false;
 	}
 	if (this.remove_resource(resource, amount)) {
@@ -10062,7 +10066,7 @@ civitas.objects.building = function(params) {
 			for (var item in required) {
 				if (this.get_settlement().is_building_built(item, required[item])) {
 					parent = this.get_settlement().get_building(item);
-					if (parent) {
+					if (parent && !parent.is_stopped()) {
 						good = parent.has_building_requirements() && parent.has_settlement_requirements()
 						if (good === false) {
 							return false;
@@ -10128,25 +10132,27 @@ civitas.objects.building = function(params) {
 		}
 		var settlement = this.get_settlement();
 		var chance;
+		var amount;
 		var building = this.get_building_data();
 		var random_amount;
 		for (var item in materials) {
+			amount = materials[item] * this.get_level();
 			if (item === 'faith') {
-				settlement.raise_faith(materials[item]);
+				settlement.raise_faith(amount);
 			} else if (item === 'research') {
-				settlement.raise_research(materials[item]);
+				settlement.raise_research(amount);
 			} else if (item === 'espionage') {
-				settlement.raise_espionage(materials[item]);
+				settlement.raise_espionage(amount);
 			} else if (item === 'fame') {
-				settlement.raise_fame(materials[item]);
+				settlement.raise_fame(amount);
 			} else if (item === 'prestige') {
-				settlement.raise_prestige(materials[item]);
+				settlement.raise_prestige(amount);
 			} else {
-				settlement.add_to_storage(item, materials[item]);
+				settlement.add_to_storage(item, amount);
 				if (typeof building.chance !== 'undefined') {
 					for (var itemo in building.chance) {
 						chance = Math.random();
-						if (chance < building.chance[itemo]) {
+						if ((chance * this.get_level()) < building.chance[itemo]) {
 							random_amount = civitas.utils.get_random(1, 5);
 							settlement.add_to_storage(itemo, random_amount);
 						}
@@ -10315,6 +10321,12 @@ civitas.objects.building = function(params) {
 		return this.handle;
 	};
 
+	/**
+	 * Log production data to the game console.
+	 *
+	 * @public
+	 * @returns {civitas.objects.building}
+	 */
 	this.log_to_console = function() {
 		this.notify();
 		var building = this.get_building_data();
@@ -10333,12 +10345,13 @@ civitas.objects.building = function(params) {
 			_m = _m.substring(0, _m.length - 2);
 		}
 		if (typeof building.tax !== 'undefined') {
-			this.core().log(this.get_name() + ' used ' + _m + ' and produced ' + (building.tax * this.get_level()) + ' coins.');
+			this.core().log(this.get_name() + ' used ' + _m + ' and got taxed for ' + (building.tax * this.get_level()) + ' coins.');
 		} else if (typeof building.production !== 'undefined' && typeof building.materials === 'undefined') {
 			this.core().log(this.get_name() + ' produced ' + _p + '.');
 		} else {
 			this.core().log(this.get_name() + ' used ' + _m + ' and produced ' + _p + '.');
 		}
+		return this;
 	};
 
 	/**
@@ -13579,7 +13592,7 @@ civitas.PANEL_STORAGE = {
 		var _t = '<div class="main-storage"></div>' +
 			'<div class="extra-storage hidden"></div>' +
 			'<div class="clearfix"></div>' +
-			'<p>' + civitas.l('Total storage space') + ': ' + storage_space.all + ', ' + civitas.l('used') + ': ' + storage_space.occupied + '</p>' +
+			'<p>' + civitas.l('Total storage space') + ': <span class="total-storage">' + storage_space.all + '</span>, ' + civitas.l('used') + ': <span class="used-storage">' + storage_space.occupied + '</span></p>' +
 			'<div class="toolbar">' +
 				'<a class="btn iblock toggle-storage" href="#">' + civitas.l('Show More Goods') + '</a>' +
 			'</div>';
@@ -13601,6 +13614,7 @@ civitas.PANEL_STORAGE = {
 		var resources = settlement.get_resources();
 		var main_storage = '';
 		var extra_storage = '';
+		var storage_space = settlement.storage();
 		for (var resource in resources) {
 			if ($.inArray(resource, civitas.NON_RESOURCES) === -1) {
 				if ($.inArray(resource, civitas.MAIN_RESOURCES) !== -1) {
@@ -13612,6 +13626,8 @@ civitas.PANEL_STORAGE = {
 		}
 		$(this.handle + ' .main-storage').empty().append(main_storage);
 		$(this.handle + ' .extra-storage').empty().append(extra_storage);
+		$(this.handle + ' .total-storage').empty().append(storage_space.all);
+		$(this.handle + ' .used-storage').empty().append(storage_space.occupied);
 	}
 };
 
@@ -14258,7 +14274,6 @@ civitas.PANEL_COUNCIL = {
 	on_show: function(params) {
 		var core = this.core();
 		$(this.handle + ' section').append(civitas.ui.tabs([civitas.l('Info'), civitas.l('Tips'), civitas.l('Production'), civitas.l('Housing'), civitas.l('Municipal'), civitas.l('Mercenary'), civitas.l('Achievements')]));
-		
 		var _t = '<div class="achievements-list">';
 		for (var i = 0; i < civitas.ACHIEVEMENTS.length; i++) {
 			_t += '<div data-id="' + i + '" class="achievement">' +
@@ -14307,6 +14322,22 @@ civitas.PANEL_COUNCIL = {
 				} else {
 					core.open_panel(civitas.PANEL_BUILDING, building_data);
 				}
+			}
+			return false;
+		}).on('click', '.pause', function () {
+			var handle = $(this).data('handle');
+			var building = core.get_settlement().get_building(handle);
+			if (building && building.stop_production()) {
+				$(this).removeClass('pause').addClass('start');
+				$(this).attr('title', civitas.l('Start production'));
+			}
+			return false;
+		}).on('click', '.start', function () {
+			var handle = $(this).data('handle');
+			var building = core.get_settlement().get_building(handle);
+			if (building && building.start_production()) {
+				$(this).removeClass('start').addClass('pause');
+				$(this).attr('title', civitas.l('Stop production'));
 			}
 			return false;
 		});
@@ -14486,7 +14517,7 @@ civitas.PANEL_COUNCIL = {
 					'<td class="center">' + civitas.l('Level') + '</td>' +
 					'<td>' + civitas.l('Production') + '</td>' +
 					'<td>' + civitas.l('Materials') + '</td>' +
-					'<td class="center">' + civitas.l('Stopped') + '</td>' +
+					'<td></td>' +
 				'</tr>' +
 			'</thead>';
 		for (var l = 0; l < buildings.length; l++) {
@@ -14509,7 +14540,9 @@ civitas.PANEL_COUNCIL = {
 						}
 					}
 				_t += '</td>' +
-					'<td class="center">' + ((!buildings[l].is_stopped()) ? civitas.l('no') : civitas.l('yes')) + '</td>' +
+					'<td class="center">' + 
+						'<a title="' + (!buildings[l].is_stopped() ? civitas.l('Stop production') : civitas.l('Start production')) + '" data-handle="' + buildings[l].get_handle() + '" class="tips ' + (!buildings[l].is_stopped() ? 'pause' : 'start') + ' btn" href="#"></a>' +
+					'</td>' +
 				'</tr>';
 			}
 		}
@@ -14519,7 +14552,7 @@ civitas.PANEL_COUNCIL = {
 						'<td class="center">' + civitas.l('Level') + '</td>' +
 						'<td>' + civitas.l('Production') + '</td>' +
 						'<td>' + civitas.l('Materials') + '</td>' +
-						'<td class="center">' + civitas.l('Stopped') + '</td>' +
+						'<td></td>' +
 					'</tr>' +
 				'</tfoot>' +
 			'</table>';
@@ -15050,7 +15083,7 @@ civitas.PANEL_CAMP = {
 				'<div class="army-recruiter">';
 		for (var item in civitas.SOLDIERS) {
 			_t += '<fieldset>' +
-					'<legend>' + item + '</legend>' +
+					'<legend>' + civitas.SOLDIERS[item].name + '</legend>' +
 					'<div class="cost">' +
 						'<dl class="nomg">';
 			for (var res in civitas.SOLDIERS[item].cost) {
@@ -15064,7 +15097,7 @@ civitas.PANEL_CAMP = {
 							'<dt>Defense</dt><dd>' + civitas.SOLDIERS[item].defense + '</dd>' +
 						'</dl>' +
 					'</div>' +
-					'<img data-handle="' + item + '" title="' + civitas.l('Recruit') + ' ' + item.name + '" class="tips recruit-soldier" src="' + civitas.ASSETS_URL + 'images/armies/' + item.toLowerCase() + '.png" />' +
+					'<img data-handle="' + item + '" title="' + civitas.l('Recruit') + ' ' + civitas.SOLDIERS[item].name + '" class="tips recruit-soldier" src="' + civitas.ASSETS_URL + 'images/armies/' + item.toLowerCase() + '.png" />' +
 				'</fieldset>';
 		}
 		_t += '</div>';
@@ -15106,7 +15139,7 @@ civitas.PANEL_SHIPYARD = {
 				'<div class="navy-recruiter">';
 		for (var item in civitas.SHIPS) {
 			_t += '<fieldset>' +
-					'<legend>' + item + '</legend>' +
+					'<legend>' + civitas.SHIPS[item].name + '</legend>' +
 					'<div class="cost">' +
 						'<dl class="nomg">';
 			for (var res in civitas.SHIPS[item].cost) {
@@ -15120,7 +15153,7 @@ civitas.PANEL_SHIPYARD = {
 							'<dt>' + civitas.l('Defense') + '</dt><dd>' + civitas.SHIPS[item].defense + '</dd>' +
 						'</dl>' +
 					'</div>' +
-					'<img data-handle="' + item + '" title="' + civitas.l('Recruit') + ' ' + item.name + '" class="tips recruit-ship" src="' + civitas.ASSETS_URL + 'images/armies/' + item.toLowerCase().replace(/ /g,"_") + '.png" />' +
+					'<img data-handle="' + item + '" title="' + civitas.l('Recruit') + ' ' + civitas.SHIPS[item].name + '" class="tips recruit-ship" src="' + civitas.ASSETS_URL + 'images/armies/' + item.toLowerCase().replace(/ /g,"_") + '.png" />' +
 				'</fieldset>';
 		}
 		_t += '</div>';

@@ -29,6 +29,10 @@ table tbody tr:hover {
 	opacity: 1;
 }
 
+table tr:hover td:first-child a {
+	color: #fff;
+}
+
 table tr td:last-child a {
 	-webkit-border-radius: 3px;
 	-moz-border-radius: 3px;
@@ -51,4 +55,12 @@ table tr td.large {
 
 table tr td.medium {
 	width: 25%;
+}
+
+td a.btn {
+	width: 32px;
+	height: 32px;
+	padding: 0 !important;
+	border: 0 !important;
+	background-size: contain !important;
 }

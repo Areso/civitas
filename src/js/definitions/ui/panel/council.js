@@ -9,7 +9,6 @@ civitas.PANEL_COUNCIL = {
 	on_show: function(params) {
 		var core = this.core();
 		$(this.handle + ' section').append(civitas.ui.tabs([civitas.l('Info'), civitas.l('Tips'), civitas.l('Production'), civitas.l('Housing'), civitas.l('Municipal'), civitas.l('Mercenary'), civitas.l('Achievements')]));
-		
 		var _t = '<div class="achievements-list">';
 		for (var i = 0; i < civitas.ACHIEVEMENTS.length; i++) {
 			_t += '<div data-id="' + i + '" class="achievement">' +
@@ -58,6 +57,22 @@ civitas.PANEL_COUNCIL = {
 				} else {
 					core.open_panel(civitas.PANEL_BUILDING, building_data);
 				}
+			}
+			return false;
+		}).on('click', '.pause', function () {
+			var handle = $(this).data('handle');
+			var building = core.get_settlement().get_building(handle);
+			if (building && building.stop_production()) {
+				$(this).removeClass('pause').addClass('start');
+				$(this).attr('title', civitas.l('Start production'));
+			}
+			return false;
+		}).on('click', '.start', function () {
+			var handle = $(this).data('handle');
+			var building = core.get_settlement().get_building(handle);
+			if (building && building.start_production()) {
+				$(this).removeClass('start').addClass('pause');
+				$(this).attr('title', civitas.l('Stop production'));
 			}
 			return false;
 		});
@@ -237,7 +252,7 @@ civitas.PANEL_COUNCIL = {
 					'<td class="center">' + civitas.l('Level') + '</td>' +
 					'<td>' + civitas.l('Production') + '</td>' +
 					'<td>' + civitas.l('Materials') + '</td>' +
-					'<td class="center">' + civitas.l('Stopped') + '</td>' +
+					'<td></td>' +
 				'</tr>' +
 			'</thead>';
 		for (var l = 0; l < buildings.length; l++) {
@@ -260,7 +275,9 @@ civitas.PANEL_COUNCIL = {
 						}
 					}
 				_t += '</td>' +
-					'<td class="center">' + ((!buildings[l].is_stopped()) ? civitas.l('no') : civitas.l('yes')) + '</td>' +
+					'<td class="center">' + 
+						'<a title="' + (!buildings[l].is_stopped() ? civitas.l('Stop production') : civitas.l('Start production')) + '" data-handle="' + buildings[l].get_handle() + '" class="tips ' + (!buildings[l].is_stopped() ? 'pause' : 'start') + ' btn" href="#"></a>' +
+					'</td>' +
 				'</tr>';
 			}
 		}
@@ -270,7 +287,7 @@ civitas.PANEL_COUNCIL = {
 						'<td class="center">' + civitas.l('Level') + '</td>' +
 						'<td>' + civitas.l('Production') + '</td>' +
 						'<td>' + civitas.l('Materials') + '</td>' +
-						'<td class="center">' + civitas.l('Stopped') + '</td>' +
+						'<td></td>' +
 					'</tr>' +
 				'</tfoot>' +
 			'</table>';

@@ -28,7 +28,7 @@ civitas.SETTLEMENTS = {
 		level: 35,
 		resources: {
 			coins: 2300000,
-			prestige: 700,
+			prestige: 3700,
 			espionage: 400
 		},
 		trades: {
@@ -86,7 +86,7 @@ civitas.SETTLEMENTS = {
 		level: 32,
 		resources: {
 			coins: 2300000,
-			prestige: 700,
+			prestige: 2700,
 			espionage: 1000
 		},
 		trades: {
@@ -149,7 +149,7 @@ civitas.SETTLEMENTS = {
 		level: 30,
 		resources: {
 			coins: 1600000,
-			prestige: 1000,
+			prestige: 4000,
 			espionage: 800
 		},
 		trades: {
@@ -196,7 +196,7 @@ civitas.SETTLEMENTS = {
 		level: 28,
 		resources: {
 			coins: 2000000,
-			prestige: 500,
+			prestige: 3500,
 			espionage: 300
 		},
 		trades: {
@@ -245,7 +245,7 @@ civitas.SETTLEMENTS = {
 		level: 39,
 		resources: {
 			coins: 2000000,
-			prestige: 800,
+			prestige: 7800,
 			espionage: 900
 		},
 		trades: {
@@ -295,7 +295,7 @@ civitas.SETTLEMENTS = {
 		level: 29,
 		resources: {
 			coins: 1900000,
-			prestige: 700,
+			prestige: 5700,
 			espionage: 500
 		},
 		trades: {
@@ -339,7 +339,7 @@ civitas.SETTLEMENTS = {
 		level: 22,
 		resources: {
 			coins: 6300000,
-			prestige: 780,
+			prestige: 2780,
 			espionage: 400
 		},
 		trades: {
@@ -388,7 +388,7 @@ civitas.SETTLEMENTS = {
 		level: 29,
 		resources: {
 			coins: 3000000,
-			prestige: 200,
+			prestige: 4200,
 			espionage: 850
 		},
 		trades: {
@@ -435,7 +435,7 @@ civitas.SETTLEMENTS = {
 		level: 30,
 		resources: {
 			coins: 3300000,
-			prestige: 900,
+			prestige: 6900,
 			espionage: 900
 		},
 		trades: {
@@ -489,7 +489,7 @@ civitas.SETTLEMENTS = {
 		level: 28,
 		resources: {
 			coins: 2200000,
-			prestige: 160,
+			prestige: 1460,
 			espionage: 500
 		},
 		trades: {
@@ -536,7 +536,7 @@ civitas.SETTLEMENTS = {
 		level: 23,
 		resources: {
 			coins: 1800000,
-			prestige: 200,
+			prestige: 1200,
 			espionage: 450
 		},
 		trades: {
@@ -591,7 +591,7 @@ civitas.SETTLEMENTS = {
 		level: 27,
 		resources: {
 			coins: 1800000,
-			prestige: 300,
+			prestige: 2300,
 			espionage: 300
 		},
 		trades: {
@@ -639,7 +639,7 @@ civitas.SETTLEMENTS = {
 		level: 36,
 		resources: {
 			coins: 2000000,
-			prestige: 710,
+			prestige: 6210,
 			espionage: 450
 		},
 		trades: {
@@ -685,7 +685,7 @@ civitas.SETTLEMENTS = {
 		level: 38,
 		resources: {
 			coins: 2800000,
-			prestige: 600,
+			prestige: 6400,
 			espionage: 580
 		},
 		trades: {
@@ -731,7 +731,7 @@ civitas.SETTLEMENTS = {
 		level: 29,
 		resources: {
 			coins: 1100000,
-			prestige: 180,
+			prestige: 2180,
 			espionage: 200
 		},
 		trades: {
@@ -781,7 +781,7 @@ civitas.SETTLEMENTS = {
 		level: 22,
 		resources: {
 			coins: 1000000,
-			prestige: 360,
+			prestige: 3640,
 			espionage: 500
 		},
 		trades: {
@@ -830,7 +830,7 @@ civitas.SETTLEMENTS = {
 		level: 26,
 		resources: {
 			coins: 1900000,
-			prestige: 400,
+			prestige: 4100,
 			espionage: 500
 		},
 		trades: {
@@ -876,7 +876,7 @@ civitas.SETTLEMENTS = {
 		level: 29,
 		resources: {
 			coins: 2400000,
-			prestige: 500,
+			prestige: 4500,
 			espionage: 800
 		},
 		trades: {
@@ -923,7 +923,7 @@ civitas.SETTLEMENTS = {
 		level: 27,
 		resources: {
 			coins: 2400000,
-			prestige: 420,
+			prestige: 2420,
 			espionage: 700
 		},
 		trades: {
@@ -973,7 +973,7 @@ civitas.SETTLEMENTS = {
 		level: 34,
 		resources: {
 			coins: 3200000,
-			prestige: 490,
+			prestige: 4390,
 			espionage: 200
 		},
 		trades: {

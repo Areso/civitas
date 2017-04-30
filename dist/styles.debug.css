@@ -1745,6 +1745,14 @@ footer a[data-panel=help] {
 	background: #000 url(../images/city/map.jpg) no-repeat;
 }
 
+.panel td a.btn.start {
+	background: transparent url(../images/ui/icons/start.png) no-repeat;
+}
+
+.panel td a.btn.pause {
+	background: transparent url(../images/ui/icons/stop.png) no-repeat;
+}
+
 /* Tables */
 
 table td {
@@ -1776,6 +1784,10 @@ table tbody tr:hover {
 	opacity: 1;
 }
 
+table tr:hover td:first-child a {
+	color: #fff;
+}
+
 table tr td:last-child a {
 	-webkit-border-radius: 3px;
 	-moz-border-radius: 3px;
@@ -1800,6 +1812,13 @@ table tr td.medium {
 	width: 25%;
 }
 
+td a.btn {
+	width: 32px;
+	height: 32px;
+	padding: 0 !important;
+	border: 0 !important;
+	background-size: contain !important;
+}
 /* Tabs */
 
 .tabs > ul > li {

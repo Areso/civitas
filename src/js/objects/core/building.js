@@ -381,7 +381,7 @@ civitas.objects.building = function(params) {
 			for (var item in required) {
 				if (this.get_settlement().is_building_built(item, required[item])) {
 					parent = this.get_settlement().get_building(item);
-					if (parent) {
+					if (parent && !parent.is_stopped()) {
 						good = parent.has_building_requirements() && parent.has_settlement_requirements()
 						if (good === false) {
 							return false;
@@ -447,25 +447,27 @@ civitas.objects.building = function(params) {
 		}
 		var settlement = this.get_settlement();
 		var chance;
+		var amount;
 		var building = this.get_building_data();
 		var random_amount;
 		for (var item in materials) {
+			amount = materials[item] * this.get_level();
 			if (item === 'faith') {
-				settlement.raise_faith(materials[item]);
+				settlement.raise_faith(amount);
 			} else if (item === 'research') {
-				settlement.raise_research(materials[item]);
+				settlement.raise_research(amount);
 			} else if (item === 'espionage') {
-				settlement.raise_espionage(materials[item]);
+				settlement.raise_espionage(amount);
 			} else if (item === 'fame') {
-				settlement.raise_fame(materials[item]);
+				settlement.raise_fame(amount);
 			} else if (item === 'prestige') {
-				settlement.raise_prestige(materials[item]);
+				settlement.raise_prestige(amount);
 			} else {
-				settlement.add_to_storage(item, materials[item]);
+				settlement.add_to_storage(item, amount);
 				if (typeof building.chance !== 'undefined') {
 					for (var itemo in building.chance) {
 						chance = Math.random();
-						if (chance < building.chance[itemo]) {
+						if ((chance * this.get_level()) < building.chance[itemo]) {
 							random_amount = civitas.utils.get_random(1, 5);
 							settlement.add_to_storage(itemo, random_amount);
 						}
@@ -634,6 +636,12 @@ civitas.objects.building = function(params) {
 		return this.handle;
 	};
 
+	/**
+	 * Log production data to the game console.
+	 *
+	 * @public
+	 * @returns {civitas.objects.building}
+	 */
 	this.log_to_console = function() {
 		this.notify();
 		var building = this.get_building_data();
@@ -652,12 +660,13 @@ civitas.objects.building = function(params) {
 			_m = _m.substring(0, _m.length - 2);
 		}
 		if (typeof building.tax !== 'undefined') {
-			this.core().log(this.get_name() + ' used ' + _m + ' and produced ' + (building.tax * this.get_level()) + ' coins.');
+			this.core().log(this.get_name() + ' used ' + _m + ' and got taxed for ' + (building.tax * this.get_level()) + ' coins.');
 		} else if (typeof building.production !== 'undefined' && typeof building.materials === 'undefined') {
 			this.core().log(this.get_name() + ' produced ' + _p + '.');
 		} else {
 			this.core().log(this.get_name() + ' used ' + _m + ' and produced ' + _p + '.');
 		}
+		return this;
 	};
 
 	/**

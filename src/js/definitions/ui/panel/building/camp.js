@@ -14,7 +14,7 @@ civitas.PANEL_CAMP = {
 				'<div class="army-recruiter">';
 		for (var item in civitas.SOLDIERS) {
 			_t += '<fieldset>' +
-					'<legend>' + item + '</legend>' +
+					'<legend>' + civitas.SOLDIERS[item].name + '</legend>' +
 					'<div class="cost">' +
 						'<dl class="nomg">';
 			for (var res in civitas.SOLDIERS[item].cost) {
@@ -28,7 +28,7 @@ civitas.PANEL_CAMP = {
 							'<dt>Defense</dt><dd>' + civitas.SOLDIERS[item].defense + '</dd>' +
 						'</dl>' +
 					'</div>' +
-					'<img data-handle="' + item + '" title="' + civitas.l('Recruit') + ' ' + item.name + '" class="tips recruit-soldier" src="' + civitas.ASSETS_URL + 'images/armies/' + item.toLowerCase() + '.png" />' +
+					'<img data-handle="' + item + '" title="' + civitas.l('Recruit') + ' ' + civitas.SOLDIERS[item].name + '" class="tips recruit-soldier" src="' + civitas.ASSETS_URL + 'images/armies/' + item.toLowerCase() + '.png" />' +
 				'</fieldset>';
 		}
 		_t += '</div>';

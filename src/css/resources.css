@@ -278,3 +278,11 @@ footer a[data-panel=help] {
 .game {
 	background: #000 url(../images/city/map.jpg) no-repeat;
 }
+
+.panel td a.btn.start {
+	background: transparent url(../images/ui/icons/start.png) no-repeat;
+}
+
+.panel td a.btn.pause {
+	background: transparent url(../images/ui/icons/stop.png) no-repeat;
+}
