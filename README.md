@@ -8,10 +8,10 @@ Civitas is an empire-building game written in Javascript with the help of the jQ
 Features
 ========
 
-- Over 30 types of buildings, each intertwined in the chain of production.
+- Over 35 types of buildings, each intertwined in the chain of production.
 - Custom climate zone, each with specific buildings.
-- Global market, player can trade goods with computer players.
-- Armies, ships, wars, treaties.
+- Global market, player can trade goods with other settlements.
+- Army! Navy! Soldiers! Ships!
 - Fame system that allows your city to level up via trades, conquers and special buildings.
 - Prestige system that affects diplomacy.
 - Each city in the game world is linked via a influence system that needs to be maintained for diplomacy to work.
@@ -19,14 +19,15 @@ Features
 random resources.
 - Espionage, subvert cities, destroy buildings, sabotage.
 - Ranking screen, where cities get ranked according to their status in the world.
+- Declare war, propose alliances and pacts, ask other settlements to join your city, propose cease fire.
 
 Missing
 =======
 
+- (NOT STARTED) Battles!
 - (NOT STARTED) Server component, no actual data is saved externally, only in your browser's localStorage.
 - (IN PROGRESS) Jailer component that assures game data integrity (no cheating).
 - (NOT STARTED) Any player interaction since no data is transmitted to the server component.
-- (IN PROGRESS) Declare war, treaties, much of diplomacy.
 - (IN PROGRESS) Artificial Intelligence (AI) for computer-controlled cities.
 - And many others. Stay tuned though.
 
@@ -44,6 +45,13 @@ Screenshots
 [Game Menu](docs/images/game-menu.png)
 
 [World Map](docs/images/world-map.png)
+
+Releases
+========
+
+- bleeding edge version - (.zip)[https://github.com/sizeofcat/civitas/archive/master.zip] (.tar.gz)[https://github.com/sizeofcat/civitas/archive/master.tar.gz]
+- 0.2 (April 30, 2017) - (.zip)[https://github.com/sizeofcat/civitas/archive/v0.2.zip] (.tar.gz)[https://github.com/sizeofcat/civitas/archive/v0.2.tar.gz]
+- 0.1 (January 20, 2017) - (.zip)[https://github.com/sizeofcat/civitas/archive/v0.1.zip] (.tar.gz)[https://github.com/sizeofcat/civitas/archive/v0.1.tar.gz]
 
 License
 =======
@@ -64,7 +72,7 @@ Always sign your commits and make sure you read the [coding style](CODING-STYLE.
 Source code
 ===========
 
-Civitas has ~18000 lines of code, ~250Kb minified and can be [downloaded from GitHub.com](https://github.com/sizeofcat/civitas/archive/master.zip) or by using git to clone the repository:
+Civitas is written using Javascript, has ~15000 lines of code, ~250Kb minified and can be [downloaded from GitHub.com](https://github.com/sizeofcat/civitas/archive/master.zip) or by using git to clone the repository:
 
 `git clone git@github.com/sizeofcat/civitas.git`
 
