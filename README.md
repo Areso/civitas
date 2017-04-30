@@ -49,9 +49,9 @@ Screenshots
 Releases
 ========
 
-- bleeding edge version - (.zip)[https://github.com/sizeofcat/civitas/archive/master.zip] (.tar.gz)[https://github.com/sizeofcat/civitas/archive/master.tar.gz]
-- 0.2 (April 30, 2017) - (.zip)[https://github.com/sizeofcat/civitas/archive/v0.2.zip] (.tar.gz)[https://github.com/sizeofcat/civitas/archive/v0.2.tar.gz]
-- 0.1 (January 20, 2017) - (.zip)[https://github.com/sizeofcat/civitas/archive/v0.1.zip] (.tar.gz)[https://github.com/sizeofcat/civitas/archive/v0.1.tar.gz]
+- bleeding edge version - [.zip](https://github.com/sizeofcat/civitas/archive/master.zip] (.tar.gz)[https://github.com/sizeofcat/civitas/archive/master.tar.gz)
+- 0.2 (April 30, 2017) - [.zip](https://github.com/sizeofcat/civitas/archive/v0.2.zip] (.tar.gz)[https://github.com/sizeofcat/civitas/archive/v0.2.tar.gz)
+- 0.1 (January 20, 2017) - [.zip](https://github.com/sizeofcat/civitas/archive/v0.1.zip] (.tar.gz)[https://github.com/sizeofcat/civitas/archive/v0.1.tar.gz)
 
 License
 =======
