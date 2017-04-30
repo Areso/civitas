@@ -6289,7 +6289,7 @@ civitas.ACHIEVEMENTS = [
 		name: 'Jesus Christ',
 		conditions: {
 			resources: {
-				faith: 1000
+				faith: civitas.MAX_FAITH_VALUE
 			}
 		}
 	}, {
@@ -6297,7 +6297,7 @@ civitas.ACHIEVEMENTS = [
 		name: 'Albert Einstein',
 		conditions: {
 			resources: {
-				research: 1000
+				research: civitas.MAX_RESEARCH_VALUE
 			}
 		}
 	}, {
@@ -6435,11 +6435,11 @@ civitas.ACHIEVEMENTS = [
 			}
 		}
 	}, {
-		description: 'Gather 1000 espionage.',
+		description: 'Gather maximum espionage.',
 		name: 'Anna Chapman',
 		conditions: {
 			resources: {
-				espionage: 1000
+				espionage: civitas.MAX_ESPIONAGE_VALUE
 			}
 		}
 	}, {
@@ -6635,6 +6635,14 @@ civitas.ACHIEVEMENTS = [
 		conditions: {
 			diplomacy: {
 				alliance: 1
+			}
+		}
+	}, {
+		description: 'Gather maximum prestige.',
+		name: 'Your highness',
+		conditions: {
+			resources: {
+				espionage: civitas.MAX_PRESTIGE_VALUE
 			}
 		}
 	}
