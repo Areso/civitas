@@ -10929,13 +10929,19 @@ civitas.controls.panel = function (params) {
 				});
 			}
 		}
-		$(this.handle).on('click', '.close', function () {
+		$(this.handle).on('click', 'header', function () {
+			$('.ui .panel').css({
+				'z-index': 99996
+			});
+			$(self.handle).css({
+				'z-index': 99997
+			});
+		}).on('click', '.close', function () {
 			self.destroy();
 			return false;
 		}).draggable({
 			handle: 'header',
 			containment: 'window',
-			snap: '.panel',
 			start: function() {
 		        $(this).css({
 		        	height: 'auto'
