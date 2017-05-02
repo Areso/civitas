@@ -10,7 +10,7 @@ civitas.objects.settlement.prototype.diplomacy = function(settlement, mode) {
 	if (typeof settlement === 'object') {
 		settlement = settlement.id();
 	}
-	if (this.can_diplomacy() === true && typeof settlement === 'number') {
+	if (typeof settlement === 'number') {
 		this._status[settlement].status = mode;
 		if (mode === civitas.DIPLOMACY_WAR) {
 			this.reset_influence(settlement);

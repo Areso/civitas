@@ -20,10 +20,10 @@ civitas.PANEL_WORLD = {
 				core.open_panel(civitas.PANEL_SETTLEMENT, core.get_settlement(_settlement_name));
 			}
 			return false;
-		}).on('click', '.caravan, .army, .spy', function () {
+		}).on('click', '.caravan, .army, .spy, .army-return', function () {
 			var _action_id = parseInt($(this).data('id'));
-			if (core.queue[_action_id].mode === civitas.ACTION_CAMPAIGN) {
-				core.open_panel(civitas.PANEL_CAMPAIGN, core.queue[_action_id]);
+			if (core._queue[_action_id].mode === civitas.ACTION_CAMPAIGN) {
+				core.open_panel(civitas.PANEL_CAMPAIGN, core._queue[_action_id]);
 			}
 			return false;
 		});
@@ -52,6 +52,8 @@ civitas.PANEL_WORLD = {
 				class_name = 'caravan';
 			} else if (action.type === civitas.CAMPAIGN_SPY) {
 				class_name = 'spy';
+			} else if (action.type === civitas.CAMPAIGN_ARMY_RETURN) {
+				class_name = 'army-return';
 			}
 			var source = action.source;
 			var destination = action.destination;
@@ -64,9 +66,13 @@ civitas.PANEL_WORLD = {
 			var x = source.x + Math.floor(((destination.x - source.x) / distance_in_days) * action.passed);
 			var y = source.y - Math.floor(((source.y - destination.y) / distance_in_days) * action.passed);
 			if (action.mode === civitas.ACTION_CAMPAIGN) {
-				out += '<div data-id="' + i + '" class="tips ' + class_name + '" title="' + class_name.capitalize() + ' from ' + _source.name() + ' to ' + _destination.name() + '" style="left:' + x + 'px;top:' + y + 'px"></div>';
+				if (action.type === civitas.CAMPAIGN_ARMY_RETURN) {
+					out += '<div data-id="' + i + '" class="tips ' + class_name + '" title="' + _destination.name() + ' army returning from ' + _source.name() + '." style="left:' + x + 'px;top:' + y + 'px"></div>';
+				} else {
+					out += '<div data-id="' + i + '" class="tips ' + class_name + '" title="' + class_name.capitalize() + ' marching from ' + _source.name() + ' to ' + _destination.name() + '." style="left:' + x + 'px;top:' + y + 'px"></div>';
+				}
 			} else if (action.mode === civitas.ACTION_DIPLOMACY) {
-				out += '<div data-id="' + i + '" class="tips messenger" title="Diplomatic mission from ' + _source.name() + ' to ' + _destination.name() + '" style="left:' + x + 'px;top:' + y + 'px"></div>';
+				out += '<div data-id="' + i + '" class="tips messenger" title="Diplomatic mission from ' + _source.name() + ' to ' + _destination.name() + '." style="left:' + x + 'px;top:' + y + 'px"></div>';
 			}
 		}
 		$(this.handle + ' section .worldmap').empty().append(out);

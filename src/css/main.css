@@ -398,6 +398,7 @@ table tr td:last-child a,
 .panel .toolbar .btn,
 table thead td,
 .modal .btn,
+.window .toolbar a,
 table tfoot td {
 	background-color: #694224;
 	border: 1px solid #694224;
@@ -411,6 +412,7 @@ table tfoot td {
 table tr td:last-child a:hover,
 .panel .toolbar .btn:hover,
 .modal .btn:hover,
+.window .toolbar a:hover,
 .window .button.highlight:hover {
 	background-color: #422712;
 	border: 1px solid #422712;

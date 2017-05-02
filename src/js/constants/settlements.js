@@ -685,6 +685,7 @@ civitas.SETTLEMENTS = {
 		level: 38,
 		resources: {
 			coins: 2800000,
+			provisions: 100,
 			prestige: 6400,
 			espionage: 580
 		},
@@ -716,6 +717,8 @@ civitas.SETTLEMENTS = {
 			axeman: 30,
 			knight: 10,
 			bowman: 20,
+			cannon: 10,
+			catapult: 4,
 			crossbowman: 10,
 			pikeman: 30
 		},

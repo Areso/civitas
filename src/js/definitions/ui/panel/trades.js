@@ -100,6 +100,7 @@ civitas.PANEL_TRADES = {
 	},
 	on_refresh: function() {
 		var core = this.core();
+		var my_settlement = core.get_settlement();
 		var settlement = core.get_settlement();
 		var settlements = core.get_settlements();
 		var out = '';
@@ -126,8 +127,11 @@ civitas.PANEL_TRADES = {
 						'<td></td>' +
 					'</tr>' +
 					'</thead>';
-		for (var z = 0; z < settlements.length; z++) {
+		for (var z = 1; z < settlements.length; z++) {
 			var settlement = settlements[z];
+			if (my_settlement.status()[settlements[z].id()].influence < 20) {
+				break;
+			}
 			var trades = settlements[z].get_trades();
 			var resources = settlement.get_resources();
 			if (trades !== null) {
@@ -198,8 +202,11 @@ civitas.PANEL_TRADES = {
 						'<td></td>' +
 					'</tr>' +
 					'</thead>';
-		for (var z = 0; z < settlements.length; z++) {
+		for (var z = 1; z < settlements.length; z++) {
 			var settlement = settlements[z];
+			if (my_settlement.status()[settlements[z].id()].influence < 20) {
+				break;
+			}
 			var trades = settlements[z].get_trades();
 			var resources = settlement.get_resources();
 			if (trades !== null) {

@@ -42,6 +42,14 @@ civitas.CAMPAIGN_CARAVAN = 2;
 civitas.CAMPAIGN_SPY = 3;
 
 /**
+ * The campaign is an army returning home with spoils of war.
+ *
+ * @constant
+ * @type {Number}
+ */
+civitas.CAMPAIGN_ARMY_RETURN = 4;
+
+/**
  * Just met, temporary trucem can declare war, can trade.
  * 
  * @constant

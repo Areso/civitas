@@ -58,7 +58,7 @@ civitas.game.prototype.process_action = function(id) {
 				return false;
 			}
 		}
-		if (campaign.type === civitas.CAMPAIGN_ARMY) {
+		if (campaign.type === civitas.CAMPAIGN_ARMY || campaign.type === civitas.CAMPAIGN_ARMY_RETURN) {
 			class_name = 'army';
 		} else if (campaign.type === civitas.CAMPAIGN_CARAVAN) {
 			class_name = 'caravan';
@@ -67,12 +67,27 @@ civitas.game.prototype.process_action = function(id) {
 		}
 		switch (campaign.type) {
 			case civitas.CAMPAIGN_ARMY:
-				var source_army = settlement.get_army_total();
-				var destination_army = destination_settlement.get_army_total();
-				var diff1 = source_army.attack - destination_army.defense;
-				var diff2 = source_army.defense - destination_army.attack;
-				// TODO
-				//console.log(diff1 + '=' + diff2);
+				if (!this.get_panel('battle')) {
+					this.open_window(civitas.WINDOW_BATTLE, {
+						source: campaign,
+						destination: destination_settlement
+					});
+				}
+				break;
+			case civitas.CAMPAIGN_ARMY_RETURN:
+				var army = destination_settlement.get_army_total();
+				for (var item in army.army) {
+					army.army[item] = army.army[item] + campaign.data.army[item];
+				}
+				var navy = destination_settlement.get_navy_total();
+				for (var item in navy.navy) {
+					navy.navy[item] = navy.navy[item] + campaign.data.navy[item];
+				}
+				if (typeof campaign.data.resources !== 'undefined') {
+					for (var item in campaign.data.resources) {
+						destination_settlement.add_to_storage(item, campaign.data.resources[item]);
+					}
+				}
 				break;
 			case civitas.CAMPAIGN_SPY:
 				if (typeof campaign.data.espionage !== 'undefined') {
@@ -141,14 +156,15 @@ civitas.game.prototype.process_action = function(id) {
 					}
 					settlement.raise_influence(campaign.destination.id, civitas.CARAVAN_INFLUENCE);
 				}
+				this.notify('The army you sent' + campaign.duration + ' days ago to ' + destination_settlement.name() + ' returned with the spoils of war.');
 				break;
 		}
 		if (failed === true) {
-			if (campaign.source.id === settlement.id()) {
-				this.notify('The ' + class_name + ' you sent ' + campaign.duration + ' days ago to ' + destination_settlement.name() + ' reached its destination.');
-			} else if (campaign.destination.id === settlement.id()) {
+			if (campaign.destination.id === this.get_settlement().id()) {
 				destination_settlement = this.get_settlement(campaign.source.id);
 				this.notify('The ' + class_name + ' sent by ' + destination_settlement.name() + ' ' + campaign.duration + ' days ago reached our city.');
+			} else {
+				this.notify('The ' + class_name + ' you sent ' + campaign.duration + ' days ago to ' + destination_settlement.name() + ' reached its destination.');
 			}
 		}
 	} else if (campaign.mode === civitas.ACTION_DIPLOMACY) {
@@ -256,6 +272,9 @@ civitas.game.prototype.add_to_queue = function(source_settlement, destination_se
 			}
 			var settlement_type = destination_settlement.get_type();
 			source_settlement.diplomacy(destination_settlement.id(), civitas.DIPLOMACY_WAR);
+		} else if (type === civitas.CAMPAIGN_ARMY_RETURN) {
+			class_name = 'army-return';
+			this.notify('Your army sent ' + duration + ' days ago to ' + source_settlement.name() + ' finished its campaign and will be returning home with the spoils of war.');
 		} else if (type === civitas.CAMPAIGN_SPY) {
 			if (!source_settlement.can_diplomacy()) {
 				return false;

@@ -9,6 +9,7 @@ civitas.SOLDIERS = {
 		name: 'Militia',
 		attack: 1,
 		defense: 1,
+		moves: 1,
 		cost: {
 			coins: 100,
 			bread: 1,
@@ -17,8 +18,9 @@ civitas.SOLDIERS = {
 	},
 	swordsman: {
 		name: 'Swordsman',
-		attack: 3,
+		attack: 2,
 		defense: 2,
+		moves: 2,
 		cost: {
 			coins: 300,
 			bread: 1,
@@ -28,8 +30,9 @@ civitas.SOLDIERS = {
 	},
 	axeman: {
 		name: 'Axeman',
-		attack: 4,
-		defense: 4,
+		attack: 3,
+		defense: 1,
+		moves: 2,
 		cost: {
 			coins: 400,
 			bread: 1,
@@ -39,8 +42,10 @@ civitas.SOLDIERS = {
 	},
 	bowman: {
 		name: 'Bowman',
-		attack: 6,
+		attack: 3,
 		defense: 1,
+		ranged: 5,
+		moves: 3,
 		cost: {
 			coins: 500,
 			bread: 1,
@@ -50,8 +55,9 @@ civitas.SOLDIERS = {
 	},
 	pikeman: {
 		name: 'Pikeman',
-		attack: 5,
+		attack: 2,
 		defense: 4,
+		moves: 2,
 		cost: {
 			coins: 700,
 			provisions: 1,
@@ -63,8 +69,10 @@ civitas.SOLDIERS = {
 	},
 	crossbowman: {
 		name: 'Crossbowman',
-		attack: 7,
+		attack: 5,
 		defense: 2,
+		moves: 3,
+		ranged: 8,
 		cost: {
 			coins: 1000,
 			provisions: 2,
@@ -77,7 +85,8 @@ civitas.SOLDIERS = {
 	knight: {
 		name: 'Knight',
 		attack: 6,
-		defense: 9,
+		defense: 6,
+		moves: 4,
 		cost: {
 			coins: 1500,
 			provisions: 3,
@@ -89,8 +98,9 @@ civitas.SOLDIERS = {
 	},
 	legionnaire: {
 		name: 'Legionnaire',
-		attack: 12,
-		defense: 14,
+		attack: 7,
+		defense: 7,
+		moves: 2,
 		cost: {
 			coins: 2500,
 			provisions: 6,
@@ -102,8 +112,9 @@ civitas.SOLDIERS = {
 	},
 	crusader: {
 		name: 'Crusader',
-		attack: 16,
-		defense: 18,
+		attack: 9,
+		defense: 9,
+		moves: 4,
 		cost: {
 			coins: 3000,
 			provisions: 8,
@@ -111,6 +122,51 @@ civitas.SOLDIERS = {
 			iron: 4,
 			weapons: 15,
 			armor: 15
+		}
+	},
+	cannon: {
+		name: 'Cannon',
+		attack: 15,
+		defense: 0,
+		moves: 0,
+		siege: true,
+		ranged: 20,
+		cost: {
+			coins: 25000,
+			provisions: 30,
+			gunpowder: 30,
+			iron: 40,
+			cannons: 1
+		}
+	},
+	heavycannon: {
+		name: 'Heavy Cannon',
+		attack: 25,
+		defense: 0,
+		moves: 0,
+		siege: true,
+		ranged: 20,
+		cost: {
+			coins: 100000,
+			provisions: 100,
+			gunpowder: 100,
+			iron: 100,
+			cannons: 10
+		}
+	},
+	catapult: {
+		name: 'Catapult',
+		attack: 50,
+		defense: 0,
+		ranged: 20,
+		siege: true,
+		moves: 0,
+		cost: {
+			coins: 100000,
+			provisions: 50,
+			gunpowder: 50,
+			iron: 40,
+			catapults: 1
 		}
 	}
 };
@@ -281,3 +337,19 @@ civitas.MERCENARIES = [{
 	},
 	cost: 1500000
 }];
+
+/**
+ * The attacking side (left) in a battleground.
+ *
+ * @type {Number}
+ * @constant
+ */
+civitas.BATTLEGROUND_ATTACK = 1;
+
+/**
+ * The defending side (right) in a battleground.
+ *
+ * @type {Number}
+ * @constant
+ */
+civitas.BATTLEGROUND_DEFENSE = 2;

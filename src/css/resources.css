@@ -134,6 +134,9 @@ footer a[data-panel=help] {
 	background: transparent url(../images/ui/world/army.png) no-repeat;
 }
 
+.panel .worldmap .army-return {
+	background: transparent url(../images/ui/world/return_army.png) no-repeat;
+}
 .panel .worldmap .messenger {
 	background: transparent url(../images/ui/world/diplomacy.png) no-repeat;
 }
@@ -285,4 +288,8 @@ footer a[data-panel=help] {
 
 .panel td a.btn.pause {
 	background: transparent url(../images/ui/icons/stop.png) no-repeat;
+}
+
+#window-battle .battleground {
+	background: #fff url(../images/battle/bg2.png) no-repeat;
 }

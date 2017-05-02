@@ -176,18 +176,24 @@ civitas.PANEL_SETTLEMENT = {
 				'<p>' + civitas.l('Below are the goods this city will be selling this year.') + '</p>' +
 				civitas.ui.trades_list(trades, 'exports'));
 		}
-		var out = '<p>' + civitas.l('This settlement has the the following resources:') + '</p>';
+		var out = '';
+		var _out = '<p>' + civitas.l('This settlement has the the following resources:') + '</p>';
 		for (var item in settlement.get_resources()) {
 			if ($.inArray(item, civitas.NON_RESOURCES) === -1 && settlement.resources[item] > 0) {
 				out += civitas.ui.resource_storage_small_el(item, settlement.resources[item]);
 			}
 		}
+		if (out !== '') {
+			_out += out;
+		} else {
+			_out = '<p>' + civitas.l('This settlement has no resources.') + '</p>';
+		}
+		$(this.handle + ' #tab-resources').empty().append(_out);
 		if (_status.id === civitas.DIPLOMACY_VASSAL) {
 			$(this.handle + ' .btn.attack, ' + this.handle + ' .btn.spy').hide();
 		} else {
 			$(this.handle + ' .btn.attack, ' + this.handle + ' .btn.spy').show();
 		}
-		$(this.handle + ' #tab-resources').empty().append(out);
 		if (my_settlement.can_diplomacy()) {
 			if (_status.id === civitas.DIPLOMACY_PACT && settlement_type === civitas.CITY) {
 				$(this.handle + ' footer .alliance').show();

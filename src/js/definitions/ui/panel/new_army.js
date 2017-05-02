@@ -16,7 +16,6 @@ civitas.PANEL_NEW_ARMY = {
 		'</div>',
 	id: 'new-army',
 	on_show: function(params) {
-		this.resources = {};
 		var self = this;
 		var core = this.core();
 		var my_settlement = core.get_settlement();
@@ -58,7 +57,7 @@ civitas.PANEL_NEW_ARMY = {
 			_t += '<div class="army-item">' +
 					'<a href="#" data-max="' + army.army[item] + '" data-soldier="' + item + '" class="army-item-inc">+</a>' +
 					'<a href="#" data-max="' + army.army[item] + '" data-soldier="' + item + '" class="army-item-dec">-</a>' +
-					'<img class="tips" title="' + item + '" src="' + civitas.ASSETS_URL + 'images/armies/' + item.toLowerCase().replace(/ /g,"_") + '.png" />' +
+					'<img class="tips" title="' + civitas.SOLDIERS[item].name + '" src="' + civitas.ASSETS_URL + 'images/armies/' + item.toLowerCase().replace(/ /g,"_") + '.png" />' +
 					'<span class="amount">' + army.army[item] + '</span>' +
 				'</div>';
 		}
@@ -87,21 +86,6 @@ civitas.PANEL_NEW_ARMY = {
 			}
 			_t += '</fieldset>';
 		}
-		_t += '<fieldset class="select-combo">' +
-			'<legend>' + civitas.l('War Machines') + '</legend>' +
-			'<select class="army-resources-select">' +
-				'<option value="0">-- ' + civitas.l('select') + ' --</option>';
-		var resources = my_settlement.get_resources();
-		for (var item in resources) {
-			if ($.inArray(item, civitas.ARMY_RESOURCES) !== -1) {
-				_t += '<option value="' + item + '"> ' + civitas.utils.get_resource_name(item) + '</option>';
-			}
-		}
-		_t += '</select>' +
-			'<input title="' + civitas.l('Add the resources to the list.') + '" type="button" class="tips army-resources-add" value="+" />' +
-			'<input title="' + civitas.l('Amount of selected resource to add to the army.') + '" type="number" value="1" class="tips army-resources-amount" min="1" max="999" />' +
-			'<div class="army-resources clearfix"></div>' +
-		'</fieldset>';
 		if (my_settlement.can_recruit_heroes()) {
 			var heroes = my_settlement.get_heroes();
 			_t += '<fieldset>' +
@@ -122,52 +106,7 @@ civitas.PANEL_NEW_ARMY = {
 		}
 		_t += '</div>';
 		$(this.handle + ' section').empty().append(_t);
-		this.generate_table_data = function() {
-			var _t = '<table class="army-resources clearfix">' +
-				'<thead>' +
-				'<tr>' +
-				'<td>' + civitas.l('Amount') + '</td>' +
-				'<td>' + civitas.l('Resource') + '</td>' +
-				'<td></td>' +
-				'</tr>' +
-				'</thead>' +
-				'<tbody>';
-			for (var item in this.resources) {
-				_t += '<tr>' +
-					'<td>' + this.resources[item] + '</td>' +
-					'<td>' + civitas.ui.resource_small_img(item) + '</td>' +
-					'<td>' +
-						'<a title="' + civitas.l('Remove this resource from the army.') + '" href="#" data-id="' + item + '" class="tips army-resources-delete">-</a>' +
-					'</td>' +
-				'</tr>';
-			}
-			_t += '</tbody>' +
-			'</table>';
-			$(this.handle + ' .army-resources').empty().append(_t);
-		};
-		$(this.handle).on('click', '.army-resources-add', function() {
-			var amount = parseInt($(self.handle + ' .army-resources-amount').val());
-			var resource = $(self.handle + ' .army-resources-select').val();
-			if (resource !== '0') {
-				if (typeof self.resources[resource] !== 'undefined' && !my_settlement.has_resources(resource, self.resources[resource] + amount)) {
-					return false;
-				} else if (typeof self.resources[resource] === 'undefined' && !my_settlement.has_resources(resource, amount)) {
-					return false;
-				}
-				if (typeof self.resources[resource] !== 'undefined') {
-					self.resources[resource] = self.resources[resource] + amount;
-				} else {
-					self.resources[resource] = amount;
-				}
-				self.generate_table_data();
-			}
-			return false;
-		}).on('click', '.army-resources-delete', function() {
-			var resource = $(this).data('id');
-			delete self.resources[resource];
-			self.generate_table_data();
-			return false;
-		}).on('click', '.navy-item-inc', function() {
+		$(this.handle).on('click', '.navy-item-inc', function() {
 			var max = parseInt($(this).data('max'));
 			var ship = $(this).data('ship');
 			var current = parseInt($(this).parent().children('.amount').html());
@@ -216,10 +155,23 @@ civitas.PANEL_NEW_ARMY = {
 				core.error(civitas.l('There was an error creating and dispatching the army, check the data you entered and try again.'));
 				return false;
 			}
+			/*
+			core.add_to_queue(settlement, my_settlement, civitas.ACTION_CAMPAIGN, civitas.CAMPAIGN_ARMY, {
+				army: {
+					militia: 40,
+					axeman: 30,
+					knight: 10,
+					bowman: 20,
+					cannon: 10,
+					catapult: 4,
+					crossbowman: 10,
+					pikeman: 30
+				},
+				navy: {}
+			});*/
 			if (core.add_to_queue(my_settlement, settlement, civitas.ACTION_CAMPAIGN, civitas.CAMPAIGN_ARMY, {
 				army: self.assigned_army,
-				navy: self.assigned_navy,
-				resources: self.resources
+				navy: self.assigned_navy
 			})) {
 				self.destroy();
 			} else {
@@ -227,9 +179,5 @@ civitas.PANEL_NEW_ARMY = {
 			}
 			return false;
 		});
-	},
-	on_refresh: function() {
-		var core = this.core();
-		var my_settlement = core.get_settlement();
 	}
 };

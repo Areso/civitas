@@ -1,11 +1,45 @@
 /**
- * Internal method for the initial setup of the settlement's army.
+ * Parse an army into something more manageable.
  *
- * @private
+ * @public
+ * @param {Object} army
+ * @returns {Object}
+ */
+civitas.objects.settlement.prototype.parse_army = function(army) {
+	var data = {
+		soldiers: {},
+		attack: 0,
+		defense: 0
+	};
+	var attack = 0;
+	var defense = 0;
+	if (typeof army === 'undefined') {
+		army = this.army;
+	}
+	for (var item in army) {
+		if (army[item] > 0) {
+			data.soldiers[item] = {
+				attack: civitas.SOLDIERS[item].attack * army[item],
+				defense: civitas.SOLDIERS[item].defense * army[item],
+				total: army[item]
+			};
+			attack += civitas.SOLDIERS[item].attack * army[item];
+			defense += civitas.SOLDIERS[item].defense * army[item];
+		}
+	}
+	data.attack = attack;
+	data.defense = defense;
+	return data;
+};
+
+/**
+ * Method for the setup of the settlement's army.
+ *
+ * @public
  * @param {Object} params
  * @returns {Object}
  */
-civitas.objects.settlement.prototype._setup_army = function(params) {
+civitas.objects.settlement.prototype.load_army = function(params) {
 	var army = {};
 	for (var item in civitas.SOLDIERS) {
 		if (typeof params !== 'undefined' && typeof params[item] !== 'undefined') {
@@ -24,7 +58,7 @@ civitas.objects.settlement.prototype._setup_army = function(params) {
  * @param {Object} params
  * @returns {Object}
  */
-civitas.objects.settlement.prototype._setup_navy = function(params) {
+civitas.objects.settlement.prototype.load_navy = function(params) {
 	var navy = {};
 	for (var item in civitas.SHIPS) {
 		if (typeof params !== 'undefined' && typeof params[item] !== 'undefined') {

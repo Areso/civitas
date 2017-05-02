@@ -2,7 +2,7 @@
  * Civitas empire-building game.
  *
  * @author sizeof(cat) <sizeofcat AT riseup.net>
- * @version 0.2.0.4302017
+ * @version 0.2.0.532017
  * @license MIT
  */ 'use strict';
 
@@ -642,6 +642,14 @@ civitas.CAMPAIGN_CARAVAN = 2;
 civitas.CAMPAIGN_SPY = 3;
 
 /**
+ * The campaign is an army returning home with spoils of war.
+ *
+ * @constant
+ * @type {Number}
+ */
+civitas.CAMPAIGN_ARMY_RETURN = 4;
+
+/**
  * Just met, temporary trucem can declare war, can trade.
  * 
  * @constant
@@ -1241,6 +1249,7 @@ civitas.SOLDIERS = {
 		name: 'Militia',
 		attack: 1,
 		defense: 1,
+		moves: 1,
 		cost: {
 			coins: 100,
 			bread: 1,
@@ -1249,8 +1258,9 @@ civitas.SOLDIERS = {
 	},
 	swordsman: {
 		name: 'Swordsman',
-		attack: 3,
+		attack: 2,
 		defense: 2,
+		moves: 2,
 		cost: {
 			coins: 300,
 			bread: 1,
@@ -1260,8 +1270,9 @@ civitas.SOLDIERS = {
 	},
 	axeman: {
 		name: 'Axeman',
-		attack: 4,
-		defense: 4,
+		attack: 3,
+		defense: 1,
+		moves: 2,
 		cost: {
 			coins: 400,
 			bread: 1,
@@ -1271,8 +1282,10 @@ civitas.SOLDIERS = {
 	},
 	bowman: {
 		name: 'Bowman',
-		attack: 6,
+		attack: 3,
 		defense: 1,
+		ranged: 5,
+		moves: 3,
 		cost: {
 			coins: 500,
 			bread: 1,
@@ -1282,8 +1295,9 @@ civitas.SOLDIERS = {
 	},
 	pikeman: {
 		name: 'Pikeman',
-		attack: 5,
+		attack: 2,
 		defense: 4,
+		moves: 2,
 		cost: {
 			coins: 700,
 			provisions: 1,
@@ -1295,8 +1309,10 @@ civitas.SOLDIERS = {
 	},
 	crossbowman: {
 		name: 'Crossbowman',
-		attack: 7,
+		attack: 5,
 		defense: 2,
+		moves: 3,
+		ranged: 8,
 		cost: {
 			coins: 1000,
 			provisions: 2,
@@ -1309,7 +1325,8 @@ civitas.SOLDIERS = {
 	knight: {
 		name: 'Knight',
 		attack: 6,
-		defense: 9,
+		defense: 6,
+		moves: 4,
 		cost: {
 			coins: 1500,
 			provisions: 3,
@@ -1321,8 +1338,9 @@ civitas.SOLDIERS = {
 	},
 	legionnaire: {
 		name: 'Legionnaire',
-		attack: 12,
-		defense: 14,
+		attack: 7,
+		defense: 7,
+		moves: 2,
 		cost: {
 			coins: 2500,
 			provisions: 6,
@@ -1334,8 +1352,9 @@ civitas.SOLDIERS = {
 	},
 	crusader: {
 		name: 'Crusader',
-		attack: 16,
-		defense: 18,
+		attack: 9,
+		defense: 9,
+		moves: 4,
 		cost: {
 			coins: 3000,
 			provisions: 8,
@@ -1343,6 +1362,51 @@ civitas.SOLDIERS = {
 			iron: 4,
 			weapons: 15,
 			armor: 15
+		}
+	},
+	cannon: {
+		name: 'Cannon',
+		attack: 15,
+		defense: 0,
+		moves: 0,
+		siege: true,
+		ranged: 20,
+		cost: {
+			coins: 25000,
+			provisions: 30,
+			gunpowder: 30,
+			iron: 40,
+			cannons: 1
+		}
+	},
+	heavycannon: {
+		name: 'Heavy Cannon',
+		attack: 25,
+		defense: 0,
+		moves: 0,
+		siege: true,
+		ranged: 20,
+		cost: {
+			coins: 100000,
+			provisions: 100,
+			gunpowder: 100,
+			iron: 100,
+			cannons: 10
+		}
+	},
+	catapult: {
+		name: 'Catapult',
+		attack: 50,
+		defense: 0,
+		ranged: 20,
+		siege: true,
+		moves: 0,
+		cost: {
+			coins: 100000,
+			provisions: 50,
+			gunpowder: 50,
+			iron: 40,
+			catapults: 1
 		}
 	}
 };
@@ -1513,6 +1577,22 @@ civitas.MERCENARIES = [{
 	},
 	cost: 1500000
 }];
+
+/**
+ * The attacking side (left) in a battleground.
+ *
+ * @type {Number}
+ * @constant
+ */
+civitas.BATTLEGROUND_ATTACK = 1;
+
+/**
+ * The defending side (right) in a battleground.
+ *
+ * @type {Number}
+ * @constant
+ */
+civitas.BATTLEGROUND_DEFENSE = 2;
 
 /**
  * List of ship types, their attributes and cost.
@@ -5050,6 +5130,7 @@ civitas.SETTLEMENTS = {
 		level: 38,
 		resources: {
 			coins: 2800000,
+			provisions: 100,
 			prestige: 6400,
 			espionage: 580
 		},
@@ -5081,6 +5162,8 @@ civitas.SETTLEMENTS = {
 			axeman: 30,
 			knight: 10,
 			bowman: 20,
+			cannon: 10,
+			catapult: 4,
 			crossbowman: 10,
 			pikeman: 30
 		},
@@ -6241,16 +6324,6 @@ civitas.MAIN_RESOURCES = [
 	'coal', 'copper', 'fish', 'flour', 'furs', 'gold', 'goldores', 'herbs', 'hides',
 	'iron', 'ironores', 'meat', 'milk', 'ropes', 'salt', 'stones', 'weapons', 'wheat',
 	'wine', 'wood', 'woodplanks'
-];
-
-/**
- * Resources that can be assigned to an army.
- *
- * @constant
- * @type {Array}
- */
-civitas.ARMY_RESOURCES = [
-	'cannons', 'catapults'
 ];
 
 /**
@@ -7421,8 +7494,8 @@ civitas.objects.settlement = function(params) {
 		this.properties.icon = (typeof params.properties.icon !== 'undefined') ? params.properties.icon : 1;
 		this.properties.population = (typeof params.properties.population !== 'undefined') ? params.properties.population : this.properties.level * civitas.POPULATION_PER_LEVEL;
 		this.properties.type = (typeof params.properties.type !== 'undefined') ? params.properties.type : civitas.CITY;
-		this.army = this._setup_army(params.army);
-		this.navy = this._setup_navy(params.navy);
+		this.army = this.load_army(params.army);
+		this.navy = this.load_navy(params.navy);
 		this._mercenary = (typeof params.mercenary !== 'undefined') ? params.mercenary : [];
 		this._status = (typeof params.status !== 'undefined') ? params.status : {};
 		this._heroes = (typeof params.heroes !== 'undefined') ? params.heroes : [];
@@ -7632,6 +7705,14 @@ civitas.objects.settlement = function(params) {
 				if (resources[item] > 1000) {
 					advices.push('You seem to have a surplus of ' + civitas.utils.get_resource_name(item) + '. You can sell some or place it on the Black Market and get coins instead.');
 				}
+			}
+		}
+		for (var i = 0; i < this.core()._queue.length; i++) {
+			if (this.core()._queue[i].destination.id === this.id()) {
+				advices.push('There is an army from ' + this.core().get_settlement(this.core()._queue[i].source.id).name() + ' marching towards your city!');
+			}
+			if (this.core()._queue[i].source.id === this.id()) {
+				advices.push('Your army is marching towards ' + this.core().get_settlement(this.core()._queue[i].destination.id).name() + '!');
 			}
 		}
 		var buildings = this.get_buildings();
@@ -8687,13 +8768,47 @@ civitas.objects.settlement.prototype.get_buildings = function() {
 };
 
 /**
- * Internal method for the initial setup of the settlement's army.
+ * Parse an army into something more manageable.
  *
- * @private
+ * @public
+ * @param {Object} army
+ * @returns {Object}
+ */
+civitas.objects.settlement.prototype.parse_army = function(army) {
+	var data = {
+		soldiers: {},
+		attack: 0,
+		defense: 0
+	};
+	var attack = 0;
+	var defense = 0;
+	if (typeof army === 'undefined') {
+		army = this.army;
+	}
+	for (var item in army) {
+		if (army[item] > 0) {
+			data.soldiers[item] = {
+				attack: civitas.SOLDIERS[item].attack * army[item],
+				defense: civitas.SOLDIERS[item].defense * army[item],
+				total: army[item]
+			};
+			attack += civitas.SOLDIERS[item].attack * army[item];
+			defense += civitas.SOLDIERS[item].defense * army[item];
+		}
+	}
+	data.attack = attack;
+	data.defense = defense;
+	return data;
+};
+
+/**
+ * Method for the setup of the settlement's army.
+ *
+ * @public
  * @param {Object} params
  * @returns {Object}
  */
-civitas.objects.settlement.prototype._setup_army = function(params) {
+civitas.objects.settlement.prototype.load_army = function(params) {
 	var army = {};
 	for (var item in civitas.SOLDIERS) {
 		if (typeof params !== 'undefined' && typeof params[item] !== 'undefined') {
@@ -8712,7 +8827,7 @@ civitas.objects.settlement.prototype._setup_army = function(params) {
  * @param {Object} params
  * @returns {Object}
  */
-civitas.objects.settlement.prototype._setup_navy = function(params) {
+civitas.objects.settlement.prototype.load_navy = function(params) {
 	var navy = {};
 	for (var item in civitas.SHIPS) {
 		if (typeof params !== 'undefined' && typeof params[item] !== 'undefined') {
@@ -9053,7 +9168,7 @@ civitas.objects.settlement.prototype.diplomacy = function(settlement, mode) {
 	if (typeof settlement === 'object') {
 		settlement = settlement.id();
 	}
-	if (this.can_diplomacy() === true && typeof settlement === 'number') {
+	if (typeof settlement === 'number') {
 		this._status[settlement].status = mode;
 		if (mode === civitas.DIPLOMACY_WAR) {
 			this.reset_influence(settlement);
@@ -10408,6 +10523,621 @@ civitas.objects.building = function(params) {
 };
 
 /**
+ * Battleground object.
+ * 
+ * @param {Object} params
+ * @class {civitas.objects.battleground}
+ * @returns {civitas.objects.battleground}
+ */
+civitas.objects.battleground = function (params) {
+
+	/**
+	 * Reference to the core object.
+	 *
+	 * @private
+	 * @type {civitas.game}
+	 */
+	this._core = null;
+
+	/**
+	 * Battleground properties.
+	 *
+	 * @private
+	 * @type {Object}
+	 */
+	this.properties = {
+		width: 0,
+		height: 0,
+	};
+
+	/**
+	* DOM elements for external output.
+	*
+	* @private
+	* @type {Object}
+	*/
+	this.elements = {
+		container: null,
+		console: null,
+		attack: null,
+		defense: null
+	};
+
+	this.on_win = function() {};
+
+	this.on_lose = function() {};
+
+	this.on_select = function() {};
+
+	this.on_move = function() {};
+
+	this.on_attack = function() {};
+
+	this.on_end_turn = function() {};
+
+	this._grid = [];
+
+	this._attack = null;
+
+	this._defense = null;
+
+	this._from = null;
+
+	this.done = false;
+
+	/**
+	 * Current turn for this battleground.
+	 *
+	 * @private
+	 * @type {Number}
+	 */
+	this._current_turn = 1;
+
+	this._player = null;
+
+	this._computer = null;
+
+	/**
+	 * Object constructor.
+	 * 
+	 * @private
+	 * @returns {civitas.objects.battleground}
+	 * @param {Object} params
+	 */
+	this.__init = function (params) {
+		this._core = params.core;
+		this.properties.width = params.width;
+		this.properties.height = params.height;
+		this.elements.container = params.elements.container;
+		this.elements.console = params.elements.console;
+		this.elements.attack = params.elements.attack;
+		this.elements.defense = params.elements.defense;
+		this._attack = params.attack;
+		this._defense = params.defense;
+		if (params.on_win instanceof Function) {
+			this.on_win = params.on_win;
+		}
+		if (params.on_lose instanceof Function) {
+			this.on_lose = params.on_lose;
+		}
+		if (params.on_select instanceof Function) {
+			this.on_select = params.on_select;
+		}
+		if (params.on_move instanceof Function) {
+			this.on_move = params.on_move;
+		}
+		if (params.on_attack instanceof Function) {
+			this.on_attack = params.on_attack;
+		}
+		if (params.on_end_turn instanceof Function) {
+			this.on_end_turn = params.on_end_turn;
+		}
+		if (this._attack.city === this.core().get_settlement().id()) {
+			this._player = 1;
+			this._computer = 2;
+		} else {
+			this._player = 2;
+			this._computer = 1;
+		}
+		this._setup();
+		this.stats();
+		return this;
+	};
+
+	this._setup = function() {
+		var self = this;
+		this._reset();
+		var xx = 0;
+		var xxx = 3;
+		var yy;
+		for (var item in this._attack.army.soldiers) {
+			if (civitas.SOLDIERS[item].siege === true) {
+				yy = 0;
+				xx = xxx;
+				xxx++;
+			} else {
+				yy = 2;
+			}
+			this.add(xx, yy, 1, item, this._attack);
+			xx++;
+		}
+		xxx = 3;
+		xx = 0;
+		for (var item in this._defense.army.soldiers) {
+			if (civitas.SOLDIERS[item].siege === true) {
+				yy = this.properties.width - 1;
+				xx = xxx;
+				xxx++;
+			} else {
+				yy = this.properties.width - 3;
+			}
+			this.add(xx, yy, 2, item, this._defense);
+			xx++;
+		}
+		$(this.elements.container).on('mouseover', '.cell', function () {
+			if (self._from === null) {
+				var from = {
+					x: parseInt($(this).data('x')),
+					y: parseInt($(this).data('y'))
+				};
+				self.highlight_cells(from);
+			}
+			return false;
+		}).on('click', '.cell', function () {
+			if ($(this).hasClass('empty')) {
+				if (self._from !== null) {
+					var to = {
+						x: parseInt($(this).data('x')),
+						y: parseInt($(this).data('y'))
+					};
+					self.move(to);
+					self.on_move.call(self, self._from, to);
+				}
+			} else {
+				if (parseInt($(this).data('side')) === self._player) {
+					if (!$(this).hasClass('selected')) {
+						var from = {
+							x: parseInt($(this).data('x')),
+							y: parseInt($(this).data('y'))
+						};
+						self._cell_select(from);
+						self.on_select.call(self, from);
+					} else {
+						self._from = null;
+						$(self.elements.container + ' .cell').removeClass('selected canmove canattack');
+					}
+				} else if (parseInt($(this).data('side')) === self._computer) {
+					if (self._from !== null) {
+						var to = {
+							x: parseInt($(this).data('x')),
+							y: parseInt($(this).data('y'))
+						};
+						self.attack(to);
+						self.on_attack.call(self, self._from, to);
+					}
+				}
+			}
+			return false;
+		});
+	};
+
+	this.add = function(x, y, side, soldier, settlement) {
+		this._cell_add(y, x, {
+			item: soldier,
+			city: settlement.city,
+			total: settlement.army.soldiers[soldier].total,
+			attack: settlement.army.soldiers[soldier].attack,
+			defense: settlement.army.soldiers[soldier].defense,
+			side: side,
+			moved: false
+		});
+	};
+
+	this.attack = function(cell) {
+		var sx = this._from.x;
+		var sy = this._from.y;
+		var source = this._grid[sy][sx];
+		var destination = this._grid[cell.y][cell.x];
+		var is_ranged = civitas.SOLDIERS[source.item].ranged;
+		var city = this.core().get_settlement(source.city);
+		var city2 = this.core().get_settlement(destination.city);
+		var remaining = 0;
+		if (city && source.moved) {
+			this.log(city.name() + '`s <strong>' + civitas.SOLDIERS[source.item].name + '</strong> already used up its turn.');
+			return;
+		}
+		if (source !== null && destination !== null && city && city2) {
+			if (destination.side === civitas.BATTLEGROUND_DEFENSE) {
+				var _a = '_defense';
+			} else {
+				var _a = '_attack';
+			}
+			if (is_ranged !== undefined) {
+				if ((Math.abs(cell.y - sy) + Math.abs(cell.x - sx)) > is_ranged) {
+					this.log(city.name() + '`s <strong>' + civitas.SOLDIERS[source.item].name + '</strong> is not close enough for a ranged attack.');
+					return false;
+				}
+				var attack = Math.ceil(source.attack / 2);
+				var defense = destination.defense;
+				if (defense - attack < 0) {
+					this[_a].army.soldiers[destination.item].total = 0;
+					this.log(city.name() + '`s <strong>' + civitas.SOLDIERS[source.item].name + '</strong> attacked ' + city2.name() + '`s <strong>' + civitas.SOLDIERS[destination.item].name + '</strong> for ' + attack + ' damage from range and killed its opponent.');
+					this._cell_empty(cell);
+				} else {
+					remaining = Math.ceil((defense - attack) / civitas.SOLDIERS[destination.item].defense);
+					destination.total = remaining;
+					this[_a].army.soldiers[destination.item].total = remaining;
+					this.log(city.name() + '`s <strong>' + civitas.SOLDIERS[source.item].name + '</strong> attacked ' + city2.name() + '`s <strong>' + civitas.SOLDIERS[destination.item].name + '</strong> for ' + attack + ' damage from range.');
+				}
+				this._cell_under_attack(cell);
+				source.moved = true;
+				this.redraw();
+			} else {
+				var can_move = civitas.SOLDIERS[this._grid[sy][sx].item].moves;
+				if ((Math.abs(cell.y - sy) + Math.abs(cell.x - sx)) > can_move) {
+					this.log(city.name() + '`s <strong>' + civitas.SOLDIERS[source.item].name + '</strong> doesn`t have a ranged attack.');
+					return false;
+				}
+				var attack = Math.ceil(source.attack / 2);
+				var defense = destination.defense;
+				if (defense - attack < 0) {
+					this[_a].army.soldiers[destination.item].total = 0;
+					this.log(city.name() + '`s <strong>' + civitas.SOLDIERS[source.item].name + '</strong> attacked ' + city2.name() + '`s <strong>' + civitas.SOLDIERS[destination.item].name + '</strong> for ' + attack + ' damage in melee and killed its opponent.');
+					this._cell_empty(cell);
+				} else {
+					remaining = Math.ceil((defense - attack) / civitas.SOLDIERS[destination.item].defense);
+					destination.total = remaining;
+					this[_a].army.soldiers[destination.item].total = remaining;
+					this.log(city.name() + '`s <strong>' + civitas.SOLDIERS[source.item].name + '</strong> attacked ' + city2.name() + '`s <strong>' + civitas.SOLDIERS[destination.item].name + '</strong> for ' + attack + ' damage in melee.');
+				}
+				this._cell_under_attack(cell);
+				source.moved = true;
+				this.redraw();
+			}
+		}
+		this._from = null;
+	};
+
+	this._check_for_melee_target = function(type) {
+		if (this._from !== null) {
+			var source = this._grid[this._from.y][this._from.x];
+			var can_move = civitas.SOLDIERS[source.item].moves;
+			for (var y = 0; y < this._grid.length; y++) {
+				for (var x = 0; x < this._grid[y].length; x++) {
+					if (source !== null && !source.moved && can_move && (Math.abs(y - this._from.y) + Math.abs(x - this._from.x)) <= can_move) {
+						if (this._grid[y][x] !== null && this._grid[y][x].side === type) {
+							this.attack({
+								x: x,
+								y: y
+							});
+							return true;
+						}
+					}
+				}
+			}
+		}
+		return false;
+	};
+
+	this._check_for_ranged_target = function(type) {
+		if (this._from !== null) {
+			for (var y = 0; y < this._grid.length; y++) {
+				for (var x = 0; x < this._grid[y].length; x++) {
+					if (this._grid[y][x] !== null && this._grid[y][x].side === type) {
+						this.attack({
+							x: x,
+							y: y
+						});
+						return true;
+					}
+				}
+			}
+		}
+		return false;
+	};
+
+	this._move_to_enemy = function(cell) {
+		/*
+		var sx = cell.x;
+		var sy = cell.y;
+		var source = this._grid[sy][sx];
+		var can_move = civitas.SOLDIERS[source.item].moves;
+		if (this._computer === 2) {
+			// TODO
+		}
+		*/
+	};
+
+	this._do_computer = function() {
+		for (var y = 0; y < this._grid.length; y++) {
+			for (var x = 0; x < this._grid[y].length; x++) {
+				if (this._grid[y][x] !== null && this._grid[y][x].side === this._computer) {
+					var source = this._grid[y][x];
+					this._from = {
+						x: x,
+						y: y
+					};
+					this._cell_select(this._from);
+					if (civitas.SOLDIERS[source.item].ranged) {
+						this._check_for_ranged_target(this._player);
+					} else {
+						this._check_for_melee_target(this._player);
+					}
+					this._move_to_enemy(this._from);
+					this._from = null;
+				}
+			}
+		}
+		return true;
+	};
+
+	this.end_turn = function() {
+		this._from = null;
+		this._do_computer();
+		for (var y = 0; y < this._grid.length; y++) {
+			for (var x = 0; x < this._grid[y].length; x++) {
+				if (this._grid[y][x] !== null) {
+					this._grid[y][x].moved = false;
+				}
+			}
+		}
+		this._current_turn++;
+		this.on_end_turn.call(self, this.num_turns());
+		this.redraw();
+		if (!this._done) {
+			this.log('Turn <strong>' + this._current_turn + '</strong> started now.');
+		}
+	};
+
+	this.move = function(cell) {
+		var sx = this._from.x;
+		var sy = this._from.y;
+		if (this._from !== null && cell !== null) {
+			var source = this._grid[sy][sx];
+			var destination = this._grid[cell.y][cell.x];
+			var city = this.core().get_settlement(source.city);
+			if (source !== null && source.moved) {
+				this.log(city.name() + '`s <strong>' + civitas.SOLDIERS[source.item].name + '</strong> already used up its turn.');
+				return;
+			}
+			if (source !== null && destination === null && city) {
+				var can_move = civitas.SOLDIERS[this._grid[sy][sx].item].moves;
+				if ((Math.abs(cell.y - sy) + Math.abs(cell.x - sx)) <= can_move) {
+					this._grid[cell.y][cell.x] = this._grid[sy][sx];
+					this._cell_empty(this._from);
+					this._from = null;
+					this._grid[cell.y][cell.x].moved = true;
+					this.log(city.name() + '`s <strong>' + civitas.SOLDIERS[source.item].name + '</strong> moved to ' + (cell.x + 1) + 'x' + (cell.y + 1) + '.');
+					this.redraw();
+				} else {
+					this.log(city.name() + '`s <strong>' + civitas.SOLDIERS[source.item].name + '</strong> is unable to move to the specified location.');
+				}
+			}
+		}
+	};
+
+	this.highlight_cells = function(cell) {
+		this._cells_empty();
+		var sx = cell.x;
+		var sy = cell.y;
+		var source = this._grid[sy][sx];
+		if (source !== null) {
+			var can_move = civitas.SOLDIERS[source.item].moves;
+			for (var y = 0; y < this._grid.length; y++) {
+				for (var x = 0; x < this._grid[y].length; x++) {
+					if (!source.moved && can_move && (Math.abs(y - sy) + Math.abs(x - sx)) <= can_move) {
+						if (this._grid[y][x] === null) {
+							$(this.elements.container + ' .cell[data-pos=' + x + '-' + y + ']')
+								.addClass('canmove');
+						}
+					}
+				}
+			}
+			var is_ranged = civitas.SOLDIERS[source.item].ranged;
+			for (var y = 0; y < this._grid.length; y++) {
+				for (var x = 0; x < this._grid[y].length; x++) {
+					if (!source.moved && (Math.abs(y - sy) + Math.abs(x - sx)) <= is_ranged) {
+						if (this._grid[y][x] === null) {
+							$(this.elements.container + ' .cell[data-pos=' + x + '-' + y + ']')
+								.addClass('canattack');
+						}
+					}
+				}
+			}
+		}
+	};
+
+	this._cell_under_attack = function(cell) {
+		$(this.elements.container + ' .cell[data-pos=' + cell.x + '-' + cell.y + ']')
+			.addClass('scale').delay(1000).queue(function() {
+				$(this).removeClass('scale').dequeue();
+			});
+	};
+
+	this._cells_empty = function() {
+		for (var y = 0; y < this._grid.length; y++) {
+			for (var x = 0; x < this._grid[y].length; x++) {
+				if (this._grid[y][x] === null) {
+					this._cell_empty({
+						x: x,
+						y: y
+					});
+				}
+			}
+		}
+	};
+
+	this._cell_empty = function(cell) {
+		this._grid[cell.y][cell.x] = null;
+		$(this.elements.container + ' .cell[data-pos=' + cell.x + '-' + cell.y + ']')
+			.removeData('side')
+			.removeData('amount')
+			.removeData('soldier')
+			.addClass('empty')
+			.removeClass('canmove canattack selected')
+			.empty();
+	};
+
+	this._cell_select = function(cell) {
+		$(this.elements.container + ' .cell')
+			.removeClass('selected canmove canattack');
+		$(this.elements.container + ' .cell[data-pos=' + cell.x + '-' + cell.y + ']')
+			.addClass('selected');
+		this._from = cell;
+		this.highlight_cells(cell);
+	};
+
+	this._cell_add = function(x, y, army) {
+		this._grid[y][x] = army;
+		$(this.elements.container + ' .cell[data-pos=' + x + '-' + y + ']')
+			.removeData('side')
+			.removeData('amount')
+			.removeData('soldier')
+			.attr('data-side', army.side)
+			.attr('data-amount', army.total)
+			.attr('data-soldier', army.item)
+			.removeClass('empty canmove canattack selected')
+			.empty()
+			.append('<span class="moves' + (army.moved === false ? ' has' : '') + '"></span>' +
+				'<img class="tips" title="' + civitas.SOLDIERS[army.item].name + '" src="' + civitas.ASSETS_URL + 'images/armies/' + army.item + '.png" />' +
+				'<span class="amount">' + army.total + '</span>');
+	};
+
+	this.redraw = function() {
+		var a_attack = 0;
+		var a_defense = 0;
+		var d_attack = 0;
+		var d_defense = 0;
+		for (var y = 0; y < this._grid.length; y++) {
+			for (var x = 0; x < this._grid[y].length; x++) {
+				var army = this._grid[y][x];
+				if (army !== null && army.total > 0) {
+					army.attack = army.total * civitas.SOLDIERS[army.item].attack;
+					army.defense = army.total * civitas.SOLDIERS[army.item].defense;
+					if (army.side === civitas.BATTLEGROUND_ATTACK) {
+						a_attack += army.attack;
+						a_defense += army.defense;
+					} else {
+						d_attack += army.attack;
+						d_defense += army.defense;
+					}
+					this._cell_add(x, y, army);
+				} else {
+					this._cell_empty({
+						x: x, 
+						y: y
+					});
+				}
+			}
+		}
+		this._attack.army.attack = a_attack;
+		this._attack.army.defense = a_defense;
+		this._defense.army.attack = d_attack;
+		this._defense.army.defense = d_defense;
+		this.stats();
+		this._check_status();
+		$('.tipsy').remove();
+		$('.tips').tipsy({
+			gravity: $.fn.tipsy.autoNS,
+			html: true
+		});
+		return true;
+	};
+
+	this._check_status = function() {
+		var city;
+		if (!this._done) {
+			if (this._attack.army.attack <= 0 || this._attack.army.defense <= 0 || this._defense.army.attack <= 0 || this._defense.army.defense <= 0) {
+				this._done = true;
+				this._reset();
+			}
+			if (this._attack.army.attack <= 0 || this._attack.army.defense <= 0) {
+				if (this._defense.city === this.core().get_settlement().id()) {
+					this.on_win.call(this, this._defense, this._attack);
+				} else {
+					this.on_lose.call(this, this._defense, this._attack);
+				}
+				city = this.core().get_settlement(this._defense.city);
+			} else if (this._defense.army.attack <= 0 || this._defense.army.defense <= 0) {
+				if (this._attack.city === this.core().get_settlement().id()) {
+					this.on_win.call(this, this._attack, this._defense);
+				} else {
+					this.on_lose.call(this, this._attack, this._defense);
+				}
+				city = this.core().get_settlement(this._attack.city);
+			}
+			if (this._done) {
+				this.log(city.name() + ' won this battle!');
+				this.stats();
+			}
+		}
+		return false;
+	};
+
+	this.stats = function() {
+		$(this.elements.attack).empty().append(this.core().get_settlement(this._attack.city).name() + ' ' + this._attack.army.attack + ' / ' + this._attack.army.defense);
+		$(this.elements.defense).empty().append(this.core().get_settlement(this._defense.city).name() + ' ' + this._defense.army.attack + ' / ' + this._defense.army.defense);
+		return {
+			attack: this._attack,
+			defense: this._defense
+		}
+	};
+
+	this.log = function(message) {
+		$(this.elements.console).prepend('<p>' + message + '</p>');
+	};
+
+	this._reset = function() {
+		var mode = 'even';
+		var template = '';
+		for (var y = 0; y <= this.properties.height - 1; y++) {
+			this._grid[y] = [];
+			template += '<ol class="' + mode + '">';
+			for (var x = 0; x <= this.properties.width - 1; x++) {
+				this._grid[y][x] = null;
+				template += '<li data-pos="' + x + '-' + y + '" data-x="' + x + '" data-y="' + y + '" class="cell empty"></li>';
+			}
+			template += '</ol>';
+			if (mode === 'even') {
+				mode = 'odd';
+			} else {
+				mode = 'even';
+			}
+		}
+		/*
+		for (var y = 0; y <= this.properties.height - 1; y++) {
+			this._grid[y] = [];
+			for (var x = 0; x <= this.properties.width - 1; x++) {
+				this._grid[y][x] = null;
+				template += '<li data-pos="' + x + '-' + y + '" data-x="' + x + '" data-y="' + y + '" class="cell empty"></li>';
+			}
+		}*/
+		$(this.elements.container).empty().append(template);
+	};
+
+	this.grid = function() {
+		return this._grid;
+	};
+
+	this.num_turns = function() {
+		return this._current_turn;
+	};
+
+	/**
+	 * Return a pointer to the game core.
+	 * 
+	 * @public
+	 * @returns {civitas.game}
+	 */
+	this.core = function() {
+		return this._core;
+	};
+
+	// Fire up the constructor
+	return this.__init(params);
+};
+
+/**
  * Main Game window object.
  * 
  * @param {Object} params
@@ -10423,6 +11153,14 @@ civitas.controls.window = function (params) {
 	 * @type {String}
 	 */
 	this._handle = null;
+
+	/**
+	 * Data passed to this window.
+	 *
+	 * @private
+	 * @type {Object}
+	 */
+	this.params_data = null;
 
 	/**
 	 * Reference to the core object.
@@ -10499,6 +11237,7 @@ civitas.controls.window = function (params) {
 		this._core = params.core;
 		this._id = params.id;
 		this._handle = '#window-' + this.id();
+		this.params_data = params.data;
 		if (params.on_show instanceof Function) {
 			this.on_show = params.on_show;
 		} else {
@@ -10515,8 +11254,10 @@ civitas.controls.window = function (params) {
 		this.core().console_log('creating window with id `' + this.id() + '`');
 		$('body').append(params.template.replace(/{ID}/g, this.id()));
 		this.on_show.call(this);
-		$(this.handle() + ' .tips').tipsy({
-			gravity: 's'
+		$('.tipsy').remove();
+		$('.tips').tipsy({
+			gravity: $.fn.tipsy.autoNS,
+			html: true
 		});
 		return this;
 	};
@@ -11692,7 +12433,7 @@ civitas.game.prototype._process_settlements = function() {
 		if (typeof settlements[i] !== 'undefined' && settlements[i].is_city()) {
 			if (i > 1) {
 				if (settlements[i].ai().process()) {
-					console.log('AI for ' + settlements[i].name() + ' processed!');
+					//console.log('AI for ' + settlements[i].name() + ' processed!');
 				}
 			}
 			// For now, process just the player settlement.
@@ -12604,7 +13345,7 @@ civitas.game.prototype.process_action = function(id) {
 				return false;
 			}
 		}
-		if (campaign.type === civitas.CAMPAIGN_ARMY) {
+		if (campaign.type === civitas.CAMPAIGN_ARMY || campaign.type === civitas.CAMPAIGN_ARMY_RETURN) {
 			class_name = 'army';
 		} else if (campaign.type === civitas.CAMPAIGN_CARAVAN) {
 			class_name = 'caravan';
@@ -12613,12 +13354,27 @@ civitas.game.prototype.process_action = function(id) {
 		}
 		switch (campaign.type) {
 			case civitas.CAMPAIGN_ARMY:
-				var source_army = settlement.get_army_total();
-				var destination_army = destination_settlement.get_army_total();
-				var diff1 = source_army.attack - destination_army.defense;
-				var diff2 = source_army.defense - destination_army.attack;
-				// TODO
-				//console.log(diff1 + '=' + diff2);
+				if (!this.get_panel('battle')) {
+					this.open_window(civitas.WINDOW_BATTLE, {
+						source: campaign,
+						destination: destination_settlement
+					});
+				}
+				break;
+			case civitas.CAMPAIGN_ARMY_RETURN:
+				var army = destination_settlement.get_army_total();
+				for (var item in army.army) {
+					army.army[item] = army.army[item] + campaign.data.army[item];
+				}
+				var navy = destination_settlement.get_navy_total();
+				for (var item in navy.navy) {
+					navy.navy[item] = navy.navy[item] + campaign.data.navy[item];
+				}
+				if (typeof campaign.data.resources !== 'undefined') {
+					for (var item in campaign.data.resources) {
+						destination_settlement.add_to_storage(item, campaign.data.resources[item]);
+					}
+				}
 				break;
 			case civitas.CAMPAIGN_SPY:
 				if (typeof campaign.data.espionage !== 'undefined') {
@@ -12687,14 +13443,15 @@ civitas.game.prototype.process_action = function(id) {
 					}
 					settlement.raise_influence(campaign.destination.id, civitas.CARAVAN_INFLUENCE);
 				}
+				this.notify('The army you sent' + campaign.duration + ' days ago to ' + destination_settlement.name() + ' returned with the spoils of war.');
 				break;
 		}
 		if (failed === true) {
-			if (campaign.source.id === settlement.id()) {
-				this.notify('The ' + class_name + ' you sent ' + campaign.duration + ' days ago to ' + destination_settlement.name() + ' reached its destination.');
-			} else if (campaign.destination.id === settlement.id()) {
+			if (campaign.destination.id === this.get_settlement().id()) {
 				destination_settlement = this.get_settlement(campaign.source.id);
 				this.notify('The ' + class_name + ' sent by ' + destination_settlement.name() + ' ' + campaign.duration + ' days ago reached our city.');
+			} else {
+				this.notify('The ' + class_name + ' you sent ' + campaign.duration + ' days ago to ' + destination_settlement.name() + ' reached its destination.');
 			}
 		}
 	} else if (campaign.mode === civitas.ACTION_DIPLOMACY) {
@@ -12802,6 +13559,9 @@ civitas.game.prototype.add_to_queue = function(source_settlement, destination_se
 			}
 			var settlement_type = destination_settlement.get_type();
 			source_settlement.diplomacy(destination_settlement.id(), civitas.DIPLOMACY_WAR);
+		} else if (type === civitas.CAMPAIGN_ARMY_RETURN) {
+			class_name = 'army-return';
+			this.notify('Your army sent ' + duration + ' days ago to ' + source_settlement.name() + ' finished its campaign and will be returning home with the spoils of war.');
 		} else if (type === civitas.CAMPAIGN_SPY) {
 			if (!source_settlement.can_diplomacy()) {
 				return false;
@@ -13236,18 +13996,24 @@ civitas.PANEL_SETTLEMENT = {
 				'<p>' + civitas.l('Below are the goods this city will be selling this year.') + '</p>' +
 				civitas.ui.trades_list(trades, 'exports'));
 		}
-		var out = '<p>' + civitas.l('This settlement has the the following resources:') + '</p>';
+		var out = '';
+		var _out = '<p>' + civitas.l('This settlement has the the following resources:') + '</p>';
 		for (var item in settlement.get_resources()) {
 			if ($.inArray(item, civitas.NON_RESOURCES) === -1 && settlement.resources[item] > 0) {
 				out += civitas.ui.resource_storage_small_el(item, settlement.resources[item]);
 			}
 		}
+		if (out !== '') {
+			_out += out;
+		} else {
+			_out = '<p>' + civitas.l('This settlement has no resources.') + '</p>';
+		}
+		$(this.handle + ' #tab-resources').empty().append(_out);
 		if (_status.id === civitas.DIPLOMACY_VASSAL) {
 			$(this.handle + ' .btn.attack, ' + this.handle + ' .btn.spy').hide();
 		} else {
 			$(this.handle + ' .btn.attack, ' + this.handle + ' .btn.spy').show();
 		}
-		$(this.handle + ' #tab-resources').empty().append(out);
 		if (my_settlement.can_diplomacy()) {
 			if (_status.id === civitas.DIPLOMACY_PACT && settlement_type === civitas.CITY) {
 				$(this.handle + ' footer .alliance').show();
@@ -13511,7 +14277,7 @@ civitas.PANEL_CAMPAIGN = {
 		var campaign = params.data;
 		var class_name = '';
 		this.params_data = params;
-		if (campaign.type === civitas.CAMPAIGN_ARMY) {
+		if (campaign.type === civitas.CAMPAIGN_ARMY || campaign.type === civitas.CAMPAIGN_ARMY_RETURN) {
 			class_name = 'army';
 		} else if (campaign.type === civitas.CAMPAIGN_CARAVAN) {
 			class_name = 'caravan';
@@ -13520,11 +14286,13 @@ civitas.PANEL_CAMPAIGN = {
 		}
 		$(this.handle + ' header').append(class_name.capitalize() + ' ' + civitas.l('mission'));
 		if (campaign.type === civitas.CAMPAIGN_ARMY) {
-			$(this.handle + ' section').append(civitas.ui.tabs([civitas.l('Info'), civitas.l('Army'), civitas.l('Navy'), civitas.l('War Machines')]));
+			$(this.handle + ' section').append(civitas.ui.tabs([civitas.l('Info'), civitas.l('Army'), civitas.l('Navy')]));
 		} else if (campaign.type === civitas.CAMPAIGN_CARAVAN) {
 			$(this.handle + ' section').append(civitas.ui.tabs([civitas.l('Info'), civitas.l('Resources')]));
 		} else if (campaign.type === civitas.CAMPAIGN_SPY) {
 			$(this.handle + ' section').append(civitas.ui.tabs([civitas.l('Info'), civitas.l('Spy')]));
+		} else if (campaign.type === civitas.CAMPAIGN_ARMY_RETURN) {
+			$(this.handle + ' section').append(civitas.ui.tabs([civitas.l('Info'), civitas.l('Army'), civitas.l('Navy'), civitas.l('Resources')]));
 		}
 	},
 	on_refresh: function() {
@@ -13548,25 +14316,15 @@ civitas.PANEL_CAMPAIGN = {
 		if (campaign.type === civitas.CAMPAIGN_ARMY) {
 			$(this.handle + ' #tab-army').empty().append(civitas.ui.army_list(campaign.data));
 			$(this.handle + ' #tab-navy').empty().append(civitas.ui.navy_list(campaign.data));
-			if (typeof campaign.data.resources !== 'undefined' && !$.isEmptyObject(campaign.data.resources)) {
-				out = '<p>' + civitas.l('This army has the the following war machines:') + '</p>' +
-				'<dl>';
-				for (var item in campaign.data.resources) {
-					out += '<dt>' + campaign.data.resources[item] + '</dt>' +
-						'<dd>' + civitas.ui.resource_small_img(item) + '</dd>';
-				}
-				out += '</dl>';
-			} else {
-				out = '<p>' + civitas.l('This army has no war machines.') + '</p>';
-			}
-			$(this.handle + ' #tab-war-machines').empty().append(out);
 		} else if (campaign.type === civitas.CAMPAIGN_CARAVAN) {
 			if (typeof campaign.data.resources !== 'undefined' && !$.isEmptyObject(campaign.data.resources)) {
 				out = '<p>' + civitas.l('This caravan has the the following resources:') + '</p>' +
 				'<dl>';
 				for (var item in campaign.data.resources) {
-					out += '<dt>' + campaign.data.resources[item] + '</dt>' +
-						'<dd>' + civitas.ui.resource_small_img(item) + '</dd>';
+					if (campaign.data.resources[item] > 0) {
+						out += '<dt>' + campaign.data.resources[item] + '</dt>' +
+							'<dd>' + civitas.ui.resource_small_img(item) + '</dd>';
+					}
 				}
 				out += '</dl>';
 			} else {
@@ -13585,6 +14343,23 @@ civitas.PANEL_CAMPAIGN = {
 				'<dd>' + Math.ceil(campaign.data.espionage / 100) + '%</dd>' +
 			'</dl>';
 			$(this.handle + ' #tab-spy').empty().append(out);
+		} else if (campaign.type === civitas.CAMPAIGN_ARMY_RETURN) {
+			$(this.handle + ' #tab-army').empty().append(civitas.ui.army_list(campaign.data));
+			$(this.handle + ' #tab-navy').empty().append(civitas.ui.navy_list(campaign.data));
+			if (typeof campaign.data.resources !== 'undefined' && !$.isEmptyObject(campaign.data.resources)) {
+				out = '<p>' + civitas.l('This army is bringing back to its home city the following spoils of war:') + '</p>' +
+				'<dl>';
+				for (var item in campaign.data.resources) {
+					if (campaign.data.resources[item] > 0) {
+						out += '<dt>' + campaign.data.resources[item] + '</dt>' +
+							'<dd>' + civitas.ui.resource_small_img(item) + '</dd>';
+					}
+				}
+				out += '</dl>';
+			} else {
+				out = '<p>' + civitas.l('This army is returning with no spoils of war.') + '</p>';
+			}
+			$(this.handle + ' #tab-resources').empty().append(out);
 		}
 	}
 };
@@ -13667,10 +14442,10 @@ civitas.PANEL_WORLD = {
 				core.open_panel(civitas.PANEL_SETTLEMENT, core.get_settlement(_settlement_name));
 			}
 			return false;
-		}).on('click', '.caravan, .army, .spy', function () {
+		}).on('click', '.caravan, .army, .spy, .army-return', function () {
 			var _action_id = parseInt($(this).data('id'));
-			if (core.queue[_action_id].mode === civitas.ACTION_CAMPAIGN) {
-				core.open_panel(civitas.PANEL_CAMPAIGN, core.queue[_action_id]);
+			if (core._queue[_action_id].mode === civitas.ACTION_CAMPAIGN) {
+				core.open_panel(civitas.PANEL_CAMPAIGN, core._queue[_action_id]);
 			}
 			return false;
 		});
@@ -13699,6 +14474,8 @@ civitas.PANEL_WORLD = {
 				class_name = 'caravan';
 			} else if (action.type === civitas.CAMPAIGN_SPY) {
 				class_name = 'spy';
+			} else if (action.type === civitas.CAMPAIGN_ARMY_RETURN) {
+				class_name = 'army-return';
 			}
 			var source = action.source;
 			var destination = action.destination;
@@ -13711,9 +14488,13 @@ civitas.PANEL_WORLD = {
 			var x = source.x + Math.floor(((destination.x - source.x) / distance_in_days) * action.passed);
 			var y = source.y - Math.floor(((source.y - destination.y) / distance_in_days) * action.passed);
 			if (action.mode === civitas.ACTION_CAMPAIGN) {
-				out += '<div data-id="' + i + '" class="tips ' + class_name + '" title="' + class_name.capitalize() + ' from ' + _source.name() + ' to ' + _destination.name() + '" style="left:' + x + 'px;top:' + y + 'px"></div>';
+				if (action.type === civitas.CAMPAIGN_ARMY_RETURN) {
+					out += '<div data-id="' + i + '" class="tips ' + class_name + '" title="' + _destination.name() + ' army returning from ' + _source.name() + '." style="left:' + x + 'px;top:' + y + 'px"></div>';
+				} else {
+					out += '<div data-id="' + i + '" class="tips ' + class_name + '" title="' + class_name.capitalize() + ' marching from ' + _source.name() + ' to ' + _destination.name() + '." style="left:' + x + 'px;top:' + y + 'px"></div>';
+				}
 			} else if (action.mode === civitas.ACTION_DIPLOMACY) {
-				out += '<div data-id="' + i + '" class="tips messenger" title="Diplomatic mission from ' + _source.name() + ' to ' + _destination.name() + '" style="left:' + x + 'px;top:' + y + 'px"></div>';
+				out += '<div data-id="' + i + '" class="tips messenger" title="Diplomatic mission from ' + _source.name() + ' to ' + _destination.name() + '." style="left:' + x + 'px;top:' + y + 'px"></div>';
 			}
 		}
 		$(this.handle + ' section .worldmap').empty().append(out);
@@ -13793,7 +14574,6 @@ civitas.PANEL_NEW_ARMY = {
 		'</div>',
 	id: 'new-army',
 	on_show: function(params) {
-		this.resources = {};
 		var self = this;
 		var core = this.core();
 		var my_settlement = core.get_settlement();
@@ -13835,7 +14615,7 @@ civitas.PANEL_NEW_ARMY = {
 			_t += '<div class="army-item">' +
 					'<a href="#" data-max="' + army.army[item] + '" data-soldier="' + item + '" class="army-item-inc">+</a>' +
 					'<a href="#" data-max="' + army.army[item] + '" data-soldier="' + item + '" class="army-item-dec">-</a>' +
-					'<img class="tips" title="' + item + '" src="' + civitas.ASSETS_URL + 'images/armies/' + item.toLowerCase().replace(/ /g,"_") + '.png" />' +
+					'<img class="tips" title="' + civitas.SOLDIERS[item].name + '" src="' + civitas.ASSETS_URL + 'images/armies/' + item.toLowerCase().replace(/ /g,"_") + '.png" />' +
 					'<span class="amount">' + army.army[item] + '</span>' +
 				'</div>';
 		}
@@ -13864,21 +14644,6 @@ civitas.PANEL_NEW_ARMY = {
 			}
 			_t += '</fieldset>';
 		}
-		_t += '<fieldset class="select-combo">' +
-			'<legend>' + civitas.l('War Machines') + '</legend>' +
-			'<select class="army-resources-select">' +
-				'<option value="0">-- ' + civitas.l('select') + ' --</option>';
-		var resources = my_settlement.get_resources();
-		for (var item in resources) {
-			if ($.inArray(item, civitas.ARMY_RESOURCES) !== -1) {
-				_t += '<option value="' + item + '"> ' + civitas.utils.get_resource_name(item) + '</option>';
-			}
-		}
-		_t += '</select>' +
-			'<input title="' + civitas.l('Add the resources to the list.') + '" type="button" class="tips army-resources-add" value="+" />' +
-			'<input title="' + civitas.l('Amount of selected resource to add to the army.') + '" type="number" value="1" class="tips army-resources-amount" min="1" max="999" />' +
-			'<div class="army-resources clearfix"></div>' +
-		'</fieldset>';
 		if (my_settlement.can_recruit_heroes()) {
 			var heroes = my_settlement.get_heroes();
 			_t += '<fieldset>' +
@@ -13899,52 +14664,7 @@ civitas.PANEL_NEW_ARMY = {
 		}
 		_t += '</div>';
 		$(this.handle + ' section').empty().append(_t);
-		this.generate_table_data = function() {
-			var _t = '<table class="army-resources clearfix">' +
-				'<thead>' +
-				'<tr>' +
-				'<td>' + civitas.l('Amount') + '</td>' +
-				'<td>' + civitas.l('Resource') + '</td>' +
-				'<td></td>' +
-				'</tr>' +
-				'</thead>' +
-				'<tbody>';
-			for (var item in this.resources) {
-				_t += '<tr>' +
-					'<td>' + this.resources[item] + '</td>' +
-					'<td>' + civitas.ui.resource_small_img(item) + '</td>' +
-					'<td>' +
-						'<a title="' + civitas.l('Remove this resource from the army.') + '" href="#" data-id="' + item + '" class="tips army-resources-delete">-</a>' +
-					'</td>' +
-				'</tr>';
-			}
-			_t += '</tbody>' +
-			'</table>';
-			$(this.handle + ' .army-resources').empty().append(_t);
-		};
-		$(this.handle).on('click', '.army-resources-add', function() {
-			var amount = parseInt($(self.handle + ' .army-resources-amount').val());
-			var resource = $(self.handle + ' .army-resources-select').val();
-			if (resource !== '0') {
-				if (typeof self.resources[resource] !== 'undefined' && !my_settlement.has_resources(resource, self.resources[resource] + amount)) {
-					return false;
-				} else if (typeof self.resources[resource] === 'undefined' && !my_settlement.has_resources(resource, amount)) {
-					return false;
-				}
-				if (typeof self.resources[resource] !== 'undefined') {
-					self.resources[resource] = self.resources[resource] + amount;
-				} else {
-					self.resources[resource] = amount;
-				}
-				self.generate_table_data();
-			}
-			return false;
-		}).on('click', '.army-resources-delete', function() {
-			var resource = $(this).data('id');
-			delete self.resources[resource];
-			self.generate_table_data();
-			return false;
-		}).on('click', '.navy-item-inc', function() {
+		$(this.handle).on('click', '.navy-item-inc', function() {
 			var max = parseInt($(this).data('max'));
 			var ship = $(this).data('ship');
 			var current = parseInt($(this).parent().children('.amount').html());
@@ -13993,10 +14713,23 @@ civitas.PANEL_NEW_ARMY = {
 				core.error(civitas.l('There was an error creating and dispatching the army, check the data you entered and try again.'));
 				return false;
 			}
+			/*
+			core.add_to_queue(settlement, my_settlement, civitas.ACTION_CAMPAIGN, civitas.CAMPAIGN_ARMY, {
+				army: {
+					militia: 40,
+					axeman: 30,
+					knight: 10,
+					bowman: 20,
+					cannon: 10,
+					catapult: 4,
+					crossbowman: 10,
+					pikeman: 30
+				},
+				navy: {}
+			});*/
 			if (core.add_to_queue(my_settlement, settlement, civitas.ACTION_CAMPAIGN, civitas.CAMPAIGN_ARMY, {
 				army: self.assigned_army,
-				navy: self.assigned_navy,
-				resources: self.resources
+				navy: self.assigned_navy
 			})) {
 				self.destroy();
 			} else {
@@ -14004,10 +14737,6 @@ civitas.PANEL_NEW_ARMY = {
 			}
 			return false;
 		});
-	},
-	on_refresh: function() {
-		var core = this.core();
-		var my_settlement = core.get_settlement();
 	}
 };
 
@@ -14234,9 +14963,11 @@ civitas.PANEL_NEW_CARAVAN = {
 			var amount = parseInt($(self.handle + ' .caravan-resources-amount').val());
 			var resource = $(self.handle + ' .caravan-resources-select').val();
 			if (resource !== '0') {
-				if (typeof self.resources[resource] !== 'undefined' && !my_settlement.has_resources(resource, self.resources[resource] + amount)) {
+				if (typeof self.resources[resource] !== 'undefined' && !my_settlement.has_resource(resource, self.resources[resource] + amount)) {
+					core.error(my_settlement.name() + ' doesn`t have enough ' + civitas.utils.get_resource_name(resource) + '.');
 					return false;
-				} else if (typeof self.resources[resource] === 'undefined' && !my_settlement.has_resources(resource, amount)) {
+				} else if (typeof self.resources[resource] === 'undefined' && !my_settlement.has_resource(resource, amount)) {
+					core.error(my_settlement.name() + ' doesn`t have enough ' + civitas.utils.get_resource_name(resource) + '.');
 					return false;
 				}
 				if (typeof self.resources[resource] !== 'undefined') {
@@ -14901,6 +15632,7 @@ civitas.PANEL_TRADES = {
 	},
 	on_refresh: function() {
 		var core = this.core();
+		var my_settlement = core.get_settlement();
 		var settlement = core.get_settlement();
 		var settlements = core.get_settlements();
 		var out = '';
@@ -14927,8 +15659,11 @@ civitas.PANEL_TRADES = {
 						'<td></td>' +
 					'</tr>' +
 					'</thead>';
-		for (var z = 0; z < settlements.length; z++) {
+		for (var z = 1; z < settlements.length; z++) {
 			var settlement = settlements[z];
+			if (my_settlement.status()[settlements[z].id()].influence < 20) {
+				break;
+			}
 			var trades = settlements[z].get_trades();
 			var resources = settlement.get_resources();
 			if (trades !== null) {
@@ -14999,8 +15734,11 @@ civitas.PANEL_TRADES = {
 						'<td></td>' +
 					'</tr>' +
 					'</thead>';
-		for (var z = 0; z < settlements.length; z++) {
+		for (var z = 1; z < settlements.length; z++) {
 			var settlement = settlements[z];
+			if (my_settlement.status()[settlements[z].id()].influence < 20) {
+				break;
+			}
 			var trades = settlements[z].get_trades();
 			var resources = settlement.get_resources();
 			if (trades !== null) {
@@ -15413,6 +16151,146 @@ civitas.WINDOW_SIGNIN = {
 	},
 	on_hide: function() {
 		this.core().hide_loader();
+	}
+};
+
+/**
+ * Battle window data.
+ *
+ * @type {Object}
+ */
+civitas.WINDOW_BATTLE = {
+	template: '' +
+		'<section id="window-{ID}" class="window">' +
+			'<div class="container">' +
+				'<div title="' + civitas.l('Attack and defense rating for the attacking army.') + '" class="tips attack"></div>' +
+				'<div title="' + civitas.l('Attack and defense rating for the defending army.') + '" class="tips defense"></div>' +
+				'<div class="battleground"></div>' +
+				'<div title="' + civitas.l('Current turn.') + '" class="tips turns">1</div>' +
+				'<div class="status"></div>' +
+				'<div class="toolbar">' +
+					'<a title="' + civitas.l('Withdraw from this fight.') + '" href="#" class="tips button withdraw">' + civitas.l('Withdraw') + '</a> ' +
+					'<a title="' + civitas.l('End current turn.') + '" class="tips button end" href="#">' + civitas.l('End turn') + '</a> ' +
+					'<a title="' + civitas.l('Close the window.') + '" class="tips button close" href="#">' + civitas.l('Close') + '</a>' +
+				'</div>' +
+			'</div>' +
+		'</section>',
+	id: 'battle',
+	on_show: function(params) {
+		var self = this;
+		var core = this.core();
+		var handle = this.handle();
+		core.pause();
+		this.battleground = new civitas.objects.battleground({
+			core: core,
+			width: 15,
+			height: 9,
+			elements: {
+				container: handle + ' .battleground',
+				attack: handle + ' .attack',
+				defense: handle + ' .defense',
+				console: handle + ' .status',
+			},
+			attack: {
+				city: this.params_data.source.source.id,
+				army: core.get_settlement().parse_army(this.params_data.source.data.army)
+			},
+			defense: {
+				city: this.params_data.destination.id(),
+				army: this.params_data.destination.parse_army()
+			},
+			on_win: function(winner, loser) {
+				var loser_army = {};
+				for (var item in loser.army.soldiers) {
+					loser_army[item] = loser.army.soldiers[item].total;
+				}
+				var winner_army = {};
+				for (var item in winner.army.soldiers) {
+					winner_army[item] = winner.army.soldiers[item].total;
+				}
+				var loser_navy = {};
+				for (var item in loser.navy.ships) {
+					loser_navy[item] = loser.navy.ships[item].total;
+				}
+				var winner_navy = {};
+				for (var item in winner.navy.ships) {
+					winner_navy[item] = winner.navy.ships[item].total;
+				}
+				var settlement = core.get_settlement(loser.city);
+				var my_settlement = core.get_settlement(winner.city);
+				var resources = settlement.get_resources();
+				var spoils = {};
+				for (var item in resources) {
+					if ($.inArray(item, civitas.NON_RESOURCES) === -1) {
+						spoils[item] = resources[item];
+						settlement.remove_resource(item, resources[item]);
+					}
+				}
+				settlement.army = settlement.load_army(loser_army);
+				settlement.navy = settlement.load_navy(loser_navy);
+				core.add_to_queue(settlement, my_settlement, civitas.ACTION_CAMPAIGN, civitas.CAMPAIGN_ARMY_RETURN, {
+					army: winner_army,
+					navy: winner_navy,
+					resources: spoils
+				})
+				$(handle + ' .end, ' + handle + ' .withdraw').hide();
+				$(handle + ' .close').show();
+			},
+			on_lose: function(winner, loser) {
+				var loser_army = {};
+				for (var item in loser.army.soldiers) {
+					loser_army[item] = loser.army.soldiers[item].total;
+				}
+				var winner_army = {};
+				for (var item in winner.army.soldiers) {
+					winner_army[item] = winner.army.soldiers[item].total;
+				}
+				var loser_navy = {};
+				for (var item in loser.navy.ships) {
+					loser_navy[item] = loser.navy.ships[item].total;
+				}
+				var winner_navy = {};
+				for (var item in winner.navy.ships) {
+					winner_navy[item] = winner.navy.ships[item].total;
+				}
+				var settlement = core.get_settlement(winner.city);
+				var my_settlement = core.get_settlement(loser.city);
+				var resources = settlement.get_resources();
+				settlement.army = settlement.load_army(winner_army);
+				settlement.navy = settlement.load_navy(winner_navy);
+				core.add_to_queue(settlement, my_settlement, civitas.ACTION_CAMPAIGN, civitas.CAMPAIGN_ARMY_RETURN, {
+					army: winner_navy,
+					navy: loser_navy,
+					resources: {}
+				})
+				$(handle + ' .end, ' + handle + ' .withdraw').hide();
+				$(handle + ' .close').show();
+			},
+			on_end_turn: function(turn) {
+				$(handle + ' .turns').html(turn);
+			}
+		});
+		$(handle + ' .close').hide();
+		$(handle).on('click', '.withdraw', function() {
+			core.open_modal(
+				function(button) {
+					if (button === 'yes') {
+						core.unpause();
+						// TODO
+						self.destroy();
+					}
+				},
+				civitas.l('Are you sure you want to withdraw from this fight? You will lose all your army!')
+			);
+			return false;
+		}).on('click', '.close', function () {
+			core.unpause();
+			self.destroy();
+			return false;
+		}).on('click', '.end', function () {
+			self.battleground.end_turn();
+			return false;
+		});
 	}
 };
 

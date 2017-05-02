@@ -14,7 +14,7 @@ civitas.PANEL_CAMPAIGN = {
 		var campaign = params.data;
 		var class_name = '';
 		this.params_data = params;
-		if (campaign.type === civitas.CAMPAIGN_ARMY) {
+		if (campaign.type === civitas.CAMPAIGN_ARMY || campaign.type === civitas.CAMPAIGN_ARMY_RETURN) {
 			class_name = 'army';
 		} else if (campaign.type === civitas.CAMPAIGN_CARAVAN) {
 			class_name = 'caravan';
@@ -23,11 +23,13 @@ civitas.PANEL_CAMPAIGN = {
 		}
 		$(this.handle + ' header').append(class_name.capitalize() + ' ' + civitas.l('mission'));
 		if (campaign.type === civitas.CAMPAIGN_ARMY) {
-			$(this.handle + ' section').append(civitas.ui.tabs([civitas.l('Info'), civitas.l('Army'), civitas.l('Navy'), civitas.l('War Machines')]));
+			$(this.handle + ' section').append(civitas.ui.tabs([civitas.l('Info'), civitas.l('Army'), civitas.l('Navy')]));
 		} else if (campaign.type === civitas.CAMPAIGN_CARAVAN) {
 			$(this.handle + ' section').append(civitas.ui.tabs([civitas.l('Info'), civitas.l('Resources')]));
 		} else if (campaign.type === civitas.CAMPAIGN_SPY) {
 			$(this.handle + ' section').append(civitas.ui.tabs([civitas.l('Info'), civitas.l('Spy')]));
+		} else if (campaign.type === civitas.CAMPAIGN_ARMY_RETURN) {
+			$(this.handle + ' section').append(civitas.ui.tabs([civitas.l('Info'), civitas.l('Army'), civitas.l('Navy'), civitas.l('Resources')]));
 		}
 	},
 	on_refresh: function() {
@@ -51,25 +53,15 @@ civitas.PANEL_CAMPAIGN = {
 		if (campaign.type === civitas.CAMPAIGN_ARMY) {
 			$(this.handle + ' #tab-army').empty().append(civitas.ui.army_list(campaign.data));
 			$(this.handle + ' #tab-navy').empty().append(civitas.ui.navy_list(campaign.data));
-			if (typeof campaign.data.resources !== 'undefined' && !$.isEmptyObject(campaign.data.resources)) {
-				out = '<p>' + civitas.l('This army has the the following war machines:') + '</p>' +
-				'<dl>';
-				for (var item in campaign.data.resources) {
-					out += '<dt>' + campaign.data.resources[item] + '</dt>' +
-						'<dd>' + civitas.ui.resource_small_img(item) + '</dd>';
-				}
-				out += '</dl>';
-			} else {
-				out = '<p>' + civitas.l('This army has no war machines.') + '</p>';
-			}
-			$(this.handle + ' #tab-war-machines').empty().append(out);
 		} else if (campaign.type === civitas.CAMPAIGN_CARAVAN) {
 			if (typeof campaign.data.resources !== 'undefined' && !$.isEmptyObject(campaign.data.resources)) {
 				out = '<p>' + civitas.l('This caravan has the the following resources:') + '</p>' +
 				'<dl>';
 				for (var item in campaign.data.resources) {
-					out += '<dt>' + campaign.data.resources[item] + '</dt>' +
-						'<dd>' + civitas.ui.resource_small_img(item) + '</dd>';
+					if (campaign.data.resources[item] > 0) {
+						out += '<dt>' + campaign.data.resources[item] + '</dt>' +
+							'<dd>' + civitas.ui.resource_small_img(item) + '</dd>';
+					}
 				}
 				out += '</dl>';
 			} else {
@@ -88,6 +80,23 @@ civitas.PANEL_CAMPAIGN = {
 				'<dd>' + Math.ceil(campaign.data.espionage / 100) + '%</dd>' +
 			'</dl>';
 			$(this.handle + ' #tab-spy').empty().append(out);
+		} else if (campaign.type === civitas.CAMPAIGN_ARMY_RETURN) {
+			$(this.handle + ' #tab-army').empty().append(civitas.ui.army_list(campaign.data));
+			$(this.handle + ' #tab-navy').empty().append(civitas.ui.navy_list(campaign.data));
+			if (typeof campaign.data.resources !== 'undefined' && !$.isEmptyObject(campaign.data.resources)) {
+				out = '<p>' + civitas.l('This army is bringing back to its home city the following spoils of war:') + '</p>' +
+				'<dl>';
+				for (var item in campaign.data.resources) {
+					if (campaign.data.resources[item] > 0) {
+						out += '<dt>' + campaign.data.resources[item] + '</dt>' +
+							'<dd>' + civitas.ui.resource_small_img(item) + '</dd>';
+					}
+				}
+				out += '</dl>';
+			} else {
+				out = '<p>' + civitas.l('This army is returning with no spoils of war.') + '</p>';
+			}
+			$(this.handle + ' #tab-resources').empty().append(out);
 		}
 	}
 };

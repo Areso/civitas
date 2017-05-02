@@ -127,8 +127,8 @@ civitas.objects.settlement = function(params) {
 		this.properties.icon = (typeof params.properties.icon !== 'undefined') ? params.properties.icon : 1;
 		this.properties.population = (typeof params.properties.population !== 'undefined') ? params.properties.population : this.properties.level * civitas.POPULATION_PER_LEVEL;
 		this.properties.type = (typeof params.properties.type !== 'undefined') ? params.properties.type : civitas.CITY;
-		this.army = this._setup_army(params.army);
-		this.navy = this._setup_navy(params.navy);
+		this.army = this.load_army(params.army);
+		this.navy = this.load_navy(params.navy);
 		this._mercenary = (typeof params.mercenary !== 'undefined') ? params.mercenary : [];
 		this._status = (typeof params.status !== 'undefined') ? params.status : {};
 		this._heroes = (typeof params.heroes !== 'undefined') ? params.heroes : [];
@@ -338,6 +338,14 @@ civitas.objects.settlement = function(params) {
 				if (resources[item] > 1000) {
 					advices.push('You seem to have a surplus of ' + civitas.utils.get_resource_name(item) + '. You can sell some or place it on the Black Market and get coins instead.');
 				}
+			}
+		}
+		for (var i = 0; i < this.core()._queue.length; i++) {
+			if (this.core()._queue[i].destination.id === this.id()) {
+				advices.push('There is an army from ' + this.core().get_settlement(this.core()._queue[i].source.id).name() + ' marching towards your city!');
+			}
+			if (this.core()._queue[i].source.id === this.id()) {
+				advices.push('Your army is marching towards ' + this.core().get_settlement(this.core()._queue[i].destination.id).name() + '!');
 			}
 		}
 		var buildings = this.get_buildings();

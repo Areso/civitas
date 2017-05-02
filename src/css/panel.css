@@ -189,6 +189,7 @@
 #panel-world .worldmap .settlement,
 #panel-world .worldmap .army,
 #panel-world .worldmap .caravan,
+#panel-world .worldmap .army-return,
 #panel-world .worldmap .spy,
 #panel-world .worldmap .messenger {
 	position: absolute;
@@ -266,9 +267,11 @@
 .ui .panel .army-recruiter fieldset:nth-child(3),
 .ui .panel .army-recruiter fieldset:nth-child(6),
 .ui .panel .army-recruiter fieldset:nth-child(9),
+.ui .panel .army-recruiter fieldset:nth-child(12),
 .ui .panel .navy-recruiter fieldset:nth-child(3),
 .ui .panel .navy-recruiter fieldset:nth-child(6),
-.ui .panel .navy-recruiter fieldset:nth-child(9) {
+.ui .panel .navy-recruiter fieldset:nth-child(9),
+.ui .panel .navy-recruiter fieldset:nth-child(12) {
 	margin-right:0 !important;
 }
 

@@ -52,6 +52,7 @@ gulp.task('app', function() {
 		'src/js/objects/core/settlement/trade.js',
 		'src/js/objects/core/event.js',
 		'src/js/objects/core/building.js',
+		'src/js/objects/core/battleground.js',
 		'src/js/objects/ui/window.js',
 		'src/js/objects/ui/modal.js',
 		'src/js/objects/ui/panel.js',
@@ -82,6 +83,7 @@ gulp.task('app', function() {
 		'src/js/definitions/ui/panel/building/tavern.js',
 		'src/js/definitions/ui/panel/building/academy.js',
 		'src/js/definitions/ui/window/signin.js',
+		'src/js/definitions/ui/window/battle.js',
 		'src/js/definitions/ui/window/signup.js',
 		'src/js/definitions/ui/window/options.js'
   	])
@@ -133,6 +135,7 @@ gulp.task('css', function() {
 		'dist/styles.*.css'
     ]);
 	return gulp.src([
+		'src/css/animation.css',
 	  	'src/css/main.css',
 	  	'src/css/modal.css',
 	  	'src/css/notification.css',

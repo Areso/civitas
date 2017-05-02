@@ -16,6 +16,14 @@ civitas.controls.window = function (params) {
 	this._handle = null;
 
 	/**
+	 * Data passed to this window.
+	 *
+	 * @private
+	 * @type {Object}
+	 */
+	this.params_data = null;
+
+	/**
 	 * Reference to the core object.
 	 *
 	 * @private
@@ -90,6 +98,7 @@ civitas.controls.window = function (params) {
 		this._core = params.core;
 		this._id = params.id;
 		this._handle = '#window-' + this.id();
+		this.params_data = params.data;
 		if (params.on_show instanceof Function) {
 			this.on_show = params.on_show;
 		} else {
@@ -106,8 +115,10 @@ civitas.controls.window = function (params) {
 		this.core().console_log('creating window with id `' + this.id() + '`');
 		$('body').append(params.template.replace(/{ID}/g, this.id()));
 		this.on_show.call(this);
-		$(this.handle() + ' .tips').tipsy({
-			gravity: 's'
+		$('.tipsy').remove();
+		$('.tips').tipsy({
+			gravity: $.fn.tipsy.autoNS,
+			html: true
 		});
 		return this;
 	};
