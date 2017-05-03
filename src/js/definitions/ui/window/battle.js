@@ -37,11 +37,13 @@ civitas.WINDOW_BATTLE = {
 			},
 			attack: {
 				city: this.params_data.source.source.id,
-				army: core.get_settlement().parse_army(this.params_data.source.data.army)
+				army: core.get_settlement().parse_army(this.params_data.source.data.army),
+				navy: core.get_settlement().parse_navy(this.params_data.source.data.navy)
 			},
 			defense: {
 				city: this.params_data.destination.id(),
-				army: this.params_data.destination.parse_army()
+				army: this.params_data.destination.parse_army(),
+				navy: this.params_data.destination.parse_navy()
 			},
 			on_win: function(winner, loser) {
 				var loser_army = {};

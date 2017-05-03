@@ -14587,9 +14587,11 @@ civitas.PANEL_NEW_ARMY = {
 		for (var item in army.army) {
 			this.assigned_army[item] = army.army[item];
 		}
-		var navy = my_settlement.get_navy_total();
-		for (var item in navy.navy) {
-			this.assigned_navy[item] = navy.navy[item];
+		if (my_settlement.can_build_ships()) {
+			var navy = my_settlement.get_navy_total();
+			for (var item in navy.navy) {
+				this.assigned_navy[item] = navy.navy[item];
+			}
 		}
 		var _t = '<div class="column">' +
 			'<fieldset>' +
@@ -16193,11 +16195,13 @@ civitas.WINDOW_BATTLE = {
 			},
 			attack: {
 				city: this.params_data.source.source.id,
-				army: core.get_settlement().parse_army(this.params_data.source.data.army)
+				army: core.get_settlement().parse_army(this.params_data.source.data.army),
+				navy: core.get_settlement().parse_navy(this.params_data.source.data.navy)
 			},
 			defense: {
 				city: this.params_data.destination.id(),
-				army: this.params_data.destination.parse_army()
+				army: this.params_data.destination.parse_army(),
+				navy: this.params_data.destination.parse_navy()
 			},
 			on_win: function(winner, loser) {
 				var loser_army = {};

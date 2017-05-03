@@ -29,9 +29,11 @@ civitas.PANEL_NEW_ARMY = {
 		for (var item in army.army) {
 			this.assigned_army[item] = army.army[item];
 		}
-		var navy = my_settlement.get_navy_total();
-		for (var item in navy.navy) {
-			this.assigned_navy[item] = navy.navy[item];
+		if (my_settlement.can_build_ships()) {
+			var navy = my_settlement.get_navy_total();
+			for (var item in navy.navy) {
+				this.assigned_navy[item] = navy.navy[item];
+			}
 		}
 		var _t = '<div class="column">' +
 			'<fieldset>' +
