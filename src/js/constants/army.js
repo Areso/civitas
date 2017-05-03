@@ -127,7 +127,7 @@ civitas.SOLDIERS = {
 	cannon: {
 		name: 'Cannon',
 		attack: 15,
-		defense: 0,
+		defense: 1,
 		moves: 0,
 		siege: true,
 		ranged: 20,
@@ -142,7 +142,7 @@ civitas.SOLDIERS = {
 	heavycannon: {
 		name: 'Heavy Cannon',
 		attack: 25,
-		defense: 0,
+		defense: 1,
 		moves: 0,
 		siege: true,
 		ranged: 20,
@@ -157,7 +157,7 @@ civitas.SOLDIERS = {
 	catapult: {
 		name: 'Catapult',
 		attack: 50,
-		defense: 0,
+		defense: 1,
 		ranged: 20,
 		siege: true,
 		moves: 0,

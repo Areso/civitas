@@ -61,6 +61,17 @@ civitas.objects.battleground = function (params) {
 
 	this.done = false;
 
+	this.stats = {
+		attacking: {
+			attack: 0,
+			defense: 0
+		},
+		defending: {
+			attack: 0,
+			defense: 0
+		}
+	};
+
 	/**
 	 * Current turn for this battleground.
 	 *
@@ -116,7 +127,7 @@ civitas.objects.battleground = function (params) {
 			this._computer = 1;
 		}
 		this._setup();
-		this.stats();
+		this.show_stats();
 		return this;
 	};
 
@@ -126,7 +137,7 @@ civitas.objects.battleground = function (params) {
 		var xx = 0;
 		var xxx = 3;
 		var yy;
-		for (var item in this._attack.army.soldiers) {
+		for (var item in this._attack.army) {
 			if (civitas.SOLDIERS[item].siege === true) {
 				yy = 0;
 				xx = xxx;
@@ -139,7 +150,7 @@ civitas.objects.battleground = function (params) {
 		}
 		xxx = 3;
 		xx = 0;
-		for (var item in this._defense.army.soldiers) {
+		for (var item in this._defense.army) {
 			if (civitas.SOLDIERS[item].siege === true) {
 				yy = this.properties.width - 1;
 				xx = xxx;
@@ -201,9 +212,9 @@ civitas.objects.battleground = function (params) {
 		this._cell_add(y, x, {
 			item: soldier,
 			city: settlement.city,
-			total: settlement.army.soldiers[soldier].total,
-			attack: settlement.army.soldiers[soldier].attack,
-			defense: settlement.army.soldiers[soldier].defense,
+			total: settlement.army[soldier],
+			attack: civitas.SOLDIERS[soldier].attack * settlement.army[soldier],
+			defense: civitas.SOLDIERS[soldier].defense * settlement.army[soldier],
 			side: side,
 			moved: false
 		});
@@ -236,13 +247,13 @@ civitas.objects.battleground = function (params) {
 				var attack = Math.ceil(source.attack / 2);
 				var defense = destination.defense;
 				if (defense - attack < 0) {
-					this[_a].army.soldiers[destination.item].total = 0;
+					this[_a].army[destination.item] = 0;
 					this.log(city.name() + '`s <strong>' + civitas.SOLDIERS[source.item].name + '</strong> attacked ' + city2.name() + '`s <strong>' + civitas.SOLDIERS[destination.item].name + '</strong> for ' + attack + ' damage from range and killed its opponent.');
 					this._cell_empty(cell);
 				} else {
 					remaining = Math.ceil((defense - attack) / civitas.SOLDIERS[destination.item].defense);
 					destination.total = remaining;
-					this[_a].army.soldiers[destination.item].total = remaining;
+					this[_a].army[destination.item] = remaining;
 					this.log(city.name() + '`s <strong>' + civitas.SOLDIERS[source.item].name + '</strong> attacked ' + city2.name() + '`s <strong>' + civitas.SOLDIERS[destination.item].name + '</strong> for ' + attack + ' damage from range.');
 				}
 				this._cell_under_attack(cell);
@@ -257,13 +268,13 @@ civitas.objects.battleground = function (params) {
 				var attack = Math.ceil(source.attack / 2);
 				var defense = destination.defense;
 				if (defense - attack < 0) {
-					this[_a].army.soldiers[destination.item].total = 0;
+					this[_a].army[destination.item] = 0;
 					this.log(city.name() + '`s <strong>' + civitas.SOLDIERS[source.item].name + '</strong> attacked ' + city2.name() + '`s <strong>' + civitas.SOLDIERS[destination.item].name + '</strong> for ' + attack + ' damage in melee and killed its opponent.');
 					this._cell_empty(cell);
 				} else {
 					remaining = Math.ceil((defense - attack) / civitas.SOLDIERS[destination.item].defense);
 					destination.total = remaining;
-					this[_a].army.soldiers[destination.item].total = remaining;
+					this[_a].army[destination.item] = remaining;
 					this.log(city.name() + '`s <strong>' + civitas.SOLDIERS[source.item].name + '</strong> attacked ' + city2.name() + '`s <strong>' + civitas.SOLDIERS[destination.item].name + '</strong> for ' + attack + ' damage in melee.');
 				}
 				this._cell_under_attack(cell);
@@ -500,17 +511,17 @@ civitas.objects.battleground = function (params) {
 					this._cell_add(x, y, army);
 				} else {
 					this._cell_empty({
-						x: x, 
+						x: x,
 						y: y
 					});
 				}
 			}
 		}
-		this._attack.army.attack = a_attack;
-		this._attack.army.defense = a_defense;
-		this._defense.army.attack = d_attack;
-		this._defense.army.defense = d_defense;
-		this.stats();
+		this.stats.attacking.attack = a_attack;
+		this.stats.attacking.defense = a_defense;
+		this.stats.defending.attack = d_attack;
+		this.stats.defending.defense = d_defense;
+		this.show_stats();
 		this._check_status();
 		$('.tipsy').remove();
 		$('.tips').tipsy({
@@ -523,18 +534,18 @@ civitas.objects.battleground = function (params) {
 	this._check_status = function() {
 		var city;
 		if (!this._done) {
-			if (this._attack.army.attack <= 0 || this._attack.army.defense <= 0 || this._defense.army.attack <= 0 || this._defense.army.defense <= 0) {
+			if (this.stats.attacking.attack <= 0 || this.stats.attacking.defense <= 0 || this.stats.defending.attack <= 0 || this.stats.defending.defense <= 0) {
 				this._done = true;
 				this._reset();
 			}
-			if (this._attack.army.attack <= 0 || this._attack.army.defense <= 0) {
+			if (this.stats.attacking.attack <= 0 || this.stats.attacking.defense <= 0) {
 				if (this._defense.city === this.core().get_settlement().id()) {
 					this.on_win.call(this, this._defense, this._attack);
 				} else {
 					this.on_lose.call(this, this._defense, this._attack);
 				}
 				city = this.core().get_settlement(this._defense.city);
-			} else if (this._defense.army.attack <= 0 || this._defense.army.defense <= 0) {
+			} else if (this.stats.defending.attack <= 0 || this.stats.defending.defense <= 0) {
 				if (this._attack.city === this.core().get_settlement().id()) {
 					this.on_win.call(this, this._attack, this._defense);
 				} else {
@@ -544,15 +555,15 @@ civitas.objects.battleground = function (params) {
 			}
 			if (this._done) {
 				this.log(city.name() + ' won this battle!');
-				this.stats();
+				this.show_stats();
 			}
 		}
 		return false;
 	};
 
-	this.stats = function() {
-		$(this.elements.attack).empty().append(this.core().get_settlement(this._attack.city).name() + ' ' + this._attack.army.attack + ' / ' + this._attack.army.defense);
-		$(this.elements.defense).empty().append(this.core().get_settlement(this._defense.city).name() + ' ' + this._defense.army.attack + ' / ' + this._defense.army.defense);
+	this.show_stats = function() {
+		$(this.elements.attack).empty().append(this.core().get_settlement(this._attack.city).name() + ' ' + this.stats.attacking.attack + ' / ' + this.stats.attacking.defense);
+		$(this.elements.defense).empty().append(this.core().get_settlement(this._defense.city).name() + ' ' + this.stats.defending.attack + ' / ' + this.stats.defending.defense);
 		return {
 			attack: this._attack,
 			defense: this._defense
@@ -580,14 +591,6 @@ civitas.objects.battleground = function (params) {
 				mode = 'even';
 			}
 		}
-		/*
-		for (var y = 0; y <= this.properties.height - 1; y++) {
-			this._grid[y] = [];
-			for (var x = 0; x <= this.properties.width - 1; x++) {
-				this._grid[y][x] = null;
-				template += '<li data-pos="' + x + '-' + y + '" data-x="' + x + '" data-y="' + y + '" class="cell empty"></li>';
-			}
-		}*/
 		$(this.elements.container).empty().append(template);
 	};
 

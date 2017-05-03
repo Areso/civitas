@@ -171,8 +171,8 @@ civitas.objects.settlement = function(params) {
 			properties: this.get_properties(),
 			trades: this.get_trades(),
 			resources: this.get_resources(),
-			army: this.get_army_total().army,
-			navy: this.get_navy_total().navy,
+			army: this.get_army(),
+			navy: this.get_navy(),
 			buildings: this.export_buildings(),
 			mercenary: this.mercenary(),
 			heroes: this.heroes()
@@ -262,14 +262,10 @@ civitas.objects.settlement = function(params) {
 			fame: this.fame(),
 			prestige: this.prestige(),
 			espionage: this.espionage(),
-			army: this.get_army_total().total,
-			navy: this.get_navy_total().total,
 			score: Math.floor((
 				((this.fame() > 0 ? this.fame() : 1) / half_level)
 				+ (this.prestige() / half_level)
 				+ (this.espionage() / half_level)
-				+ ((this.get_army_total().total > 0 ? this.get_army_total().total : 1) / half_level)
-				+ ((this.get_navy_total().total > 0 ? this.get_navy_total().total : 1) / (half_level / 2))
 			) / half_level)
 		};
 	};
@@ -284,18 +280,18 @@ civitas.objects.settlement = function(params) {
 		var resources = this.get_resources();
 		var storage = this.storage();
 		var advices = [];
-		var army = this.get_army_total();
-		var navy = this.get_navy_total();
-		if (army.total === 0) {
+		var army = this.has_army();
+		var navy = this.has_navy();
+		if (army === 0) {
 			advices.push('You have no army, this is an open invitation for attack.');
 		}
-		if (army.total < 10 && army.total > 0) {
+		if (army < 10 && army > 0) {
 			advices.push('You have a small army, try to recruit some more soldiers.');
 		}
-		if (navy.total === 0) {
+		if (navy === 0) {
 			advices.push('You have no navy, this is an open invitation for attack.');
 		}
-		if (navy.total < 3 && navy.total > 0) {
+		if (navy < 3 && navy > 0) {
 			advices.push('You have a small navy, try to construct some more ships.');
 		}
 		if (storage.occupied >= storage.all) {

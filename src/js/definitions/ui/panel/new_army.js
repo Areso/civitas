@@ -21,18 +21,18 @@ civitas.PANEL_NEW_ARMY = {
 		var my_settlement = core.get_settlement();
 		var settlement = params.data;
 		var settlements = core.get_settlements();
-		var army = my_settlement.get_army_total();
+		var army = my_settlement.get_army();
 		var location = civitas['SETTLEMENT_LOCATION_' + my_settlement.climate().name.toUpperCase()];
 		var distance = civitas.utils.get_distance_in_days(location, civitas.SETTLEMENTS[settlement.id()].location);
 		this.assigned_army = {};
 		this.assigned_navy = {};
-		for (var item in army.army) {
-			this.assigned_army[item] = army.army[item];
+		for (var item in army) {
+			this.assigned_army[item] = army[item];
 		}
 		if (my_settlement.can_build_ships()) {
-			var navy = my_settlement.get_navy_total();
-			for (var item in navy.navy) {
-				this.assigned_navy[item] = navy.navy[item];
+			var navy = my_settlement.get_navy();
+			for (var item in navy) {
+				this.assigned_navy[item] = navy[item];
 			}
 		}
 		var _t = '<div class="column">' +
@@ -55,12 +55,12 @@ civitas.PANEL_NEW_ARMY = {
 			'</fieldset>' +
 			'<fieldset>' +
 				'<legend>' + civitas.l('Soldiers') + '</legend>';
-		for (var item in army.army) {
+		for (var item in army) {
 			_t += '<div class="army-item">' +
-					'<a href="#" data-max="' + army.army[item] + '" data-soldier="' + item + '" class="army-item-inc">+</a>' +
-					'<a href="#" data-max="' + army.army[item] + '" data-soldier="' + item + '" class="army-item-dec">-</a>' +
+					'<a href="#" data-max="' + army[item] + '" data-soldier="' + item + '" class="army-item-inc">+</a>' +
+					'<a href="#" data-max="' + army[item] + '" data-soldier="' + item + '" class="army-item-dec">-</a>' +
 					'<img class="tips" title="' + civitas.SOLDIERS[item].name + '" src="' + civitas.ASSETS_URL + 'images/armies/' + item.toLowerCase().replace(/ /g,"_") + '.png" />' +
-					'<span class="amount">' + army.army[item] + '</span>' +
+					'<span class="amount">' + army[item] + '</span>' +
 				'</div>';
 		}
 		_t += '</fieldset>' +
@@ -78,12 +78,12 @@ civitas.PANEL_NEW_ARMY = {
 		if (my_settlement.can_build_ships()) {
 			_t += '<fieldset>' +
 					'<legend>' + civitas.l('Ships') + '</legend>';
-			for (var item in navy.navy) {
+			for (var item in navy) {
 				_t += '<div class="navy-item">' +
-						'<a href="#" data-max="' + navy.navy[item] + '" data-ship="' + item + '" class="navy-item-inc">+</a>' +
-						'<a href="#" data-max="' + navy.navy[item] + '" data-ship="' + item + '" class="navy-item-dec">-</a>' +
+						'<a href="#" data-max="' + navy[item] + '" data-ship="' + item + '" class="navy-item-inc">+</a>' +
+						'<a href="#" data-max="' + navy[item] + '" data-ship="' + item + '" class="navy-item-dec">-</a>' +
 						'<img class="tips" title="' + item + '" src="' + civitas.ASSETS_URL + 'images/armies/' + item.toLowerCase().replace(/ /g,"_") + '.png" />' +
-						'<span class="amount">' + navy.navy[item] + '</span>' +
+						'<span class="amount">' + navy[item] + '</span>' +
 					'</div>';
 			}
 			_t += '</fieldset>';
@@ -153,24 +153,11 @@ civitas.PANEL_NEW_ARMY = {
 			if ((settlement && settlement.id() !== destination) || !settlement) {
 				settlement = core.get_settlement(destination);
 			}
-			if (destination === 0 || !settlement || (my_settlement.get_army_total(self.assigned_army).total === 0 && my_settlement.get_navy_total(self.assigned_navy).total === 0)) {
+			// TODO there is an error here when there is no shipyard to send navy.
+			if (destination === 0 || !settlement || (my_settlement.has_army(self.assigned_army) === 0 && my_settlement.has_navy(self.assigned_navy) === 0)) {
 				core.error(civitas.l('There was an error creating and dispatching the army, check the data you entered and try again.'));
 				return false;
 			}
-			/*
-			core.add_to_queue(settlement, my_settlement, civitas.ACTION_CAMPAIGN, civitas.CAMPAIGN_ARMY, {
-				army: {
-					militia: 40,
-					axeman: 30,
-					knight: 10,
-					bowman: 20,
-					cannon: 10,
-					catapult: 4,
-					crossbowman: 10,
-					pikeman: 30
-				},
-				navy: {}
-			});*/
 			if (core.add_to_queue(my_settlement, settlement, civitas.ACTION_CAMPAIGN, civitas.CAMPAIGN_ARMY, {
 				army: self.assigned_army,
 				navy: self.assigned_navy

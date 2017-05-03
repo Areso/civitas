@@ -114,6 +114,16 @@ civitas.game.prototype._create_settlement = function (name, cityname, nation, cl
 };
 
 /**
+ * Get the number of all the settlements in game.
+ * 
+ * @public
+ * @returns {Number}
+ */
+civitas.game.prototype.get_num_settlements = function () {
+	return this.settlements.length;
+};
+
+/**
  * Get the list of all the settlements in game.
  * 
  * @public

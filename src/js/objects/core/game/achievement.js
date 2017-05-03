@@ -19,14 +19,14 @@ civitas.game.prototype.check_achievements = function() {
 					}
 				}
 				if (cond_item === 'soldiers') {
-					var army = settlement.get_army_total();
-					if (army.total >= condition) {
+					var army = settlement.has_army();
+					if (army >= condition) {
 						this.achievement(i, achievement);
 					}
 				}
 				if (cond_item === 'ships') {
-					var navy = settlement.get_navy_total();
-					if (navy.total >= condition) {
+					var navy = settlement.has_navy();
+					if (navy >= condition) {
 						this.achievement(i, achievement);
 					}
 				}
@@ -83,12 +83,12 @@ civitas.game.prototype.check_achievements = function() {
 					var queue_actions = this.queue();
 					for (var m = 0; m < queue_actions.length; m++) {
 						for (var item in condition) {
-							if ((item === 'spy' && queue_actions[m].mode === civitas.ACTION_CAMPAIGN && queue_actions[m].type === civitas.CAMPAIGN_SPY) ||
-								(item === 'caravan' && queue_actions[m].mode === civitas.ACTION_CAMPAIGN && queue_actions[m].type === civitas.CAMPAIGN_CARAVAN) ||
-								(item === 'army' && queue_actions[m].mode === civitas.ACTION_CAMPAIGN && queue_actions[m].type === civitas.CAMPAIGN_ARMY) ||
-								(item === 'war' && queue_actions[m].mode === civitas.ACTION_DIPLOMACY && queue_actions[m].type === civitas.DIPLOMACY_WAR) ||
-								(item === 'pact' && queue_actions[m].mode === civitas.ACTION_DIPLOMACY && queue_actions[m].type === civitas.DIPLOMACY_PACT) ||
-								(item === 'alliance' && queue_actions[m].mode === civitas.ACTION_DIPLOMACY && queue_actions[m].type === civitas.DIPLOMACY_ALLIANCE) ||
+							if ((item === 'spy' && queue_actions[m].mode === civitas.ACTION_CAMPAIGN && queue_actions[m].type === civitas.CAMPAIGN_SPY && queue_actions[m].source.id === settlement.id()) ||
+								(item === 'caravan' && queue_actions[m].mode === civitas.ACTION_CAMPAIGN && queue_actions[m].type === civitas.CAMPAIGN_CARAVAN && queue_actions[m].source.id === settlement.id()) ||
+								(item === 'army' && queue_actions[m].mode === civitas.ACTION_CAMPAIGN && queue_actions[m].type === civitas.CAMPAIGN_ARMY && queue_actions[m].source.id === settlement.id()) ||
+								(item === 'war' && queue_actions[m].mode === civitas.ACTION_DIPLOMACY && queue_actions[m].type === civitas.DIPLOMACY_WAR && queue_actions[m].source.id === settlement.id()) ||
+								(item === 'pact' && queue_actions[m].mode === civitas.ACTION_DIPLOMACY && queue_actions[m].type === civitas.DIPLOMACY_PACT && queue_actions[m].source.id === settlement.id()) ||
+								(item === 'alliance' && queue_actions[m].mode === civitas.ACTION_DIPLOMACY && queue_actions[m].type === civitas.DIPLOMACY_ALLIANCE && queue_actions[m].source.id === settlement.id()) ||
 								(item === 'join' && queue_actions[m].mode === civitas.ACTION_DIPLOMACY && queue_actions[m].type === civitas.DIPLOMACY_JOIN))
 							{
 								this.achievement(i, achievement);

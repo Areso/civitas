@@ -47,7 +47,7 @@ civitas.PANEL_SHIPYARD = {
 			$(this.handle + ' #tab-info').empty().append(civitas.ui.building_panel(this.params_data, level));
 			$(this.handle + ' .navy-list').empty().append('<fieldset>' +
 					'<legend>' + civitas.l('Current Navy') + '</legend>' +
-					civitas.ui.navy_list(settlement.get_navy_total(), true) +
+					civitas.ui.navy_list(settlement.get_navy(), true) +
 				'</fieldset>');
 		}
 	}

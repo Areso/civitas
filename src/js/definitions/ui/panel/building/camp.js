@@ -49,7 +49,7 @@ civitas.PANEL_CAMP = {
 			$(this.handle + ' #tab-info').empty().append(civitas.ui.building_panel(this.params_data, building.get_level()));
 			$(this.handle + ' .army-list').empty().append('<fieldset>' +
 					'<legend>' + civitas.l('Current Army') + '</legend>' +
-					civitas.ui.army_list(settlement.get_army_total(), true) +
+					civitas.ui.army_list(settlement.get_army(), true) +
 				'</fieldset>');
 		}
 	}

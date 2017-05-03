@@ -1,35 +1,75 @@
 /**
- * Parse an army into something more manageable.
- *
+ * Return the number of the total navy.
+ * 
+ * @public
+ * @param {Object} navy
+ * @returns {Object}
+ */
+civitas.objects.settlement.prototype.has_navy = function(navy) {
+	var total = 0;
+	if (typeof navy === 'undefined') {
+		navy = this.navy;
+	}
+	for (var item in navy) {
+		total = total + navy[item];
+	}
+	return total;
+};
+
+/**
+ * Return the number of the total army.
+ * 
  * @public
  * @param {Object} army
  * @returns {Object}
  */
-civitas.objects.settlement.prototype.parse_army = function(army) {
-	var data = {
-		soldiers: {},
-		attack: 0,
-		defense: 0
-	};
-	var attack = 0;
-	var defense = 0;
+civitas.objects.settlement.prototype.has_army = function(army) {
+	var total = 0;
 	if (typeof army === 'undefined') {
 		army = this.army;
 	}
 	for (var item in army) {
-		if (army[item] > 0) {
-			data.soldiers[item] = {
-				attack: civitas.SOLDIERS[item].attack * army[item],
-				defense: civitas.SOLDIERS[item].defense * army[item],
-				total: army[item]
-			};
-			attack += civitas.SOLDIERS[item].attack * army[item];
-			defense += civitas.SOLDIERS[item].defense * army[item];
+		total += army[item];
+	}
+	return total;
+};
+
+/**
+ * Merge two armies.
+ *
+ * @public
+ * @param {Object} army
+ */
+civitas.objects.settlement.prototype.merge_army = function(army) {
+	var _army = this.get_army();
+	var merged_army = $.extend({}, _army);
+	for (var item in army) {
+		if (merged_army[item]) {
+			merged_army[item] += army[item];
+		} else {
+			merged_army[item] = army[item];
 		}
 	}
-	data.attack = attack;
-	data.defense = defense;
-	return data;
+	this.army = merged_army;
+};
+
+/**
+ * Merge two navies.
+ *
+ * @public
+ * @param {Object} navy
+ */
+civitas.objects.settlement.prototype.merge_navy = function(navy) {
+	var _navy = this.get_navy();
+	var merged_navy = $.extend({}, _navy);
+	for (var item in navy) {
+		if (merged_navy[item]) {
+			merged_navy[item] += navy[item];
+		} else {
+			merged_navy[item] = navy[item];
+		}
+	}
+	this.navy = merged_navy;
 };
 
 /**
@@ -184,26 +224,6 @@ civitas.objects.settlement.prototype.recruit_soldier = function(soldier_name) {
 };
 
 /**
- * Get the navy size of this settlement.
- * 
- * @public
- * @returns {Number}
- */
-civitas.objects.settlement.prototype.get_navy_size = function() {
-	return this.get_navy().length;
-};
-
-/**
- * Get the army size of this settlement.
- * 
- * @public
- * @returns {Number}
- */
-civitas.objects.settlement.prototype.get_army_size = function() {
-	return this.get_army().length;
-};
-
-/**
  * Disband a ship from the settlement's navy.
  * 
  * @public
@@ -299,60 +319,6 @@ civitas.objects.settlement.prototype.get_army = function() {
  */
 civitas.objects.settlement.prototype.get_navy = function() {
 	return this.navy;
-};
-
-/**
- * Get the navy of this settlement in an object format.
- * 
- * @public
- * @param {Object} navy
- * @returns {Object}
- */
-civitas.objects.settlement.prototype.get_navy_total = function(navy) {
-	var attack = 0;
-	var defense = 0;
-	var total = 0;
-	if (typeof navy === 'undefined') {
-		navy = this.navy;
-	}
-	for (var item in navy) {
-		attack += civitas.SHIPS[item].attack * navy[item];
-		defense += civitas.SHIPS[item].defense * navy[item];
-		total = total + navy[item];
-	}
-	return {
-		total: total,
-		attack: attack,
-		defense: defense,
-		navy: navy
-	};
-};
-
-/**
- * Get the army of this settlement in an object format.
- * 
- * @public
- * @param {Object} army
- * @returns {Object}
- */
-civitas.objects.settlement.prototype.get_army_total = function(army) {
-	var total = 0;
-	var attack = 0;
-	var defense = 0;
-	if (typeof army === 'undefined') {
-		army = this.army;
-	}
-	for (var item in army) {
-		attack += civitas.SOLDIERS[item].attack * army[item];
-		defense += civitas.SOLDIERS[item].defense * army[item];
-		total += army[item];
-	}
-	return {
-		total: total,
-		attack: attack,
-		defense: defense,
-		army: army
-	};
 };
 
 /**

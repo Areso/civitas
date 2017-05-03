@@ -123,18 +123,54 @@ civitas.PANEL_HELP = {
 					'<a href="#" class="btn iblock seven">' + civitas.l('refresh trades') + '</a> <br /><br />' +
 					'<a href="#" class="btn iblock eleven">' + civitas.l('random soldiers') + '</a> ' +
 					'<a href="#" class="btn iblock twelve">' + civitas.l('random ships') + '</a> ' +
+					'<a href="#" class="btn iblock fourty">' + civitas.l('defend city') + '</a> ' +
+					'<a href="#" class="btn iblock fifty">' + civitas.l('battle-ready') + '</a> ' +
 				'</div>');
-			$(this.handle).on('click', '.eleven', function() {
-				var army = settlement.get_army_total();
-				for (var soldier in army.army) {
-					army.army[soldier] = civitas.utils.get_random(1, 100);
+			$(this.handle).on('click', '.fourty', function() {
+				var city_index = civitas.utils.get_random(1, core.get_num_settlements() - 1);
+				var _settlement = core.get_settlement(city_index);
+				core.add_to_queue(_settlement, settlement, civitas.ACTION_CAMPAIGN, civitas.CAMPAIGN_ARMY, {
+					army: {
+						militia: 40,
+						axeman: 30,
+						knight: 10,
+						bowman: 20,
+						cannon: 200,
+						heavycannon: 200,
+						catapult: 300,
+						crossbowman: 10,
+						pikeman: 30
+					}
+				});
+				return false;
+			}).on('click', '.fifty', function() {
+				for (var i = 0; i < 9; i++) {
+					settlement.level_up();
+				}
+				settlement.add_to_storage('wood', 1000);
+				settlement.add_to_storage('stones', 1000);
+				settlement.add_to_storage('woodplanks', 1000);
+				settlement.add_to_storage('provisions', 1000);
+				settlement.inc_coins(1000000);
+				var army = settlement.get_army();
+				for (var soldier in army) {
+					army[soldier] = civitas.utils.get_random(1, 100);
+				}
+				settlement.build('provisions');
+				settlement.build('camp');
+				core.save_and_refresh();
+				return false;
+			}).on('click', '.eleven', function() {
+				var army = settlement.get_army();
+				for (var soldier in army) {
+					army[soldier] = civitas.utils.get_random(1, 100);
 				}
 				core.save_and_refresh();
 				return false;
 			}).on('click', '.twelve', function() {
-				var navy = settlement.get_navy_total();
-				for (var ship in navy.navy) {
-					navy.navy[ship] = civitas.utils.get_random(1, 10);
+				var navy = settlement.get_navy();
+				for (var ship in navy) {
+					navy[ship] = civitas.utils.get_random(1, 10);
 				}
 				core.save_and_refresh();
 				return false;

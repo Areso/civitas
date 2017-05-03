@@ -1,3 +1,34 @@
+civitas.objects.settlement.prototype.merge_resources = function(resources) {
+	if (typeof resources !== 'undefined') {
+		for (var item in resources) {
+			if ($.inArray(item, civitas.NON_RESOURCES) === -1) {
+				this.add_to_storage(item, resources[item]);
+			}
+		}
+	}
+};
+
+civitas.objects.settlement.prototype.get_spoils = function() {
+	var resources = this.get_resources();
+	var tmp_res = Object.keys(resources);
+	var spoils = {};
+	var tmp;
+	var resource;
+	var random_resource;
+	var count = 0;
+	while (count < 3) {
+		random_resource = tmp_res[Math.floor(Math.random() * tmp_res.length)];
+		resource = resources[random_resource];
+		if ($.inArray(random_resource, civitas.NON_RESOURCES) === -1 && resource > 0) {
+			if (this.remove_resource(random_resource, resource)) {
+				spoils[random_resource] = resource;
+				count++;
+			}
+		}
+	}
+	return spoils;
+};
+
 /**
  * Increase this settlement's coins by the specified amount.
  * 

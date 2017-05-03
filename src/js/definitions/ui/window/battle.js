@@ -11,9 +11,8 @@ civitas.WINDOW_BATTLE = {
 				'<div title="' + civitas.l('Attack and defense rating for the defending army.') + '" class="tips defense"></div>' +
 				'<div class="battleground"></div>' +
 				'<div title="' + civitas.l('Current turn.') + '" class="tips turns">1</div>' +
-				'<div class="status"></div>' +
+				'<div class="status"></div>' +	
 				'<div class="toolbar">' +
-					'<a title="' + civitas.l('Withdraw from this fight.') + '" href="#" class="tips button withdraw">' + civitas.l('Withdraw') + '</a> ' +
 					'<a title="' + civitas.l('End current turn.') + '" class="tips button end" href="#">' + civitas.l('End turn') + '</a> ' +
 					'<a title="' + civitas.l('Close the window.') + '" class="tips button close" href="#">' + civitas.l('Close') + '</a>' +
 				'</div>' +
@@ -37,79 +36,72 @@ civitas.WINDOW_BATTLE = {
 			},
 			attack: {
 				city: this.params_data.source.source.id,
-				army: core.get_settlement().parse_army(this.params_data.source.data.army),
-				navy: core.get_settlement().parse_navy(this.params_data.source.data.navy)
+				army: this.params_data.source.data.army,
+				navy: this.params_data.source.data.navy
 			},
 			defense: {
 				city: this.params_data.destination.id(),
-				army: this.params_data.destination.parse_army(),
-				navy: this.params_data.destination.parse_navy()
+				army: this.params_data.destination.army,
+				navy: this.params_data.destination.navy
 			},
 			on_win: function(winner, loser) {
-				var loser_army = {};
-				for (var item in loser.army.soldiers) {
-					loser_army[item] = loser.army.soldiers[item].total;
-				}
-				var winner_army = {};
-				for (var item in winner.army.soldiers) {
-					winner_army[item] = winner.army.soldiers[item].total;
-				}
-				var loser_navy = {};
-				for (var item in loser.navy.ships) {
-					loser_navy[item] = loser.navy.ships[item].total;
-				}
-				var winner_navy = {};
-				for (var item in winner.navy.ships) {
-					winner_navy[item] = winner.navy.ships[item].total;
-				}
-				var settlement = core.get_settlement(loser.city);
 				var my_settlement = core.get_settlement(winner.city);
-				var resources = settlement.get_resources();
-				var spoils = {};
-				for (var item in resources) {
-					if ($.inArray(item, civitas.NON_RESOURCES) === -1) {
-						spoils[item] = resources[item];
-						settlement.remove_resource(item, resources[item]);
+				var settlement = core.get_settlement(loser.city);
+				if (self.params_data.source.source.id === winner.city) {
+					// player was attacking and won.
+					settlement.army = settlement.load_army(loser.army);
+					settlement.navy = settlement.load_navy(loser.navy);
+					var spoils = settlement.get_spoils();
+					core.add_to_queue(settlement, my_settlement, civitas.ACTION_CAMPAIGN, civitas.CAMPAIGN_ARMY_RETURN, {
+						army: winner.army,
+						navy: winner.navy,
+						resources: spoils
+					});
+				} else if (self.params_data.destination.id() === winner.city) {
+					// player was defending and won.
+					my_settlement.army = my_settlement.load_army(winner.army);
+					my_settlement.navy = my_settlement.load_navy(winner.navy);
+					var has_loser_army = settlement.has_army(loser.army);
+					var has_loser_navy = settlement.has_navy(loser.navy);
+					if (has_loser_army > 0 || has_loser_navy > 0) {
+						core.add_to_queue(my_settlement, settlement, civitas.ACTION_CAMPAIGN, civitas.CAMPAIGN_ARMY_RETURN, {
+							army: loser.army,
+							navy: loser.navy,
+							resources: {}
+						});
 					}
 				}
-				settlement.army = settlement.load_army(loser_army);
-				settlement.navy = settlement.load_navy(loser_navy);
-				core.add_to_queue(settlement, my_settlement, civitas.ACTION_CAMPAIGN, civitas.CAMPAIGN_ARMY_RETURN, {
-					army: winner_army,
-					navy: winner_navy,
-					resources: spoils
-				})
-				$(handle + ' .end, ' + handle + ' .withdraw').hide();
+				$(handle + ' .end').hide();
 				$(handle + ' .close').show();
 			},
 			on_lose: function(winner, loser) {
-				var loser_army = {};
-				for (var item in loser.army.soldiers) {
-					loser_army[item] = loser.army.soldiers[item].total;
-				}
-				var winner_army = {};
-				for (var item in winner.army.soldiers) {
-					winner_army[item] = winner.army.soldiers[item].total;
-				}
-				var loser_navy = {};
-				for (var item in loser.navy.ships) {
-					loser_navy[item] = loser.navy.ships[item].total;
-				}
-				var winner_navy = {};
-				for (var item in winner.navy.ships) {
-					winner_navy[item] = winner.navy.ships[item].total;
-				}
 				var settlement = core.get_settlement(winner.city);
 				var my_settlement = core.get_settlement(loser.city);
-				var resources = settlement.get_resources();
-				settlement.army = settlement.load_army(winner_army);
-				settlement.navy = settlement.load_navy(winner_navy);
-				core.add_to_queue(settlement, my_settlement, civitas.ACTION_CAMPAIGN, civitas.CAMPAIGN_ARMY_RETURN, {
-					army: winner_navy,
-					navy: loser_navy,
-					resources: {}
-				})
-				$(handle + ' .end, ' + handle + ' .withdraw').hide();
+				if (self.params_data.source.source.id === loser.city) {
+					// player was attacking and lost.
+					settlement.army = settlement.load_army(winner.army);
+					settlement.navy = settlement.load_navy(winner.navy);
+					var has_loser_army = settlement.has_army(loser.army);
+					var has_loser_navy = settlement.has_navy(loser.navy);
+					if (has_loser_army > 0 || has_loser_navy > 0) {
+						core.add_to_queue(settlement, my_settlement, civitas.ACTION_CAMPAIGN, civitas.CAMPAIGN_ARMY_RETURN, {
+							army: loser.army,
+							navy: loser.navy,
+							resources: {}
+						});
+					}
+				} else if (self.params_data.destination.id() === loser.city) {
+					// player was defending and lost.
+					my_settlement.army = my_settlement.load_army(loser.army);
+					my_settlement.navy = my_settlement.load_navy(loser.navy);
+					var spoils = my_settlement.get_spoils();
+					core.add_to_queue(my_settlement, settlement, civitas.ACTION_CAMPAIGN, civitas.CAMPAIGN_ARMY_RETURN, {
+						army: winner.army,
+						navy: winner.navy,
+						resources: spoils
+					});
+				}
+				$(handle + ' .end').hide();
 				$(handle + ' .close').show();
 			},
 			on_end_turn: function(turn) {
@@ -117,19 +109,7 @@ civitas.WINDOW_BATTLE = {
 			}
 		});
 		$(handle + ' .close').hide();
-		$(handle).on('click', '.withdraw', function() {
-			core.open_modal(
-				function(button) {
-					if (button === 'yes') {
-						core.unpause();
-						// TODO
-						self.destroy();
-					}
-				},
-				civitas.l('Are you sure you want to withdraw from this fight? You will lose all your army!')
-			);
-			return false;
-		}).on('click', '.close', function () {
+		$(handle).on('click', '.close', function () {
 			core.unpause();
 			self.destroy();
 			return false;
