@@ -1,4 +1,5 @@
 /* Game animations */
+
 .scale {
 	animation: scaleframes linear 1s;
 	animation-iteration-count: 1;

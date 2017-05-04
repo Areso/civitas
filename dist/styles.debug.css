@@ -2,9 +2,10 @@
  * Civitas empire-building game.
  *
  * @author sizeof(cat) <sizeofcat AT riseup.net>
- * @version 0.2.0.532017
+ * @version 0.2.0.542017
  * @license MIT
  */ /* Game animations */
+
 .scale {
 	animation: scaleframes linear 1s;
 	animation-iteration-count: 1;

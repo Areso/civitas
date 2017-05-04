@@ -2,7 +2,7 @@
  * Civitas empire-building game.
  *
  * @author sizeof(cat) <sizeofcat AT riseup.net>
- * @version 0.2.0.532017
+ * @version 0.2.0.542017
  * @license MIT
  */ 'use strict';
 
@@ -10538,9 +10538,9 @@ civitas.objects.battleground = function (params) {
 	 * @private
 	 * @type {Object}
 	 */
-	this.properties = {
+	this._properties = {
 		width: 0,
-		height: 0,
+		height: 0
 	};
 
 	/**
@@ -10549,36 +10549,108 @@ civitas.objects.battleground = function (params) {
 	* @private
 	* @type {Object}
 	*/
-	this.elements = {
+	this._elements = {
 		container: null,
 		console: null,
 		attack: null,
 		defense: null
 	};
 
+	/**
+	 * Callback when the user wins.
+	 *
+	 * @type {Function}
+	 * public
+	 */
 	this.on_win = function() {};
 
+	/**
+	 * Callback when the user loses.
+	 *
+	 * @type {Function}
+	 * public
+	 */
 	this.on_lose = function() {};
 
+	/**
+	 * Callback when the user selects a cell.
+	 *
+	 * @type {Function}
+	 * public
+	 */
 	this.on_select = function() {};
 
+	/**
+	 * Callback when the user moves a cell.
+	 *
+	 * @type {Function}
+	 * public
+	 */
 	this.on_move = function() {};
 
+	/**
+	 * Callback when the user attacks another cell.
+	 *
+	 * @type {Function}
+	 * public
+	 */
 	this.on_attack = function() {};
 
+	/**
+	 * Callback when the turn ends.
+	 *
+	 * @type {Function}
+	 * public
+	 */
 	this.on_end_turn = function() {};
 
+	/**
+	 * Grid containing info about all battleground units and their properties.
+	 *
+	 * @type {Array}
+	 * @private
+	 */
 	this._grid = [];
 
+	/**
+	 * Object containing the attacking side.
+	 *
+	 * @private
+	 * @type {Object}
+	 */
 	this._attack = null;
 
+	/**
+	 * Object containing the defending side.
+	 *
+	 * @private
+	 * @type {Object}
+	 */
 	this._defense = null;
 
+	/**
+	 * Property that contains the coords of the currently clicked cell.
+	 *
+	 * @private
+	 * @type {Object}
+	 */
 	this._from = null;
 
+	/**
+	 * Flag if the battleground is over.
+	 *
+	 * @private
+	 * @type {Boolean}
+	 */
 	this.done = false;
 
-	this.stats = {
+	/**
+	 * Battleground statistics.
+	 *
+	 * @private
+	 * @type {Object}
+	 */
+	this._stats = {
 		attacking: {
 			attack: 0,
 			defense: 0
@@ -10597,8 +10669,20 @@ civitas.objects.battleground = function (params) {
 	 */
 	this._current_turn = 1;
 
+	/**
+	 * The side of the player (left attacking, right defending).
+	 *
+	 * @private
+	 * @type {Number}
+	 */
 	this._player = null;
 
+	/**
+	 * The side of the computer (left attacking, right defending).
+	 *
+	 * @private
+	 * @type {Number}
+	 */
 	this._computer = null;
 
 	/**
@@ -10610,12 +10694,12 @@ civitas.objects.battleground = function (params) {
 	 */
 	this.__init = function (params) {
 		this._core = params.core;
-		this.properties.width = params.width;
-		this.properties.height = params.height;
-		this.elements.container = params.elements.container;
-		this.elements.console = params.elements.console;
-		this.elements.attack = params.elements.attack;
-		this.elements.defense = params.elements.defense;
+		this._properties.width = params.width;
+		this._properties.height = params.height;
+		this._elements.container = params.elements.container;
+		this._elements.console = params.elements.console;
+		this._elements.attack = params.elements.attack;
+		this._elements.defense = params.elements.defense;
 		this._attack = params.attack;
 		this._defense = params.defense;
 		if (params.on_win instanceof Function) {
@@ -10648,6 +10732,12 @@ civitas.objects.battleground = function (params) {
 		return this;
 	};
 
+	/**
+	 * Setup the battleground hex grid.
+	 *
+	 * @private
+	 * @returns {civitas.objects.battleground}
+	 */
 	this._setup = function() {
 		var self = this;
 		this._reset();
@@ -10669,16 +10759,16 @@ civitas.objects.battleground = function (params) {
 		xx = 0;
 		for (var item in this._defense.army) {
 			if (civitas.SOLDIERS[item].siege === true) {
-				yy = this.properties.width - 1;
+				yy = this._properties.width - 1;
 				xx = xxx;
 				xxx++;
 			} else {
-				yy = this.properties.width - 3;
+				yy = this._properties.width - 3;
 			}
 			this.add(xx, yy, 2, item, this._defense);
 			xx++;
 		}
-		$(this.elements.container).on('mouseover', '.cell', function () {
+		$(this._elements.container).on('mouseover', '.cell', function () {
 			if (self._from === null) {
 				var from = {
 					x: parseInt($(this).data('x')),
@@ -10708,7 +10798,8 @@ civitas.objects.battleground = function (params) {
 						self.on_select.call(self, from);
 					} else {
 						self._from = null;
-						$(self.elements.container + ' .cell').removeClass('selected canmove canattack');
+						$(self._elements.container + ' .cell')
+							.removeClass('selected canmove canattack');
 					}
 				} else if (parseInt($(this).data('side')) === self._computer) {
 					if (self._from !== null) {
@@ -10723,8 +10814,20 @@ civitas.objects.battleground = function (params) {
 			}
 			return false;
 		});
+		return this;
 	};
 
+	/**
+	 * Add a hex cell to the battleground grid.
+	 *
+	 * @public
+	 * @param {Number} x
+	 * @param {Number} y
+	 * @param {Number} side
+	 * @param {String} soldier
+	 * @param {Object} settlement
+	 * @returns {civitas.objects.battleground}
+	 */
 	this.add = function(x, y, side, soldier, settlement) {
 		this._cell_add(y, x, {
 			item: soldier,
@@ -10735,8 +10838,16 @@ civitas.objects.battleground = function (params) {
 			side: side,
 			moved: false
 		});
+		return this;
 	};
 
+	/**
+	 * Attack a hex cell.
+	 *
+	 * @public
+	 * @param {Object} cell
+	 * @returns {Boolean}
+	 */
 	this.attack = function(cell) {
 		var sx = this._from.x;
 		var sy = this._from.y;
@@ -10748,7 +10859,7 @@ civitas.objects.battleground = function (params) {
 		var remaining = 0;
 		if (city && source.moved) {
 			this.log(city.name() + '`s <strong>' + civitas.SOLDIERS[source.item].name + '</strong> already used up its turn.');
-			return;
+			return false;
 		}
 		if (source !== null && destination !== null && city && city2) {
 			if (destination.side === civitas.BATTLEGROUND_DEFENSE) {
@@ -10800,8 +10911,16 @@ civitas.objects.battleground = function (params) {
 			}
 		}
 		this._from = null;
+		return true;
 	};
 
+	/**
+	 * Computer check if there are any targets in melee.
+	 *
+	 * @private
+	 * @param {Number} type
+	 * @returns {Boolean}
+	 */
 	this._check_for_melee_target = function(type) {
 		if (this._from !== null) {
 			var source = this._grid[this._from.y][this._from.x];
@@ -10823,6 +10942,13 @@ civitas.objects.battleground = function (params) {
 		return false;
 	};
 
+	/**
+	 * Check if there are any targets in range.
+	 *
+	 * @private
+	 * @param {Number} type
+	 * @returns {Boolean}
+	 */
 	this._check_for_ranged_target = function(type) {
 		if (this._from !== null) {
 			for (var y = 0; y < this._grid.length; y++) {
@@ -10840,6 +10966,13 @@ civitas.objects.battleground = function (params) {
 		return false;
 	};
 
+	/**
+	 * Move closer to the enemy.
+	 *
+	 * @private
+	 * @param {Object} cell
+	 * @returns {Boolean}
+	 */
 	this._move_to_enemy = function(cell) {
 		/*
 		var sx = cell.x;
@@ -10850,6 +10983,7 @@ civitas.objects.battleground = function (params) {
 			// TODO
 		}
 		*/
+		return false;
 	};
 
 	this._do_computer = function() {
@@ -10875,6 +11009,12 @@ civitas.objects.battleground = function (params) {
 		return true;
 	};
 
+	/**
+	 * End the current turn.
+	 *
+	 * @public
+	 * @returns {civitas.objects.battleground}
+	 */
 	this.end_turn = function() {
 		this._from = null;
 		this._do_computer();
@@ -10891,8 +11031,16 @@ civitas.objects.battleground = function (params) {
 		if (!this._done) {
 			this.log('Turn <strong>' + this._current_turn + '</strong> started now.');
 		}
+		return this;
 	};
 
+	/**
+	 * Move the contents of one cell to another cell.
+	 *
+	 * @public
+	 * @param {Object} cell
+	 * @returns {Boolean}
+	 */
 	this.move = function(cell) {
 		var sx = this._from.x;
 		var sy = this._from.y;
@@ -10902,7 +11050,7 @@ civitas.objects.battleground = function (params) {
 			var city = this.core().get_settlement(source.city);
 			if (source !== null && source.moved) {
 				this.log(city.name() + '`s <strong>' + civitas.SOLDIERS[source.item].name + '</strong> already used up its turn.');
-				return;
+				return false;
 			}
 			if (source !== null && destination === null && city) {
 				var can_move = civitas.SOLDIERS[this._grid[sy][sx].item].moves;
@@ -10913,13 +11061,22 @@ civitas.objects.battleground = function (params) {
 					this._grid[cell.y][cell.x].moved = true;
 					this.log(city.name() + '`s <strong>' + civitas.SOLDIERS[source.item].name + '</strong> moved to ' + (cell.x + 1) + 'x' + (cell.y + 1) + '.');
 					this.redraw();
+					return true;
 				} else {
 					this.log(city.name() + '`s <strong>' + civitas.SOLDIERS[source.item].name + '</strong> is unable to move to the specified location.');
+					return false;
 				}
 			}
 		}
 	};
 
+	/**
+	 * Highlight the cells around the currently selected (or hovered) cell.
+	 *
+	 * @public
+	 * @param {Object} cell
+	 * @returns {civitas.objects.battleground}
+	 */
 	this.highlight_cells = function(cell) {
 		this._cells_empty();
 		var sx = cell.x;
@@ -10931,7 +11088,7 @@ civitas.objects.battleground = function (params) {
 				for (var x = 0; x < this._grid[y].length; x++) {
 					if (!source.moved && can_move && (Math.abs(y - sy) + Math.abs(x - sx)) <= can_move) {
 						if (this._grid[y][x] === null) {
-							$(this.elements.container + ' .cell[data-pos=' + x + '-' + y + ']')
+							$(this._elements.container + ' .cell[data-pos=' + x + '-' + y + ']')
 								.addClass('canmove');
 						}
 					}
@@ -10942,22 +11099,37 @@ civitas.objects.battleground = function (params) {
 				for (var x = 0; x < this._grid[y].length; x++) {
 					if (!source.moved && (Math.abs(y - sy) + Math.abs(x - sx)) <= is_ranged) {
 						if (this._grid[y][x] === null) {
-							$(this.elements.container + ' .cell[data-pos=' + x + '-' + y + ']')
+							$(this._elements.container + ' .cell[data-pos=' + x + '-' + y + ']')
 								.addClass('canattack');
 						}
 					}
 				}
 			}
 		}
+		return this;
 	};
 
+	/**
+	 * Do a nice effect when a cell is under attack.
+	 *
+	 * @private
+	 * @param {Object} cell
+	 * @returns {civitas.objects.battleground}
+	 */
 	this._cell_under_attack = function(cell) {
-		$(this.elements.container + ' .cell[data-pos=' + cell.x + '-' + cell.y + ']')
+		$(this._elements.container + ' .cell[data-pos=' + cell.x + '-' + cell.y + ']')
 			.addClass('scale').delay(1000).queue(function() {
 				$(this).removeClass('scale').dequeue();
 			});
+		return this;
 	};
 
+	/**
+	 * Empty all the cells that are already empty.
+	 *
+	 * @private
+	 * @returns {civitas.objects.battleground}
+	 */
 	this._cells_empty = function() {
 		for (var y = 0; y < this._grid.length; y++) {
 			for (var x = 0; x < this._grid[y].length; x++) {
@@ -10969,31 +11141,57 @@ civitas.objects.battleground = function (params) {
 				}
 			}
 		}
+		return this;
 	};
 
+	/**
+	 * Empty one cell.
+	 *
+	 * @private
+	 * @param {Object} cell
+	 * @returns {civitas.objects.battleground}
+	 */
 	this._cell_empty = function(cell) {
 		this._grid[cell.y][cell.x] = null;
-		$(this.elements.container + ' .cell[data-pos=' + cell.x + '-' + cell.y + ']')
+		$(this._elements.container + ' .cell[data-pos=' + cell.x + '-' + cell.y + ']')
 			.removeData('side')
 			.removeData('amount')
 			.removeData('soldier')
 			.addClass('empty')
 			.removeClass('canmove canattack selected')
 			.empty();
+		return this;
 	};
 
+	/**
+	 * Select a cell.
+	 *
+	 * @private
+	 * @param {Object} cell
+	 * @returns {civitas.objects.battleground}
+	 */
 	this._cell_select = function(cell) {
-		$(this.elements.container + ' .cell')
+		$(this._elements.container + ' .cell')
 			.removeClass('selected canmove canattack');
-		$(this.elements.container + ' .cell[data-pos=' + cell.x + '-' + cell.y + ']')
+		$(this._elements.container + ' .cell[data-pos=' + cell.x + '-' + cell.y + ']')
 			.addClass('selected');
 		this._from = cell;
 		this.highlight_cells(cell);
+		return this;
 	};
 
+	/**
+	 * Add a cell to the battleground grid.
+	 *
+	 * @private
+	 * @param {Number} x
+	 * @param {Number} y
+	 * @param {Object} army
+	 * @returns {civitas.objects.battleground}
+	 */
 	this._cell_add = function(x, y, army) {
 		this._grid[y][x] = army;
-		$(this.elements.container + ' .cell[data-pos=' + x + '-' + y + ']')
+		$(this._elements.container + ' .cell[data-pos=' + x + '-' + y + ']')
 			.removeData('side')
 			.removeData('amount')
 			.removeData('soldier')
@@ -11005,8 +11203,15 @@ civitas.objects.battleground = function (params) {
 			.append('<span class="moves' + (army.moved === false ? ' has' : '') + '"></span>' +
 				'<img class="tips" title="' + civitas.SOLDIERS[army.item].name + '" src="' + civitas.ASSETS_URL + 'images/armies/' + army.item + '.png" />' +
 				'<span class="amount">' + army.total + '</span>');
+		return this;
 	};
 
+	/**
+	 * Redraw the grid.
+	 *
+	 * @public
+	 * @returns {Boolean}
+	 */
 	this.redraw = function() {
 		var a_attack = 0;
 		var a_defense = 0;
@@ -11034,10 +11239,10 @@ civitas.objects.battleground = function (params) {
 				}
 			}
 		}
-		this.stats.attacking.attack = a_attack;
-		this.stats.attacking.defense = a_defense;
-		this.stats.defending.attack = d_attack;
-		this.stats.defending.defense = d_defense;
+		this._stats.attacking.attack = a_attack;
+		this._stats.attacking.defense = a_defense;
+		this._stats.defending.attack = d_attack;
+		this._stats.defending.defense = d_defense;
 		this.show_stats();
 		this._check_status();
 		$('.tipsy').remove();
@@ -11048,21 +11253,27 @@ civitas.objects.battleground = function (params) {
 		return true;
 	};
 
+	/**
+	* Check the status of the current game.
+	*
+	* @private
+	* @returns {Boolean}
+	*/
 	this._check_status = function() {
 		var city;
 		if (!this._done) {
-			if (this.stats.attacking.attack <= 0 || this.stats.attacking.defense <= 0 || this.stats.defending.attack <= 0 || this.stats.defending.defense <= 0) {
+			if (this._stats.attacking.attack <= 0 || this._stats.attacking.defense <= 0 || this._stats.defending.attack <= 0 || this._stats.defending.defense <= 0) {
 				this._done = true;
 				this._reset();
 			}
-			if (this.stats.attacking.attack <= 0 || this.stats.attacking.defense <= 0) {
+			if (this._stats.attacking.attack <= 0 || this._stats.attacking.defense <= 0) {
 				if (this._defense.city === this.core().get_settlement().id()) {
 					this.on_win.call(this, this._defense, this._attack);
 				} else {
 					this.on_lose.call(this, this._defense, this._attack);
 				}
 				city = this.core().get_settlement(this._defense.city);
-			} else if (this.stats.defending.attack <= 0 || this.stats.defending.defense <= 0) {
+			} else if (this._stats.defending.attack <= 0 || this._stats.defending.defense <= 0) {
 				if (this._attack.city === this.core().get_settlement().id()) {
 					this.on_win.call(this, this._attack, this._defense);
 				} else {
@@ -11078,26 +11289,46 @@ civitas.objects.battleground = function (params) {
 		return false;
 	};
 
+	/**
+	 * Display the battleground stats.
+	 *
+	 * @public
+	 * @returns {Object}
+	 */
 	this.show_stats = function() {
-		$(this.elements.attack).empty().append(this.core().get_settlement(this._attack.city).name() + ' ' + this.stats.attacking.attack + ' / ' + this.stats.attacking.defense);
-		$(this.elements.defense).empty().append(this.core().get_settlement(this._defense.city).name() + ' ' + this.stats.defending.attack + ' / ' + this.stats.defending.defense);
+		$(this._elements.attack).empty().append(this.core().get_settlement(this._attack.city).name() + ' ' + this._stats.attacking.attack + ' / ' + this._stats.attacking.defense);
+		$(this._elements.defense).empty().append(this.core().get_settlement(this._defense.city).name() + ' ' + this._stats.defending.attack + ' / ' + this._stats.defending.defense);
 		return {
 			attack: this._attack,
 			defense: this._defense
 		}
 	};
 
+	/**
+	 * Log a message to the battleground status.
+	 *
+	 * @public
+	 * @param {String} message
+	 * @returns {civitas.objects.battleground}
+	 */
 	this.log = function(message) {
-		$(this.elements.console).prepend('<p>' + message + '</p>');
+		$(this._elements.console).prepend('<p>' + message + '</p>');
+		return this;
 	};
 
+	/**
+	 * Reset and rebuild the battleground hex cell grid.
+	 *
+	 * @private
+	 * @returns {civitas.objects.battleground}
+	 */
 	this._reset = function() {
 		var mode = 'even';
 		var template = '';
-		for (var y = 0; y <= this.properties.height - 1; y++) {
+		for (var y = 0; y <= this._properties.height - 1; y++) {
 			this._grid[y] = [];
 			template += '<ol class="' + mode + '">';
-			for (var x = 0; x <= this.properties.width - 1; x++) {
+			for (var x = 0; x <= this._properties.width - 1; x++) {
 				this._grid[y][x] = null;
 				template += '<li data-pos="' + x + '-' + y + '" data-x="' + x + '" data-y="' + y + '" class="cell empty"></li>';
 			}
@@ -11108,13 +11339,26 @@ civitas.objects.battleground = function (params) {
 				mode = 'even';
 			}
 		}
-		$(this.elements.container).empty().append(template);
+		$(this._elements.container).empty().append(template);
+		return this;
 	};
 
+	/**
+	 * Return the current hex cell grid.
+	 *
+	 * @public
+	 * @returns {Array}
+	 */
 	this.grid = function() {
 		return this._grid;
 	};
 
+	/**
+	 * Get the current turn.
+	 *
+	 * @public
+	 * @returns {Number}
+	 */
 	this.num_turns = function() {
 		return this._current_turn;
 	};
@@ -11127,6 +11371,16 @@ civitas.objects.battleground = function (params) {
 	 */
 	this.core = function() {
 		return this._core;
+	};
+
+	/**
+	* Get the properties of this battleground.
+	*
+	* @public
+	* @returns {Object}
+	*/
+	this.properties = function() {
+		return this._properties;
 	};
 
 	// Fire up the constructor
