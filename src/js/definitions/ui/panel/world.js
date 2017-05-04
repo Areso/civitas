@@ -69,7 +69,7 @@ civitas.PANEL_WORLD = {
 				if (action.type === civitas.CAMPAIGN_ARMY_RETURN) {
 					out += '<div data-id="' + i + '" class="tips ' + class_name + '" title="' + _destination.name() + ' army returning from ' + _source.name() + '." style="left:' + x + 'px;top:' + y + 'px"></div>';
 				} else {
-					out += '<div data-id="' + i + '" class="tips ' + class_name + '" title="' + class_name.capitalize() + ' marching from ' + _source.name() + ' to ' + _destination.name() + '." style="left:' + x + 'px;top:' + y + 'px"></div>';
+					out += '<div data-id="' + i + '" class="tips ' + class_name + '" title="' + _source.name() + ' army marching to ' + _destination.name() + '." style="left:' + x + 'px;top:' + y + 'px"></div>';
 				}
 			} else if (action.mode === civitas.ACTION_DIPLOMACY) {
 				out += '<div data-id="' + i + '" class="tips messenger" title="Diplomatic mission from ' + _source.name() + ' to ' + _destination.name() + '." style="left:' + x + 'px;top:' + y + 'px"></div>';

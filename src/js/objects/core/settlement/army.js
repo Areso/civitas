@@ -1,3 +1,76 @@
+civitas.objects.settlement.prototype.has_soldiers = function(data) {
+	var army = this.get_army();
+	for (var item in army) {
+		if (army[item] - data[item] < 0) {
+			return false;
+		}
+	}
+	return true;
+};
+
+civitas.objects.settlement.prototype.adjust_campaign_cost = function(cost, duration, resources) {
+	var mission_costs = cost;
+	for (var item in mission_costs) {
+		if (item === 'coins') {
+			mission_costs[item] = Math.ceil(cost[item] * duration);
+		} else if (item === 'provisions') {
+			mission_costs[item] = Math.ceil((cost[item] * duration) / 2);
+		}
+	}
+	if (typeof resources !== 'undefined') {
+		var merged_costs = $.extend({}, resources);
+		for (var item in mission_costs) {
+			if (merged_costs[item]) {
+				merged_costs[item] += mission_costs[item];
+			} else {
+				merged_costs[item] = mission_costs[item];
+			}
+		}
+		return merged_costs;
+	}
+	return mission_costs;
+};
+
+civitas.objects.settlement.prototype.split_army = function(data) {
+	var army = this.get_army();
+	if (this.has_soldiers(data)) {
+		for (var item in army) {
+			if (army[item] - data[item] >= 0) {
+				army[item] = army[item] - data[item];
+			} else {
+				army[item] = 0;
+			}
+		}
+		return true;
+	}
+	return false;
+};
+
+civitas.objects.settlement.prototype.has_ships = function(data) {
+	var navy = this.get_navy();
+	for (var item in navy) {
+		if (navy[item] - data[item] < 0) {
+			return false;
+		}
+	}
+	return true;
+};
+
+civitas.objects.settlement.prototype.split_navy = function(data) {
+	var navy = this.get_navy();
+	if (this.has_ships(data)) {
+		for (var item in navy) {
+			if (navy[item] - data[item] >= 0) {
+				navy[item] = navy[item] - data[item];
+			} else {
+				navy[item] = 0;
+			}
+		}
+		return true;
+	}
+	return false;
+};
+
 /**
  * Return the number of the total navy.
  * 

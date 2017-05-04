@@ -228,28 +228,32 @@ civitas.objects.battleground = function (params) {
 		var xxx = 3;
 		var yy;
 		for (var item in this._attack.army) {
-			if (civitas.SOLDIERS[item].siege === true) {
-				yy = 0;
-				xx = xxx;
-				xxx++;
-			} else {
-				yy = 2;
+			if (this._attack.army[item] > 0) {
+				if (civitas.SOLDIERS[item].siege === true) {
+					yy = 0;
+					xx = xxx;
+					xxx++;
+				} else {
+					yy = 2;
+				}
+				this.add(xx, yy, 1, item, this._attack);
+				xx++;
 			}
-			this.add(xx, yy, 1, item, this._attack);
-			xx++;
 		}
 		xxx = 3;
 		xx = 0;
 		for (var item in this._defense.army) {
-			if (civitas.SOLDIERS[item].siege === true) {
-				yy = this._properties.width - 1;
-				xx = xxx;
-				xxx++;
-			} else {
-				yy = this._properties.width - 3;
+			if (this._defense.army[item] > 0) {
+				if (civitas.SOLDIERS[item].siege === true) {
+					yy = this._properties.width - 1;
+					xx = xxx;
+					xxx++;
+				} else {
+					yy = this._properties.width - 3;
+				}
+				this.add(xx, yy, 2, item, this._defense);
+				xx++;
 			}
-			this.add(xx, yy, 2, item, this._defense);
-			xx++;
 		}
 		$(this._elements.container).on('mouseover', '.cell', function () {
 			if (self._from === null) {
