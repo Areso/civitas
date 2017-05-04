@@ -1387,9 +1387,9 @@ civitas.SOLDIERS = {
 		siege: true,
 		ranged: 20,
 		cost: {
-			coins: 100000,
-			provisions: 100,
-			gunpowder: 100,
+			coins: 80000,
+			provisions: 80,
+			gunpowder: 80,
 			iron: 100,
 			cannons: 10
 		}
@@ -1403,9 +1403,9 @@ civitas.SOLDIERS = {
 		moves: 0,
 		cost: {
 			coins: 100000,
-			provisions: 50,
-			gunpowder: 50,
-			iron: 40,
+			provisions: 150,
+			gunpowder: 150,
+			iron: 140,
 			catapults: 1
 		}
 	}
@@ -7169,6 +7169,7 @@ civitas.ui = {
 	},
 
 	army_list: function (army, no_margin) {
+		var out2 = '<p>' + civitas.l('There are no soldiers in this army.') + '</p>';
 		var out = '<dl' + ((typeof no_margin !== 'undefined' && no_margin === true) ? ' class="nomg"' : '') + '>';
 		var total = 0;
 		for (var soldier in army) {
@@ -7178,9 +7179,14 @@ civitas.ui = {
 				total += army[soldier];
 			}
 		}
-		out += '<dt>' + total + '</dt><dd>' + civitas.l('Total') + '</dd>' +
-				'</dl>';
-		return out;
+		out += '<dt>' + total + '</dt>' +
+				'<dd>' + civitas.l('Total') + '</dd>' +
+			'</dl>';
+		if (total > 0) {
+			return out;
+		} else {
+			return out2;
+		}
 	},
 
 	/**
@@ -7233,6 +7239,7 @@ civitas.ui = {
 	},
 
 	navy_list: function (army, no_margin) {
+		var out2 = '<p>' + civitas.l('There are no ships in this navy.') + '</p>';
 		var out = '<dl' + ((typeof no_margin !== 'undefined' && no_margin === true) ? ' class="nomg"' : '') + '>';
 		var total = 0;
 		for (var ship in army) {
@@ -7242,9 +7249,14 @@ civitas.ui = {
 				total += army[ship];
 			}
 		}
-		out += '<dt>' + total + '</dt><dd>' + civitas.l('Total') + '</dd>' +
-				'</dl>';
-		return out;
+		out += '<dt>' + total + '</dt>' +
+				'<dd>' + civitas.l('Total') + '</dd>' +
+			'</dl>';
+		if (total > 0) {
+			return out;
+		} else {
+			return out2;
+		}
 	},
 
 	building_element: function (params) {
@@ -8728,18 +8740,14 @@ civitas.objects.settlement.prototype.build = function(building_type) {
 				}
 			}
 		}
-		for (var item in building_data.cost) {
-			if ((this.get_resources()[item] - building_data.cost[item]) < 0) {
-				if (this.is_player()) {
-					this.core().error('You don`t have enough ' + item + ' to construct this building.');
-				}
-				return false;
+		if (!this.has_resources(building_data.cost)) {
+			if (this.is_player()) {
+				this.core().error('You don`t have enough resources to construct this building.');
 			}
+			return false;
 		}
-		for (var item in building_data.cost) {
-			if ((this.get_resources()[item] - building_data.cost[item]) >= 0) {
-				this.get_resources()[item] = this.get_resources()[item] - building_data.cost[item];
-			}
+		if (!this.remove_resources(building_data.cost)) {
+			return galse;
 		}
 		var _building = new civitas.objects.building({
 			settlement: this,
@@ -8987,14 +8995,13 @@ civitas.objects.settlement.prototype.recruit_mercenary_army = function(name) {
  * @returns {Boolean}
  */
 civitas.objects.settlement.prototype.recruit_ship = function(ship_name) {
-	if (typeof this.navy[ship_name] !== 'undefined') {
+	if (typeof this.navy[ship_name] !== 'undefined' && this.navy[ship_name] !== null ) {
 		this.navy[ship_name] = this.navy[ship_name] + 1;
 	} else {
 		this.navy[ship_name] = 1;
 	}
 	if (this.is_player()) {
 		this.core().save_and_refresh();
-		this.core().notify('A new ' + ship_name + ' ship has been constructed.', 'New ship');
 	}
 	return true;
 };
@@ -9007,14 +9014,13 @@ civitas.objects.settlement.prototype.recruit_ship = function(ship_name) {
  * @returns {Boolean}
  */
 civitas.objects.settlement.prototype.recruit_soldier = function(soldier_name) {
-	if (typeof this.army[soldier_name] !== 'undefined') {
+	if (typeof this.army[soldier_name] !== 'undefined' && this.army[soldier_name] !== null ) {
 		this.army[soldier_name] = this.army[soldier_name] + 1;
 	} else {
 		this.army[soldier_name] = 1;
 	}
 	if (this.is_player()) {
 		this.core().save_and_refresh();
-		this.core().notify('A new ' + soldier_name + ' has been recruited.', 'New soldier');
 	}
 	return true;
 };
@@ -13569,7 +13575,6 @@ civitas.game.prototype.advance_queue = function() {
 		if (this._queue[i].passed === this._queue[i].duration - 1) {
 			this.process_action(i);
 		} else {
-			console.log(this._queue[i]);
 			this._queue[i].passed++;
 		}
 	}
@@ -13809,10 +13814,18 @@ civitas.game.prototype.add_to_queue = function(source_settlement, destination_se
 						}
 					}
 					for (var item in army) {
-						army[item] = army[item] - data[item];
+						if (army[item] - data[item] >= 0) {
+							army[item] = army[item] - data[item];
+						} else {
+							army[item] = 0;
+						}
 					}
 					for (var item in navy) {
-						navy[item] = navy[item] - data[item];
+						if (navy[item] - data[item] >= 0) {
+							navy[item] = navy[item] - data[item];
+						} else {
+							navy[item] = 0;
+						}
 					}
 				}
 				source_settlement.diplomacy(destination_settlement.id(), civitas.DIPLOMACY_WAR);
@@ -16121,6 +16134,7 @@ civitas.PANEL_CAMP = {
 	on_show: function(params) {
 		var self = this;
 		var core = this.core();
+		var settlement = core.get_settlement();
 		$(this.handle + ' section').append(civitas.ui.tabs([civitas.l('Info'), civitas.l('Army')]));
 		var _t = '<div class="army-list"></div>' +
 				'<div class="army-recruiter">';
@@ -16147,9 +16161,17 @@ civitas.PANEL_CAMP = {
 		$(this.handle + ' #tab-army').empty().append(_t);
 		$(this.handle).on('click', '.recruit-soldier', function () {
 			var soldier = $(this).data('handle');
-			if (core.get_settlement().recruit_soldier(soldier)) {
-				self.on_refresh();
+			var costs = civitas.SOLDIERS[soldier].cost;
+			if (settlement.has_resources(costs)) {
+				if (settlement.remove_resources(costs)) {
+					if (settlement.recruit_soldier(soldier)) {
+						core.notify('A new ' + civitas.SOLDIERS[soldier].name + ' has been recruited.');
+						self.on_refresh();
+						return false;
+					}
+				}
 			}
+			core.error('You don`t have enough resources to recruit a ' + civitas.SOLDIERS[soldier].name + '.');
 			return false;
 		});
 	},
@@ -16177,6 +16199,7 @@ civitas.PANEL_SHIPYARD = {
 	id: 'shipyard',
 	on_show: function(params) {
 		var core = this.core();
+		var settlement = core.get_settlement();
 		$(this.handle + ' section').append(civitas.ui.tabs([civitas.l('Info'), civitas.l('Navy')]));
 		var _t = '<div class="navy-list"></div>' +
 				'<div class="navy-recruiter">';
@@ -16203,14 +16226,24 @@ civitas.PANEL_SHIPYARD = {
 		$(this.handle + ' #tab-navy').empty().append(_t);
 		$(this.handle).on('click', '.recruit-ship', function () {
 			var ship = $(this).data('handle');
-			core.error(civitas.l('Not implemented yet.'));
+			var costs = civitas.SHIPS[ship].cost;
+			if (settlement.has_resources(costs)) {
+				if (settlement.remove_resources(costs)) {
+					if (settlement.recruit_ship(ship)) {
+						core.notify('A new ' + civitas.SHIPS[ship].name + ' has been recruited.');
+						self.on_refresh();
+						return false;
+					}
+				}
+			}
+			core.error('You don`t have enough resources to recruit a ' + civitas.SHIPS[ship].name + '.');
 			return false;
 		});
 	},
 	on_refresh: function() {
 		var core = this.core();
 		var settlement = core.get_settlement();
-		var building = core.get_settlement().get_building(this.params_data.handle);
+		var building = settlement.get_building(this.params_data.handle);
 		if (building) {
 			var level = building.get_level();
 			$(this.handle + ' #tab-info').empty().append(civitas.ui.building_panel(this.params_data, level));

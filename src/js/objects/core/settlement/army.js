@@ -191,14 +191,13 @@ civitas.objects.settlement.prototype.recruit_mercenary_army = function(name) {
  * @returns {Boolean}
  */
 civitas.objects.settlement.prototype.recruit_ship = function(ship_name) {
-	if (typeof this.navy[ship_name] !== 'undefined') {
+	if (typeof this.navy[ship_name] !== 'undefined' && this.navy[ship_name] !== null ) {
 		this.navy[ship_name] = this.navy[ship_name] + 1;
 	} else {
 		this.navy[ship_name] = 1;
 	}
 	if (this.is_player()) {
 		this.core().save_and_refresh();
-		this.core().notify('A new ' + ship_name + ' ship has been constructed.', 'New ship');
 	}
 	return true;
 };
@@ -211,14 +210,13 @@ civitas.objects.settlement.prototype.recruit_ship = function(ship_name) {
  * @returns {Boolean}
  */
 civitas.objects.settlement.prototype.recruit_soldier = function(soldier_name) {
-	if (typeof this.army[soldier_name] !== 'undefined') {
+	if (typeof this.army[soldier_name] !== 'undefined' && this.army[soldier_name] !== null ) {
 		this.army[soldier_name] = this.army[soldier_name] + 1;
 	} else {
 		this.army[soldier_name] = 1;
 	}
 	if (this.is_player()) {
 		this.core().save_and_refresh();
-		this.core().notify('A new ' + soldier_name + ' has been recruited.', 'New soldier');
 	}
 	return true;
 };

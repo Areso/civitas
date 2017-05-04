@@ -126,6 +126,7 @@ civitas.ui = {
 	},
 
 	army_list: function (army, no_margin) {
+		var out2 = '<p>' + civitas.l('There are no soldiers in this army.') + '</p>';
 		var out = '<dl' + ((typeof no_margin !== 'undefined' && no_margin === true) ? ' class="nomg"' : '') + '>';
 		var total = 0;
 		for (var soldier in army) {
@@ -135,9 +136,14 @@ civitas.ui = {
 				total += army[soldier];
 			}
 		}
-		out += '<dt>' + total + '</dt><dd>' + civitas.l('Total') + '</dd>' +
-				'</dl>';
-		return out;
+		out += '<dt>' + total + '</dt>' +
+				'<dd>' + civitas.l('Total') + '</dd>' +
+			'</dl>';
+		if (total > 0) {
+			return out;
+		} else {
+			return out2;
+		}
 	},
 
 	/**
@@ -190,6 +196,7 @@ civitas.ui = {
 	},
 
 	navy_list: function (army, no_margin) {
+		var out2 = '<p>' + civitas.l('There are no ships in this navy.') + '</p>';
 		var out = '<dl' + ((typeof no_margin !== 'undefined' && no_margin === true) ? ' class="nomg"' : '') + '>';
 		var total = 0;
 		for (var ship in army) {
@@ -199,9 +206,14 @@ civitas.ui = {
 				total += army[ship];
 			}
 		}
-		out += '<dt>' + total + '</dt><dd>' + civitas.l('Total') + '</dd>' +
-				'</dl>';
-		return out;
+		out += '<dt>' + total + '</dt>' +
+				'<dd>' + civitas.l('Total') + '</dd>' +
+			'</dl>';
+		if (total > 0) {
+			return out;
+		} else {
+			return out2;
+		}
 	},
 
 	building_element: function (params) {

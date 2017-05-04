@@ -8,6 +8,7 @@ civitas.PANEL_SHIPYARD = {
 	id: 'shipyard',
 	on_show: function(params) {
 		var core = this.core();
+		var settlement = core.get_settlement();
 		$(this.handle + ' section').append(civitas.ui.tabs([civitas.l('Info'), civitas.l('Navy')]));
 		var _t = '<div class="navy-list"></div>' +
 				'<div class="navy-recruiter">';
@@ -34,14 +35,24 @@ civitas.PANEL_SHIPYARD = {
 		$(this.handle + ' #tab-navy').empty().append(_t);
 		$(this.handle).on('click', '.recruit-ship', function () {
 			var ship = $(this).data('handle');
-			core.error(civitas.l('Not implemented yet.'));
+			var costs = civitas.SHIPS[ship].cost;
+			if (settlement.has_resources(costs)) {
+				if (settlement.remove_resources(costs)) {
+					if (settlement.recruit_ship(ship)) {
+						core.notify('A new ' + civitas.SHIPS[ship].name + ' has been recruited.');
+						self.on_refresh();
+						return false;
+					}
+				}
+			}
+			core.error('You don`t have enough resources to recruit a ' + civitas.SHIPS[ship].name + '.');
 			return false;
 		});
 	},
 	on_refresh: function() {
 		var core = this.core();
 		var settlement = core.get_settlement();
-		var building = core.get_settlement().get_building(this.params_data.handle);
+		var building = settlement.get_building(this.params_data.handle);
 		if (building) {
 			var level = building.get_level();
 			$(this.handle + ' #tab-info').empty().append(civitas.ui.building_panel(this.params_data, level));

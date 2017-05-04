@@ -147,9 +147,9 @@ civitas.SOLDIERS = {
 		siege: true,
 		ranged: 20,
 		cost: {
-			coins: 100000,
-			provisions: 100,
-			gunpowder: 100,
+			coins: 80000,
+			provisions: 80,
+			gunpowder: 80,
 			iron: 100,
 			cannons: 10
 		}
@@ -163,9 +163,9 @@ civitas.SOLDIERS = {
 		moves: 0,
 		cost: {
 			coins: 100000,
-			provisions: 50,
-			gunpowder: 50,
-			iron: 40,
+			provisions: 150,
+			gunpowder: 150,
+			iron: 140,
 			catapults: 1
 		}
 	}

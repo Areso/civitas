@@ -9,6 +9,7 @@ civitas.PANEL_CAMP = {
 	on_show: function(params) {
 		var self = this;
 		var core = this.core();
+		var settlement = core.get_settlement();
 		$(this.handle + ' section').append(civitas.ui.tabs([civitas.l('Info'), civitas.l('Army')]));
 		var _t = '<div class="army-list"></div>' +
 				'<div class="army-recruiter">';
@@ -35,9 +36,17 @@ civitas.PANEL_CAMP = {
 		$(this.handle + ' #tab-army').empty().append(_t);
 		$(this.handle).on('click', '.recruit-soldier', function () {
 			var soldier = $(this).data('handle');
-			if (core.get_settlement().recruit_soldier(soldier)) {
-				self.on_refresh();
+			var costs = civitas.SOLDIERS[soldier].cost;
+			if (settlement.has_resources(costs)) {
+				if (settlement.remove_resources(costs)) {
+					if (settlement.recruit_soldier(soldier)) {
+						core.notify('A new ' + civitas.SOLDIERS[soldier].name + ' has been recruited.');
+						self.on_refresh();
+						return false;
+					}
+				}
 			}
+			core.error('You don`t have enough resources to recruit a ' + civitas.SOLDIERS[soldier].name + '.');
 			return false;
 		});
 	},

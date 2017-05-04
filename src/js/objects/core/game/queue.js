@@ -22,7 +22,6 @@ civitas.game.prototype.advance_queue = function() {
 		if (this._queue[i].passed === this._queue[i].duration - 1) {
 			this.process_action(i);
 		} else {
-			console.log(this._queue[i]);
 			this._queue[i].passed++;
 		}
 	}
@@ -262,10 +261,18 @@ civitas.game.prototype.add_to_queue = function(source_settlement, destination_se
 						}
 					}
 					for (var item in army) {
-						army[item] = army[item] - data[item];
+						if (army[item] - data[item] >= 0) {
+							army[item] = army[item] - data[item];
+						} else {
+							army[item] = 0;
+						}
 					}
 					for (var item in navy) {
-						navy[item] = navy[item] - data[item];
+						if (navy[item] - data[item] >= 0) {
+							navy[item] = navy[item] - data[item];
+						} else {
+							navy[item] = 0;
+						}
 					}
 				}
 				source_settlement.diplomacy(destination_settlement.id(), civitas.DIPLOMACY_WAR);

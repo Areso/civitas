@@ -135,18 +135,14 @@ civitas.objects.settlement.prototype.build = function(building_type) {
 				}
 			}
 		}
-		for (var item in building_data.cost) {
-			if ((this.get_resources()[item] - building_data.cost[item]) < 0) {
-				if (this.is_player()) {
-					this.core().error('You don`t have enough ' + item + ' to construct this building.');
-				}
-				return false;
+		if (!this.has_resources(building_data.cost)) {
+			if (this.is_player()) {
+				this.core().error('You don`t have enough resources to construct this building.');
 			}
+			return false;
 		}
-		for (var item in building_data.cost) {
-			if ((this.get_resources()[item] - building_data.cost[item]) >= 0) {
-				this.get_resources()[item] = this.get_resources()[item] - building_data.cost[item];
-			}
+		if (!this.remove_resources(building_data.cost)) {
+			return galse;
 		}
 		var _building = new civitas.objects.building({
 			settlement: this,
