@@ -79,8 +79,7 @@ civitas.RESOURCES = {
 	},
 	carpets: {
 		name: 'Carpets',
-		price: 400,
-		imported: true
+		price: 400
 	},
 	catapults: {
 		name: 'Catapults',
@@ -120,8 +119,7 @@ civitas.RESOURCES = {
 	},
 	dates: {
 		name: 'Dates',
-		price: 160,
-		imported: true
+		price: 160
 	},
 	donkeys: {
 		name: 'Donkeys',

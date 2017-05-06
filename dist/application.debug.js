@@ -2550,7 +2550,7 @@ civitas.BUILDINGS = [{
 			stones: 20
 		},
 		requires: {
-			settlement_level: 2
+			settlement_level: 7
 		}
 	}, {
 		name: 'Iron Mine',
@@ -2599,13 +2599,13 @@ civitas.BUILDINGS = [{
 			stones: 20
 		},
 		requires: {
-			settlement_level: 3
+			settlement_level: 8
 		}
 	}, {
 		name: 'Clay Mine',
 		handle: 'claymine',
 		large: true,
-		description: '.',
+		description: 'The Clay Mine produces clay which is required for higher-level buildings.',
 		is_production: true,
 		production: {
 			clay: 1
@@ -2952,7 +2952,7 @@ civitas.BUILDINGS = [{
 	}, {
 		name: 'Clothing Factory',
 		handle: 'clothingfactory',
-		description: '.',
+		description: 'The Clothing Factory produces clothes for your settlement. You don`t want naked citizens, do you?',
 		is_production: true,
 		production: {
 			clothes: 1
@@ -3290,7 +3290,7 @@ civitas.BUILDINGS = [{
 	}, {
 		name: 'Carpet Manufacturer',
 		handle: 'carpetmanufacturer',
-		description: '.',
+		description: 'The Carpet Manufacturer produces carpets.',
 		is_production: true,
 		production: {
 			carpets: 1
@@ -3421,7 +3421,7 @@ civitas.BUILDINGS = [{
 	}, {
 		name: 'Bee Hive',
 		handle: 'beehive',
-		description: '.',
+		description: 'The Bee Hive is required for an Apiary to produce bees wax.',
 		position: {
 			x: 1590,
 			y: 240
@@ -4164,7 +4164,7 @@ civitas.BUILDINGS = [{
 	}, {
 		name: 'Goat Farm',
 		handle: 'goatfarm',
-		description: '.',
+		description: 'The Goat Farm produces milk for marzipan, meat and hides.',
 		is_production: true,
 		production: {
 			meat: 1,
@@ -4182,7 +4182,7 @@ civitas.BUILDINGS = [{
 			stones: 20
 		},
 		requires: {
-			settlement_level: 3,
+			settlement_level: 10,
 			buildings: {
 				goatfield: 1
 			}
@@ -6235,8 +6235,7 @@ civitas.RESOURCES = {
 	},
 	carpets: {
 		name: 'Carpets',
-		price: 400,
-		imported: true
+		price: 400
 	},
 	catapults: {
 		name: 'Catapults',
@@ -6276,8 +6275,7 @@ civitas.RESOURCES = {
 	},
 	dates: {
 		name: 'Dates',
-		price: 160,
-		imported: true
+		price: 160
 	},
 	donkeys: {
 		name: 'Donkeys',
