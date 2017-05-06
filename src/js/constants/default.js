@@ -85,7 +85,7 @@ civitas.SECONDS_TO_DAY = 10;
  * @constant
  * @type {Number}
  */
-civitas.AVATARS = 48;
+civitas.AVATARS = 10;
 
 civitas.TRADES_ADDITION = 10;
 

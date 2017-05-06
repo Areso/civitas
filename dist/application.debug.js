@@ -106,7 +106,7 @@ civitas.SECONDS_TO_DAY = 10;
  * @constant
  * @type {Number}
  */
-civitas.AVATARS = 48;
+civitas.AVATARS = 10;
 
 civitas.TRADES_ADDITION = 10;
 
@@ -1814,7 +1814,7 @@ civitas.SETTLEMENT_BUILDINGS_POLAR = [
 	'mill', 'bakery', 'butcher',
 
 	/* Mines */
-	'coppermine', 'goldmine', 'ironmine', 'claymine', 'coalmine', 'quartzmine',
+	'coppermine', 'goldmine', 'ironmine', 'claymine', 'coalmine',
 
 	/* Smelters */
 	'goldsmelter', 'coppersmelter', 'ironsmelter',
@@ -1861,7 +1861,8 @@ civitas.SETTLEMENT_BUILDINGS_ARID = [
 	'perfumery', 'weaver', 'clothingfactory', 'provisions', 'carpenter', 'marzipanworkshop', 'cannonfoundry',
 
 	/* Farms */
-	'goatfarm', 'goatfield', 'cattlefarm', 'cattlefield', 'pigfarm', 'pigfield', 'spicefarm', 'spicefield', 'datesfarm', 'datesfield'
+	'goatfarm', 'goatfield', 'cattlefarm', 'cattlefield', 'pigfarm', 'pigfield', 'indigofarm',
+	'indigofield', 'spicefarm', 'spicefield', 'datesfarm', 'datesfield'
 ];
 
 /**
@@ -1884,7 +1885,7 @@ civitas.SETTLEMENT_BUILDINGS_TEMPERATE = [
 	'mill', 'bakery', 'butcher',
 
 	/* Mines */
-	'coppermine', 'goldmine', 'ironmine', 'saltmine', 'claymine', 'coalmine', 'quartzmine',
+	'coppermine', 'goldmine', 'ironmine', 'saltmine', 'claymine', 'coalmine',
 
 	/* Smelters */
 	'goldsmelter', 'coppersmelter', 'ironsmelter',
@@ -1900,7 +1901,7 @@ civitas.SETTLEMENT_BUILDINGS_TEMPERATE = [
 	/* Farms */
 	'cattlefarm', 'cattlefield', 'ciderfarm', 'ciderfield', 'grainfarm', 'grainfield',
 	'grapesfarm', 'grapesfield', 'rosenursery', 'rosefield', 'goatfarm', 'goatfield',
-	'sugarfarm', 'sugarfield', 'hempfarm', 'hempfield', 'pigfarm', 'pigfield', 'indigofarm', 'indigofield'
+	'hempfarm', 'hempfield', 'pigfarm', 'pigfield'
 ];
 
 /**
@@ -4661,7 +4662,7 @@ civitas.SETTLEMENTS = {
 		icon: 7,
 		climate: civitas.CLIMATE_TEMPERATE,
 		religion: civitas.RELIGION_CHRISTIANITY,
-		level: 35,
+		level: 3,
 		resources: {
 			coins: 2300000,
 			prestige: 3700,
@@ -5272,7 +5273,7 @@ civitas.SETTLEMENTS = {
 		icon: 4,
 		climate: civitas.CLIMATE_TEMPERATE,
 		religion: civitas.RELIGION_ISLAM,
-		level: 36,
+		level: 5,
 		resources: {
 			coins: 2000000,
 			prestige: 6210,
@@ -5609,7 +5610,7 @@ civitas.SETTLEMENTS = {
 		icon: 7,
 		climate: civitas.CLIMATE_ARID,
 		religion: civitas.RELIGION_CONFUCIANISM,
-		level: 34,
+		level: 2,
 		resources: {
 			coins: 3200000,
 			prestige: 4390,
@@ -5811,7 +5812,7 @@ civitas.RULERS = [
 	{
 		name: 'Dido',
 		title: 'Queen',
-		avatar: 41,
+		avatar: 6,
 		nationality: civitas.NATION_CARTHAGINIAN,
 		personality: civitas.PERSONALITY_DIPLOMAT
 	},
@@ -5839,7 +5840,7 @@ civitas.RULERS = [
 	{
 		name: 'Sennacherib',
 		title: 'King',
-		avatar: 34,
+		avatar: 2,
 		nationality: civitas.NATION_ASSYRIAN,
 		personality: civitas.PERSONALITY_BALANCED
 	},
@@ -5853,7 +5854,7 @@ civitas.RULERS = [
 	{
 		name: 'Hatshepsut',
 		title: 'Pharaoh',
-		avatar: 36,
+		avatar: 5,
 		nationality: civitas.NATION_EGYPTIAN,
 		personality: civitas.PERSONALITY_BALANCED
 	},
@@ -16959,12 +16960,12 @@ civitas.WINDOW_SIGNUP = {
 			if (avatar < civitas.AVATARS) {
 				avatar = avatar + 1;
 			}
-			$(handle + ' .avatar-select').scrollTo('+=64px', 500);
+			$(handle + ' .avatar-select').scrollTo('+=' + (64 + avatar) + 'px', 500);
 		}).on('click', '.up', function () {
 			if (avatar > 1) {
 				avatar = avatar - 1;
 			}
-			$(handle + ' .avatar-select').scrollTo('-=64px', 500);
+			$(handle + ' .avatar-select').scrollTo('-=' + (64 + avatar) + 'px', 500);
 		}).on('click', '.do-about', function () {
 			$(handle + ' .about-game').slideToggle();
 			return false;

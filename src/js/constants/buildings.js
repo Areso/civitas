@@ -99,7 +99,7 @@ civitas.SETTLEMENT_BUILDINGS_POLAR = [
 	'mill', 'bakery', 'butcher',
 
 	/* Mines */
-	'coppermine', 'goldmine', 'ironmine', 'claymine', 'coalmine', 'quartzmine',
+	'coppermine', 'goldmine', 'ironmine', 'claymine', 'coalmine',
 
 	/* Smelters */
 	'goldsmelter', 'coppersmelter', 'ironsmelter',
@@ -146,7 +146,8 @@ civitas.SETTLEMENT_BUILDINGS_ARID = [
 	'perfumery', 'weaver', 'clothingfactory', 'provisions', 'carpenter', 'marzipanworkshop', 'cannonfoundry',
 
 	/* Farms */
-	'goatfarm', 'goatfield', 'cattlefarm', 'cattlefield', 'pigfarm', 'pigfield', 'spicefarm', 'spicefield', 'datesfarm', 'datesfield'
+	'goatfarm', 'goatfield', 'cattlefarm', 'cattlefield', 'pigfarm', 'pigfield', 'indigofarm',
+	'indigofield', 'spicefarm', 'spicefield', 'datesfarm', 'datesfield'
 ];
 
 /**
@@ -169,7 +170,7 @@ civitas.SETTLEMENT_BUILDINGS_TEMPERATE = [
 	'mill', 'bakery', 'butcher',
 
 	/* Mines */
-	'coppermine', 'goldmine', 'ironmine', 'saltmine', 'claymine', 'coalmine', 'quartzmine',
+	'coppermine', 'goldmine', 'ironmine', 'saltmine', 'claymine', 'coalmine',
 
 	/* Smelters */
 	'goldsmelter', 'coppersmelter', 'ironsmelter',
@@ -185,7 +186,7 @@ civitas.SETTLEMENT_BUILDINGS_TEMPERATE = [
 	/* Farms */
 	'cattlefarm', 'cattlefield', 'ciderfarm', 'ciderfield', 'grainfarm', 'grainfield',
 	'grapesfarm', 'grapesfield', 'rosenursery', 'rosefield', 'goatfarm', 'goatfield',
-	'sugarfarm', 'sugarfield', 'hempfarm', 'hempfield', 'pigfarm', 'pigfield', 'indigofarm', 'indigofield'
+	'hempfarm', 'hempfield', 'pigfarm', 'pigfield'
 ];
 
 /**

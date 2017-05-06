@@ -25,7 +25,7 @@ civitas.SETTLEMENTS = {
 		icon: 7,
 		climate: civitas.CLIMATE_TEMPERATE,
 		religion: civitas.RELIGION_CHRISTIANITY,
-		level: 35,
+		level: 3,
 		resources: {
 			coins: 2300000,
 			prestige: 3700,
@@ -636,7 +636,7 @@ civitas.SETTLEMENTS = {
 		icon: 4,
 		climate: civitas.CLIMATE_TEMPERATE,
 		religion: civitas.RELIGION_ISLAM,
-		level: 36,
+		level: 5,
 		resources: {
 			coins: 2000000,
 			prestige: 6210,
@@ -973,7 +973,7 @@ civitas.SETTLEMENTS = {
 		icon: 7,
 		climate: civitas.CLIMATE_ARID,
 		religion: civitas.RELIGION_CONFUCIANISM,
-		level: 34,
+		level: 2,
 		resources: {
 			coins: 3200000,
 			prestige: 4390,
@@ -1175,7 +1175,7 @@ civitas.RULERS = [
 	{
 		name: 'Dido',
 		title: 'Queen',
-		avatar: 41,
+		avatar: 6,
 		nationality: civitas.NATION_CARTHAGINIAN,
 		personality: civitas.PERSONALITY_DIPLOMAT
 	},
@@ -1203,7 +1203,7 @@ civitas.RULERS = [
 	{
 		name: 'Sennacherib',
 		title: 'King',
-		avatar: 34,
+		avatar: 2,
 		nationality: civitas.NATION_ASSYRIAN,
 		personality: civitas.PERSONALITY_BALANCED
 	},
@@ -1217,7 +1217,7 @@ civitas.RULERS = [
 	{
 		name: 'Hatshepsut',
 		title: 'Pharaoh',
-		avatar: 36,
+		avatar: 5,
 		nationality: civitas.NATION_EGYPTIAN,
 		personality: civitas.PERSONALITY_BALANCED
 	},

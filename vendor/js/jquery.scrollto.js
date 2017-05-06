@@ -97,6 +97,7 @@
 
                 var offset = $.isFunction(settings.offset) && settings.offset(elem, targ) || settings.offset;
 
+
                 $.each(settings.axis.split(''), function(i, axis) {
                     var Pos = axis === 'x' ? 'Left' : 'Top',
                             pos = Pos.toLowerCase(),
@@ -125,6 +126,7 @@
                         attr[key] = val.slice && val.slice(-1) === '%' ?
                                 parseFloat(val) / 100 * max
                                 : val;
+
                     }
 
                     // Number or 'number'
@@ -132,7 +134,6 @@
                         // Check the limits
                         attr[key] = attr[key] <= 0 ? 0 : Math.min(attr[key], max);
                     }
-
                     // Queueing axes
                     if (!i && settings.queue) {
                         // Don't waste time animating, if there's no need.

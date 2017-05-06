@@ -103,12 +103,12 @@ civitas.WINDOW_SIGNUP = {
 			if (avatar < civitas.AVATARS) {
 				avatar = avatar + 1;
 			}
-			$(handle + ' .avatar-select').scrollTo('+=64px', 500);
+			$(handle + ' .avatar-select').scrollTo('+=' + (64 + avatar) + 'px', 500);
 		}).on('click', '.up', function () {
 			if (avatar > 1) {
 				avatar = avatar - 1;
 			}
-			$(handle + ' .avatar-select').scrollTo('-=64px', 500);
+			$(handle + ' .avatar-select').scrollTo('-=' + (64 + avatar) + 'px', 500);
 		}).on('click', '.do-about', function () {
 			$(handle + ' .about-game').slideToggle();
 			return false;
