@@ -13,14 +13,18 @@ civitas.objects.settlement.prototype.diplomacy = function(settlement, mode) {
 	if (typeof settlement === 'number') {
 		this._status[settlement].status = mode;
 		if (mode === civitas.DIPLOMACY_WAR) {
+			this.core().achievement(45);
 			this.reset_influence(settlement);
 		} else if (mode === civitas.DIPLOMACY_ALLIANCE) {
+			this.core().achievement(53);
 			this.set_influence(settlement, civitas.MAX_INFLUENCE_VALUE);
 		} else if (mode === civitas.DIPLOMACY_PACT) {
+			this.core().achievement(54);
 			this.set_influence(settlement, Math.ceil(civitas.MAX_INFLUENCE_VALUE / 2));
 		} else if (mode === civitas.DIPLOMACY_CEASE_FIRE) {
 			this.set_influence(settlement, Math.ceil(civitas.MAX_INFLUENCE_VALUE / 4));
 		} else if (mode === civitas.DIPLOMACY_VASSAL) {
+			this.core().achievement(55);
 			this.set_influence(settlement, civitas.MAX_INFLUENCE_VALUE);
 		}
 		this.core().save_and_refresh();

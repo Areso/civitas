@@ -263,7 +263,6 @@ civitas.game.prototype.add_to_queue = function(source_settlement, destination_se
 					return false;
 				}
 				var mission_costs = source_settlement.adjust_campaign_cost(civitas.CARAVAN_COSTS, duration, data.resources);
-				console.log(mission_costs);
 				if (!source_settlement.has_resources(mission_costs)) {
 					return false;
 				}

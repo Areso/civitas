@@ -162,6 +162,7 @@ civitas.PANEL_NEW_ARMY = {
 				army: self.assigned_army,
 				navy: self.assigned_navy
 			})) {
+				core.achievement(45);
 				self.destroy();
 			} else {
 				core.error(civitas.l('There was an error creating and dispatching the army, check the data you entered and try again.'));

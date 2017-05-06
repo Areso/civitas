@@ -106,14 +106,19 @@ civitas.PANEL_COUNCIL = {
 			for (var i = 0; i < mercenary.length; i++) {
 				army_data = civitas.MERCENARIES[mercenary[i].id];
 				_t += '<tr>' +
-						'<td class="icon"><img src="' + civitas.ASSETS_URL + 'images/assets/emblems/' + army_data.icon + '.png" /></td>' +
-						'<td><p class="title">' + army_data.name + '</p><p class="description">' + army_data.description + '</p></td>' +
-						'<td class="large">' +
-						'<a title="' + civitas.l('View info on this mercenary army.') + '" data-id="' + mercenary[i].id + '" class="tips view-merc" href="#">' + civitas.l('view') + '</a> ' +
-						'<a title="' + civitas.l('Send this mercenary army on a raiding mission towards a specific settlement.') + '" data-id="' + i + '" class="tips raid-merc" href="#">' + civitas.l('raid') + '</a> ' +
-						'<a title="' + civitas.l('Disband this mercenary army? They will be available for hire later when you need them.') + '" data-id="' + i + '" class="tips disband-merc" href="#">' + civitas.l('release') + '</a>' +
+						'<td class="icon">' +
+							'<img src="' + civitas.ASSETS_URL + 'images/assets/emblems/' + army_data.icon + '.png" />' +
 						'</td>' +
-						'</tr>';
+						'<td>' +
+							'<p class="title">' + army_data.name + '</p>' +
+							'<p class="description">' + army_data.description + '</p>' +
+						'</td>' +
+						'<td class="large">' +
+							'<a title="' + civitas.l('View info on this mercenary army.') + '" data-id="' + mercenary[i].id + '" class="tips view-merc" href="#">' + civitas.l('view') + '</a> ' +
+							'<a title="' + civitas.l('Send this mercenary army on a raiding mission towards a specific settlement.') + '" data-id="' + i + '" class="tips raid-merc" href="#">' + civitas.l('raid') + '</a> ' +
+							'<a title="' + civitas.l('Disband this mercenary army? They will be available for hire later when you need them.') + '" data-id="' + i + '" class="tips disband-merc" href="#">' + civitas.l('release') + '</a>' +
+						'</td>' +
+					'</tr>';
 
 			}
 			_t += '</table>';
@@ -122,12 +127,9 @@ civitas.PANEL_COUNCIL = {
 		}
 		_t += '</div>';
 		$(this.handle + ' #tab-mercenary').empty().append(_t);
-		for (var f = 0; f < civitas.ACHIEVEMENTS.length; f++) {
-			if (core.has_achievement(f)) {
-				$(this.handle + ' .achievement[data-id=' + f + ']').addClass('has');
-			} else {
-				$(this.handle + ' .achievement[data-id=' + f + ']').removeClass('has');
-			}
+		for (var f = 0; f < achievements.length; f++) {
+			$(this.handle + ' .achievement[data-id=' + achievements[f].id + ']').addClass('has');
+			$(this.handle + ' .achievement[data-id=' + achievements[f].id + '] .time').attr("title", achievements[f].date).html('<strong>' + civitas.utils.time_since(achievements[f].date) + '</strong> ago');
 		}
 		_t = '<img class="avatar" src="' + civitas.ASSETS_URL + 'images/assets/avatars/avatar' + settlement.ruler().avatar + '.png" />' +
 				'<dl>' +

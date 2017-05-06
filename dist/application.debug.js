@@ -6846,60 +6846,25 @@ civitas.ACHIEVEMENTS = [
 		}
 	}, {
 		description: 'Send a caravan.',
-		name: 'Donkey Lord',
-		conditions: {
-			diplomacy: {
-				caravan: 1
-			}
-		}
+		name: 'Donkey Lord'
 	}, {
 		description: 'Send a spy.',
-		name: 'Bond. James Bond.',
-		conditions: {
-			diplomacy: {
-				spy: 1
-			}
-		}
+		name: 'Bond. James Bond.'
 	}, {
 		description: 'Send an army.',
-		name: 'Warrior',
-		conditions: {
-			diplomacy: {
-				army: 1
-			}
-		}
+		name: 'Warrior'
 	}, {
 		description: 'Declare war to another settlement.',
-		name: 'Warlord',
-		conditions: {
-			diplomacy: {
-				war: 1
-			}
-		}
+		name: 'Warlord'
 	}, {
 		description: 'Propose to another settlement to join you.',
-		name: 'The One to Rule Them All',
-		conditions: {
-			diplomacy: {
-				join: 1
-			}
-		}
+		name: 'The One to Rule Them All'
 	}, {
 		description: 'Propose a pact to another settlement.',
-		name: 'The Friendly',
-		conditions: {
-			diplomacy: {
-				pact: 1
-			}
-		}
+		name: 'The Friendly'
 	}, {
 		description: 'Propose an alliance to another settlement.',
-		name: 'The Pacifist',
-		conditions: {
-			diplomacy: {
-				alliance: 1
-			}
-		}
+		name: 'The Pacifist'
 	}, {
 		description: 'Gather maximum prestige.',
 		name: 'Your highness',
@@ -6908,6 +6873,21 @@ civitas.ACHIEVEMENTS = [
 				espionage: civitas.MAX_PRESTIGE_VALUE
 			}
 		}
+	}, {
+		description: 'Win a battleground.',
+		name: 'Conqueror'
+	}, {
+		description: 'Lose a battleground.',
+		name: 'Foolish!'
+	}, {
+		description: 'Convince another settlement to accept an alliance.',
+		name: 'I got your back'
+	}, {
+		description: 'Convince another settlement to accept a pact.',
+		name: 'Pactish'
+	}, {
+		description: 'Convince another settlement to join your settlement.',
+		name: 'You are mine!'
 	}
 ];
 
@@ -9480,14 +9460,18 @@ civitas.objects.settlement.prototype.diplomacy = function(settlement, mode) {
 	if (typeof settlement === 'number') {
 		this._status[settlement].status = mode;
 		if (mode === civitas.DIPLOMACY_WAR) {
+			this.core().achievement(45);
 			this.reset_influence(settlement);
 		} else if (mode === civitas.DIPLOMACY_ALLIANCE) {
+			this.core().achievement(53);
 			this.set_influence(settlement, civitas.MAX_INFLUENCE_VALUE);
 		} else if (mode === civitas.DIPLOMACY_PACT) {
+			this.core().achievement(54);
 			this.set_influence(settlement, Math.ceil(civitas.MAX_INFLUENCE_VALUE / 2));
 		} else if (mode === civitas.DIPLOMACY_CEASE_FIRE) {
 			this.set_influence(settlement, Math.ceil(civitas.MAX_INFLUENCE_VALUE / 4));
 		} else if (mode === civitas.DIPLOMACY_VASSAL) {
+			this.core().achievement(55);
 			this.set_influence(settlement, civitas.MAX_INFLUENCE_VALUE);
 		}
 		this.core().save_and_refresh();
@@ -11588,15 +11572,19 @@ civitas.objects.battleground = function (params) {
 			}
 			if (this._stats.attacking.attack <= 0 || this._stats.attacking.defense <= 0) {
 				if (this._defense.city === this.core().get_settlement().id()) {
+					this._on_win.call(this, this._defense, this._attack);
 					this.on_win.call(this, this._defense, this._attack);
 				} else {
+					this._on_lose.call(this, this._defense, this._attack);
 					this.on_lose.call(this, this._defense, this._attack);
 				}
 				city = this.core().get_settlement(this._defense.city);
 			} else if (this._stats.defending.attack <= 0 || this._stats.defending.defense <= 0) {
 				if (this._attack.city === this.core().get_settlement().id()) {
+					this._on_win.call(this, this._attack, this._defense);
 					this.on_win.call(this, this._attack, this._defense);
 				} else {
+					this._on_lose.call(this, this._attack, this._defense);
 					this.on_lose.call(this, this._attack, this._defense);
 				}
 				city = this.core().get_settlement(this._attack.city);
@@ -11701,6 +11689,64 @@ civitas.objects.battleground = function (params) {
 	*/
 	this.properties = function() {
 		return this._properties;
+	};
+
+	this._on_win = function(winner, loser) {
+		var my_settlement = this.core().get_settlement(winner.city);
+				var settlement = this.core().get_settlement(loser.city);
+				if (this._attack.city === winner.city) {
+					// player was attacking and won.
+					settlement.army = settlement.load_army(loser.army);
+					settlement.navy = settlement.load_navy(loser.navy);
+					var spoils = settlement.get_spoils();
+					this.core().add_to_queue(settlement, my_settlement, civitas.ACTION_CAMPAIGN, civitas.CAMPAIGN_ARMY_RETURN, {
+						army: winner.army,
+						navy: winner.navy,
+						resources: spoils
+					});
+				} else if (this._defense.city === winner.city) {
+					// player was defending and won.
+					my_settlement.army = my_settlement.load_army(winner.army);
+					my_settlement.navy = my_settlement.load_navy(winner.navy);
+					var has_loser_army = settlement.has_army(loser.army);
+					var has_loser_navy = settlement.has_navy(loser.navy);
+					if (has_loser_army > 0 || has_loser_navy > 0) {
+						this.core().add_to_queue(my_settlement, settlement, civitas.ACTION_CAMPAIGN, civitas.CAMPAIGN_ARMY_RETURN, {
+							army: loser.army,
+							navy: loser.navy,
+							resources: {}
+						});
+					}
+				}
+	};
+
+	this._on_lose = function(winner, loser) {
+		var settlement = this.core().get_settlement(winner.city);
+				var my_settlement = this.core().get_settlement(loser.city);
+				if (this._attack.city === loser.city) {
+					// player was attacking and lost.
+					settlement.army = settlement.load_army(winner.army);
+					settlement.navy = settlement.load_navy(winner.navy);
+					var has_loser_army = settlement.has_army(loser.army);
+					var has_loser_navy = settlement.has_navy(loser.navy);
+					if (has_loser_army > 0 || has_loser_navy > 0) {
+						this.core().add_to_queue(settlement, my_settlement, civitas.ACTION_CAMPAIGN, civitas.CAMPAIGN_ARMY_RETURN, {
+							army: loser.army,
+							navy: loser.navy,
+							resources: {}
+						});
+					}
+				} else if (this._defense.city === loser.city) {
+					// player was defending and lost.
+					my_settlement.army = my_settlement.load_army(loser.army);
+					my_settlement.navy = my_settlement.load_navy(loser.navy);
+					var spoils = my_settlement.get_spoils();
+					this.core().add_to_queue(my_settlement, settlement, civitas.ACTION_CAMPAIGN, civitas.CAMPAIGN_ARMY_RETURN, {
+						army: winner.army,
+						navy: winner.navy,
+						resources: spoils
+					});
+				}
 	};
 
 	// Fire up the constructor
@@ -14130,7 +14176,6 @@ civitas.game.prototype.add_to_queue = function(source_settlement, destination_se
 					return false;
 				}
 				var mission_costs = source_settlement.adjust_campaign_cost(civitas.CARAVAN_COSTS, duration, data.resources);
-				console.log(mission_costs);
 				if (!source_settlement.has_resources(mission_costs)) {
 					return false;
 				}
@@ -14201,24 +14246,24 @@ civitas.game.prototype.check_achievements = function() {
 				condition = achievement.conditions[cond_item];
 				if (cond_item === 'settlement_level') {
 					if (settlement.level() === condition) {
-						this.achievement(i, achievement);
+						this.achievement(i);
 					}
 				}
 				if (cond_item === 'soldiers') {
 					var army = settlement.has_army();
 					if (army >= condition) {
-						this.achievement(i, achievement);
+						this.achievement(i);
 					}
 				}
 				if (cond_item === 'ships') {
 					var navy = settlement.has_navy();
 					if (navy >= condition) {
-						this.achievement(i, achievement);
+						this.achievement(i);
 					}
 				}
 				if (cond_item === 'population') {
 					if (settlement.population() >= condition) {
-						this.achievement(i, achievement);
+						this.achievement(i);
 					}
 				}
 				if (cond_item === 'buildings') {
@@ -14230,7 +14275,7 @@ civitas.game.prototype.check_achievements = function() {
 						}
 					}
 					if (good === true) {
-						this.achievement(i, achievement);
+						this.achievement(i);
 					}
 				}
 				if (cond_item === 'resources') {
@@ -14243,43 +14288,26 @@ civitas.game.prototype.check_achievements = function() {
 						}
 					}
 					if (good === true) {
-						this.achievement(i, achievement);
+						this.achievement(i);
 					}
 				}
 				if (cond_item === 'storage') {
 					if (condition === 0) {
 						var storage = settlement.storage();
 						if (storage.occupied >= storage.all) {
-							this.achievement(i, achievement);
+							this.achievement(i);
 						}
 					}
 				}
 				if (cond_item === 'achievements') {
 					if (condition === this._achievements.length) {
-						this.achievement(i, achievement);
+						this.achievement(i);
 					}
 				}
 				if (cond_item === 'mercenary') {
 					var merc = settlement.mercenary();
 					if (merc.length >= condition) {
-						this.achievement(i, achievement);
-					}
-				}
-				if (cond_item === 'diplomacy') {
-					var queue_actions = this.queue();
-					for (var m = 0; m < queue_actions.length; m++) {
-						for (var item in condition) {
-							if ((item === 'spy' && queue_actions[m].mode === civitas.ACTION_CAMPAIGN && queue_actions[m].type === civitas.CAMPAIGN_SPY && queue_actions[m].source.id === settlement.id()) ||
-								(item === 'caravan' && queue_actions[m].mode === civitas.ACTION_CAMPAIGN && queue_actions[m].type === civitas.CAMPAIGN_CARAVAN && queue_actions[m].source.id === settlement.id()) ||
-								(item === 'army' && queue_actions[m].mode === civitas.ACTION_CAMPAIGN && queue_actions[m].type === civitas.CAMPAIGN_ARMY && queue_actions[m].source.id === settlement.id()) ||
-								(item === 'war' && queue_actions[m].mode === civitas.ACTION_DIPLOMACY && queue_actions[m].type === civitas.DIPLOMACY_WAR && queue_actions[m].source.id === settlement.id()) ||
-								(item === 'pact' && queue_actions[m].mode === civitas.ACTION_DIPLOMACY && queue_actions[m].type === civitas.DIPLOMACY_PACT && queue_actions[m].source.id === settlement.id()) ||
-								(item === 'alliance' && queue_actions[m].mode === civitas.ACTION_DIPLOMACY && queue_actions[m].type === civitas.DIPLOMACY_ALLIANCE && queue_actions[m].source.id === settlement.id()) ||
-								(item === 'join' && queue_actions[m].mode === civitas.ACTION_DIPLOMACY && queue_actions[m].type === civitas.DIPLOMACY_JOIN))
-							{
-								this.achievement(i, achievement);
-							}
-						}
+						this.achievement(i);
 					}
 				}
 			}
@@ -14292,21 +14320,24 @@ civitas.game.prototype.check_achievements = function() {
  * Perform an achievement notification in the game.
  * 
  * @public
- * @param {Object} achievement
  * @param {Number} id
  * @returns {civitas.game}
  */
-civitas.game.prototype.achievement = function (id, achievement) {
-	this._achievements.push({
-		id: id,
-		date: + new Date()
-	});
-	this._notify({
-		title: 'Achievement Completed',
-		mode: civitas.NOTIFY_ACHIEVEMENT,
-		content: achievement.description,
-		timeout: false
-	});
+civitas.game.prototype.achievement = function (id) {
+	if (!this.has_achievement(id)) {
+		var achievement = civitas.ACHIEVEMENTS[id];
+		this._achievements.push({
+			id: id,
+			date: + new Date()
+		});
+		this._notify({
+			title: 'Achievement Completed',
+			mode: civitas.NOTIFY_ACHIEVEMENT,
+			content: achievement.description,
+			timeout: false
+		});
+		this.save_and_refresh();
+	}
 	return this;
 };
 
@@ -14389,7 +14420,9 @@ civitas.PANEL_SETTLEMENT = {
 					if (button === 'yes') {
 						if (!core.add_to_queue(my_settlement, settlement, civitas.ACTION_DIPLOMACY, civitas.DIPLOMACY_PROPOSE_ALLIANCE, {})) {
 							core.error(civitas.l('There was an error proposing an alliance to this settlement, check the data you entered and try again.'));
+							return false;
 						}
+						core.achievement(49);
 					}
 				},
 				'Are you sure you want to propose an alliance to this settlement?'
@@ -14405,7 +14438,9 @@ civitas.PANEL_SETTLEMENT = {
 					if (button === 'yes') {
 						if (!core.add_to_queue(my_settlement, settlement, civitas.ACTION_DIPLOMACY, civitas.DIPLOMACY_PROPOSE_JOIN, {})) {
 							core.error(civitas.l('There was an error proposing this settlement to join your city, check the data you entered and try again.'));
+							return false;
 						}
+						core.achievement(47);
 					}
 				},
 				'Are you sure you want to propose this this settlement to join you?'
@@ -14421,7 +14456,9 @@ civitas.PANEL_SETTLEMENT = {
 					if (button === 'yes') {
 						if (!core.add_to_queue(my_settlement, settlement, civitas.ACTION_DIPLOMACY, civitas.DIPLOMACY_PROPOSE_PACT, {})) {
 							core.error(civitas.l('There was an error proposing a pact to this settlement, check the data you entered and try again.'));
+							return false;
 						}
+						core.achievement(48);
 					}
 				},
 				'Are you sure you want to propose a pact to this settlement?'
@@ -14437,6 +14474,7 @@ civitas.PANEL_SETTLEMENT = {
 					if (button === 'yes') {
 						if (!core.add_to_queue(my_settlement, settlement, civitas.ACTION_DIPLOMACY, civitas.DIPLOMACY_PROPOSE_CEASE_FIRE, {})) {
 							core.error(civitas.l('There was an error proposing a cease fire to this settlement, check the data you entered and try again.'));
+							return false;
 						}
 					}
 				},
@@ -15285,6 +15323,7 @@ civitas.PANEL_NEW_ARMY = {
 				army: self.assigned_army,
 				navy: self.assigned_navy
 			})) {
+				core.achievement(45);
 				self.destroy();
 			} else {
 				core.error(civitas.l('There was an error creating and dispatching the army, check the data you entered and try again.'));
@@ -15406,6 +15445,7 @@ civitas.PANEL_NEW_SPY = {
 				data.religion = _religion;
 			}
 			if (core.add_to_queue(my_settlement, settlement, civitas.ACTION_CAMPAIGN, civitas.CAMPAIGN_SPY, data)) {
+				core.achievement(44);
 				self.destroy();
 			} else {
 				core.error(civitas.l('There was an error creating and dispatching the spy, check the data you entered and try again.'));
@@ -15553,6 +15593,7 @@ civitas.PANEL_NEW_CARAVAN = {
 			if (core.add_to_queue(my_settlement, settlement, civitas.ACTION_CAMPAIGN, civitas.CAMPAIGN_CARAVAN, {
 				resources: self.resources
 			})) {
+				core.achievement(43);
 				self.destroy();
 			} else {
 				core.error(civitas.l('There was an error creating and dispatching the caravan, check the data you entered and try again.'));
@@ -15670,14 +15711,19 @@ civitas.PANEL_COUNCIL = {
 			for (var i = 0; i < mercenary.length; i++) {
 				army_data = civitas.MERCENARIES[mercenary[i].id];
 				_t += '<tr>' +
-						'<td class="icon"><img src="' + civitas.ASSETS_URL + 'images/assets/emblems/' + army_data.icon + '.png" /></td>' +
-						'<td><p class="title">' + army_data.name + '</p><p class="description">' + army_data.description + '</p></td>' +
-						'<td class="large">' +
-						'<a title="' + civitas.l('View info on this mercenary army.') + '" data-id="' + mercenary[i].id + '" class="tips view-merc" href="#">' + civitas.l('view') + '</a> ' +
-						'<a title="' + civitas.l('Send this mercenary army on a raiding mission towards a specific settlement.') + '" data-id="' + i + '" class="tips raid-merc" href="#">' + civitas.l('raid') + '</a> ' +
-						'<a title="' + civitas.l('Disband this mercenary army? They will be available for hire later when you need them.') + '" data-id="' + i + '" class="tips disband-merc" href="#">' + civitas.l('release') + '</a>' +
+						'<td class="icon">' +
+							'<img src="' + civitas.ASSETS_URL + 'images/assets/emblems/' + army_data.icon + '.png" />' +
 						'</td>' +
-						'</tr>';
+						'<td>' +
+							'<p class="title">' + army_data.name + '</p>' +
+							'<p class="description">' + army_data.description + '</p>' +
+						'</td>' +
+						'<td class="large">' +
+							'<a title="' + civitas.l('View info on this mercenary army.') + '" data-id="' + mercenary[i].id + '" class="tips view-merc" href="#">' + civitas.l('view') + '</a> ' +
+							'<a title="' + civitas.l('Send this mercenary army on a raiding mission towards a specific settlement.') + '" data-id="' + i + '" class="tips raid-merc" href="#">' + civitas.l('raid') + '</a> ' +
+							'<a title="' + civitas.l('Disband this mercenary army? They will be available for hire later when you need them.') + '" data-id="' + i + '" class="tips disband-merc" href="#">' + civitas.l('release') + '</a>' +
+						'</td>' +
+					'</tr>';
 
 			}
 			_t += '</table>';
@@ -15686,12 +15732,9 @@ civitas.PANEL_COUNCIL = {
 		}
 		_t += '</div>';
 		$(this.handle + ' #tab-mercenary').empty().append(_t);
-		for (var f = 0; f < civitas.ACHIEVEMENTS.length; f++) {
-			if (core.has_achievement(f)) {
-				$(this.handle + ' .achievement[data-id=' + f + ']').addClass('has');
-			} else {
-				$(this.handle + ' .achievement[data-id=' + f + ']').removeClass('has');
-			}
+		for (var f = 0; f < achievements.length; f++) {
+			$(this.handle + ' .achievement[data-id=' + achievements[f].id + ']').addClass('has');
+			$(this.handle + ' .achievement[data-id=' + achievements[f].id + '] .time').attr("title", achievements[f].date).html('<strong>' + civitas.utils.time_since(achievements[f].date) + '</strong> ago');
 		}
 		_t = '<img class="avatar" src="' + civitas.ASSETS_URL + 'images/assets/avatars/avatar' + settlement.ruler().avatar + '.png" />' +
 				'<dl>' +
@@ -16739,8 +16782,7 @@ civitas.WINDOW_SIGNIN = {
  * @type {Object}
  */
 civitas.WINDOW_BATTLE = {
-	template: '' +
-		'<section id="window-{ID}" class="window">' +
+	template: '<section id="window-{ID}" class="window">' +
 			'<div class="container">' +
 				'<div title="' + civitas.l('Attack and defense rating for the attacking army.') + '" class="tips attack"></div>' +
 				'<div title="' + civitas.l('Attack and defense rating for the defending army.') + '" class="tips defense"></div>' +
@@ -16780,62 +16822,12 @@ civitas.WINDOW_BATTLE = {
 				navy: this.params_data.destination.navy
 			},
 			on_win: function(winner, loser) {
-				var my_settlement = core.get_settlement(winner.city);
-				var settlement = core.get_settlement(loser.city);
-				if (self.params_data.source.source.id === winner.city) {
-					// player was attacking and won.
-					settlement.army = settlement.load_army(loser.army);
-					settlement.navy = settlement.load_navy(loser.navy);
-					var spoils = settlement.get_spoils();
-					core.add_to_queue(settlement, my_settlement, civitas.ACTION_CAMPAIGN, civitas.CAMPAIGN_ARMY_RETURN, {
-						army: winner.army,
-						navy: winner.navy,
-						resources: spoils
-					});
-				} else if (self.params_data.destination.id() === winner.city) {
-					// player was defending and won.
-					my_settlement.army = my_settlement.load_army(winner.army);
-					my_settlement.navy = my_settlement.load_navy(winner.navy);
-					var has_loser_army = settlement.has_army(loser.army);
-					var has_loser_navy = settlement.has_navy(loser.navy);
-					if (has_loser_army > 0 || has_loser_navy > 0) {
-						core.add_to_queue(my_settlement, settlement, civitas.ACTION_CAMPAIGN, civitas.CAMPAIGN_ARMY_RETURN, {
-							army: loser.army,
-							navy: loser.navy,
-							resources: {}
-						});
-					}
-				}
+				core.achievement(51);
 				$(handle + ' .end').hide();
 				$(handle + ' .close').show();
 			},
 			on_lose: function(winner, loser) {
-				var settlement = core.get_settlement(winner.city);
-				var my_settlement = core.get_settlement(loser.city);
-				if (self.params_data.source.source.id === loser.city) {
-					// player was attacking and lost.
-					settlement.army = settlement.load_army(winner.army);
-					settlement.navy = settlement.load_navy(winner.navy);
-					var has_loser_army = settlement.has_army(loser.army);
-					var has_loser_navy = settlement.has_navy(loser.navy);
-					if (has_loser_army > 0 || has_loser_navy > 0) {
-						core.add_to_queue(settlement, my_settlement, civitas.ACTION_CAMPAIGN, civitas.CAMPAIGN_ARMY_RETURN, {
-							army: loser.army,
-							navy: loser.navy,
-							resources: {}
-						});
-					}
-				} else if (self.params_data.destination.id() === loser.city) {
-					// player was defending and lost.
-					my_settlement.army = my_settlement.load_army(loser.army);
-					my_settlement.navy = my_settlement.load_navy(loser.navy);
-					var spoils = my_settlement.get_spoils();
-					core.add_to_queue(my_settlement, settlement, civitas.ACTION_CAMPAIGN, civitas.CAMPAIGN_ARMY_RETURN, {
-						army: winner.army,
-						navy: winner.navy,
-						resources: spoils
-					});
-				}
+				core.achievement(52);
 				$(handle + ' .end').hide();
 				$(handle + ' .close').show();
 			},

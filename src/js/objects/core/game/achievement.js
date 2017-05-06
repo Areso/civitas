@@ -15,24 +15,24 @@ civitas.game.prototype.check_achievements = function() {
 				condition = achievement.conditions[cond_item];
 				if (cond_item === 'settlement_level') {
 					if (settlement.level() === condition) {
-						this.achievement(i, achievement);
+						this.achievement(i);
 					}
 				}
 				if (cond_item === 'soldiers') {
 					var army = settlement.has_army();
 					if (army >= condition) {
-						this.achievement(i, achievement);
+						this.achievement(i);
 					}
 				}
 				if (cond_item === 'ships') {
 					var navy = settlement.has_navy();
 					if (navy >= condition) {
-						this.achievement(i, achievement);
+						this.achievement(i);
 					}
 				}
 				if (cond_item === 'population') {
 					if (settlement.population() >= condition) {
-						this.achievement(i, achievement);
+						this.achievement(i);
 					}
 				}
 				if (cond_item === 'buildings') {
@@ -44,7 +44,7 @@ civitas.game.prototype.check_achievements = function() {
 						}
 					}
 					if (good === true) {
-						this.achievement(i, achievement);
+						this.achievement(i);
 					}
 				}
 				if (cond_item === 'resources') {
@@ -57,43 +57,26 @@ civitas.game.prototype.check_achievements = function() {
 						}
 					}
 					if (good === true) {
-						this.achievement(i, achievement);
+						this.achievement(i);
 					}
 				}
 				if (cond_item === 'storage') {
 					if (condition === 0) {
 						var storage = settlement.storage();
 						if (storage.occupied >= storage.all) {
-							this.achievement(i, achievement);
+							this.achievement(i);
 						}
 					}
 				}
 				if (cond_item === 'achievements') {
 					if (condition === this._achievements.length) {
-						this.achievement(i, achievement);
+						this.achievement(i);
 					}
 				}
 				if (cond_item === 'mercenary') {
 					var merc = settlement.mercenary();
 					if (merc.length >= condition) {
-						this.achievement(i, achievement);
-					}
-				}
-				if (cond_item === 'diplomacy') {
-					var queue_actions = this.queue();
-					for (var m = 0; m < queue_actions.length; m++) {
-						for (var item in condition) {
-							if ((item === 'spy' && queue_actions[m].mode === civitas.ACTION_CAMPAIGN && queue_actions[m].type === civitas.CAMPAIGN_SPY && queue_actions[m].source.id === settlement.id()) ||
-								(item === 'caravan' && queue_actions[m].mode === civitas.ACTION_CAMPAIGN && queue_actions[m].type === civitas.CAMPAIGN_CARAVAN && queue_actions[m].source.id === settlement.id()) ||
-								(item === 'army' && queue_actions[m].mode === civitas.ACTION_CAMPAIGN && queue_actions[m].type === civitas.CAMPAIGN_ARMY && queue_actions[m].source.id === settlement.id()) ||
-								(item === 'war' && queue_actions[m].mode === civitas.ACTION_DIPLOMACY && queue_actions[m].type === civitas.DIPLOMACY_WAR && queue_actions[m].source.id === settlement.id()) ||
-								(item === 'pact' && queue_actions[m].mode === civitas.ACTION_DIPLOMACY && queue_actions[m].type === civitas.DIPLOMACY_PACT && queue_actions[m].source.id === settlement.id()) ||
-								(item === 'alliance' && queue_actions[m].mode === civitas.ACTION_DIPLOMACY && queue_actions[m].type === civitas.DIPLOMACY_ALLIANCE && queue_actions[m].source.id === settlement.id()) ||
-								(item === 'join' && queue_actions[m].mode === civitas.ACTION_DIPLOMACY && queue_actions[m].type === civitas.DIPLOMACY_JOIN))
-							{
-								this.achievement(i, achievement);
-							}
-						}
+						this.achievement(i);
 					}
 				}
 			}
@@ -106,21 +89,24 @@ civitas.game.prototype.check_achievements = function() {
  * Perform an achievement notification in the game.
  * 
  * @public
- * @param {Object} achievement
  * @param {Number} id
  * @returns {civitas.game}
  */
-civitas.game.prototype.achievement = function (id, achievement) {
-	this._achievements.push({
-		id: id,
-		date: + new Date()
-	});
-	this._notify({
-		title: 'Achievement Completed',
-		mode: civitas.NOTIFY_ACHIEVEMENT,
-		content: achievement.description,
-		timeout: false
-	});
+civitas.game.prototype.achievement = function (id) {
+	if (!this.has_achievement(id)) {
+		var achievement = civitas.ACHIEVEMENTS[id];
+		this._achievements.push({
+			id: id,
+			date: + new Date()
+		});
+		this._notify({
+			title: 'Achievement Completed',
+			mode: civitas.NOTIFY_ACHIEVEMENT,
+			content: achievement.description,
+			timeout: false
+		});
+		this.save_and_refresh();
+	}
 	return this;
 };
 

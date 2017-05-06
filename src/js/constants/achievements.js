@@ -328,60 +328,25 @@ civitas.ACHIEVEMENTS = [
 		}
 	}, {
 		description: 'Send a caravan.',
-		name: 'Donkey Lord',
-		conditions: {
-			diplomacy: {
-				caravan: 1
-			}
-		}
+		name: 'Donkey Lord'
 	}, {
 		description: 'Send a spy.',
-		name: 'Bond. James Bond.',
-		conditions: {
-			diplomacy: {
-				spy: 1
-			}
-		}
+		name: 'Bond. James Bond.'
 	}, {
 		description: 'Send an army.',
-		name: 'Warrior',
-		conditions: {
-			diplomacy: {
-				army: 1
-			}
-		}
+		name: 'Warrior'
 	}, {
 		description: 'Declare war to another settlement.',
-		name: 'Warlord',
-		conditions: {
-			diplomacy: {
-				war: 1
-			}
-		}
+		name: 'Warlord'
 	}, {
 		description: 'Propose to another settlement to join you.',
-		name: 'The One to Rule Them All',
-		conditions: {
-			diplomacy: {
-				join: 1
-			}
-		}
+		name: 'The One to Rule Them All'
 	}, {
 		description: 'Propose a pact to another settlement.',
-		name: 'The Friendly',
-		conditions: {
-			diplomacy: {
-				pact: 1
-			}
-		}
+		name: 'The Friendly'
 	}, {
 		description: 'Propose an alliance to another settlement.',
-		name: 'The Pacifist',
-		conditions: {
-			diplomacy: {
-				alliance: 1
-			}
-		}
+		name: 'The Pacifist'
 	}, {
 		description: 'Gather maximum prestige.',
 		name: 'Your highness',
@@ -390,5 +355,20 @@ civitas.ACHIEVEMENTS = [
 				espionage: civitas.MAX_PRESTIGE_VALUE
 			}
 		}
+	}, {
+		description: 'Win a battleground.',
+		name: 'Conqueror'
+	}, {
+		description: 'Lose a battleground.',
+		name: 'Foolish!'
+	}, {
+		description: 'Convince another settlement to accept an alliance.',
+		name: 'I got your back'
+	}, {
+		description: 'Convince another settlement to accept a pact.',
+		name: 'Pactish'
+	}, {
+		description: 'Convince another settlement to join your settlement.',
+		name: 'You are mine!'
 	}
 ];

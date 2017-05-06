@@ -48,7 +48,9 @@ civitas.PANEL_SETTLEMENT = {
 					if (button === 'yes') {
 						if (!core.add_to_queue(my_settlement, settlement, civitas.ACTION_DIPLOMACY, civitas.DIPLOMACY_PROPOSE_ALLIANCE, {})) {
 							core.error(civitas.l('There was an error proposing an alliance to this settlement, check the data you entered and try again.'));
+							return false;
 						}
+						core.achievement(49);
 					}
 				},
 				'Are you sure you want to propose an alliance to this settlement?'
@@ -64,7 +66,9 @@ civitas.PANEL_SETTLEMENT = {
 					if (button === 'yes') {
 						if (!core.add_to_queue(my_settlement, settlement, civitas.ACTION_DIPLOMACY, civitas.DIPLOMACY_PROPOSE_JOIN, {})) {
 							core.error(civitas.l('There was an error proposing this settlement to join your city, check the data you entered and try again.'));
+							return false;
 						}
+						core.achievement(47);
 					}
 				},
 				'Are you sure you want to propose this this settlement to join you?'
@@ -80,7 +84,9 @@ civitas.PANEL_SETTLEMENT = {
 					if (button === 'yes') {
 						if (!core.add_to_queue(my_settlement, settlement, civitas.ACTION_DIPLOMACY, civitas.DIPLOMACY_PROPOSE_PACT, {})) {
 							core.error(civitas.l('There was an error proposing a pact to this settlement, check the data you entered and try again.'));
+							return false;
 						}
+						core.achievement(48);
 					}
 				},
 				'Are you sure you want to propose a pact to this settlement?'
@@ -96,6 +102,7 @@ civitas.PANEL_SETTLEMENT = {
 					if (button === 'yes') {
 						if (!core.add_to_queue(my_settlement, settlement, civitas.ACTION_DIPLOMACY, civitas.DIPLOMACY_PROPOSE_CEASE_FIRE, {})) {
 							core.error(civitas.l('There was an error proposing a cease fire to this settlement, check the data you entered and try again.'));
+							return false;
 						}
 					}
 				},

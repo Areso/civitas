@@ -4,8 +4,7 @@
  * @type {Object}
  */
 civitas.WINDOW_BATTLE = {
-	template: '' +
-		'<section id="window-{ID}" class="window">' +
+	template: '<section id="window-{ID}" class="window">' +
 			'<div class="container">' +
 				'<div title="' + civitas.l('Attack and defense rating for the attacking army.') + '" class="tips attack"></div>' +
 				'<div title="' + civitas.l('Attack and defense rating for the defending army.') + '" class="tips defense"></div>' +
@@ -45,62 +44,12 @@ civitas.WINDOW_BATTLE = {
 				navy: this.params_data.destination.navy
 			},
 			on_win: function(winner, loser) {
-				var my_settlement = core.get_settlement(winner.city);
-				var settlement = core.get_settlement(loser.city);
-				if (self.params_data.source.source.id === winner.city) {
-					// player was attacking and won.
-					settlement.army = settlement.load_army(loser.army);
-					settlement.navy = settlement.load_navy(loser.navy);
-					var spoils = settlement.get_spoils();
-					core.add_to_queue(settlement, my_settlement, civitas.ACTION_CAMPAIGN, civitas.CAMPAIGN_ARMY_RETURN, {
-						army: winner.army,
-						navy: winner.navy,
-						resources: spoils
-					});
-				} else if (self.params_data.destination.id() === winner.city) {
-					// player was defending and won.
-					my_settlement.army = my_settlement.load_army(winner.army);
-					my_settlement.navy = my_settlement.load_navy(winner.navy);
-					var has_loser_army = settlement.has_army(loser.army);
-					var has_loser_navy = settlement.has_navy(loser.navy);
-					if (has_loser_army > 0 || has_loser_navy > 0) {
-						core.add_to_queue(my_settlement, settlement, civitas.ACTION_CAMPAIGN, civitas.CAMPAIGN_ARMY_RETURN, {
-							army: loser.army,
-							navy: loser.navy,
-							resources: {}
-						});
-					}
-				}
+				core.achievement(51);
 				$(handle + ' .end').hide();
 				$(handle + ' .close').show();
 			},
 			on_lose: function(winner, loser) {
-				var settlement = core.get_settlement(winner.city);
-				var my_settlement = core.get_settlement(loser.city);
-				if (self.params_data.source.source.id === loser.city) {
-					// player was attacking and lost.
-					settlement.army = settlement.load_army(winner.army);
-					settlement.navy = settlement.load_navy(winner.navy);
-					var has_loser_army = settlement.has_army(loser.army);
-					var has_loser_navy = settlement.has_navy(loser.navy);
-					if (has_loser_army > 0 || has_loser_navy > 0) {
-						core.add_to_queue(settlement, my_settlement, civitas.ACTION_CAMPAIGN, civitas.CAMPAIGN_ARMY_RETURN, {
-							army: loser.army,
-							navy: loser.navy,
-							resources: {}
-						});
-					}
-				} else if (self.params_data.destination.id() === loser.city) {
-					// player was defending and lost.
-					my_settlement.army = my_settlement.load_army(loser.army);
-					my_settlement.navy = my_settlement.load_navy(loser.navy);
-					var spoils = my_settlement.get_spoils();
-					core.add_to_queue(my_settlement, settlement, civitas.ACTION_CAMPAIGN, civitas.CAMPAIGN_ARMY_RETURN, {
-						army: winner.army,
-						navy: winner.navy,
-						resources: spoils
-					});
-				}
+				core.achievement(52);
 				$(handle + ' .end').hide();
 				$(handle + ' .close').show();
 			},
