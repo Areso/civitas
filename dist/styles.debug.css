@@ -2,7 +2,7 @@
  * Civitas empire-building game.
  *
  * @author sizeof(cat) <sizeofcat AT riseup.net>
- * @version 0.2.0.542017
+ * @version 0.2.0.562017
  * @license MIT
  */ /* Game animations */
 
@@ -468,21 +468,21 @@ td.icon {
 .ui > header .top-panel {
 	background: transparent url(../images/ui/top-panel.jpg) no-repeat;
 	width: 406px;
-	height: 30px;
+	height: 24px;
 	position: absolute;
 	top: 0;
 	left: 218px;
-	padding: 10px 18px;
+	padding: 10px;
 }
 
 .ui > header .top-panel span {
-	height: 30px;
-	width: 30px;
+	height: 24px;
+	width: 24px;
 	display: inline-block;
 	vertical-align: middle;
-	line-height: 30px;
+	line-height: 24px;
 	text-align: center;
-	margin-right: 10px;
+	margin-right: 4px;
 	cursor: pointer;
 }
 
@@ -541,7 +541,7 @@ td.icon {
 
 .ui .game .building.extralarge {
 	width: 300px;
-	height: 268px;
+	height: 270px;
 }
 
 .ui .game .building .notification {
@@ -1382,7 +1382,7 @@ table tr td:last-child a:hover,
 
 #panel-building {
 	max-height: 600px;
-	max-width: 400px;
+	max-width: 1400px;
 }
 
 /* City Builder panel */
@@ -1711,80 +1711,34 @@ table tr td:last-child a:hover,
 	background: linear-gradient(top, #0700e2 0%, #1c7bef 50%, #0700e2 100%);
 }
 
-/* Top panel with resources */
-
-.top-panel span.coins {
-	background: transparent url(../images/ui/topbar/coins.png) no-repeat left center;
-}
-
-.top-panel span.stones {
-	background: transparent url(../images/ui/topbar/stones.png) no-repeat left center;
-}
-
-.top-panel span.woodplanks {
-	background: transparent url(../images/ui/topbar/woodplanks.png) no-repeat left center;
-}
-
-.top-panel span.meat {
-	background: transparent url(../images/ui/topbar/meat.png) no-repeat left center;
-}
-
-.top-panel span.tools {
-	background: transparent url(../images/ui/topbar/tools.png) no-repeat left center;
-}
-
-.top-panel span.ironores {
-	background: transparent url(../images/ui/topbar/ironores.png) no-repeat left center;
-}
-
-.top-panel span.weapons {
-	background: transparent url(../images/ui/topbar/weapons.png) no-repeat left center;
-}
-
-.top-panel span.bread {
-	background: transparent url(../images/ui/topbar/bread.png) no-repeat left center;
-}
-
-.top-panel span.wood {
-	background: transparent url(../images/ui/topbar/wood.png) no-repeat left center;
-}
-
-.top-panel span.iron {
-	background: transparent url(../images/ui/topbar/iron.png) no-repeat left center;
-}
-
-.top-panel span.gold {
-	background: transparent url(../images/ui/topbar/gold.png) no-repeat left center;
-}
-
 /* Bottom panel with game actions */
 
 footer a[data-panel=trades] {
-	background: transparent url(../images/ui/toolbar/trades.png) no-repeat;
+	background: transparent url(../images/assets/ui/toolbar/trades.png) no-repeat;
 }
 
 footer a[data-panel=storage] {
-	background: transparent url(../images/ui/toolbar/storage.png) no-repeat;
+	background: transparent url(../images/assets/ui/toolbar/storage.png) no-repeat;
 }
 
 footer a[data-panel=buildings] {
-	background: transparent url(../images/ui/toolbar/buildings.png) no-repeat;
+	background: transparent url(../images/assets/ui/toolbar/buildings.png) no-repeat;
 }
 
 footer a[data-panel=council] {
-	background: transparent url(../images/ui/toolbar/council.png) no-repeat;
+	background: transparent url(../images/assets/ui/toolbar/council.png) no-repeat;
 }
 
 footer a[data-panel=world] {
-	background: transparent url(../images/ui/toolbar/worldmap.png) no-repeat;
+	background: transparent url(../images/assets/ui/toolbar/worldmap.png) no-repeat;
 }
 
 footer a[data-panel=ranks] {
-	background: transparent url(../images/ui/toolbar/ranks.png) no-repeat;
+	background: transparent url(../images/assets/ui/toolbar/ranks.png) no-repeat;
 }
 
 footer a[data-panel=help] {
-	background: transparent url(../images/ui/toolbar/help.png) no-repeat;
+	background: transparent url(../images/assets/ui/toolbar/help.png) no-repeat;
 }
 
 /* Panel footer icons */
@@ -1794,104 +1748,105 @@ footer a[data-panel=help] {
 }
 
 .panel footer .attack {
-	background: transparent url(../images/ui/icons/attack.png) no-repeat;
+	background: transparent url(../images/assets/ui/icons/attack.png) no-repeat;
 }
 
 .panel footer .spy {
-	background: transparent url(../images/ui/icons/spy.png) no-repeat;
+	background: transparent url(../images/assets/ui/icons/spy.png) no-repeat;
 }
 
 .panel footer .ceasefire {
-	background: transparent url(../images/ui/icons/sign.png) no-repeat;
+	background: transparent url(../images/assets/ui/icons/sign.png) no-repeat;
 }
 
 .panel footer .caravan {
-	background: transparent url(../images/ui/icons/caravan.png) no-repeat;
+	background: transparent url(../images/assets/ui/icons/caravan.png) no-repeat;
 }
 
 .panel footer .join {
-	background: transparent url(../images/ui/icons/home.png) no-repeat;
+	background: transparent url(../images/assets/ui/icons/home.png) no-repeat;
 }
 
 .panel footer .alliance {
-	background: transparent url(../images/ui/icons/alliance.png) no-repeat;
+	background: transparent url(../images/assets/ui/icons/alliance.png) no-repeat;
 }
 
 .panel footer .pact {
-	background: transparent url(../images/ui/icons/pact.png) no-repeat;
+	background: transparent url(../images/assets/ui/icons/pact.png) no-repeat;
 }
 
 .panel footer .start {
-	background: transparent url(../images/ui/icons/start.png) no-repeat;
+	background: transparent url(../images/assets/ui/icons/start.png) no-repeat;
 }
 
 .panel footer .pause {
-	background: transparent url(../images/ui/icons/stop.png) no-repeat;
+	background: transparent url(../images/assets/ui/icons/stop.png) no-repeat;
 }
 
 .panel footer .demolish {
-	background: transparent url(../images/ui/icons/demolish.png) no-repeat;
+	background: transparent url(../images/assets/ui/icons/demolish.png) no-repeat;
 }
 
 .panel footer .war {
-	background: transparent url(../images/ui/icons/war.png) no-repeat;
+	background: transparent url(../images/assets/ui/icons/war.png) no-repeat;
 }
 
 .panel footer .upgrade {
-	background: transparent url(../images/ui/icons/upgrade.png) no-repeat;
+	background: transparent url(../images/assets/ui/icons/upgrade.png) no-repeat;
 }
 
 /* World map objects */
 
 .panel .worldmap .army {
-	background: transparent url(../images/ui/world/army.png) no-repeat;
+	background: transparent url(../images/assets/ui/world/army.png) no-repeat;
 }
 
 .panel .worldmap .army-return {
-	background: transparent url(../images/ui/world/return_army.png) no-repeat;
+	background: transparent url(../images/assets/ui/world/return_army.png) no-repeat;
 }
+
 .panel .worldmap .messenger {
-	background: transparent url(../images/ui/world/diplomacy.png) no-repeat;
+	background: transparent url(../images/assets/ui/world/diplomacy.png) no-repeat;
 }
 
 .panel .worldmap .caravan {
-	background: transparent url(../images/ui/world/caravan.png) no-repeat;
+	background: transparent url(../images/assets/ui/world/caravan.png) no-repeat;
 }
 
 .panel .worldmap .spy {
-	background: transparent url(../images/ui/world/spy.png) no-repeat;
+	background: transparent url(../images/assets/ui/world/spy.png) no-repeat;
 }
 
 .panel .worldmap .settlement.v1 {
-	background: transparent url(../images/ui/world/settlement1.png) no-repeat;
+	background: transparent url(../images/assets/ui/world/settlement1.png) no-repeat;
 }
 
 .panel .worldmap .settlement.c1 {
-	background: transparent url(../images/ui/world/city1.png) no-repeat;
+	background: transparent url(../images/assets/ui/world/city1.png) no-repeat;
 }
 
 .panel .worldmap .settlement.c2 {
-	background: transparent url(../images/ui/world/city2.png) no-repeat;
+	background: transparent url(../images/assets/ui/world/city2.png) no-repeat;
 }
 
 .panel .worldmap .settlement.c3 {
-	background: transparent url(../images/ui/world/city3.png) no-repeat;
+	background: transparent url(../images/assets/ui/world/city3.png) no-repeat;
 }
 
 .panel .worldmap .settlement.c4 {
-	background: transparent url(../images/ui/world/city4.png) no-repeat;
+	background: transparent url(../images/assets/ui/world/city4.png) no-repeat;
 }
 
 .panel .worldmap .settlement.c5 {
-	background: transparent url(../images/ui/world/city5.png) no-repeat;
+	background: transparent url(../images/assets/ui/world/city5.png) no-repeat;
 }
 
 .panel .worldmap .settlement.c6 {
-	background: transparent url(../images/ui/world/city6.png) no-repeat;
+	background: transparent url(../images/assets/ui/world/city6.png) no-repeat;
 }
 
 .panel .worldmap .settlement.c7 {
-	background: transparent url(../images/ui/world/city7.png) no-repeat;
+	background: transparent url(../images/assets/ui/world/city7.png) no-repeat;
 }
 
 /* World Maps variants */
@@ -1939,19 +1894,19 @@ footer a[data-panel=help] {
 /* Others */
 
 .game .building .notification.error {
-	background: transparent url(../images/ui/icons/notify-error.png) no-repeat;
+	background: transparent url(../images/assets/ui/icons/notify-error.png) no-repeat;
 }
 
 .game .building .notification.paused {
-	background: transparent url(../images/ui/icons/notify-pause.png) no-repeat;
+	background: transparent url(../images/assets/ui/icons/notify-pause.png) no-repeat;
 }
 
 .game .building .notification.requirements {
-	background: transparent url(../images/ui/icons/notify-missing.png) no-repeat;
+	background: transparent url(../images/assets/ui/icons/notify-missing.png) no-repeat;
 }
 
 .ach.img {
-	background: transparent url(../images/ui/icon_achievement.png) no-repeat;
+	background: transparent url(../images/assets/ui/icon_achievement.png) no-repeat;
 }
 
 .scrollbar .up {
@@ -1988,7 +1943,7 @@ footer a[data-panel=help] {
 }
 
 .religion-list .religion {
-	background: transparent url(../images/ui/religion.png) no-repeat center;
+	background: transparent url(../images/assets/ui/religion.png) no-repeat center;
 }
 
 .game {
@@ -1996,11 +1951,11 @@ footer a[data-panel=help] {
 }
 
 .panel td a.btn.start {
-	background: transparent url(../images/ui/icons/start.png) no-repeat;
+	background: transparent url(../images/assets/ui/icons/start.png) no-repeat;
 }
 
 .panel td a.btn.pause {
-	background: transparent url(../images/ui/icons/stop.png) no-repeat;
+	background: transparent url(../images/assets/ui/icons/stop.png) no-repeat;
 }
 
 #window-battle .battleground {

@@ -1,3 +1,10 @@
+/**
+ * Check if the settlement has soldiers in its army.
+ *
+ * @public
+ * @param {Object} data
+ * @returns {Boolean}
+ */
 civitas.objects.settlement.prototype.has_soldiers = function(data) {
 	var army = this.get_army();
 	for (var item in army) {
@@ -8,6 +15,15 @@ civitas.objects.settlement.prototype.has_soldiers = function(data) {
 	return true;
 };
 
+/**
+ * Adjust costs for the campaign.
+ *
+ * @public
+ * @param {Object} cost
+ * @param {Number} duration
+ * @param {Object} resources
+ * @returns {Object}
+ */
 civitas.objects.settlement.prototype.adjust_campaign_cost = function(cost, duration, resources) {
 	var mission_costs = cost;
 	for (var item in mission_costs) {
@@ -31,6 +47,13 @@ civitas.objects.settlement.prototype.adjust_campaign_cost = function(cost, durat
 	return mission_costs;
 };
 
+/**
+ * Remove soldiers from the settlement's army (to create another army).
+ *
+ * @public
+ * @param {Object} data
+ * @returns {Boolean}
+ */
 civitas.objects.settlement.prototype.split_army = function(data) {
 	var army = this.get_army();
 	if (this.has_soldiers(data)) {
@@ -46,6 +69,13 @@ civitas.objects.settlement.prototype.split_army = function(data) {
 	return false;
 };
 
+/**
+ * Check if the settlement has ships in its navy.
+ *
+ * @public
+ * @param {Object} data
+ * @returns {Boolean}
+ */
 civitas.objects.settlement.prototype.has_ships = function(data) {
 	var navy = this.get_navy();
 	for (var item in navy) {
@@ -56,6 +86,13 @@ civitas.objects.settlement.prototype.has_ships = function(data) {
 	return true;
 };
 
+/**
+ * Remove ships from the settlement's navy (to create another navy).
+ *
+ * @public
+ * @param {Object} data
+ * @returns {Boolean}
+ */
 civitas.objects.settlement.prototype.split_navy = function(data) {
 	var navy = this.get_navy();
 	if (this.has_ships(data)) {

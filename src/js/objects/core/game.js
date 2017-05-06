@@ -251,7 +251,7 @@ civitas.game = function () {
 		this._setup_neighbours(data);
 		$('header .cityname').html(this.get_settlement().name());
 		$('header .cityavatar').css({
-			'background-image': 'url(' + civitas.ASSETS_URL + 'images/avatars/avatar' + this.get_settlement().ruler().avatar + '.png)'
+			'background-image': 'url(' + civitas.ASSETS_URL + 'images/assets/avatars/avatar' + this.get_settlement().ruler().avatar + '.png)'
 		});
 		this.refresh();
 		var seconds = 1;

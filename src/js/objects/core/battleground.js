@@ -688,7 +688,7 @@ civitas.objects.battleground = function (params) {
 			.removeClass('empty canmove canattack selected')
 			.empty()
 			.append('<span class="moves' + (army.moved === false ? ' has' : '') + '"></span>' +
-				'<img class="tips" title="' + civitas.SOLDIERS[army.item].name + '" src="' + civitas.ASSETS_URL + 'images/armies/' + army.item + '.png" />' +
+				'<img class="tips" title="' + civitas.SOLDIERS[army.item].name + '" src="' + civitas.ASSETS_URL + 'images/assets/army/' + army.item + '.png" />' +
 				'<span class="amount">' + army.total + '</span>');
 		return this;
 	};

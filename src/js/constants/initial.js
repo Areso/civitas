@@ -60,7 +60,7 @@ civitas.START_BUILDINGS = [
 		handle: 'lumberjack',
 		level: 1
 	}, {
-		handle: 'stone',
+		handle: 'stonequarry',
 		level: 1
 	}, {
 		handle: 'house1',

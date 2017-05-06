@@ -189,7 +189,7 @@ civitas.objects.building = function(params) {
 						building_image = this.get_type().slice(0, 5);
 					}
 					$('section.game .building[data-type=' + this.get_type() + ']').css({
-						'background-image': 'url(./images/buildings/' + ((typeof data.visible_upgrades === 'undefined' || data.visible_upgrades === false) ? building_image + '1' : building_image + this.get_level()) + '.png)'
+						'background-image': 'url(' + civitas.ASSETS_URL + 'images/assets/buildings/' + ((typeof data.visible_upgrades === 'undefined' || data.visible_upgrades === false) ? building_image + '1' : building_image + this.get_level()) + '.png)'
 					});
 				}
 				if (typeof data.storage !== 'undefined') {
@@ -227,7 +227,7 @@ civitas.objects.building = function(params) {
 					building_image = this.get_type().slice(0, 5);
 				}
 				$('section.game .building[data-type=' + this.get_type() + ']').css({
-					'background-image': 'url(./images/buildings/' + ((typeof data.visible_upgrades === 'undefined' || data.visible_upgrades === false) ? building_image + '1' : building_image + this.get_level()) + '.png)'
+					'background-image': 'url(' + civitas.ASSETS_URL + 'images/assets/buildings/' + ((typeof data.visible_upgrades === 'undefined' || data.visible_upgrades === false) ? building_image + '1' : building_image + this.get_level()) + '.png)'
 				});
 				this.core().save_and_refresh();
 				this.core().notify(this.get_name() + ' downgraded to level ' + this.get_level());

@@ -106,7 +106,7 @@ civitas.PANEL_COUNCIL = {
 			for (var i = 0; i < mercenary.length; i++) {
 				army_data = civitas.MERCENARIES[mercenary[i].id];
 				_t += '<tr>' +
-						'<td class="icon"><img src="' + civitas.ASSETS_URL + 'images/armies/' + army_data.icon + '.png" /></td>' +
+						'<td class="icon"><img src="' + civitas.ASSETS_URL + 'images/assets/emblems/' + army_data.icon + '.png" /></td>' +
 						'<td><p class="title">' + army_data.name + '</p><p class="description">' + army_data.description + '</p></td>' +
 						'<td class="large">' +
 						'<a title="' + civitas.l('View info on this mercenary army.') + '" data-id="' + mercenary[i].id + '" class="tips view-merc" href="#">' + civitas.l('view') + '</a> ' +
@@ -129,7 +129,7 @@ civitas.PANEL_COUNCIL = {
 				$(this.handle + ' .achievement[data-id=' + f + ']').removeClass('has');
 			}
 		}
-		_t = '<img class="avatar" src="' + civitas.ASSETS_URL + 'images/avatars/avatar' + settlement.ruler().avatar + '.png" />' +
+		_t = '<img class="avatar" src="' + civitas.ASSETS_URL + 'images/assets/avatars/avatar' + settlement.ruler().avatar + '.png" />' +
 				'<dl>' +
 				'<dt>' + civitas.l('Current date') + '</dt><dd class="citydate">' + core.format_date() + '</dd>' +
 				'<dt>' + civitas.l('Ruler') + '</dt><dd>' + settlement.ruler().name + '</dd>' +

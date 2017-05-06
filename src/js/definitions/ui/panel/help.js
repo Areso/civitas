@@ -33,9 +33,9 @@ civitas.PANEL_HELP = {
 			'<p>Each building has some special requirements to build, whether a required city level or another existing building.</p>' +
 			'<h3>Upgrade</h3>' +
 			'<p>Upgrading one of your buildings has several benefits, besides the obvious estetic one.</p>' +
-			'<img title="Level 1 house" class="tips" src="' + civitas.ASSETS_URL + 'images/buildings/house1.png" /> ' +
-			'<img title="Level 3 house" class="tips" src="' + civitas.ASSETS_URL + 'images/buildings/house3.png" /> ' +
-			'<img title="Maximum level house" class="tips" src="' + civitas.ASSETS_URL + 'images/buildings/house5.png" />' +
+			'<img title="Level 1 house" class="tips" src="' + civitas.ASSETS_URL + 'images/assets/buildings/house1.png" /> ' +
+			'<img title="Level 3 house" class="tips" src="' + civitas.ASSETS_URL + 'images/assets/buildings/house3.png" /> ' +
+			'<img title="Maximum level house" class="tips" src="' + civitas.ASSETS_URL + 'images/assets/buildings/house5.png" />' +
 			'<p>Upgrading a building costs the initial building price multiplied by the level. So, if a building initially costs 100 ' + civitas.ui.resource_small_img('coins') + ' and 20 ' + civitas.ui.resource_small_img('wood') + ' to construct, upgrading it to level 2 will cost 200 ' + civitas.ui.resource_small_img('coins') + ' and 40 ' + civitas.ui.resource_small_img('wood') + ', so on.</p>' +
 			'<p>When a building is upgraded, it produces the inital amount of goods multiplied by the level of the building. Keep in mind that the materials it uses for production are the same as for a building of level 1, so upgrading a building is an easy way of getting double (or triple) the production goods for the same materials as the previous level used.</p>' +
 			'<h3>Demolish</h3>' +
@@ -47,7 +47,7 @@ civitas.PANEL_HELP = {
 			'<h3>Municipal</h3>' +
 			'<p></p>' +
 			'<h3>Storage</h3>' +
-			'<p>The goods you`re producing need a storage place inside your city, the initial Marketplace provides some storage space (100k <img src="' + civitas.ASSETS_URL + 'images/resources/storage_small.png" /> ), and it can be increased even further with upgrading, but you will need to build Warehouses to store all the goods. If you have no free storage space, the produced goods will be lost.</p>' +
+			'<p>The goods you`re producing need a storage place inside your city, the initial Marketplace provides some storage space (100k <img src="' + civitas.ASSETS_URL + 'images/assets/resources/storage_small.png" /> ), and it can be increased even further with upgrading, but you will need to build Warehouses to store all the goods. If you have no free storage space, the produced goods will be lost.</p>' +
 			'<h3>Coins</h3>' +
 			'<p>Your city can only gain coins through trades and taxes.</p>');
 		$(this.handle + ' #tab-religion').empty().append('<h2>Religion</h2>' +

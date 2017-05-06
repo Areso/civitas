@@ -53,7 +53,16 @@ civitas.ui = {
 		if (typeof params.levels === 'undefined') {
 			params.levels = 1;
 		}
-		var out = '<p>' + params.description + '</p>' +
+		var building_image = params.handle;
+		if (params.handle.slice(0, 5) === 'house') {
+			building_image = params.handle.slice(0, 5);
+		}
+		var image = (typeof params.visible_upgrades === 'undefined' || params.visible_upgrades === false) ? building_image: building_image + params.level;
+		var out = '<div class="column">' +
+			'<img src="' + civitas.ASSETS_URL + 'images/assets/buildings/' + image + '_large.png" />' +
+		'</div>' +
+		'<div class="column">' +
+			'<p>' + params.description + '</p>' +
 			'<dl>' +
 				civitas.ui.level_panel(params.level, level, params.levels) +
 				civitas.ui.cost_panel(params.cost, level, params.levels) +
@@ -63,7 +72,8 @@ civitas.ui = {
 				civitas.ui.chance_panel(params.chance, level) +
 				civitas.ui.tax_panel(params.tax, level) +
 				civitas.ui.storage_panel(params.storage, level) +
-			'</dl>';
+			'</dl>' +
+		'</div>'; 
 		return out;
 	},
 
@@ -118,11 +128,11 @@ civitas.ui = {
 	},
 
 	navy_img: function (name) {
-		return '<img class="tips" title="' + civitas.SHIPS[name].name + '" src="' + civitas.ASSETS_URL + 'images/armies/' + name.toLowerCase().replace(/ /g,"_") + '_small.png" />';
+		return '<img class="tips" title="' + civitas.SHIPS[name].name + '" src="' + civitas.ASSETS_URL + 'images/assets/army/' + name.toLowerCase().replace(/ /g,"_") + '_small.png" />';
 	},
 
 	army_img: function (name) {
-		return '<img class="tips" title="' + civitas.SOLDIERS[name].name + '" src="' + civitas.ASSETS_URL + 'images/armies/' + name.toLowerCase().replace(/ /g,"_") + '_small.png" />';
+		return '<img class="tips" title="' + civitas.SOLDIERS[name].name + '" src="' + civitas.ASSETS_URL + 'images/assets/army/' + name.toLowerCase().replace(/ /g,"_") + '_small.png" />';
 	},
 
 	army_list: function (army, no_margin) {
@@ -222,16 +232,16 @@ civitas.ui = {
 		if (params.type.slice(0, 5) === 'house') {
 			building_image = params.type.slice(0, 5);
 		}
-		var image = (typeof params.data.visible_upgrades === 'undefined' || params.data.visible_upgrades === false) ? building_image + '1' : building_image + params.data.level;
+		var image = (typeof params.data.visible_upgrades === 'undefined' || params.data.visible_upgrades === false) ? building_image : building_image + params.data.level;
 		return '<div data-type="' + params.type + '" data-level="' + params.data.level + '" ' +
-			'style="background:transparent url(' + civitas.ASSETS_URL + 'images/buildings/' + image + '.png) no-repeat;left:' + params.data.position.x + 'px;top:' + params.data.position.y + 'px" ' +
+			'style="background:transparent url(' + civitas.ASSETS_URL + 'images/assets/buildings/' + image + '.png) no-repeat;left:' + params.data.position.x + 'px;top:' + params.data.position.y + 'px" ' +
 			'title=\'' + params.data.name + '\' ' + 'id="building-' + params.data.handle + '"' +
 			'class="tips building' + (params.data.large === true ? ' large' : '') + (params.data.extralarge === true ? ' extralarge' : '') + '"></div>';
 	},
 
 	resource_storage_small_el: function (resource, amount) {
 		return '<div class="tips storage-item small" title="' + civitas.utils.get_resource_name(resource) + '">' +
-				'<img src="' + civitas.ASSETS_URL + 'images/resources/' + resource + '_small.png" />' +
+				'<img src="' + civitas.ASSETS_URL + 'images/assets/resources/' + resource + '_small.png" />' +
 				'<span class="amount">' + amount + '</amount>' +
 				'</div>';
 	},
@@ -239,7 +249,7 @@ civitas.ui = {
 	resource_storage_el: function (resource, amount) {
 		return '<div class="storage-item">' +
 				'<span class="title">' + civitas.utils.get_resource_name(resource) + '</span>' +
-				'<img src="' + civitas.ASSETS_URL + 'images/resources/' + resource + '.png" />' +
+				'<img src="' + civitas.ASSETS_URL + 'images/assets/resources/' + resource + '.png" />' +
 				'<span class="amount">' + amount + '</amount>' +
 				'</div>';
 	},
@@ -324,12 +334,12 @@ civitas.ui = {
 		var out = '';
 		if (typeof storage !== 'undefined') {
 			out += '<dt>' + civitas.l('Storage') + '</dt>';
-			out += '<dd>' + (level * storage) + '<img alt="Storage space" class="tips" title="' + civitas.l('Storage Space') + '" src="' + civitas.ASSETS_URL + 'images/resources/storage_small.png" /></dd>';
+			out += '<dd>' + (level * storage) + '<img alt="Storage space" class="tips" title="' + civitas.l('Storage Space') + '" src="' + civitas.ASSETS_URL + 'images/assets/resources/storage_small.png" /></dd>';
 		}
 		return out;
 	},
 
 	resource_small_img: function (resource) {
-		return '<img alt="' + civitas.utils.get_resource_name(resource) + '" class="tips" title="' + civitas.utils.get_resource_name(resource) + '" src="' + civitas.ASSETS_URL + 'images/resources/' + resource + '_small.png" />';
+		return '<img alt="' + civitas.utils.get_resource_name(resource) + '" class="tips" title="' + civitas.utils.get_resource_name(resource) + '" src="' + civitas.ASSETS_URL + 'images/assets/resources/' + resource + '_small.png" />';
 	}
 };

@@ -242,15 +242,15 @@ civitas.game.prototype._notify = function (settings) {
 	hide.addClass('hide');
 	if (settings.mode === civitas.NOTIFY_ERROR) {
 		notty.addClass('error');
-		settings.img = civitas.ASSETS_URL + 'images/ui/icon_error.png';
+		settings.img = civitas.ASSETS_URL + 'images/assets/ui/icon_error.png';
 	} else if (settings.mode === civitas.NOTIFY_EVENT) {
 		notty.addClass('event');
-		settings.img = civitas.ASSETS_URL + 'images/ui/icon_research.png';
+		settings.img = civitas.ASSETS_URL + 'images/assets/ui/icon_research.png';
 	} else if (settings.mode === civitas.NOTIFY_ACHIEVEMENT) {
 		notty.addClass('achievement');
-		settings.img = civitas.ASSETS_URL + 'images/ui/icon_achievement.png';
+		settings.img = civitas.ASSETS_URL + 'images/assets/ui/icon_achievement.png';
 	} else {
-		settings.img = civitas.ASSETS_URL + 'images/ui/icon_notification.png';
+		settings.img = civitas.ASSETS_URL + 'images/assets/ui/icon_notification.png';
 	}
 	image = $('<div>', {
 		style: "background: url('" + settings.img + "')"
@@ -363,7 +363,7 @@ civitas.game.prototype._setup_ui = function () {
 		$(window).scrollLeft($(window).scrollLeft() + (clickX - e.pageX));
 	};
 	for (var i = 0; i < civitas.TOOLBAR_RESOURCES.length; i++) {
-		_t += '<span class="' + civitas.TOOLBAR_RESOURCES[i] + '"></span>';
+		_t += '<span class="' + civitas.TOOLBAR_RESOURCES[i] + '" style="background: transparent url(' + civitas.ASSETS_URL + 'images/assets/resources/' + civitas.TOOLBAR_RESOURCES[i] + '_small.png) no-repeat"></span>';
 	}
 	$('.top-panel').empty().append(_t);
 	$('.ui').on('click', '.console .down', function () {

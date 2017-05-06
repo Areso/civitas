@@ -171,7 +171,7 @@ civitas.PANEL_TRADES = {
 		for (var i = 0; i < civitas.MERCENARIES.length; i++) {
 			out += '<tr>' +
 					'<td class="icon">' +
-						'<img src="' + civitas.ASSETS_URL + 'images/armies/' + civitas.MERCENARIES[i].icon + '.png" />' +
+						'<img src="' + civitas.ASSETS_URL + 'images/assets/emblems/' + civitas.MERCENARIES[i].icon + '.png" />' +
 					'</td>' +
 					'<td>' +
 						'<p class="title">' + civitas.MERCENARIES[i].name + '</p>' +

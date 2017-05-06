@@ -56,14 +56,14 @@ civitas.objects.settlement.prototype._create_building = function(building, hidde
 		if (level > 1) {
 			building_data.level = level;
 		}
-		var _building = new civitas.objects.building({
+		var new_building = new civitas.objects.building({
 			settlement: this,
 			type: handle,
 			data: building_data,
 			hidden: hidden,
 			stopped: stopped
 		});
-		this.buildings.push(_building);
+		this.buildings.push(new_building);
 		return true;
 	}
 	return false;

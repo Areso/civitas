@@ -27,9 +27,14 @@ civitas.PANEL_BUILDINGS = {
 				if ($.inArray(building, available_buildings) !== -1) {
 					var building_data = civitas.BUILDINGS[civitas.BUILDINGS.findIndexM(building)];
 					var _i = settlement.is_building_built(building_data.handle);
+					var building_image = building_data.handle;
+					if (building_data.handle.slice(0, 5) === 'house') {
+						building_image = building_data.handle.slice(0, 5);
+					}
+					var _image = (typeof building_data.visible_upgrades === 'undefined' || building_data.visible_upgrades === false) ? building_image : building_image + building_data.level;
 					_t += '<div data-handle="' + building_data.handle + '" class="building-item' + ((_i === true) ? ' disabled' : '') + '">' +
 							'<span class="title">' + building_data.name + '</span>' +
-							'<img class="building" src="' + civitas.ASSETS_URL + 'images/buildings/' + ((building_data.handle.slice(0, 5) === 'house') ? building_data.handle.slice(0, 5) : building_data.handle) + '1.png" />' +
+							'<img class="building" src="' + civitas.ASSETS_URL + 'images/assets/buildings/' + _image + '.png" />' +
 							'</div>';
 				}
 			}
@@ -86,7 +91,7 @@ civitas.PANEL_BUILDINGS = {
 			var _z = '<dl class="nomg">';
 			for (var y in building.cost) {
 				_z += '<dt>' + civitas.utils.nice_numbers(building.cost[y]) + '</dt>' +
-					'<dd><img class="tips" title="' + civitas.utils.get_resource_name(y) + '" src="' + civitas.ASSETS_URL + 'images/resources/' + y + '_small.png" /></dd>';
+					'<dd><img class="tips" title="' + civitas.utils.get_resource_name(y) + '" src="' + civitas.ASSETS_URL + 'images/assets/resources/' + y + '_small.png" /></dd>';
 			}
 			_z += '</dl>';
 			$(el + ' .b-cost').append(_z);
@@ -116,7 +121,7 @@ civitas.PANEL_BUILDINGS = {
 				_z = '<dl class="nomg">';
 				for (var chance in building.chance) {
 					_z += '<dt>' + building.chance[chance] * 100 + '%</dt>' +
-						'<dd><img class="tips" title="' + civitas.utils.get_resource_name(chance) + '" src="' + civitas.ASSETS_URL + 'images/resources/' + chance + '_small.png" /></dd>';
+						'<dd><img class="tips" title="' + civitas.utils.get_resource_name(chance) + '" src="' + civitas.ASSETS_URL + 'images/assets/resources/' + chance + '_small.png" /></dd>';
 				}
 				_z += '</dl>';
 				$(el + ' .b-chance').append(_z);
@@ -129,7 +134,7 @@ civitas.PANEL_BUILDINGS = {
 					_z = '<dl class="nomg">';
 					for (var y in building.production) {
 						_z += '<dt>' + building.production[y] + '</dt>' +
-							'<dd><img class="tips" title="' + civitas.utils.get_resource_name(y) + '" src="' + civitas.ASSETS_URL + 'images/resources/' + y + '_small.png" /></dd>';
+							'<dd><img class="tips" title="' + civitas.utils.get_resource_name(y) + '" src="' + civitas.ASSETS_URL + 'images/assets/resources/' + y + '_small.png" /></dd>';
 					}
 					_z += '</dl>';
 					$(el + ' .b-prod').append(_z);
@@ -141,7 +146,7 @@ civitas.PANEL_BUILDINGS = {
 					_z = '<dl class="nomg">';
 					for (var y in building.materials) {
 						_z += '<dt>' + building.materials[y] + '</dt>' +
-							'<dd><img class="tips" title="' + civitas.utils.get_resource_name(y) + '" src="' + civitas.ASSETS_URL + 'images/resources/' + y + '_small.png" /></dd>';
+							'<dd><img class="tips" title="' + civitas.utils.get_resource_name(y) + '" src="' + civitas.ASSETS_URL + 'images/assets/resources/' + y + '_small.png" /></dd>';
 					}
 					_z += '</dl>';
 					$(el + ' .b-mats').append(_z);
@@ -157,7 +162,7 @@ civitas.PANEL_BUILDINGS = {
 					_z = '<dl class="nomg">';
 					for (var y in building.materials) {
 						_z += '<dt>' + building.materials[y] + '</dt>' +
-							'<dd><img class="tips" title="' + civitas.utils.get_resource_name(y) + '" src="' + civitas.ASSETS_URL + 'images/resources/' + y + '_small.png" /></dd>';
+							'<dd><img class="tips" title="' + civitas.utils.get_resource_name(y) + '" src="' + civitas.ASSETS_URL + 'images/assets/resources/' + y + '_small.png" /></dd>';
 					}
 					_z += '</dl>';
 					$(el + ' .b-mats').append(_z);
@@ -166,7 +171,7 @@ civitas.PANEL_BUILDINGS = {
 				if (typeof building.tax !== 'undefined') {
 					_z = '<dl class="nomg">' +
 							'<dt>Tax</dt>' +
-							'<dd>' + building.tax + '<img class="tips" title="' + civitas.l('Coins') + '" src="' + civitas.ASSETS_URL + 'images/resources/coins_small.png" /></dd>' +
+							'<dd>' + building.tax + '<img class="tips" title="' + civitas.l('Coins') + '" src="' + civitas.ASSETS_URL + 'images/assets/resources/coins_small.png" /></dd>' +
 						'</dl>';
 					$(el + ' .b-tax').append(_z);
 					$('fieldset.taxes').show();
@@ -178,7 +183,7 @@ civitas.PANEL_BUILDINGS = {
 				$('fieldset.taxes, fieldset.materials').hide();
 				_z = '<dl class="nomg">' +
 						'<dt>' + building.storage + '</dt>' +
-						'<dd><img class="tips" title="' + civitas.l('Storage Space') + '" src="' + civitas.ASSETS_URL + 'images/resources/storage_small.png" /></dd>' +
+						'<dd><img class="tips" title="' + civitas.l('Storage Space') + '" src="' + civitas.ASSETS_URL + 'images/assets/resources/storage_small.png" /></dd>' +
 					'</dl>';
 				$(el + ' .b-store').append(_z);
 				$('fieldset.storage').show();

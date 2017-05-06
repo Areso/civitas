@@ -44,7 +44,7 @@ civitas.PANEL_EMBASSY = {
 				_t += '<tr>' +
 						'<td class="icon">' +
 							'<a data-id="' + settlements[i].id() + '" title="' + civitas.l('View info about this settlement.') + '" class="tips view" href="#">' +
-								'<img src="' + civitas.ASSETS_URL + 'images/avatars/avatar' + settlements[i].ruler().avatar + '.png" />' +
+								'<img src="' + civitas.ASSETS_URL + 'images/assets/avatars/avatar' + settlements[i].ruler().avatar + '.png" />' +
 							'</a>' +
 						'</td>' +
 						'<td>' +

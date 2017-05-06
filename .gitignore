@@ -2,8 +2,5 @@
 *.tmp
 Thumbs.db
 node_modules
-images/armies/*
-images/avatars/*
-images/buildings/*
-images/resources/*
+images/assets/**/*
 temp/**/*
