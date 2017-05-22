@@ -159,8 +159,6 @@ gulp.task('css_minify', ['css'], function() {
   	])
     .pipe(concat('styles.min.css'))
     .pipe(cleanCSS())
-    .pipe(header(fs.readFileSync('HEADER', 'utf8'), { pkg: pkg } ))
-    .pipe(replace('__VERSION_NUMBER__', pkg.version + '.' + ((new Date()).getMonth() + 1) + '' + (new Date()).getDate() + '' + (new Date()).getFullYear()))
     .pipe(gulp.dest('dist/'))
 });
 

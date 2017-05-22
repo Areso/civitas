@@ -6,7 +6,7 @@ civitas.ui = {
 	window_about_section: function() {
 		var out = '<a href="#" class="do-about button">' + civitas.l('About') + '</a>' +
 			'<div class="about-game">' +
-				'<a class="github" target="_blank" href="https://github.com/sizeofcat/civitas"><img class="tips" title="' + civitas.l('Visit the project page on GitHub') + '" src="../images/ui/github.png" /></a>' +
+				'<a class="github" target="_blank" href="https://github.com/sizeofcat/civitas"><img class="tips" title="' + civitas.l('Visit the project page on GitHub') + '" src="' + civitas.ASSETS_URL + '/images/ui/github.png" /></a>' +
 				'<p>' + civitas.l('Civitas is written by <a target="_blank" href="https://sizeof.cat">sizeof(cat)</a>.') + '</p>' +
 				'<p>' + civitas.l('Big thanks to') + ':</p>' +
 				'<ul>' +
