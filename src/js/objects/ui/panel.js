@@ -134,7 +134,9 @@ civitas.controls.panel = function (params) {
 		}
 		this.core().console_log('creating panel with id `' + this.id + '`');
 		$('.ui').append(params.template.replace(/{ID}/g, params.id));
-		if (typeof this.params_data !== 'undefined' && typeof this.params_data.name !== 'undefined' && typeof this.params_data.name !== 'function') {
+		if (typeof this.params_data !== 'undefined' && 
+			typeof this.params_data.name !== 'undefined' &&
+			typeof this.params_data.name !== 'function') {
 			$(this.handle + ' header').append(this.params_data.name);
 		}
 		this.on_show.call(this, params);
@@ -150,9 +152,11 @@ civitas.controls.panel = function (params) {
 				}
 				if (building.is_production_building()) {
 					if (!building.is_stopped()) {
-						$(this.handle + ' .pause').removeClass('start').attr('title', civitas.l('Stop production'));
+						$(this.handle + ' .pause').removeClass('start')
+							.attr('title', civitas.l('Stop production'));
 					} else {
-						$(this.handle + ' .start').removeClass('pause').attr('title', civitas.l('Start production'));
+						$(this.handle + ' .start').removeClass('pause')
+							.attr('title', civitas.l('Start production'));
 					}
 				} else {
 					$(this.handle + ' .start, ' + this.handle + ' .pause').remove();

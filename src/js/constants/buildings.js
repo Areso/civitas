@@ -71,7 +71,8 @@ civitas.SETTLEMENT_BUILDINGS_TROPICAL = [
 	'charcoalburnerhut', 'opticiansworkshop', 'papermill', 'printingpress', 'gunpowdermill',
 	'redsmithsworkshop', 'ropeyard', 'glassworks', 'silkweaver', 'jeweler', 'toolmaker',
 	'apiary', 'beehive', 'barrelcooperage', 'brewery', 'candlemakersworkshop', 'sugarmill',
-	'perfumery', 'weaver', 'clothingfactory', 'provisions', 'carpenter', 'marzipanworkshop', 'cannonfoundry',
+	'perfumery', 'weaver', 'clothingfactory', 'provisions', 'carpenter', 'marzipanworkshop',
+	'cannonfoundry',
 
 	/* Farms */
 	'almondsfarm', 'almondsfield', 'cattlefarm', 'cattlefield', 'coffeefarm', 'coffeefield',
@@ -109,7 +110,8 @@ civitas.SETTLEMENT_BUILDINGS_POLAR = [
 	'winery', 'saltworks', 'pottery', 'jeweler', 'toolmaker',
 	'charcoalburnerhut', 'opticiansworkshop', 'papermill', 'printingpress', 'gunpowdermill',
 	'redsmithsworkshop', 'ropeyard', 'glassworks', 'silkweaver', 'marzipanworkshop',
-	'apiary', 'beehive', 'barrelcooperage', 'brewery', 'candlemakersworkshop', 'sugarmill', 'cannonfoundry',
+	'apiary', 'beehive', 'barrelcooperage', 'brewery', 'candlemakersworkshop', 'sugarmill',
+	'cannonfoundry',
 	'perfumery', 'weaver', 'clothingfactory', 'provisions', 'carpenter'
 ];
 
@@ -143,7 +145,8 @@ civitas.SETTLEMENT_BUILDINGS_ARID = [
 	'charcoalburnerhut', 'opticiansworkshop', 'papermill', 'printingpress',
 	'redsmithsworkshop', 'ropeyard', 'glassworks', 'silkweaver', 'gunpowdermill',
 	'apiary', 'beehive', 'barrelcooperage', 'brewery', 'candlemakersworkshop', 'sugarmill',
-	'perfumery', 'weaver', 'clothingfactory', 'provisions', 'carpenter', 'marzipanworkshop', 'cannonfoundry',
+	'perfumery', 'weaver', 'clothingfactory', 'provisions', 'carpenter', 'marzipanworkshop',
+	'cannonfoundry',
 
 	/* Farms */
 	'goatfarm', 'goatfield', 'cattlefarm', 'cattlefield', 'pigfarm', 'pigfield', 'indigofarm',
@@ -181,7 +184,8 @@ civitas.SETTLEMENT_BUILDINGS_TEMPERATE = [
 	'charcoalburnerhut', 'opticiansworkshop', 'papermill', 'printingpress', 'gunpowdermill',
 	'redsmithsworkshop', 'ropeyard', 'glassworks', 'silkweaver', 'marzipanworkshop',
 	'apiary', 'beehive', 'barrelcooperage', 'brewery', 'candlemakersworkshop', 'sugarmill',
-	'perfumery', 'weaver', 'clothingfactory', 'provisions', 'carpenter', 'catapultworkshop', 'cannonfoundry',
+	'perfumery', 'weaver', 'clothingfactory', 'provisions', 'carpenter', 'catapultworkshop',
+	'cannonfoundry',
 
 	/* Farms */
 	'cattlefarm', 'cattlefield', 'ciderfarm', 'ciderfield', 'grainfarm', 'grainfield',
@@ -209,9 +213,12 @@ civitas.BUILDINGS_ALL = [
 	'charcoalburnerhut', 'monastery', 'opticiansworkshop', 'papermill', 'printingpress',
 	'redsmithsworkshop', 'ropeyard', 'glassworks', 'provisions', 'silkweaver', 'gunpowdermill',
 	'goatfarm', 'goatfield', 'coalmine', 'carpetmanufacturer',
-	'apiary', 'beehive', 'barrelcooperage', 'brewery', 'candlemakersworkshop', 'indigofarm', 'indigofield',
-	'ciderfarm', 'ciderfield', 'sugarmill', 'rosenursery', 'rosefield', 'catapultworkshop', 'cannonfoundry',
-	'perfumery', 'tradingpost', 'clothingfactory', 'weaver', 'embassy',  'academy', 'marzipanworkshop'
+	'apiary', 'beehive', 'barrelcooperage', 'brewery', 'candlemakersworkshop', 'indigofarm',
+	'indigofield',
+	'ciderfarm', 'ciderfield', 'sugarmill', 'rosenursery', 'rosefield', 'catapultworkshop',
+	'cannonfoundry',
+	'perfumery', 'tradingpost', 'clothingfactory', 'weaver', 'embassy',  'academy',
+	'marzipanworkshop'
 ];
 
 /**
@@ -400,8 +407,9 @@ civitas.BUILDINGS = [{
 	}, {
 		name: 'Church',
 		handle: 'church',
-		description: 'A Church provides a massive fame boost to your settlement by using coins and ' +
-			'converting them to fame, as well as providing faith for free. Faith allows you to choose a religion for your settlement.',
+		description: 'A Church provides a massive fame boost to your settlement by using coins ' +
+			'and converting them to fame, as well as providing faith for free. Faith allows you ' +
+			'to choose a religion for your settlement.',
 		is_municipal: true,
 		is_production: true,
 		production: {
@@ -430,7 +438,8 @@ civitas.BUILDINGS = [{
 	}, {
 		name: 'Trading Post',
 		handle: 'tradingpost',
-		description: 'The Trading Post gives you the opportunity to trade resources and send caravans to other settlements.',
+		description: 'The Trading Post gives you the opportunity to trade resources and send ' +
+			'caravans to other settlements.',
 		is_municipal: true,
 		large: true,
 		position: {
@@ -449,7 +458,8 @@ civitas.BUILDINGS = [{
 	}, {
 		name: 'Academy',
 		handle: 'academy',
-		description: 'The Academy provides a minor amount of fame each day as well as research for this settlement at the expense of coins.',
+		description: 'The Academy provides a minor amount of fame each day as well as research ' +
+			'for this settlement at the expense of coins.',
 		is_municipal: true,
 		large: true,
 		is_production: true,
@@ -477,7 +487,8 @@ civitas.BUILDINGS = [{
 	}, {
 		name: 'Embassy',
 		handle: 'embassy',
-		description: 'An Embassy is required to propose pacts, declare war, send spies to other settlements.',
+		description: 'An Embassy is required to propose pacts, declare war, send spies to other ' +
+			'settlements.',
 		is_municipal: true,
 		is_production: true,
 		large: true,
@@ -505,7 +516,8 @@ civitas.BUILDINGS = [{
 	}, {
 		name: 'Provision House',
 		handle: 'provisions',
-		description: 'The Provision House requires various goods to produce provisions for military units.',
+		description: 'The Provision House requires various goods to produce provisions for ' +
+			'military units.',
 		is_production: true,
 		large: true,
 		production: {
@@ -563,7 +575,9 @@ civitas.BUILDINGS = [{
 	}, {
 		name: 'Tavern',
 		handle: 'tavern',
-		description: 'The Tavern is the place where heroes of the known (and unknown) world hang around. If you are looking to recruit Achilles, build a Tavern. He might show up.',
+		description: 'The Tavern is the place where heroes of the known (and unknown) world ' +
+			'hang around. If you are looking to recruit Achilles, build a Tavern. He might ' +
+			'show up.',
 		is_municipal: true,
 		is_special: true,
 		/*
@@ -629,7 +643,8 @@ civitas.BUILDINGS = [{
 	}, {
 		name: 'Military Camp',
 		handle: 'camp',
-		description: 'The military camp is your main base of defense and attack. If you plan on going to war, you will need a Military Camp.',
+		description: 'The military camp is your main base of defense and attack. If you plan ' +
+			'on going to war, you will need a Military Camp.',
 		position: {
 			x: 360,
 			y: 540
@@ -686,8 +701,8 @@ civitas.BUILDINGS = [{
 	}, {
 		name: 'Lumberjack',
 		handle: 'lumberjack',
-		description: 'A Lumberjack provides you with wood which you can use for creating additional ' +
-			'buildings, resources or sell to other settlements.',
+		description: 'A Lumberjack provides you with wood which you can use for creating ' +
+			'additional buildings, resources or sell to other settlements.',
 		is_production: true,
 		production: {
 			wood: 4
@@ -707,7 +722,8 @@ civitas.BUILDINGS = [{
 	}, {
 		name: 'Carpenter',
 		handle: 'carpenter',
-		description: 'The Carpenter processes the wood from the Lumberjack into wood planks that are required for more advanced buildings.',
+		description: 'The Carpenter processes the wood from the Lumberjack into wood planks ' +
+			'that are required for more advanced buildings.',
 		is_production: true,
 		materials: {
 			wood: 2
@@ -731,8 +747,8 @@ civitas.BUILDINGS = [{
 	}, {
 		name: 'Stone Quarry',
 		handle: 'stonequarry',
-		description: 'A Stone Quarry produces stone blocks that are the basis of any buildings you ' +
-			'wish to construct.',
+		description: 'A Stone Quarry produces stone blocks that are the basis of any buildings ' +
+			'you wish to construct.',
 		is_production: true,
 		large: true,
 		production: {
@@ -782,7 +798,8 @@ civitas.BUILDINGS = [{
 	}, {
 		name: 'Tournir Area',
 		handle: 'tournir',
-		description: 'The Tournir Area is providing your city with prestige, a chance to train your soldiers and has a chance of giving your city free coins.',
+		description: 'The Tournir Area is providing your city with prestige, a chance to train ' +
+			'your soldiers and has a chance of giving your city free coins.',
 		extralarge: true,
 		is_municipal: true,
 		is_production: true,
@@ -841,8 +858,8 @@ civitas.BUILDINGS = [{
 	}, {
 		name: 'Iron Mine',
 		handle: 'ironmine',
-		description: 'The Iron Mine extracts iron ores from the mountains you own (provided you own ' +
-			'some). Iron ores can be smelted later into iron bars.',
+		description: 'The Iron Mine extracts iron ores from the mountains you own (provided ' +
+			'you own some). Iron ores can be smelted later into iron bars.',
 		is_production: true,
 		large: true,
 		production: {
@@ -867,8 +884,8 @@ civitas.BUILDINGS = [{
 	}, {
 		name: 'Salt Mine',
 		handle: 'saltmine',
-		description: 'A Salt Mine extracts brine that can be processed further into salt in a Salt ' +
-			'Works.',
+		description: 'A Salt Mine extracts brine that can be processed further into salt in ' +
+			'a Salt Works.',
 		is_production: true,
 		large: true,
 		production: {
@@ -912,8 +929,8 @@ civitas.BUILDINGS = [{
 	}, {
 		name: 'Copper Mine',
 		handle: 'coppermine',
-		description: 'The copper mine extracts copper from the mountains you own (provided you own ' +
-			'some). Copper ores can be smelted later into brass.',
+		description: 'The copper mine extracts copper from the mountains you own (provided ' +
+			'you own some). Copper ores can be smelted later into brass.',
 		is_production: true,
 		large: true,
 		production: {
@@ -938,7 +955,8 @@ civitas.BUILDINGS = [{
 	}, {
 		name: 'Salt Works',
 		handle: 'saltworks',
-		description: 'A Salt Works requires coal and brine for producing salt. Salt is a very useful resource so make sure your settlement has plenty.',
+		description: 'A Salt Works requires coal and brine for producing salt. Salt is a very ' +
+			'useful resource so make sure your settlement has plenty.',
 		is_production: true,
 		production: {
 			salt: 3

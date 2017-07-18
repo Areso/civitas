@@ -19,7 +19,8 @@ civitas.PANEL_CAMP = {
 					'<div class="cost">' +
 						'<dl class="nomg">';
 			for (var res in civitas.SOLDIERS[item].cost) {
-				_t += '<dt>' + civitas.utils.nice_numbers(civitas.SOLDIERS[item].cost[res]) + '</dt><dd>' + civitas.ui.resource_small_img(res) + '</dd>';
+				_t += '<dt>' + civitas.utils.nice_numbers(civitas.SOLDIERS[item].cost[res]) + 
+					'</dt><dd>' + civitas.ui.resource_small_img(res) + '</dd>';
 			}
 			_t += '</dl>' +
 					'</div>' +
@@ -29,7 +30,10 @@ civitas.PANEL_CAMP = {
 							'<dt>Defense</dt><dd>' + civitas.SOLDIERS[item].defense + '</dd>' +
 						'</dl>' +
 					'</div>' +
-					'<img data-handle="' + item + '" title="' + civitas.l('Recruit') + ' ' + civitas.SOLDIERS[item].name + '" class="tips recruit-soldier" src="' + civitas.ASSETS_URL + 'images/assets/army/' + item.toLowerCase() + '.png" />' +
+					'<img data-handle="' + item + '" title="' + civitas.l('Recruit') + ' ' + 
+						civitas.SOLDIERS[item].name + '" class="tips recruit-soldier" src="' + 
+						civitas.ASSETS_URL + 'images/assets/army/' + item.toLowerCase() + 
+						'.png" />' +
 				'</fieldset>';
 		}
 		_t += '</div>';
@@ -40,13 +44,15 @@ civitas.PANEL_CAMP = {
 			if (settlement.has_resources(costs)) {
 				if (settlement.remove_resources(costs)) {
 					if (settlement.recruit_soldier(soldier)) {
-						core.notify('A new ' + civitas.SOLDIERS[soldier].name + ' has been recruited.');
+						core.notify('A new ' + civitas.SOLDIERS[soldier].name + 
+							' has been recruited.');
 						self.on_refresh();
 						return false;
 					}
 				}
 			}
-			core.error('You don`t have enough resources to recruit a ' + civitas.SOLDIERS[soldier].name + '.');
+			core.error('You don`t have enough resources to recruit a ' + 
+				civitas.SOLDIERS[soldier].name + '.');
 			return false;
 		});
 	},
@@ -55,7 +61,8 @@ civitas.PANEL_CAMP = {
 		var settlement = core.get_settlement();
 		var building = core.get_settlement().get_building(this.params_data.handle);
 		if (building) {
-			$(this.handle + ' #tab-info').empty().append(civitas.ui.building_panel(this.params_data, building.get_level()));
+			$(this.handle + ' #tab-info').empty()
+				.append(civitas.ui.building_panel(this.params_data, building.get_level()));
 			$(this.handle + ' .army-list').empty().append('<fieldset>' +
 					'<legend>' + civitas.l('Current Army') + '</legend>' +
 					civitas.ui.army_list(settlement.get_army(), true) +

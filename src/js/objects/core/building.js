@@ -99,15 +99,19 @@ civitas.objects.building = function(params) {
 		this.settlement = params.settlement;
 		this.type = params.type;
 		this.name = params.data.name;
-		this.is_production = (typeof params.data.is_production !== 'undefined' && params.data.is_production === true) ? true : false;
-		this.is_municipal = (typeof params.data.is_municipal !== 'undefined' && params.data.is_municipal === true) ? true : false;
-		this.is_housing = (typeof params.data.is_housing !== 'undefined' && params.data.is_housing === true) ? true : false;
+		this.is_production = (typeof params.data.is_production !== 'undefined' &&
+			params.data.is_production === true) ? true : false;
+		this.is_municipal = (typeof params.data.is_municipal !== 'undefined' &&
+			params.data.is_municipal === true) ? true : false;
+		this.is_housing = (typeof params.data.is_housing !== 'undefined' &&
+			params.data.is_housing === true) ? true : false;
 		this.level = (typeof params.data.level !== 'undefined') ? params.data.level : 1;
 		this.stopped = (typeof params.stopped !== 'undefined') ? params.stopped : false;
 		this.handle = params.data.handle;
 		params.data.level = this.get_level();
 		if (params.hidden !== true && this.settlement.is_player()) {
-			$('section.game').append(civitas.ui.building_element(params)).on('click', '#building-' + this.get_handle(), function() {
+			$('section.game').append(civitas.ui.building_element(params)).on('click',
+					'#building-' + this.get_handle(), function() {
 				var panel = civitas['PANEL_' + self.get_handle().toUpperCase()];
 				if (typeof panel !== 'undefined') {
 					self.core().open_panel(panel, params.data);
@@ -127,7 +131,8 @@ civitas.objects.building = function(params) {
 		switch (this.get_type()) {
 			case 'marketplace':
 			case 'warehouse':
-				this.get_settlement().storage(this.get_settlement().storage().all + (building.storage * this.get_level()));
+				this.get_settlement().storage(this.get_settlement().storage().all +
+					(building.storage * this.get_level()));
 				break;
 		}
 		return this;
@@ -189,7 +194,10 @@ civitas.objects.building = function(params) {
 						building_image = this.get_type().slice(0, 5);
 					}
 					$('section.game .building[data-type=' + this.get_type() + ']').css({
-						'background-image': 'url(' + civitas.ASSETS_URL + 'images/assets/buildings/' + ((typeof data.visible_upgrades === 'undefined' || data.visible_upgrades === false) ? building_image + '1' : building_image + this.get_level()) + '.png)'
+						'background-image': 'url(' + civitas.ASSETS_URL +
+							'images/assets/buildings/' + ((typeof data.visible_upgrades ===
+								'undefined' || data.visible_upgrades === false) ? building_image +
+							'1' : building_image + this.get_level()) + '.png)'
 					});
 				}
 				if (typeof data.storage !== 'undefined') {
@@ -202,7 +210,8 @@ civitas.objects.building = function(params) {
 				return true;
 			} else {
 				if (settlement.is_player()) {
-					core.error('You don`t have enough resources to upgrade your ' + this.get_name() + '.');
+					core.error('You don`t have enough resources to upgrade your ' +
+						this.get_name() + '.');
 				}
 				return false;
 			}
@@ -227,7 +236,10 @@ civitas.objects.building = function(params) {
 					building_image = this.get_type().slice(0, 5);
 				}
 				$('section.game .building[data-type=' + this.get_type() + ']').css({
-					'background-image': 'url(' + civitas.ASSETS_URL + 'images/assets/buildings/' + ((typeof data.visible_upgrades === 'undefined' || data.visible_upgrades === false) ? building_image + '1' : building_image + this.get_level()) + '.png)'
+					'background-image': 'url(' + civitas.ASSETS_URL + 'images/assets/buildings/' +
+						((typeof data.visible_upgrades === 'undefined' ||
+						data.visible_upgrades === false) ? building_image + '1' : building_image +
+						this.get_level()) + '.png)'
 				});
 				this.core().save_and_refresh();
 				this.core().notify(this.get_name() + ' downgraded to level ' + this.get_level());
@@ -285,7 +297,8 @@ civitas.objects.building = function(params) {
 	 * @returns {Boolean}
 	 */
 	this.start_production = function() {
-		if (this.get_settlement().is_building_built(this.get_type()) && this.is_production_building()) {
+		if (this.get_settlement().is_building_built(this.get_type()) &&
+			this.is_production_building()) {
 			if (this.get_settlement().is_player()) {
 				this.core().notify(this.get_name() + '`s production started.');
 			}
@@ -304,7 +317,8 @@ civitas.objects.building = function(params) {
 	 * @returns {Boolean}
 	 */
 	this.stop_production = function() {
-		if (this.get_settlement().is_building_built(this.get_type()) && this.is_production_building()) {
+		if (this.get_settlement().is_building_built(this.get_type()) &&
+			this.is_production_building()) {
 			if (this.get_settlement().is_player()) {
 				this.core().notify(this.get_name() + '`s production stopped.');
 			}
@@ -337,7 +351,8 @@ civitas.objects.building = function(params) {
 			return true;
 		} else {
 			if (settlement.is_player()) {
-				this.core().error('Unable to demolish the specified building `' + this.get_name() + '`!');
+				this.core().error('Unable to demolish the specified building `' +
+					this.get_name() + '`!');
 			}
 			return false;
 		}
@@ -382,7 +397,8 @@ civitas.objects.building = function(params) {
 				if (this.get_settlement().is_building_built(item, required[item])) {
 					parent = this.get_settlement().get_building(item);
 					if (parent && !parent.is_stopped()) {
-						good = parent.has_building_requirements() && parent.has_settlement_requirements()
+						good = parent.has_building_requirements() &&
+							parent.has_settlement_requirements()
 						if (good === false) {
 							return false;
 						}
@@ -510,7 +526,8 @@ civitas.objects.building = function(params) {
 									this.log_to_console();
 								}
 							} else {
-								this.core().log('There is no storage space in your city to accomodate the new goods.', true);
+								this.core().log('There is no storage space in your city to ' +
+									'accomodate the new goods.', true);
 								this.problems = true;
 								return false;
 							}
@@ -524,7 +541,8 @@ civitas.objects.building = function(params) {
 								this.log_to_console();
 							}
 						} else {
-							this.core().log('There is no storage space in your city to accomodate the new goods.', true);
+							this.core().log('There is no storage space in your city to ' +
+								'accomodate the new goods.', true);
 							this.problems = true;
 							return false;
 						}
@@ -660,8 +678,10 @@ civitas.objects.building = function(params) {
 			_m = _m.substring(0, _m.length - 2);
 		}
 		if (typeof building.tax !== 'undefined') {
-			this.core().log(this.get_name() + ' used ' + _m + ' and got taxed for ' + (building.tax * this.get_level()) + ' coins.');
-		} else if (typeof building.production !== 'undefined' && typeof building.materials === 'undefined') {
+			this.core().log(this.get_name() + ' used ' + _m + ' and got taxed for ' + 
+				(building.tax * this.get_level()) + ' coins.');
+		} else if (typeof building.production !== 'undefined' &&
+			typeof building.materials === 'undefined') {
 			this.core().log(this.get_name() + ' produced ' + _p + '.');
 		} else {
 			this.core().log(this.get_name() + ' used ' + _m + ' and produced ' + _p + '.');
@@ -683,7 +703,8 @@ civitas.objects.building = function(params) {
 				var handle = $('section.game > #building-' + this.get_handle());
 				switch (notification_type) {
 					case civitas.NOTIFICATION_MISSING_REQUIREMENTS:
-						this.core().log(this.get_name() + ' doesn`t have one of the buildings required to be operational.', true);
+						this.core().log(this.get_name() + ' doesn`t have one of the buildings ' +
+							'required to be operational.', true);
 						handle.empty().append('<span class="notification requirements"></span>');
 						break;
 					case civitas.NOTIFICATION_PRODUCTION_PAUSED:
@@ -691,12 +712,14 @@ civitas.objects.building = function(params) {
 						handle.empty().append('<span class="notification paused"></span>');
 						break;
 					case civitas.NOTIFICATION_SETTLEMENT_LOW_LEVEL:
-						this.core().log('Your settlement level is too low for ' + this.get_name() + ' to be active.', true);
+						this.core().log('Your settlement level is too low for ' + this.get_name() +
+							' to be active.', true);
 						handle.empty().append('<span class="notification lowlevel"></span>');
 						break;
 					case civitas.NOTIFICATION_MISSING_RESOURCES:
 					default:
-						this.core().log(this.get_name() + ' is missing materials for production.', true);
+						this.core().log(this.get_name() + ' is missing materials for production.',
+							true);
 						handle.empty().append('<span class="notification error"></span>');
 						break;
 				}

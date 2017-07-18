@@ -58,22 +58,30 @@ civitas.game.prototype._build_ui = function() {
 			'<section class="game"></section>' +
 			'<footer>' +
 				'<div class="toolbar">' +
-					'<a href="#" data-action="panel" data-panel="buildings" class="tips" title="' + civitas.l('Buildings') + '"></a>' +
-					'<a href="#" data-action="panel" data-panel="storage" class="tips" title="' + civitas.l('Storage Space') + '"></a>' +
-					'<a href="#" data-action="panel" data-panel="trades" class="tips" title="' + civitas.l('Trades') + '"></a>' +
-					'<a href="#" data-action="panel" data-panel="council" class="tips" title="' + civitas.l('City Council') + '"></a>' +
-					'<a href="#" data-action="panel" data-panel="ranks" class="tips" title="' + civitas.l('Ranks') + '"></a>' +
-					'<a href="#" data-action="panel" data-panel="world" class="tips" title="' + civitas.l('World Map') + '"></a>' +
+					'<a href="#" data-action="panel" data-panel="buildings" class="tips" title="' +
+						civitas.l('Buildings') + '"></a>' +
+					'<a href="#" data-action="panel" data-panel="storage" class="tips" title="' +
+						civitas.l('Storage Space') + '"></a>' +
+					'<a href="#" data-action="panel" data-panel="trades" class="tips" title="' +
+						civitas.l('Trades') + '"></a>' +
+					'<a href="#" data-action="panel" data-panel="council" class="tips" title="' +
+						civitas.l('City Council') + '"></a>' +
+					'<a href="#" data-action="panel" data-panel="ranks" class="tips" title="' +
+						civitas.l('Ranks') + '"></a>' +
+					'<a href="#" data-action="panel" data-panel="world" class="tips" title="' +
+						civitas.l('World Map') + '"></a>' +
 					'<a href="#" class="" title=""></a>' +
 					'<a href="#" class="" title=""></a>' +
-					'<a href="#" data-action="panel" data-panel="help" class="tips" title="' + civitas.l('Help') + '"></a>' +
+					'<a href="#" data-action="panel" data-panel="help" class="tips" title="' +
+						civitas.l('Help') + '"></a>' +
 				'</div>' +
 			'</footer>' +
 		'</section>' +
 		'<audio id="music" loop>' +
 			'<source src="music/track1.mp3" type="audio/mpeg">' +
 		'</audio>' +
-		'<div title="' + civitas.l('Game is doing stuff in the background.') + '" class="loading"></div>';
+		'<div title="' + civitas.l('Game is doing stuff in the background.') + 
+			'" class="loading"></div>';
 	$('body').empty().append(out);
 	return this;
 };
@@ -136,7 +144,8 @@ civitas.game.prototype.refresh_toolbar = function() {
 		for (var i = 0; i < civitas.TOOLBAR_RESOURCES.length; i++) {
 			var resource = civitas.TOOLBAR_RESOURCES[i];
 			if (typeof resources[resource] !== 'undefined') {
-				$('.top-panel .' + resource).attr('title', resources[resource] + ' ' + civitas.utils.get_resource_name(resource));
+				$('.top-panel .' + resource).attr('title', resources[resource] + ' ' + 
+					civitas.utils.get_resource_name(resource));
 			}
 		}
 	}
@@ -363,7 +372,10 @@ civitas.game.prototype._setup_ui = function () {
 		$(window).scrollLeft($(window).scrollLeft() + (clickX - e.pageX));
 	};
 	for (var i = 0; i < civitas.TOOLBAR_RESOURCES.length; i++) {
-		_t += '<span class="' + civitas.TOOLBAR_RESOURCES[i] + '" style="background: transparent url(' + civitas.ASSETS_URL + 'images/assets/resources/' + civitas.TOOLBAR_RESOURCES[i] + '_small.png) no-repeat"></span>';
+		_t += '<span class="' + civitas.TOOLBAR_RESOURCES[i] + 
+			'" style="background: transparent url(' + civitas.ASSETS_URL + 
+			'images/assets/resources/' + civitas.TOOLBAR_RESOURCES[i] + 
+			'_small.png) no-repeat"></span>';
 	}
 	$('.top-panel').empty().append(_t);
 	$('.ui').on('click', '.console .down', function () {
@@ -461,7 +473,9 @@ civitas.game.prototype.log = function (message, error) {
 		$('.ui .console .contents').empty();
 	}
 	if (typeof message !== 'undefined') {
-		$('.ui .console .contents').prepend('<div' + ((typeof error !== 'undefined' && error === true) ? ' class="error"' : '') + '>' + '<span>' + civitas.utils.get_now() + '</span> - ' + message + '</div>');
+		$('.ui .console .contents').prepend('<div' + 
+			((typeof error !== 'undefined' && error === true) ? ' class="error"' : '') + '>' + 
+			'<span>' + civitas.utils.get_now() + '</span> - ' + message + '</div>');
 	} else {
 		$('.ui .console .contents').prepend('<div class="separator"></div>');
 	}

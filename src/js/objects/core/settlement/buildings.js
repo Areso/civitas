@@ -116,7 +116,8 @@ civitas.objects.settlement.prototype.get_building_data = function(handle) {
 civitas.objects.settlement.prototype.build = function(building_type) {
 	var building_data = false;
 	if (building_data = this.get_building_data(building_type)) {
-		if ((typeof building_data.requires.settlement_level !== 'undefined') && (this.properties.level < building_data.requires.settlement_level)) {
+		if ((typeof building_data.requires.settlement_level !== 'undefined') && 
+			(this.properties.level < building_data.requires.settlement_level)) {
 			if (this.is_player()) {
 				this.core().error('Your city level is too low to construct this building.');
 			}
@@ -129,7 +130,8 @@ civitas.objects.settlement.prototype.build = function(building_type) {
 					var _z = civitas.BUILDINGS.findIndexM(item);
 					_z = civitas.BUILDINGS[_z];
 					if (this.is_player()) {
-						this.core().error('You don`t have the required level ' + required[item] + ' ' + _z.name + '.');
+						this.core().error('You don`t have the required level ' + required[item] + 
+							' ' + _z.name + '.');
 					}
 					return false;
 				}
@@ -153,7 +155,8 @@ civitas.objects.settlement.prototype.build = function(building_type) {
 		this.raise_prestige();
 		if (this.is_player()) {
 			this.core().save_and_refresh();
-			this.core().notify('A new ' + _building.get_name() + ' was just constructed in your city.');
+			this.core().notify('A new ' + _building.get_name() + ' was just constructed in ' +
+				'your city.');
 			$('.tips').tipsy({
 				gravity: $.fn.tipsy.autoNS,
 				html: true

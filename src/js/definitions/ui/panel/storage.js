@@ -15,9 +15,12 @@ civitas.PANEL_STORAGE = {
 		var _t = '<div class="main-storage"></div>' +
 			'<div class="extra-storage hidden"></div>' +
 			'<div class="clearfix"></div>' +
-			'<p>' + civitas.l('Total storage space') + ': <span class="total-storage">' + storage_space.all + '</span>, ' + civitas.l('used') + ': <span class="used-storage">' + storage_space.occupied + '</span></p>' +
+			'<p>' + civitas.l('Total storage space') + ': <span class="total-storage">' + 
+			storage_space.all + '</span>, ' + civitas.l('used') + ': <span class="used-storage">' + 
+			storage_space.occupied + '</span></p>' +
 			'<div class="toolbar">' +
-				'<a class="btn iblock toggle-storage" href="#">' + civitas.l('Show More Goods') + '</a>' +
+				'<a class="btn iblock toggle-storage" href="#">' + civitas.l('Show More Goods') + 
+				'</a>' +
 			'</div>';
 		$(this.handle + ' section').empty().append(_t);
 		$(this.handle).on('click', '.toggle-storage', function () {

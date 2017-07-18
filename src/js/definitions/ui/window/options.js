@@ -22,13 +22,19 @@ civitas.WINDOW_OPTIONS = {
 		var self = this;
 		var handle = this.handle();
 		var core = this.core();
-		$(handle + ' .options-game').append(civitas.ui.tabs([civitas.l('Sounds'), civitas.l('UI'), civitas.l('Gameplay')]));
+		$(handle + ' .options-game').append(civitas.ui.tabs([civitas.l('Sounds'),
+			civitas.l('UI'), civitas.l('Gameplay')]));
 		$(handle + ' #tab-sounds').append('<div>' +
-			'<a href="#" class="music-control ui-control ' + ((core.get_settings('music') === true) ? 'on' : 'off') + '">' + civitas.l('toggle music') + '</a>' +
-			'<input class="music-volume" type="range" min="0" max="1" step="0.1" ' + ((core.get_settings('music') !== true) ? 'disabled' : '') + ' />' +
+			'<a href="#" class="music-control ui-control ' +
+			((core.get_settings('music') === true) ? 'on' : 'off') + '">' +
+			civitas.l('toggle music') + '</a>' +
+			'<input class="music-volume" type="range" min="0" max="1" step="0.1" ' +
+			((core.get_settings('music') !== true) ? 'disabled' : '') + ' />' +
 			'</div>');
 		$(handle + ' #tab-ui').append('<div>' +
-			'<a href="#" class="console-control ui-control ' + ((core.get_settings('console') === true) ? 'on' : 'off') + '">' + civitas.l('toggle console') + '</a>' +
+			'<a href="#" class="console-control ui-control ' +
+			((core.get_settings('console') === true) ? 'on' : 'off') + '">' +
+			civitas.l('toggle console') + '</a>' +
 			'</div>');
 		$(handle + ' .tabs').tabs();
 		$(handle).on('click', '.do-resume', function () {
@@ -61,7 +67,8 @@ civitas.WINDOW_OPTIONS = {
 						document.location.reload();
 					}
 				},
-				'Are you sure you want to restart the game? You wll lose all progress on the current game!',
+				'Are you sure you want to restart the game? You wll lose all progress ' +
+					'on the current game!',
 				'Civitas'
 			);
 			return false;

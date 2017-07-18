@@ -162,7 +162,8 @@ civitas.objects.settlement.prototype.has_coins = function(coins, alert) {
 	if (this.coins() - coins < 0) {
 		if (alert !== false) {
 			if (this.is_player()) {
-				this.core().error(this.name() + ' doesn`t have enough ' + civitas.utils.get_resource_name('coins') + '.');
+				this.core().error(this.name() + ' doesn`t have enough ' + 
+					civitas.utils.get_resource_name('coins') + '.');
 			}
 		}
 		return false;

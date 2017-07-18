@@ -59,7 +59,9 @@ civitas.game.prototype.process_action = function(id) {
 		}
 		switch (campaign.type) {
 			case civitas.CAMPAIGN_ARMY:
-				this.notify('The army sent from ' + settlement.name() + ' to ' + destination_settlement.name() + ' ' + campaign.duration + ' days ago reached its destination.');
+				this.notify('The army sent from ' + settlement.name() + ' to ' + 
+					destination_settlement.name() + ' ' + campaign.duration + 
+					' days ago reached its destination.');
 				if (!this.get_panel('battle')) {
 					this.open_window(civitas.WINDOW_BATTLE, {
 						source: campaign,
@@ -68,7 +70,9 @@ civitas.game.prototype.process_action = function(id) {
 				}
 				break;
 			case civitas.CAMPAIGN_ARMY_RETURN:
-				this.notify('The army sent from ' + destination_settlement.name() + ' to ' + settlement.name() + ' ' + (campaign.duration * 2) + ' days ago reached its home town.');
+				this.notify('The army sent from ' + destination_settlement.name() + 
+					' to ' + settlement.name() + ' ' + (campaign.duration * 2) + 
+					' days ago reached its home town.');
 				destination_settlement.merge_army(campaign.data.army);
 				destination_settlement.merge_navy(campaign.data.navy);
 				destination_settlement.merge_resources(campaign.data.resources);
@@ -77,49 +81,76 @@ civitas.game.prototype.process_action = function(id) {
 				if (typeof campaign.data.espionage !== 'undefined') {
 					switch (campaign.data.mission) {
 						case civitas.SPY_MISSION_RELIGION:
-							if (random <= Math.ceil(campaign.data.espionage / civitas.MAX_ESPIONAGE_SUCESS_RATE)) {
+							if (random <= Math.ceil(campaign.data.espionage / 
+								civitas.MAX_ESPIONAGE_SUCESS_RATE)) {
 								if (campaign.source.id === settlement.id()) {
 									destination_settlement.religion(campaign.data.religion);
 									var religion = destination_settlement.religion();
-									this.notify('The spy you sent ' + campaign.duration + ' days ago to ' + destination_settlement.name() + ' reached its destination and managed to convince the settlement council to change the religion to ' + religion.name + '.');
+									this.notify('The spy you sent ' + campaign.duration + 
+										' days ago to ' + destination_settlement.name() + 
+										' reached its destination and managed to convince the ' +
+										'settlement council to change the religion to ' + 
+										religion.name + '.');
 								} else if (campaign.destination.id === settlement.id()) {
 									destination_settlement = this.get_settlement(campaign.source.id);
 									settlement.religion(campaign.data.religio);
 									var religion = settlement.religion();
-									this.notify('The spy sent from ' + destination_settlement.name() + ' ' + campaign.duration + ' days ago to our city reached its destination and managed to convince your city council to change the religion to ' + religion.name + '.');
+									this.notify('The spy sent from ' + 
+										destination_settlement.name() + ' ' + campaign.duration + 
+										' days ago to our city reached its destination and ' +
+										'managed to convince your city council to change the ' +
+										'religion to ' + religion.name + '.');
 								}
 								failed = false;
 							}
 							break;
 						case civitas.SPY_MISSION_INFLUENCE:
-							if (random <= Math.ceil(campaign.data.espionage / civitas.MAX_ESPIONAGE_SUCESS_RATE)) {
+							if (random <= Math.ceil(campaign.data.espionage / 
+								civitas.MAX_ESPIONAGE_SUCESS_RATE)) {
 								if (campaign.source.id === settlement.id()) {
 									settlement.raise_influence(campaign.destination.id, amount);
-									this.notify('The spy you sent ' + campaign.duration + ' days ago to ' + destination_settlement.name() + ' reached its destination and increased your influence over this settlement.');
+									this.notify('The spy you sent ' + campaign.duration + 
+										' days ago to ' + destination_settlement.name() + 
+										' reached its destination and increased your influence ' +
+										'over this settlement.');
 								} else if (campaign.destination.id === settlement.id()) {
 									destination_settlement = this.get_settlement(campaign.source.id);
 									// TODO
-									//destination_settlement.raise_influence(campaign.destination.id, amount);
-									this.notify('The spy sent from ' + destination_settlement.name() + ' ' + campaign.duration + ' days ago to our city reached its destination and lowered your influence over this settlement.');
+									// destination_settlement.raise_influence(campaign.destination.id,
+									//	amount);
+									this.notify('The spy sent from ' +
+										destination_settlement.name() + ' ' + campaign.duration +
+										' days ago to our city reached its destination and ' +
+										'lowered your influence over this settlement.');
 								}
 								failed = false;
 							}
 							break;
 						case civitas.SPY_MISSION_STEAL_RESOURCES:
-							if (random <= Math.ceil(campaign.data.espionage / civitas.MAX_ESPIONAGE_SUCESS_RATE)) {
+							if (random <= Math.ceil(campaign.data.espionage /
+								civitas.MAX_ESPIONAGE_SUCESS_RATE)) {
 								// TODO
 								failed = false;
 							}
 							break;
 						case civitas.SPY_MISSION_INSTIGATE:
-							if (random <= Math.ceil(campaign.data.espionage / civitas.MAX_ESPIONAGE_SUCESS_RATE)) {
+							if (random <= Math.ceil(campaign.data.espionage /
+								civitas.MAX_ESPIONAGE_SUCESS_RATE)) {
 								if (campaign.source.id === settlement.id()) {
 									destination_settlement.lower_prestige(amount);
-									this.notify('The spy you sent ' + campaign.duration + ' days ago to ' + destination_settlement.name() + ' reached its destination and incited the population to revolt, therefore lowering the prestige of the city.');
+									this.notify('The spy you sent ' + campaign.duration +
+										' days ago to ' + destination_settlement.name() +
+										' reached its destination and incited the population to ' +
+										'revolt, therefore lowering the prestige of the city.');
 								} else if (campaign.destination.id === settlement.id()) {
-									destination_settlement = this.get_settlement(campaign.source.id);
+									destination_settlement =
+										this.get_settlement(campaign.source.id);
 									settlement.lower_prestige(amount);
-									this.notify('The spy sent from ' + destination_settlement.name() + ' ' + campaign.duration + ' days ago to our city reached its destination and incited our population to revolt, therefore lowering the prestige of our city.');
+									this.notify('The spy sent from ' +
+										destination_settlement.name() + ' ' + campaign.duration +
+										' days ago to our city reached its destination and ' +
+										'incited our population to revolt, therefore lowering ' +
+										'the prestige of our city.');
 								}
 								failed = false;
 							}
@@ -139,7 +170,9 @@ civitas.game.prototype.process_action = function(id) {
 						destination_settlement.add_to_storage(item, campaign.data.resources[item]);
 					}
 					settlement.raise_influence(campaign.destination.id, civitas.CARAVAN_INFLUENCE);
-					this.notify('The caravan sent from ' + settlement.name() + ' to ' + destination_settlement.name() + campaign.duration + ' days ago reached its destination.');
+					this.notify('The caravan sent from ' + settlement.name() + ' to ' +
+						destination_settlement.name() + campaign.duration + ' days ago reached ' +
+						'its destination.');
 				}
 				break;
 		}
@@ -147,9 +180,11 @@ civitas.game.prototype.process_action = function(id) {
 		if (failed === true) {
 			if (campaign.destination.id === this.get_settlement().id()) {
 				destination_settlement = this.get_settlement(campaign.source.id);
-				this.notify('The ' + class_name + ' sent by ' + destination_settlement.name() + ' ' + campaign.duration + ' days ago reached its destination.');
+				this.notify('The ' + class_name + ' sent by ' + destination_settlement.name() +
+					' ' + campaign.duration + ' days ago reached its destination.');
 			} else {
-				this.notify('The ' + class_name + ' you sent ' + campaign.duration + ' days ago to ' + destination_settlement.name() + ' reached its destination.');
+				this.notify('The ' + class_name + ' you sent ' + campaign.duration +
+					' days ago to ' + destination_settlement.name() + ' reached its destination.');
 			}
 		}
 		*/
@@ -178,7 +213,8 @@ civitas.game.prototype.process_action = function(id) {
 		}
 		if (failed === true) {
 			if (campaign.source.id === settlement.id()) {
-				this.notify('The proposal you sent ' + campaign.duration + ' days ago to ' + destination_settlement.name() + ' was accepted.');
+				this.notify('The proposal you sent ' + campaign.duration + ' days ago to ' +
+					destination_settlement.name() + ' was accepted.');
 			}
 		}
 	}
@@ -197,14 +233,17 @@ civitas.game.prototype.process_action = function(id) {
  * @param {Object} data
  * @returns {Object}
  */
-civitas.game.prototype.add_to_queue = function(source_settlement, destination_settlement, mode, type, data) {
+civitas.game.prototype.add_to_queue = function(source_settlement, destination_settlement,
+	mode, type, data) {
 	if (source_settlement.id() === this.get_settlement().id()) {
-		var s_loc = civitas['SETTLEMENT_LOCATION_' + source_settlement.climate().name.toUpperCase()];
+		var s_loc = civitas['SETTLEMENT_LOCATION_' +
+			source_settlement.climate().name.toUpperCase()];
 	} else {
 		var s_loc = civitas.SETTLEMENTS[source_settlement.id()].location;
 	}
 	if (destination_settlement.id() === this.get_settlement().id()) {
-		var d_loc = civitas['SETTLEMENT_LOCATION_' + destination_settlement.climate().name.toUpperCase()];
+		var d_loc = civitas['SETTLEMENT_LOCATION_' +
+			destination_settlement.climate().name.toUpperCase()];
 	} else {
 		var d_loc = civitas.SETTLEMENTS[destination_settlement.id()].location;
 	}
@@ -215,7 +254,8 @@ civitas.game.prototype.add_to_queue = function(source_settlement, destination_se
 				if (!source_settlement.can_recruit_soldiers()) {
 					return false;
 				}
-				var mission_costs = source_settlement.adjust_campaign_cost(civitas.ARMY_COSTS, duration);
+				var mission_costs = source_settlement.adjust_campaign_cost(civitas.ARMY_COSTS,
+					duration);
 				if (!source_settlement.has_resources(mission_costs)) {
 					return false;
 				}
@@ -233,9 +273,13 @@ civitas.game.prototype.add_to_queue = function(source_settlement, destination_se
 				}
 				source_settlement.diplomacy(destination_settlement.id(), civitas.DIPLOMACY_WAR);
 			}
-			this.notify('An army was sent from ' +  source_settlement.name() + ' to ' + destination_settlement.name() + ' and will reach its destination in ' + duration + ' days.');
+			this.notify('An army was sent from ' +  source_settlement.name() + ' to ' +
+				destination_settlement.name() + ' and will reach its destination in ' + duration +
+				' days.');
 		} else if (type === civitas.CAMPAIGN_ARMY_RETURN) {
-			this.notify('The army sent from ' + destination_settlement.name() + ' to ' + source_settlement.name() + ' ' + duration + ' days ago finished its campaign and will be returning home with the spoils of war.');
+			this.notify('The army sent from ' + destination_settlement.name() + ' to ' +
+				source_settlement.name() + ' ' + duration + ' days ago finished its campaign and ' +
+				'will be returning home with the spoils of war.');
 		} else if (type === civitas.CAMPAIGN_SPY) {
 			if (source_settlement.id() === this.get_settlement().id()) {
 				if (!source_settlement.can_diplomacy()) {
@@ -244,7 +288,8 @@ civitas.game.prototype.add_to_queue = function(source_settlement, destination_se
 				if (data.espionage > source_settlement.espionage()) {
 					return false;
 				}
-				var mission_costs = source_settlement.adjust_campaign_cost(civitas.SPY_COSTS, duration);
+				var mission_costs = source_settlement.adjust_campaign_cost(civitas.SPY_COSTS,
+					duration);
 				if (!source_settlement.has_resources(mission_costs)) {
 					return false;
 				}
@@ -256,13 +301,16 @@ civitas.game.prototype.add_to_queue = function(source_settlement, destination_se
 					source_settlement.reset_faith();
 				}
 			}
-			this.notify('A spy was dispatched from ' + source_settlement.name() + ' to ' + destination_settlement.name() + ' and will reach its destination in ' + duration + ' days.');
+			this.notify('A spy was dispatched from ' + source_settlement.name() + ' to ' +
+				destination_settlement.name() + ' and will reach its destination in ' + duration +
+				' days.');
 		} else if (type === civitas.CAMPAIGN_CARAVAN) {
 			if (source_settlement.id() === this.get_settlement().id()) {
 				if (!source_settlement.can_trade()) {
 					return false;
 				}
-				var mission_costs = source_settlement.adjust_campaign_cost(civitas.CARAVAN_COSTS, duration, data.resources);
+				var mission_costs = source_settlement.adjust_campaign_cost(civitas.CARAVAN_COSTS,
+					duration, data.resources);
 				if (!source_settlement.has_resources(mission_costs)) {
 					return false;
 				}
@@ -270,12 +318,16 @@ civitas.game.prototype.add_to_queue = function(source_settlement, destination_se
 					return false;
 				}
 			}
-			this.notify('A caravan was dispatched from ' + source_settlement.name() + ' to ' + destination_settlement.name() + ' and will reach its destination in ' + duration + ' days.');
+			this.notify('A caravan was dispatched from ' + source_settlement.name() + ' to ' +
+				destination_settlement.name() + ' and will reach its destination in ' + duration +
+				' days.');
 		}
 	} else if (mode === civitas.ACTION_DIPLOMACY) {
 		duration = Math.ceil(duration / 2);
 		if (source_settlement.id() === this.get_settlement().id()) {
-			this.notify('A diplomacy proposal was dispatched from ' + source_settlement.name() + ' to ' + destination_settlement.name() + ' and will reach its destination in ' + duration + ' days.');
+			this.notify('A diplomacy proposal was dispatched from ' + source_settlement.name() +
+				' to ' + destination_settlement.name() + ' and will reach its destination in ' +
+				duration + ' days.');
 		}
 	}
 	var action = {

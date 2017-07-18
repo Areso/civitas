@@ -36,12 +36,22 @@ civitas.PANEL_WORLD = {
 		var queue_actions = core.queue();
 		var class_name = '';
 		var loc = civitas['SETTLEMENT_LOCATION_' + settlement.climate().name.toUpperCase()];
-		var out = '<div data-name="yoursettlement" class="tips settlement c1" title="' + civitas.l('City of') + ' ' + settlement.name() + '" style="left:' + loc.x + 'px;top:' + loc.y + 'px"></div>';
+		var out = '<div data-name="yoursettlement" class="tips settlement c1" title="' +
+			civitas.l('City of') + ' ' + settlement.name() + '" style="left:' + loc.x + 'px;top:' +
+			loc.y + 'px"></div>';
 		for (var i = 1; i < settlements.length; i++) {
 			if (settlements[i].get_type() === civitas.CITY) {
-				out += '<div data-name="' + settlements[i].name() + '" class="tips settlement c' + civitas.SETTLEMENTS[settlements[i].id()].icon + '" title="' + civitas.l('City of') + ' ' + settlements[i].name() + '" style="left:' + civitas.SETTLEMENTS[settlements[i].id()].location.x + 'px;top:' + civitas.SETTLEMENTS[settlements[i].id()].location.y + 'px"></div>';
+				out += '<div data-name="' + settlements[i].name() + '" class="tips settlement c' +
+					civitas.SETTLEMENTS[settlements[i].id()].icon + '" title="' +
+					civitas.l('City of') + ' ' + settlements[i].name() + '" style="left:' +
+					civitas.SETTLEMENTS[settlements[i].id()].location.x + 'px;top:' +
+					civitas.SETTLEMENTS[settlements[i].id()].location.y + 'px"></div>';
 			} else {
-				out += '<div data-name="' + settlements[i].name() + '" class="tips settlement v1" title="' + civitas.l('Village of') + ' ' + settlements[i].name() + '" style="left:' + civitas.SETTLEMENTS[settlements[i].id()].location.x + 'px;top:' + civitas.SETTLEMENTS[settlements[i].id()].location.y + 'px"></div>';
+				out += '<div data-name="' + settlements[i].name() +
+					'" class="tips settlement v1" title="' + civitas.l('Village of') + ' ' +
+					settlements[i].name() + '" style="left:' +
+					civitas.SETTLEMENTS[settlements[i].id()].location.x + 'px;top:' +
+					civitas.SETTLEMENTS[settlements[i].id()].location.y + 'px"></div>';
 			}
 		}
 		for (var i = 0; i < queue_actions.length; i++) {
@@ -63,16 +73,25 @@ civitas.PANEL_WORLD = {
 			}
 			var _source = core.get_settlement(source.id);
 			var _destination = core.get_settlement(destination.id)
-			var x = source.x + Math.floor(((destination.x - source.x) / distance_in_days) * action.passed);
-			var y = source.y - Math.floor(((source.y - destination.y) / distance_in_days) * action.passed);
+			var x = source.x + Math.floor(((destination.x - source.x) /
+				distance_in_days) * action.passed);
+			var y = source.y - Math.floor(((source.y - destination.y) /
+				distance_in_days) * action.passed);
 			if (action.mode === civitas.ACTION_CAMPAIGN) {
 				if (action.type === civitas.CAMPAIGN_ARMY_RETURN) {
-					out += '<div data-id="' + i + '" class="tips ' + class_name + '" title="' + _destination.name() + ' army returning from ' + _source.name() + '." style="left:' + x + 'px;top:' + y + 'px"></div>';
+					out += '<div data-id="' + i + '" class="tips ' + class_name + '" title="' +
+						_destination.name() + ' army returning from ' + _source.name() +
+						'." style="left:' + x + 'px;top:' + y + 'px"></div>';
 				} else {
-					out += '<div data-id="' + i + '" class="tips ' + class_name + '" title="' + _source.name() + ' army marching to ' + _destination.name() + '." style="left:' + x + 'px;top:' + y + 'px"></div>';
+					out += '<div data-id="' + i + '" class="tips ' + class_name + '" title="' +
+						_source.name() + ' army marching to ' + _destination.name() +
+						'." style="left:' + x + 'px;top:' + y + 'px"></div>';
 				}
 			} else if (action.mode === civitas.ACTION_DIPLOMACY) {
-				out += '<div data-id="' + i + '" class="tips messenger" title="Diplomatic mission from ' + _source.name() + ' to ' + _destination.name() + '." style="left:' + x + 'px;top:' + y + 'px"></div>';
+				out += '<div data-id="' + i +
+					'" class="tips messenger" title="Diplomatic mission from ' + _source.name() +
+					' to ' + _destination.name() + '." style="left:' + x + 'px;top:' + y +
+					'px"></div>';
 			}
 		}
 		$(this.handle + ' section .worldmap').empty().append(out);

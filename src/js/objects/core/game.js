@@ -208,7 +208,9 @@ civitas.game = function () {
 		this.refresh();
 		$('#tab-blackmarket > .contents > table > tbody').empty();
 		if (total > 0) {
-			this.notify(this.get_settlement().name() + ' received <strong>' + total + '</strong> ' + civitas.utils.get_resource_name('coins') + ' from the Black Market for selling goods.', civitas.l('Black Market'));
+			this.notify(this.get_settlement().name() + ' received <strong>' + 
+				total + '</strong> ' + civitas.utils.get_resource_name('coins') + 
+				' from the Black Market for selling goods.', civitas.l('Black Market'));
 		}
 		return this;
 	};
@@ -251,7 +253,8 @@ civitas.game = function () {
 		this._setup_neighbours(data);
 		$('header .cityname').html(this.get_settlement().name());
 		$('header .cityavatar').css({
-			'background-image': 'url(' + civitas.ASSETS_URL + 'images/assets/avatars/avatar' + this.get_settlement().ruler().avatar + '.png)'
+			'background-image': 'url(' + civitas.ASSETS_URL + 
+				'images/assets/avatars/avatar' + this.get_settlement().ruler().avatar + '.png)'
 		});
 		this.refresh();
 		var seconds = 1;
@@ -439,7 +442,8 @@ civitas.game = function () {
 	this._do_monthly = function () {
 		this._date.day_of_month = 1;
 		this._date.month++;
-		if (this._date.month === 3 || this._date.month === 6 || this._date.month === 9 || this._date.month === 12) {
+		if (this._date.month === 3 || this._date.month === 6 || 
+			this._date.month === 9 || this._date.month === 12) {
 			this._do_quarterly();
 		}
 		if (this._date.month === 6 || this._date.month === 12) {
@@ -498,7 +502,8 @@ civitas.game = function () {
 				}
 			}
 		}
-		this.notify('World Market trades have been refreshed, settlements are looking to make new purchases and sales.', civitas.l('World Market'));
+		this.notify('World Market trades have been refreshed, settlements are looking to ' +
+			'make new purchases and sales.', civitas.l('World Market'));
 		return this;
 	};
 
@@ -514,16 +519,25 @@ civitas.game = function () {
 			if (typeof settlements[i] !== 'undefined') {
 				if (settlements[i].is_city()) {
 					if (this.get_settlement().religion().id === settlements[i].religion().id) {
-						this.get_settlement().raise_influence(settlements[i].id(), civitas.YEARLY_INFLUENCE_GAIN);
-					} else if ((this.get_settlement().get_diplomacy_status(settlements[i].id()) === civitas.DIPLOMACY_VASSAL) || (this.get_settlement().get_diplomacy_status(settlements[i].id()) === civitas.DIPLOMACY_ALLIANCE)) {
+						this.get_settlement().raise_influence(settlements[i].id(), 
+							civitas.YEARLY_INFLUENCE_GAIN);
+					} else if ((this.get_settlement().get_diplomacy_status(settlements[i].id()) ===
+							civitas.DIPLOMACY_VASSAL) || 
+						(this.get_settlement().get_diplomacy_status(settlements[i].id()) === 
+							civitas.DIPLOMACY_ALLIANCE)) {
 						this.get_settlement().raise_influence(settlements[i].id());
 					} else {
-						this.get_settlement().lower_influence(settlements[i].id(), civitas.YEARLY_INFLUENCE_LOSS);
+						this.get_settlement().lower_influence(settlements[i].id(), 
+							civitas.YEARLY_INFLUENCE_LOSS);
 					}
 				} else {
 					if (this.get_settlement().religion().id === settlements[i].religion().id) {
-						this.get_settlement().raise_influence(settlements[i].id(), civitas.YEARLY_INFLUENCE_GAIN);
-					} else if ((this.get_settlement().get_diplomacy_status(settlements[i].id()) === civitas.DIPLOMACY_VASSAL) || (this.get_settlement().get_diplomacy_status(settlements[i].id()) === civitas.DIPLOMACY_ALLIANCE)) {
+						this.get_settlement().raise_influence(settlements[i].id(), 
+							civitas.YEARLY_INFLUENCE_GAIN);
+					} else if ((this.get_settlement().get_diplomacy_status(settlements[i].id()) ===
+							civitas.DIPLOMACY_VASSAL) || 
+						(this.get_settlement().get_diplomacy_status(settlements[i].id()) === 
+							civitas.DIPLOMACY_ALLIANCE)) {
 						this.get_settlement().raise_influence(settlements[i].id());
 					}
 				}
@@ -552,7 +566,8 @@ civitas.game = function () {
 	 * @returns {String}
 	 */
 	this.format_date = function () {
-		return 'day ' + this._date.day_of_month + ' month ' + this._date.month + ' year ' + this._date.year;
+		return 'day ' + this._date.day_of_month + ' month ' + this._date.month + ' year ' + 
+			this._date.year;
 	};
 
 	/**
@@ -564,9 +579,11 @@ civitas.game = function () {
 	this.calc_storage = function () {
 		var storage = this.get_settlement().storage();
 		if (storage.occupied >= storage.all) {
-			this.error('You ran out of storage space and all goods produced will be lost. Upgrade your warehouse or marketplace.', 'No storage space');
+			this.error('You ran out of storage space and all goods produced will be lost. ' +
+				'Upgrade your warehouse or marketplace.', 'No storage space');
 		} else if ((storage.all - storage.occupied) < 100) {
-			this.error('You will soon run out of storage space and all goods produced will be lost. Upgrade your warehouse or marketplace.', 'Storage nearly full');
+			this.error('You will soon run out of storage space and all goods produced will be ' +
+				'lost. Upgrade your warehouse or marketplace.', 'Storage nearly full');
 		}
 		return storage;
 	};

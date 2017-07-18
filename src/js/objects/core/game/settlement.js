@@ -160,7 +160,8 @@ civitas.game.prototype._setup_neighbours = function (data) {
 		for (var item in civitas.SETTLEMENTS) {
 			item = parseInt(item);
 			settlement_data = civitas.SETTLEMENTS[item];
-			settlement_data.type = typeof settlement_data.type === 'undefined' || settlement_data.type === civitas.CITY ? civitas.CITY : civitas.VILLAGE;
+			settlement_data.type = typeof settlement_data.type === 'undefined' ||
+				settlement_data.type === civitas.CITY ? civitas.CITY : civitas.VILLAGE;
 			if (settlement_data.type === civitas.VILLAGE) {
 				ruler = {
 					title: 'Mayor',
@@ -182,7 +183,8 @@ civitas.game.prototype._setup_neighbours = function (data) {
 					player: false,
 					level: settlement_data.level,
 					religion: settlement_data.religion,
-					climate: settlement_data.type === civitas.CITY ? settlement_data.climate : civitas.CLIMATE_TEMPERATE,
+					climate: settlement_data.type === civitas.CITY ?
+						settlement_data.climate : civitas.CLIMATE_TEMPERATE,
 					ruler: ruler,
 					icon: settlement_data.type === civitas.CITY ? settlement_data.icon : 1
 				},

@@ -282,9 +282,12 @@ civitas.objects.settlement.prototype.recruit_mercenary_army = function(name) {
 			}
 			this._mercenary.push(army);
 			if (this.is_player()) {
-				this.core().notify('The mercenaries of the ' + civitas.MERCENARIES[i].name + ' are now available for skirmish missions for the duration of one year.', 'Mercenaries recruited.');
+				this.core().notify('The mercenaries of the ' + civitas.MERCENARIES[i].name + 
+					' are now available for skirmish missions for the duration of one year.', 
+					'Mercenaries recruited.');
 			} else {
-				this.core().log('The city of ' + this.name() + ' hired the mercenaries of ' + civitas.MERCENARIES[i].name + '.');
+				this.core().log('The city of ' + this.name() + ' hired the mercenaries of ' + 
+					civitas.MERCENARIES[i].name + '.');
 			}
 			this.core().save_and_refresh();
 			return true;
@@ -404,7 +407,8 @@ civitas.objects.settlement.prototype.set_army = function(value) {
 civitas.objects.settlement.prototype.release_mercenaries = function() {
 	this._mercenary = [];
 	if (this.is_player()) {
-		this.core().notify('At the end of the year, mercenaries from your city have been released.');
+		this.core().notify('At the end of the year, mercenaries from your city have ' +
+			'been released.');
 	}
 	return this;
 };

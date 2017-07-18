@@ -157,7 +157,8 @@ civitas.LEVELS = [
  * @constant
  * @type {String}
  */
-civitas.VERSION = '0.2.0.' + ((new Date()).getMonth() + 1) + '' + (new Date()).getDate() + '' + (new Date()).getFullYear();
+civitas.VERSION = '0.2.0.' + ((new Date()).getMonth() + 1) + '' + (new Date()).getDate() + '' + 
+	(new Date()).getFullYear();
 
 /**
  * Whether the application is in debug mode.

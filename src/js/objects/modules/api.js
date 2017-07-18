@@ -140,7 +140,8 @@ civitas.modules.api = function (params) {
 			type: (typeof data.requestType !== 'undefined') ? data.requestType : 'POST',
 			dataType: typeof data.dataType !== 'undefined' ? data.dataType : 'jsonp',
 			xhrFields: {
-				withCredentials: (typeof data.auth === 'undefined' || data.auth === true) ? true : false
+				withCredentials: (typeof data.auth === 'undefined' || data.auth === true) ? 
+					true : false
 			},
 			crossDomain: true,
 			data: data.data,
