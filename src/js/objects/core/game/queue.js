@@ -92,7 +92,8 @@ civitas.game.prototype.process_action = function(id) {
 										'settlement council to change the religion to ' + 
 										religion.name + '.');
 								} else if (campaign.destination.id === settlement.id()) {
-									destination_settlement = this.get_settlement(campaign.source.id);
+									destination_settlement =
+										this.get_settlement(campaign.source.id);
 									settlement.religion(campaign.data.religio);
 									var religion = settlement.religion();
 									this.notify('The spy sent from ' + 
@@ -114,10 +115,11 @@ civitas.game.prototype.process_action = function(id) {
 										' reached its destination and increased your influence ' +
 										'over this settlement.');
 								} else if (campaign.destination.id === settlement.id()) {
-									destination_settlement = this.get_settlement(campaign.source.id);
+									destination_settlement =
+										this.get_settlement(campaign.source.id);
 									// TODO
-									// destination_settlement.raise_influence(campaign.destination.id,
-									//	amount);
+									// destination_settlement.raise_influence(
+									//	campaign.destination.id, amount);
 									this.notify('The spy sent from ' +
 										destination_settlement.name() + ' ' + campaign.duration +
 										' days ago to our city reached its destination and ' +

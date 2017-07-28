@@ -8,7 +8,9 @@ civitas.PANEL_COUNCIL = {
 	id: 'council',
 	on_show: function(params) {
 		var core = this.core();
-		$(this.handle + ' section').append(civitas.ui.tabs([civitas.l('Info'), civitas.l('Tips'), civitas.l('Production'), civitas.l('Housing'), civitas.l('Municipal'), civitas.l('Mercenary'), civitas.l('Achievements')]));
+		$(this.handle + ' section').append(civitas.ui.tabs([civitas.l('Info'), 
+			civitas.l('Tips'), civitas.l('Production'), civitas.l('Housing'), 
+			civitas.l('Municipal'), civitas.l('Mercenary'), civitas.l('Achievements')]));
 		var _t = '<div class="achievements-list">';
 		for (var i = 0; i < civitas.ACHIEVEMENTS.length; i++) {
 			_t += '<div data-id="' + i + '" class="achievement">' +
@@ -44,7 +46,8 @@ civitas.PANEL_COUNCIL = {
 						core.save_and_refresh();
 					}
 				},
-				'Are you sure you want to release this mercenary army? You won`t be able to use them anymore!'
+				'Are you sure you want to release this mercenary army? ' +
+					'You won`t be able to use them anymore!'
 			);
 			return false;
 		}).on('click', '.building-info', function() {
@@ -98,40 +101,58 @@ civitas.PANEL_COUNCIL = {
 			faith: 0
 		}
 		var mercenary = settlement.mercenary();
-		var _t = '<p>' + civitas.l('Mercenary armies are available to hire for a fixed price, they do not cost additional resources but they are only available for raiding and campaign missions, they do not participate in the defense of your city.') + '</p>' +
-				'<p>' + civitas.l('Also, keep in mind that once a mercenary army is hired, they are at your disposal until the end of the current year.') + '</p>' +
-				'<div class="hired-mercenaries-list">';
+		var _t = '<p>' + civitas.l('Mercenary armies are available to hire for a fixed price, ' +
+				'they do not cost additional resources but they are only available for raiding ' +
+				'and campaign missions, they do not participate in the defense of your city.') + 
+			'</p>' +
+			'<p>' + civitas.l('Also, keep in mind that once a mercenary army is hired, they ' +
+				'are at your disposal until the end of the current year.') + '</p>' +
+			'<div class="hired-mercenaries-list">';
 		if (mercenary.length > 0) {
 			_t += '<table class="normal">';
 			for (var i = 0; i < mercenary.length; i++) {
 				army_data = civitas.MERCENARIES[mercenary[i].id];
 				_t += '<tr>' +
 						'<td class="icon">' +
-							'<img src="' + civitas.ASSETS_URL + 'images/assets/emblems/' + army_data.icon + '.png" />' +
+							'<img src="' + civitas.ASSETS_URL + 'images/assets/emblems/' + 
+								army_data.icon + '.png" />' +
 						'</td>' +
 						'<td>' +
 							'<p class="title">' + army_data.name + '</p>' +
 							'<p class="description">' + army_data.description + '</p>' +
 						'</td>' +
 						'<td class="large">' +
-							'<a title="' + civitas.l('View info on this mercenary army.') + '" data-id="' + mercenary[i].id + '" class="tips view-merc" href="#">' + civitas.l('view') + '</a> ' +
-							'<a title="' + civitas.l('Send this mercenary army on a raiding mission towards a specific settlement.') + '" data-id="' + i + '" class="tips raid-merc" href="#">' + civitas.l('raid') + '</a> ' +
-							'<a title="' + civitas.l('Disband this mercenary army? They will be available for hire later when you need them.') + '" data-id="' + i + '" class="tips disband-merc" href="#">' + civitas.l('release') + '</a>' +
+							'<a title="' + civitas.l('View info on this mercenary army.') + 
+							'" data-id="' + mercenary[i].id + 
+							'" class="tips view-merc" href="#">' + civitas.l('view') +
+							'</a> ' +
+							'<a title="' + civitas.l('Send this mercenary army on a raiding ' +
+							'mission towards a specific settlement.') + '" data-id="' + i + 
+							'" class="tips raid-merc" href="#">' + civitas.l('raid') + '</a> ' +
+							'<a title="' + civitas.l('Disband this mercenary army? They will ' +
+							'be available for hire later when you need them.') + '" data-id="' + 
+							i + '" class="tips disband-merc" href="#">' + civitas.l('release') + 
+							'</a>' +
 						'</td>' +
 					'</tr>';
 
 			}
 			_t += '</table>';
 		} else {
-			_t += '<p>' + civitas.l('You have no mercenary armies hired for your city. Go to the World Market Trades and hire one.') + '</p>';
+			_t += '<p>' + civitas.l('You have no mercenary armies hired for your city. ' +
+				'Go to the World Market Trades and hire one.') + '</p>';
 		}
 		_t += '</div>';
 		$(this.handle + ' #tab-mercenary').empty().append(_t);
 		for (var f = 0; f < achievements.length; f++) {
 			$(this.handle + ' .achievement[data-id=' + achievements[f].id + ']').addClass('has');
-			$(this.handle + ' .achievement[data-id=' + achievements[f].id + '] .time').attr("title", achievements[f].date).html('<strong>' + civitas.utils.time_since(achievements[f].date) + '</strong> ago');
+			$(this.handle + ' .achievement[data-id=' + achievements[f].id + '] .time')
+				.attr("title", achievements[f].date)
+				.html('<strong>' + civitas.utils.time_since(achievements[f].date) + 
+					'</strong> ago');
 		}
-		_t = '<img class="avatar" src="' + civitas.ASSETS_URL + 'images/assets/avatars/avatar' + settlement.ruler().avatar + '.png" />' +
+		_t = '<img class="avatar" src="' + civitas.ASSETS_URL + 'images/assets/avatars/avatar' + 
+			settlement.ruler().avatar + '.png" />' +
 				'<dl>' +
 				'<dt>' + civitas.l('Current date') + '</dt><dd class="citydate">' + core.format_date() + '</dd>' +
 				'<dt>' + civitas.l('Ruler') + '</dt><dd>' + settlement.ruler().name + '</dd>' +
@@ -141,7 +162,7 @@ civitas.PANEL_COUNCIL = {
 				'<dt>' + civitas.l('Population') + '</dt><dd>' + civitas.utils.nice_numbers(settlement.population()) + '</dd>' +
 				'<dt>' + civitas.l('Religion') + '</dt><dd>' + settlement.religion().name + '</dd>' +
 				'<dt>' + civitas.l('Level') + '</dt><dd>' + civitas.ui.progress((settlement.level() * 100) / civitas.MAX_SETTLEMENT_LEVEL, 'small', settlement.level()) + '</dd>' +
-				'<dt>' + civitas.l('Fame') + '</dt><dd>' + civitas.ui.progress((settlement.fame() * 100) / civitas.LEVELS[civitas.MAX_SETTLEMENT_LEVEL - 1], 'small', civitas.utils.nice_numbers(settlement.fame()) + ' / ' + civitas.utils.nice_numbers(civitas.LEVELS[settlement.level()])) + '</dd>' +
+				'<dt>' + civitas.l('Fame') + '</dt><dd>' + civitas.ui.progress((settlement.fame() * 100) / civitas.LEVELS[settlement.level()], 'small', civitas.utils.nice_numbers(settlement.fame()) + ' / ' + civitas.utils.nice_numbers(civitas.LEVELS[settlement.level()])) + '</dd>' +
 				'<dt>' + civitas.l('Prestige') + '</dt><dd>' + civitas.ui.progress((settlement.prestige() * 100) / civitas.MAX_PRESTIGE_VALUE, 'small', settlement.prestige()) + '</dd>' +
 				'<dt>' + civitas.l('Espionage') + '</dt><dd>' + civitas.ui.progress((settlement.espionage() * 100) / civitas.MAX_ESPIONAGE_VALUE, 'small', settlement.espionage()) + '</dd>' +
 				'<dt>' + civitas.l('Faith') + '</dt><dd>' + civitas.ui.progress((settlement.faith() * 100) / civitas.MAX_FAITH_VALUE, 'small', settlement.faith()) + '</dd>' +
@@ -161,7 +182,8 @@ civitas.PANEL_COUNCIL = {
 			'<thead>' +
 				'<tr>' +
 					'<td></td>' +
-					'<td class="tips center" title="' + civitas.l('Current level / Maximum level') + '">' + civitas.l('Level') + '</td>' +
+					'<td class="tips center" title="' + civitas.l('Current level / Maximum level') +
+					'">' + civitas.l('Level') + '</td>' +
 					'<td>' + civitas.l('Raises') + '</td>' +
 					'<td>' + civitas.l('Uses') + '</td>' +
 				'</tr>' +
