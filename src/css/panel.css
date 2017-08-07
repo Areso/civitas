@@ -511,8 +511,8 @@
 #panel-tavern,
 #panel-academy {
 	max-height: 600px;
-	max-width: 600px;
-	width: 600px;
+	max-width: 620px;
+	width: 620px;
 }
 
 #panel-embassy {
@@ -523,8 +523,8 @@
 
 #panel-church {
 	max-height: 600px;
-	max-width: 582px;
-	width: 582px;
+	max-width: 620px;
+	width: 620px;
 }
 
 .ui .panel .section {

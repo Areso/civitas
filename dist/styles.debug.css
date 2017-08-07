@@ -2,7 +2,7 @@
  * Civitas empire-building game.
  *
  * @author sizeof(cat) <sizeofcat AT riseup.net>
- * @version 0.2.0.7282017
+ * @version 0.2.0.872017
  * @license MIT
  */ /* Game animations */
 
@@ -1499,8 +1499,8 @@ table tr td:last-child a:hover,
 #panel-tavern,
 #panel-academy {
 	max-height: 600px;
-	max-width: 600px;
-	width: 600px;
+	max-width: 620px;
+	width: 620px;
 }
 
 #panel-embassy {
@@ -1511,8 +1511,8 @@ table tr td:last-child a:hover,
 
 #panel-church {
 	max-height: 600px;
-	max-width: 582px;
-	width: 582px;
+	max-width: 620px;
+	width: 620px;
 }
 
 .ui .panel .section {

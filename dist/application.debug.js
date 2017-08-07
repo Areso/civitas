@@ -2,7 +2,7 @@
  * Civitas empire-building game.
  *
  * @author sizeof(cat) <sizeofcat AT riseup.net>
- * @version 0.2.0.7282017
+ * @version 0.2.0.872017
  * @license MIT
  */ 'use strict';
 
@@ -6915,6 +6915,374 @@ civitas.ACHIEVEMENTS = [
 	}
 ];
 
+/*
+ * Item types
+ *
+ */
+
+civitas.ITEM_TYPE_ARMOR = 1;
+
+civitas.ITEM_TYPE_WEAPON = 2;
+
+civitas.ITEM_TYPE_DRINK = 3;
+
+/*
+ * Armor types
+ *
+ */
+
+civitas.ARMOR_TYPE_CLOTH = 0;
+
+civitas.ARMOR_TYPE_LEATHER = 1;
+
+civitas.ARMOR_TYPE_MAIL = 2;
+
+civitas.ARMOR_TYPE_PLATE = 3;
+
+/*
+ * Weapon types
+ *
+ */
+
+civitas.WEAPON_TYPE_MELEE = 0;
+
+civitas.WEAPON_TYPE_RANGED = 1;
+
+/*
+ * Ranged weapon types
+ *
+ */
+
+civitas.WEAPON_TYPE_RANGED_BOW = 0;
+
+civitas.WEAPON_TYPE_RANGED_CROSSBOW = 1;
+
+civitas.WEAPON_TYPE_RANGED_GUN = 2;
+
+civitas.WEAPON_TYPE_RANGED_THROWN = 3;
+
+/*
+ * Melee weapon types
+ *
+ */
+
+civitas.WEAPON_TYPE_MELEE_DAGGER = 0;
+
+civitas.WEAPON_TYPE_MELEE_AXE_ONE_HAND = 1;
+
+civitas.WEAPON_TYPE_MELEE_AXE_TWO_HAND = 2;
+
+civitas.WEAPON_TYPE_MELEE_FIST = 3;
+
+civitas.WEAPON_TYPE_MELEE_MACE_ONE_HAND = 4;
+
+civitas.WEAPON_TYPE_MELEE_MACE_TWO_HAND = 5;
+
+civitas.WEAPON_TYPE_MELEE_POLEARM = 6;
+
+civitas.WEAPON_TYPE_MELEE_STAFF = 7;
+
+civitas.WEAPON_TYPE_MELEE_SWORD_ONE_HAND = 8;
+
+civitas.WEAPON_TYPE_MELEE_SWORD_TWO_HAND = 9;
+
+/*
+ * Item quality
+ *
+ */
+
+civitas.ITEM_QUALITY_COMMON = 1;
+
+civitas.ITEM_QUALITY_COMMON_COLOR = '#ffffff';
+
+civitas.ITEM_QUALITY_RARE = 3;
+
+civitas.ITEM_QUALITY_RARE_COLOR = '#0070ff';
+
+civitas.ITEM_QUALITY_EPIC = 4;
+
+civitas.ITEM_QUALITY_EPIC_COLOR = '#a335ee';
+
+civitas.ITEM_QUALITY_LEGENDARY = 5;
+
+civitas.ITEM_QUALITY_LEGENDARY_COLOR = '#ff8000';
+
+/*
+ * Item slots
+ *
+ */
+
+civitas.ITEM_SLOT_HEAD = 1;
+
+civitas.ITEM_SLOT_NECK = 2;
+
+civitas.ITEM_SLOT_CHEST = 3;
+
+civitas.ITEM_SLOT_SHOULDER = 4;
+
+civitas.ITEM_SLOT_LEGS = 5;
+
+civitas.ITEM_SLOT_HANDS = 6;
+
+civitas.ITEM_SLOT_FEET = 7;
+
+civitas.ITEM_SLOT_WAIST = 8;
+
+civitas.ITEM_SLOT_RING = 9;
+
+civitas.ITEM_SLOT_MAIN_HAND = 10;
+
+civitas.ITEM_SLOT_OFF_HAND = 11;
+
+civitas.ITEM_SLOT_ANY_HAND = 12;
+
+/*
+ * Random items
+ *
+ */
+
+civitas.RANDOM_UNCOMMON = [
+	{
+		name: 'ITEM of Spirit',
+		stats: {
+			spirit: 0
+		}
+	},
+	{
+		name: 'ITEM of Intellect',
+		stats: {
+			intellect: 0
+		}
+	},
+	{
+		name: 'ITEM of Strength',
+		stats: {
+			strength: 0
+		}
+	},
+	{
+		name: 'ITEM of Stamina',
+		stats: {
+			spirit: 0
+		}
+	},
+	{
+		name: 'ITEM of Agility',
+		stats: {
+			agility: 0
+		}
+	},
+	{
+		name: 'ITEM of the Tiger',
+		stats: {
+			strength: 0,
+			agility: 0
+		}
+	},
+	{
+		name: 'ITEM of the Bear',
+		stats: {
+			strength: 0,
+			stamina: 0
+		}
+	},
+	{
+		name: 'ITEM of the Gorilla',
+		stats: {
+			strength: 0,
+			intellect: 0
+		}
+	},
+	{
+		name: 'ITEM of the Boar',
+		stats: {
+			strength: 0,
+			spirit: 0
+		}
+	},
+	{
+		name: 'ITEM of the Monkey',
+		stats: {
+			agility: 0,
+			stamina: 0
+		}
+	},
+	{
+		name: 'ITEM of the Falcon',
+		stats: {
+			agility: 0,
+			intellect: 0
+		}
+	},
+	{
+		name: 'ITEM of the Wolf',
+		stats: {
+			agility: 0,
+			spirit: 0
+		}
+	},
+	{
+		name: 'ITEM of the Eagle',
+		stats: {
+			stamina: 0,
+			intellect: 0
+		}
+	},
+	{
+		name: 'ITEM of the Whale',
+		stats: {
+			stamina: 0,
+			spirit: 0
+		}
+	},
+	{
+		name: 'ITEM of the Owl',
+		stats: {
+			intellect: 0,
+			spirit: 0
+		}
+	},
+	{
+		name: 'ITEM of the Bandit',
+		stats: {
+			agility: 0,
+			stamina: 0,
+			attackPower: 0
+		}
+	},
+	{
+		name: 'ITEM of the Beast',
+		stats: {
+			agility: 0,
+			strength: 0,
+			stamina: 0
+		}
+	}
+];
+
+/*
+ * Weapon items
+ *
+ */
+
+civitas.ITEM_WEAPON_DAGGER_WICKED = {
+	name: 'Wicked Dagger',
+	id: 100,
+	stats: {
+		damageMin: 0,
+		damageMax: 2,
+		speed: 1.60
+	},
+	slot: civitas.ITEM_SLOT_ANY_HAND,
+	type: civitas.WEAPON_TYPE_MELEE,
+	quality: civitas.ITEM_QUALITY_COMMON,
+	cost: 1
+};
+
+civitas.ITEM_WEAPON_DAGGER_DIRK = {
+	name: 'Wicked Dirk',
+	id: 101,
+	stats: {
+		damageMin: 1,
+		damageMax: 3,
+		speed: 1.60
+	},
+	slot: civitas.ITEM_SLOT_ANY_HAND,
+	type: civitas.WEAPON_TYPE_MELEE,
+	quality: civitas.ITEM_QUALITY_COMMON,
+	cost: 1.2
+};
+
+civitas.ITEM_WEAPON_AXE_SMALL = {
+	name: 'Small Axe',
+	id: 102,
+	stats: {
+		damageMin: 3,
+		damageMax: 10,
+		speed: 1.60
+	},
+	slot: civitas.ITEM_SLOT_ANY_HAND,
+	type: civitas.WEAPON_TYPE_MELEE,
+	quality: civitas.ITEM_QUALITY_COMMON,
+	cost: 2.2
+};
+
+civitas.ITEM_WEAPON_SWORD_SMALL = {
+	name: 'Small Sword',
+	id: 103,
+	stats: {
+		damageMin: 2,
+		damageMax: 4,
+		speed: 1.60
+	},
+	slot: civitas.ITEM_SLOT_ANY_HAND,
+	type: civitas.WEAPON_TYPE_MELEE,
+	quality: civitas.ITEM_QUALITY_COMMON,
+	cost: 2.2
+};
+
+civitas.ITEM_WEAPON_BUCKLER_SMALL = {
+	name: 'Small Buckler',
+	id: 104,
+	stats: {
+		armor: 10
+	},
+	slot: civitas.ITEM_SLOT_OFF_HAND,
+	quality: civitas.ITEM_QUALITY_COMMON,
+	cost: 2.2
+};
+
+/*
+ * List of in-game heroes.
+ *
+ */
+
+civitas.HEROES = {
+	1: {
+		name: 'Achilles',
+		description: 'Achilles is a Greek hero of the Trojan War and the central character and ' +
+			'greatest warrior of Homer`s Iliad. His mother is the immortal nymph Thetis, and ' +
+			'his father, the mortal Peleus, is the king of the Myrmidons.',
+		price: 5000000,
+		stats: {
+			strength: 10,
+			stamina: 10,
+			spirit: 5,
+			intellect: 7
+		},
+		items: []
+	},
+	2: {
+		name: 'Hector',
+		description: 'In Greek mythology and Roman Mythology, Hector is a Trojan prince and ' +
+			'the greatest fighter for Troy in the Trojan War. As the first-born son of King ' +
+			'Priam and Queen Hecuba, who was a descendant of Dardanus and Tros, the founder ' +
+			'of Troy, he is a prince of the royal house and the heir apparent to his father`s ' +
+			'throne.',
+		price: 4000000,
+		stats: {
+			strength: 8,
+			stamina: 10,
+			spirit: 4,
+			intellect: 6
+		},
+		items: []
+	},
+	3: {
+		name: 'Hannibal',
+		description: 'Hannibal Barca is a Carthaginian general, considered one of the greatest ' +
+			'military commanders in history.',
+		price: 3000000,
+		stats: {
+			strength: 7,
+			stamina: 7,
+			spirit: 2,
+			intellect: 9
+		},
+		items: []
+	}
+};
+
 /**
  * Utils object.
  */
@@ -10423,8 +10791,8 @@ civitas.objects.building = function(params) {
 					$('section.game .building[data-type=' + this.get_type() + ']').css({
 						'background-image': 'url(' + civitas.ASSETS_URL +
 							'images/assets/buildings/' + ((typeof data.visible_upgrades ===
-								'undefined' || data.visible_upgrades === false) ? building_image +
-							'1' : building_image + this.get_level()) + '.png)'
+								'undefined' || data.visible_upgrades === false) ? building_image :
+								building_image + this.get_level()) + '.png)'
 					});
 				}
 				if (typeof data.storage !== 'undefined') {
@@ -11961,6 +12329,67 @@ civitas.objects.battleground = function (params) {
 			});
 		}
 		return this;
+	};
+
+	// Fire up the constructor
+	return this.__init(params);
+};
+
+/**
+ * Hero object.
+ * 
+ * @param {Object} params
+ * @class {civitas.objects.hero}
+ * @returns {civitas.objects.hero}
+ */
+civitas.objects.hero = function (params) {
+
+	/**
+	 * Reference to the core object.
+	 *
+	 * @private
+	 * @type {civitas.game}
+	 */
+	this._core = null;
+
+	/**
+	 * Name of the hero.
+	 *
+	 * @private
+	 * @type {String}
+	 */
+	this._name = null;
+
+	/**
+	 * Description of the hero.
+	 *
+	 * @private
+	 * @type {String}
+	 */
+	this._description = null;
+
+	/**
+	 * Object constructor.
+	 * 
+	 * @private
+	 * @returns {civitas.objects.hero}
+	 * @param {Object} params
+	 */
+	this.__init = function (params) {
+		this._core = params.core;
+		this._name = params.name;
+		this._description = params.description;
+		return this;
+	};
+
+	/**
+	 * Return a pointer to the game core.
+	 * 
+	 * @public
+	 * @returns {civitas.game}
+	 */
+	this.core = function() {
+		return this._core;
 	};
 
 	// Fire up the constructor

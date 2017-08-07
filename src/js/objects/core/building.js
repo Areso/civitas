@@ -196,8 +196,8 @@ civitas.objects.building = function(params) {
 					$('section.game .building[data-type=' + this.get_type() + ']').css({
 						'background-image': 'url(' + civitas.ASSETS_URL +
 							'images/assets/buildings/' + ((typeof data.visible_upgrades ===
-								'undefined' || data.visible_upgrades === false) ? building_image +
-							'1' : building_image + this.get_level()) + '.png)'
+								'undefined' || data.visible_upgrades === false) ? building_image :
+								building_image + this.get_level()) + '.png)'
 					});
 				}
 				if (typeof data.storage !== 'undefined') {
