@@ -2,7 +2,7 @@
  * Civitas empire-building game.
  *
  * @author sizeof(cat) <sizeofcat AT riseup.net>
- * @version 0.2.0.872017
+ * @version 0.2.0.882017
  * @license MIT
  */ 'use strict';
 
@@ -7011,6 +7011,8 @@ civitas.ITEM_QUALITY_LEGENDARY_COLOR = '#ff8000';
  * Item slots
  *
  */
+
+civitas.ITEM_SLOT_NONE = 0;
 
 civitas.ITEM_SLOT_HEAD = 1;
 
@@ -17629,11 +17631,17 @@ civitas.PANEL_TAVERN = {
 	},
 	on_refresh: function() {
 		var core = this.core();
+		var _t = '';
 		var building = core.get_settlement().get_building(this.params_data.handle);
 		if (building) {
+			$(this.handle + ' #tab-heroes').empty().append('<div class="column hero-list"></div>' +
+				'<div class="column hero-info"></div>');
 			$(this.handle + ' #tab-info').empty()
 				.append(civitas.ui.building_panel(this.params_data, building.get_level()));
-			$(this.handle + ' #tab-heroes').empty().append('<p>Not implemented yet.</p>');
+			for (var item in civitas.HEROES) {
+				_t += '<p>' + civitas.HEROES[item].name + '</p>';
+			}
+			$(this.handle + ' .hero-list').empty().append(_t);
 		}
 	}
 };

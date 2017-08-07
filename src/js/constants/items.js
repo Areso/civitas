@@ -95,6 +95,8 @@ civitas.ITEM_QUALITY_LEGENDARY_COLOR = '#ff8000';
  *
  */
 
+civitas.ITEM_SLOT_NONE = 0;
+
 civitas.ITEM_SLOT_HEAD = 1;
 
 civitas.ITEM_SLOT_NECK = 2;

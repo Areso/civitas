@@ -12,7 +12,7 @@ civitas.API_VERSION = '0.2.0';
  * @constant
  * @type {String}
  */
-civitas.API_ENTRY_POINT = 'http://civitas.dev/api/';
+civitas.API_ENTRY_POINT = 'http://civitas.development/api/';
 
 /**
  * Main Game API entry point + the API version
