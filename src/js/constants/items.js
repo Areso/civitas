@@ -7,67 +7,65 @@ civitas.ITEM_TYPE_ARMOR = 1;
 
 civitas.ITEM_TYPE_WEAPON = 2;
 
-civitas.ITEM_TYPE_DRINK = 3;
-
 /*
  * Armor types
  *
  */
 
-civitas.ARMOR_TYPE_CLOTH = 0;
+civitas.ARMOR_TYPE_CLOTH = 1;
 
-civitas.ARMOR_TYPE_LEATHER = 1;
+civitas.ARMOR_TYPE_LEATHER = 2;
 
-civitas.ARMOR_TYPE_MAIL = 2;
+civitas.ARMOR_TYPE_MAIL = 3;
 
-civitas.ARMOR_TYPE_PLATE = 3;
+civitas.ARMOR_TYPE_PLATE = 4;
 
 /*
  * Weapon types
  *
  */
 
-civitas.WEAPON_TYPE_MELEE = 0;
+civitas.WEAPON_TYPE_MELEE = 1;
 
-civitas.WEAPON_TYPE_RANGED = 1;
+civitas.WEAPON_TYPE_RANGED = 2;
 
 /*
  * Ranged weapon types
  *
  */
 
-civitas.WEAPON_TYPE_RANGED_BOW = 0;
+civitas.WEAPON_TYPE_RANGED_BOW = 1;
 
-civitas.WEAPON_TYPE_RANGED_CROSSBOW = 1;
+civitas.WEAPON_TYPE_RANGED_CROSSBOW = 2;
 
-civitas.WEAPON_TYPE_RANGED_GUN = 2;
+civitas.WEAPON_TYPE_RANGED_GUN = 3;
 
-civitas.WEAPON_TYPE_RANGED_THROWN = 3;
+civitas.WEAPON_TYPE_RANGED_THROWN = 4;
 
 /*
  * Melee weapon types
  *
  */
 
-civitas.WEAPON_TYPE_MELEE_DAGGER = 0;
+civitas.WEAPON_TYPE_MELEE_DAGGER = 1;
 
-civitas.WEAPON_TYPE_MELEE_AXE_ONE_HAND = 1;
+civitas.WEAPON_TYPE_MELEE_AXE_ONE_HAND = 2;
 
-civitas.WEAPON_TYPE_MELEE_AXE_TWO_HAND = 2;
+civitas.WEAPON_TYPE_MELEE_AXE_TWO_HAND = 3;
 
-civitas.WEAPON_TYPE_MELEE_FIST = 3;
+civitas.WEAPON_TYPE_MELEE_FIST = 4;
 
-civitas.WEAPON_TYPE_MELEE_MACE_ONE_HAND = 4;
+civitas.WEAPON_TYPE_MELEE_MACE_ONE_HAND = 5;
 
-civitas.WEAPON_TYPE_MELEE_MACE_TWO_HAND = 5;
+civitas.WEAPON_TYPE_MELEE_MACE_TWO_HAND = 6;
 
-civitas.WEAPON_TYPE_MELEE_POLEARM = 6;
+civitas.WEAPON_TYPE_MELEE_POLEARM = 7;
 
-civitas.WEAPON_TYPE_MELEE_STAFF = 7;
+civitas.WEAPON_TYPE_MELEE_STAFF = 8;
 
-civitas.WEAPON_TYPE_MELEE_SWORD_ONE_HAND = 8;
+civitas.WEAPON_TYPE_MELEE_SWORD_ONE_HAND = 9;
 
-civitas.WEAPON_TYPE_MELEE_SWORD_TWO_HAND = 9;
+civitas.WEAPON_TYPE_MELEE_SWORD_TWO_HAND = 10;
 
 /*
  * Item quality
@@ -349,6 +347,7 @@ civitas.ITEM_EXCALIBUR = {
 		damageMin: 10,
 		damageMax: 50,
 		speed: 1.0,
+		agility: 20,
 		stamina: 10,
 		strength: 30
 	},
@@ -395,6 +394,7 @@ civitas.ITEM_CHESTPIECE_OF_ZEUS = {
 	stats: {
 		armor: 200,
 		stamina: 30,
+		agility: 20,
 		strength: 20
 	},
 	slot: civitas.ITEM_SLOT_CHEST,
@@ -427,6 +427,7 @@ civitas.ITEM_ALCMENE_BAND = {
 		armor: 2,
 		stamina: 2,
 		strength: 1,
+		agility: 2,
 		intellect: 1,
 		spirit: 10
 	},
@@ -499,6 +500,7 @@ civitas.ITEM_GOLDEN_KATANA = {
 		damageMax: 20,
 		speed: 1.1,
 		stamina: 10,
+		agility: 20,
 		strength: 5
 	},
 	slot: civitas.ITEM_SLOT_OFF_HAND,
@@ -514,7 +516,7 @@ civitas.ITEM_ETHEREAL_BOOTS = {
 	stats: {
 		armor: 6,
 		strength: 10,
-		intellect: 10
+		agility: 10
 	},
 	slot: civitas.ITEM_SLOT_FEET,
 	type: civitas.ITEM_TYPE_ARMOR,
@@ -543,7 +545,7 @@ civitas.ITEM_MOUNTAIN_TROLLS = {
 	id: 17,
 	stats: {
 		armor: 25,
-		strength: 10,
+		agility: 10,
 		stamina: 30
 	},
 	slot: civitas.ITEM_SLOT_LEGS,

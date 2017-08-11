@@ -1,4 +1,3 @@
-
 /*
  * List of in-game heroes classes.
  *
@@ -38,6 +37,7 @@ civitas.HEROES = {
 		stats: {
 			strength: 10,
 			stamina: 10,
+			agility: 10,
 			spirit: 5,
 			intellect: 7
 		},
@@ -57,6 +57,7 @@ civitas.HEROES = {
 		stats: {
 			strength: 8,
 			stamina: 10,
+			agility: 6,
 			spirit: 4,
 			intellect: 6
 		},
@@ -74,6 +75,7 @@ civitas.HEROES = {
 		stats: {
 			strength: 7,
 			stamina: 7,
+			agility: 4,
 			spirit: 2,
 			intellect: 9
 		},
@@ -91,6 +93,7 @@ civitas.HEROES = {
 		stats: {
 			strength: 9,
 			stamina: 9,
+			agility: 6,
 			spirit: 7,
 			intellect: 9
 		},
@@ -111,11 +114,14 @@ civitas.HEROES = {
 	},
 	5: {
 		name: 'Akhenaten',
-		description: 'Akhenaten, known before the fifth year of his reign as Amenhotep IV (sometimes given its Greek form, Amenophis IV, and meaning "Amun Is Satisfied"), is an Ancient Egyptian pharaoh of the 18th Dynasty who ruled for 17 years.',
+		description: 'Akhenaten, known before the fifth year of his reign as Amenhotep IV ' +
+			'(sometimes given its Greek form, Amenophis IV, and meaning "Amun Is Satisfied"), ' +
+			'is an Ancient Egyptian pharaoh of the 18th Dynasty who ruled for 17 years.',
 		price: 1000000,
 		stats: {
 			strength: 4,
 			stamina: 4,
+			agility: 8,
 			spirit: 9,
 			intellect: 9
 		},

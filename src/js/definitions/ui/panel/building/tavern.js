@@ -23,10 +23,12 @@ civitas.PANEL_TAVERN = {
 			$(self.handle + ' #tab-info').empty()
 				.append(civitas.ui.building_panel(self.params_data, building.get_level()));
 			for (var i = 1; i < civitas.ITEM_SLOTS_NUM; i++) {
-				$(self.handle + ' .hero-items').append('<div class="slot" data-slot="' + i + '"></div>');
+				$(self.handle + ' .hero-items')
+					.append('<div class="slot" data-slot="' + i + '"></div>');
 			}
 			for (var item in civitas.HEROES) {
-				_t += '<p><a href="#" data-hero="' + item + '">' + civitas.HEROES[item].name + '</a></p>';
+				_t += '<p><a href="#" data-hero="' + item + '">' + civitas.HEROES[item].name + 
+					'</a></p>';
 			}
 			$(self.handle + ' .hero-list').empty().append(_t);
 			$(self.handle).on('click', '.hero-list a', function() {
@@ -39,16 +41,27 @@ civitas.PANEL_TAVERN = {
 						hero_data.description + 
 						'<br /><br />' +
 						'<h3>' + civitas.l('Attributes') + '</h3>' +
-						civitas.l('Strength') + ': <span class="green">' + hero_data.stats.strength + '</span><br />' +
-						civitas.l('Stamina') + ': <span class="green">' + hero_data.stats.stamina + '</span><br />' +
-						civitas.l('Intellect') + ': <span class="green">' + hero_data.stats.intellect + '</span><br />' +
-						civitas.l('Spirit') + ': <span class="green">' + hero_data.stats.spirit + '</span><br />' +
-						civitas.l('Health Points') + ': <span class="blue">' + civitas.ui.get_health_points(hero_data) + '</span><br />' +
-						civitas.l('Mana Points') + ': <span class="blue">' + civitas.ui.get_mana_points(hero_data) + '</span><br />' +
-						civitas.l('Damage') + ': <span class="red">' + civitas.ui.get_damage_points(hero_data).min + '-' + civitas.ui.get_damage_points(hero_data).max + '</span>'
+						civitas.l('Strength') + ': <span class="green">' + 
+							hero_data.stats.strength + '</span><br />' +
+						civitas.l('Stamina') + ': <span class="green">' + 
+							hero_data.stats.stamina + '</span><br />' +
+						civitas.l('Agility') + ': <span class="green">' + 
+							hero_data.stats.agility + '</span><br />' +
+						civitas.l('Intellect') + ': <span class="green">' + 
+							hero_data.stats.intellect + '</span><br />' +
+						civitas.l('Spirit') + ': <span class="green">' + 
+							hero_data.stats.spirit + '</span><br />' +
+						civitas.l('Health Points') + ': <span class="blue">' + 
+							civitas.utils.get_health_points(hero_data) + '</span><br />' +
+						civitas.l('Mana Points') + ': <span class="blue">' + 
+							civitas.utils.get_mana_points(hero_data) + '</span><br />' +
+						civitas.l('Damage') + ': <span class="red">' + 
+							civitas.utils.get_damage_points(hero_data).min + '-' + 
+							civitas.utils.get_damage_points(hero_data).max + '</span>'
 					);
 					for (var i = 1; i < civitas.ITEM_SLOTS_NUM; i++) {
-						$(self.handle + ' .hero-items').append('<div class="slot" data-slot="' + i + '"></div>');
+						$(self.handle + ' .hero-items')
+							.append('<div class="slot" data-slot="' + i + '"></div>');
 					}
 					for (var x = 0; x < hero_data.items.length; x++) {
 						var slot = hero_data.items[x].slot;

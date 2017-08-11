@@ -6924,67 +6924,65 @@ civitas.ITEM_TYPE_ARMOR = 1;
 
 civitas.ITEM_TYPE_WEAPON = 2;
 
-civitas.ITEM_TYPE_DRINK = 3;
-
 /*
  * Armor types
  *
  */
 
-civitas.ARMOR_TYPE_CLOTH = 0;
+civitas.ARMOR_TYPE_CLOTH = 1;
 
-civitas.ARMOR_TYPE_LEATHER = 1;
+civitas.ARMOR_TYPE_LEATHER = 2;
 
-civitas.ARMOR_TYPE_MAIL = 2;
+civitas.ARMOR_TYPE_MAIL = 3;
 
-civitas.ARMOR_TYPE_PLATE = 3;
+civitas.ARMOR_TYPE_PLATE = 4;
 
 /*
  * Weapon types
  *
  */
 
-civitas.WEAPON_TYPE_MELEE = 0;
+civitas.WEAPON_TYPE_MELEE = 1;
 
-civitas.WEAPON_TYPE_RANGED = 1;
+civitas.WEAPON_TYPE_RANGED = 2;
 
 /*
  * Ranged weapon types
  *
  */
 
-civitas.WEAPON_TYPE_RANGED_BOW = 0;
+civitas.WEAPON_TYPE_RANGED_BOW = 1;
 
-civitas.WEAPON_TYPE_RANGED_CROSSBOW = 1;
+civitas.WEAPON_TYPE_RANGED_CROSSBOW = 2;
 
-civitas.WEAPON_TYPE_RANGED_GUN = 2;
+civitas.WEAPON_TYPE_RANGED_GUN = 3;
 
-civitas.WEAPON_TYPE_RANGED_THROWN = 3;
+civitas.WEAPON_TYPE_RANGED_THROWN = 4;
 
 /*
  * Melee weapon types
  *
  */
 
-civitas.WEAPON_TYPE_MELEE_DAGGER = 0;
+civitas.WEAPON_TYPE_MELEE_DAGGER = 1;
 
-civitas.WEAPON_TYPE_MELEE_AXE_ONE_HAND = 1;
+civitas.WEAPON_TYPE_MELEE_AXE_ONE_HAND = 2;
 
-civitas.WEAPON_TYPE_MELEE_AXE_TWO_HAND = 2;
+civitas.WEAPON_TYPE_MELEE_AXE_TWO_HAND = 3;
 
-civitas.WEAPON_TYPE_MELEE_FIST = 3;
+civitas.WEAPON_TYPE_MELEE_FIST = 4;
 
-civitas.WEAPON_TYPE_MELEE_MACE_ONE_HAND = 4;
+civitas.WEAPON_TYPE_MELEE_MACE_ONE_HAND = 5;
 
-civitas.WEAPON_TYPE_MELEE_MACE_TWO_HAND = 5;
+civitas.WEAPON_TYPE_MELEE_MACE_TWO_HAND = 6;
 
-civitas.WEAPON_TYPE_MELEE_POLEARM = 6;
+civitas.WEAPON_TYPE_MELEE_POLEARM = 7;
 
-civitas.WEAPON_TYPE_MELEE_STAFF = 7;
+civitas.WEAPON_TYPE_MELEE_STAFF = 8;
 
-civitas.WEAPON_TYPE_MELEE_SWORD_ONE_HAND = 8;
+civitas.WEAPON_TYPE_MELEE_SWORD_ONE_HAND = 9;
 
-civitas.WEAPON_TYPE_MELEE_SWORD_TWO_HAND = 9;
+civitas.WEAPON_TYPE_MELEE_SWORD_TWO_HAND = 10;
 
 /*
  * Item quality
@@ -7266,6 +7264,7 @@ civitas.ITEM_EXCALIBUR = {
 		damageMin: 10,
 		damageMax: 50,
 		speed: 1.0,
+		agility: 20,
 		stamina: 10,
 		strength: 30
 	},
@@ -7312,6 +7311,7 @@ civitas.ITEM_CHESTPIECE_OF_ZEUS = {
 	stats: {
 		armor: 200,
 		stamina: 30,
+		agility: 20,
 		strength: 20
 	},
 	slot: civitas.ITEM_SLOT_CHEST,
@@ -7344,6 +7344,7 @@ civitas.ITEM_ALCMENE_BAND = {
 		armor: 2,
 		stamina: 2,
 		strength: 1,
+		agility: 2,
 		intellect: 1,
 		spirit: 10
 	},
@@ -7416,6 +7417,7 @@ civitas.ITEM_GOLDEN_KATANA = {
 		damageMax: 20,
 		speed: 1.1,
 		stamina: 10,
+		agility: 20,
 		strength: 5
 	},
 	slot: civitas.ITEM_SLOT_OFF_HAND,
@@ -7431,7 +7433,7 @@ civitas.ITEM_ETHEREAL_BOOTS = {
 	stats: {
 		armor: 6,
 		strength: 10,
-		intellect: 10
+		agility: 10
 	},
 	slot: civitas.ITEM_SLOT_FEET,
 	type: civitas.ITEM_TYPE_ARMOR,
@@ -7460,7 +7462,7 @@ civitas.ITEM_MOUNTAIN_TROLLS = {
 	id: 17,
 	stats: {
 		armor: 25,
-		strength: 10,
+		agility: 10,
 		stamina: 30
 	},
 	slot: civitas.ITEM_SLOT_LEGS,
@@ -7486,7 +7488,6 @@ civitas.ITEM_GAUNTLETS_OF_GHASTLY_GLARE = {
 	quality: civitas.ITEM_QUALITY_EPIC,
 	cost: 1
 };
-
 
 /*
  * List of in-game heroes classes.
@@ -7527,6 +7528,7 @@ civitas.HEROES = {
 		stats: {
 			strength: 10,
 			stamina: 10,
+			agility: 10,
 			spirit: 5,
 			intellect: 7
 		},
@@ -7546,6 +7548,7 @@ civitas.HEROES = {
 		stats: {
 			strength: 8,
 			stamina: 10,
+			agility: 6,
 			spirit: 4,
 			intellect: 6
 		},
@@ -7563,6 +7566,7 @@ civitas.HEROES = {
 		stats: {
 			strength: 7,
 			stamina: 7,
+			agility: 4,
 			spirit: 2,
 			intellect: 9
 		},
@@ -7580,6 +7584,7 @@ civitas.HEROES = {
 		stats: {
 			strength: 9,
 			stamina: 9,
+			agility: 6,
 			spirit: 7,
 			intellect: 9
 		},
@@ -7600,11 +7605,14 @@ civitas.HEROES = {
 	},
 	5: {
 		name: 'Akhenaten',
-		description: 'Akhenaten, known before the fifth year of his reign as Amenhotep IV (sometimes given its Greek form, Amenophis IV, and meaning "Amun Is Satisfied"), is an Ancient Egyptian pharaoh of the 18th Dynasty who ruled for 17 years.',
+		description: 'Akhenaten, known before the fifth year of his reign as Amenhotep IV ' +
+			'(sometimes given its Greek form, Amenophis IV, and meaning "Amun Is Satisfied"), ' +
+			'is an Ancient Egyptian pharaoh of the 18th Dynasty who ruled for 17 years.',
 		price: 1000000,
 		stats: {
 			strength: 4,
 			stamina: 4,
+			agility: 8,
 			spirit: 9,
 			intellect: 9
 		},
@@ -7618,6 +7626,63 @@ civitas.HEROES = {
  * Utils object.
  */
 civitas.utils = {
+
+	get_damage_points: function(hero) {
+		var damage_val = (hero.stats.strength * 2) + hero.stats.agility;
+		var damage_min = 0;
+		var damage_max = 0;
+		for (var i = 0; i < hero.items.length; i++) {
+			if (hero.items[i]) {
+				if (hero.items[i].stats.strength) {
+					damage_val += hero.items[i].stats.strength * 2;
+				}
+				if (hero.items[i].stats.agility) {
+					damage_val += hero.items[i].stats.agility;
+				}
+			}
+		}
+		for (var i = 0; i < hero.items.length; i++) {
+			if (hero.items[i].type === civitas.ITEM_TYPE_WEAPON) {
+				damage_min += hero.items[i].stats.damageMin + damage_val;
+				damage_max += hero.items[i].stats.damageMax + damage_val;
+			}
+		}
+		return {
+			value: damage_val,
+			min: damage_min !== 0 ? damage_min : 1,
+			max: damage_max !== 0 ? damage_max : damage_val
+		}
+	},
+
+	get_mana_points: function(hero) {
+		var mana = hero.stats.intellect * 50 + hero.stats.spirit * 10;
+		for (var i = 0; i < hero.items.length; i++) {
+			if (hero.items[i]) {
+				if (hero.items[i].stats.intellect) {
+					mana += hero.items[i].stats.intellect * 50;
+				}
+				if (hero.items[i].stats.spirit) {
+					mana += hero.items[i].stats.spirit * 10;
+				}
+			}
+		}
+		return mana;
+	},
+
+	get_health_points: function(hero) {
+		var health = hero.stats.stamina * 30 + hero.stats.strength * 5;
+		for (var i = 0; i < hero.items.length; i++) {
+			if (hero.items[i]) {
+				if (hero.items[i].stats.stamina) {
+					health += hero.items[i].stats.stamina * 30;
+				}
+				if (hero.items[i].stats.strength) {
+					health += hero.items[i].stats.strength * 5;
+				}
+			}
+		}
+		return health;
+	},
 
 	resource_exists: function(resource) {
 		for (var item in civitas.RESOURCES) {
@@ -7941,85 +8006,34 @@ civitas.modules.ai = function (params) {
  */
 civitas.ui = {
 
-	get_damage_points: function(hero) {
-		var damage_val = hero.stats.strength * 2;
-		var damage_min = 0;
-		var damage_max = 0;
-		for (var i = 0; i < hero.items.length; i++) {
-			if (hero.items[i]) {
-				if (hero.items[i].stats.strength) {
-					damage_val += hero.items[i].stats.strength * 2;
-				}
-			}
-		}
-		for (var i = 0; i < hero.items.length; i++) {
-			if (hero.items[i].type === civitas.ITEM_TYPE_WEAPON) {
-				damage_min += hero.items[i].stats.damageMin + damage_val;
-				damage_max += hero.items[i].stats.damageMax + damage_val;
-			}
-		}
-		return {
-			value: damage_val,
-			min: damage_min !== 0 ? damage_min : 1,
-			max: damage_max !== 0 ? damage_max : damage_val
-		}
-	},
-
-	get_mana_points: function(hero) {
-		var mana = hero.stats.intellect * 50 + hero.stats.spirit * 10;
-		for (var i = 0; i < hero.items.length; i++) {
-			if (hero.items[i]) {
-				if (hero.items[i].stats.intellect) {
-					mana += hero.items[i].stats.intellect * 50;
-				}
-				if (hero.items[i].stats.spirit) {
-					mana += hero.items[i].stats.spirit * 10;
-				}
-			}
-		}
-		return mana;
-	},
-
-	get_health_points: function(hero) {
-		var health = hero.stats.stamina * 30 + hero.stats.strength * 5;
-		for (var i = 0; i < hero.items.length; i++) {
-			if (hero.items[i]) {
-				if (hero.items[i].stats.stamina) {
-					health += hero.items[i].stats.stamina * 30;
-				}
-				if (hero.items[i].stats.strength) {
-					health += hero.items[i].stats.strength * 5;
-				}
-			}
-		}
-		return health;
-	},
-
 	item_tooltip: function(item) {
 		var out = '<h4 style="color: ' + civitas.ITEM_QUALITY_COLORS[item.quality] + '">' + item.name + '</h4>';
 		if (item.flavour) {
 			out += '<span class="flavour">"' + item.flavour + '"</span>' + ' <br />';
 		}
-		out += 'Slot: ' + civitas.ITEM_SLOTS_LIST[item.slot] + ' <br />';
+		out += civitas.l('Slot') + ': ' + civitas.ITEM_SLOTS_LIST[item.slot] + ' <br />';
 		if (item.type === civitas.ITEM_TYPE_WEAPON) {
-			out += 'Damage: <span class="red">' + item.stats.damageMin + '-' + item.stats.damageMax + '</span><br />' +
-				'Speed: ' + item.stats.speed + '<br />';
+			out += civitas.l('Damage') + ': <span class="red">' + item.stats.damageMin + '-' + item.stats.damageMax + '</span><br />' +
+				civitas.l('Speed') + ': ' + item.stats.speed + '<br />';
 		} else {
-			out += 'Armor: ' + item.stats.armor + '<br />';
+			out += civitas.l('Armor') + ': ' + item.stats.armor + '<br />';
 		}
 		if (item.stats.strength) {
-			out += 'Strength: <span class="green">+' + item.stats.strength + '</span><br />';
+			out += civitas.l('Strength') + ': <span class="green">+' + item.stats.strength + '</span><br />';
 		}
 		if (item.stats.stamina) {
-			out += 'Stamina: <span class="green">+' + item.stats.stamina + '</span><br />';
+			out += civitas.l('Stamina') + ': <span class="green">+' + item.stats.stamina + '</span><br />';
+		}
+		if (item.stats.agility) {
+			out += civitas.l('Agility') + ': <span class="green">+' + item.stats.agility + '</span><br />';
 		}
 		if (item.stats.intellect) {
-			out += 'Intellect: <span class="green">+' + item.stats.intellect + '</span><br />';
+			out += civitas.l('Intellect') + ': <span class="green">+' + item.stats.intellect + '</span><br />';
 		}
 		if (item.stats.spirit) {
-			out += 'Spirit: <span class="green">+' + item.stats.spirit + '</span><br />';
+			out += civitas.l('Spirit') + ': <span class="green">+' + item.stats.spirit + '</span><br />';
 		}
-		out += 'Type: <span style="color: ' + civitas.ITEM_QUALITY_COLORS[item.quality] + '">' + civitas.ITEM_QUALITY_LIST[item.quality] + '</span>';
+		out += civitas.l('Type') + ': <span style="color: ' + civitas.ITEM_QUALITY_COLORS[item.quality] + '">' + civitas.ITEM_QUALITY_LIST[item.quality] + '</span>';
 		return out;
 	},
 
@@ -18063,10 +18077,12 @@ civitas.PANEL_TAVERN = {
 			$(self.handle + ' #tab-info').empty()
 				.append(civitas.ui.building_panel(self.params_data, building.get_level()));
 			for (var i = 1; i < civitas.ITEM_SLOTS_NUM; i++) {
-				$(self.handle + ' .hero-items').append('<div class="slot" data-slot="' + i + '"></div>');
+				$(self.handle + ' .hero-items')
+					.append('<div class="slot" data-slot="' + i + '"></div>');
 			}
 			for (var item in civitas.HEROES) {
-				_t += '<p><a href="#" data-hero="' + item + '">' + civitas.HEROES[item].name + '</a></p>';
+				_t += '<p><a href="#" data-hero="' + item + '">' + civitas.HEROES[item].name + 
+					'</a></p>';
 			}
 			$(self.handle + ' .hero-list').empty().append(_t);
 			$(self.handle).on('click', '.hero-list a', function() {
@@ -18079,16 +18095,27 @@ civitas.PANEL_TAVERN = {
 						hero_data.description + 
 						'<br /><br />' +
 						'<h3>' + civitas.l('Attributes') + '</h3>' +
-						civitas.l('Strength') + ': <span class="green">' + hero_data.stats.strength + '</span><br />' +
-						civitas.l('Stamina') + ': <span class="green">' + hero_data.stats.stamina + '</span><br />' +
-						civitas.l('Intellect') + ': <span class="green">' + hero_data.stats.intellect + '</span><br />' +
-						civitas.l('Spirit') + ': <span class="green">' + hero_data.stats.spirit + '</span><br />' +
-						civitas.l('Health Points') + ': <span class="blue">' + civitas.ui.get_health_points(hero_data) + '</span><br />' +
-						civitas.l('Mana Points') + ': <span class="blue">' + civitas.ui.get_mana_points(hero_data) + '</span><br />' +
-						civitas.l('Damage') + ': <span class="red">' + civitas.ui.get_damage_points(hero_data).min + '-' + civitas.ui.get_damage_points(hero_data).max + '</span>'
+						civitas.l('Strength') + ': <span class="green">' + 
+							hero_data.stats.strength + '</span><br />' +
+						civitas.l('Stamina') + ': <span class="green">' + 
+							hero_data.stats.stamina + '</span><br />' +
+						civitas.l('Agility') + ': <span class="green">' + 
+							hero_data.stats.agility + '</span><br />' +
+						civitas.l('Intellect') + ': <span class="green">' + 
+							hero_data.stats.intellect + '</span><br />' +
+						civitas.l('Spirit') + ': <span class="green">' + 
+							hero_data.stats.spirit + '</span><br />' +
+						civitas.l('Health Points') + ': <span class="blue">' + 
+							civitas.utils.get_health_points(hero_data) + '</span><br />' +
+						civitas.l('Mana Points') + ': <span class="blue">' + 
+							civitas.utils.get_mana_points(hero_data) + '</span><br />' +
+						civitas.l('Damage') + ': <span class="red">' + 
+							civitas.utils.get_damage_points(hero_data).min + '-' + 
+							civitas.utils.get_damage_points(hero_data).max + '</span>'
 					);
 					for (var i = 1; i < civitas.ITEM_SLOTS_NUM; i++) {
-						$(self.handle + ' .hero-items').append('<div class="slot" data-slot="' + i + '"></div>');
+						$(self.handle + ' .hero-items')
+							.append('<div class="slot" data-slot="' + i + '"></div>');
 					}
 					for (var x = 0; x < hero_data.items.length; x++) {
 						var slot = hero_data.items[x].slot;
