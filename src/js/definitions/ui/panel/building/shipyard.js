@@ -69,6 +69,8 @@ civitas.PANEL_SHIPYARD = {
 					'<legend>' + civitas.l('Current Navy') + '</legend>' +
 					civitas.ui.navy_list(settlement.get_navy(), true) +
 				'</fieldset>');
+		} else {
+			this.destroy();
 		}
 	}
 };

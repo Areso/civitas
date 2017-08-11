@@ -23,6 +23,8 @@ civitas.PANEL_ACADEMY = {
 						civitas.MAX_RESEARCH_VALUE, 'large', research) +
 				'</div>' +
 				'<p>Not implemented yet.</p>');
+		} else {
+			this.destroy();
 		}
 	}
 };

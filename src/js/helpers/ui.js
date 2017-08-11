@@ -3,6 +3,88 @@
  */
 civitas.ui = {
 
+	get_damage_points: function(hero) {
+		var damage_val = hero.stats.strength * 2;
+		var damage_min = 0;
+		var damage_max = 0;
+		for (var i = 0; i < hero.items.length; i++) {
+			if (hero.items[i]) {
+				if (hero.items[i].stats.strength) {
+					damage_val += hero.items[i].stats.strength * 2;
+				}
+			}
+		}
+		for (var i = 0; i < hero.items.length; i++) {
+			if (hero.items[i].type === civitas.ITEM_TYPE_WEAPON) {
+				damage_min += hero.items[i].stats.damageMin + damage_val;
+				damage_max += hero.items[i].stats.damageMax + damage_val;
+			}
+		}
+		return {
+			value: damage_val,
+			min: damage_min !== 0 ? damage_min : 1,
+			max: damage_max !== 0 ? damage_max : damage_val
+		}
+	},
+
+	get_mana_points: function(hero) {
+		var mana = hero.stats.intellect * 50 + hero.stats.spirit * 10;
+		for (var i = 0; i < hero.items.length; i++) {
+			if (hero.items[i]) {
+				if (hero.items[i].stats.intellect) {
+					mana += hero.items[i].stats.intellect * 50;
+				}
+				if (hero.items[i].stats.spirit) {
+					mana += hero.items[i].stats.spirit * 10;
+				}
+			}
+		}
+		return mana;
+	},
+
+	get_health_points: function(hero) {
+		var health = hero.stats.stamina * 30 + hero.stats.strength * 5;
+		for (var i = 0; i < hero.items.length; i++) {
+			if (hero.items[i]) {
+				if (hero.items[i].stats.stamina) {
+					health += hero.items[i].stats.stamina * 30;
+				}
+				if (hero.items[i].stats.strength) {
+					health += hero.items[i].stats.strength * 5;
+				}
+			}
+		}
+		return health;
+	},
+
+	item_tooltip: function(item) {
+		var out = '<h4 style="color: ' + civitas.ITEM_QUALITY_COLORS[item.quality] + '">' + item.name + '</h4>';
+		if (item.flavour) {
+			out += '<span class="flavour">"' + item.flavour + '"</span>' + ' <br />';
+		}
+		out += 'Slot: ' + civitas.ITEM_SLOTS_LIST[item.slot] + ' <br />';
+		if (item.type === civitas.ITEM_TYPE_WEAPON) {
+			out += 'Damage: <span class="red">' + item.stats.damageMin + '-' + item.stats.damageMax + '</span><br />' +
+				'Speed: ' + item.stats.speed + '<br />';
+		} else {
+			out += 'Armor: ' + item.stats.armor + '<br />';
+		}
+		if (item.stats.strength) {
+			out += 'Strength: <span class="green">+' + item.stats.strength + '</span><br />';
+		}
+		if (item.stats.stamina) {
+			out += 'Stamina: <span class="green">+' + item.stats.stamina + '</span><br />';
+		}
+		if (item.stats.intellect) {
+			out += 'Intellect: <span class="green">+' + item.stats.intellect + '</span><br />';
+		}
+		if (item.stats.spirit) {
+			out += 'Spirit: <span class="green">+' + item.stats.spirit + '</span><br />';
+		}
+		out += 'Type: <span style="color: ' + civitas.ITEM_QUALITY_COLORS[item.quality] + '">' + civitas.ITEM_QUALITY_LIST[item.quality] + '</span>';
+		return out;
+	},
+
 	window_about_section: function() {
 		var out = '<a href="#" class="do-about button">' + civitas.l('About') + '</a>' +
 			'<div class="about-game">' +

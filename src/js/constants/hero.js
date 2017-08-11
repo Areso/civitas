@@ -1,3 +1,28 @@
+
+/*
+ * List of in-game heroes classes.
+ *
+ */
+
+civitas.HERO_CLASS_WARRIOR = 1;
+
+civitas.HERO_CLASS_MAGE = 2;
+
+civitas.HERO_CLASS_DRUID = 3;
+
+civitas.HERO_CLASS_PRIEST = 4;
+
+civitas.HERO_CLASS_ROGUE = 5;
+
+civitas.HERO_CLASS_LIST = [
+	'',
+	'Warrior',
+	'Mage',
+	'Druid',
+	'Priest',
+	'Rogue'
+];
+
 /*
  * List of in-game heroes.
  *
@@ -16,7 +41,10 @@ civitas.HEROES = {
 			spirit: 5,
 			intellect: 7
 		},
-		items: []
+		class: civitas.HERO_CLASS_WARRIOR,
+		items: [
+			civitas.ITEM_TROJAN_BASTARD_SWORD
+		]
 	},
 	2: {
 		name: 'Hector',
@@ -32,7 +60,11 @@ civitas.HEROES = {
 			spirit: 4,
 			intellect: 6
 		},
-		items: []
+		class: civitas.HERO_CLASS_WARRIOR,
+		items: [
+			civitas.ITEM_EXCALIBUR,
+			civitas.ITEM_GOLDEN_KATANA
+		]
 	},
 	3: {
 		name: 'Hannibal',
@@ -45,6 +77,50 @@ civitas.HEROES = {
 			spirit: 2,
 			intellect: 9
 		},
+		class: civitas.HERO_CLASS_WARRIOR,
 		items: []
+	},
+	4: {
+		name: 'Heracles',
+		description: 'Heracles is a divine hero in Greek mythology, the son of Zeus and ' +
+			'Alcmene, foster son of Amphitryon and great-grandson and half-brother (as they ' +
+			'are both sired by the god Zeus) of Perseus.<br /><br />He is the greatest of the Greek heroes, ' +
+			'a paragon of masculinity, the ancestor of royal clans who claim to be Heracleidae, ' +
+			'and a champion of the Olympian order against chthonic monsters.',
+		price: 5000000,
+		stats: {
+			strength: 9,
+			stamina: 9,
+			spirit: 7,
+			intellect: 9
+		},
+		class: civitas.HERO_CLASS_WARRIOR,
+		items: [
+			civitas.ITEM_SPEAR_OF_DESTINY,
+			civitas.ITEM_CROWN_OF_KINGS,
+			civitas.ITEM_BULWARK_OF_GODS,
+			civitas.ITEM_CHESTPIECE_OF_ZEUS,
+			civitas.ITEM_ARCHAIC_WAIST_BAND,
+			civitas.ITEM_ALCMENE_BAND,
+			civitas.ITEM_SUN_NECKLACE,
+			civitas.ITEM_ETHEREAL_BOOTS,
+			civitas.ITEM_SHOULDERPADS_OF_VALOR,
+			civitas.ITEM_MOUNTAIN_TROLLS,
+			civitas.ITEM_GAUNTLETS_OF_GHASTLY_GLARE
+		]
+	},
+	5: {
+		name: 'Akhenaten',
+		description: 'Akhenaten, known before the fifth year of his reign as Amenhotep IV (sometimes given its Greek form, Amenophis IV, and meaning "Amun Is Satisfied"), is an Ancient Egyptian pharaoh of the 18th Dynasty who ruled for 17 years.',
+		price: 1000000,
+		stats: {
+			strength: 4,
+			stamina: 4,
+			spirit: 9,
+			intellect: 9
+		},
+		class: civitas.HERO_CLASS_WARRIOR,
+		items: [
+		]
 	}
 };

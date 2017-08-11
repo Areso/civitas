@@ -2,7 +2,7 @@
  * Civitas empire-building game.
  *
  * @author sizeof(cat) <sizeofcat AT riseup.net>
- * @version 0.2.0.882017
+ * @version 0.2.0.8112017
  * @license MIT
  */ /* Game animations */
 
@@ -736,6 +736,18 @@ table tr td:last-child a:hover,
 	position: absolute;
 	top: 10px;
 	right: 0;
+}
+
+span.green {
+	color: #0f0;
+}
+
+span.red {
+	color: #e11;
+}
+
+span.blue {
+	color: #11f;
 }
 
 /* Modal Windows */
@@ -1612,6 +1624,37 @@ table tr td:last-child a:hover,
 	max-height: 200px;
 }
 
+#panel-tavern .hero-list {
+	width: 70px;
+	padding: 10px 20px;
+}
+
+#panel-tavern .hero-info {
+	width: 260px;
+	padding: 20px;
+}
+
+#panel-tavern .hero-items {
+	width: 160px;
+	padding: 20px;
+}
+
+#panel-tavern .hero-items .slot {
+	width: 46px;
+	height: 50px;
+	font-size: 11px;
+	float: left;
+	text-align: center;
+	margin: 0 4px 4px 0;
+	position: relative;
+	-webkit-box-shadow: inset 0 0 3px 0 rgba(20, 20, 20, 0.75);
+	-moz-box-shadow: inset 0 0 3px 0 rgba(20, 20, 20, 0.75);
+	box-shadow: inset 0 0 3px 0 rgba(20, 20, 20, 0.75);
+}
+
+#panel-tavern .hero-info h3 {
+	margin: 0 0 10px 0;
+}
 /* Progress bars */
 
 .progress {
@@ -2216,6 +2259,43 @@ td a.btn {
 	border-left: none;
 	border-top-color: transparent;
 	border-bottom-color: transparent;
+}
+
+.tipsy.item .tipsy-inner {
+	background-color: #222;
+	opacity: 0.9;
+	color: #fff;
+}
+
+.tipsy.item .tipsy-arrow {
+	border: 5px dashed #222;
+}
+
+.tipsy.item .tipsy-arrow-n {
+	border-bottom-color: #222;
+}
+
+.tipsy.item .tipsy-arrow-s {
+	border-top-color: #222;
+}
+
+.tipsy.item .tipsy-arrow-e {
+	border-left-color: #222;
+}
+
+.tipsy.item .tipsy-arrow-w {
+	border-right-color: #222;
+}
+
+.tipsy.item h4 {
+	font-size: 14px;
+	padding: 0;
+	margin: 0 0 10px 0;
+}
+
+.tipsy.item span.flavour {
+	font-style: italic;
+	color: #FFD200;
 }
 
 /* Windows */

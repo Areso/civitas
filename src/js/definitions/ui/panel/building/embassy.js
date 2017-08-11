@@ -75,6 +75,8 @@ civitas.PANEL_EMBASSY = {
 			}
 			_t += '</table>';
 			$(this.handle + ' .settlements-list').empty().append(_t);
+		} else {
+			this.destroy();
 		}
 	}
 };

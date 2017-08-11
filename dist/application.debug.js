@@ -2,7 +2,7 @@
  * Civitas empire-building game.
  *
  * @author sizeof(cat) <sizeofcat AT riseup.net>
- * @version 0.2.0.882017
+ * @version 0.2.0.8112017
  * @license MIT
  */ 'use strict';
 
@@ -6993,20 +6993,27 @@ civitas.WEAPON_TYPE_MELEE_SWORD_TWO_HAND = 9;
 
 civitas.ITEM_QUALITY_COMMON = 1;
 
-civitas.ITEM_QUALITY_COMMON_COLOR = '#ffffff';
+civitas.ITEM_QUALITY_RARE = 2;
 
-civitas.ITEM_QUALITY_RARE = 3;
+civitas.ITEM_QUALITY_EPIC = 3;
 
-civitas.ITEM_QUALITY_RARE_COLOR = '#0070ff';
+civitas.ITEM_QUALITY_LEGENDARY = 4;
 
-civitas.ITEM_QUALITY_EPIC = 4;
+civitas.ITEM_QUALITY_LIST = [
+	'',
+	'Common',
+	'Rare',
+	'Epic',
+	'Legendary'
+];
 
-civitas.ITEM_QUALITY_EPIC_COLOR = '#a335ee';
-
-civitas.ITEM_QUALITY_LEGENDARY = 5;
-
-civitas.ITEM_QUALITY_LEGENDARY_COLOR = '#ff8000';
-
+civitas.ITEM_QUALITY_COLORS = [
+	'',
+	'#00ff00',
+	'#0070ff',
+	'#a335ee',
+	'#ff8000'
+];
 /*
  * Item slots
  *
@@ -7014,29 +7021,47 @@ civitas.ITEM_QUALITY_LEGENDARY_COLOR = '#ff8000';
 
 civitas.ITEM_SLOT_NONE = 0;
 
-civitas.ITEM_SLOT_HEAD = 1;
+civitas.ITEM_SLOT_NECK = 1;
 
-civitas.ITEM_SLOT_NECK = 2;
+civitas.ITEM_SLOT_HEAD = 2;
 
-civitas.ITEM_SLOT_CHEST = 3;
+civitas.ITEM_SLOT_RING = 3;
 
 civitas.ITEM_SLOT_SHOULDER = 4;
 
-civitas.ITEM_SLOT_LEGS = 5;
+civitas.ITEM_SLOT_CHEST = 5;
 
-civitas.ITEM_SLOT_HANDS = 6;
+civitas.ITEM_SLOT_LEGS = 6;
 
-civitas.ITEM_SLOT_FEET = 7;
+civitas.ITEM_SLOT_HANDS = 7;
 
 civitas.ITEM_SLOT_WAIST = 8;
 
-civitas.ITEM_SLOT_RING = 9;
+civitas.ITEM_SLOT_FEET = 9;
 
 civitas.ITEM_SLOT_MAIN_HAND = 10;
 
 civitas.ITEM_SLOT_OFF_HAND = 11;
 
 civitas.ITEM_SLOT_ANY_HAND = 12;
+
+civitas.ITEM_SLOTS_NUM = 12;
+
+civitas.ITEM_SLOTS_LIST = [
+	'',
+	'Neck',
+	'Head',
+	'Ring',
+	'Shoulder',
+	'Chest',
+	'Legs',
+	'Hands',
+	'Waist',
+	'Feet',
+	'Main Hand',
+	'Off Hand',
+	''
+];
 
 /*
  * Random items
@@ -7169,7 +7194,7 @@ civitas.RANDOM_UNCOMMON = [
 
 civitas.ITEM_WEAPON_DAGGER_WICKED = {
 	name: 'Wicked Dagger',
-	id: 100,
+	id: 1,
 	stats: {
 		damageMin: 0,
 		damageMax: 2,
@@ -7183,7 +7208,7 @@ civitas.ITEM_WEAPON_DAGGER_WICKED = {
 
 civitas.ITEM_WEAPON_DAGGER_DIRK = {
 	name: 'Wicked Dirk',
-	id: 101,
+	id: 2,
 	stats: {
 		damageMin: 1,
 		damageMax: 3,
@@ -7197,7 +7222,7 @@ civitas.ITEM_WEAPON_DAGGER_DIRK = {
 
 civitas.ITEM_WEAPON_AXE_SMALL = {
 	name: 'Small Axe',
-	id: 102,
+	id: 3,
 	stats: {
 		damageMin: 3,
 		damageMax: 10,
@@ -7211,7 +7236,7 @@ civitas.ITEM_WEAPON_AXE_SMALL = {
 
 civitas.ITEM_WEAPON_SWORD_SMALL = {
 	name: 'Small Sword',
-	id: 103,
+	id: 4,
 	stats: {
 		damageMin: 2,
 		damageMax: 4,
@@ -7225,7 +7250,7 @@ civitas.ITEM_WEAPON_SWORD_SMALL = {
 
 civitas.ITEM_WEAPON_BUCKLER_SMALL = {
 	name: 'Small Buckler',
-	id: 104,
+	id: 5,
 	stats: {
 		armor: 10
 	},
@@ -7233,6 +7258,259 @@ civitas.ITEM_WEAPON_BUCKLER_SMALL = {
 	quality: civitas.ITEM_QUALITY_COMMON,
 	cost: 2.2
 };
+
+civitas.ITEM_EXCALIBUR = {
+	name: 'Excalibur',
+	id: 6,
+	stats: {
+		damageMin: 10,
+		damageMax: 50,
+		speed: 1.0,
+		stamina: 10,
+		strength: 30
+	},
+	slot: civitas.ITEM_SLOT_MAIN_HAND,
+	type: civitas.ITEM_TYPE_WEAPON,
+	secondary_type: civitas.WEAPON_TYPE_MELEE,
+	quality: civitas.ITEM_QUALITY_LEGENDARY,
+	cost: 1
+};
+
+civitas.ITEM_CROWN_OF_KINGS = {
+	name: 'Crown of Kings',
+	id: 7,
+	stats: {
+		armor: 10,
+		stamina: 10,
+		strength: 30
+	},
+	slot: civitas.ITEM_SLOT_HEAD,
+	type: civitas.ITEM_TYPE_ARMOR,
+	secondary_type: civitas.ARMOR_TYPE_PLATE,
+	quality: civitas.ITEM_QUALITY_RARE,
+	cost: 1
+};
+
+civitas.ITEM_BULWARK_OF_GODS = {
+	name: 'The Bulwark of Gods',
+	id: 8,
+	stats: {
+		armor: 100,
+		stamina: 20,
+		strength: 50
+	},
+	slot: civitas.ITEM_SLOT_OFF_HAND,
+	type: civitas.ITEM_TYPE_ARMOR,
+	secondary_type: civitas.ARMOR_TYPE_PLATE,
+	quality: civitas.ITEM_QUALITY_EPIC,
+	cost: 1
+};
+
+civitas.ITEM_CHESTPIECE_OF_ZEUS = {
+	name: 'Chestpiece of Zeus',
+	id: 9,
+	stats: {
+		armor: 200,
+		stamina: 30,
+		strength: 20
+	},
+	slot: civitas.ITEM_SLOT_CHEST,
+	type: civitas.ITEM_TYPE_ARMOR,
+	secondary_type: civitas.ARMOR_TYPE_PLATE,
+	quality: civitas.ITEM_QUALITY_EPIC,
+	cost: 1
+};
+
+civitas.ITEM_ARCHAIC_WAIST_BAND = {
+	name: 'Archaic Waist Band',
+	id: 10,
+	stats: {
+		armor: 5,
+		stamina: 3,
+		strength: 2,
+		intellect: 2
+	},
+	slot: civitas.ITEM_SLOT_WAIST,
+	type: civitas.ITEM_TYPE_ARMOR,
+	secondary_type: civitas.ARMOR_TYPE_PLATE,
+	quality: civitas.ITEM_QUALITY_RARE,
+	cost: 1
+};
+
+civitas.ITEM_ALCMENE_BAND = {
+	name: 'Alcmene Band',
+	id: 11,
+	stats: {
+		armor: 2,
+		stamina: 2,
+		strength: 1,
+		intellect: 1,
+		spirit: 10
+	},
+	slot: civitas.ITEM_SLOT_RING,
+	type: civitas.ITEM_TYPE_ARMOR,
+	secondary_type: civitas.ARMOR_TYPE_PLATE,
+	quality: civitas.ITEM_QUALITY_EPIC,
+	cost: 1
+};
+
+civitas.ITEM_SUN_NECKLACE = {
+	name: 'Sun Necklace',
+	flavour: 'From Amun Ra to his beloved son.',
+	id: 11,
+	stats: {
+		armor: 4,
+		stamina: 2,
+		strength: 1,
+		intellect: 10,
+		spirit: 1
+	},
+	slot: civitas.ITEM_SLOT_NECK,
+	type: civitas.ITEM_TYPE_ARMOR,
+	secondary_type: civitas.ARMOR_TYPE_PLATE,
+	quality: civitas.ITEM_QUALITY_LEGENDARY,
+	cost: 1
+};
+
+civitas.ITEM_TROJAN_BASTARD_SWORD = {
+	name: 'Trojan Bastard Sword',
+	flavour: 'Hector`s sword, dropped by the fallen Trojan prince.',
+	id: 12,
+	stats: {
+		damageMin: 8,
+		damageMax: 34,
+		speed: 1.3,
+		stamina: 15,
+		strength: 10
+	},
+	slot: civitas.ITEM_SLOT_MAIN_HAND,
+	type: civitas.ITEM_TYPE_WEAPON,
+	secondary_type: civitas.WEAPON_TYPE_MELEE,
+	quality: civitas.ITEM_QUALITY_LEGENDARY,
+	cost: 1
+};
+
+civitas.ITEM_SPEAR_OF_DESTINY = {
+	name: 'Spear of Destiny',
+	flavour: 'The spear that befell the Trojan prince, Hector.',
+	id: 13,
+	stats: {
+		damageMin: 25,
+		damageMax: 90,
+		speed: 2,
+		stamina: 40,
+		strength: 3
+	},
+	slot: civitas.ITEM_SLOT_MAIN_HAND,
+	type: civitas.ITEM_TYPE_WEAPON,
+	secondary_type: civitas.WEAPON_TYPE_MELEE,
+	quality: civitas.ITEM_QUALITY_LEGENDARY,
+	cost: 1
+};
+
+civitas.ITEM_GOLDEN_KATANA = {
+	name: 'Golden Katana',
+	id: 14,
+	stats: {
+		damageMin: 10,
+		damageMax: 20,
+		speed: 1.1,
+		stamina: 10,
+		strength: 5
+	},
+	slot: civitas.ITEM_SLOT_OFF_HAND,
+	type: civitas.ITEM_TYPE_WEAPON,
+	secondary_type: civitas.WEAPON_TYPE_MELEE,
+	quality: civitas.ITEM_QUALITY_RARE,
+	cost: 1
+};
+
+civitas.ITEM_ETHEREAL_BOOTS = {
+	name: 'Ethereal Boots',
+	id: 15,
+	stats: {
+		armor: 6,
+		strength: 10,
+		intellect: 10
+	},
+	slot: civitas.ITEM_SLOT_FEET,
+	type: civitas.ITEM_TYPE_ARMOR,
+	secondary_type: civitas.ARMOR_TYPE_PLATE,
+	quality: civitas.ITEM_QUALITY_RARE,
+	cost: 1
+};
+
+civitas.ITEM_SHOULDERPADS_OF_VALOR = {
+	name: 'Shoulderpads of Valor',
+	id: 16,
+	stats: {
+		armor: 15,
+		strength: 20,
+		stamina: 10
+	},
+	slot: civitas.ITEM_SLOT_SHOULDER,
+	type: civitas.ITEM_TYPE_ARMOR,
+	secondary_type: civitas.ARMOR_TYPE_PLATE,
+	quality: civitas.ITEM_QUALITY_COMMON,
+	cost: 1
+};
+
+civitas.ITEM_MOUNTAIN_TROLLS = {
+	name: 'Mountain Trolls',
+	id: 17,
+	stats: {
+		armor: 25,
+		strength: 10,
+		stamina: 30
+	},
+	slot: civitas.ITEM_SLOT_LEGS,
+	type: civitas.ITEM_TYPE_ARMOR,
+	secondary_type: civitas.ARMOR_TYPE_PLATE,
+	quality: civitas.ITEM_QUALITY_EPIC,
+	cost: 1
+};
+
+civitas.ITEM_GAUNTLETS_OF_GHASTLY_GLARE = {
+	name: 'Gauntlets of Ghastly Glare',
+	flavour: 'Ghastly indeed ...',
+	id: 18,
+	stats: {
+		armor: 10,
+		strength: 20,
+		stamina: 2,
+		intellect: 30
+	},
+	slot: civitas.ITEM_SLOT_HANDS,
+	type: civitas.ITEM_TYPE_ARMOR,
+	secondary_type: civitas.ARMOR_TYPE_PLATE,
+	quality: civitas.ITEM_QUALITY_EPIC,
+	cost: 1
+};
+
+
+/*
+ * List of in-game heroes classes.
+ *
+ */
+
+civitas.HERO_CLASS_WARRIOR = 1;
+
+civitas.HERO_CLASS_MAGE = 2;
+
+civitas.HERO_CLASS_DRUID = 3;
+
+civitas.HERO_CLASS_PRIEST = 4;
+
+civitas.HERO_CLASS_ROGUE = 5;
+
+civitas.HERO_CLASS_LIST = [
+	'',
+	'Warrior',
+	'Mage',
+	'Druid',
+	'Priest',
+	'Rogue'
+];
 
 /*
  * List of in-game heroes.
@@ -7252,7 +7530,10 @@ civitas.HEROES = {
 			spirit: 5,
 			intellect: 7
 		},
-		items: []
+		class: civitas.HERO_CLASS_WARRIOR,
+		items: [
+			civitas.ITEM_TROJAN_BASTARD_SWORD
+		]
 	},
 	2: {
 		name: 'Hector',
@@ -7268,7 +7549,11 @@ civitas.HEROES = {
 			spirit: 4,
 			intellect: 6
 		},
-		items: []
+		class: civitas.HERO_CLASS_WARRIOR,
+		items: [
+			civitas.ITEM_EXCALIBUR,
+			civitas.ITEM_GOLDEN_KATANA
+		]
 	},
 	3: {
 		name: 'Hannibal',
@@ -7281,7 +7566,51 @@ civitas.HEROES = {
 			spirit: 2,
 			intellect: 9
 		},
+		class: civitas.HERO_CLASS_WARRIOR,
 		items: []
+	},
+	4: {
+		name: 'Heracles',
+		description: 'Heracles is a divine hero in Greek mythology, the son of Zeus and ' +
+			'Alcmene, foster son of Amphitryon and great-grandson and half-brother (as they ' +
+			'are both sired by the god Zeus) of Perseus.<br /><br />He is the greatest of the Greek heroes, ' +
+			'a paragon of masculinity, the ancestor of royal clans who claim to be Heracleidae, ' +
+			'and a champion of the Olympian order against chthonic monsters.',
+		price: 5000000,
+		stats: {
+			strength: 9,
+			stamina: 9,
+			spirit: 7,
+			intellect: 9
+		},
+		class: civitas.HERO_CLASS_WARRIOR,
+		items: [
+			civitas.ITEM_SPEAR_OF_DESTINY,
+			civitas.ITEM_CROWN_OF_KINGS,
+			civitas.ITEM_BULWARK_OF_GODS,
+			civitas.ITEM_CHESTPIECE_OF_ZEUS,
+			civitas.ITEM_ARCHAIC_WAIST_BAND,
+			civitas.ITEM_ALCMENE_BAND,
+			civitas.ITEM_SUN_NECKLACE,
+			civitas.ITEM_ETHEREAL_BOOTS,
+			civitas.ITEM_SHOULDERPADS_OF_VALOR,
+			civitas.ITEM_MOUNTAIN_TROLLS,
+			civitas.ITEM_GAUNTLETS_OF_GHASTLY_GLARE
+		]
+	},
+	5: {
+		name: 'Akhenaten',
+		description: 'Akhenaten, known before the fifth year of his reign as Amenhotep IV (sometimes given its Greek form, Amenophis IV, and meaning "Amun Is Satisfied"), is an Ancient Egyptian pharaoh of the 18th Dynasty who ruled for 17 years.',
+		price: 1000000,
+		stats: {
+			strength: 4,
+			stamina: 4,
+			spirit: 9,
+			intellect: 9
+		},
+		class: civitas.HERO_CLASS_WARRIOR,
+		items: [
+		]
 	}
 };
 
@@ -7611,6 +7940,88 @@ civitas.modules.ai = function (params) {
  * Main Game UI interface.
  */
 civitas.ui = {
+
+	get_damage_points: function(hero) {
+		var damage_val = hero.stats.strength * 2;
+		var damage_min = 0;
+		var damage_max = 0;
+		for (var i = 0; i < hero.items.length; i++) {
+			if (hero.items[i]) {
+				if (hero.items[i].stats.strength) {
+					damage_val += hero.items[i].stats.strength * 2;
+				}
+			}
+		}
+		for (var i = 0; i < hero.items.length; i++) {
+			if (hero.items[i].type === civitas.ITEM_TYPE_WEAPON) {
+				damage_min += hero.items[i].stats.damageMin + damage_val;
+				damage_max += hero.items[i].stats.damageMax + damage_val;
+			}
+		}
+		return {
+			value: damage_val,
+			min: damage_min !== 0 ? damage_min : 1,
+			max: damage_max !== 0 ? damage_max : damage_val
+		}
+	},
+
+	get_mana_points: function(hero) {
+		var mana = hero.stats.intellect * 50 + hero.stats.spirit * 10;
+		for (var i = 0; i < hero.items.length; i++) {
+			if (hero.items[i]) {
+				if (hero.items[i].stats.intellect) {
+					mana += hero.items[i].stats.intellect * 50;
+				}
+				if (hero.items[i].stats.spirit) {
+					mana += hero.items[i].stats.spirit * 10;
+				}
+			}
+		}
+		return mana;
+	},
+
+	get_health_points: function(hero) {
+		var health = hero.stats.stamina * 30 + hero.stats.strength * 5;
+		for (var i = 0; i < hero.items.length; i++) {
+			if (hero.items[i]) {
+				if (hero.items[i].stats.stamina) {
+					health += hero.items[i].stats.stamina * 30;
+				}
+				if (hero.items[i].stats.strength) {
+					health += hero.items[i].stats.strength * 5;
+				}
+			}
+		}
+		return health;
+	},
+
+	item_tooltip: function(item) {
+		var out = '<h4 style="color: ' + civitas.ITEM_QUALITY_COLORS[item.quality] + '">' + item.name + '</h4>';
+		if (item.flavour) {
+			out += '<span class="flavour">"' + item.flavour + '"</span>' + ' <br />';
+		}
+		out += 'Slot: ' + civitas.ITEM_SLOTS_LIST[item.slot] + ' <br />';
+		if (item.type === civitas.ITEM_TYPE_WEAPON) {
+			out += 'Damage: <span class="red">' + item.stats.damageMin + '-' + item.stats.damageMax + '</span><br />' +
+				'Speed: ' + item.stats.speed + '<br />';
+		} else {
+			out += 'Armor: ' + item.stats.armor + '<br />';
+		}
+		if (item.stats.strength) {
+			out += 'Strength: <span class="green">+' + item.stats.strength + '</span><br />';
+		}
+		if (item.stats.stamina) {
+			out += 'Stamina: <span class="green">+' + item.stats.stamina + '</span><br />';
+		}
+		if (item.stats.intellect) {
+			out += 'Intellect: <span class="green">+' + item.stats.intellect + '</span><br />';
+		}
+		if (item.stats.spirit) {
+			out += 'Spirit: <span class="green">+' + item.stats.spirit + '</span><br />';
+		}
+		out += 'Type: <span style="color: ' + civitas.ITEM_QUALITY_COLORS[item.quality] + '">' + civitas.ITEM_QUALITY_LIST[item.quality] + '</span>';
+		return out;
+	},
 
 	window_about_section: function() {
 		var out = '<a href="#" class="do-about button">' + civitas.l('About') + '</a>' +
@@ -15642,6 +16053,8 @@ civitas.PANEL_BUILDING = {
 		if (building) {
 			$(this.handle + ' section').empty()
 				.append(civitas.ui.building_panel(this.params_data, building.get_level()));
+		} else {
+			this.destroy();
 		}
 	}
 };
@@ -17402,6 +17815,8 @@ civitas.PANEL_CAMP = {
 					'<legend>' + civitas.l('Current Army') + '</legend>' +
 					civitas.ui.army_list(settlement.get_army(), true) +
 				'</fieldset>');
+		} else {
+			this.destroy();
 		}
 	}
 };
@@ -17477,6 +17892,8 @@ civitas.PANEL_SHIPYARD = {
 					'<legend>' + civitas.l('Current Navy') + '</legend>' +
 					civitas.ui.navy_list(settlement.get_navy(), true) +
 				'</fieldset>');
+		} else {
+			this.destroy();
 		}
 	}
 };
@@ -17532,6 +17949,8 @@ civitas.PANEL_CHURCH = {
 			}
 			_t += '</div>';
 			$(this.handle + ' #tab-religion').empty().append(_t);
+		} else {
+			this.destroy();
 		}
 	}
 };
@@ -17613,6 +18032,8 @@ civitas.PANEL_EMBASSY = {
 			}
 			_t += '</table>';
 			$(this.handle + ' .settlements-list').empty().append(_t);
+		} else {
+			this.destroy();
 		}
 	}
 };
@@ -17626,23 +18047,69 @@ civitas.PANEL_TAVERN = {
 	template: civitas.ui.building_panel_template(),
 	id: 'tavern',
 	on_show: function(params) {
+		var self = this;
+		var core = self.core();
+		var _t = '';
 		$(this.handle + ' section')
-			.append(civitas.ui.tabs([civitas.l('Info'), civitas.l('Heroes')]));
+			.append(civitas.ui.tabs([civitas.l('Info'), civitas.l('Heroes'), civitas.l('Items')]));
+		var building = core.get_settlement().get_building(self.params_data.handle);
+		if (building) {
+			$(self.handle + ' #tab-items').empty().append('Not implemented yet.');
+			$(self.handle + ' #tab-heroes').empty().append(
+				'<div class="column hero-list"></div>' +
+				'<div class="column hero-info"></div>' +
+				'<div class="column hero-items"></div>'
+			);
+			$(self.handle + ' #tab-info').empty()
+				.append(civitas.ui.building_panel(self.params_data, building.get_level()));
+			for (var i = 1; i < civitas.ITEM_SLOTS_NUM; i++) {
+				$(self.handle + ' .hero-items').append('<div class="slot" data-slot="' + i + '"></div>');
+			}
+			for (var item in civitas.HEROES) {
+				_t += '<p><a href="#" data-hero="' + item + '">' + civitas.HEROES[item].name + '</a></p>';
+			}
+			$(self.handle + ' .hero-list').empty().append(_t);
+			$(self.handle).on('click', '.hero-list a', function() {
+				var hero_id = parseInt($(this).data('hero'));
+				var hero_data = civitas.HEROES[hero_id];
+				if (hero_data) {
+					$(self.handle + ' .hero-items').empty();
+					$(self.handle + ' .hero-info').empty().append(
+						'<h3>' + civitas.l('Info') + '</h3>' +
+						hero_data.description + 
+						'<br /><br />' +
+						'<h3>' + civitas.l('Attributes') + '</h3>' +
+						civitas.l('Strength') + ': <span class="green">' + hero_data.stats.strength + '</span><br />' +
+						civitas.l('Stamina') + ': <span class="green">' + hero_data.stats.stamina + '</span><br />' +
+						civitas.l('Intellect') + ': <span class="green">' + hero_data.stats.intellect + '</span><br />' +
+						civitas.l('Spirit') + ': <span class="green">' + hero_data.stats.spirit + '</span><br />' +
+						civitas.l('Health Points') + ': <span class="blue">' + civitas.ui.get_health_points(hero_data) + '</span><br />' +
+						civitas.l('Mana Points') + ': <span class="blue">' + civitas.ui.get_mana_points(hero_data) + '</span><br />' +
+						civitas.l('Damage') + ': <span class="red">' + civitas.ui.get_damage_points(hero_data).min + '-' + civitas.ui.get_damage_points(hero_data).max + '</span>'
+					);
+					for (var i = 1; i < civitas.ITEM_SLOTS_NUM; i++) {
+						$(self.handle + ' .hero-items').append('<div class="slot" data-slot="' + i + '"></div>');
+					}
+					for (var x = 0; x < hero_data.items.length; x++) {
+						var slot = hero_data.items[x].slot;
+						$(self.handle + ' .hero-items > div.slot[data-slot="' + slot + '"]')
+							.empty()
+							.append('X')
+							.attr('title', civitas.ui.item_tooltip(hero_data.items[x]))
+							.tipsy({
+								className: 'item',
+								html: true
+							});
+					}
+				}
+				return false;
+			});
+		} else {
+			self.destroy();
+		}
 	},
 	on_refresh: function() {
-		var core = this.core();
-		var _t = '';
-		var building = core.get_settlement().get_building(this.params_data.handle);
-		if (building) {
-			$(this.handle + ' #tab-heroes').empty().append('<div class="column hero-list"></div>' +
-				'<div class="column hero-info"></div>');
-			$(this.handle + ' #tab-info').empty()
-				.append(civitas.ui.building_panel(this.params_data, building.get_level()));
-			for (var item in civitas.HEROES) {
-				_t += '<p>' + civitas.HEROES[item].name + '</p>';
-			}
-			$(this.handle + ' .hero-list').empty().append(_t);
-		}
+		
 	}
 };
 
@@ -17671,6 +18138,8 @@ civitas.PANEL_ACADEMY = {
 						civitas.MAX_RESEARCH_VALUE, 'large', research) +
 				'</div>' +
 				'<p>Not implemented yet.</p>');
+		} else {
+			this.destroy();
 		}
 	}
 };

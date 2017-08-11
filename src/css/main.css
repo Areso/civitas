@@ -489,3 +489,15 @@ table tr td:last-child a:hover,
 	top: 10px;
 	right: 0;
 }
+
+span.green {
+	color: #0f0;
+}
+
+span.red {
+	color: #e11;
+}
+
+span.blue {
+	color: #11f;
+}

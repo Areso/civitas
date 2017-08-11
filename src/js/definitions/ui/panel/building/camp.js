@@ -67,6 +67,8 @@ civitas.PANEL_CAMP = {
 					'<legend>' + civitas.l('Current Army') + '</legend>' +
 					civitas.ui.army_list(settlement.get_army(), true) +
 				'</fieldset>');
+		} else {
+			this.destroy();
 		}
 	}
 };

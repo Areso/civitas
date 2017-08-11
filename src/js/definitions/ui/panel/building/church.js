@@ -49,6 +49,8 @@ civitas.PANEL_CHURCH = {
 			}
 			_t += '</div>';
 			$(this.handle + ' #tab-religion').empty().append(_t);
+		} else {
+			this.destroy();
 		}
 	}
 };
