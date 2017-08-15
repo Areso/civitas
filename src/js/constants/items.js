@@ -128,6 +128,8 @@ civitas.ITEM_SLOT_ANY_HAND = 12;
 
 civitas.ITEM_SLOTS_NUM = 12;
 
+civitas.ITEM_BACKPACK_NUM = 6;
+
 civitas.ITEM_SLOTS_LIST = [
 	'',
 	'Neck',

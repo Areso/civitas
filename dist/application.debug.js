@@ -2,7 +2,7 @@
  * Civitas empire-building game.
  *
  * @author sizeof(cat) <sizeofcat AT riseup.net>
- * @version 0.2.0.8112017
+ * @version 0.2.0.8152017
  * @license MIT
  */ 'use strict';
 
@@ -7045,6 +7045,8 @@ civitas.ITEM_SLOT_ANY_HAND = 12;
 
 civitas.ITEM_SLOTS_NUM = 12;
 
+civitas.ITEM_BACKPACK_NUM = 6;
+
 civitas.ITEM_SLOTS_LIST = [
 	'',
 	'Neck',
@@ -7535,7 +7537,8 @@ civitas.HEROES = {
 		class: civitas.HERO_CLASS_WARRIOR,
 		items: [
 			civitas.ITEM_TROJAN_BASTARD_SWORD
-		]
+		],
+		backpack: []
 	},
 	2: {
 		name: 'Hector',
@@ -7556,7 +7559,8 @@ civitas.HEROES = {
 		items: [
 			civitas.ITEM_EXCALIBUR,
 			civitas.ITEM_GOLDEN_KATANA
-		]
+		],
+		backpack: []
 	},
 	3: {
 		name: 'Hannibal',
@@ -7571,7 +7575,8 @@ civitas.HEROES = {
 			intellect: 9
 		},
 		class: civitas.HERO_CLASS_WARRIOR,
-		items: []
+		items: [],
+		backpack: []
 	},
 	4: {
 		name: 'Heracles',
@@ -7601,7 +7606,8 @@ civitas.HEROES = {
 			civitas.ITEM_SHOULDERPADS_OF_VALOR,
 			civitas.ITEM_MOUNTAIN_TROLLS,
 			civitas.ITEM_GAUNTLETS_OF_GHASTLY_GLARE
-		]
+		],
+		backpack: []
 	},
 	5: {
 		name: 'Akhenaten',
@@ -7618,7 +7624,8 @@ civitas.HEROES = {
 		},
 		class: civitas.HERO_CLASS_WARRIOR,
 		items: [
-		]
+		],
+		backpack: []
 	}
 };
 
@@ -18076,10 +18083,19 @@ civitas.PANEL_TAVERN = {
 			);
 			$(self.handle + ' #tab-info').empty()
 				.append(civitas.ui.building_panel(self.params_data, building.get_level()));
-			for (var i = 1; i < civitas.ITEM_SLOTS_NUM; i++) {
-				$(self.handle + ' .hero-items')
-					.append('<div class="slot" data-slot="' + i + '"></div>');
+			function empty_items() {
+				$(self.handle + ' .hero-items').empty();
+				for (var i = 1; i < civitas.ITEM_SLOTS_NUM; i++) {
+					$(self.handle + ' .hero-items')
+						.append('<div class="slot" data-slot="' + i + '"></div>');
+				}
+				$(self.handle + ' .hero-items').append('<br class="clearfix" /><br />');
+				for (var i = 0; i < civitas.ITEM_BACKPACK_NUM; i++) {
+					$(self.handle + ' .hero-items')
+						.append('<div class="slot" data-backpack-slot="' + i + '"></div>');
+				}
 			}
+			empty_items();
 			for (var item in civitas.HEROES) {
 				_t += '<p><a href="#" data-hero="' + item + '">' + civitas.HEROES[item].name + 
 					'</a></p>';
@@ -18089,10 +18105,12 @@ civitas.PANEL_TAVERN = {
 				var hero_id = parseInt($(this).data('hero'));
 				var hero_data = civitas.HEROES[hero_id];
 				if (hero_data) {
-					$(self.handle + ' .hero-items').empty();
 					$(self.handle + ' .hero-info').empty().append(
 						'<h3>' + civitas.l('Info') + '</h3>' +
 						hero_data.description + 
+						'<br /><br />' +
+						'<h3>' + civitas.l('Class') + '</h3>' +
+						civitas.HERO_CLASS_LIST[hero_data.class] + '' +
 						'<br /><br />' +
 						'<h3>' + civitas.l('Attributes') + '</h3>' +
 						civitas.l('Strength') + ': <span class="green">' + 
@@ -18113,16 +18131,23 @@ civitas.PANEL_TAVERN = {
 							civitas.utils.get_damage_points(hero_data).min + '-' + 
 							civitas.utils.get_damage_points(hero_data).max + '</span>'
 					);
-					for (var i = 1; i < civitas.ITEM_SLOTS_NUM; i++) {
-						$(self.handle + ' .hero-items')
-							.append('<div class="slot" data-slot="' + i + '"></div>');
-					}
+					empty_items();
 					for (var x = 0; x < hero_data.items.length; x++) {
 						var slot = hero_data.items[x].slot;
 						$(self.handle + ' .hero-items > div.slot[data-slot="' + slot + '"]')
 							.empty()
 							.append('X')
 							.attr('title', civitas.ui.item_tooltip(hero_data.items[x]))
+							.tipsy({
+								className: 'item',
+								html: true
+							});
+					}
+					for (var x = 0; x < hero_data.backpack.length; x++) {
+						$(self.handle + ' .hero-items > div.slot[data-backpack-slot="' + x + '"]')
+							.empty()
+							.append('X')
+							.attr('title', civitas.ui.item_tooltip(hero_data.backpack[x]))
 							.tipsy({
 								className: 'item',
 								html: true
@@ -18136,7 +18161,7 @@ civitas.PANEL_TAVERN = {
 		}
 	},
 	on_refresh: function() {
-		
+		// TODO
 	}
 };
 

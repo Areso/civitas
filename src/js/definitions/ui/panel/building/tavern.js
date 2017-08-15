@@ -22,10 +22,19 @@ civitas.PANEL_TAVERN = {
 			);
 			$(self.handle + ' #tab-info').empty()
 				.append(civitas.ui.building_panel(self.params_data, building.get_level()));
-			for (var i = 1; i < civitas.ITEM_SLOTS_NUM; i++) {
-				$(self.handle + ' .hero-items')
-					.append('<div class="slot" data-slot="' + i + '"></div>');
+			function empty_items() {
+				$(self.handle + ' .hero-items').empty();
+				for (var i = 1; i < civitas.ITEM_SLOTS_NUM; i++) {
+					$(self.handle + ' .hero-items')
+						.append('<div class="slot" data-slot="' + i + '"></div>');
+				}
+				$(self.handle + ' .hero-items').append('<br class="clearfix" /><br />');
+				for (var i = 0; i < civitas.ITEM_BACKPACK_NUM; i++) {
+					$(self.handle + ' .hero-items')
+						.append('<div class="slot" data-backpack-slot="' + i + '"></div>');
+				}
 			}
+			empty_items();
 			for (var item in civitas.HEROES) {
 				_t += '<p><a href="#" data-hero="' + item + '">' + civitas.HEROES[item].name + 
 					'</a></p>';
@@ -35,10 +44,12 @@ civitas.PANEL_TAVERN = {
 				var hero_id = parseInt($(this).data('hero'));
 				var hero_data = civitas.HEROES[hero_id];
 				if (hero_data) {
-					$(self.handle + ' .hero-items').empty();
 					$(self.handle + ' .hero-info').empty().append(
 						'<h3>' + civitas.l('Info') + '</h3>' +
 						hero_data.description + 
+						'<br /><br />' +
+						'<h3>' + civitas.l('Class') + '</h3>' +
+						civitas.HERO_CLASS_LIST[hero_data.class] + '' +
 						'<br /><br />' +
 						'<h3>' + civitas.l('Attributes') + '</h3>' +
 						civitas.l('Strength') + ': <span class="green">' + 
@@ -59,16 +70,23 @@ civitas.PANEL_TAVERN = {
 							civitas.utils.get_damage_points(hero_data).min + '-' + 
 							civitas.utils.get_damage_points(hero_data).max + '</span>'
 					);
-					for (var i = 1; i < civitas.ITEM_SLOTS_NUM; i++) {
-						$(self.handle + ' .hero-items')
-							.append('<div class="slot" data-slot="' + i + '"></div>');
-					}
+					empty_items();
 					for (var x = 0; x < hero_data.items.length; x++) {
 						var slot = hero_data.items[x].slot;
 						$(self.handle + ' .hero-items > div.slot[data-slot="' + slot + '"]')
 							.empty()
 							.append('X')
 							.attr('title', civitas.ui.item_tooltip(hero_data.items[x]))
+							.tipsy({
+								className: 'item',
+								html: true
+							});
+					}
+					for (var x = 0; x < hero_data.backpack.length; x++) {
+						$(self.handle + ' .hero-items > div.slot[data-backpack-slot="' + x + '"]')
+							.empty()
+							.append('X')
+							.attr('title', civitas.ui.item_tooltip(hero_data.backpack[x]))
 							.tipsy({
 								className: 'item',
 								html: true
@@ -82,6 +100,6 @@ civitas.PANEL_TAVERN = {
 		}
 	},
 	on_refresh: function() {
-		
+		// TODO
 	}
 };

@@ -44,7 +44,8 @@ civitas.HEROES = {
 		class: civitas.HERO_CLASS_WARRIOR,
 		items: [
 			civitas.ITEM_TROJAN_BASTARD_SWORD
-		]
+		],
+		backpack: []
 	},
 	2: {
 		name: 'Hector',
@@ -65,7 +66,8 @@ civitas.HEROES = {
 		items: [
 			civitas.ITEM_EXCALIBUR,
 			civitas.ITEM_GOLDEN_KATANA
-		]
+		],
+		backpack: []
 	},
 	3: {
 		name: 'Hannibal',
@@ -80,7 +82,8 @@ civitas.HEROES = {
 			intellect: 9
 		},
 		class: civitas.HERO_CLASS_WARRIOR,
-		items: []
+		items: [],
+		backpack: []
 	},
 	4: {
 		name: 'Heracles',
@@ -110,7 +113,8 @@ civitas.HEROES = {
 			civitas.ITEM_SHOULDERPADS_OF_VALOR,
 			civitas.ITEM_MOUNTAIN_TROLLS,
 			civitas.ITEM_GAUNTLETS_OF_GHASTLY_GLARE
-		]
+		],
+		backpack: []
 	},
 	5: {
 		name: 'Akhenaten',
@@ -127,6 +131,7 @@ civitas.HEROES = {
 		},
 		class: civitas.HERO_CLASS_WARRIOR,
 		items: [
-		]
+		],
+		backpack: []
 	}
 };

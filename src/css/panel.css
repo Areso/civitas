@@ -650,6 +650,7 @@
 	-webkit-box-shadow: inset 0 0 3px 0 rgba(20, 20, 20, 0.75);
 	-moz-box-shadow: inset 0 0 3px 0 rgba(20, 20, 20, 0.75);
 	box-shadow: inset 0 0 3px 0 rgba(20, 20, 20, 0.75);
+	font-size: 44px;
 }
 
 #panel-tavern .hero-info h3 {

@@ -24,7 +24,8 @@ random resources.
 Missing
 =======
 
-- (NOT STARTED) Battles!
+- (IN PROGRESS) Battles!
+- (IN PROGRESS) Heroes, unique classes and items, attributes.
 - (NOT STARTED) Server component, no actual data is saved externally, only in your browser's localStorage.
 - (IN PROGRESS) Jailer component that assures game data integrity (no cheating).
 - (NOT STARTED) Any player interaction since no data is transmitted to the server component.
