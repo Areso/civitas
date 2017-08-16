@@ -50,6 +50,16 @@ Screenshots
 Playing
 =======
 
+## 1. With Docker
+
+	$ docker build -t civitas .
+
+	$ docker run --name civitas-dev -d -p 10082:80 civitas
+
+And point your browser to `http://localhost:10082`.
+
+## 2. Local
+
 Choose an archive format from the Releases section, download and uncompress it. Point your browser to `index.html`, you don't need a game server to play.
 
 Releases
