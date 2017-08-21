@@ -636,7 +636,7 @@
 
 #panel-tavern .hero-items {
 	width: 160px;
-	padding: 20px;
+	padding: 0 20px 20px 20px;
 }
 
 #panel-tavern .hero-items .slot {
@@ -655,4 +655,15 @@
 
 #panel-tavern .hero-info h3 {
 	margin: 0 0 10px 0;
+}
+
+a.external-link {
+
+}
+
+a.wikipedia {
+	width: 20px;
+	height: 20px;
+	background: transparent url(../images/ui/wikipedia.png) no-repeat;
+	display: inline-block;
 }

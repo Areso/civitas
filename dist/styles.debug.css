@@ -2,7 +2,7 @@
  * Civitas empire-building game.
  *
  * @author sizeof(cat) <sizeofcat AT riseup.net>
- * @version 0.2.0.8162017
+ * @version 0.2.0.8212017
  * @license MIT
  */ /* Game animations */
 
@@ -1636,7 +1636,7 @@ span.blue {
 
 #panel-tavern .hero-items {
 	width: 160px;
-	padding: 20px;
+	padding: 0 20px 20px 20px;
 }
 
 #panel-tavern .hero-items .slot {
@@ -1656,6 +1656,18 @@ span.blue {
 #panel-tavern .hero-info h3 {
 	margin: 0 0 10px 0;
 }
+
+a.external-link {
+
+}
+
+a.wikipedia {
+	width: 20px;
+	height: 20px;
+	background: transparent url(../images/ui/wikipedia.png) no-repeat;
+	display: inline-block;
+}
+
 /* Progress bars */
 
 .progress {

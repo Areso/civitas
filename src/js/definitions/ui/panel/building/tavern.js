@@ -23,12 +23,14 @@ civitas.PANEL_TAVERN = {
 			$(self.handle + ' #tab-info').empty()
 				.append(civitas.ui.building_panel(self.params_data, building.get_level()));
 			function empty_items() {
-				$(self.handle + ' .hero-items').empty();
+				$(self.handle + ' .hero-items').empty().append('<h3>Equipment</h3>');
 				for (var i = 1; i < civitas.ITEM_SLOTS_NUM; i++) {
 					$(self.handle + ' .hero-items')
 						.append('<div class="slot" data-slot="' + i + '"></div>');
 				}
-				$(self.handle + ' .hero-items').append('<br class="clearfix" /><br />');
+				$(self.handle + ' .hero-items')
+					.append('<br class="clearfix" />')
+					.append('<h3>Bags</h3>');
 				for (var i = 0; i < civitas.ITEM_BACKPACK_NUM; i++) {
 					$(self.handle + ' .hero-items')
 						.append('<div class="slot" data-backpack-slot="' + i + '"></div>');
@@ -45,7 +47,9 @@ civitas.PANEL_TAVERN = {
 				var hero_data = civitas.HEROES[hero_id];
 				if (hero_data) {
 					$(self.handle + ' .hero-info').empty().append(
-						'<h3>' + civitas.l('Info') + '</h3>' +
+						'<h3>' + civitas.l('Info') + 
+						' <a title="' + civitas.l('Information provided by Wikipedia.') + '" href="' + hero_data.link + '" class="tips external-link wikipedia"></a>' +
+						'</h3>' +
 						hero_data.description + 
 						'<br /><br />' +
 						'<h3>' + civitas.l('Class') + '</h3>' +

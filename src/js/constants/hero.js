@@ -34,6 +34,7 @@ civitas.HEROES = {
 			'greatest warrior of Homer`s Iliad. His mother is the immortal nymph Thetis, and ' +
 			'his father, the mortal Peleus, is the king of the Myrmidons.',
 		price: 5000000,
+		link: 'https://en.wikipedia.org/wiki/Achilles',
 		stats: {
 			strength: 10,
 			stamina: 10,
@@ -55,6 +56,7 @@ civitas.HEROES = {
 			'of Troy, he is a prince of the royal house and the heir apparent to his father`s ' +
 			'throne.',
 		price: 4000000,
+		link: 'https://en.wikipedia.org/wiki/Hector',
 		stats: {
 			strength: 8,
 			stamina: 10,
@@ -74,6 +76,7 @@ civitas.HEROES = {
 		description: 'Hannibal Barca is a Carthaginian general, considered one of the greatest ' +
 			'military commanders in history.',
 		price: 3000000,
+		link: 'https://en.wikipedia.org/wiki/Hannibal',
 		stats: {
 			strength: 7,
 			stamina: 7,
@@ -93,6 +96,7 @@ civitas.HEROES = {
 			'a paragon of masculinity, the ancestor of royal clans who claim to be Heracleidae, ' +
 			'and a champion of the Olympian order against chthonic monsters.',
 		price: 5000000,
+		link: 'https://en.wikipedia.org/wiki/Heracles',
 		stats: {
 			strength: 9,
 			stamina: 9,
@@ -122,6 +126,7 @@ civitas.HEROES = {
 			'(sometimes given its Greek form, Amenophis IV, and meaning "Amun Is Satisfied"), ' +
 			'is an Ancient Egyptian pharaoh of the 18th Dynasty who ruled for 17 years.',
 		price: 1000000,
+		link: 'https://en.wikipedia.org/wiki/Akhenaten',
 		stats: {
 			strength: 4,
 			stamina: 4,

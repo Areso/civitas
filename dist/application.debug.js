@@ -2,7 +2,7 @@
  * Civitas empire-building game.
  *
  * @author sizeof(cat) <sizeofcat AT riseup.net>
- * @version 0.2.0.8162017
+ * @version 0.2.0.8212017
  * @license MIT
  */ 'use strict';
 
@@ -7527,6 +7527,7 @@ civitas.HEROES = {
 			'greatest warrior of Homer`s Iliad. His mother is the immortal nymph Thetis, and ' +
 			'his father, the mortal Peleus, is the king of the Myrmidons.',
 		price: 5000000,
+		link: 'https://en.wikipedia.org/wiki/Achilles',
 		stats: {
 			strength: 10,
 			stamina: 10,
@@ -7548,6 +7549,7 @@ civitas.HEROES = {
 			'of Troy, he is a prince of the royal house and the heir apparent to his father`s ' +
 			'throne.',
 		price: 4000000,
+		link: 'https://en.wikipedia.org/wiki/Hector',
 		stats: {
 			strength: 8,
 			stamina: 10,
@@ -7567,6 +7569,7 @@ civitas.HEROES = {
 		description: 'Hannibal Barca is a Carthaginian general, considered one of the greatest ' +
 			'military commanders in history.',
 		price: 3000000,
+		link: 'https://en.wikipedia.org/wiki/Hannibal',
 		stats: {
 			strength: 7,
 			stamina: 7,
@@ -7586,6 +7589,7 @@ civitas.HEROES = {
 			'a paragon of masculinity, the ancestor of royal clans who claim to be Heracleidae, ' +
 			'and a champion of the Olympian order against chthonic monsters.',
 		price: 5000000,
+		link: 'https://en.wikipedia.org/wiki/Heracles',
 		stats: {
 			strength: 9,
 			stamina: 9,
@@ -7615,6 +7619,7 @@ civitas.HEROES = {
 			'(sometimes given its Greek form, Amenophis IV, and meaning "Amun Is Satisfied"), ' +
 			'is an Ancient Egyptian pharaoh of the 18th Dynasty who ruled for 17 years.',
 		price: 1000000,
+		link: 'https://en.wikipedia.org/wiki/Akhenaten',
 		stats: {
 			strength: 4,
 			stamina: 4,
@@ -18084,12 +18089,14 @@ civitas.PANEL_TAVERN = {
 			$(self.handle + ' #tab-info').empty()
 				.append(civitas.ui.building_panel(self.params_data, building.get_level()));
 			function empty_items() {
-				$(self.handle + ' .hero-items').empty();
+				$(self.handle + ' .hero-items').empty().append('<h3>Equipment</h3>');
 				for (var i = 1; i < civitas.ITEM_SLOTS_NUM; i++) {
 					$(self.handle + ' .hero-items')
 						.append('<div class="slot" data-slot="' + i + '"></div>');
 				}
-				$(self.handle + ' .hero-items').append('<br class="clearfix" /><br />');
+				$(self.handle + ' .hero-items')
+					.append('<br class="clearfix" />')
+					.append('<h3>Bags</h3>');
 				for (var i = 0; i < civitas.ITEM_BACKPACK_NUM; i++) {
 					$(self.handle + ' .hero-items')
 						.append('<div class="slot" data-backpack-slot="' + i + '"></div>');
@@ -18106,7 +18113,9 @@ civitas.PANEL_TAVERN = {
 				var hero_data = civitas.HEROES[hero_id];
 				if (hero_data) {
 					$(self.handle + ' .hero-info').empty().append(
-						'<h3>' + civitas.l('Info') + '</h3>' +
+						'<h3>' + civitas.l('Info') + 
+						' <a title="' + civitas.l('Information provided by Wikipedia.') + '" href="' + hero_data.link + '" class="tips external-link wikipedia"></a>' +
+						'</h3>' +
 						hero_data.description + 
 						'<br /><br />' +
 						'<h3>' + civitas.l('Class') + '</h3>' +
@@ -18483,6 +18492,8 @@ civitas.WINDOW_OPTIONS = {
 			'<div class="logo">Civitas</div>' +
 			'<fieldset>' +
 				'<a href="#" class="do-pause button">' + civitas.l('Pause') + '</a>' +
+				'<a href="#" class="do-save button">' + civitas.l('Save') + '</a>' +
+				'<a href="#" class="do-load button">' + civitas.l('Load') + '</a>' +
 				'<a href="#" class="do-restart button">' + civitas.l('Restart') + '</a>' +
 				'<a href="#" class="do-options button">' + civitas.l('Options') + '</a>' +
 				'<div class="options-game"></div>' +
@@ -18525,6 +18536,12 @@ civitas.WINDOW_OPTIONS = {
 				core.hide_loader();
 				core.pause();
 			}
+			return false;
+		}).on('click', '.do-save', function () {
+			// TODO core.save();
+			return false;
+		}).on('click', '.do-load', function () {
+			// TODO core.load();
 			return false;
 		}).on('click', '.do-options', function () {
 			$(handle + ' .options-game').slideToggle();
