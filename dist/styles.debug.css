@@ -2383,6 +2383,10 @@ td a.btn {
 	font-size: 14px;
 }
 
+.window select option {
+	color: #000;
+}
+
 .window select {
 	width: 122px;
 }
