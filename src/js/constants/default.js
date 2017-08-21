@@ -40,6 +40,14 @@ civitas.l = function (value) {
 civitas.AUTOSTART_MUSIC = false;
 
 /**
+ * Enable encryption or not.
+ * 
+ * @constant
+ * @type {Boolean}
+ */
+civitas.ENCRYPTION = false;
+
+/**
  * Max level a settlement can have.
  * 
  * @constant

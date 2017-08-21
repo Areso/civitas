@@ -61,6 +61,14 @@ civitas.l = function (value) {
 civitas.AUTOSTART_MUSIC = false;
 
 /**
+ * Enable encryption or not.
+ * 
+ * @constant
+ * @type {Boolean}
+ */
+civitas.ENCRYPTION = false;
+
+/**
  * Max level a settlement can have.
  * 
  * @constant
@@ -13547,7 +13555,11 @@ civitas.game = function () {
 		if (!this.has_storage_data()) {
 			this.open_window(civitas.WINDOW_SIGNUP);
 		} else {
-			this.open_window(civitas.WINDOW_SIGNIN);
+			if (civitas.ENCRYPTION === true) {
+				this.open_window(civitas.WINDOW_SIGNIN);
+			} else {
+				this.load_game_data();
+			}
 		}
 		return this;
 	};
@@ -13737,9 +13749,11 @@ civitas.game = function () {
 	 * @param {String} password
 	 * @returns {Boolean}
 	 */
-	this.load_game = function(password) {
+	this.load_game_data = function(password) {
 		var data = null;
-		this.encryption.key = password;
+		if (civitas.ENCRYPTION === true) {
+			this.encryption.key = password;
+		}
 		var game_data = this.get_storage_data();
 		if (game_data) {
 			this.show_loader();
@@ -14409,11 +14423,11 @@ civitas.game.prototype.decrypt = function(data) {
 		mode: this.encryption.mode
 	});
 	try {
-  		decrypted = decrypted.toString(CryptoJS.enc.Utf8);
-  	} catch (err) {
-  		return false;
-  	}
-  	return decrypted;
+		decrypted = decrypted.toString(CryptoJS.enc.Utf8);
+	} catch (err) {
+		return false;
+	}
+	return decrypted;
 };
 
 /**
@@ -14425,7 +14439,11 @@ civitas.game.prototype.decrypt = function(data) {
  * @returns {civitas.game}
  */
 civitas.game.prototype.set_storage_data = function (key, value) {
-	localStorage.setItem(civitas.STORAGE_KEY + '.' + key, this.encrypt(JSON.stringify(value)));
+	if (civitas.ENCRYPTION === true) {
+		localStorage.setItem(civitas.STORAGE_KEY + '.' + key, this.encrypt(JSON.stringify(value)));
+	} else {
+		localStorage.setItem(civitas.STORAGE_KEY + '.' + key, JSON.stringify(value));
+	}
 	return this;
 };
 
@@ -14458,7 +14476,11 @@ civitas.game.prototype.get_storage_data = function (key) {
 		key = 'live';
 	}
 	if (this.has_storage_data(key)) {
-		var decrypted = this.decrypt(localStorage.getItem(civitas.STORAGE_KEY + '.' + key));
+		if (civitas.ENCRYPTION === true) {
+			var decrypted = this.decrypt(localStorage.getItem(civitas.STORAGE_KEY + '.' + key));
+		} else {
+			var decrypted = localStorage.getItem(civitas.STORAGE_KEY + '.' + key);	
+		}
 		if (decrypted !== false) {
 			return JSON.parse(decrypted);
 		}
@@ -14510,7 +14532,10 @@ civitas.game.prototype.export = function(to_local_storage) {
 		date: this.date(),
 		queue: this.queue(),
 		worldmap: this.worldmap(),
-		settings: this.get_settings()
+		settings: this.get_settings(),
+		info: {
+			version: civitas.VERSION
+		}
 	};
 	if (to_local_storage === true) {
 		var new_data = {
@@ -18240,7 +18265,7 @@ civitas.WINDOW_SIGNIN = {
 				core.error('Enter your city password.', 'Error', true);
 				return false;
 			}
-			if (!core.load_game(password)) {
+			if (!core.load_game_data(password)) {
 				$(handle + ' .password').val('');
 				core.error('Error decrypting the game data with the specified password. ' +
 					'Try again.', 'Error', true);
@@ -18492,8 +18517,6 @@ civitas.WINDOW_OPTIONS = {
 			'<div class="logo">Civitas</div>' +
 			'<fieldset>' +
 				'<a href="#" class="do-pause button">' + civitas.l('Pause') + '</a>' +
-				'<a href="#" class="do-save button">' + civitas.l('Save') + '</a>' +
-				'<a href="#" class="do-load button">' + civitas.l('Load') + '</a>' +
 				'<a href="#" class="do-restart button">' + civitas.l('Restart') + '</a>' +
 				'<a href="#" class="do-options button">' + civitas.l('Options') + '</a>' +
 				'<div class="options-game"></div>' +
@@ -18503,6 +18526,7 @@ civitas.WINDOW_OPTIONS = {
 			'</fieldset>' +
 		'</section>',
 	on_show: function() {
+		var _game_data = null;
 		var self = this;
 		var handle = this.handle();
 		var core = this.core();
@@ -18536,12 +18560,6 @@ civitas.WINDOW_OPTIONS = {
 				core.hide_loader();
 				core.pause();
 			}
-			return false;
-		}).on('click', '.do-save', function () {
-			// TODO core.save();
-			return false;
-		}).on('click', '.do-load', function () {
-			// TODO core.load();
 			return false;
 		}).on('click', '.do-options', function () {
 			$(handle + ' .options-game').slideToggle();

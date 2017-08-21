@@ -10,8 +10,6 @@ civitas.WINDOW_OPTIONS = {
 			'<div class="logo">Civitas</div>' +
 			'<fieldset>' +
 				'<a href="#" class="do-pause button">' + civitas.l('Pause') + '</a>' +
-				'<a href="#" class="do-save button">' + civitas.l('Save') + '</a>' +
-				'<a href="#" class="do-load button">' + civitas.l('Load') + '</a>' +
 				'<a href="#" class="do-restart button">' + civitas.l('Restart') + '</a>' +
 				'<a href="#" class="do-options button">' + civitas.l('Options') + '</a>' +
 				'<div class="options-game"></div>' +
@@ -21,6 +19,7 @@ civitas.WINDOW_OPTIONS = {
 			'</fieldset>' +
 		'</section>',
 	on_show: function() {
+		var _game_data = null;
 		var self = this;
 		var handle = this.handle();
 		var core = this.core();
@@ -54,12 +53,6 @@ civitas.WINDOW_OPTIONS = {
 				core.hide_loader();
 				core.pause();
 			}
-			return false;
-		}).on('click', '.do-save', function () {
-			// TODO core.save();
-			return false;
-		}).on('click', '.do-load', function () {
-			// TODO core.load();
 			return false;
 		}).on('click', '.do-options', function () {
 			$(handle + ' .options-game').slideToggle();
