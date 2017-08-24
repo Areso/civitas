@@ -2,7 +2,7 @@
  * Civitas empire-building game.
  *
  * @author sizeof(cat) <sizeofcat AT riseup.net>
- * @version 0.2.0.8212017
+ * @version 0.2.0.8242017
  * @license MIT
  */ 'use strict';
 
@@ -18111,17 +18111,20 @@ civitas.PANEL_TAVERN = {
 				'<div class="column hero-info"></div>' +
 				'<div class="column hero-items"></div>'
 			);
-			$(self.handle + ' #tab-info').empty()
+			$(self.handle + ' #tab-info')
+				.empty()
 				.append(civitas.ui.building_panel(self.params_data, building.get_level()));
 			function empty_items() {
-				$(self.handle + ' .hero-items').empty().append('<h3>Equipment</h3>');
+				$(self.handle + ' .hero-items')
+					.empty()
+					.append('<h3>' + civitas.l('Equipment') + '</h3>');
 				for (var i = 1; i < civitas.ITEM_SLOTS_NUM; i++) {
 					$(self.handle + ' .hero-items')
 						.append('<div class="slot" data-slot="' + i + '"></div>');
 				}
 				$(self.handle + ' .hero-items')
 					.append('<br class="clearfix" />')
-					.append('<h3>Bags</h3>');
+					.append('<h3>' + civitas.l('Bags') + '</h3>');
 				for (var i = 0; i < civitas.ITEM_BACKPACK_NUM; i++) {
 					$(self.handle + ' .hero-items')
 						.append('<div class="slot" data-backpack-slot="' + i + '"></div>');
@@ -18139,7 +18142,9 @@ civitas.PANEL_TAVERN = {
 				if (hero_data) {
 					$(self.handle + ' .hero-info').empty().append(
 						'<h3>' + civitas.l('Info') + 
-						' <a title="' + civitas.l('Information provided by Wikipedia.') + '" href="' + hero_data.link + '" class="tips external-link wikipedia"></a>' +
+						' <a title="' + civitas.l('Information provided by Wikipedia.') + 
+						'" href="' + hero_data.link + 
+						'" class="tips external-link wikipedia"></a>' +
 						'</h3>' +
 						hero_data.description + 
 						'<br /><br />' +
