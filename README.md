@@ -1,4 +1,4 @@
-![Main game area](docs/images/game-started.png)
+![Main game area](docs/images/civitas3-min.jpg)
 
 Description
 ===========
@@ -21,6 +21,8 @@ random resources.
 - Ranking screen, where cities get ranked according to their status in the world.
 - Declare war, propose alliances and pacts, ask other settlements to join your city, propose cease fire.
 
+![Battles](docs/images/civitas16-min.jpg)
+
 Missing
 =======
 
@@ -35,20 +37,35 @@ Missing
 Screenshots
 ===========
 
-[Intro game](docs/images/intro-game.png)
+[Intro game](docs/images/civitas1-min.jpg)
 
-[Main game area](docs/images/game-started.png)
+[Main game area](docs/images/civitas3-min.jpg)
 
-[Buildings screen](docs/images/buildings-screen.png)
+[Buildings screen](docs/images/civitas6-min.jpg)
 
-[Storage space](docs/images/storage.png)
+[Storage space](docs/images/civitas7-min.jpg)
 
-[Game Menu](docs/images/game-menu.png)
+[Game Menu](docs/images/civitas2-min.jpg)
 
-[World Map](docs/images/world-map.png)
+[World Map](docs/images/civitas15-min.jpg)
+
+[Tavern, heroes and their items](docs/images/civitas4-min.jpg)
+
+[Various buildings, costs, prerequisites](docs/images/civitas5-min.jpg)
+
+[World Market trades](docs/images/civitas8-min.jpg)
+
+[City Council](docs/images/civitas9-min.jpg)
+
+[Diplomacy](docs/images/civitas11-min.jpg), [caravans](docs/images/civitas12-min.jpg), [spies](docs/images/civitas13-min.jpg), [armies and war](docs/images/civitas14-min.jpg)
+
+[Battles](docs/images/civitas16-min.jpg), [more battles](docs/images/civitas17-min.jpg)
 
 Playing
 =======
+
+In development, Civitas is using several assets that are copyrighted by Bluebyte, so I cannot redistribute them with the game. You can find a link to the said assets [in this issue](https://github.com/sizeofcat/civitas/issues/31#issuecomment-323738685).
+
 
 ## 1. With Docker
 
@@ -84,6 +101,8 @@ I am always thrilled to receive pull requests, and do my best to process them as
 If your pull request is not accepted on the first try, don't be discouraged! If there's a problem with the implementation, hopefully you received feedback on what to improve.
 
 Always sign your commits and make sure you read the [coding style](CODING-STYLE.md).
+
+![World Map and City Council](docs/images/civitas10-min.jpg)
 
 Source code
 ===========
