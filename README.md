@@ -21,7 +21,7 @@ random resources.
 - Ranking screen, where cities get ranked according to their status in the world.
 - Declare war, propose alliances and pacts, ask other settlements to join your city, propose cease fire.
 
-![Battles](docs/images/civitas16-min.jpg)
+![Battles](docs/images/civitas17-min.jpg)
 
 Missing
 =======
@@ -61,10 +61,12 @@ Screenshots
 
 [Battles](docs/images/civitas16-min.jpg), [more battles](docs/images/civitas17-min.jpg)
 
+![Tavern, heroes and their items](docs/images/civitas4-min.jpg)
+
 Playing
 =======
 
-In development, Civitas is using several assets that are copyrighted by Bluebyte, so I cannot redistribute them with the game. You can find a link to the said assets [in this issue](https://github.com/sizeofcat/civitas/issues/31#issuecomment-323738685).
+In development, Civitas is using several assets that are copyrighted by Bluebyte, so I cannot redistribute them with the game. You can find a link to the said assets [in this issue](https://github.com/sizeofcat/civitas/issues/31#issuecomment-323738685). All the other game resources are freely distributed under the MIT license, same as the code.
 
 
 ## 1. With Docker
