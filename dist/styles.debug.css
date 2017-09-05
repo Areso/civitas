@@ -1844,11 +1844,11 @@ footer a[data-panel=help] {
 }
 
 .panel footer .upgrade {
-	background: transparent url(../images/assets/ui/icons/upgrade.png) no-repeat;
+	background: transparent url(../images/assets/ui/icons/up.png) no-repeat;
 }
 
 .panel footer .downgrade {
-	background: transparent url(../images/assets/ui/icons/downgrade.png) no-repeat;
+	background: transparent url(../images/assets/ui/icons/down.png) no-repeat;
 }
 
 /* World map objects */

@@ -13349,13 +13349,13 @@ civitas.controls.panel = function (params) {
 			var building = this.core().get_settlement().get_building(params.data.handle);
 			if (building !== false) {
 				if (!building.is_upgradable()) {
-					$(this.handle + ' footer .upgrade').remove();
+					$(this.handle + ' footer .upgrade').hide();
 				}
 				if (!building.is_downgradable()) {
-					$(this.handle + ' footer .downgrade').remove();
+					$(this.handle + ' footer .downgrade').hide();
 				}
 				if (building.is_marketplace()) {
-					$(this.handle + ' footer .demolish').remove();
+					$(this.handle + ' footer .demolish').hide();
 				}
 				if (building.is_production_building()) {
 					if (!building.is_stopped()) {
@@ -13366,7 +13366,7 @@ civitas.controls.panel = function (params) {
 							.attr('title', civitas.l('Start production'));
 					}
 				} else {
-					$(this.handle + ' .start, ' + this.handle + ' .pause').remove();
+					$(this.handle + ' .start, ' + this.handle + ' .pause').hide();
 				}
 				$(this.handle).on('click', '.upgrade', function () {
 					self.core().open_modal(
@@ -13374,7 +13374,9 @@ civitas.controls.panel = function (params) {
 							if (button === 'yes') {
 								if (building.upgrade()) {
 									if (!building.is_upgradable()) {
-										$(self.handle + ' footer .upgrade').remove();
+										$(self.handle + ' footer .upgrade').hide();
+									} else {
+										$(self.handle + ' footer .downgrade').show();
 									}
 								}
 							}
@@ -13388,7 +13390,9 @@ civitas.controls.panel = function (params) {
 							if (button === 'yes') {
 								if (building.downgrade()) {
 									if (!building.is_downgradable()) {
-										$(self.handle + ' footer .downgrade').remove();
+										$(self.handle + ' footer .downgrade').hide();
+									} else {
+										$(self.handle + ' footer .upgrade').show();
 									}
 								}
 							}
