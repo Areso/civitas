@@ -133,11 +133,15 @@ civitas.controls.panel = function (params) {
 			this.destroy();
 		}
 		this.core().console_log('creating panel with id `' + this.id + '`');
-		$('.ui').append(params.template.replace(/{ID}/g, params.id));
+		var tpl = params.template.replace(/{ID}/g, params.id);
 		if (typeof this.params_data !== 'undefined' && 
 			typeof this.params_data.name !== 'undefined' &&
 			typeof this.params_data.name !== 'function') {
+			tpl = tpl.replace(/{BUILDING}/g, this.params_data.handle);
+			$('.ui').append(tpl);
 			$(this.handle + ' header').append(this.params_data.name);
+		} else {
+			$('.ui').append(tpl);
 		}
 		this.on_show.call(this, params);
 		this.on_refresh.call(this, params);
@@ -146,6 +150,9 @@ civitas.controls.panel = function (params) {
 			if (building !== false) {
 				if (!building.is_upgradable()) {
 					$(this.handle + ' footer .upgrade').remove();
+				}
+				if (!building.is_downgradable()) {
+					$(this.handle + ' footer .downgrade').remove();
 				}
 				if (building.is_marketplace()) {
 					$(this.handle + ' footer .demolish').remove();
@@ -173,6 +180,20 @@ civitas.controls.panel = function (params) {
 							}
 						},
 						'Are you sure you want to upgrade this building?'
+					);
+					return false;
+				}).on('click', '.downgrade', function () {
+					self.core().open_modal(
+						function(button) {
+							if (button === 'yes') {
+								if (building.downgrade()) {
+									if (!building.is_downgradable()) {
+										$(self.handle + ' footer .downgrade').remove();
+									}
+								}
+							}
+						},
+						'Are you sure you want to downgrade this building?'
 					);
 					return false;
 				}).on('click', '.demolish', function () {

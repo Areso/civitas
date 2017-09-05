@@ -2,7 +2,7 @@
  * Civitas empire-building game.
  *
  * @author sizeof(cat) <sizeofcat AT riseup.net>
- * @version 0.2.0.922017
+ * @version 0.2.0.952017
  * @license MIT
  */ 'use strict';
 
@@ -8106,6 +8106,8 @@ civitas.ui = {
 				'<a class="tips pause start" href="#"></a>' +
 				'<a class="tips upgrade" title="' + civitas.l('Upgrade building') + 
 					'" href="#"></a>' +
+				'<a class="tips downgrade" title="' + civitas.l('Downgrade building') + 
+					'" href="#"></a>' +
 			'</footer>' +
 		'</div>';
 		return out;
@@ -11195,6 +11197,20 @@ civitas.objects.building = function(params) {
 	};
 
 	/**
+	 * Check if the building can be downgraded.
+	 *
+	 * @returns {Boolean}
+	 * @public
+	 */
+	this.is_downgradable = function() {
+		var building = this.get_building_data();
+		if (this.get_level() > 1) {
+			return true;
+		}
+		return false;
+	};
+
+	/**
 	 * Calculate the upgrade costs according to the next level.
 	 *
 	 * @public
@@ -11269,10 +11285,11 @@ civitas.objects.building = function(params) {
 	 */
 	this.downgrade = function() {
 		var settlement = this.get_settlement();
-		if (this.get_level() > 1 && this.get_settlement().is_building_built(this.get_type())) {
-			var building_image = this.get_type();
-			var data = this.get_building_data(this.get_type());
-			--this.level;
+		var data = this.get_building_data(this.get_type());
+		var building_image = this.get_type();
+		var next_level = this.get_level() - 1;
+		if (data && this.is_downgradable() && settlement.is_building_built(this.get_type())) {
+			this.set_level(next_level);
 			if (settlement.is_player()) {
 				if (this.get_type().slice(0, 5) === 'house') {
 					building_image = this.get_type().slice(0, 5);
@@ -11283,6 +11300,9 @@ civitas.objects.building = function(params) {
 						data.visible_upgrades === false) ? building_image + '1' : building_image +
 						this.get_level()) + '.png)'
 				});
+				if (typeof data.storage !== 'undefined') {
+					settlement.storage(settlement.storage().all - data.storage);
+				}
 				this.core().save_and_refresh();
 				this.core().notify(this.get_name() + ' downgraded to level ' + this.get_level());
 			}
@@ -13313,11 +13333,15 @@ civitas.controls.panel = function (params) {
 			this.destroy();
 		}
 		this.core().console_log('creating panel with id `' + this.id + '`');
-		$('.ui').append(params.template.replace(/{ID}/g, params.id));
+		var tpl = params.template.replace(/{ID}/g, params.id);
 		if (typeof this.params_data !== 'undefined' && 
 			typeof this.params_data.name !== 'undefined' &&
 			typeof this.params_data.name !== 'function') {
+			tpl = tpl.replace(/{BUILDING}/g, this.params_data.handle);
+			$('.ui').append(tpl);
 			$(this.handle + ' header').append(this.params_data.name);
+		} else {
+			$('.ui').append(tpl);
 		}
 		this.on_show.call(this, params);
 		this.on_refresh.call(this, params);
@@ -13326,6 +13350,9 @@ civitas.controls.panel = function (params) {
 			if (building !== false) {
 				if (!building.is_upgradable()) {
 					$(this.handle + ' footer .upgrade').remove();
+				}
+				if (!building.is_downgradable()) {
+					$(this.handle + ' footer .downgrade').remove();
 				}
 				if (building.is_marketplace()) {
 					$(this.handle + ' footer .demolish').remove();
@@ -13353,6 +13380,20 @@ civitas.controls.panel = function (params) {
 							}
 						},
 						'Are you sure you want to upgrade this building?'
+					);
+					return false;
+				}).on('click', '.downgrade', function () {
+					self.core().open_modal(
+						function(button) {
+							if (button === 'yes') {
+								if (building.downgrade()) {
+									if (!building.is_downgradable()) {
+										$(self.handle + ' footer .downgrade').remove();
+									}
+								}
+							}
+						},
+						'Are you sure you want to downgrade this building?'
 					);
 					return false;
 				}).on('click', '.demolish', function () {

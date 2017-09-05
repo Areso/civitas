@@ -82,6 +82,10 @@ footer a[data-panel=help] {
 	background: transparent url(../images/assets/ui/icons/upgrade.png) no-repeat;
 }
 
+.panel footer .downgrade {
+	background: transparent url(../images/assets/ui/icons/downgrade.png) no-repeat;
+}
+
 /* World map objects */
 
 .panel .worldmap .army {

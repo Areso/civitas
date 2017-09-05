@@ -83,6 +83,8 @@ civitas.ui = {
 				'<a class="tips pause start" href="#"></a>' +
 				'<a class="tips upgrade" title="' + civitas.l('Upgrade building') + 
 					'" href="#"></a>' +
+				'<a class="tips downgrade" title="' + civitas.l('Downgrade building') + 
+					'" href="#"></a>' +
 			'</footer>' +
 		'</div>';
 		return out;
