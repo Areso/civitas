@@ -1,3 +1,6 @@
+Civitas
+=======
+
 ![Main game area](docs/images/civitas3-min.jpg)
 
 Description

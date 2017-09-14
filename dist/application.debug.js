@@ -160,7 +160,11 @@ civitas.TOOLBAR_RESOURCES = [
 	'iron',
 	'weapons',
 	'tools',
-	'gold'
+	'gold',
+	'clay',
+	'brass',
+	'salt',
+	'coal'
 ];
 
 /**
