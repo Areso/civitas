@@ -89,7 +89,7 @@ civitas.PANEL_NEW_ARMY = {
 			_t += '</fieldset>';
 		}
 		if (my_settlement.can_recruit_heroes()) {
-			var heroes = my_settlement.get_heroes();
+			var heroes = my_settlement.heroes();
 			_t += '<fieldset>' +
 				'<legend>' + civitas.l('Hero') + '</legend>' +
 				'<select class="army-hero">';

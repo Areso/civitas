@@ -153,6 +153,20 @@ civitas.objects.building = function(params) {
 	};
 
 	/**
+	 * Check if the building can be downgraded.
+	 *
+	 * @returns {Boolean}
+	 * @public
+	 */
+	this.is_downgradable = function() {
+		var building = this.get_building_data();
+		if (this.get_level() > 1) {
+			return true;
+		}
+		return false;
+	};
+
+	/**
 	 * Calculate the upgrade costs according to the next level.
 	 *
 	 * @public
@@ -196,8 +210,8 @@ civitas.objects.building = function(params) {
 					$('section.game .building[data-type=' + this.get_type() + ']').css({
 						'background-image': 'url(' + civitas.ASSETS_URL +
 							'images/assets/buildings/' + ((typeof data.visible_upgrades ===
-								'undefined' || data.visible_upgrades === false) ? building_image +
-							'1' : building_image + this.get_level()) + '.png)'
+								'undefined' || data.visible_upgrades === false) ? building_image :
+								building_image + this.get_level()) + '.png)'
 					});
 				}
 				if (typeof data.storage !== 'undefined') {
@@ -227,10 +241,11 @@ civitas.objects.building = function(params) {
 	 */
 	this.downgrade = function() {
 		var settlement = this.get_settlement();
-		if (this.get_level() > 1 && this.get_settlement().is_building_built(this.get_type())) {
-			var building_image = this.get_type();
-			var data = this.get_building_data(this.get_type());
-			--this.level;
+		var data = this.get_building_data(this.get_type());
+		var building_image = this.get_type();
+		var next_level = this.get_level() - 1;
+		if (data && this.is_downgradable() && settlement.is_building_built(this.get_type())) {
+			this.set_level(next_level);
 			if (settlement.is_player()) {
 				if (this.get_type().slice(0, 5) === 'house') {
 					building_image = this.get_type().slice(0, 5);
@@ -241,6 +256,9 @@ civitas.objects.building = function(params) {
 						data.visible_upgrades === false) ? building_image + '1' : building_image +
 						this.get_level()) + '.png)'
 				});
+				if (typeof data.storage !== 'undefined') {
+					settlement.storage(settlement.storage().all - data.storage);
+				}
 				this.core().save_and_refresh();
 				this.core().notify(this.get_name() + ' downgraded to level ' + this.get_level());
 			}

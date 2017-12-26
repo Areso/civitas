@@ -119,7 +119,11 @@ civitas.game = function () {
 		if (!this.has_storage_data()) {
 			this.open_window(civitas.WINDOW_SIGNUP);
 		} else {
-			this.open_window(civitas.WINDOW_SIGNIN);
+			if (civitas.ENCRYPTION === true) {
+				this.open_window(civitas.WINDOW_SIGNIN);
+			} else {
+				this.load_game_data();
+			}
 		}
 		return this;
 	};
@@ -309,9 +313,11 @@ civitas.game = function () {
 	 * @param {String} password
 	 * @returns {Boolean}
 	 */
-	this.load_game = function(password) {
+	this.load_game_data = function(password) {
 		var data = null;
-		this.encryption.key = password;
+		if (civitas.ENCRYPTION === true) {
+			this.encryption.key = password;
+		}
 		var game_data = this.get_storage_data();
 		if (game_data) {
 			this.show_loader();

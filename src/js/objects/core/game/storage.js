@@ -56,11 +56,11 @@ civitas.game.prototype.decrypt = function(data) {
 		mode: this.encryption.mode
 	});
 	try {
-  		decrypted = decrypted.toString(CryptoJS.enc.Utf8);
-  	} catch (err) {
-  		return false;
-  	}
-  	return decrypted;
+		decrypted = decrypted.toString(CryptoJS.enc.Utf8);
+	} catch (err) {
+		return false;
+	}
+	return decrypted;
 };
 
 /**
@@ -72,7 +72,11 @@ civitas.game.prototype.decrypt = function(data) {
  * @returns {civitas.game}
  */
 civitas.game.prototype.set_storage_data = function (key, value) {
-	localStorage.setItem(civitas.STORAGE_KEY + '.' + key, this.encrypt(JSON.stringify(value)));
+	if (civitas.ENCRYPTION === true) {
+		localStorage.setItem(civitas.STORAGE_KEY + '.' + key, this.encrypt(JSON.stringify(value)));
+	} else {
+		localStorage.setItem(civitas.STORAGE_KEY + '.' + key, JSON.stringify(value));
+	}
 	return this;
 };
 
@@ -105,7 +109,11 @@ civitas.game.prototype.get_storage_data = function (key) {
 		key = 'live';
 	}
 	if (this.has_storage_data(key)) {
-		var decrypted = this.decrypt(localStorage.getItem(civitas.STORAGE_KEY + '.' + key));
+		if (civitas.ENCRYPTION === true) {
+			var decrypted = this.decrypt(localStorage.getItem(civitas.STORAGE_KEY + '.' + key));
+		} else {
+			var decrypted = localStorage.getItem(civitas.STORAGE_KEY + '.' + key);	
+		}
 		if (decrypted !== false) {
 			return JSON.parse(decrypted);
 		}
@@ -157,7 +165,10 @@ civitas.game.prototype.export = function(to_local_storage) {
 		date: this.date(),
 		queue: this.queue(),
 		worldmap: this.worldmap(),
-		settings: this.get_settings()
+		settings: this.get_settings(),
+		info: {
+			version: civitas.VERSION
+		}
 	};
 	if (to_local_storage === true) {
 		var new_data = {

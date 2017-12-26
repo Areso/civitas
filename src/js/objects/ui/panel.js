@@ -133,11 +133,15 @@ civitas.controls.panel = function (params) {
 			this.destroy();
 		}
 		this.core().console_log('creating panel with id `' + this.id + '`');
-		$('.ui').append(params.template.replace(/{ID}/g, params.id));
+		var tpl = params.template.replace(/{ID}/g, params.id);
 		if (typeof this.params_data !== 'undefined' && 
 			typeof this.params_data.name !== 'undefined' &&
 			typeof this.params_data.name !== 'function') {
+			tpl = tpl.replace(/{BUILDING}/g, this.params_data.handle);
+			$('.ui').append(tpl);
 			$(this.handle + ' header').append(this.params_data.name);
+		} else {
+			$('.ui').append(tpl);
 		}
 		this.on_show.call(this, params);
 		this.on_refresh.call(this, params);
@@ -145,10 +149,13 @@ civitas.controls.panel = function (params) {
 			var building = this.core().get_settlement().get_building(params.data.handle);
 			if (building !== false) {
 				if (!building.is_upgradable()) {
-					$(this.handle + ' footer .upgrade').remove();
+					$(this.handle + ' footer .upgrade').hide();
+				}
+				if (!building.is_downgradable()) {
+					$(this.handle + ' footer .downgrade').hide();
 				}
 				if (building.is_marketplace()) {
-					$(this.handle + ' footer .demolish').remove();
+					$(this.handle + ' footer .demolish').hide();
 				}
 				if (building.is_production_building()) {
 					if (!building.is_stopped()) {
@@ -159,7 +166,7 @@ civitas.controls.panel = function (params) {
 							.attr('title', civitas.l('Start production'));
 					}
 				} else {
-					$(this.handle + ' .start, ' + this.handle + ' .pause').remove();
+					$(this.handle + ' .start, ' + this.handle + ' .pause').hide();
 				}
 				$(this.handle).on('click', '.upgrade', function () {
 					self.core().open_modal(
@@ -167,12 +174,30 @@ civitas.controls.panel = function (params) {
 							if (button === 'yes') {
 								if (building.upgrade()) {
 									if (!building.is_upgradable()) {
-										$(self.handle + ' footer .upgrade').remove();
+										$(self.handle + ' footer .upgrade').hide();
+									} else {
+										$(self.handle + ' footer .downgrade').show();
 									}
 								}
 							}
 						},
 						'Are you sure you want to upgrade this building?'
+					);
+					return false;
+				}).on('click', '.downgrade', function () {
+					self.core().open_modal(
+						function(button) {
+							if (button === 'yes') {
+								if (building.downgrade()) {
+									if (!building.is_downgradable()) {
+										$(self.handle + ' footer .downgrade').hide();
+									} else {
+										$(self.handle + ' footer .upgrade').show();
+									}
+								}
+							}
+						},
+						'Are you sure you want to downgrade this building?'
 					);
 					return false;
 				}).on('click', '.demolish', function () {

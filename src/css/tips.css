@@ -126,3 +126,40 @@
 	border-top-color: transparent;
 	border-bottom-color: transparent;
 }
+
+.tipsy.item .tipsy-inner {
+	background-color: #111;
+	opacity: 0.98;
+	color: #fff;
+}
+
+.tipsy.item .tipsy-arrow {
+	border: 5px dashed #222;
+}
+
+.tipsy.item .tipsy-arrow-n {
+	border-bottom-color: #222;
+}
+
+.tipsy.item .tipsy-arrow-s {
+	border-top-color: #222;
+}
+
+.tipsy.item .tipsy-arrow-e {
+	border-left-color: #222;
+}
+
+.tipsy.item .tipsy-arrow-w {
+	border-right-color: #222;
+}
+
+.tipsy.item h4 {
+	font-size: 14px;
+	padding: 0;
+	margin: 0 0 10px 0;
+}
+
+.tipsy.item span.flavour {
+	font-style: italic;
+	color: #FFD200;
+}

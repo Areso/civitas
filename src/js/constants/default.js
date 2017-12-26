@@ -40,6 +40,14 @@ civitas.l = function (value) {
 civitas.AUTOSTART_MUSIC = false;
 
 /**
+ * Enable encryption or not.
+ * 
+ * @constant
+ * @type {Boolean}
+ */
+civitas.ENCRYPTION = false;
+
+/**
  * Max level a settlement can have.
  * 
  * @constant
@@ -131,7 +139,11 @@ civitas.TOOLBAR_RESOURCES = [
 	'iron',
 	'weapons',
 	'tools',
-	'gold'
+	'gold',
+	'clay',
+	'brass',
+	'salt',
+	'coal'
 ];
 
 /**

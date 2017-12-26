@@ -32,6 +32,8 @@ gulp.task('app', function() {
 		'src/js/constants/events.js',
 		'src/js/constants/resources.js',
 		'src/js/constants/achievements.js',
+		'src/js/constants/items.js',
+		'src/js/constants/hero.js',
 		'src/js/helpers/utils.js',
 		'src/js/objects/modules/ai.js',
 		/*
@@ -53,6 +55,7 @@ gulp.task('app', function() {
 		'src/js/objects/core/event.js',
 		'src/js/objects/core/building.js',
 		'src/js/objects/core/battleground.js',
+		'src/js/objects/core/hero.js',
 		'src/js/objects/ui/window.js',
 		'src/js/objects/ui/modal.js',
 		'src/js/objects/ui/panel.js',

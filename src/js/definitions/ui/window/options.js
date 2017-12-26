@@ -19,6 +19,7 @@ civitas.WINDOW_OPTIONS = {
 			'</fieldset>' +
 		'</section>',
 	on_show: function() {
+		var _game_data = null;
 		var self = this;
 		var handle = this.handle();
 		var core = this.core();

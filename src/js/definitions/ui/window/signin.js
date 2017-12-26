@@ -33,7 +33,7 @@ civitas.WINDOW_SIGNIN = {
 				core.error('Enter your city password.', 'Error', true);
 				return false;
 			}
-			if (!core.load_game(password)) {
+			if (!core.load_game_data(password)) {
 				$(handle + ' .password').val('');
 				core.error('Error decrypting the game data with the specified password. ' +
 					'Try again.', 'Error', true);

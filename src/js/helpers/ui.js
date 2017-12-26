@@ -3,6 +3,37 @@
  */
 civitas.ui = {
 
+	item_tooltip: function(item) {
+		var out = '<h4 style="color: ' + civitas.ITEM_QUALITY_COLORS[item.quality] + '">' + item.name + '</h4>';
+		if (item.flavour) {
+			out += '<span class="flavour">"' + item.flavour + '"</span>' + ' <br />';
+		}
+		out += civitas.l('Slot') + ': ' + civitas.ITEM_SLOTS_LIST[item.slot] + ' <br />';
+		if (item.type === civitas.ITEM_TYPE_WEAPON) {
+			out += civitas.l('Damage') + ': <span class="red">' + item.stats.damageMin + '-' + item.stats.damageMax + '</span><br />' +
+				civitas.l('Speed') + ': ' + item.stats.speed + '<br />';
+		} else {
+			out += civitas.l('Armor') + ': ' + item.stats.armor + '<br />';
+		}
+		if (item.stats.strength) {
+			out += civitas.l('Strength') + ': <span class="green">+' + item.stats.strength + '</span><br />';
+		}
+		if (item.stats.stamina) {
+			out += civitas.l('Stamina') + ': <span class="green">+' + item.stats.stamina + '</span><br />';
+		}
+		if (item.stats.agility) {
+			out += civitas.l('Agility') + ': <span class="green">+' + item.stats.agility + '</span><br />';
+		}
+		if (item.stats.intellect) {
+			out += civitas.l('Intellect') + ': <span class="green">+' + item.stats.intellect + '</span><br />';
+		}
+		if (item.stats.spirit) {
+			out += civitas.l('Spirit') + ': <span class="green">+' + item.stats.spirit + '</span><br />';
+		}
+		out += civitas.l('Type') + ': <span style="color: ' + civitas.ITEM_QUALITY_COLORS[item.quality] + '">' + civitas.ITEM_QUALITY_LIST[item.quality] + '</span>';
+		return out;
+	},
+
 	window_about_section: function() {
 		var out = '<a href="#" class="do-about button">' + civitas.l('About') + '</a>' +
 			'<div class="about-game">' +
@@ -51,6 +82,8 @@ civitas.ui = {
 					'" href="#"></a>' +
 				'<a class="tips pause start" href="#"></a>' +
 				'<a class="tips upgrade" title="' + civitas.l('Upgrade building') + 
+					'" href="#"></a>' +
+				'<a class="tips downgrade" title="' + civitas.l('Downgrade building') + 
 					'" href="#"></a>' +
 			'</footer>' +
 		'</div>';

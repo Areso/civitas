@@ -11,6 +11,8 @@ civitas.PANEL_BUILDING = {
 		if (building) {
 			$(this.handle + ' section').empty()
 				.append(civitas.ui.building_panel(this.params_data, building.get_level()));
+		} else {
+			this.destroy();
 		}
 	}
 };

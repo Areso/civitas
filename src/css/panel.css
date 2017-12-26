@@ -511,8 +511,8 @@
 #panel-tavern,
 #panel-academy {
 	max-height: 600px;
-	max-width: 600px;
-	width: 600px;
+	max-width: 620px;
+	width: 620px;
 }
 
 #panel-embassy {
@@ -523,8 +523,8 @@
 
 #panel-church {
 	max-height: 600px;
-	max-width: 582px;
-	width: 582px;
+	max-width: 620px;
+	width: 620px;
 }
 
 .ui .panel .section {
@@ -622,4 +622,44 @@
 #panel-new-caravan .caravan-resources {
 	overflow: auto;
 	max-height: 200px;
+}
+
+#panel-tavern .hero-list {
+	width: 70px;
+	padding: 10px 20px;
+}
+
+#panel-tavern .hero-info {
+	width: 260px;
+	padding: 20px;
+}
+
+#panel-tavern .hero-items {
+	width: 160px;
+	padding: 0 20px 20px 20px;
+}
+
+#panel-tavern .hero-items .slot {
+	width: 46px;
+	height: 50px;
+	font-size: 11px;
+	float: left;
+	text-align: center;
+	margin: 0 4px 4px 0;
+	position: relative;
+	-webkit-box-shadow: inset 0 0 3px 0 rgba(20, 20, 20, 0.75);
+	-moz-box-shadow: inset 0 0 3px 0 rgba(20, 20, 20, 0.75);
+	box-shadow: inset 0 0 3px 0 rgba(20, 20, 20, 0.75);
+	font-size: 44px;
+}
+
+#panel-tavern .hero-info h3 {
+	margin: 0 0 10px 0;
+}
+
+a.wikipedia {
+	width: 20px;
+	height: 20px;
+	background: transparent url(../images/ui/wikipedia.png) no-repeat;
+	display: inline-block;
 }
